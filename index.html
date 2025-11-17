@@ -60,7 +60,6 @@
       font-size: 14px;
     }
 
-    /* il logo che hai caricato come file */
     .brand img {
       height: 40px;
       width: auto;
@@ -361,8 +360,8 @@
   <header>
     <div class="nav-inner">
       <a href="#hero" class="brand">
-        <!-- usa il file che hai caricato nel repo -->
-        <img src="logo-grandangolo.png" alt="Grandangolo Edicola Digitale">
+        <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/refs/heads/main/logo-grandangolo.png.png"
+             alt="Grandangolo Edicola Digitale">
       </a>
       <nav>
         <a href="#about">Come funziona</a>
@@ -448,7 +447,6 @@
   <script>
   (function() {
     // ------------- CONFIGURAZIONE NUMERI (ESEMPI) -------------
-    // Sostituisci cover, buyUrl, unlockCode, pages con i tuoi dati reali.
     const issues = [
       {
         id: "ga38",
@@ -475,7 +473,7 @@
           "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+39+-+Pagina+1",
           "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+39+-+Pagina+2",
           "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+39+-+Pagina+3",
-          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+39+-+Pagina+4"
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text	N.+39+-+Pagina+4"
         ]
       },
       {
@@ -553,7 +551,7 @@
       `;
 
       card.addEventListener("click", function() {
-        openFlipbook(issue, 0); // apre dalla pagina 1
+        openFlipbook(issue, 0);
       });
 
       edicolaRoot.appendChild(card);
@@ -590,7 +588,6 @@
       content.style.cssText =
         "max-width:1100px;width:100%;margin:0 auto 40px;color:#fff;";
 
-      // HEADER
       const header = document.createElement("div");
       header.style.cssText =
         "display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;";
@@ -611,7 +608,6 @@
       header.appendChild(titleEl);
       header.appendChild(closeBtn);
 
-      // WRAPPER IMMAGINE
       const wrap = document.createElement("div");
       wrap.style.cssText =
         "position:relative;max-width:100%;max-height:90vh;overflow:auto;" +
@@ -641,7 +637,6 @@
         }
       });
 
-      // FRECCE
       const arrowBase =
         "position:absolute;top:50%;transform:translateY(-50%);border:none;" +
         "background:rgba(0,0,0,0.4);color:#fff;font-size:26px;width:42px;height:42px;" +
@@ -657,7 +652,6 @@
       nextBtn.type = "button";
       nextBtn.style.cssText = arrowBase + "right:-12px;";
 
-      // OVERLAY ACQUISTO
       const overlayBuy = document.createElement("div");
       overlayBuy.style.cssText =
         "position:absolute;inset:0;display:none;align-items:center;justify-content:center;" +
@@ -676,7 +670,6 @@
         "padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-size:13px;" +
         "font-weight:600;background:#00a651;color:#fff;box-shadow:0 5px 14px rgba(0,0,0,0.35);margin-bottom:10px;";
 
-      // BOX CODICE
       const codeBox = document.createElement("div");
       codeBox.style.cssText = "margin-top:4px;font-size:11px;";
 
@@ -713,11 +706,9 @@
       obInner.appendChild(codeBox);
       overlayBuy.appendChild(obInner);
 
-      // INDICATORE PAGINA
       const indicator = document.createElement("div");
       indicator.style.cssText = "text-align:center;font-size:12px;margin-top:10px;";
 
-      // MONTAGGIO
       wrap.appendChild(prevBtn);
       wrap.appendChild(img);
       wrap.appendChild(nextBtn);
@@ -729,7 +720,6 @@
       overlay.appendChild(content);
       document.body.appendChild(overlay);
 
-      // EVENTI FRECCE
       prevBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         if (index > 0) {
@@ -746,7 +736,6 @@
         }
       });
 
-      // CHIUSURA
       closeBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         document.body.removeChild(overlay);
@@ -765,7 +754,6 @@
         }
       });
 
-      // SBLOCCO
       unlockBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         performUnlock(
@@ -783,13 +771,11 @@
         );
       });
 
-      // AGGIORNAMENTO PAGINA
       function updatePage() {
         img.src = pages[index];
 
         const isUnlocked = !!issue._unlocked;
 
-        // prime 2 pagine libere (index 0 e 1), poi blur
         if (isUnlocked || index <= 1) {
           img.style.filter = "none";
           overlayBuy.style.display = "none";
