@@ -177,6 +177,22 @@
       color: var(--muted);
     }
 
+    /* BANNER NELLA HERO */
+    .hero-banner {
+      margin-top: 14px;
+      max-width: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .hero-banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .hero-card {
       background: radial-gradient(circle at top, #19192b 0, #090910 60%);
       border-radius: 18px;
@@ -369,6 +385,9 @@
       .brand img {
         height: 80px;
       }
+      .hero-banner {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -409,6 +428,14 @@
 
         <div class="hero-meta">
           Nessuna app da installare e niente da scaricare. Basta acquistare il tuo codice per leggere la tua copia del settimanale di Grandangolo.
+        </div>
+
+        <!-- BANNER PUBBLICITARIO / PROMOZIONALE -->
+        <div class="hero-banner">
+          <a href="https://www.amazon.it/Mafiare-Cosa-nostra-Stidda-stato/dp/8890523514" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/0c3eea8d8ca83dbec489960faf3b1723df03e9f7/BANNER%20MAFIARE%20-%201.jpg"
+                 alt="Banner Grandangolo">
+          </a>
         </div>
       </div>
 
