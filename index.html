@@ -32,6 +32,8 @@
       text-decoration: none;
     }
 
+    /* HEADER */
+
     header {
       position: sticky;
       top: 0;
@@ -93,6 +95,8 @@
       color: var(--text);
     }
 
+    /* LAYOUT BASE */
+
     main {
       max-width: 1100px;
       margin: 0 auto;
@@ -102,6 +106,8 @@
     section {
       margin-bottom: 40px;
     }
+
+    /* HERO */
 
     #hero {
       display: grid;
@@ -149,6 +155,7 @@
       gap: 8px;
       background: none;
       color: inherit;
+      text-decoration: none;
     }
 
     .btn-primary {
@@ -214,6 +221,8 @@
       gap: 8px;
     }
 
+    /* SEZIONE TESTO */
+
     #about {
       border-radius: 18px;
       padding: 18px 16px 16px;
@@ -243,6 +252,8 @@
     #about li {
       margin-bottom: 4px;
     }
+
+    /* GRIGLIA EDICOLA */
 
     #edicola {
       margin-top: 36px;
@@ -292,7 +303,7 @@
     .edicola-cover-wrap {
       position: relative;
       width: 100%;
-      padding-top: 133.333%;
+      padding-top: 133.333%; /* 3:4 */
       overflow: hidden;
     }
 
@@ -335,6 +346,8 @@
       gap: 6px;
     }
 
+    /* FOOTER */
+
     footer {
       border-top: 1px solid var(--border-soft);
       padding: 12px 18px 18px;
@@ -347,6 +360,7 @@
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
     <div class="nav-inner">
       <a href="#hero" class="brand">
@@ -361,6 +375,7 @@
   </header>
 
   <main>
+    <!-- HERO -->
     <section id="hero">
       <div>
         <h1 class="hero-title">Sfoglia il settimanale <br>come in edicola, ma online.</h1>
@@ -386,6 +401,7 @@
 
       <div class="hero-card">
         <div class="hero-card-inner">
+          <!-- copertina in evidenza: puoi cambiare l'URL con quella che preferisci -->
           <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg"
                alt="Grandangolo Settimanale N.40">
         </div>
@@ -396,6 +412,7 @@
       </div>
     </section>
 
+    <!-- COME FUNZIONA -->
     <section id="about">
       <h2>Come funziona l'edicola digitale</h2>
       <p>
@@ -411,9 +428,11 @@
       <p style="margin-top:10px;">
         Di seguito vedi una <strong>edicola di esempio</strong> con più numeri:
         per i numeri 38, 39, 41 e 42 vengono usate immagini segnaposto.
+        Dovrai solo sostituire copertine, pagine, link di acquisto e codici reali.
       </p>
     </section>
 
+    <!-- EDICOLA -->
     <section id="edicola">
       <div id="edicola-header">
         <h2>Edicola digitale</h2>
@@ -428,15 +447,18 @@
     Edicola digitale di esempio. Puoi personalizzare testi, colori, numeri disponibili e integrare la pagina nel tuo dominio.
   </footer>
 
+  <!-- SCRIPT EDICOLA -->
   <script>
   (function() {
+    // ------------- CONFIGURAZIONE NUMERI (ESEMPI) -------------
+    // Sostituisci cover, buyUrl, unlockCode, pages con i tuoi dati reali.
     const issues = [
       {
         id: "ga38",
         title: "Grandangolo Settimanale N. 38",
         subtitle: "27 ottobre 2025",
         cover: "https://via.placeholder.com/800x1067/222222/ffffff?text=Grandangolo+N.+38",
-        buyUrl: "#",
+        buyUrl: "#", // sostituisci con link acquisto reale
         unlockCode: "CODICE_SEGRETO_38",
         pages: [
           "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+38+-+Pagina+1",
@@ -510,6 +532,7 @@
       }
     ];
 
+    // ------------- GRIGLIA EDICOLA -------------
     const edicolaRoot = document.getElementById("edicola-grandangolo");
     if (!edicolaRoot || !issues.length) return;
 
@@ -533,12 +556,13 @@
       `;
 
       card.addEventListener("click", function() {
-        openFlipbook(issue, 0);
+        openFlipbook(issue, 0); // apre dalla pagina 1
       });
 
       edicolaRoot.appendChild(card);
     });
 
+    // ------------- FUNZIONE UNLOCK COMUNE -------------
     function performUnlock(issue, value, onSuccess, onError) {
       const v = (value || "").trim();
       if (!v) {
@@ -553,6 +577,7 @@
       }
     }
 
+    // ------------- LIGHTBOX FLIPBOOK -------------
     function openFlipbook(issue, startIndex) {
       let index = startIndex || 0;
       const pages = issue.pages || [];
@@ -568,6 +593,7 @@
       content.style.cssText =
         "max-width:1100px;width:100%;margin:0 auto 40px;color:#fff;";
 
+      // HEADER
       const header = document.createElement("div");
       header.style.cssText =
         "display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;";
@@ -588,6 +614,7 @@
       header.appendChild(titleEl);
       header.appendChild(closeBtn);
 
+      // WRAPPER IMMAGINE
       const wrap = document.createElement("div");
       wrap.style.cssText =
         "position:relative;max-width:100%;max-height:90vh;overflow:auto;" +
@@ -617,6 +644,7 @@
         }
       });
 
+      // FRECCE
       const arrowBase =
         "position:absolute;top:50%;transform:translateY(-50%);border:none;" +
         "background:rgba(0,0,0,0.4);color:#fff;font-size:26px;width:42px;height:42px;" +
@@ -632,6 +660,7 @@
       nextBtn.type = "button";
       nextBtn.style.cssText = arrowBase + "right:-12px;";
 
+      // OVERLAY ACQUISTO
       const overlayBuy = document.createElement("div");
       overlayBuy.style.cssText =
         "position:absolute;inset:0;display:none;align-items:center;justify-content:center;" +
@@ -650,6 +679,7 @@
         "padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-size:13px;" +
         "font-weight:600;background:#00a651;color:#fff;box-shadow:0 5px 14px rgba(0,0,0,0.35);margin-bottom:10px;";
 
+      // BOX CODICE
       const codeBox = document.createElement("div");
       codeBox.style.cssText = "margin-top:4px;font-size:11px;";
 
@@ -686,9 +716,11 @@
       obInner.appendChild(codeBox);
       overlayBuy.appendChild(obInner);
 
+      // INDICATORE PAGINA
       const indicator = document.createElement("div");
       indicator.style.cssText = "text-align:center;font-size:12px;margin-top:10px;";
 
+      // MONTAGGIO
       wrap.appendChild(prevBtn);
       wrap.appendChild(img);
       wrap.appendChild(nextBtn);
@@ -700,11 +732,12 @@
       overlay.appendChild(content);
       document.body.appendChild(overlay);
 
+      // EVENTI FRECCE
       prevBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         if (index > 0) {
           index--;
-          updatePage(true);
+          updatePage();
         }
       });
 
@@ -712,10 +745,11 @@
         e.stopPropagation();
         if (index < pages.length - 1) {
           index++;
-          updatePage(true);
+          updatePage();
         }
       });
 
+      // CHIUSURA
       closeBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         document.body.removeChild(overlay);
@@ -734,6 +768,7 @@
         }
       });
 
+      // SBLOCCO
       unlockBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         performUnlock(
@@ -742,7 +777,7 @@
           function() {
             codeMsg.style.display = "none";
             alert("Numero sbloccato! Ora puoi leggere tutte le pagine.");
-            updatePage(true);
+            updatePage();
           },
           function(msg) {
             codeMsg.textContent = msg;
@@ -751,11 +786,13 @@
         );
       });
 
+      // AGGIORNAMENTO PAGINA
       function updatePage() {
         img.src = pages[index];
 
         const isUnlocked = !!issue._unlocked;
 
+        // prime 2 pagine libere (index 0 e 1), poi blur
         if (isUnlocked || index <= 1) {
           img.style.filter = "none";
           overlayBuy.style.display = "none";
