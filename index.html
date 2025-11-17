@@ -46,7 +46,7 @@
     .nav-inner {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 10px 18px;
+      padding: 6px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -61,10 +61,10 @@
     }
 
     .brand img {
-  height: 100px;   /* LOGO PIÙ GRANDE */
-  width: auto;
-  display: block;
-}
+      height: 100px; /* LOGO MOLTO PIÙ GRANDE */
+      width: auto;
+      display: block;
+    }
 
     nav {
       display: flex;
@@ -106,9 +106,10 @@
       margin-top: 10px;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       #hero {
         grid-template-columns: minmax(0, 1fr);
+        margin-top: 20px;
       }
     }
 
@@ -310,6 +311,23 @@
       transform: scale(1.03);
     }
 
+    /* LABEL ROSSA "ULTIMA USCITA" */
+    .issue-label-latest {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: #e60000;
+      color: #fff;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+      letter-spacing: 0.3px;
+      pointer-events: none;
+      text-transform: uppercase;
+    }
+
     .edicola-label {
       padding: 10px 12px 12px;
       background: linear-gradient(to bottom, rgba(8,8,16,0.98), rgba(5,5,10,0.98));
@@ -349,7 +367,7 @@
 
     @media (max-width: 600px) {
       .brand img {
-        height: 32px;
+        height: 80px;
       }
     }
   </style>
@@ -359,7 +377,7 @@
   <!-- HEADER -->
   <header>
     <div class="nav-inner">
-      <a href="#hero" class="brand">
+      <a href="https://www.grandangoloagrigento.it/" class="brand" target="_blank" rel="noopener">
         <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/refs/heads/main/logo-grandangolo.png.png"
              alt="Grandangolo Edicola Digitale">
       </a>
@@ -397,7 +415,7 @@
 
       <div class="hero-card">
         <div class="hero-card-inner">
-          <!-- copertina in evidenza: puoi cambiare l'URL con quella che preferisci -->
+          <!-- copertina in evidenza -->
           <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg"
                alt="Grandangolo Settimanale N.40">
         </div>
@@ -446,14 +464,14 @@
   <!-- SCRIPT EDICOLA -->
   <script>
   (function() {
-    // ------------- CONFIGURAZIONE NUMERI (ESEMPI) -------------
+    // ------------- CONFIGURAZIONE NUMERI -------------
     const issues = [
       {
         id: "ga38",
         title: "Grandangolo Settimanale N. 38",
         subtitle: "27 ottobre 2025",
         cover: "https://via.placeholder.com/800x1067/222222/ffffff?text=Grandangolo+N.+38",
-        buyUrl: "#", // sostituisci con link acquisto reale
+        buyUrl: "#",
         unlockCode: "CODICE_SEGRETO_38",
         pages: [
           "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+38+-+Pagina+1",
@@ -473,7 +491,7 @@
           "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+39+-+Pagina+1",
           "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+39+-+Pagina+2",
           "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+39+-+Pagina+3",
-          "https://via.placeholder.com/1200x1600/666666/ffffff?text	N.+39+-+Pagina+4"
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+39+-+Pagina+4"
         ]
       },
       {
@@ -483,6 +501,7 @@
         cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg",
         buyUrl: "https://grandangolo.gumroad.com/l/xnuffg",
         unlockCode: "GR21-rwYa7hvBD8M",
+        isLatest: true,   // ULTIMA USCITA
         pages: [
           "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg",
           "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a54dca.jpg",
@@ -539,6 +558,7 @@
       card.innerHTML = `
         <div class="edicola-cover-wrap">
           <img src="${issue.cover}" alt="${issue.title}">
+          ${issue.isLatest ? '<div class="issue-label-latest">ULTIMA USCITA · €1,50</div>' : ''}
         </div>
         <div class="edicola-label">
           <div class="edicola-label-title">${issue.title}</div>
@@ -551,7 +571,7 @@
       `;
 
       card.addEventListener("click", function() {
-        openFlipbook(issue, 0);
+        openFlipbook(issue, 0); // apre dalla pagina 1
       });
 
       edicolaRoot.appendChild(card);
@@ -588,6 +608,7 @@
       content.style.cssText =
         "max-width:1100px;width:100%;margin:0 auto 40px;color:#fff;";
 
+      // HEADER
       const header = document.createElement("div");
       header.style.cssText =
         "display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;";
@@ -608,6 +629,7 @@
       header.appendChild(titleEl);
       header.appendChild(closeBtn);
 
+      // WRAPPER IMMAGINE
       const wrap = document.createElement("div");
       wrap.style.cssText =
         "position:relative;max-width:100%;max-height:90vh;overflow:auto;" +
@@ -637,6 +659,7 @@
         }
       });
 
+      // FRECCE
       const arrowBase =
         "position:absolute;top:50%;transform:translateY(-50%);border:none;" +
         "background:rgba(0,0,0,0.4);color:#fff;font-size:26px;width:42px;height:42px;" +
@@ -652,6 +675,7 @@
       nextBtn.type = "button";
       nextBtn.style.cssText = arrowBase + "right:-12px;";
 
+      // OVERLAY ACQUISTO
       const overlayBuy = document.createElement("div");
       overlayBuy.style.cssText =
         "position:absolute;inset:0;display:none;align-items:center;justify-content:center;" +
@@ -670,6 +694,7 @@
         "padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-size:13px;" +
         "font-weight:600;background:#00a651;color:#fff;box-shadow:0 5px 14px rgba(0,0,0,0.35);margin-bottom:10px;";
 
+      // BOX CODICE
       const codeBox = document.createElement("div");
       codeBox.style.cssText = "margin-top:4px;font-size:11px;";
 
@@ -706,9 +731,11 @@
       obInner.appendChild(codeBox);
       overlayBuy.appendChild(obInner);
 
+      // INDICATORE PAGINA
       const indicator = document.createElement("div");
       indicator.style.cssText = "text-align:center;font-size:12px;margin-top:10px;";
 
+      // MONTAGGIO
       wrap.appendChild(prevBtn);
       wrap.appendChild(img);
       wrap.appendChild(nextBtn);
@@ -720,6 +747,7 @@
       overlay.appendChild(content);
       document.body.appendChild(overlay);
 
+      // EVENTI FRECCE
       prevBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         if (index > 0) {
@@ -736,6 +764,7 @@
         }
       });
 
+      // CHIUSURA
       closeBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         document.body.removeChild(overlay);
@@ -754,6 +783,7 @@
         }
       });
 
+      // SBLOCCO
       unlockBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         performUnlock(
@@ -771,11 +801,13 @@
         );
       });
 
+      // AGGIORNAMENTO PAGINA LIGHTBOX
       function updatePage() {
         img.src = pages[index];
 
         const isUnlocked = !!issue._unlocked;
 
+        // prime 2 pagine libere (index 0 e 1), poi blur
         if (isUnlocked || index <= 1) {
           img.style.filter = "none";
           overlayBuy.style.display = "none";
