@@ -1,196 +1,819 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grandangolo Edicola Digitale</title>
+  <meta charset="UTF-8">
+  <title>Edicola digitale Grandangolo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        body {
-            margin: 0;
-            background: #0d0f14;
-            font-family: "Segoe UI", sans-serif;
-            color: #fff;
-        }
+  <style>
+    :root {
+      --bg: #050509;
+      --bg-alt: #101018;
+      --accent: #00a651;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+      --card: #0b0b12;
+      --border-soft: rgba(255,255,255,0.08);
+    }
 
-        /* NAVBAR */
-        .navbar {
-            width: 100%;
-            padding: 18px 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(6px);
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #141428 0, #050509 55%);
+      color: var(--text);
+    }
 
-        .logo img {
-            height: 50px;
-            width: auto;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 28px;
-            padding: 0;
-            margin: 0;
-        }
+    /* HEADER */
 
-        .nav-links a {
-            color: #ddd;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            transition: 0.2s ease;
-        }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5,5,9,0.95), rgba(5,5,9,0.85));
+      border-bottom: 1px solid var(--border-soft);
+    }
 
-        .nav-links a:hover {
-            color: #63f28b;
-        }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
-        /* HERO SECTION */
-        .hero {
-            margin-top: 120px;
-            padding: 60px 20px;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
 
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
+    /* il logo che hai caricato come file */
+    .brand img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
 
-        .hero p {
-            font-size: 18px;
-            color: #c5c5c5;
-            max-width: 500px;
-            line-height: 1.5;
-        }
+    nav {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+    }
 
-        .buttons {
-            margin-top: 25px;
-            display: flex;
-            gap: 15px;
-        }
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background .2s ease, color .2s ease;
+    }
 
-        .btn-green {
-            background: #2ecc71;
-            padding: 12px 22px;
-            border-radius: 8px;
-            color: #000;
-            font-weight: 700;
-            text-decoration: none;
-        }
+    nav a:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
 
-        .btn-outline {
-            border: 2px solid #2ecc71;
-            padding: 12px 22px;
-            border-radius: 8px;
-            color: #2ecc71;
-            font-weight: 700;
-            text-decoration: none;
-        }
+    /* LAYOUT BASE */
 
-        .cover img {
-            border-radius: 14px;
-            width: 330px;
-            height: auto;
-            box-shadow: 0 0 20px #000;
-        }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px 18px 40px;
+    }
 
-        /* COME FUNZIONA */
-        .section {
-            max-width: 1100px;
-            padding: 70px 20px;
-            margin: 0 auto;
-        }
+    section {
+      margin-bottom: 40px;
+    }
 
-        .section h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
+    /* HERO */
 
-        .section ul {
-            line-height: 1.7;
-            font-size: 17px;
-        }
+    #hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 32px;
+      align-items: center;
+      margin-top: 10px;
+    }
 
-        @media(max-width: 800px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-            }
-            .cover img {
-                width: 80%;
-            }
-        }
-    </style>
+    @media (max-width: 800px) {
+      #hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 4vw, 34px);
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 18px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0,166,81,0.45);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      border-color: var(--border-soft);
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .hero-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top, #19192b 0, #090910 60%);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+      border: 1px solid var(--border-soft);
+    }
+
+    .hero-card-inner {
+      position: relative;
+      width: 100%;
+      padding-top: 133.333%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .hero-card-inner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,0.7));
+    }
+
+    .hero-card-label {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* SEZIONE TESTO */
+
+    #about {
+      border-radius: 18px;
+      padding: 18px 16px 16px;
+      background: linear-gradient(135deg, rgba(15,15,30,0.9), rgba(8,8,14,0.95));
+      border: 1px solid var(--border-soft);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    #about h2,
+    #edicola h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+
+    #about p {
+      margin: 0 0 8px;
+      line-height: 1.5;
+    }
+
+    #about ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+
+    #about li {
+      margin-bottom: 4px;
+    }
+
+    /* GRIGLIA EDICOLA */
+
+    #edicola {
+      margin-top: 36px;
+    }
+
+    #edicola-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    #edicola-header p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    #edicola-grandangolo {
+      max-width: 1100px;
+      margin: 0 auto 8px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 24px;
+      font-family: inherit;
+    }
+
+    .edicola-card {
+      background: var(--card);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s ease, box-shadow .25s ease, border .2s ease;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .edicola-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.5);
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    .edicola-cover-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 133.333%; /* 3:4 */
+      overflow: hidden;
+    }
+
+    .edicola-cover-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+
+    .edicola-card:hover .edicola-cover-wrap img {
+      transform: scale(1.03);
+    }
+
+    .edicola-label {
+      padding: 10px 12px 12px;
+      background: linear-gradient(to bottom, rgba(8,8,16,0.98), rgba(5,5,10,0.98));
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .edicola-label-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .edicola-label-sub {
+      opacity: .75;
+      font-size: 11px;
+    }
+
+    .edicola-label-meta {
+      margin-top: 5px;
+      font-size: 10px;
+      opacity: .6;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 12px 18px 18px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      background: radial-gradient(circle at bottom, #151525 0, #050509 55%);
+    }
+
+    @media (max-width: 600px) {
+      .brand img {
+        height: 32px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="#" class="logo">
-            <img src="logo-grandangolo.png" alt="Grandangolo Settimanale">
-        </a>
-
-        <ul class="nav-links">
-            <li><a href="#edicola">Edicola</a></li>
-            <li><a href="#come-funziona">Come funziona</a></li>
-        </ul>
+  <!-- HEADER -->
+  <header>
+    <div class="nav-inner">
+      <a href="#hero" class="brand">
+        <!-- usa il file che hai caricato nel repo -->
+        <img src="logo-grandangolo.png" alt="Grandangolo Edicola Digitale">
+      </a>
+      <nav>
+        <a href="#about">Come funziona</a>
+        <a href="#edicola">Edicola</a>
+      </nav>
     </div>
-</nav>
+  </header>
 
-<!-- HERO -->
-<section class="hero">
-    <div>
-        <h1>Sfoglia il settimanale<br> come in edicola, ma online.</h1>
-        <p>
-            Una pagina dedicata dove i lettori possono aprire il giornale, leggere le prime pagine gratuitamente
-            e sbloccare il numero completo con un codice di accesso.
+  <main>
+    <!-- HERO -->
+    <section id="hero">
+      <div>
+        <h1 class="hero-title">Sfoglia il settimanale <br>come in edicola, ma online.</h1>
+        <p class="hero-subtitle">
+          Una pagina dedicata dove i lettori possono aprire il giornale, leggere
+          le prime pagine gratuitamente e sbloccare il numero completo con un codice di accesso.
         </p>
 
-        <div class="buttons">
-            <a href="#edicola" class="btn-green">Vai all'edicola</a>
-            <a href="#come-funziona" class="btn-outline">Come funziona</a>
+        <div class="hero-cta">
+          <a href="#edicola" class="btn-primary">
+            📖 Vai all'edicola
+          </a>
+          <a href="#about" class="btn-ghost">
+            ℹ️ Come funziona
+          </a>
         </div>
-    </div>
 
-    <div class="cover">
-        <img src="https://jgnewland.github.io/grandangolo/cover-example.jpg" alt="Copertina Grandangolo">
-    </div>
-</section>
+        <div class="hero-meta">
+          Nessuna app da installare: basta un browser. Puoi integrare questa pagina
+          dentro il sito principale o usarla come mini-sito dedicato.
+        </div>
+      </div>
 
-<!-- COME FUNZIONA -->
-<section id="come-funziona" class="section">
-    <h2>Come funziona l'edicola digitale</h2>
+      <div class="hero-card">
+        <div class="hero-card-inner">
+          <!-- copertina in evidenza: puoi cambiare l'URL con quella che preferisci -->
+          <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg"
+               alt="Grandangolo Settimanale N.40">
+        </div>
+        <div class="hero-card-label">
+          <span>Grandangolo Settimanale N. 40</span>
+          <span style="opacity:.7;">Esempio di numero digitale</span>
+        </div>
+      </div>
+    </section>
 
-    <ul>
-        <li>Le prime pagine sono leggibili gratuitamente;</li>
-        <li>Le pagine successive appaiono sfocate (blur);</li>
-        <li>Il lettore può acquistare il numero oppure inserire un codice di sblocco;</li>
-        <li>Una volta inserito il codice corretto, il blur scompare e tutte le pagine sono leggibili.</li>
-    </ul>
-</section>
+    <!-- COME FUNZIONA -->
+    <section id="about">
+      <h2>Come funziona l'edicola digitale</h2>
+      <p>
+        In questa pagina ogni numero del settimanale è mostrato come una copertina.
+        Cliccando sulla copertina si apre il giornale a tutto schermo:
+      </p>
+      <ul>
+        <li>le prime pagine sono leggibili gratuitamente;</li>
+        <li>le pagine successive appaiono sfocate (blur);</li>
+        <li>il lettore può acquistare il numero oppure inserire un codice di sblocco;</li>
+        <li>una volta inserito il codice corretto, il blur scompare e tutte le pagine sono leggibili.</li>
+      </ul>
+      <p style="margin-top:10px;">
+        Di seguito vedi una <strong>edicola di esempio</strong> con più numeri:
+        per i numeri 38, 39, 41 e 42 vengono usate immagini segnaposto.
+        Dovrai solo sostituire copertine, pagine, link di acquisto e codici reali.
+      </p>
+    </section>
+
+    <!-- EDICOLA -->
+    <section id="edicola">
+      <div id="edicola-header">
+        <h2>Edicola digitale</h2>
+        <p>Clicca su una copertina per aprire il giornale a tutto schermo.</p>
+      </div>
+
+      <div id="edicola-grandangolo"></div>
+    </section>
+  </main>
+
+  <footer>
+    Edicola digitale di esempio. Puoi personalizzare testi, colori, numeri disponibili e integrare la pagina nel tuo dominio.
+  </footer>
+
+  <!-- SCRIPT EDICOLA -->
+  <script>
+  (function() {
+    // ------------- CONFIGURAZIONE NUMERI (ESEMPI) -------------
+    // Sostituisci cover, buyUrl, unlockCode, pages con i tuoi dati reali.
+    const issues = [
+      {
+        id: "ga38",
+        title: "Grandangolo Settimanale N. 38",
+        subtitle: "27 ottobre 2025",
+        cover: "https://via.placeholder.com/800x1067/222222/ffffff?text=Grandangolo+N.+38",
+        buyUrl: "#", // sostituisci con link acquisto reale
+        unlockCode: "CODICE_SEGRETO_38",
+        pages: [
+          "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+38+-+Pagina+1",
+          "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+38+-+Pagina+2",
+          "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+38+-+Pagina+3",
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+38+-+Pagina+4"
+        ]
+      },
+      {
+        id: "ga39",
+        title: "Grandangolo Settimanale N. 39",
+        subtitle: "4 novembre 2025",
+        cover: "https://via.placeholder.com/800x1067/222222/ffffff?text=Grandangolo+N.+39",
+        buyUrl: "#",
+        unlockCode: "CODICE_SEGRETO_39",
+        pages: [
+          "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+39+-+Pagina+1",
+          "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+39+-+Pagina+2",
+          "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+39+-+Pagina+3",
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+39+-+Pagina+4"
+        ]
+      },
+      {
+        id: "ga40",
+        title: "Grandangolo Settimanale N. 40",
+        subtitle: "11 novembre 2025",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg",
+        buyUrl: "https://grandangolo.gumroad.com/l/xnuffg",
+        unlockCode: "GR21-rwYa7hvBD8M",
+        pages: [
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a54dca.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_70d2c7.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_cbaf8f.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_f2c14f.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_2e6e09.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_f9df4d.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_987272.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_737e71.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_eea7f6.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_2268ca.jpg"
+        ]
+      },
+      {
+        id: "ga41",
+        title: "Grandangolo Settimanale N. 41",
+        subtitle: "18 novembre 2025",
+        cover: "https://via.placeholder.com/800x1067/222222/ffffff?text=Grandangolo+N.+41",
+        buyUrl: "#",
+        unlockCode: "CODICE_SEGRETO_41",
+        pages: [
+          "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+41+-+Pagina+1",
+          "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+41+-+Pagina+2",
+          "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+41+-+Pagina+3",
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+41+-+Pagina+4"
+        ]
+      },
+      {
+        id: "ga42",
+        title: "Grandangolo Settimanale N. 42",
+        subtitle: "25 novembre 2025",
+        cover: "https://via.placeholder.com/800x1067/222222/ffffff?text=Grandangolo+N.+42",
+        buyUrl: "#",
+        unlockCode: "CODICE_SEGRETO_42",
+        pages: [
+          "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+42+-+Pagina+1",
+          "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+42+-+Pagina+2",
+          "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+42+-+Pagina+3",
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+42+-+Pagina+4"
+        ]
+      }
+    ];
+
+    // ------------- GRIGLIA EDICOLA -------------
+    const edicolaRoot = document.getElementById("edicola-grandangolo");
+    if (!edicolaRoot || !issues.length) return;
+
+    issues.forEach(issue => {
+      const card = document.createElement("article");
+      card.className = "edicola-card";
+      card.setAttribute("data-issue-id", issue.id);
+
+      card.innerHTML = `
+        <div class="edicola-cover-wrap">
+          <img src="${issue.cover}" alt="${issue.title}">
+        </div>
+        <div class="edicola-label">
+          <div class="edicola-label-title">${issue.title}</div>
+          <div class="edicola-label-sub">${issue.subtitle || ""}</div>
+          <div class="edicola-label-meta">
+            <span>Prime pagine gratis</span>
+            <span>Codice per sbloccare</span>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", function() {
+        openFlipbook(issue, 0); // apre dalla pagina 1
+      });
+
+      edicolaRoot.appendChild(card);
+    });
+
+    // ------------- FUNZIONE UNLOCK COMUNE -------------
+    function performUnlock(issue, value, onSuccess, onError) {
+      const v = (value || "").trim();
+      if (!v) {
+        if (typeof onError === "function") onError("Inserisci un codice.");
+        return;
+      }
+      if (v === issue.unlockCode) {
+        issue._unlocked = true;
+        if (typeof onSuccess === "function") onSuccess();
+      } else {
+        if (typeof onError === "function") onError("Codice non valido.");
+      }
+    }
+
+    // ------------- LIGHTBOX FLIPBOOK -------------
+    function openFlipbook(issue, startIndex) {
+      let index = startIndex || 0;
+      const pages = issue.pages || [];
+      if (!pages.length) return;
+
+      const overlay = document.createElement("div");
+      overlay.style.cssText =
+        "position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;" +
+        "display:flex;justify-content:center;align-items:flex-start;" +
+        "overflow-y:auto;padding:40px 16px;";
+
+      const content = document.createElement("div");
+      content.style.cssText =
+        "max-width:1100px;width:100%;margin:0 auto 40px;color:#fff;";
+
+      // HEADER
+      const header = document.createElement("div");
+      header.style.cssText =
+        "display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;";
+
+      const titleEl = document.createElement("div");
+      titleEl.innerHTML = `
+        <div style="font-size:15px;font-weight:600;">${issue.title}</div>
+        <div style="font-size:12px;opacity:.7;">${issue.subtitle || ""}</div>
+      `;
+
+      const closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.textContent = "×";
+      closeBtn.style.cssText =
+        "border:none;background:transparent;color:#fff;font-size:24px;" +
+        "cursor:pointer;line-height:1;padding:0 4px;";
+
+      header.appendChild(titleEl);
+      header.appendChild(closeBtn);
+
+      // WRAPPER IMMAGINE
+      const wrap = document.createElement("div");
+      wrap.style.cssText =
+        "position:relative;max-width:100%;max-height:90vh;overflow:auto;" +
+        "perspective:1400px;display:flex;align-items:flex-start;justify-content:center;background:#000;";
+
+      const img = document.createElement("img");
+      img.style.cssText =
+        "width:100%;height:auto;border-radius:8px;" +
+        "box-shadow:0 12px 30px rgba(0,0,0,0.6);" +
+        "display:block;cursor:zoom-in;" +
+        "transition:width .25s ease,filter .25s ease;";
+
+      let zoom = 1;
+
+      img.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (zoom === 1) {
+          zoom = 2;
+          img.style.width = "200%";
+          img.style.cursor = "zoom-out";
+        } else {
+          zoom = 1;
+          img.style.width = "100%";
+          img.style.cursor = "zoom-in";
+          wrap.scrollTop = 0;
+          wrap.scrollLeft = 0;
+        }
+      });
+
+      // FRECCE
+      const arrowBase =
+        "position:absolute;top:50%;transform:translateY(-50%);border:none;" +
+        "background:rgba(0,0,0,0.4);color:#fff;font-size:26px;width:42px;height:42px;" +
+        "border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;";
+
+      const prevBtn = document.createElement("button");
+      prevBtn.innerHTML = "❮";
+      prevBtn.type = "button";
+      prevBtn.style.cssText = arrowBase + "left:-12px;";
+
+      const nextBtn = document.createElement("button");
+      nextBtn.innerHTML = "❯";
+      nextBtn.type = "button";
+      nextBtn.style.cssText = arrowBase + "right:-12px;";
+
+      // OVERLAY ACQUISTO
+      const overlayBuy = document.createElement("div");
+      overlayBuy.style.cssText =
+        "position:absolute;inset:0;display:none;align-items:center;justify-content:center;" +
+        "padding:0 20px;text-align:center;color:#fff;font-size:13px;" +
+        "background:radial-gradient(circle at center,rgba(0,0,0,0.2),rgba(0,0,0,0.85));";
+
+      const obInner = document.createElement("div");
+      obInner.innerHTML =
+        "<div style='font-size:15px;margin-bottom:8px;font-weight:600;'>Continua a sfogliare</div>" +
+        "<div style='margin-bottom:12px;'>Le pagine successive sono oscurate: acquista il numero completo per leggere tutto il settimanale.</div>";
+
+      const buyBtn = document.createElement("button");
+      buyBtn.type = "button";
+      buyBtn.textContent = "Acquista il numero completo";
+      buyBtn.style.cssText =
+        "padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-size:13px;" +
+        "font-weight:600;background:#00a651;color:#fff;box-shadow:0 5px 14px rgba(0,0,0,0.35);margin-bottom:10px;";
+
+      // BOX CODICE
+      const codeBox = document.createElement("div");
+      codeBox.style.cssText = "margin-top:4px;font-size:11px;";
+
+      const codeLabel = document.createElement("div");
+      codeLabel.textContent = "Hai già acquistato? Inserisci il codice di accesso:";
+      codeLabel.style.marginBottom = "4px";
+
+      const codeRow = document.createElement("div");
+      codeRow.style.cssText = "display:flex;gap:4px;";
+
+      const codeInput = document.createElement("input");
+      codeInput.type = "text";
+      codeInput.placeholder = "Inserisci il codice";
+      codeInput.style.cssText =
+        "flex:1;padding:4px 6px;font-size:11px;border:1px solid #ccc;border-radius:4px;color:#000;background:#fff;";
+
+      const unlockBtn = document.createElement("button");
+      unlockBtn.type = "button";
+      unlockBtn.textContent = "Sblocca";
+      unlockBtn.style.cssText =
+        "padding:4px 8px;border-radius:4px;border:1px solid #00a651;" +
+        "background:#00a651;color:#fff;font-size:11px;cursor:pointer;";
+
+      const codeMsg = document.createElement("div");
+      codeMsg.style.cssText = "margin-top:4px;font-size:11px;color:#ffd5d5;display:none;";
+
+      codeRow.appendChild(codeInput);
+      codeRow.appendChild(unlockBtn);
+      codeBox.appendChild(codeLabel);
+      codeBox.appendChild(codeRow);
+      codeBox.appendChild(codeMsg);
+
+      obInner.appendChild(buyBtn);
+      obInner.appendChild(codeBox);
+      overlayBuy.appendChild(obInner);
+
+      // INDICATORE PAGINA
+      const indicator = document.createElement("div");
+      indicator.style.cssText = "text-align:center;font-size:12px;margin-top:10px;";
+
+      // MONTAGGIO
+      wrap.appendChild(prevBtn);
+      wrap.appendChild(img);
+      wrap.appendChild(nextBtn);
+      wrap.appendChild(overlayBuy);
+
+      content.appendChild(header);
+      content.appendChild(wrap);
+      content.appendChild(indicator);
+      overlay.appendChild(content);
+      document.body.appendChild(overlay);
+
+      // EVENTI FRECCE
+      prevBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (index > 0) {
+          index--;
+          updatePage();
+        }
+      });
+
+      nextBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (index < pages.length - 1) {
+          index++;
+          updatePage();
+        }
+      });
+
+      // CHIUSURA
+      closeBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        document.body.removeChild(overlay);
+      });
+
+      overlay.addEventListener("click", function(e) {
+        if (e.target === overlay) {
+          document.body.removeChild(overlay);
+        }
+      });
+
+      buyBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (issue.buyUrl && issue.buyUrl !== "#") {
+          window.location.href = issue.buyUrl;
+        }
+      });
+
+      // SBLOCCO
+      unlockBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        performUnlock(
+          issue,
+          codeInput.value,
+          function() {
+            codeMsg.style.display = "none";
+            alert("Numero sbloccato! Ora puoi leggere tutte le pagine.");
+            updatePage();
+          },
+          function(msg) {
+            codeMsg.textContent = msg;
+            codeMsg.style.display = "block";
+          }
+        );
+      });
+
+      // AGGIORNAMENTO PAGINA
+      function updatePage() {
+        img.src = pages[index];
+
+        const isUnlocked = !!issue._unlocked;
+
+        // prime 2 pagine libere (index 0 e 1), poi blur
+        if (isUnlocked || index <= 1) {
+          img.style.filter = "none";
+          overlayBuy.style.display = "none";
+        } else {
+          img.style.filter = "blur(6px) brightness(0.85)";
+          overlayBuy.style.display = "flex";
+        }
+
+        prevBtn.disabled = (index === 0);
+        nextBtn.disabled = (index === pages.length - 1);
+        indicator.textContent = "Pagina " + (index + 1) + " di " + pages.length;
+
+        zoom = 1;
+        img.style.width = "100%";
+        img.style.cursor = "zoom-in";
+        wrap.scrollTop = 0;
+        wrap.scrollLeft = 0;
+      }
+
+      updatePage();
+    }
+
+  })();
+  </script>
 
 </body>
 </html>
