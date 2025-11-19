@@ -349,8 +349,13 @@
   });
 
   buyBtnSm.addEventListener("click", function(){
+  try {
+    window.open(buyUrl, "_blank", "noopener");
+  } catch (e) {
+    // fallback nel caso window.open venga bloccato
     window.location.href = buyUrl;
-  });
+  }
+});
 
   // SBLOCCO DAL BOX PICCOLO
   unlockBtn.addEventListener("click", function(){
@@ -550,9 +555,13 @@
     });
 
     buyBtnLg.addEventListener("click", function(e){
-      e.stopPropagation();
-      window.location.href = buyUrl;
-    });
+  e.stopPropagation();
+  try {
+    window.open(buyUrl, "_blank", "noopener");
+  } catch (err) {
+    window.location.href = buyUrl;
+  }
+});
 
     lbUnlockBtn.addEventListener("click", function(e){
       e.stopPropagation();
