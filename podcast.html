@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Podcast · Grandangolo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --bg: #050509;
+      --bg-alt: #101018;
+      --accent: #00a651;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+      --card: #0b0b12;
+      --border-soft: rgba(255,255,255,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #141428 0, #050509 55%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5,5,9,0.95), rgba(5,5,9,0.85));
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .brand img {
+      height: 80px;
+      width: auto;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background .2s ease, color .2s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+
+    /* LAYOUT */
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px 18px 40px;
+    }
+
+    section {
+      margin-bottom: 32px;
+    }
+
+    /* HERO PODCAST - stile Spotify */
+
+    #hero-podcast {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: 32px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+      #hero-podcast {
+        grid-template-columns: minmax(0, 1fr);
+        margin-top: 20px;
+      }
+    }
+
+    .podcast-hero-text h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      margin: 0 0 6px;
+      line-height: 1.1;
+    }
+
+    .podcast-hero-text .tagline {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .podcast-hero-text p {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 0 16px;
+    }
+
+    .podcast-hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0,166,81,0.45);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      border-color: var(--border-soft);
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .podcast-hero-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .podcast-hero-cover {
+      background: radial-gradient(circle at top left, #1db954 0, #050509 55%);
+      border-radius: 24px;
+      padding: 22px 20px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.75);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .podcast-cover-art {
+      width: 130px;
+      height: 130px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #00a651, #1db954);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: 700;
+      color: #050509;
+      letter-spacing: 0.08em;
+    }
+
+    .podcast-cover-info {
+      flex: 1;
+    }
+
+    .podcast-cover-info h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .podcast-cover-info p {
+      margin: 0;
+      font-size: 13px;
+      color: rgba(245,245,245,0.8);
+    }
+
+    .podcast-platforms {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      color: rgba(245,245,245,0.8);
+    }
+
+    .podcast-platform-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 600px) {
+      .podcast-hero-cover {
+        padding: 16px 14px;
+      }
+      .podcast-cover-art {
+        width: 100px;
+        height: 100px;
+        font-size: 30px;
+      }
+    }
+
+    /* LISTA EPISODI */
+
+    #episodes {
+      margin-top: 32px;
+    }
+
+    #episodes h2 {
+      font-size: 18px;
+      margin: 0 0 6px;
+      color: var(--text);
+    }
+
+    #episodes p {
+      margin: 0 0 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .episodes-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .episodes-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .episode-card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 10px 10px 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .episode-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .episode-title {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .episode-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .episode-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #8fffc1;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,166,81,0.5);
+      background: rgba(0,166,81,0.1);
+      white-space: nowrap;
+    }
+
+    .episode-player {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .episode-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    iframe.spotify-embed {
+      width: 100%;
+      min-height: 152px;
+      border: none;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 12px 18px 18px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      background: radial-gradient(circle at bottom, #151525 0, #050509 55%);
+      margin-top: 28px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-inner">
+      <a href="https://www.grandangoloagrigento.it/" class="brand" target="_blank" rel="noopener">
+        <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/refs/heads/main/logo-grandangolo.png.png"
+             alt="Grandangolo">
+      </a>
+      <nav>
+        <a href="https://grandangolosettimanale.it" target="_blank" rel="noopener">Edicola digitale</a>
+        <a href="#episodes">Podcast</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO PODCAST -->
+    <section id="hero-podcast">
+      <div class="podcast-hero-text">
+        <div class="tagline">Podcast · Inchieste e racconti</div>
+        <h1>I podcast di Grandangolo</h1>
+        <p>
+          Storie, inchieste, approfondimenti e voci dai territori.
+          Un modo diverso per entrare dentro le pagine del settimanale
+          e ascoltare i retroscena del lavoro giornalistico.
+        </p>
+
+        <div class="podcast-hero-cta">
+          <a href="#episodes" class="btn-primary">
+            Ascolta gli episodi
+          </a>
+          <a href="https://open.spotify.com/" target="_blank" rel="noopener" class="btn-ghost">
+            Apri in Spotify
+          </a>
+        </div>
+
+        <div class="podcast-hero-meta">
+          Disponibile gratis su Spotify. Nuovi episodi in arrivo.
+        </div>
+      </div>
+
+      <div class="podcast-hero-cover">
+        <div class="podcast-cover-art">
+          GA
+        </div>
+        <div class="podcast-cover-info">
+          <p style="font-size:11px; text-transform:uppercase; letter-spacing:.15em; color:#d0d0d0; margin-bottom:4px;">
+            Original podcast
+          </p>
+          <h2>Grandangolo · Audio Storie</h2>
+          <p>
+            La voce di Grandangolo oltre la carta stampata:
+            cronache, mafia, società, memoria e attualità in formato audio.
+          </p>
+          <div class="podcast-platforms">
+            <span class="podcast-platform-pill">Spotify</span>
+            <span class="podcast-platform-pill">Ascolto gratuito</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EPISODI -->
+    <section id="episodes">
+      <h2>Episodi disponibili</h2>
+      <p>
+        Qui trovi una selezione di episodi da ascoltare direttamente qui sotto
+        oppure aprire su Spotify con il tuo account.
+      </p>
+
+      <div class="episodes-grid">
+        <!-- TRAILER -->
+        <article class="episode-card">
+          <div class="episode-header">
+            <div>
+              <div class="episode-title">TRAILER</div>
+              <div class="episode-meta">Ascolta ora su Spotify</div>
+            </div>
+            <span class="episode-tag">Nuovo</span>
+          </div>
+          <div class="episode-player">
+            <iframe class="spotify-embed"
+              src="https://open.spotify.com/embed/episode/7C1VjQVgZ1xbhLe0LShHNt?utm_source=generator"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="episode-note">
+            Approfondimento audio tratto dal settimanale Grandangolo.
+          </div>
+        </article>
+
+        <!-- EPISODIO 1 -->
+        <article class="episode-card">
+          <div class="episode-header">
+            <div>
+              <div class="episode-title">Episodio 2</div>
+              <div class="episode-meta">Ascolta ora su Spotify</div>
+            </div>
+            <span class="episode-tag">Podcast</span>
+          </div>
+          <div class="episode-player">
+            <iframe class="spotify-embed"
+              src="https://open.spotify.com/embed/episode/6zLZgaJgWfIJq30fq1BDHG?utm_source=generator"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="episode-note">
+            Un nuovo racconto tra cronaca, memoria e territorio.
+          </div>
+        </article>
+
+        <!-- EPISODIO 2 -->
+        <article class="episode-card">
+          <div class="episode-header">
+            <div>
+              <div class="episode-title">Episodio 3</div>
+              <div class="episode-meta">Ascolta ora su Spotify</div>
+            </div>
+            <span class="episode-tag">Audio</span>
+          </div>
+          <div class="episode-player">
+            <iframe class="spotify-embed"
+              src="https://open.spotify.com/embed/episode/21iwBfQA9rGdOILokmiOUR?utm_source=generator"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="episode-note">
+            Voci e storie che ampliano il lavoro sulle pagine del giornale.
+          </div>
+        </article>
+
+        <!-- EPISODIO 3 -->
+        <article class="episode-card">
+          <div class="episode-header">
+            <div>
+              <div class="episode-title">Episodio 4</div>
+              <div class="episode-meta">Ascolta ora su Spotify</div>
+            </div>
+            <span class="episode-tag">Inchiesta</span>
+          </div>
+          <div class="episode-player">
+            <iframe class="spotify-embed"
+              src="https://open.spotify.com/embed/episode/06wg0dm7pMfRAzaV330TPI?utm_source=generator"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="episode-note">
+            L’inchiesta raccontata con il ritmo e la voce del podcast.
+          </div>
+        </article>
+
+        <!-- EPISODIO 4 -->
+        <article class="episode-card">
+          <div class="episode-header">
+            <div>
+              <div class="episode-title">Episodio 5</div>
+              <div class="episode-meta">Ascolta ora su Spotify</div>
+            </div>
+            <span class="episode-tag">Speciale</span>
+          </div>
+          <div class="episode-player">
+            <iframe class="spotify-embed"
+              src="https://open.spotify.com/embed/episode/6kFRScVUUGQf0WrEXFcSdj?utm_source=generator"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+            </iframe>
+          </div>
+          <div class="episode-note">
+            Uno speciale di Grandangolo in versione audio.
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Grandangolo Podcast · Tutti i diritti riservati.
+  </footer>
+</body>
+</html>
