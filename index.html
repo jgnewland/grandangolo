@@ -61,7 +61,7 @@
     }
 
     .brand img {
-      height: 100px; /* LOGO MOLTO PIÙ GRANDE */
+      height: 100px;
       width: auto;
       display: block;
     }
@@ -102,7 +102,7 @@
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
       gap: 32px;
-      align-items: center;
+      align-items: flex-start; /* le due colonne partono allineate in alto */
       margin-top: 10px;
     }
 
@@ -177,21 +177,165 @@
       color: var(--muted);
     }
 
-    /* BANNER NELLA HERO */
+    /* WIDGET NEWS IN HERO (AL POSTO DEL BANNER) - VERSIONE RETTANGOLARE ALLINEATA */
+
     .hero-banner {
       margin-top: 14px;
-      max-width: 300px;
-      border-radius: 10px;
+      width: 100%;
+      max-width: 530px;                     /* leggermente più largo, rettangolare */
+      height:325px;                        /* altezza fissa: non allunga la hero */
+      border-radius: 18px;                  /* stesso raggio della hero-card */
+      border: 1px solid var(--border-soft); /* stesso bordo della hero-card */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+      background: radial-gradient(circle at top, #19192b 0, #050509 60%);
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      display: flex;
     }
 
-    .hero-banner img {
-      display: block;
+    .hero-news-inner {
+      padding: 10px 12px 10px;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
       width: 100%;
-      height: auto;
     }
+
+    .hero-news-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .hero-news-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-news-logo {
+      height: 20px;
+      width: auto;
+      display: block;
+    }
+
+    .hero-news-title {
+      font-size: 11.5px;
+      line-height: 1.3;
+    }
+
+    .hero-news-title strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .hero-news-badge {
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(0,166,81,0.18);
+      color: #8fffc1;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      border: 1px solid rgba(0,166,81,0.55);
+      white-space: nowrap;
+    }
+
+    .hero-news-link-site {
+      font-size: 11px;
+      color: #b0ffcf;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,166,81,0.4);
+      background: rgba(0,166,81,0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background .2s ease, transform .15s ease, border-color .2s ease;
+      margin-bottom: 4px;
+      align-self: flex-start;
+    }
+
+    .hero-news-link-site:hover {
+      background: rgba(0,166,81,0.22);
+      border-color: rgba(0,166,81,0.8);
+      transform: translateY(-1px);
+    }
+
+    .hero-news-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;                             /* riempie lo spazio verticale disponibile */
+      overflow-y: auto;                    /* se serve, scroll interno */
+    }
+
+    .hero-news-item {
+      background: rgba(5,5,10,0.9);
+      border-radius: 8px;
+      padding: 5px 6px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border .2s ease, background .2s ease, transform .1s ease;
+    }
+
+    .hero-news-item a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .hero-news-item:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(10,10,18,0.98);
+      transform: translateY(-1px);
+    }
+
+    .hero-news-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9px;
+      color: var(--muted);
+      margin-bottom: 1px;
+    }
+
+    .hero-news-tag {
+      padding: 1px 5px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .hero-news-date {
+      opacity: .8;
+    }
+
+    .hero-news-title-item {
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1px;
+    }
+
+    .hero-news-excerpt {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    .hero-news-empty {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* CARD HERO DESTRA */
 
     .hero-card {
       background: radial-gradient(circle at top, #19192b 0, #090910 60%);
@@ -310,7 +454,7 @@
     .edicola-cover-wrap {
       position: relative;
       width: 100%;
-      padding-top: 133.333%; /* 3:4 */
+      padding-top: 133.333%;
       overflow: hidden;
     }
 
@@ -327,7 +471,6 @@
       transform: scale(1.03);
     }
 
-    /* LABEL ROSSA "ULTIMA USCITA" */
     .issue-label-latest {
       position: absolute;
       bottom: 8px;
@@ -387,6 +530,7 @@
       }
       .hero-banner {
         max-width: 100%;
+        height: auto;
       }
     }
   </style>
@@ -401,13 +545,12 @@
              alt="Grandangolo Edicola Digitale">
       </a>
       <nav>
-        <!-- NUOVO LINK VECCHIA EDICOLA -->
         <a href="https://grandangolosettimanale.it" target="_blank" rel="noopener">
           HOME
+        </a>
         <a href="#about">COME FUNZIONA</a>
         <a href="#edicola">EDICOLA</a>
         <a href="/podcast.html">PODCAST</a>
-        <!-- NUOVO LINK VECCHIA EDICOLA -->
         <a href="https://grandangolo.gumroad.com/" target="_blank" rel="noopener">
           VECCHIA EDICOLA
         </a>
@@ -432,7 +575,6 @@
           <a href="#about" class="btn-ghost">
              Come funziona
           </a>
-          <!-- NUOVO PULSANTE VECCHIA EDICOLA -->
           <a href="https://grandangolo.gumroad.com/" class="btn-ghost" target="_blank" rel="noopener">
              Vecchia edicola
           </a>
@@ -442,18 +584,40 @@
           Nessuna app da installare e niente da scaricare. Basta acquistare il tuo codice per leggere la tua copia del settimanale di Grandangolo.
         </div>
 
-        <!-- BANNER PUBBLICITARIO / PROMOZIONALE -->
+        <!-- WIDGET NEWS RETTANGOLARE LIVE -->
         <div class="hero-banner">
-          <a href="https://www.amazon.it/Mafiare-Cosa-nostra-Stidda-stato/dp/8890523514" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/0c3eea8d8ca83dbec489960faf3b1723df03e9f7/BANNER%20MAFIARE%20-%201.jpg"
-                 alt="Banner Grandangolo">
-          </a>
+          <div class="hero-news-inner">
+            <div class="hero-news-header">
+              <div class="hero-news-title-wrap">
+                <img
+                  src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png"
+                  alt="Grandangolo"
+                  class="hero-news-logo">
+                <div class="hero-news-title">
+                  <strong>Ultime notizie</strong>
+                  Da grandangoloagrigento.it
+                </div>
+              </div>
+              <div class="hero-news-badge">Live</div>
+            </div>
+
+            <a href="https://www.grandangoloagrigento.it/"
+               target="_blank"
+               rel="noopener"
+               class="hero-news-link-site">
+              <span>Vai al sito</span>
+              <span style="font-size:12px;">↗</span>
+            </a>
+
+            <ul class="hero-news-list" id="hero-news-list">
+              <li class="hero-news-empty">Caricamento delle notizie in corso…</li>
+            </ul>
+          </div>
         </div>
       </div>
 
       <div class="hero-card">
         <div class="hero-card-inner">
-          <!-- copertina in evidenza -->
           <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg"
                alt="Grandangolo Settimanale N.40">
         </div>
@@ -477,9 +641,7 @@
         <li>il lettore può acquistare il codice di sblocco per continuare a leggere;</li>
         <li>una volta inserito il codice corretto, il blur scompare e tutte le pagine saranno leggibili.</li>
       </ul>
-      <p style="margin-top:10px;">
-        
-      </p>
+      <p style="margin-top:10px;"></p>
     </section>
 
     <!-- EDICOLA -->
@@ -500,7 +662,6 @@
   <!-- SCRIPT EDICOLA -->
   <script>
   (function() {
-    // ------------- CONFIGURAZIONE NUMERI -------------
     const issues = [
       {
         id: "ga40",
@@ -509,7 +670,7 @@
         cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg",
         buyUrl: "https://buy.stripe.com/8x26oJ2S4h2V1OR5kQ9MY00",
         unlockCode: "GR21-rwYa7hvBD8M",
-        isLatest: true,   // ULTIMA USCITA
+        isLatest: true,
         pages: [
           "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg",
           "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a54dca.jpg",
@@ -552,7 +713,6 @@
           "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+39+-+Pagina+4"
         ]
       },
-      
       {
         id: "ga41",
         title: "Grandangolo Settimanale N. 39",
@@ -583,7 +743,6 @@
       }
     ];
 
-    // ------------- GRIGLIA EDICOLA -------------
     const edicolaRoot = document.getElementById("edicola-grandangolo");
     if (!edicolaRoot || !issues.length) return;
 
@@ -608,13 +767,12 @@
       `;
 
       card.addEventListener("click", function() {
-        openFlipbook(issue, 0); // apre dalla pagina 1
+        openFlipbook(issue, 0);
       });
 
       edicolaRoot.appendChild(card);
     });
 
-    // ------------- FUNZIONE UNLOCK COMUNE -------------
     function performUnlock(issue, value, onSuccess, onError) {
       const v = (value || "").trim();
       if (!v) {
@@ -629,7 +787,6 @@
       }
     }
 
-    // ------------- LIGHTBOX FLIPBOOK -------------
     function openFlipbook(issue, startIndex) {
       let index = startIndex || 0;
       const pages = issue.pages || [];
@@ -645,7 +802,6 @@
       content.style.cssText =
         "max-width:1100px;width:100%;margin:0 auto 40px;color:#fff;";
 
-      // HEADER
       const header = document.createElement("div");
       header.style.cssText =
         "display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;";
@@ -666,7 +822,6 @@
       header.appendChild(titleEl);
       header.appendChild(closeBtn);
 
-      // WRAPPER IMMAGINE
       const wrap = document.createElement("div");
       wrap.style.cssText =
         "position:relative;max-width:100%;max-height:90vh;overflow:auto;" +
@@ -696,7 +851,6 @@
         }
       });
 
-      // FRECCE
       const arrowBase =
         "position:absolute;top:50%;transform:translateY(-50%);border:none;" +
         "background:rgba(0,0,0,0.4);color:#fff;font-size:26px;width:42px;height:42px;" +
@@ -712,7 +866,6 @@
       nextBtn.type = "button";
       nextBtn.style.cssText = arrowBase + "right:-12px;";
 
-      // OVERLAY ACQUISTO
       const overlayBuy = document.createElement("div");
       overlayBuy.style.cssText =
         "position:absolute;inset:0;display:none;align-items:center;justify-content:center;" +
@@ -731,7 +884,6 @@
         "padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-size:13px;" +
         "font-weight:600;background:#00a651;color:#fff;box-shadow:0 5px 14px rgba(0,0,0,0.35);margin-bottom:10px;";
 
-      // BOX CODICE
       const codeBox = document.createElement("div");
       codeBox.style.cssText = "margin-top:4px;font-size:11px;";
 
@@ -768,11 +920,9 @@
       obInner.appendChild(codeBox);
       overlayBuy.appendChild(obInner);
 
-      // INDICATORE PAGINA
       const indicator = document.createElement("div");
       indicator.style.cssText = "text-align:center;font-size:12px;margin-top:10px;";
 
-      // MONTAGGIO
       wrap.appendChild(prevBtn);
       wrap.appendChild(img);
       wrap.appendChild(nextBtn);
@@ -784,7 +934,6 @@
       overlay.appendChild(content);
       document.body.appendChild(overlay);
 
-      // EVENTI FRECCE
       prevBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         if (index > 0) {
@@ -801,7 +950,6 @@
         }
       });
 
-      // CHIUSURA
       closeBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         document.body.removeChild(overlay);
@@ -820,7 +968,6 @@
         }
       });
 
-      // SBLOCCO
       unlockBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         performUnlock(
@@ -838,13 +985,11 @@
         );
       });
 
-      // AGGIORNAMENTO PAGINA LIGHTBOX
       function updatePage() {
         img.src = pages[index];
 
         const isUnlocked = !!issue._unlocked;
 
-        // prime 2 pagine libere (index 0 e 1), poi blur
         if (isUnlocked || index <= 1) {
           img.style.filter = "none";
           overlayBuy.style.display = "none";
@@ -870,22 +1015,75 @@
   })();
   </script>
 
+  <!-- SCRIPT LIVE NEWS HERO -->
+  <script>
+  (function() {
+    const listEl = document.getElementById("hero-news-list");
+    if (!listEl) return;
+
+    const endpoint = "https://www.grandangoloagrigento.it/wp-json/wp/v2/posts?per_page=4";
+
+    function stripHtml(html) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html || "";
+      return tmp.textContent || tmp.innerText || "";
+    }
+
+    function formatDate(iso) {
+      if (!iso) return "";
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return "";
+      return d.toLocaleDateString("it-IT", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+    }
+
+    fetch(endpoint)
+      .then(function(res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function(posts) {
+        if (!Array.isArray(posts) || !posts.length) {
+          listEl.innerHTML = '<li class="hero-news-empty">Nessuna notizia disponibile al momento.</li>';
+          return;
+        }
+
+        listEl.innerHTML = "";
+
+        posts.forEach(function(post) {
+          const li = document.createElement("li");
+          li.className = "hero-news-item";
+
+          const title = stripHtml(post.title && post.title.rendered);
+          const rawExcerpt = stripHtml(post.excerpt && post.excerpt.rendered);
+          const excerpt = rawExcerpt.length > 90
+            ? rawExcerpt.slice(0, 90) + "…"
+            : rawExcerpt;
+          const date = formatDate(post.date);
+          const url = post.link || "#";
+
+          li.innerHTML = `
+            <a href="${url}" target="_blank" rel="noopener">
+              <div class="hero-news-meta">
+                <span class="hero-news-tag">Ultim'ora</span>
+                <span class="hero-news-date">${date}</span>
+              </div>
+              <div class="hero-news-title-item">${title}</div>
+              <div class="hero-news-excerpt">${excerpt}</div>
+            </a>
+          `;
+
+          listEl.appendChild(li);
+        });
+      })
+      .catch(function() {
+        listEl.innerHTML = '<li class="hero-news-empty">Impossibile caricare le notizie in questo momento.</li>';
+      });
+  })();
+  </script>
+
 </body>
 </html>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '157118e0424a1e572a4c1a698d1d593d',
-		'format' : 'iframe',
-		'height' : 300,
-		'width' : 160,
-		'params' : {}
-	};
-<script type="text/javascript">
-	atOptions = {
-		'key' : 'daa4ab0894f3f538427372d56c5e2c9a',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-  
-	};
