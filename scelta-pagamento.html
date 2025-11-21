@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Ordine libri – Grandangolo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --bg: #050509;
+      --accent: #00a651;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+      --card: #0b0b12;
+      --border-soft: rgba(255,255,255,0.08);
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #141428 0, #050509 55%);
+      color: var(--text);
+    }
+    a { text-decoration: none; color: inherit; }
+
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5,5,9,.95), rgba(5,5,9,.85));
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 6px 18px;
+      display: flex; justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+    }
+    nav a.nav-current {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border-soft);
+      color: #fff;
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 18px 40px;
+    }
+
+    .order-card {
+      background: radial-gradient(circle at top, #19192b 0, #050509 65%);
+      border-radius: 18px;
+      padding: 22px 20px 20px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.7);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    input, select, textarea {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(3,3,8,0.96);
+      color: var(--text);
+      font-size: 14px;
+    }
+    label { font-size: 12px; color: var(--muted); }
+    .btn-submit, .btn-stripe {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 4px;
+      box-shadow: 0 8px 20px rgba(0,166,81,.45);
+    }
+    .btn-submit:hover, .btn-stripe:hover {
+      filter: brightness(1.1);
+    }
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid var(--border-soft);
+      padding: 16px 18px;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="https://www.grandangoloagrigento.it/" class="brand">
+      <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/refs/heads/main/logo-grandangolo.png.png"
+           alt="Grandangolo" style="height:70px;">
+    </a>
+    <nav>
+      <a href="/libri.html">LIBRI</a>
+      <a href="#" class="nav-current">ORDINE</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <h1 style="font-size:28px; margin-bottom:4px;">Dati per la spedizione</h1>
+  <p style="font-size:14px; color:var(--muted); margin-bottom:18px;">
+    Compila e invia il modulo. Poi clicca su <b>Paga ora</b> per completare il tuo ordine.
+  </p>
+
+  <section class="order-card">
+
+    <form action="https://formspree.io/f/myzvzgab" method="POST">
+
+      <label>Libro scelto *</label>
+      <select id="selectLibro" name="Libro" required>
+        <option value="">Seleziona un libro</option>
+        <option value="libro1">MAFIARE</option>
+        <option value="libro2">LA MAFIA E LA STIDDA</option>
+        <option value="libro3">DA FALSONE A MESSINA</option>
+      </select>
+
+      <label>Nome e cognome *</label>
+      <input type="text" name="Nome" required>
+
+      <label>Email *</label>
+      <input type="email" name="Email" required>
+
+      <label>Telefono *</label>
+      <input type="text" name="Telefono" required>
+
+      <label>Indirizzo *</label>
+      <input type="text" name="Indirizzo" required>
+
+      <label>CAP – Città – Provincia *</label>
+      <input type="text" name="CAP" required placeholder="CAP">
+      <input type="text" name="Città" required placeholder="Città">
+      <input type="text" name="Provincia" required placeholder="Provincia">
+
+      <label>Note (opzionale)</label>
+      <textarea name="Note"></textarea>
+
+      <button type="submit" class="btn-submit">Invia dati di spedizione</button>
+    </form>
+
+    <!-- 🔥 BOTTONE DI PAGAMENTO DINAMICO -->
+    <a id="btnStripe" href="#" class="btn-stripe" target="_blank" rel="noopener">
+      Paga ora
+    </a>
+
+    <p style="font-size:11px; color:var(--muted); margin-top:8px;">
+      Dopo il pagamento riceverai la conferma automaticamente.
+    </p>
+
+  </section>
+</main>
+
+<footer>
+  Libreria di Grandangolo – Tutti i diritti riservati.
+</footer>
+
+<script>
+/* LINK STRIPE PER OGNI LIBRO */
+const linksStripe = {
+  libro1: "https://buy.stripe.com/STRIPE_LIBRO_1",
+  libro2: "https://buy.stripe.com/STRIPE_LIBRO_2",
+  libro3: "https://buy.stripe.com/STRIPE_LIBRO_3"
+};
+
+/* CAMBIO DEL LINK DEL PULSANTE STRIPE */
+document.getElementById("selectLibro").addEventListener("change", function() {
+  const libro = this.value;
+  const btn = document.getElementById("btnStripe");
+
+  if (linksStripe[libro]) {
+    btn.href = linksStripe[libro];
+    btn.style.pointerEvents = "auto";
+    btn.style.opacity = "1";
+  } else {
+    btn.href = "#";
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = ".4";
+  }
+});
+
+/* disabilito il bottone finché non si sceglie un libro */
+document.getElementById("btnStripe").style.pointerEvents = "none";
+document.getElementById("btnStripe").style.opacity = ".4";
+</script>
+
+</body>
+</html>
