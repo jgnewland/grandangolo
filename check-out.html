@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagamento completato – Grandangolo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --bg: #050509;
+      --accent: #00a651;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+      --card: #0b0b12;
+      --border-soft: rgba(255,255,255,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #141428 0, #050509 55%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5,5,9,0.95), rgba(5,5,9,0.85));
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .brand img {
+      height: 80px;
+      width: auto;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background .2s ease, color .2s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+
+    .nav-current {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border: 1px solid var(--border-soft);
+    }
+
+    /* LAYOUT BASE */
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 18px 40px;
+    }
+
+    /* CARD SUCCESSO */
+
+    .success-card {
+      background: radial-gradient(circle at top, #19192b 0, #050509 65%);
+      border-radius: 20px;
+      padding: 24px 20px 20px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.75);
+      text-align: center;
+    }
+
+    .success-icon-wrap {
+      width: 72px;
+      height: 72px;
+      border-radius: 999px;
+      margin: 0 auto 14px;
+      border: 2px solid rgba(0,166,81,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, rgba(0,166,81,0.35), rgba(0,0,0,0.9));
+      box-shadow: 0 0 0 4px rgba(0,166,81,0.18);
+    }
+
+    .success-icon {
+      font-size: 34px;
+      color: #8fffc1;
+    }
+
+    .success-title {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .success-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .success-text {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .success-text strong {
+      color: #fff;
+    }
+
+    .success-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0,166,81,0.45);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      border-color: var(--border-soft);
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .success-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 12px 18px 18px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      background: radial-gradient(circle at bottom, #151525 0, #050509 55%);
+      margin-top: 32px;
+    }
+
+    @media (max-width: 600px) {
+      .brand img {
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-inner">
+      <a href="https://www.grandangoloagrigento.it/" class="brand" target="_blank" rel="noopener">
+        <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/refs/heads/main/logo-grandangolo.png.png"
+             alt="Grandangolo">
+      </a>
+      <nav>
+        <a href="/libri.html">LIBRI</a>
+        <a href="#" class="nav-current">PAGAMENTO</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="success-card">
+      <div class="success-icon-wrap">
+        <div class="success-icon">✓</div>
+      </div>
+
+      <h1 class="success-title">Pagamento completato.</h1>
+      <div class="success-subtitle">
+        Grazie per aver acquistato un libro della libreria di Grandangolo.
+      </div>
+
+      <div class="success-text">
+        Abbiamo ricevuto il tuo pagamento in modo corretto.<br>
+        <strong>Riceverai a breve una email di conferma</strong> all’indirizzo utilizzato in fase di acquisto.
+        Se hai già inviato il modulo con i dati di spedizione, non devi fare altro:
+        la redazione si occuperà del resto.
+      </div>
+
+      <div class="success-actions">
+        <a href="/libri.html" class="btn-primary">
+          Torna alla libreria
+        </a>
+        <a href="/ordine.html" class="btn-ghost">
+          Compila o aggiorna i dati di spedizione
+        </a>
+      </div>
+
+      <div class="success-note">
+        Se qualcosa non ti torna o non ricevi conferme entro breve,
+        puoi scrivere a <strong>redazione@grandangoloagrigento.it</strong>.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Libreria di Grandangolo – Pagamento completato. Tutti i diritti riservati.
+  </footer>
+
+</body>
+</html>
