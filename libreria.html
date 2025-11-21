@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Libreria – Grandangolo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --bg: #050509;
+      --bg-alt: #101018;
+      --accent: #00a651;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+      --card: #0b0b12;
+      --border-soft: rgba(255,255,255,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #141428 0, #050509 55%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5,5,9,0.95), rgba(5,5,9,0.85));
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .brand img {
+      height: 80px;
+      width: auto;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background .2s ease, color .2s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+
+    .nav-current {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border: 1px solid var(--border-soft);
+    }
+
+    /* LAYOUT BASE */
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px 18px 40px;
+    }
+
+    /* HERO LIBRERIA */
+
+    .hero-shop {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: 32px;
+      align-items: center;
+      margin-top: 10px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-shop {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-shop-title {
+      font-size: clamp(26px, 4vw, 34px);
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .hero-highlight {
+      color: var(--accent);
+    }
+
+    .hero-shop-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 16px;
+    }
+
+    .hero-shop-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .hero-pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .hero-shop-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-shop-card {
+      background: radial-gradient(circle at top, #19192b 0, #050509 60%);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.65);
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-shop-card-header {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .hero-shop-card-tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,166,81,0.7);
+      color: #8fffc1;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .hero-shop-card-text {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .hero-shop-card-foot {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-shop-card-foot strong {
+      color: #fff;
+    }
+
+    /* SEZIONE LIBRI */
+
+    .section-shop {
+      margin-top: 10px;
+    }
+
+    .section-shop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-shop-header h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .section-shop-header p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+    }
+
+    .book-card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.7);
+      border-color: rgba(255,255,255,0.20);
+    }
+
+    .book-cover-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 140%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .book-cover-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s ease;
+    }
+
+    .book-card:hover .book-cover-wrap img {
+      transform: scale(1.03);
+    }
+
+    .book-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+    }
+
+    .book-badge.green {
+      background: rgba(0,166,81,0.85);
+      border-color: rgba(0,0,0,0.4);
+    }
+
+    .book-content {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .book-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .book-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .book-meta {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .book-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .book-footer {
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .book-price {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .book-price .old {
+      font-size: 11px;
+      text-decoration: line-through;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .book-format {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .btn-buy {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(0,166,81,0.5);
+      transition: filter .2s ease, transform .12s ease, box-shadow .2s ease;
+    }
+
+    .btn-buy:hover {
+      filter: brightness(1.07);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(0,166,81,0.65);
+    }
+
+    .btn-buy .icon {
+      font-size: 13px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 12px 18px 18px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      background: radial-gradient(circle at bottom, #151525 0, #050509 55%);
+      margin-top: 32px;
+    }
+
+    @media (max-width: 600px) {
+      .brand img {
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-inner">
+      <a href="https://www.grandangoloagrigento.it/" class="brand" target="_blank" rel="noopener">
+        <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/refs/heads/main/logo-grandangolo.png.png"
+             alt="Grandangolo">
+      </a>
+      <nav>
+        <a href="https://grandangolosettimanale.it">EDICOLA</a>
+        <a href="/podcast.html">PODCAST</a>
+        <a href="#" class="nav-current">LIBRI</a>
+        <a href="https://www.grandangoloagrigento.it/">SITO PRINCIPALE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero-shop">
+      <div>
+        <h1 class="hero-shop-title">
+          La <span class="hero-highlight">libreria</span> di Grandangolo.
+        </h1>
+        <p class="hero-shop-subtitle">
+          Libri inchiesta, racconti e approfondimenti sul territorio. Una selezione di titoli
+          firmati dall’autore, acquistabili online con pagamento sicuro.
+        </p>
+
+        <div class="hero-shop-badge-row">
+          <div class="hero-pill">Pagamento sicuro</div>
+          <div class="hero-pill">Ricevuta immediata via email</div>
+          <div class="hero-pill">Supporto dell'editore</div>
+        </div>
+
+        <div class="hero-shop-meta">
+          Scegli un libro, clicca su <strong>“COMPRA ORA”</strong> e completa il pagamento
+          nella pagina sicura. Nessuna registrazione obbligatoria.
+        </div>
+      </div>
+
+      <aside class="hero-shop-card">
+        <div class="hero-shop-card-header">
+          <span>Come funziona l’acquisto</span>
+          <span class="hero-shop-card-tag">Guida rapida</span>
+        </div>
+        <div class="hero-shop-card-text">
+          1. Seleziona un titolo e clicca su “Compra ora”.<br>
+          2. Verrai reindirizzato in una pagina di pagamento protetta.<br>
+          3. Inserisci i dati richiesti e conferma il pagamento.<br>
+          4. Riceverai la conferma d’ordine (e, se previsto, il file digitale) via email.
+        </div>
+        <div class="hero-shop-card-foot">
+          <strong>Hai dubbi o problemi?</strong><br>
+          Contatta la redazione di Grandangolo per assistenza sugli ordini libri a
+          <strong>redazione@grandangoloagrigento.it</strong>.
+        </div>
+      </aside>
+    </section>
+
+    <!-- LIBRI -->
+    <section class="section-shop">
+      <div class="section-shop-header">
+        <h2>La libreria</h2>
+        <p>Sfoglia il catalogo e acquista.</p>
+      </div>
+
+      <div class="books-grid">
+        <!-- LIBRO 1 -->
+        <article class="book-card">
+          <div class="book-cover-wrap">
+            <img
+              src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/COPERTINA-MAFIARE-1.png"
+              alt="Titolo libro 1">
+            <div class="book-badge green">ULTIMA USCITA</div>
+          </div>
+          <div class="book-content">
+            <div class="book-title">Titolo del libro 1</div>
+            <div class="book-subtitle">246 pagine</div>
+            <div class="book-meta">
+              <span>📖 STORIA DELLA MAFIA</span>
+            </div>
+            <div class="book-desc">
+              Breve descrizione del libro 1: di cosa parla, perché è importante,
+              a chi è rivolto. Mantieni 2–3 frasi per non appesantire la scheda.
+            </div>
+            <div class="book-footer">
+              <div>
+                <div class="book-price">€ 18,00</div>
+                <div class="book-format">Formato: cartaceo</div>
+              </div>
+              <a
+                href="https://buy.stripe.com/TEST_LINK_LIBRO1"
+                class="btn-buy"
+                target="_blank"
+                rel="noopener">
+                <span class="icon"></span>
+                <span>COMPRA ORA</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- LIBRO 2 -->
+        <article class="book-card">
+          <div class="book-cover-wrap">
+            <img
+              src="https://m.media-amazon.com/images/I/81CV+6c7ADL._SL1328_.jpg"
+              alt="Titolo libro 2">
+            <div class="book-badge">BEST SELLER</div>
+          </div>
+          <div class="book-content">
+            <div class="book-title">Titolo del libro 2</div>
+            <div class="book-subtitle">246 pagine</div>
+            <div class="book-meta">
+              <span>📖 STORIA DELLA MAFIA</span>
+            </div>
+            <div class="book-desc">
+              Una sinossi sintetica che invogli alla lettura. Puoi usare una
+              frase di quarta di copertina o un breve estratto della presentazione.
+            </div>
+            <div class="book-footer">
+              <div>
+                <div class="book-price">
+                  <span class="old">€ 18,00</span>
+                  € 14,00
+                </div>
+                <div class="book-format">Formato: cartaceo</div>
+              </div>
+              <a
+                href="https://buy.stripe.com/TEST_LINK_LIBRO2"
+                class="btn-buy"
+                target="_blank"
+                rel="noopener">
+                <span class="icon"></span>
+                <span>COMPRA ORA</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- LIBRO 3 -->
+        <article class="book-card">
+          <div class="book-cover-wrap">
+            <img
+              src="https://www.unilibro.it/cover/libro/9788890523502B.jpg"
+              alt="Titolo libro 3">
+            <div class="book-badge">BEST SELLER</div>
+          </div>
+          <div class="book-content">
+            <div class="book-title">Titolo del libro 3</div>
+            <div class="book-subtitle">246 pagine</div>
+            <div class="book-meta">
+              <span>📖 STORIA DELLA MAFIA</span>
+            </div>
+            <div class="book-desc">
+              Descrizione dedicata alle edizioni cartacee o digitali: specifica formato,
+              modalità di consegna e a chi è consigliato.
+            </div>
+            <div class="book-footer">
+              <div>
+                <div class="book-price">€ 10,00</div>
+                <div class="book-format">Formato: cartaceo</div>
+              </div>
+              <a
+                href="https://buy.stripe.com/TEST_LINK_LIBRO3"
+                class="btn-buy"
+                target="_blank"
+                rel="noopener">
+                <span class="icon"></span>
+                <span>COMPRA ORA</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Duplica altre card per altri libri -->
+      </div>
+    </section>
+  </main>
+
+  <!-- OVERLAY PREVIEW COPERTINA -->
+  <div id="book-preview-overlay" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.9);z-index:9999;padding:20px;">
+    <div style="max-width:900px;width:100%;max-height:100%;display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+        <div class="preview-title" style="font-size:15px;font-weight:600;">Titolo libro</div>
+        <button type="button" id="book-preview-close" style="border:none;background:transparent;color:#fff;font-size:26px;cursor:pointer;line-height:1;">×</button>
+      </div>
+      <div style="position:relative;max-height:90vh;overflow:auto;background:#000;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.7);">
+        <img id="book-preview-img" src="" alt="" style="display:block;width:100%;height:auto;">
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Libreria di Grandangolo – Vendita libri dell’autore. Tutti i diritti riservati.
+  </footer>
+
+  <!-- SCRIPT PREVIEW COPERTINA -->
+  <script>
+  (function() {
+    const overlay = document.getElementById("book-preview-overlay");
+    const overlayImg = document.getElementById("book-preview-img");
+    const overlayTitle = overlay.querySelector(".preview-title");
+    const closeBtn = document.getElementById("book-preview-close");
+
+    if (!overlay || !overlayImg || !overlayTitle || !closeBtn) return;
+
+    document.querySelectorAll(".book-card").forEach(function(card) {
+      const coverImg = card.querySelector(".book-cover-wrap img");
+      const titleEl = card.querySelector(".book-title");
+      if (!coverImg || !titleEl) return;
+
+      coverImg.style.cursor = "zoom-in";
+
+      coverImg.addEventListener("click", function() {
+        overlayImg.src = coverImg.src;
+        overlayImg.alt = titleEl.textContent || "";
+        overlayTitle.textContent = titleEl.textContent || "";
+        overlay.style.display = "flex";
+      });
+    });
+
+    function closeOverlay() {
+      overlay.style.display = "none";
+      overlayImg.src = "";
+    }
+
+    closeBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      closeOverlay();
+    });
+
+    overlay.addEventListener("click", function(e) {
+      if (e.target === overlay) {
+        closeOverlay();
+      }
+    });
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && overlay.style.display === "flex") {
+        closeOverlay();
+      }
+    });
+  })();
+  </script>
+
+</body>
+</html>
