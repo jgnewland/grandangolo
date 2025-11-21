@@ -663,6 +663,28 @@
   <script>
   (function() {
     const issues = [
+        {
+        id: "ga40",
+        title: "Grandangolo Settimanale N. 43",
+        subtitle: "22 novembre 2025",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+        buyUrl: "https://buy.stripe.com/8x26oJ2S4h2V1OR5kQ9MY00",
+        unlockCode: "GR21-JaZ5yYd3ZB",
+        isLatest: true,
+        pages: [
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/GRANDANGOLO-SETTIMANALE-42-DEL-15-NOVEMBRE-2025.jpg"
+        ]
+      },
       {
         id: "ga40",
         title: "Grandangolo Settimanale N. 42",
@@ -746,25 +768,28 @@
     const edicolaRoot = document.getElementById("edicola-grandangolo");
     if (!edicolaRoot || !issues.length) return;
 
-    issues.forEach(issue => {
-      const card = document.createElement("article");
-      card.className = "edicola-card";
-      card.setAttribute("data-issue-id", issue.id);
+    issues.forEach((issue, index) => {
+  const card = document.createElement("article");
+  card.className = "edicola-card";
+  card.setAttribute("data-issue-id", issue.id);
 
-      card.innerHTML = `
-        <div class="edicola-cover-wrap">
-          <img src="${issue.cover}" alt="${issue.title}">
-          ${issue.isLatest ? '<div class="issue-label-latest">ULTIMA USCITA · €1,50</div>' : ''}
-        </div>
-        <div class="edicola-label">
-          <div class="edicola-label-title">${issue.title}</div>
-          <div class="edicola-label-sub">${issue.subtitle || ""}</div>
-          <div class="edicola-label-meta">
-            <span>Prime pagine gratis</span>
-            <span>Codice per sbloccare</span>
-          </div>
-        </div>
-      `;
+  // il primo elemento dell'array è SEMPRE l'ultima uscita
+  const isLatest = index === 0;
+
+  card.innerHTML = `
+    <div class="edicola-cover-wrap">
+      <img src="${issue.cover}" alt="${issue.title}">
+      ${isLatest ? '<div class="issue-label-latest">ULTIMA USCITA · €1,50</div>' : ''}
+    </div>
+    <div class="edicola-label">
+      <div class="edicola-label-title">${issue.title}</div>
+      <div class="edicola-label-sub">${issue.subtitle || ""}</div>
+      <div class="edicola-label-meta">
+        <span>Prime pagine gratis</span>
+        <span>Codice per sbloccare</span>
+      </div>
+    </div>
+  `;
 
       card.addEventListener("click", function() {
         openFlipbook(issue, 0);
