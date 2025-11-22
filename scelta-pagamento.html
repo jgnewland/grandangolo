@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YMXRKS286V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-YMXRKS286V');
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9807260775949508"
-     crossorigin="anonymous"></script>
-</script>
-  <style>
   <meta charset="UTF-8">
   <title>Ordine libri – Grandangolo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YMXRKS286V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YMXRKS286V');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9807260775949508"
+          crossorigin="anonymous"></script>
 
   <style>
     :root {
@@ -26,42 +28,75 @@
       --card: #0b0b12;
       --border-soft: rgba(255,255,255,0.08);
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: system-ui, sans-serif;
       background: radial-gradient(circle at top, #141428 0, #050509 55%);
       color: var(--text);
     }
-    a { text-decoration: none; color: inherit; }
 
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
     header {
-      position: sticky; top: 0; z-index: 50;
+      position: sticky;
+      top: 0;
+      z-index: 50;
       backdrop-filter: blur(16px);
       background: linear-gradient(to bottom, rgba(5,5,9,.95), rgba(5,5,9,.85));
       border-bottom: 1px solid var(--border-soft);
     }
+
     .nav-inner {
-      max-width: 1100px; margin: 0 auto;
+      max-width: 1100px;
+      margin: 0 auto;
       padding: 6px 18px;
-      display: flex; justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
+      gap: 16px;
     }
+
+    .brand img {
+      height: 70px;
+      width: auto;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+    }
+
     nav a {
       padding: 6px 12px;
       border-radius: 999px;
       color: var(--muted);
     }
+
     nav a.nav-current {
       background: rgba(255,255,255,0.08);
       border: 1px solid var(--border-soft);
       color: #fff;
     }
+
+    /* LAYOUT */
     main {
       max-width: 800px;
       margin: 0 auto;
       padding: 32px 18px 40px;
     }
 
+    /* CARD ORDINE */
     .order-card {
       background: radial-gradient(circle at top, #19192b 0, #050509 65%);
       border-radius: 18px;
@@ -69,22 +104,38 @@
       border: 1px solid var(--border-soft);
       box-shadow: 0 10px 28px rgba(0,0,0,0.7);
     }
+
     form {
       display: flex;
       flex-direction: column;
       gap: 12px;
       margin-bottom: 20px;
     }
-    input, select, textarea {
+
+    label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    input,
+    select,
+    textarea {
       padding: 8px 10px;
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.15);
       background: rgba(3,3,8,0.96);
       color: var(--text);
       font-size: 14px;
+      width: 100%;
     }
-    label { font-size: 12px; color: var(--muted); }
-    .btn-submit, .btn-stripe {
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .btn-submit,
+    .btn-stripe {
       padding: 10px 18px;
       border-radius: 999px;
       border: 1px solid var(--accent);
@@ -96,10 +147,14 @@
       display: inline-block;
       margin-top: 4px;
       box-shadow: 0 8px 20px rgba(0,166,81,.45);
+      text-align: center;
     }
-    .btn-submit:hover, .btn-stripe:hover {
+
+    .btn-submit:hover,
+    .btn-stripe:hover {
       filter: brightness(1.1);
     }
+
     footer {
       text-align: center;
       font-size: 11px;
@@ -107,6 +162,7 @@
       border-top: 1px solid var(--border-soft);
       padding: 16px 18px;
       margin-top: 32px;
+      background: radial-gradient(circle at bottom, #151525 0, #050509 55%);
     }
   </style>
 </head>
@@ -116,10 +172,11 @@
   <div class="nav-inner">
     <a href="https://www.grandangoloagrigento.it/" class="brand">
       <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/refs/heads/main/logo-grandangolo.png.png"
-           alt="Grandangolo" style="height:70px;">
+           alt="Grandangolo">
     </a>
     <nav>
-      
+      <!-- se vuoi il link di ritorno -->
+      <a href="/libreria" class="nav-current">LIBRERIA</a>
     </nav>
   </div>
 </header>
@@ -134,8 +191,7 @@
   <section class="order-card">
 
     <form action="https://formspree.io/f/myzvzgab" method="POST">
-
-      <label>Libro scelto *</label>
+      <label for="selectLibro">Libro scelto *</label>
       <select id="selectLibro" name="Libro" required>
         <option value="">Seleziona un libro</option>
         <option value="libro1">MAFIARE</option>
@@ -166,7 +222,7 @@
       <button type="submit" class="btn-submit">Invia dati di spedizione</button>
     </form>
 
-    <!-- 🔥 BOTTONE DI PAGAMENTO DINAMICO -->
+    <!-- BOTTONE DI PAGAMENTO DINAMICO -->
     <a id="btnStripe" href="#" class="btn-stripe" target="_blank" rel="noopener">
       Paga ora
     </a>
@@ -183,32 +239,34 @@
 </footer>
 
 <script>
-/* LINK STRIPE PER OGNI LIBRO */
-const linksStripe = {
-  libro1: "https://buy.stripe.com/6oU00l64g8wpfFH14A9MY01",
-  libro2: "https://buy.stripe.com/6oU00l64g8wpfFH14A9MY01",
-  libro3: "https://buy.stripe.com/6oU00l64g8wpfFH14A9MY01"
-};
+  /* LINK STRIPE PER OGNI LIBRO */
+  const linksStripe = {
+    libro1: "https://buy.stripe.com/6oU00l64g8wpfFH14A9MY01",
+    libro2: "https://buy.stripe.com/6oU00l64g8wpfFH14A9MY01",
+    libro3: "https://buy.stripe.com/6oU00l64g8wpfFH14A9MY01"
+  };
 
-/* CAMBIO DEL LINK DEL PULSANTE STRIPE */
-document.getElementById("selectLibro").addEventListener("change", function() {
-  const libro = this.value;
-  const btn = document.getElementById("btnStripe");
+  /* CAMBIO DEL LINK DEL PULSANTE STRIPE */
+  const selectLibro = document.getElementById("selectLibro");
+  const btnStripe = document.getElementById("btnStripe");
 
-  if (linksStripe[libro]) {
-    btn.href = linksStripe[libro];
-    btn.style.pointerEvents = "auto";
-    btn.style.opacity = "1";
-  } else {
-    btn.href = "#";
-    btn.style.pointerEvents = "none";
-    btn.style.opacity = ".4";
-  }
-});
+  selectLibro.addEventListener("change", function () {
+    const libro = this.value;
 
-/* disabilito il bottone finché non si sceglie un libro */
-document.getElementById("btnStripe").style.pointerEvents = "none";
-document.getElementById("btnStripe").style.opacity = ".4";
+    if (linksStripe[libro]) {
+      btnStripe.href = linksStripe[libro];
+      btnStripe.style.pointerEvents = "auto";
+      btnStripe.style.opacity = "1";
+    } else {
+      btnStripe.href = "#";
+      btnStripe.style.pointerEvents = "none";
+      btnStripe.style.opacity = ".4";
+    }
+  });
+
+  // disabilito il bottone finché non si sceglie un libro
+  btnStripe.style.pointerEvents = "none";
+  btnStripe.style.opacity = ".4";
 </script>
 
 </body>
