@@ -32,6 +32,7 @@
     button { border: none; background: none; color: inherit; cursor: pointer; font: inherit; }
 
     .page { min-height: 100vh; display: flex; flex-direction: column; }
+
     header {
       position: sticky; top: 0; z-index: 20;
       backdrop-filter: blur(12px);
@@ -62,14 +63,7 @@
       display:flex;flex-direction:column;gap:1.5rem;
     }
 
-    .layout-desktop{display:block;}
-    .layout-mobile{display:none;}
-    @media(max-width:768px){
-      .layout-desktop{display:none;}
-      .layout-mobile{display:block;}
-      main{padding:0;max-width:100%;}
-    }
-
+    /* PARTE ALTA: HERO + SIDEBAR YOUTUBE */
     .hero{
       display:grid;grid-template-columns:2fr 1.1fr;gap:1.5rem;align-items:stretch;
     }
@@ -92,7 +86,7 @@
       box-shadow:0 0 14px rgba(239,68,68,.9);
     }
     .hero-video{flex:1;width:100%;height:100%;position:relative;background:#000;}
-    .hero-video iframe,.hero-video video{
+    .hero-video iframe{
       position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover;background:#000;
     }
     .hero-info{
@@ -166,6 +160,7 @@
       box-shadow:0 0 0 1px rgba(250,204,21,.4),var(--shadow-card);opacity:1;
     }
 
+    /* FLASH STORIES CAROUSEL (REEL = VIDEO YOUTUBE VERTICALI) */
     .carousel-section{margin-top:.5rem;display:flex;flex-direction:column;gap:.9rem;}
     .carousel-header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
     .carousel-title{font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;color:var(--primary-soft);}
@@ -195,7 +190,7 @@
       background:rgba(148,163,184,.7);border-radius:999px;
     }
     .video-card{
-      min-width:220px;max-width:240px;scroll-snap-align:start;border-radius:18px;overflow:hidden;
+      min-width:200px;max-width:230px;scroll-snap-align:start;border-radius:18px;overflow:hidden;
       background:radial-gradient(circle at top left,rgba(250,204,21,.08),rgba(15,23,42,.98));
       border:1px solid var(--border-subtle);cursor:pointer;display:flex;flex-direction:column;
       transition:transform .18s,box-shadow .18s,border-color .18s,background .18s,opacity .18s;opacity:.86;
@@ -205,7 +200,13 @@
       border-color:rgba(250,204,21,.6);
       background:radial-gradient(circle at top left,rgba(250,204,21,.14),rgba(15,23,42,1));opacity:1;
     }
-    .video-card-thumb{position:relative;aspect-ratio:16/9;background:#020617;}
+    .video-card-thumb{
+      position:relative;
+      width:100%;
+      aspect-ratio:9/16; /* forma verticale stile reel */
+      background:#020617;
+      overflow:hidden;
+    }
     .video-card-thumb img{width:100%;height:100%;object-fit:cover;}
     .video-card-overlay{
       position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),transparent 40%);
@@ -231,8 +232,11 @@
       background:rgba(15,23,42,.95);border:1px solid rgba(148,163,184,.6);
     }
     .video-card[data-active="true"]{
-      border-color:var(--primary);box-shadow:0 0 0 1px rgba(250,204,21,.4),var(--shadow-card);opacity:1;
+      border-color:var(--primary);
+      box-shadow:0 0 0 1px rgba(250,204,21,.4),var(--shadow-card);opacity:1;
+      transform:translateY(-2px);
     }
+
     .carousel-arrows{
       position:absolute;top:50%;right:.3rem;transform:translateY(-50%);
       display:flex;flex-direction:column;gap:.35rem;
@@ -249,52 +253,15 @@
     }
     @media(max-width:600px){.carousel-arrows{display:none;}}
 
+    @media(max-width:768px){
+      main{padding:1rem .75rem 2.5rem;}
+    }
+
     footer{
       padding:1rem;border-top:1px solid var(--border-subtle);font-size:.7rem;
       color:var(--text-soft);text-align:center;
       background:radial-gradient(circle at top,rgba(15,23,42,.9),transparent);
     }
-
-    .mobile-feed{
-      height:calc(100vh - 56px);overflow-y:scroll;scroll-snap-type:y mandatory;
-      scroll-padding-top:0;background:#000;
-    }
-    .mobile-card{
-      position:relative;height:100vh;padding-top:56px;padding-bottom:70px;
-      scroll-snap-align:start;display:flex;flex-direction:column;
-      justify-content:center;align-items:center;background:#000;
-    }
-    .mobile-card-inner{
-      width:100%;max-width:520px;height:100%;position:relative;
-      display:flex;justify-content:center;align-items:center;margin:0 auto;
-    }
-    .mobile-card-inner iframe,.mobile-card-inner video{
-      width:100%;height:100%;border:0;object-fit:cover;background:#000;
-    }
-    .mobile-overlay-top,.mobile-overlay-bottom{
-      position:absolute;left:1rem;right:1rem;color:#fff;
-      text-shadow:0 2px 8px rgba(0,0,0,.9);pointer-events:none;
-    }
-    .mobile-overlay-top{
-      top:1.5rem;display:flex;justify-content:space-between;font-size:.75rem;opacity:.9;
-    }
-    .mobile-overlay-top span:first-child{
-      text-transform:uppercase;letter-spacing:.14em;color:var(--primary-soft);
-    }
-    .mobile-overlay-bottom{
-      bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;
-    }
-    .mobile-text-block{max-width:78%;}
-    .mobile-category{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;opacity:.95;}
-    .mobile-title{margin-top:.25rem;font-size:1.05rem;font-weight:600;}
-    .mobile-meta{margin-top:.3rem;font-size:.75rem;opacity:.85;}
-    .mobile-actions{display:flex;flex-direction:column;align-items:center;gap:.6rem;font-size:.9rem;}
-    .mobile-action-btn{
-      width:42px;height:42px;border-radius:999px;border:1px solid rgba(249,250,251,.8);
-      display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.5);
-      pointer-events:auto;
-    }
-    .mobile-feed::-webkit-scrollbar{width:0;height:0;}
   </style>
 </head>
 <body>
@@ -311,80 +278,75 @@
   </header>
 
   <main>
-    <div class="layout-desktop">
-      <section class="hero">
-        <div class="hero-video-wrapper">
-          <div class="hero-badge">
-            <span class="live-dot"></span><span>Flash Feed</span>
-          </div>
-          <div id="heroPlayer" class="hero-video"></div>
-          <div class="hero-info">
-            <div class="hero-text">
-              <div id="heroCategory" class="hero-category">News • Flash</div>
-              <h1 id="heroTitle" class="hero-title">Titolo del video selezionato</h1>
-              <div class="hero-meta">
-                <span id="heroDuration">0:00</span>
-                <span id="heroViews">– visualizzazioni</span>
-                <span id="heroTime">– minuti fa</span>
-              </div>
+    <!-- PARTE ALTA: YOUTUBE -->
+    <section class="hero">
+      <div class="hero-video-wrapper">
+        <div class="hero-badge">
+          <span class="live-dot"></span><span>Flash Feed</span>
+        </div>
+        <div id="heroPlayer" class="hero-video"></div>
+        <div class="hero-info">
+          <div class="hero-text">
+            <div id="heroCategory" class="hero-category">News • Flash</div>
+            <h1 id="heroTitle" class="hero-title">Titolo del video selezionato</h1>
+            <div class="hero-meta">
+              <span id="heroDuration">0:00</span>
+              <span id="heroViews">– visualizzazioni</span>
+              <span id="heroTime">– minuti fa</span>
             </div>
-            <div class="hero-cta">
-              <div class="hero-cta-chip">
-                <span>Fonte</span><span id="heroPlatform">YouTube</span>
-              </div>
-              <div class="hero-cta-buttons">
-                <button class="hero-btn" id="btnOpenOriginal">
-                  <span>↗</span><span>Apri su piattaforma</span>
-                </button>
-              </div>
+          </div>
+          <div class="hero-cta">
+            <div class="hero-cta-chip">
+              <span>Fonte</span><span id="heroPlatform">YouTube</span>
+            </div>
+            <div class="hero-cta-buttons">
+              <button class="hero-btn" id="btnOpenOriginal">
+                <span>↗</span><span>Apri su piattaforma</span>
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
-        <aside class="sidebar">
-          <div class="sidebar-header">
-            <div>
-              <div class="sidebar-title">Trending</div>
-              <div class="sidebar-subtitle">I clip più visti ora</div>
-            </div>
-          </div>
-          <div id="sidebarList" class="sidebar-list"></div>
-        </aside>
-      </section>
-
-      <section class="carousel-section">
-        <div class="carousel-header">
-          <h2 class="carousel-title">Flash Stories</h2>
-          <div class="carousel-filters">
-            <button class="filter-pill active" data-filter="all">Tutto</button>
-            <button class="filter-pill" data-filter="news">News</button>
-            <button class="filter-pill" data-filter="sport">Sport</button>
-            <button class="filter-pill" data-filter="culture">Culture</button>
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div>
+            <div class="sidebar-title">Trending</div>
+            <div class="sidebar-subtitle">I clip più visti ora</div>
           </div>
         </div>
-        <div class="carousel-wrapper">
-          <div id="videoCarousel" class="carousel"></div>
-          <div class="carousel-arrows">
-            <button class="carousel-arrow-btn" id="arrowPrev">↑</button>
-            <button class="carousel-arrow-btn" id="arrowNext">↓</button>
-          </div>
-        </div>
-      </section>
-    </div>
+        <div id="sidebarList" class="sidebar-list"></div>
+      </aside>
+    </section>
 
-    <div class="layout-mobile">
-      <section class="mobile-feed" id="mobileFeed"></section>
-    </div>
+    <!-- CAROSELLO REEL (VIDEO YOUTUBE VERTICALI NELLE SCHEDE) -->
+    <section class="carousel-section">
+      <div class="carousel-header">
+        <h2 class="carousel-title">Flash Stories</h2>
+        <div class="carousel-filters">
+          <button class="filter-pill active" data-filter="all">Tutto</button>
+          <button class="filter-pill" data-filter="news">News</button>
+          <button class="filter-pill" data-filter="culture">Culture</button>
+        </div>
+      </div>
+      <div class="carousel-wrapper">
+        <div id="videoCarousel" class="carousel"></div>
+        <div class="carousel-arrows">
+          <button class="carousel-arrow-btn" id="arrowPrev">←</button>
+          <button class="carousel-arrow-btn" id="arrowNext">→</button>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>© 2025 Flash Video • Template carosello video</footer>
 </div>
 
 <script>
-  // ------------- DATI VIDEO (embed pronti) -------------
-  const videos = [
+  // ------------ VIDEO PARTE ALTA (YOUTUBE) ------------
+  const topVideos = [
     {
-      id: "vid1",
+      id: "yt1",
       platform: "youtube",
       url: "https://www.youtube.com/watch?v=L28J5c4siWY&list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv",
       embed: "https://www.youtube-nocookie.com/embed/L28J5c4siWY?rel=0&autoplay=1&mute=1&playsinline=1",
@@ -398,57 +360,158 @@
       thumb: "https://img.youtube.com/vi/L28J5c4siWY/hqdefault.jpg"
     },
     {
-      id: "vid2",
-      platform: "instagram",
-      url: "https://www.instagram.com/reel/C_sample01/",
-      embed: "https://www.instagram.com/reel/C_sample01/embed/",
-      title: "Dietro le quinte in edicola",
-      category: "Culture",
-      categoryKey: "culture",
-      duration: "00:30",
-      views: "3.4K",
-      timeAgo: "20 min fa",
-      tag: "Reel",
-      thumb: "https://images.pexels.com/photos/1643457/pexels-photo-1643457.jpeg?auto=compress&cs=tinysrgb&w=800"
-    },
-    {
-      id: "vid3",
-      platform: "placeit",
-      url: "https://tuo-cdn.com/placeit/video-edicola-01.mp4",   // sostituisci con il tuo MP4
-      embed: "https://tuo-cdn.com/placeit/video-edicola-01.mp4", // uguale all'MP4
-      title: "Mockup video Placeit – Spot per l’edicola",
+      id: "yt2",
+      platform: "youtube",
+      url: "https://www.youtube.com/watch?v=N_UhCkOo7qQ&list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv&index=3",
+      embed: "https://www.youtube-nocookie.com/embed/N_UhCkOo7qQ?rel=0&autoplay=1&mute=1&playsinline=1",
+      title: "Letture dall'edicola – Episodio 2",
       category: "News",
       categoryKey: "news",
-      duration: "00:20",
+      duration: "06:22",
       views: "980",
-      timeAgo: "40 min fa",
-      tag: "Placeit",
-      thumb: "https://images.pexels.com/photos/374016/pexels-photo-374016.jpeg?auto=compress&cs=tinysrgb&w=800"
+      timeAgo: "15 min fa",
+      tag: "Playlist",
+      thumb: "https://img.youtube.com/vi/N_UhCkOo7qQ/hqdefault.jpg"
+    },
+    {
+      id: "yt3",
+      platform: "youtube",
+      url: "https://www.youtube.com/watch?v=ZOGRLiz707c&list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv&index=5",
+      embed: "https://www.youtube-nocookie.com/embed/ZOGRLiz707c?rel=0&autoplay=1&mute=1&playsinline=1",
+      title: "Letture dall'edicola – Episodio 3",
+      category: "News",
+      categoryKey: "news",
+      duration: "07:10",
+      views: "1.9K",
+      timeAgo: "35 min fa",
+      tag: "Playlist",
+      thumb: "https://img.youtube.com/vi/ZOGRLiz707c/hqdefault.jpg"
+    },
+    {
+      id: "yt4",
+      platform: "youtube",
+      url: "https://www.youtube.com/watch?v=ca6A-0okNs0&list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv&index=14",
+      embed: "https://www.youtube-nocookie.com/embed/ca6A-0okNs0?rel=0&autoplay=1&mute=1&playsinline=1",
+      title: "Letture dall'edicola – Episodio speciale",
+      category: "News",
+      categoryKey: "news",
+      duration: "04:45",
+      views: "3.1K",
+      timeAgo: "1 h fa",
+      tag: "Speciale",
+      thumb: "https://img.youtube.com/vi/ca6A-0okNs0/hqdefault.jpg"
     }
   ];
 
-  const heroPlayerEl   = document.getElementById("heroPlayer");
-  const heroTitleEl    = document.getElementById("heroTitle");
-  const heroCategoryEl = document.getElementById("heroCategory");
-  const heroDurationEl = document.getElementById("heroDuration");
-  const heroViewsEl    = document.getElementById("heroViews");
-  const heroTimeEl     = document.getElementById("heroTime");
-  const heroPlatformEl = document.getElementById("heroPlatform");
+  // ------------ FLASH STORIES (REEL OSPITATI SU YOUTUBE) ------------
+  // Per provare uso gli stessi ID dei video sopra.
+  // Quando carichi i reel su YouTube, cambia solo i campi ytId/embed/url/thumb.
+  const flashVideos = [
+    {
+      id: "r1",
+      platform: "youtube",
+      ytId: "L28J5c4siWY",
+      url: "https://www.youtube.com/watch?v=L28J5c4siWY",
+      embed: "https://www.youtube-nocookie.com/embed/L28J5c4siWY?rel=0&autoplay=1&mute=1&playsinline=1",
+      instaUrl: "https://www.instagram.com/reel/DMfit_vIzJP/",
+      title: "Reel 1 dall'edicola",
+      category: "Culture",
+      categoryKey: "culture",
+      duration: "00:30",
+      views: "1.2K",
+      timeAgo: "10 min fa",
+      tag: "Reel",
+      thumb: "https://img.youtube.com/vi/L28J5c4siWY/hqdefault.jpg"
+    },
+    {
+      id: "r2",
+      platform: "youtube",
+      ytId: "N_UhCkOo7qQ",
+      url: "https://www.youtube.com/watch?v=N_UhCkOo7qQ",
+      embed: "https://www.youtube-nocookie.com/embed/N_UhCkOo7qQ?rel=0&autoplay=1&mute=1&playsinline=1",
+      instaUrl: "https://www.instagram.com/reel/DLsWafsoITj/",
+      title: "Reel 2 – Momento in edicola",
+      category: "Culture",
+      categoryKey: "culture",
+      duration: "00:28",
+      views: "980",
+      timeAgo: "20 min fa",
+      tag: "Reel",
+      thumb: "https://img.youtube.com/vi/N_UhCkOo7qQ/hqdefault.jpg"
+    },
+    {
+      id: "r3",
+      platform: "youtube",
+      ytId: "ZOGRLiz707c",
+      url: "https://www.youtube.com/watch?v=ZOGRLiz707c",
+      embed: "https://www.youtube-nocookie.com/embed/ZOGRLiz707c?rel=0&autoplay=1&mute=1&playsinline=1",
+      instaUrl: "https://www.instagram.com/reel/DLFJd2BI65o/",
+      title: "Reel 3 – Clienti e giornali",
+      category: "News",
+      categoryKey: "news",
+      duration: "00:32",
+      views: "1.8K",
+      timeAgo: "30 min fa",
+      tag: "Reel",
+      thumb: "https://img.youtube.com/vi/ZOGRLiz707c/hqdefault.jpg"
+    },
+    {
+      id: "r4",
+      platform: "youtube",
+      ytId: "ca6A-0okNs0",
+      url: "https://www.youtube.com/watch?v=ca6A-0okNs0",
+      embed: "https://www.youtube-nocookie.com/embed/ca6A-0okNs0?rel=0&autoplay=1&mute=1&playsinline=1",
+      instaUrl: "https://www.instagram.com/reel/DKpTIheIbt5/",
+      title: "Reel 4 – Mattina in edicola",
+      category: "News",
+      categoryKey: "news",
+      duration: "00:25",
+      views: "2.1K",
+      timeAgo: "40 min fa",
+      tag: "Reel",
+      thumb: "https://img.youtube.com/vi/ca6A-0okNs0/hqdefault.jpg"
+    },
+    {
+      id: "r5",
+      platform: "youtube",
+      ytId: "L28J5c4siWY",
+      url: "https://www.youtube.com/watch?v=L28J5c4siWY",
+      embed: "https://www.youtube-nocookie.com/embed/L28J5c4siWY?rel=0&autoplay=1&mute=1&playsinline=1",
+      instaUrl: "https://www.instagram.com/reel/DJZ2kUcoDjo/",
+      title: "Reel 5 – Chiusura serale",
+      category: "Culture",
+      categoryKey: "culture",
+      duration: "00:27",
+      views: "760",
+      timeAgo: "1 h fa",
+      tag: "Reel",
+      thumb: "https://img.youtube.com/vi/L28J5c4siWY/hqdefault.jpg"
+    }
+  ];
+
+  const filterPills   = document.querySelectorAll(".filter-pill");
+  const sidebarListEl = document.getElementById("sidebarList");
+  const heroPlayerEl  = document.getElementById("heroPlayer");
+  const heroTitleEl   = document.getElementById("heroTitle");
+  const heroCategoryEl= document.getElementById("heroCategory");
+  const heroDurationEl= document.getElementById("heroDuration");
+  const heroViewsEl   = document.getElementById("heroViews");
+  const heroTimeEl    = document.getElementById("heroTime");
+  const heroPlatformEl= document.getElementById("heroPlatform");
   const btnOpenOriginal = document.getElementById("btnOpenOriginal");
 
-  const sidebarListEl = document.getElementById("sidebarList");
   const carouselEl    = document.getElementById("videoCarousel");
   const arrowPrev     = document.getElementById("arrowPrev");
   const arrowNext     = document.getElementById("arrowNext");
-  const filterPills   = document.querySelectorAll(".filter-pill");
-  const mobileFeedEl  = document.getElementById("mobileFeed");
 
-  let currentVideoId = null;
+  let currentTopId    = null;
+  let currentReelId   = null;
+  let currentFilter   = "all";
 
+  // ----- SIDEBAR YOUTUBE -----
   function renderSidebar() {
-    if (!sidebarListEl) return;
     sidebarListEl.innerHTML = "";
-    videos.forEach((video) => {
+    topVideos.forEach((video) => {
       const item = document.createElement("div");
       item.className = "sidebar-item";
       item.dataset.id = video.id;
@@ -465,31 +528,84 @@
           </div>
         </div>
       `;
-      item.addEventListener("click", () => selectVideo(video.id));
+      item.addEventListener("click", () => selectTopVideo(video.id));
       sidebarListEl.appendChild(item);
     });
   }
 
+  function selectTopVideo(id) {
+    const video = topVideos.find(v => v.id === id);
+    if (!video) return;
+    currentTopId = id;
+
+    heroPlayerEl.innerHTML = `
+      <iframe
+        src="${video.embed}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    `;
+
+    heroTitleEl.textContent    = video.title;
+    heroCategoryEl.textContent = `${video.category} • Flash`;
+    heroDurationEl.textContent = video.duration;
+    heroViewsEl.textContent    = `${video.views} visualizzazioni`;
+    heroTimeEl.textContent     = video.timeAgo;
+    heroPlatformEl.textContent = "YouTube";
+
+    btnOpenOriginal.onclick = () => window.open(video.url, "_blank");
+
+    const items = sidebarListEl.querySelectorAll(".sidebar-item");
+    items.forEach(el => {
+      el.classList.toggle("active", el.dataset.id === currentTopId);
+    });
+  }
+
+  // ----- CAROSELLO REEL (player nella scheda) -----
   function renderCarousel(filter = "all") {
-    if (!carouselEl) return;
+    currentFilter = filter;
     carouselEl.innerHTML = "";
     const filtered = filter === "all"
-      ? videos
-      : videos.filter((v) => v.categoryKey === filter);
+      ? flashVideos
+      : flashVideos.filter(v => v.categoryKey === filter);
 
-    filtered.forEach((video) => {
+    filtered.forEach(video => {
       const card = document.createElement("article");
       card.className = "video-card";
       card.dataset.id = video.id;
       card.dataset.category = video.categoryKey;
-      card.innerHTML = `
-        <div class="video-card-thumb">
-          <img src="${video.thumb}" alt="${video.title}">
-          <div class="video-card-overlay">
-            <div class="video-card-play">▶</div>
-            <div class="video-card-duration">${video.duration}</div>
+
+      const isActive = video.id === currentReelId;
+
+      const mediaPart = isActive
+        ? `
+          <div class="video-card-thumb">
+            <iframe
+              src="${video.embed}"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              loading="lazy"
+              style="width:100%;height:100%;border:0;background:#000;"
+            ></iframe>
           </div>
-        </div>
+        `
+        : `
+          <div class="video-card-thumb">
+            <img src="${video.thumb}" alt="${video.title}">
+            <div class="video-card-overlay">
+              <div class="video-card-play">▶</div>
+              <div class="video-card-duration">${video.duration}</div>
+            </div>
+          </div>
+        `;
+
+      card.innerHTML = `
+        ${mediaPart}
         <div class="video-card-body">
           <div class="video-card-category">${video.category}</div>
           <h3 class="video-card-title">${video.title}</h3>
@@ -499,148 +615,48 @@
           </div>
         </div>
       `;
-      card.addEventListener("click", () => selectVideo(video.id));
+
+      card.addEventListener("click", () => selectReel(video.id));
+      card.dataset.active = isActive ? "true" : "false";
+
       carouselEl.appendChild(card);
     });
-
-    syncActiveCard();
   }
 
-  function selectVideo(id) {
-    const video = videos.find((v) => v.id === id);
-    if (!video || !heroPlayerEl) return;
-    currentVideoId = id;
-
-    if (video.platform === "placeit") {
-      heroPlayerEl.innerHTML = `
-        <video src="${video.embed}" autoplay muted loop playsinline controls></video>
-      `;
-    } else {
-      heroPlayerEl.innerHTML = `
-        <iframe
-          src="${video.embed}"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      `;
-    }
-
-    heroTitleEl.textContent    = video.title;
-    heroCategoryEl.textContent = `${video.category} • Flash`;
-    heroDurationEl.textContent = video.duration;
-    heroViewsEl.textContent    = `${video.views} visualizzazioni`;
-    heroTimeEl.textContent     = video.timeAgo;
-    heroPlatformEl.textContent =
-      video.platform === "instagram"
-        ? "Instagram"
-        : video.platform === "placeit"
-        ? "Placeit"
-        : "YouTube";
-
-    if (btnOpenOriginal) {
-      btnOpenOriginal.onclick = () => window.open(video.url, "_blank");
-    }
-
-    syncActiveSidebar();
-    syncActiveCard();
+  function selectReel(id) {
+    currentReelId = id;
+    renderCarousel(currentFilter);
   }
 
-  function syncActiveSidebar() {
-    const items = sidebarListEl.querySelectorAll(".sidebar-item");
-    items.forEach((el) => {
-      el.classList.toggle("active", el.dataset.id === currentVideoId);
-    });
-  }
-  function syncActiveCard() {
-    const cards = carouselEl.querySelectorAll(".video-card");
-    cards.forEach((el) => {
-      el.dataset.active = el.dataset.id === currentVideoId ? "true" : "false";
-    });
-  }
-
-  filterPills.forEach((pill) => {
+  // ----- FILTRI CAROSELLO -----
+  filterPills.forEach(pill => {
     pill.addEventListener("click", () => {
-      filterPills.forEach((p) => p.classList.remove("active"));
+      filterPills.forEach(p => p.classList.remove("active"));
       pill.classList.add("active");
       renderCarousel(pill.dataset.filter);
     });
   });
 
+  // ----- FRECCE CAROSELLO -----
   function scrollCarousel(direction = 1) {
-    if (!carouselEl) return;
     const card = carouselEl.querySelector(".video-card");
     if (!card) return;
     const cardWidth = card.getBoundingClientRect().width;
     carouselEl.scrollBy({
-      left: 0,
-      top: direction * (cardWidth + 16),
+      left: direction * (cardWidth + 16),
+      top: 0,
       behavior: "smooth",
     });
   }
-  if (arrowPrev && arrowNext) {
-    arrowPrev.addEventListener("click", () => scrollCarousel(-1));
-    arrowNext.addEventListener("click", () => scrollCarousel(1));
-  }
+  arrowPrev.addEventListener("click", () => scrollCarousel(-1));
+  arrowNext.addEventListener("click", () => scrollCarousel(1));
 
-  function renderMobileFeed() {
-    if (!mobileFeedEl) return;
-    mobileFeedEl.innerHTML = "";
-    videos.forEach((video) => {
-      const card = document.createElement("article");
-      card.className = "mobile-card";
-      card.dataset.id = video.id;
-
-      let player = "";
-      if (video.platform === "placeit") {
-        player = `
-          <video src="${video.embed}" autoplay muted loop playsinline controls></video>
-        `;
-      } else {
-        player = `
-          <iframe
-            src="${video.embed}"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
-        `;
-      }
-
-      card.innerHTML = `
-        <div class="mobile-card-inner">
-          ${player}
-          <div class="mobile-overlay-top">
-            <span>${video.category}</span>
-            <span>${video.duration}</span>
-          </div>
-          <div class="mobile-overlay-bottom">
-            <div class="mobile-text-block">
-              <div class="mobile-category">${video.category} • Flash</div>
-              <div class="mobile-title">${video.title}</div>
-              <div class="mobile-meta">${video.views} • ${video.timeAgo}</div>
-            </div>
-            <div class="mobile-actions">
-              <button class="mobile-action-btn">♥</button>
-              <button class="mobile-action-btn">⤴</button>
-              <button class="mobile-action-btn">⋮</button>
-            </div>
-          </div>
-        </div>
-      `;
-      mobileFeedEl.appendChild(card);
-    });
-  }
-
-  // INIT
+  // ----- INIT -----
   renderSidebar();
   renderCarousel("all");
-  if (videos[0]) selectVideo(videos[0].id);
-  renderMobileFeed();
+  if (topVideos[0]) selectTopVideo(topVideos[0].id);
+  // se vuoi che al caricamento sia già aperto il primo reel:
+  // if (flashVideos[0]) selectReel(flashVideos[0].id);
 </script>
 </body>
 </html>
