@@ -189,11 +189,22 @@
     .carousel::-webkit-scrollbar-thumb{
       background:rgba(148,163,184,.7);border-radius:999px;
     }
+
+    /* CARD REEL PIÙ GRANDI */
     .video-card{
-      min-width:200px;max-width:230px;scroll-snap-align:start;border-radius:18px;overflow:hidden;
+      min-width:320px;
+      max-width:360px;
+      height:540px;
+      scroll-snap-align:start;
+      border-radius:22px;
+      overflow:hidden;
       background:radial-gradient(circle at top left,rgba(250,204,21,.08),rgba(15,23,42,.98));
-      border:1px solid var(--border-subtle);cursor:pointer;display:flex;flex-direction:column;
-      transition:transform .18s,box-shadow .18s,border-color .18s,background .18s,opacity .18s;opacity:.86;
+      border:1px solid var(--border-subtle);
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      transition:transform .18s,box-shadow .18s,border-color .18s,background .18s,opacity .18s;
+      opacity:.95;
     }
     .video-card:hover{
       transform:translateY(-4px);box-shadow:var(--shadow-card);
@@ -203,7 +214,9 @@
     .video-card-thumb{
       position:relative;
       width:100%;
-      aspect-ratio:9/16; /* forma verticale stile reel */
+      aspect-ratio:9/16;
+      height:400px;
+      max-height:400px;
       background:#020617;
       overflow:hidden;
     }
@@ -220,21 +233,55 @@
     .video-card-duration{
       padding:.15rem .45rem;border-radius:999px;background:rgba(0,0,0,.8);font-size:.65rem;
     }
-    .video-card-body{padding:.55rem .6rem .65rem;display:flex;flex-direction:column;gap:.25rem;}
-    .video-card-category{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--primary-soft);}
-    .video-card-title{font-size:.8rem;line-height:1.35;font-weight:500;}
+    .video-card-body{
+      padding:.6rem .75rem .75rem;
+      display:flex;
+      flex-direction:column;
+      gap:.3rem;
+    }
+    .video-card-category{
+      font-size:.8rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--primary-soft);
+    }
+    .video-card-title{
+      font-size:1rem;
+      line-height:1.35;
+      font-weight:600;
+    }
     .video-card-meta{
-      font-size:.7rem;color:var(--text-soft);display:flex;justify-content:space-between;
-      gap:.5rem;margin-top:.15rem;
+      font-size:.8rem;
+      color:var(--text-soft);
+      display:flex;
+      justify-content:space-between;
+      gap:.5rem;
+      margin-top:.2rem;
     }
     .video-card-tag{
-      font-size:.65rem;border-radius:999px;padding:.1rem .4rem;
-      background:rgba(15,23,42,.95);border:1px solid rgba(148,163,184,.6);
+      font-size:.7rem;
+      border-radius:999px;
+      padding:.12rem .45rem;
+      background:rgba(15,23,42,.95);
+      border:1px solid rgba(148,163,184,.6);
     }
     .video-card[data-active="true"]{
       border-color:var(--primary);
       box-shadow:0 0 0 1px rgba(250,204,21,.4),var(--shadow-card);opacity:1;
       transform:translateY(-2px);
+    }
+
+    /* mobile: card un po' più piccole ma comunque grandi */
+    @media(max-width:600px){
+      .video-card{
+        min-width:80vw;
+        max-width:80vw;
+        height:480px;
+      }
+      .video-card-thumb{
+        height:360px;
+        max-height:360px;
+      }
     }
 
     .carousel-arrows{
@@ -319,7 +366,7 @@
       </aside>
     </section>
 
-    <!-- CAROSELLO REEL (VIDEO YOUTUBE VERTICALI NELLE SCHEDE) -->
+    <!-- CAROSELLO REEL (VIDEO YOUTUBE VERTICALI NELLE SCHEDE GRANDI) -->
     <section class="carousel-section">
       <div class="carousel-header">
         <h2 class="carousel-title">Flash Stories</h2>
@@ -404,8 +451,8 @@
   ];
 
   // ------------ FLASH STORIES (REEL OSPITATI SU YOUTUBE) ------------
-  // Per provare uso gli stessi ID dei video sopra.
-  // Quando carichi i reel su YouTube, cambia solo i campi ytId/embed/url/thumb.
+  // Per ora riuso gli stessi ID dei video sopra; quando carichi i reel veri su YouTube
+  // ti basta cambiare ytId/url/embed/thumb per ciascuno.
   const flashVideos = [
     {
       id: "r1",
