@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flash Video Carousel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --card-bg-strong: #020617;
+      --primary: #facc15;
+      --primary-soft: #fbbf24;
+      --accent: #f97316;
+      --accent-strong: #ef4444;
+      --text: #f9fafb;
+      --text-muted: rgba(249, 250, 251, 0.7);
+      --text-soft: rgba(249, 250, 251, 0.55);
+      --border-subtle: rgba(249, 250, 251, 0.06);
+      --shadow-strong: 0 26px 60px rgba(0, 0, 0, 0.7);
+      --shadow-card: 0 18px 45px rgba(0, 0, 0, 0.7);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #020617 0, var(--bg) 40%, #000 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { border: none; background: none; color: inherit; cursor: pointer; font: inherit; }
+
+    .page { min-height: 100vh; display: flex; flex-direction: column; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(5,8,22,.95), rgba(5,8,22,.7), transparent);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto; padding: .75rem 1rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .logo { display: flex; align-items: center; gap: .6rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase; font-size: .9rem; }
+    .logo-badge {
+      width: 28px; height: 28px; border-radius: 999px;
+      background: radial-gradient(circle at 30% 0%, var(--primary), var(--accent) 55%, #3b82f6);
+      display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#020617;
+      box-shadow: 0 0 18px rgba(250,204,21,.6);
+    }
+    nav { display:flex;align-items:center;gap:.75rem;font-size:.8rem;
+      text-transform:uppercase;letter-spacing:.12em;color:var(--text-soft);}
+    nav a{padding:.3rem .6rem;border-radius:999px;border:1px solid transparent;
+      transition:background .15s,opacity .15s,transform .15s,color .15s,border-color .15s;}
+    nav a:hover{background:rgba(15,23,42,.9);color:var(--primary);transform:translateY(-1px);
+      border-color:var(--border-subtle);}
+
+    main{
+      flex:1;max-width:1200px;margin:0 auto;padding:1rem 1rem 3rem;
+      display:flex;flex-direction:column;gap:1.5rem;
+    }
+
+    .layout-desktop{display:block;}
+    .layout-mobile{display:none;}
+    @media(max-width:768px){
+      .layout-desktop{display:none;}
+      .layout-mobile{display:block;}
+      main{padding:0;max-width:100%;}
+    }
+
+    .hero{
+      display:grid;grid-template-columns:2fr 1.1fr;gap:1.5rem;align-items:stretch;
+    }
+    @media(max-width:900px){.hero{grid-template-columns:1fr;}}
+
+    .hero-video-wrapper{
+      position:relative;border-radius:22px;overflow:hidden;
+      background:radial-gradient(circle at top left,var(--bg-soft),var(--card-bg-strong) 65%);
+      box-shadow:var(--shadow-strong);aspect-ratio:16/9;display:flex;flex-direction:column;
+      border:1px solid var(--border-subtle);
+    }
+    .hero-badge{
+      position:absolute;top:.75rem;left:.75rem;background:rgba(15,23,42,.9);
+      padding:.35rem .7rem;border-radius:999px;font-size:.7rem;text-transform:uppercase;
+      letter-spacing:.16em;display:inline-flex;align-items:center;gap:.4rem;
+      border:1px solid rgba(148,163,184,.6);
+    }
+    .live-dot{
+      width:9px;height:9px;border-radius:999px;background:var(--accent-strong);
+      box-shadow:0 0 14px rgba(239,68,68,.9);
+    }
+    .hero-video{flex:1;width:100%;height:100%;position:relative;background:#000;}
+    .hero-video iframe,.hero-video video{
+      position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover;background:#000;
+    }
+    .hero-info{
+      padding:.9rem 1rem 1rem;display:flex;align-items:center;justify-content:space-between;
+      gap:1rem;background:linear-gradient(to right,rgba(15,23,42,.98),
+      rgba(15,23,42,.9),rgba(15,23,42,.8));border-top:1px solid rgba(148,163,184,.3);
+    }
+    .hero-text{display:flex;flex-direction:column;gap:.25rem;}
+    .hero-category{font-size:.7rem;text-transform:uppercase;letter-spacing:.16em;color:var(--primary-soft);}
+    .hero-title{font-size:1.08rem;font-weight:600;line-height:1.35;}
+    .hero-meta{font-size:.75rem;color:var(--text-soft);display:flex;gap:.75rem;flex-wrap:wrap;}
+    .hero-meta span::before{content:"• ";opacity:.4;}
+    .hero-meta span:first-child::before{content:"";}
+    .hero-cta{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;
+      font-size:.75rem;color:var(--text-muted);}
+    .hero-cta-chip{
+      border-radius:999px;padding:.3rem .75rem;background:rgba(15,23,42,.9);
+      display:inline-flex;align-items:center;gap:.3rem;font-size:.7rem;text-transform:uppercase;
+      letter-spacing:.12em;border:1px solid rgba(148,163,184,.7);
+    }
+    .hero-cta-buttons{display:flex;gap:.35rem;}
+    .hero-btn{
+      border-radius:999px;padding:.3rem .7rem;font-size:.7rem;
+      border:1px solid rgba(148,163,184,.7);background:rgba(15,23,42,.85);
+      display:inline-flex;align-items:center;gap:.35rem;
+      transition:background .15s,transform .15s,border-color .15s,opacity .15s,color .15s;
+      opacity:.9;
+    }
+    .hero-btn:hover{
+      background:linear-gradient(to right,var(--primary-soft),var(--accent));
+      color:#020617;transform:translateY(-1px);border-color:transparent;opacity:1;
+    }
+
+    .sidebar{display:flex;flex-direction:column;gap:.75rem;}
+    .sidebar-header{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;}
+    .sidebar-title{font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:var(--primary-soft);}
+    .sidebar-subtitle{font-size:.75rem;color:var(--text-soft);}
+    .sidebar-list{
+      display:flex;flex-direction:column;gap:.65rem;max-height:100%;
+      overflow-y:auto;padding-right:.2rem;
+    }
+    .sidebar-list::-webkit-scrollbar{width:4px;}
+    .sidebar-list::-webkit-scrollbar-thumb{
+      background:rgba(148,163,184,.5);border-radius:999px;
+    }
+    .sidebar-item{
+      display:grid;grid-template-columns:auto 1fr;gap:.5rem;padding:.4rem;border-radius:14px;
+      background:radial-gradient(circle at top left,rgba(250,204,21,.08),rgba(15,23,42,.98));
+      border:1px solid var(--border-subtle);cursor:pointer;
+      transition:transform .16s,box-shadow .16s,border-color .16s,background .16s,opacity .16s;
+      opacity:.9;
+    }
+    .sidebar-item:hover{
+      transform:translateY(-1px);box-shadow:var(--shadow-card);
+      border-color:rgba(250,204,21,.5);opacity:1;
+      background:radial-gradient(circle at top left,rgba(250,204,21,.15),rgba(15,23,42,.98));
+    }
+    .sidebar-thumb{
+      width:80px;height:52px;border-radius:10px;overflow:hidden;position:relative;background:#020617;
+    }
+    .sidebar-thumb img{width:100%;height:100%;object-fit:cover;}
+    .sidebar-duration{
+      position:absolute;right:.25rem;bottom:.25rem;padding:.1rem .35rem;border-radius:999px;
+      font-size:.6rem;background:rgba(0,0,0,.8);
+    }
+    .sidebar-info{display:flex;flex-direction:column;justify-content:center;gap:.15rem;}
+    .sidebar-item-title{font-size:.8rem;font-weight:500;line-height:1.25;}
+    .sidebar-item-meta{font-size:.7rem;color:var(--text-soft);display:flex;gap:.5rem;flex-wrap:wrap;}
+    .sidebar-item.active{
+      border-color:var(--primary);
+      box-shadow:0 0 0 1px rgba(250,204,21,.4),var(--shadow-card);opacity:1;
+    }
+
+    .carousel-section{margin-top:.5rem;display:flex;flex-direction:column;gap:.9rem;}
+    .carousel-header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+    .carousel-title{font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;color:var(--primary-soft);}
+    .carousel-filters{display:flex;flex-wrap:wrap;gap:.4rem;font-size:.7rem;}
+    .filter-pill{
+      border-radius:999px;padding:.2rem .6rem;border:1px solid var(--border-subtle);
+      background:rgba(15,23,42,.85);color:var(--text-soft);opacity:.9;cursor:pointer;
+      transition:background .15s,border-color .15s,opacity .15s,transform .15s,color .15s;
+    }
+    .filter-pill:hover{
+      opacity:1;transform:translateY(-1px);border-color:rgba(250,204,21,.6);
+      background:rgba(15,23,42,1);color:var(--primary-soft);
+    }
+    .filter-pill.active{
+      border-color:transparent;background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#020617;opacity:1;
+    }
+
+    .carousel-wrapper{position:relative;}
+    .carousel{
+      display:flex;gap:.9rem;overflow-x:auto;padding-bottom:.4rem;
+      scroll-snap-type:x mandatory;scroll-padding:.25rem;
+      scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.8) transparent;
+    }
+    .carousel::-webkit-scrollbar{height:4px;}
+    .carousel::-webkit-scrollbar-thumb{
+      background:rgba(148,163,184,.7);border-radius:999px;
+    }
+    .video-card{
+      min-width:220px;max-width:240px;scroll-snap-align:start;border-radius:18px;overflow:hidden;
+      background:radial-gradient(circle at top left,rgba(250,204,21,.08),rgba(15,23,42,.98));
+      border:1px solid var(--border-subtle);cursor:pointer;display:flex;flex-direction:column;
+      transition:transform .18s,box-shadow .18s,border-color .18s,background .18s,opacity .18s;opacity:.86;
+    }
+    .video-card:hover{
+      transform:translateY(-4px);box-shadow:var(--shadow-card);
+      border-color:rgba(250,204,21,.6);
+      background:radial-gradient(circle at top left,rgba(250,204,21,.14),rgba(15,23,42,1));opacity:1;
+    }
+    .video-card-thumb{position:relative;aspect-ratio:16/9;background:#020617;}
+    .video-card-thumb img{width:100%;height:100%;object-fit:cover;}
+    .video-card-overlay{
+      position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),transparent 40%);
+      display:flex;align-items:flex-end;justify-content:space-between;padding:.4rem .5rem;font-size:.7rem;
+    }
+    .video-card-play{
+      width:28px;height:28px;border-radius:999px;background:rgba(0,0,0,.7);
+      display:flex;align-items:center;justify-content:center;font-size:.7rem;
+      border:1px solid rgba(249,250,251,.7);
+    }
+    .video-card-duration{
+      padding:.15rem .45rem;border-radius:999px;background:rgba(0,0,0,.8);font-size:.65rem;
+    }
+    .video-card-body{padding:.55rem .6rem .65rem;display:flex;flex-direction:column;gap:.25rem;}
+    .video-card-category{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--primary-soft);}
+    .video-card-title{font-size:.8rem;line-height:1.35;font-weight:500;}
+    .video-card-meta{
+      font-size:.7rem;color:var(--text-soft);display:flex;justify-content:space-between;
+      gap:.5rem;margin-top:.15rem;
+    }
+    .video-card-tag{
+      font-size:.65rem;border-radius:999px;padding:.1rem .4rem;
+      background:rgba(15,23,42,.95);border:1px solid rgba(148,163,184,.6);
+    }
+    .video-card[data-active="true"]{
+      border-color:var(--primary);box-shadow:0 0 0 1px rgba(250,204,21,.4),var(--shadow-card);opacity:1;
+    }
+    .carousel-arrows{
+      position:absolute;top:50%;right:.3rem;transform:translateY(-50%);
+      display:flex;flex-direction:column;gap:.35rem;
+    }
+    .carousel-arrow-btn{
+      width:26px;height:26px;border-radius:999px;background:rgba(15,23,42,.95);
+      display:flex;align-items:center;justify-content:center;font-size:.8rem;
+      border:1px solid rgba(148,163,184,.8);opacity:.8;
+      transition:opacity .15s,transform .15s,background .15s,border-color .15s;
+    }
+    .carousel-arrow-btn:hover{
+      opacity:1;transform:translateY(-1px);background:rgba(15,23,42,1);
+      border-color:rgba(250,204,21,.6);
+    }
+    @media(max-width:600px){.carousel-arrows{display:none;}}
+
+    footer{
+      padding:1rem;border-top:1px solid var(--border-subtle);font-size:.7rem;
+      color:var(--text-soft);text-align:center;
+      background:radial-gradient(circle at top,rgba(15,23,42,.9),transparent);
+    }
+
+    .mobile-feed{
+      height:calc(100vh - 56px);overflow-y:scroll;scroll-snap-type:y mandatory;
+      scroll-padding-top:0;background:#000;
+    }
+    .mobile-card{
+      position:relative;height:100vh;padding-top:56px;padding-bottom:70px;
+      scroll-snap-align:start;display:flex;flex-direction:column;
+      justify-content:center;align-items:center;background:#000;
+    }
+    .mobile-card-inner{
+      width:100%;max-width:520px;height:100%;position:relative;
+      display:flex;justify-content:center;align-items:center;margin:0 auto;
+    }
+    .mobile-card-inner iframe,.mobile-card-inner video{
+      width:100%;height:100%;border:0;object-fit:cover;background:#000;
+    }
+    .mobile-overlay-top,.mobile-overlay-bottom{
+      position:absolute;left:1rem;right:1rem;color:#fff;
+      text-shadow:0 2px 8px rgba(0,0,0,.9);pointer-events:none;
+    }
+    .mobile-overlay-top{
+      top:1.5rem;display:flex;justify-content:space-between;font-size:.75rem;opacity:.9;
+    }
+    .mobile-overlay-top span:first-child{
+      text-transform:uppercase;letter-spacing:.14em;color:var(--primary-soft);
+    }
+    .mobile-overlay-bottom{
+      bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;
+    }
+    .mobile-text-block{max-width:78%;}
+    .mobile-category{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;opacity:.95;}
+    .mobile-title{margin-top:.25rem;font-size:1.05rem;font-weight:600;}
+    .mobile-meta{margin-top:.3rem;font-size:.75rem;opacity:.85;}
+    .mobile-actions{display:flex;flex-direction:column;align-items:center;gap:.6rem;font-size:.9rem;}
+    .mobile-action-btn{
+      width:42px;height:42px;border-radius:999px;border:1px solid rgba(249,250,251,.8);
+      display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.5);
+      pointer-events:auto;
+    }
+    .mobile-feed::-webkit-scrollbar{width:0;height:0;}
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-badge">F</div><span>Flash Video</span>
+      </div>
+      <nav>
+        <a href="#">Tutti i video</a><a href="#">Ultime</a><a href="#">Trending</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="layout-desktop">
+      <section class="hero">
+        <div class="hero-video-wrapper">
+          <div class="hero-badge">
+            <span class="live-dot"></span><span>Flash Feed</span>
+          </div>
+          <div id="heroPlayer" class="hero-video"></div>
+          <div class="hero-info">
+            <div class="hero-text">
+              <div id="heroCategory" class="hero-category">News • Flash</div>
+              <h1 id="heroTitle" class="hero-title">Titolo del video selezionato</h1>
+              <div class="hero-meta">
+                <span id="heroDuration">0:00</span>
+                <span id="heroViews">– visualizzazioni</span>
+                <span id="heroTime">– minuti fa</span>
+              </div>
+            </div>
+            <div class="hero-cta">
+              <div class="hero-cta-chip">
+                <span>Fonte</span><span id="heroPlatform">YouTube</span>
+              </div>
+              <div class="hero-cta-buttons">
+                <button class="hero-btn" id="btnOpenOriginal">
+                  <span>↗</span><span>Apri su piattaforma</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <div>
+              <div class="sidebar-title">Trending</div>
+              <div class="sidebar-subtitle">I clip più visti ora</div>
+            </div>
+          </div>
+          <div id="sidebarList" class="sidebar-list"></div>
+        </aside>
+      </section>
+
+      <section class="carousel-section">
+        <div class="carousel-header">
+          <h2 class="carousel-title">Flash Stories</h2>
+          <div class="carousel-filters">
+            <button class="filter-pill active" data-filter="all">Tutto</button>
+            <button class="filter-pill" data-filter="news">News</button>
+            <button class="filter-pill" data-filter="sport">Sport</button>
+            <button class="filter-pill" data-filter="culture">Culture</button>
+          </div>
+        </div>
+        <div class="carousel-wrapper">
+          <div id="videoCarousel" class="carousel"></div>
+          <div class="carousel-arrows">
+            <button class="carousel-arrow-btn" id="arrowPrev">↑</button>
+            <button class="carousel-arrow-btn" id="arrowNext">↓</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="layout-mobile">
+      <section class="mobile-feed" id="mobileFeed"></section>
+    </div>
+  </main>
+
+  <footer>© 2025 Flash Video • Template carosello video</footer>
+</div>
+
+<script>
+  // ------------- DATI VIDEO (embed pronti) -------------
+  const videos = [
+    {
+      id: "vid1",
+      platform: "youtube",
+      url: "https://www.youtube.com/watch?v=L28J5c4siWY&list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv",
+      embed: "https://www.youtube-nocookie.com/embed/L28J5c4siWY?rel=0&autoplay=1&mute=1&playsinline=1",
+      title: "Letture dall'edicola – Episodio 1",
+      category: "News",
+      categoryKey: "news",
+      duration: "05:09",
+      views: "1.2K",
+      timeAgo: "5 min fa",
+      tag: "Playlist",
+      thumb: "https://img.youtube.com/vi/L28J5c4siWY/hqdefault.jpg"
+    },
+    {
+      id: "vid2",
+      platform: "instagram",
+      url: "https://www.instagram.com/reel/C_sample01/",
+      embed: "https://www.instagram.com/reel/C_sample01/embed/",
+      title: "Dietro le quinte in edicola",
+      category: "Culture",
+      categoryKey: "culture",
+      duration: "00:30",
+      views: "3.4K",
+      timeAgo: "20 min fa",
+      tag: "Reel",
+      thumb: "https://images.pexels.com/photos/1643457/pexels-photo-1643457.jpeg?auto=compress&cs=tinysrgb&w=800"
+    },
+    {
+      id: "vid3",
+      platform: "placeit",
+      url: "https://tuo-cdn.com/placeit/video-edicola-01.mp4",   // sostituisci con il tuo MP4
+      embed: "https://tuo-cdn.com/placeit/video-edicola-01.mp4", // uguale all'MP4
+      title: "Mockup video Placeit – Spot per l’edicola",
+      category: "News",
+      categoryKey: "news",
+      duration: "00:20",
+      views: "980",
+      timeAgo: "40 min fa",
+      tag: "Placeit",
+      thumb: "https://images.pexels.com/photos/374016/pexels-photo-374016.jpeg?auto=compress&cs=tinysrgb&w=800"
+    }
+  ];
+
+  const heroPlayerEl   = document.getElementById("heroPlayer");
+  const heroTitleEl    = document.getElementById("heroTitle");
+  const heroCategoryEl = document.getElementById("heroCategory");
+  const heroDurationEl = document.getElementById("heroDuration");
+  const heroViewsEl    = document.getElementById("heroViews");
+  const heroTimeEl     = document.getElementById("heroTime");
+  const heroPlatformEl = document.getElementById("heroPlatform");
+  const btnOpenOriginal = document.getElementById("btnOpenOriginal");
+
+  const sidebarListEl = document.getElementById("sidebarList");
+  const carouselEl    = document.getElementById("videoCarousel");
+  const arrowPrev     = document.getElementById("arrowPrev");
+  const arrowNext     = document.getElementById("arrowNext");
+  const filterPills   = document.querySelectorAll(".filter-pill");
+  const mobileFeedEl  = document.getElementById("mobileFeed");
+
+  let currentVideoId = null;
+
+  function renderSidebar() {
+    if (!sidebarListEl) return;
+    sidebarListEl.innerHTML = "";
+    videos.forEach((video) => {
+      const item = document.createElement("div");
+      item.className = "sidebar-item";
+      item.dataset.id = video.id;
+      item.innerHTML = `
+        <div class="sidebar-thumb">
+          <img src="${video.thumb}" alt="${video.title}">
+          <div class="sidebar-duration">${video.duration}</div>
+        </div>
+        <div class="sidebar-info">
+          <div class="sidebar-item-title">${video.title}</div>
+          <div class="sidebar-item-meta">
+            <span>${video.views} views</span>
+            <span>${video.timeAgo}</span>
+          </div>
+        </div>
+      `;
+      item.addEventListener("click", () => selectVideo(video.id));
+      sidebarListEl.appendChild(item);
+    });
+  }
+
+  function renderCarousel(filter = "all") {
+    if (!carouselEl) return;
+    carouselEl.innerHTML = "";
+    const filtered = filter === "all"
+      ? videos
+      : videos.filter((v) => v.categoryKey === filter);
+
+    filtered.forEach((video) => {
+      const card = document.createElement("article");
+      card.className = "video-card";
+      card.dataset.id = video.id;
+      card.dataset.category = video.categoryKey;
+      card.innerHTML = `
+        <div class="video-card-thumb">
+          <img src="${video.thumb}" alt="${video.title}">
+          <div class="video-card-overlay">
+            <div class="video-card-play">▶</div>
+            <div class="video-card-duration">${video.duration}</div>
+          </div>
+        </div>
+        <div class="video-card-body">
+          <div class="video-card-category">${video.category}</div>
+          <h3 class="video-card-title">${video.title}</h3>
+          <div class="video-card-meta">
+            <span>${video.views} views</span>
+            <span class="video-card-tag">${video.tag}</span>
+          </div>
+        </div>
+      `;
+      card.addEventListener("click", () => selectVideo(video.id));
+      carouselEl.appendChild(card);
+    });
+
+    syncActiveCard();
+  }
+
+  function selectVideo(id) {
+    const video = videos.find((v) => v.id === id);
+    if (!video || !heroPlayerEl) return;
+    currentVideoId = id;
+
+    if (video.platform === "placeit") {
+      heroPlayerEl.innerHTML = `
+        <video src="${video.embed}" autoplay muted loop playsinline controls></video>
+      `;
+    } else {
+      heroPlayerEl.innerHTML = `
+        <iframe
+          src="${video.embed}"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      `;
+    }
+
+    heroTitleEl.textContent    = video.title;
+    heroCategoryEl.textContent = `${video.category} • Flash`;
+    heroDurationEl.textContent = video.duration;
+    heroViewsEl.textContent    = `${video.views} visualizzazioni`;
+    heroTimeEl.textContent     = video.timeAgo;
+    heroPlatformEl.textContent =
+      video.platform === "instagram"
+        ? "Instagram"
+        : video.platform === "placeit"
+        ? "Placeit"
+        : "YouTube";
+
+    if (btnOpenOriginal) {
+      btnOpenOriginal.onclick = () => window.open(video.url, "_blank");
+    }
+
+    syncActiveSidebar();
+    syncActiveCard();
+  }
+
+  function syncActiveSidebar() {
+    const items = sidebarListEl.querySelectorAll(".sidebar-item");
+    items.forEach((el) => {
+      el.classList.toggle("active", el.dataset.id === currentVideoId);
+    });
+  }
+  function syncActiveCard() {
+    const cards = carouselEl.querySelectorAll(".video-card");
+    cards.forEach((el) => {
+      el.dataset.active = el.dataset.id === currentVideoId ? "true" : "false";
+    });
+  }
+
+  filterPills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      filterPills.forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      renderCarousel(pill.dataset.filter);
+    });
+  });
+
+  function scrollCarousel(direction = 1) {
+    if (!carouselEl) return;
+    const card = carouselEl.querySelector(".video-card");
+    if (!card) return;
+    const cardWidth = card.getBoundingClientRect().width;
+    carouselEl.scrollBy({
+      left: 0,
+      top: direction * (cardWidth + 16),
+      behavior: "smooth",
+    });
+  }
+  if (arrowPrev && arrowNext) {
+    arrowPrev.addEventListener("click", () => scrollCarousel(-1));
+    arrowNext.addEventListener("click", () => scrollCarousel(1));
+  }
+
+  function renderMobileFeed() {
+    if (!mobileFeedEl) return;
+    mobileFeedEl.innerHTML = "";
+    videos.forEach((video) => {
+      const card = document.createElement("article");
+      card.className = "mobile-card";
+      card.dataset.id = video.id;
+
+      let player = "";
+      if (video.platform === "placeit") {
+        player = `
+          <video src="${video.embed}" autoplay muted loop playsinline controls></video>
+        `;
+      } else {
+        player = `
+          <iframe
+            src="${video.embed}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        `;
+      }
+
+      card.innerHTML = `
+        <div class="mobile-card-inner">
+          ${player}
+          <div class="mobile-overlay-top">
+            <span>${video.category}</span>
+            <span>${video.duration}</span>
+          </div>
+          <div class="mobile-overlay-bottom">
+            <div class="mobile-text-block">
+              <div class="mobile-category">${video.category} • Flash</div>
+              <div class="mobile-title">${video.title}</div>
+              <div class="mobile-meta">${video.views} • ${video.timeAgo}</div>
+            </div>
+            <div class="mobile-actions">
+              <button class="mobile-action-btn">♥</button>
+              <button class="mobile-action-btn">⤴</button>
+              <button class="mobile-action-btn">⋮</button>
+            </div>
+          </div>
+        </div>
+      `;
+      mobileFeedEl.appendChild(card);
+    });
+  }
+
+  // INIT
+  renderSidebar();
+  renderCarousel("all");
+  if (videos[0]) selectVideo(videos[0].id);
+  renderMobileFeed();
+</script>
+</body>
+</html>
