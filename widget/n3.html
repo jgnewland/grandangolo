@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Grandangolo Settimanale N.43 – Widget</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    /* Layout di base della pagina embed */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Stili solo per questo widget */
+    #ga40-widget {
+      max-width: 360px;
+      width: 100%;
+      margin: 8px auto 16px;
+      color: #f5f5f5;
+    }
+
+    #ga40-widget .ga40-card {
+      background: radial-gradient(circle at top, #19192b 0, #050509 55%);
+      border-radius: 16px;
+      padding: 14px 14px 12px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.65);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Header */
+    #ga40-widget .ga40-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    #ga40-widget .ga40-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #ga40-widget .ga40-logo {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+
+    #ga40-widget .ga40-title {
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    #ga40-widget .ga40-title strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    #ga40-widget .ga40-badge {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(0,166,81,0.18);
+      color: #8fffc1;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      border: 1px solid rgba(0,166,81,0.55);
+      white-space: nowrap;
+    }
+
+    /* Pulsante edicola */
+    #ga40-widget .ga40-edicola-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 11px;
+      color: #b0ffcf;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,166,81,0.4);
+      background: rgba(0,166,81,0.12);
+      transition: background .2s ease, transform .15s ease, border-color .2s ease;
+    }
+
+    #ga40-widget .ga40-edicola-link:hover {
+      background: rgba(0,166,81,0.22);
+      border-color: rgba(0,166,81,0.8);
+      transform: translateY(-1px);
+    }
+
+    /* Controlli + testo */
+    #ga40-widget .ga40-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 11px;
+      color: #d0d0d0;
+    }
+
+    #ga40-widget .ga40-btn-circle {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(5,5,9,0.9);
+      color: #f5f5f5;
+      cursor: pointer;
+      font-size: 11px;
+      line-height: 1;
+      transition: background .2s ease, transform .1s ease, border-color .2s ease, opacity .2s ease;
+    }
+
+    #ga40-widget .ga40-btn-circle:disabled {
+      opacity: .35;
+      cursor: default;
+    }
+
+    #ga40-widget .ga40-btn-circle:not(:disabled):hover {
+      background: rgba(0,166,81,0.18);
+      border-color: rgba(0,166,81,0.7);
+      transform: translateY(-1px);
+    }
+
+    /* Box codice */
+    #ga40-widget #ga40-code-box {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #dcdcdc;
+    }
+
+    #ga40-widget #ga40-code-box input {
+      background: rgba(3,3,8,0.9);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #f5f5f5;
+    }
+
+    #ga40-widget #ga40-code-box input::placeholder {
+      color: #999;
+    }
+
+    #ga40-widget #ga40-unlock-btn {
+      background: #00a651;
+      border: 1px solid #00a651;
+      color: #fff;
+      font-weight: 600;
+      transition: filter .2s ease, transform .1s ease;
+    }
+
+    #ga40-widget #ga40-unlock-btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    #ga40-widget #ga40-code-msg {
+      color: #ffb4b4;
+    }
+  </style>
+</head>
+<body>
+
+<div id="ga40-widget">
+  <div class="ga40-card">
+    <!-- HEADER -->
+    <div class="ga40-header">
+      <div class="ga40-logo-wrap">
+        <img
+          src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png"
+          alt="Grandangolo Settimanale"
+          class="ga40-logo">
+        <div class="ga40-title">
+          <strong>Grandangolo Settimanale</strong>
+          N. 2/2026 · Edizione digitale
+        </div>
+      </div>
+      <div class="ga40-badge">Ultima uscita</div>
+    </div>
+
+    <!-- LINK ALL'EDICOLA DIGITALE -->
+    <a href="https://grandangolosettimanale.it" target="_blank" rel="noopener noreferrer"
+       class="ga40-edicola-link">
+      <span>Vai all'edicola digitale</span>
+      <span style="font-size:12px;">↗</span>
+    </a>
+
+    <!-- MINI FLIPBOOK -->
+    <div style="position:relative;width:100%;padding-top:133.333%;border-radius:12px;overflow:hidden;
+                box-shadow:0 8px 20px rgba(0,0,0,0.35);background:#000;">
+      <img id="ga40-page-img"
+           src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg"
+           alt="Grandangolo Settimanale N. 42 - pagina 1"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+                  cursor:pointer;transition:transform .5s ease,filter .25s ease;">
+
+      <!-- overlay acquisto in versione piccola -->
+      <div id="ga40-buy-overlay"
+           style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+                  padding:0 14px;text-align:center;color:#fff;font-size:11px;
+                  background:radial-gradient(circle at center,rgba(0,0,0,.1),rgba(0,0,0,.82));">
+        <div>
+          <div style="font-size:13px;margin-bottom:6px;font-weight:600;">Continua a sfogliare</div>
+          <div style="margin-bottom:10px;">
+            Le pagine successive sono oscurate: acquista il numero completo per leggere tutto il settimanale.
+          </div>
+          <button type="button"
+                  id="ga40-buy-btn-small"
+                  style="padding:8px 16px;border-radius:999px;border:none;cursor:pointer;
+                         font-size:12px;font-weight:600;background:#00a651;color:#fff;
+                         box-shadow:0 5px 14px rgba(0,0,0,.35);margin-bottom:6px;">
+            Acquista il numero completo
+          </button>
+          <div style="font-size:10px;opacity:.85;">Se hai già acquistato, inserisci il codice qui sotto.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLLI PICCOLI -->
+    <div class="ga40-controls">
+      <button id="ga40-prev" type="button" class="ga40-btn-circle">←</button>
+      <span id="ga40-indicator" style="opacity:.8;">Pagina 1 di 11</span>
+      <button id="ga40-next" type="button" class="ga40-btn-circle">→</button>
+    </div>
+
+    <!-- SBLOCCO CON CODICE (BOX PICCOLO) -->
+    <div id="ga40-code-box">
+      <div>Hai già acquistato questo numero? Inserisci il codice di accesso:</div>
+      <div style="display:flex;gap:4px;margin-top:4px;">
+        <input id="ga40-code-input"
+               type="text"
+               placeholder="Inserisci il codice"
+               style="flex:1;padding:4px 6px;font-size:11px;border-radius:4px;">
+        <button id="ga40-unlock-btn"
+                type="button"
+                style="padding:4px 8px;border-radius:4px;font-size:11px;cursor:pointer;">
+          Sblocca
+        </button>
+      </div>
+      <div id="ga40-code-msg"
+           style="margin-top:4px;font-size:11px;display:none;">
+        Codice non valido.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // --- CONFIG ---
+  const buyUrl = "https://buy.stripe.com/cNi9AV50c4g9gJL4gM9MY09"; // link di acquisto
+  const unlockCode = "GR22-Jhgd7=J24BRi"; // codice da dare a chi acquista
+  const pages = [
+     "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_48862b.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_0809ac.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_67e253.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_1df9f1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_925053.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_255ab1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_be76d1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_0e26ec.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_b5ab32.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_28431c.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_2b24d8.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_e2a6c0.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13_2e56a4.jpg"
+  ];
+
+  let currentIndex = 0;
+  let unlocked = false;
+
+  // --- ELEMENTI PICCOLI ---
+  const imgSmall   = document.getElementById("ga40-page-img");
+  const overlaySm  = document.getElementById("ga40-buy-overlay");
+  const prevBtn    = document.getElementById("ga40-prev");
+  const nextBtn    = document.getElementById("ga40-next");
+  const indic      = document.getElementById("ga40-indicator");
+  const buyBtnSm   = document.getElementById("ga40-buy-btn-small");
+
+  const codeBox    = document.getElementById("ga40-code-box");
+  const codeInput  = document.getElementById("ga40-code-input");
+  const unlockBtn  = document.getElementById("ga40-unlock-btn");
+  const codeMsg    = document.getElementById("ga40-code-msg");
+
+  // --- FUNZIONE COMUNE DI SBLOCCO ---
+  function performUnlock(value, onSuccess, onError) {
+    const v = (value || "").trim();
+    if (!v) {
+      if (typeof onError === "function") onError("Inserisci un codice.");
+      return;
+    }
+    if (v === unlockCode) {
+      unlocked = true;
+      if (codeBox) codeBox.style.display = "none";
+      if (codeMsg) codeMsg.style.display = "none";
+      updateSmall(true);
+      if (typeof onSuccess === "function") onSuccess();
+    } else {
+      if (typeof onError === "function") onError("Codice non valido.");
+    }
+  }
+
+  // Vai alla pagina index nel widget piccolo
+  function updateSmall(noAnim){
+    if (unlocked || currentIndex <= 1){
+      imgSmall.style.filter = "none";
+      overlaySm.style.display = "none";
+    } else {
+      imgSmall.style.filter = "blur(6px) brightness(0.85)";
+      overlaySm.style.display = "flex";
+    }
+
+    imgSmall.src = pages[currentIndex];
+    prevBtn.disabled = (currentIndex === 0);
+    nextBtn.disabled = (currentIndex === pages.length - 1);
+    indic.textContent = "Pagina " + (currentIndex + 1) + " di " + pages.length;
+
+    if(noAnim){
+      imgSmall.style.transform = "none";
+    }
+  }
+
+  function flipSmall(nextIndex, dir){
+    if(nextIndex < 0 || nextIndex >= pages.length) return;
+    const angle = (dir === "forward") ? "-180deg" : "180deg";
+    imgSmall.style.transform = "rotateY(" + angle + ")";
+    imgSmall.addEventListener("transitionend", function handler(){
+      imgSmall.removeEventListener("transitionend", handler);
+      imgSmall.style.transform = "none";
+      currentIndex = nextIndex;
+      updateSmall(true);
+    }, { once: true });
+  }
+
+  prevBtn.addEventListener("click", function(){
+    flipSmall(currentIndex - 1, "back");
+  });
+
+  nextBtn.addEventListener("click", function(){
+    flipSmall(currentIndex + 1, "forward");
+  });
+
+  buyBtnSm.addEventListener("click", function(){
+  try {
+    window.open(buyUrl, "_blank", "noopener");
+  } catch (e) {
+    // fallback nel caso window.open venga bloccato
+    window.location.href = buyUrl;
+  }
+});
+
+  // SBLOCCO DAL BOX PICCOLO
+  unlockBtn.addEventListener("click", function(){
+    performUnlock(
+      codeInput.value,
+      function(){
+        alert("Numero sbloccato! Ora puoi leggere tutte le pagine.");
+      },
+      function(msg){
+        codeMsg.textContent = msg;
+        codeMsg.style.display = "block";
+      }
+    );
+  });
+
+  // --- LIGHTBOX DINAMICO CON ZOOM + SCROLL ---
+  function openLightbox(startIndex){
+    let lbIndex = startIndex;
+    let zoom = 1;
+
+    const overlay = document.createElement("div");
+    overlay.style.cssText =
+      "position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;" +
+      "display:flex;justify-content:center;align-items:flex-start;" +
+      "overflow-y:auto;padding:40px 16px;";
+
+    const content = document.createElement("div");
+    content.style.cssText =
+      "max-width:1100px;width:100%;margin:0 auto 40px;color:#fff;";
+
+    const header = document.createElement("div");
+    header.style.cssText = "display:flex;justify-content:flex-end;margin-bottom:8px;";
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.textContent = "×";
+    closeBtn.style.cssText =
+      "border:none;background:transparent;color:#fff;font-size:22px;cursor:pointer;line-height:1;";
+    header.appendChild(closeBtn);
+
+    const wrap = document.createElement("div");
+    wrap.style.cssText =
+      "position:relative;max-width:100%;max-height:90vh;overflow:auto;" +
+      "perspective:1400px;display:flex;align-items:flex-start;justify-content:center;background:#000;";
+
+    const imgLg = document.createElement("img");
+    imgLg.style.cssText =
+      "width:100%;height:auto;border-radius:8px;" +
+      "box-shadow:0 12px 30px rgba(0,0,0,0.6);" +
+      "display:block;cursor:zoom-in;" +
+      "transition:width .25s ease,filter .25s ease;";
+
+    const arrowBase =
+      "position:absolute;top:50%;transform:translateY(-50%);border:none;" +
+      "background:rgba(0,0,0,0.4);color:#fff;font-size:26px;width:42px;height:42px;" +
+      "border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;";
+
+    const prevLb = document.createElement("button");
+    prevLb.innerHTML = "❮";
+    prevLb.type = "button";
+    prevLb.style.cssText = arrowBase + "left:-12px;";
+
+    const nextLb = document.createElement("button");
+    nextLb.innerHTML = "❯";
+    nextLb.type = "button";
+    nextLb.style.cssText = arrowBase + "right:-12px;";
+
+    const overlayBuy = document.createElement("div");
+    overlayBuy.style.cssText =
+      "position:absolute;inset:0;display:none;align-items:center;justify-content:center;" +
+      "padding:0 20px;text-align:center;color:#fff;font-size:13px;" +
+      "background:radial-gradient(circle at center,rgba(0,0,0,0.2),rgba(0,0,0,0.85));";
+
+    const obInner = document.createElement("div");
+    obInner.innerHTML =
+      "<div style='font-size:15px;margin-bottom:8px;font-weight:600;'>Continua a sfogliare</div>" +
+      "<div style='margin-bottom:12px;'>Le pagine successive sono oscurate: acquista il numero completo per leggere tutto il settimanale.</div>";
+
+    const buyBtnLg = document.createElement("button");
+    buyBtnLg.type = "button";
+    buyBtnLg.textContent = "Acquista il numero completo";
+    buyBtnLg.style.cssText =
+      "padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-size:13px;" +
+      "font-weight:600;background:#00a651;color:#fff;box-shadow:0 5px 14px rgba(0,0,0,0.35);margin-bottom:10px;";
+    obInner.appendChild(buyBtnLg);
+
+    const lbCodeBox = document.createElement("div");
+    lbCodeBox.style.cssText = "margin-top:4px;font-size:11px;";
+
+    const lbCodeLabel = document.createElement("div");
+    lbCodeLabel.textContent = "Hai già acquistato? Inserisci il codice di accesso:";
+    lbCodeLabel.style.marginBottom = "4px";
+
+    const lbCodeRow = document.createElement("div");
+    lbCodeRow.style.cssText = "display:flex;gap:4px;";
+
+    const lbCodeInput = document.createElement("input");
+    lbCodeInput.type = "text";
+    lbCodeInput.placeholder = "Inserisci il codice";
+    lbCodeInput.style.cssText =
+      "flex:1;padding:4px 6px;font-size:11px;border:1px solid #ccc;border-radius:4px;color:#000;background:#fff;";
+
+    const lbUnlockBtn = document.createElement("button");
+    lbUnlockBtn.type = "button";
+    lbUnlockBtn.textContent = "Sblocca";
+    lbUnlockBtn.style.cssText =
+      "padding:4px 8px;border-radius:4px;border:1px solid #00a651;" +
+      "background:#00a651;color:#fff;font-size:11px;cursor:pointer;";
+
+    lbCodeRow.appendChild(lbCodeInput);
+    lbCodeRow.appendChild(lbUnlockBtn);
+
+    const lbCodeMsg = document.createElement("div");
+    lbCodeMsg.style.cssText = "margin-top:4px;font-size:11px;color:#ffd5d5;display:none;";
+
+    lbCodeBox.appendChild(lbCodeLabel);
+    lbCodeBox.appendChild(lbCodeRow);
+    lbCodeBox.appendChild(lbCodeMsg);
+
+    obInner.appendChild(lbCodeBox);
+    overlayBuy.appendChild(obInner);
+
+    const indicator = document.createElement("div");
+    indicator.style.cssText = "text-align:center;font-size:12px;margin-top:10px;";
+
+    wrap.appendChild(prevLb);
+    wrap.appendChild(imgLg);
+    wrap.appendChild(nextLb);
+    wrap.appendChild(overlayBuy);
+    content.appendChild(header);
+    content.appendChild(wrap);
+    content.appendChild(indicator);
+    overlay.appendChild(content);
+    document.body.appendChild(overlay);
+
+    imgLg.addEventListener("click", function(e){
+      e.stopPropagation();
+      if (zoom === 1) {
+        zoom = 2;
+        imgLg.style.width = "200%";
+        imgLg.style.cursor = "zoom-out";
+      } else {
+        zoom = 1;
+        imgLg.style.width = "100%";
+        imgLg.style.cursor = "zoom-in";
+        wrap.scrollTop = 0;
+        wrap.scrollLeft = 0;
+      }
+    });
+
+    function updateLb(noAnim){
+      imgLg.src = pages[lbIndex];
+
+      if (unlocked || lbIndex <= 1){
+        imgLg.style.filter = "none";
+        overlayBuy.style.display = "none";
+      } else {
+        imgLg.style.filter = "blur(6px) brightness(0.85)";
+        overlayBuy.style.display = "flex";
+      }
+
+      prevLb.disabled = (lbIndex === 0);
+      nextLb.disabled = (lbIndex === pages.length - 1);
+      indicator.textContent = "Pagina " + (lbIndex + 1) + " di " + pages.length;
+
+      zoom = 1;
+      imgLg.style.cursor = "zoom-in";
+      imgLg.style.width = "100%";
+      wrap.scrollTop = 0;
+      wrap.scrollLeft = 0;
+    }
+
+    prevLb.addEventListener("click", function(e){
+      e.stopPropagation();
+      if (lbIndex > 0) {
+        lbIndex--;
+        updateLb(true);
+      }
+    });
+
+    nextLb.addEventListener("click", function(e){
+      e.stopPropagation();
+      if (lbIndex < pages.length - 1) {
+        lbIndex++;
+        updateLb(true);
+      }
+    });
+
+    closeBtn.addEventListener("click", function(e){
+      e.stopPropagation();
+      document.body.removeChild(overlay);
+    });
+
+    overlay.addEventListener("click", function(e){
+      if(e.target === overlay){
+        document.body.removeChild(overlay);
+      }
+    });
+
+    buyBtnLg.addEventListener("click", function(e){
+  e.stopPropagation();
+  try {
+    window.open(buyUrl, "_blank", "noopener");
+  } catch (err) {
+    window.location.href = buyUrl;
+  }
+});
+
+    lbUnlockBtn.addEventListener("click", function(e){
+      e.stopPropagation();
+      performUnlock(
+        lbCodeInput.value,
+        function(){
+          lbCodeMsg.style.display = "none";
+          alert("Numero sbloccato! Ora puoi leggere tutte le pagine.");
+          updateLb(true);
+        },
+        function(msg){
+          lbCodeMsg.textContent = msg;
+          lbCodeMsg.style.display = "block";
+        }
+      );
+    });
+
+    updateLb(true);
+  }
+
+  imgSmall.addEventListener("click", function(){
+    openLightbox(currentIndex);
+  });
+
+  updateSmall(true);
+})();
+</script>
+
+</body>
+</html>
