@@ -14,537 +14,93 @@
     gtag('config', 'G-YMXRKS286V');
   </script>
 
-  <!-- ADSENSE (caricato UNA SOLA VOLTA) -->
+  <!-- Google AdSense (UNA SOLA VOLTA, FUORI da altri script) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9807260775949508"
      crossorigin="anonymous"></script>
 
   <style>
-    :root {
-      --bg: #050509;
-      --bg-alt: #101018;
-      --accent: #00a651;
-      --text: #f5f5f5;
-      --muted: #b0b0b0;
-      --card: #0b0b12;
-      --border-soft: rgba(255,255,255,0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #141428 0, #050509 55%);
-      color: var(--text);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* HEADER */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(16px);
-      background: linear-gradient(to bottom, rgba(5,5,9,0.95), rgba(5,5,9,0.85));
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 6px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-    }
-
-    .brand img {
-      height: 100px;
-      width: auto;
-      display: block;
-    }
-
-    nav {
-      display: flex;
-      gap: 16px;
-      font-size: 13px;
-    }
-
-    nav a {
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--muted);
-      transition: background .2s ease, color .2s ease;
-    }
-
-    nav a:hover {
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-    }
-
-    /* LAYOUT BASE */
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 22px 18px 40px;
-    }
-
-    section {
-      margin-bottom: 40px;
-    }
-
-    /* HERO */
-
-    #hero {
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
-      gap: 32px;
-      align-items: flex-start; /* le due colonne partono allineate in alto */
-      margin-top: 10px;
-    }
-
-    @media (max-width: 900px) {
-      #hero {
-        grid-template-columns: minmax(0, 1fr);
-        margin-top: 20px;
-      }
-    }
-
-    .hero-title {
-      font-size: clamp(26px, 4vw, 34px);
-      margin-bottom: 8px;
-      line-height: 1.1;
-    }
-
-    .hero-subtitle {
-      font-size: 14px;
-      color: var(--muted);
-      max-width: 520px;
-      margin-bottom: 18px;
-    }
-
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .btn-primary,
-    .btn-ghost {
-      border-radius: 999px;
-      padding: 9px 16px;
-      font-size: 13px;
-      font-weight: 500;
-      border: 1px solid transparent;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: none;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      box-shadow: 0 8px 24px rgba(0,166,81,0.45);
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.08);
-      transform: translateY(-1px);
-    }
-
-    .btn-ghost {
-      border-color: var(--border-soft);
-      color: var(--muted);
-      background: rgba(255,255,255,0.02);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-    }
-
-    .hero-meta {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* WIDGET NEWS IN HERO (AL POSTO DEL BANNER) - VERSIONE RETTANGOLARE ALLINEATA */
-
-    .hero-banner {
-      margin-top: 14px;
-      width: 100%;
-      max-width: 530px;                     /* leggermente più largo, rettangolare */
-      height:325px;                        /* altezza fissa: non allunga la hero */
-      border-radius: 18px;                  /* stesso raggio della hero-card */
-      border: 1px solid var(--border-soft); /* stesso bordo della hero-card */
-      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
-      background: radial-gradient(circle at top, #19192b 0, #050509 60%);
-      overflow: hidden;
-      display: flex;
-    }
-
-    .hero-news-inner {
-      padding: 10px 12px 10px;
-      font-size: 12px;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .hero-news-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .hero-news-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-news-logo {
-      height: 20px;
-      width: auto;
-      display: block;
-    }
-
-    .hero-news-title {
-      font-size: 11.5px;
-      line-height: 1.3;
-    }
-
-    .hero-news-title strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    .hero-news-badge {
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: rgba(0,166,81,0.18);
-      color: #8fffc1;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: .4px;
-      border: 1px solid rgba(0,166,81,0.55);
-      white-space: nowrap;
-    }
-
-    .hero-news-link-site {
-      font-size: 11px;
-      color: #b0ffcf;
-      text-decoration: none;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,166,81,0.4);
-      background: rgba(0,166,81,0.12);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: background .2s ease, transform .15s ease, border-color .2s ease;
-      margin-bottom: 4px;
-      align-self: flex-start;
-    }
-
-    .hero-news-link-site:hover {
-      background: rgba(0,166,81,0.22);
-      border-color: rgba(0,166,81,0.8);
-      transform: translateY(-1px);
-    }
-
-    .hero-news-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex: 1;                             /* riempie lo spazio verticale disponibile */
-      overflow-y: auto;                    /* se serve, scroll interno */
-    }
-
-    .hero-news-item {
-      background: rgba(5,5,10,0.9);
-      border-radius: 8px;
-      padding: 5px 6px;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: border .2s ease, background .2s ease, transform .1s ease;
-    }
-
-    .hero-news-item a {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .hero-news-item:hover {
-      border-color: rgba(255,255,255,0.2);
-      background: rgba(10,10,18,0.98);
-      transform: translateY(-1px);
-    }
-
-    .hero-news-meta {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 9px;
-      color: var(--muted);
-      margin-bottom: 1px;
-    }
-
-    .hero-news-tag {
-      padding: 1px 5px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      font-size: 8px;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-    }
-
-    .hero-news-date {
-      opacity: .8;
-    }
-
-    .hero-news-title-item {
-      font-size: 11px;
-      font-weight: 600;
-      line-height: 1.3;
-      margin-bottom: 1px;
-    }
-
-    .hero-news-excerpt {
-      font-size: 10px;
-      color: var(--muted);
-      line-height: 1.25;
-    }
-
-    .hero-news-empty {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    /* CARD HERO DESTRA */
-
-    .hero-card {
-      background: radial-gradient(circle at top, #19192b 0, #090910 60%);
-      border-radius: 18px;
-      padding: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
-      border: 1px solid var(--border-soft);
-    }
-
-    .hero-card-inner {
-      position: relative;
-      width: 100%;
-      padding-top: 133.333%;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #000;
-    }
-
-    .hero-card-inner img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: drop-shadow(0 18px 30px rgba(0,0,0,0.7));
-    }
-
-    .hero-card-label {
-      margin-top: 8px;
-      font-size: 11px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    /* SEZIONE TESTO */
-
-    #about {
-      border-radius: 18px;
-      padding: 18px 16px 16px;
-      background: linear-gradient(135deg, rgba(15,15,30,0.9), rgba(8,8,14,0.95));
-      border: 1px solid var(--border-soft);
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    #about h2,
-    #edicola h2 {
-      font-size: 18px;
-      margin: 0 0 10px;
-      color: var(--text);
-    }
-
-    #about p {
-      margin: 0 0 8px;
-      line-height: 1.5;
-    }
-
-    #about ul {
-      margin: 8px 0 0 18px;
-      padding: 0;
-    }
-
-    #about li {
-      margin-bottom: 4px;
-    }
-
-    /* GRIGLIA EDICOLA */
-
-    #edicola {
-      margin-top: 36px;
-    }
-
-    #edicola-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    #edicola-header p {
-      margin: 0;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    #edicola-grandangolo {
-      max-width: 1100px;
-      margin: 0 auto 8px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 24px;
-      font-family: inherit;
-    }
-
-    .edicola-card {
-      background: var(--card);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      transition: transform .25s ease, box-shadow .25s ease, border .2s ease;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-
-    .edicola-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 26px rgba(0,0,0,0.5);
-      border-color: rgba(255,255,255,0.1);
-    }
-
-    .edicola-cover-wrap {
-      position: relative;
-      width: 100%;
-      padding-top: 133.333%;
-      overflow: hidden;
-    }
-
-    .edicola-cover-wrap img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .4s ease;
-    }
-
-    .edicola-card:hover .edicola-cover-wrap img {
-      transform: scale(1.03);
-    }
-
-    .issue-label-latest {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: #e60000;
-      color: #fff;
-      padding: 6px 10px;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-      letter-spacing: 0.3px;
-      pointer-events: none;
-      text-transform: uppercase;
-    }
-
-    .edicola-label {
-      padding: 10px 12px 12px;
-      background: linear-gradient(to bottom, rgba(8,8,16,0.98), rgba(5,5,10,0.98));
-      color: var(--text);
-      font-size: 12px;
-    }
-
-    .edicola-label-title {
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .edicola-label-sub {
-      opacity: .75;
-      font-size: 11px;
-    }
-
-    .edicola-label-meta {
-      margin-top: 5px;
-      font-size: 10px;
-      opacity: .6;
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    /* FOOTER */
-
-    footer {
-      border-top: 1px solid var(--border-soft);
-      padding: 12px 18px 18px;
-      font-size: 11px;
-      color: var(--muted);
-      text-align: center;
-      background: radial-gradient(circle at bottom, #151525 0, #050509 55%);
-    }
-
-    @media (max-width: 600px) {
-      .brand img {
-        height: 80px;
-      }
-      .hero-banner {
-        max-width: 100%;
-        height: auto;
-      }
+    :root{--bg:#050509;--bg-alt:#101018;--accent:#00a651;--text:#f5f5f5;--muted:#b0b0b0;--card:#0b0b12;--border-soft:rgba(255,255,255,0.08)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top,#141428 0,#050509 55%);color:var(--text)}
+    a{color:inherit;text-decoration:none}
+
+    header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:linear-gradient(to bottom,rgba(5,5,9,0.95),rgba(5,5,9,0.85));border-bottom:1px solid var(--border-soft)}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:6px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-size:14px}
+    .brand img{height:100px;width:auto;display:block}
+    nav{display:flex;gap:16px;font-size:13px}
+    nav a{padding:6px 10px;border-radius:999px;color:var(--muted);transition:background .2s ease,color .2s ease}
+    nav a:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+
+    main{max-width:1100px;margin:0 auto;padding:22px 18px 40px}
+    section{margin-bottom:40px}
+
+    #hero{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1.4fr);gap:32px;align-items:flex-start;margin-top:10px}
+    @media (max-width:900px){#hero{grid-template-columns:minmax(0,1fr);margin-top:20px}}
+
+    .hero-title{font-size:clamp(26px,4vw,34px);margin-bottom:8px;line-height:1.1}
+    .hero-subtitle{font-size:14px;color:var(--muted);max-width:520px;margin-bottom:18px}
+    .hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+    .btn-primary,.btn-ghost{border-radius:999px;padding:9px 16px;font-size:13px;font-weight:500;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;background:none;color:inherit;text-decoration:none}
+    .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(0,166,81,0.45)}
+    .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
+    .btn-ghost{border-color:var(--border-soft);color:var(--muted);background:rgba(255,255,255,0.02)}
+    .btn-ghost:hover{background:rgba(255,255,255,0.04);color:var(--text)}
+    .hero-meta{font-size:12px;color:var(--muted)}
+
+    .hero-banner{margin-top:14px;width:100%;max-width:530px;height:325px;border-radius:18px;border:1px solid var(--border-soft);box-shadow:0 10px 30px rgba(0,0,0,0.55);background:radial-gradient(circle at top,#19192b 0,#050509 60%);overflow:hidden;display:flex}
+    .hero-news-inner{padding:10px 12px 10px;font-size:12px;display:flex;flex-direction:column;width:100%}
+    .hero-news-header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+    .hero-news-title-wrap{display:flex;align-items:center;gap:8px}
+    .hero-news-logo{height:20px;width:auto;display:block}
+    .hero-news-title{font-size:11.5px;line-height:1.3}
+    .hero-news-title strong{display:block;font-size:13px}
+    .hero-news-badge{padding:3px 7px;border-radius:999px;background:rgba(0,166,81,0.18);color:#8fffc1;font-size:9px;text-transform:uppercase;letter-spacing:.4px;border:1px solid rgba(0,166,81,0.55);white-space:nowrap}
+    .hero-news-link-site{font-size:11px;color:#b0ffcf;text-decoration:none;padding:4px 8px;border-radius:999px;border:1px solid rgba(0,166,81,0.4);background:rgba(0,166,81,0.12);display:inline-flex;align-items:center;gap:4px;transition:background .2s ease,transform .15s ease,border-color .2s ease;margin-bottom:4px;align-self:flex-start}
+    .hero-news-link-site:hover{background:rgba(0,166,81,0.22);border-color:rgba(0,166,81,0.8);transform:translateY(-1px)}
+    .hero-news-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;flex:1;overflow-y:auto}
+    .hero-news-item{background:rgba(5,5,10,0.9);border-radius:8px;padding:5px 6px;border:1px solid rgba(255,255,255,0.08);transition:border .2s ease,background .2s ease,transform .1s ease}
+    .hero-news-item a{text-decoration:none;color:inherit;display:block}
+    .hero-news-item:hover{border-color:rgba(255,255,255,0.2);background:rgba(10,10,18,0.98);transform:translateY(-1px)}
+    .hero-news-meta{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--muted);margin-bottom:1px}
+    .hero-news-tag{padding:1px 5px;border-radius:999px;border:1px solid rgba(255,255,255,0.18);font-size:8px;text-transform:uppercase;letter-spacing:.04em}
+    .hero-news-date{opacity:.8}
+    .hero-news-title-item{font-size:11px;font-weight:600;line-height:1.3;margin-bottom:1px}
+    .hero-news-excerpt{font-size:10px;color:var(--muted);line-height:1.25}
+    .hero-news-empty{font-size:11px;color:var(--muted)}
+
+    .hero-card{background:radial-gradient(circle at top,#19192b 0,#090910 60%);border-radius:18px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,0.55);border:1px solid var(--border-soft)}
+    .hero-card-inner{position:relative;width:100%;padding-top:133.333%;border-radius:14px;overflow:hidden;background:#000}
+    .hero-card-inner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.7))}
+    .hero-card-label{margin-top:8px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+
+    #about{border-radius:18px;padding:18px 16px 16px;background:linear-gradient(135deg,rgba(15,15,30,0.9),rgba(8,8,14,0.95));border:1px solid var(--border-soft);font-size:13px;color:var(--muted)}
+    #about h2,#edicola h2{font-size:18px;margin:0 0 10px;color:var(--text)}
+    #about p{margin:0 0 8px;line-height:1.5}
+    #about ul{margin:8px 0 0 18px;padding:0}
+    #about li{margin-bottom:4px}
+
+    #edicola{margin-top:36px}
+    #edicola-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+    #edicola-header p{margin:0;font-size:12px;color:var(--muted)}
+    #edicola-grandangolo{max-width:1100px;margin:0 auto 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:24px;font-family:inherit}
+
+    .edicola-card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.35);cursor:pointer;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease,border .2s ease;border:1px solid rgba(255,255,255,0.03)}
+    .edicola-card:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(0,0,0,0.5);border-color:rgba(255,255,255,0.1)}
+    .edicola-cover-wrap{position:relative;width:100%;padding-top:133.333%;overflow:hidden}
+    .edicola-cover-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+    .edicola-card:hover .edicola-cover-wrap img{transform:scale(1.03)}
+    .issue-label-latest{position:absolute;bottom:8px;right:8px;background:#e60000;color:#fff;padding:6px 10px;font-size:13px;font-weight:700;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,0.35);letter-spacing:0.3px;pointer-events:none;text-transform:uppercase}
+    .edicola-label{padding:10px 12px 12px;background:linear-gradient(to bottom,rgba(8,8,16,0.98),rgba(5,5,10,0.98));color:var(--text);font-size:12px}
+    .edicola-label-title{font-weight:600;margin-bottom:2px}
+    .edicola-label-sub{opacity:.75;font-size:11px}
+    .edicola-label-meta{margin-top:5px;font-size:10px;opacity:.6;display:flex;justify-content:space-between;gap:6px}
+
+    footer{border-top:1px solid var(--border-soft);padding:12px 18px 18px;font-size:11px;color:var(--muted);text-align:center;background:radial-gradient(circle at bottom,#151525 0,#050509 55%)}
+
+    @media (max-width:600px){
+      .brand img{height:80px}
+      .hero-banner{max-width:100%;height:auto}
     }
   </style>
 </head>
@@ -558,15 +114,11 @@
              alt="Grandangolo Edicola Digitale">
       </a>
       <nav>
-        <a href="https://grandangolosettimanale.it" target="_blank" rel="noopener">
-          HOME
-        </a>
+        <a href="https://grandangolosettimanale.it" target="_blank" rel="noopener">HOME</a>
         <a href="#about">COME FUNZIONA</a>
         <a href="#edicola">EDICOLA</a>
         <a href="/podcast.html">PODCAST</a>
-        <a href="https://grandangolo.gumroad.com/" target="_blank" rel="noopener">
-          VECCHIA EDICOLA
-        </a>
+        <a href="https://grandangolo.gumroad.com/" target="_blank" rel="noopener">VECCHIA EDICOLA</a>
       </nav>
     </div>
   </header>
@@ -582,33 +134,25 @@
         </p>
 
         <div class="hero-cta">
-          <a href="#edicola" class="btn-primary">
-            Vai all'edicola
-          </a>
-          <a href="#about" class="btn-ghost">
-             Come funziona
-          </a>
-          <a href="https://grandangolo.gumroad.com/" class="btn-ghost" target="_blank" rel="noopener">
-             Vecchia edicola
-          </a>
+          <a href="#edicola" class="btn-primary">Vai all'edicola</a>
+          <a href="#about" class="btn-ghost">Come funziona</a>
+          <a href="https://grandangolo.gumroad.com/" class="btn-ghost" target="_blank" rel="noopener">Vecchia edicola</a>
         </div>
 
         <div class="hero-meta">
           Nessuna app da installare e niente da scaricare. Basta acquistare il tuo codice per leggere la tua copia del settimanale di Grandangolo.
         </div>
 
-        <!-- ADSENSE POSIZIONAMENTO 1 (sotto la hero, alta visibilità) -->
-        <div style="margin-top:14px; width:100%; min-width:250px;">
+        <!-- ADSENSE #1 (strategico: sotto la hero, responsive) -->
+        <div style="margin-top:12px;min-width:250px;">
           <ins class="adsbygoogle"
                style="display:block;width:100%;"
                data-ad-client="ca-pub-9807260775949508"
                data-ad-slot="6706474453"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
         </div>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
 
         <!-- WIDGET NEWS RETTANGOLARE LIVE -->
         <div class="hero-banner">
@@ -670,6 +214,17 @@
       <p style="margin-top:10px;"></p>
     </section>
 
+    <!-- ADSENSE #2 (strategico: tra testo e griglia edicola) -->
+    <div style="margin:10px 0 18px;min-width:250px;">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%;"
+           data-ad-client="ca-pub-9807260775949508"
+           data-ad-slot="6706474453"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+
     <!-- EDICOLA -->
     <section id="edicola">
       <div id="edicola-header">
@@ -680,19 +235,16 @@
       <div id="edicola-grandangolo"></div>
     </section>
 
-    <!-- ADSENSE POSIZIONAMENTO 3 (prima del footer, ottimo per viewability) -->
-    <div style="margin: 10px 0 30px; width:100%; min-width:250px;">
+    <!-- ADSENSE #3 (strategico: fine pagina prima del footer) -->
+    <div style="margin:20px 0 0;min-width:250px;">
       <ins class="adsbygoogle"
            style="display:block;width:100%;"
            data-ad-client="ca-pub-9807260775949508"
            data-ad-slot="6706474453"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
     </div>
-
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
   </main>
 
   <footer>
@@ -713,17 +265,17 @@
         isLatest: true,
         pages: [
              "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12.jpg"
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12.jpg"
         ]
       },
         {
@@ -736,17 +288,17 @@
         isLatest: true,
         pages: [
              "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_e5c14d.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_950d00.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_c00845.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_8f02aa.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_c5452a.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_01cfda.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_7e41a1.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_4cb673.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_4f3825.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_67eb6c.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_f57f9a.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_df08dc.jpg"
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_950d00.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_c00845.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_8f02aa.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_c5452a.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_01cfda.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_7e41a1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_4cb673.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_4f3825.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_67eb6c.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_f57f9a.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_df08dc.jpg"
         ]
       },
         {
@@ -759,18 +311,18 @@
         isLatest: true,
         pages: [
              "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_48862b.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_0809ac.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_67e253.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_1df9f1.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_925053.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_255ab1.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_be76d1.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_0e26ec.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_b5ab32.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_28431c.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_2b24d8.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_e2a6c0.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13_2e56a4.jpg"
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_0809ac.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_67e253.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_1df9f1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_925053.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_255ab1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_be76d1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_0e26ec.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_b5ab32.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_28431c.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_2b24d8.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_e2a6c0.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13_2e56a4.jpg"
         ]
       },
         {
@@ -782,18 +334,18 @@
         unlockCode: "GR22-UJHhs9?[s",
         isLatest: true,
         pages: [
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_c6405a.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_60fd10.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_303556.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_a5296c.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_953d76.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_f419a3.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_14c700.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_5373d6.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_14bc91.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_36afae.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_9b05b5.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_a50e4a.jpg"
+            "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_c6405a.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_60fd10.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_303556.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_a5296c.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_953d76.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_f419a3.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_14c700.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_5373d6.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_14bc91.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_36afae.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_9b05b5.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_a50e4a.jpg"
         ]
       },
         {
@@ -805,22 +357,192 @@
         unlockCode: "GR22-Tg4Ie%Pol",
         isLatest: true,
         pages: [
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12.jpg",
-             "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13.jpg"
+           "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13.jpg"
+        ]
+      },
+      {
+        id: "ga45",
+        title: "Grandangolo Settimanale N. 47",
+        subtitle: "13 dicembre 2025",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1_ef6153.jpg",
+        buyUrl: "https://buy.stripe.com/6oU28tgIUaEx0KN7sY9MY06",
+        unlockCode: "GR21-ST54dsh=s%",
+        isLatest: true,
+        pages: [
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1_ef6153.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/2_7bd602.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/3_63139b.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/4_056d4d.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/5_114023.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/6_fb3250.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/7_a87039.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/8_12c608.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/9_c2bdc2.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/10_9f47d2.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/11_74ce64.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/12.jpg"
+        ]
+      },
+      {
+        id: "ga45",
+        title: "Grandangolo Settimanale N. 46",
+        subtitle: "6 dicembre 2025",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1.jpg",
+        buyUrl: "https://buy.stripe.com/bJeeVf1O09At1OR6oU9MY04",
+        unlockCode: "GR21-dJPdc5j)",
+        isLatest: true,
+        pages: [
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/2.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/3.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/4.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/4.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/5.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/6.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/7.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/8.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/9.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/10.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/11.jpg"
+        ]
+      },
+      {
+        id: "ga44",
+        title: "Grandangolo Settimanale N. 44",
+        subtitle: "29 novembre 2025",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_8358eb.jpg",
+        buyUrl: "https://buy.stripe.com/3cIfZj50c7sl3WZeVq9MY03",
+        unlockCode: "GR21-aDGcfh8w7",
+        isLatest: true,
+        pages: [
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_8358eb.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_1d2375.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_a8dd7c.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_550129.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_ad3935.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_8acab6.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_7ca78d.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_a7f2d9.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_dc8dbf.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_78ba51.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_299eca.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/12_dc1590.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/12_dc1590.jpg"
+        ]
+      },
+        {
+        id: "ga43",
+        title: "Grandangolo Settimanale N. 43",
+        subtitle: "22 novembre 2025",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_3b015f.jpg",
+        buyUrl: "https://buy.stripe.com/3cI8wR50cfYR8df3cI9MY02",
+        unlockCode: "GR21-JaZ5yYd3ZB",
+        isLatest: true,
+        pages: [
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_3b015f.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a550a1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_14a806.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_660e07.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_ad778e.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_b68315.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_1ce699.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_a9c530.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_e39f1b.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_6b2490.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_0af8bd.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/12.jpg"
+        ]
+      },
+      {
+        id: "ga40",
+        title: "Grandangolo Settimanale N. 42",
+        subtitle: "15 novembre 2025",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg",
+        buyUrl: "https://buy.stripe.com/8x26oJ2S4h2V1OR5kQ9MY00",
+        unlockCode: "GR21-rwYa7hvBD8M",
+        isLatest: true,
+        pages: [
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a54dca.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_70d2c7.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_cbaf8f.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_f2c14f.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_2e6e09.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_f9df4d.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_987272.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_737e71.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_eea7f6.jpg",
+          "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_2268ca.jpg"
+        ]
+      },
+      {
+        id: "ga38",
+        title: "Grandangolo Settimanale N. 41",
+        subtitle: "8 novembre 2025",
+        cover: "https://public-files.gumroad.com/vze72auouuw1kp5d6irdtuuef1vr",
+        buyUrl: "#",
+        unlockCode: "CODICE_SEGRETO_38",
+        pages: [
+          "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+38+-+Pagina+1",
+          "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+38+-+Pagina+2",
+          "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+38+-+Pagina+3",
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+38+-+Pagina+4"
+        ]
+      },
+      {
+        id: "ga39",
+        title: "Grandangolo Settimanale N. 40",
+        subtitle: "4 novembre 2025",
+        cover: "https://public-files.gumroad.com/60xrnhp8eqdix3xulhycv30c1bah",
+        buyUrl: "#",
+        unlockCode: "CODICE_SEGRETO_39",
+        pages: [
+          "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+39+-+Pagina+1",
+          "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+39+-+Pagina+2",
+          "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+39+-+Pagina+3",
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+39+-+Pagina+4"
+        ]
+      },
+      {
+        id: "ga41",
+        title: "Grandangolo Settimanale N. 39",
+        subtitle: "25 ottobre 2025",
+        cover: "https://public-files.gumroad.com/xraa7z5n1zin5gml492zmmj4wpu8",
+        buyUrl: "#",
+        unlockCode: "CODICE_SEGRETO_41",
+        pages: [
+          "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+41+-+Pagina+1",
+          "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+41+-+Pagina+2",
+          "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+41+-+Pagina+3",
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+41+-+Pagina+4"
+        ]
+      },
+      {
+        id: "ga42",
+        title: "Grandangolo Settimanale N. 38",
+        subtitle: "18 ottobre 2025",
+        cover: "https://public-files.gumroad.com/tu0kd4z4c5xcz38rkhp9zc92abe4",
+        buyUrl: "#",
+        unlockCode: "CODICE_SEGRETO_42",
+        pages: [
+          "https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+42+-+Pagina+1",
+          "https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+42+-+Pagina+2",
+          "https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+42+-+Pagina+3",
+          "https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+42+-+Pagina+4"
         ]
       }
-      /* (il resto del tuo array issues rimane invariato; l'ho tagliato qui solo per non duplicare pagine già presenti nel tuo messaggio) */
     ];
 
     const edicolaRoot = document.getElementById("edicola-grandangolo");
@@ -831,7 +553,6 @@
       card.className = "edicola-card";
       card.setAttribute("data-issue-id", issue.id);
 
-      // il primo elemento dell'array è SEMPRE l'ultima uscita
       const isLatest = index === 0;
 
       card.innerHTML = `
@@ -854,28 +575,6 @@
       });
 
       edicolaRoot.appendChild(card);
-
-      // ADSENSE POSIZIONAMENTO 2 (IN-FEED): dopo la terza card + LARGHEZZA PIENA (no errore 250px)
-      if (index === 2) {
-        const adWrapper = document.createElement("div");
-        adWrapper.style.gridColumn = "1 / -1";
-        adWrapper.style.width = "100%";
-        adWrapper.style.margin = "10px 0 30px 0";
-
-        adWrapper.innerHTML = `
-          <div style="width:100%;min-width:250px;">
-            <ins class="adsbygoogle"
-                 style="display:block;width:100%;"
-                 data-ad-format="fluid"
-                 data-ad-layout-key="+21+rj+34-48-1i"
-                 data-ad-client="ca-pub-9807260775949508"
-                 data-ad-slot="6706474453"></ins>
-          </div>
-        `;
-
-        edicolaRoot.appendChild(adWrapper);
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      }
     });
 
     function performUnlock(issue, value, onSuccess, onError) {
@@ -1041,18 +740,12 @@
 
       prevBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-        if (index > 0) {
-          index--;
-          updatePage();
-        }
+        if (index > 0) { index--; updatePage(); }
       });
 
       nextBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-        if (index < pages.length - 1) {
-          index++;
-          updatePage();
-        }
+        if (index < pages.length - 1) { index++; updatePage(); }
       });
 
       closeBtn.addEventListener("click", function(e) {
@@ -1061,16 +754,12 @@
       });
 
       overlay.addEventListener("click", function(e) {
-        if (e.target === overlay) {
-          document.body.removeChild(overlay);
-        }
+        if (e.target === overlay) document.body.removeChild(overlay);
       });
 
       buyBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-        if (issue.buyUrl && issue.buyUrl !== "#") {
-          window.location.href = issue.buyUrl;
-        }
+        if (issue.buyUrl && issue.buyUrl !== "#") window.location.href = issue.buyUrl;
       });
 
       unlockBtn.addEventListener("click", function(e) {
@@ -1138,11 +827,7 @@
       if (!iso) return "";
       const d = new Date(iso);
       if (isNaN(d.getTime())) return "";
-      return d.toLocaleDateString("it-IT", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-      });
+      return d.toLocaleDateString("it-IT", {day:"2-digit",month:"2-digit",year:"numeric"});
     }
 
     fetch(endpoint)
@@ -1164,9 +849,7 @@
 
           const title = stripHtml(post.title && post.title.rendered);
           const rawExcerpt = stripHtml(post.excerpt && post.excerpt.rendered);
-          const excerpt = rawExcerpt.length > 90
-            ? rawExcerpt.slice(0, 90) + "…"
-            : rawExcerpt;
+          const excerpt = rawExcerpt.length > 90 ? rawExcerpt.slice(0, 90) + "…" : rawExcerpt;
           const date = formatDate(post.date);
           const url = post.link || "#";
 
