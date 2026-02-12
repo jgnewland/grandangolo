@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9807260775949508"
+     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <title>Edicola digitale Grandangolo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -789,6 +791,7 @@
     "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12.jpg",
     "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13.jpg"
         ]
+        
       },
       {
         id: "ga45",
@@ -967,6 +970,25 @@
     if (!edicolaRoot || !issues.length) return;
 
     issues.forEach((issue, index) => {
+        // Inserisce annuncio dopo la terza card
+if (index === 2) {
+  const ad = document.createElement("div");
+  ad.style.margin = "20px 0";
+
+  ad.innerHTML = `
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-format="fluid"
+         data-ad-layout-key="+21+rj+34-48-1i"
+         data-ad-client="ca-pub-9807260775949508"
+         data-ad-slot="6706474453"></ins>
+  `;
+
+  edicolaRoot.appendChild(ad);
+
+  (adsbygoogle = window.adsbygoogle || []).push({});
+}
+
   const card = document.createElement("article");
   card.className = "edicola-card";
   card.setAttribute("data-issue-id", issue.id);
