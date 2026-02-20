@@ -1,6 +1,6 @@
 <?php
 // ======= CONFIG =======
-$DEST_EMAIL = "tuamail@tuodominio.it"; // <-- cambia con la tua mail
+$DEST_EMAIL = "terranova.grandangoloagrigento@gmail.com"; // <-- cambia con la tua mail
 $CSV_FILE = __DIR__ . "/ordini.csv";
 
 // ======= HELPERS =======
