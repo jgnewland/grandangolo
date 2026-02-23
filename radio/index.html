@@ -4,352 +4,231 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Radio | Grandangolo Settimanale</title>
-  <meta name="description" content="Ascolta la diretta radio di Grandangolo Settimanale, recupera le puntate e contattaci." />
-  <meta name="theme-color" content="#0f1115" />
-
+  <meta name="theme-color" content="#0b0e14" />
   <style>
     :root{
-      --bg:#0f1115;
-      --card: rgba(21,24,36,.78);
-      --card2: rgba(0,0,0,.22);
-      --text:#f2f4f8;
-      --muted:#b7bfd6;
-      --accent:#7bdcff;
-      --accent2:#9b8cff;
-      --danger:#ff4d6d;
-      --border: rgba(255,255,255,.11);
-      --shadow: 0 14px 38px rgba(0,0,0,.38);
-      --radius: 18px;
-      --max: 1120px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --bg:#0b0e14;
+      --panel:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.10);
+      --text:#f2f5ff;
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --r:16px;
+      --max:1180px;
+      --a1:#00E5FF;
+      --a2:#8A6CFF;
+      --bad:#ff4d6d;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: var(--font);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
-      line-height:1.55;
       background:
-        radial-gradient(1200px 650px at 18% -10%, rgba(123,220,255,.18), transparent 55%),
-        radial-gradient(900px 520px at 92% 8%, rgba(155,140,255,.16), transparent 60%),
-        radial-gradient(1000px 600px at 60% 110%, rgba(255,77,109,.08), transparent 60%),
+        radial-gradient(1100px 650px at 15% -15%, rgba(0,229,255,.18), transparent 55%),
+        radial-gradient(900px 520px at 92% 8%, rgba(138,108,255,.16), transparent 60%),
         var(--bg);
     }
-    a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px}
-    header{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:14px 0 10px;
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px}
+    /* Topbar */
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(12px);
+      background:linear-gradient(to bottom, rgba(11,14,20,.92), rgba(11,14,20,.72));
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
-    .logo{
-      width:44px; height:44px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(123,220,255,.95), rgba(155,140,255,.95));
-      box-shadow: var(--shadow);
+    .topbar .inner{max-width:var(--max);margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:230px}
+    .logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.95));box-shadow:var(--shadow)}
+    .brand .t1{font-weight:900;letter-spacing:-.2px;line-height:1.1}
+    .brand .t2{font-size:12px;color:var(--muted);margin-top:2px}
+    nav{display:flex;gap:10px;flex-wrap:wrap}
+    nav a{font-size:13px;color:var(--muted);padding:8px 10px;border-radius:999px;border:1px solid transparent}
+    nav a:hover{border-color:var(--border);color:var(--text);background:rgba(255,255,255,.03)}
+    .spacer{flex:1}
+    .btnLive{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 12px;border-radius:999px;border:1px solid transparent;
+      background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.92));
+      color:#071018;font-weight:900;cursor:pointer;white-space:nowrap;
+      box-shadow:0 12px 40px rgba(0,0,0,.35);
     }
-    .brand h1{margin:0; font-size:16px; letter-spacing:.35px}
-    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
-    nav{display:flex; gap:10px; flex-wrap:wrap}
-    nav a{
-      text-decoration:none; font-size:13px; color:var(--muted);
-      padding:8px 10px; border:1px solid transparent; border-radius:999px;
-    }
-    nav a:hover{border-color:var(--border); color:var(--text)}
-    nav a.active{border-color:var(--border); color:var(--text); background: rgba(255,255,255,.05)}
-
-    .hero{
-      margin-top:10px;
-      display:grid; grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-    }
-    .card{
-      background: var(--card);
-      border:1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
-    }
-    .hero .left{padding:22px}
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      font-size:12px; color:var(--muted);
-      border:1px solid var(--border);
-      padding:7px 10px; border-radius:999px;
-      background: rgba(255,255,255,.03);
-    }
-    .liveDot{
-      width:8px; height:8px; border-radius:50%;
-      background: var(--danger);
-      box-shadow: 0 0 0 6px rgba(255,77,109,.12);
-      animation: pulse 1.4s infinite ease-in-out;
-    }
-    @keyframes pulse{
-      0%,100%{ transform: scale(1); opacity: 1; }
-      50%{ transform: scale(1.25); opacity: .75; }
-    }
-
-    .title{
-      margin:14px 0 8px;
-      font-size:34px; line-height:1.08;
-      letter-spacing:-.6px;
-    }
-    .subtitle{margin:0; color:var(--muted); font-size:15px; max-width:62ch}
-
-    .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .btnLive:active{transform:translateY(1px)}
+    /* Layout */
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:16px;align-items:start}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+    .hero{padding:18px}
+    .badge{display:inline-flex;align-items:center;gap:10px;padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:var(--muted);font-size:12px}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--bad);box-shadow:0 0 0 6px rgba(255,77,109,.12);animation:pulse 1.4s infinite ease-in-out}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+    h1{margin:12px 0 6px;font-size:34px;line-height:1.06;letter-spacing:-.8px}
+    .sub{margin:0;color:var(--muted);max-width:70ch;font-size:15px}
+    .heroActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:8px;
-      padding:11px 14px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      text-decoration:none;
-      font-size:13px;
-      background: transparent;
-      cursor:pointer;
-      color: var(--text);
-      user-select:none;
-      transition: transform .08s ease, background .12s ease, border-color .12s ease;
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06)}
-    .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, rgba(123,220,255,.95), rgba(155,140,255,.95));
-      color:#0b0c10;
-      font-weight:900;
-    }
-
-    .grid{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:14px;
-    }
-    .item{padding:16px}
-    .item h3{margin:0 0 6px; font-size:15px}
-    .item p{margin:0; color:var(--muted); font-size:13px}
-
-    .hero .right{padding:18px}
-    .panel-title{margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.3px}
-
-    .playerShell{
-      border-radius: 16px;
-      border:1px solid var(--border);
-      background: var(--card2);
-      padding: 14px;
-    }
-    .playerTop{
-      display:flex; align-items:flex-start; justify-content:space-between;
-      gap:12px; margin-bottom: 10px;
-    }
-    .nowLabel{
-      font-size:12px; color:rgba(255,255,255,.55);
-      text-transform:uppercase; letter-spacing:.12em;
-    }
-    .nowTitle{margin-top:6px; font-size:18px; font-weight:900}
-    .nowSub{margin-top:3px; color:var(--muted); font-size:13px}
-
-    .viz{
-      display:flex; gap:4px; align-items:flex-end; height: 32px; padding-top: 4px;
-      opacity: .9;
-    }
-    .bar{
-      width:5px; height:12px; border-radius:999px;
-      background: linear-gradient(180deg, rgba(123,220,255,.95), rgba(155,140,255,.90));
-      opacity:.85; transform-origin:bottom;
-      animation:bounce 900ms infinite ease-in-out;
-    }
-    .bar:nth-child(2){animation-delay:80ms}
-    .bar:nth-child(3){animation-delay:160ms}
-    .bar:nth-child(4){animation-delay:240ms}
-    .bar:nth-child(5){animation-delay:320ms}
-    .bar:nth-child(6){animation-delay:400ms}
-    @keyframes bounce{ 0%,100%{transform:scaleY(.35);opacity:.55} 50%{transform:scaleY(1.15);opacity:1} }
-
-    audio{width:100%; margin-top: 2px}
-
-    .controls{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      margin-top: 10px;
-    }
-    @media (max-width:520px){ .controls{grid-template-columns:1fr} }
-
-    .ctl{
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      cursor:pointer;
-      font-weight:900;
-      user-select:none;
-      transition: transform .08s ease, background .12s ease, border-color .12s ease;
-    }
-    .ctl:hover{background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.18);}
-    .ctl:active{transform: translateY(1px)}
-    .ctl.primary{
-      background: linear-gradient(135deg, rgba(123,220,255,.95), rgba(155,140,255,.90));
-      color:#0b0c10;
-      border-color: transparent;
-    }
-
-    .volRow{
-      grid-column: 1 / -1;
-      display:flex; align-items:center; gap:12px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-    }
-    .volRow label{
-      width:72px;
-      font-size:12px; color:rgba(255,255,255,.55);
-      text-transform:uppercase; letter-spacing:.12em;
-    }
-    .volRow input{width:100%; accent-color: var(--accent2);}
-
-    .metaRow{
-      margin-top:10px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      font-size:12px; color:rgba(255,255,255,.55);
-    }
-    .pillWarn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px; border-radius:999px;
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:10px 12px;border-radius:999px;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.70);
-      font-size:12px;
-      margin-top: 10px;
+      background:rgba(255,255,255,.04);
+      color:var(--text);font-size:13px;cursor:pointer;font-weight:800;
     }
-
-    section{margin-top:22px}
-    .section-head{
-      display:flex; align-items:end; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom:10px;
+    .btn.primary{border-color:transparent;background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.92));color:#071018}
+    .btn:hover{background:rgba(255,255,255,.06)}
+    /* Player */
+    .playerCard{padding:14px}
+    .playerHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .label{font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.12em}
+    .title{margin-top:6px;font-size:18px;font-weight:900}
+    .meta{margin-top:3px;color:var(--muted);font-size:13px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
+    .shell{border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.24);padding:12px}
+    audio{display:none}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    @media(max-width:520px){.controls{grid-template-columns:1fr}}
+    .ctl{
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 14px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:var(--text);cursor:pointer;font-weight:900;
     }
-    .section-head h2{margin:0; font-size:18px}
-    .section-head span{color:var(--muted); font-size:13px}
-
-    .episodes{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
-    .episode{padding:16px; display:flex; gap:14px; align-items:flex-start}
-    .badge{
-      min-width:44px; height:44px; border-radius:14px;
-      background: rgba(123,220,255,.15);
-      border:1px solid rgba(123,220,255,.35);
-      display:flex; align-items:center; justify-content:center;
-      color:var(--accent);
-      font-weight:900;
+    .ctl.primary{background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.90));color:#071018;border-color:transparent}
+    .ctl:active{transform:translateY(1px)}
+    .volRow{
+      grid-column:1/-1;display:flex;align-items:center;gap:12px;
+      padding:10px 12px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
     }
-    .episode h3{margin:0; font-size:15px}
-    .meta{margin-top:4px; color:var(--muted); font-size:12px}
-    .episode .links{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap}
-    .episode .links a{font-size:12px; color:var(--text); opacity:.9}
-    .episode .links a:hover{opacity:1; text-decoration:none}
-
-    .contact{
-      padding:18px;
-      display:grid; grid-template-columns: 1fr 1fr;
-      gap:14px;
+    .volRow label{width:72px;font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.12em}
+    .volRow input{width:100%;accent-color:var(--a2)}
+    .metaRow{margin-top:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.60)}
+    /* Sections */
+    .section{margin-top:16px}
+    .sectionHead{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+    .sectionHead h2{margin:0;font-size:16px}
+    .sectionHead span{color:var(--muted);font-size:13px}
+    /* Podcast */
+    .podTools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+    .input{
+      flex:1;min-width:220px;
+      padding:10px 12px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:var(--text);outline:none;
     }
-    .contact p{margin:6px 0 0; color:var(--muted)}
-
-    footer{
-      margin:26px 0 10px;
-      color:var(--muted);
-      font-size:12px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    .select{
+      padding:10px 12px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:var(--text);outline:none;
     }
-
-    @media (max-width: 900px){
-      .hero{grid-template-columns: 1fr}
-      .grid{grid-template-columns: 1fr}
-      .episodes{grid-template-columns: 1fr}
-      .contact{grid-template-columns: 1fr}
-      .title{font-size:30px}
+    .podGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:980px){.podGrid{grid-template-columns:1fr}}
+    .podCard{padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05)}
+    .podTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .podName{font-weight:900}
+    .podTag{font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,.10);padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.04)}
+    .iframeWrap{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18)}
+    iframe{width:100%;height:232px;border:0}
+    footer{margin:18px 0 10px;color:var(--muted2);font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    /* Mobile bottom */
+    .bottomBar{
+      position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;
+      padding:10px 12px;
+      background:linear-gradient(to top, rgba(11,14,20,.98), rgba(11,14,20,.65));
+      border-top:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(12px);
     }
+    .bottomInner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:10px}
+    .bottomTitle{font-weight:900;font-size:13px}
+    .bottomMeta{color:var(--muted);font-size:12px}
+    .miniBtn{
+      margin-left:auto;display:inline-flex;align-items:center;gap:10px;
+      padding:10px 12px;border-radius:999px;border:1px solid transparent;
+      background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.92));
+      color:#071018;font-weight:900;cursor:pointer;white-space:nowrap;
+    }
+    @media(max-width:980px){.bottomBar{display:block} body{padding-bottom:78px}}
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <header>
-      <a class="brand" href="/radio" aria-label="Radio - Home">
+
+  <div class="topbar">
+    <div class="inner">
+      <a class="brand" href="/radio/">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <h1>Radio • Grandangolo Settimanale</h1>
-          <p>Diretta, puntate e contatti</p>
+          <div class="t1">Grandangolo Radio</div>
+          <div class="t2">Diretta • Podcast • Highlights</div>
         </div>
       </a>
 
       <nav>
-        <a class="active" href="/radio">Radio</a>
-        <a href="#puntate">Puntate</a>
-        <a href="#programma">Programma</a>
+        <a href="#live">Diretta</a>
+        <a href="#podcast">Podcast</a>
         <a href="#contatti">Contatti</a>
       </nav>
-    </header>
 
-    <main>
-      <div class="hero">
-        <div class="card left">
-          <div class="kicker"><span class="liveDot"></span> Diretta attiva</div>
-          <h2 class="title">IL TUO PROGRAMMA RADIO</h2>
-          <p class="subtitle">
-            Inserisci qui la descrizione del programma: format, temi, ospiti, giorno e orario.
-          </p>
+      <div class="spacer"></div>
+      <button class="btnLive" id="jumpPlay" type="button">▶ Listen Live</button>
+    </div>
+  </div>
 
-          <div class="cta">
-            <a class="btn primary" href="#ascolta">▶ Ascolta ora</a>
-            <a class="btn" href="#puntate">🎧 Puntate</a>
-            <a class="btn" href="#contatti">✉️ Contatti</a>
-          </div>
+  <div class="wrap">
+    <div class="grid">
+      <section class="card hero">
+        <div class="badge"><span class="dot"></span> Live • In diretta</div>
+        <h1>Grandangolo Settimanale — Radio</h1>
+        <p class="sub">
+          Diretta sempre disponibile e sotto le registrazioni (podcast) da Spotify, ordinate e ricercabili.
+        </p>
 
-          <div class="grid" aria-label="Punti chiave">
-            <div class="card item">
-              <h3>📡 Diretta</h3>
-              <p>Streaming live integrato direttamente nel sito con player dedicato.</p>
-            </div>
-            <div class="card item">
-              <h3>🎙 Ospiti</h3>
-              <p>Spazio per interviste, rubriche e approfondimenti.</p>
-            </div>
-            <div class="card item">
-              <h3>🗞 Extra</h3>
-              <p>Link ad articoli e contenuti correlati su Grandangolo Settimanale.</p>
-            </div>
-          </div>
+        <div class="heroActions">
+          <button class="btn primary" id="heroPlay" type="button">▶ Listen Live</button>
+          <a class="btn" href="#podcast">🎧 Vai ai Podcast</a>
         </div>
 
-        <aside class="card right" id="ascolta">
-          <p class="panel-title">ASCOLTA</p>
+        <div class="section" id="podcast">
+          <div class="sectionHead">
+            <h2>Podcast</h2>
+            <span>incolla i link Spotify e li embeddiamo qui</span>
+          </div>
 
-          <div class="playerShell">
-            <div class="playerTop">
-              <div>
-                <div class="nowLabel">Ora in onda</div>
-                <div class="nowTitle">Diretta</div>
-                <div class="nowSub">Grandangolo Settimanale</div>
-              </div>
-              <div class="viz" aria-hidden="true">
-                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-              </div>
+          <div class="podTools">
+            <input class="input" id="q" placeholder="Cerca (titolo / tag)..." />
+            <select class="select" id="tagFilter">
+              <option value="all">Tutti i tag</option>
+            </select>
+          </div>
+
+          <div class="podGrid" id="podGrid"></div>
+
+          <div style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.5">
+            Per ottenere il link: apri Spotify → ⋯ → <b>Share</b> → <b>Copy link</b> oppure <b>Embed episode/show</b>. :contentReference[oaicite:2]{index=2}
+          </div>
+        </div>
+      </section>
+
+      <aside>
+        <section class="card playerCard" id="live">
+          <div class="playerHead">
+            <div>
+              <div class="label">On Air Now</div>
+              <div class="title">Diretta</div>
+              <div class="meta">Grandangolo Settimanale</div>
             </div>
+            <div class="chip" id="liveChip">● Live</div>
+          </div>
 
-            <!-- AUDIO STREAM -->
+          <div class="shell">
             <audio id="audio" preload="none" playsinline></audio>
 
             <div class="controls">
-              <button class="ctl primary" id="playBtn" type="button">
-                <span id="playIcon">▶</span> <span id="playText">Play</span>
-              </button>
-
-              <button class="ctl" id="muteBtn" type="button">
-                <span id="muteIcon">🔊</span> Mute
-              </button>
+              <button class="ctl primary" id="playBtn" type="button"><span id="playIcon">▶</span> <span id="playText">Play</span></button>
+              <button class="ctl" id="stopBtn" type="button">⏹ Stop</button>
 
               <div class="volRow">
                 <label for="vol">Volume</label>
@@ -361,126 +240,21 @@
               <div id="statusLine">Stato: pronto</div>
               <div id="clockLine">—</div>
             </div>
-
-            <div class="pillWarn" id="sslWarn" style="display:none;">
-              ⚠️ Nota: lo stream è HTTP. Se la pagina è in HTTPS e non senti nulla, serve stream HTTPS o un proxy.
-            </div>
           </div>
-        </aside>
-      </div>
+        </section>
 
-      <section id="puntate">
-        <div class="section-head">
-          <h2>Puntate</h2>
-          <span>Aggiorna i link quando pubblichi</span>
-        </div>
-
-        <div class="episodes">
-          <article class="card episode">
-            <div class="badge">01</div>
-            <div>
-              <h3>Titolo puntata #1</h3>
-              <div class="meta">Data • Durata • Ospite</div>
-              <div class="links">
-                <a href="#" target="_blank" rel="noopener">Ascolta</a>
-                <a href="#" target="_blank" rel="noopener">Articolo</a>
-                <a href="#" target="_blank" rel="noopener">Download</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card episode">
-            <div class="badge">02</div>
-            <div>
-              <h3>Titolo puntata #2</h3>
-              <div class="meta">Data • Durata • Ospite</div>
-              <div class="links">
-                <a href="#" target="_blank" rel="noopener">Ascolta</a>
-                <a href="#" target="_blank" rel="noopener">Articolo</a>
-                <a href="#" target="_blank" rel="noopener">Download</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card episode">
-            <div class="badge">03</div>
-            <div>
-              <h3>Titolo puntata #3</h3>
-              <div class="meta">Data • Durata • Ospite</div>
-              <div class="links">
-                <a href="#" target="_blank" rel="noopener">Ascolta</a>
-                <a href="#" target="_blank" rel="noopener">Articolo</a>
-                <a href="#" target="_blank" rel="noopener">Download</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card episode">
-            <div class="badge">04</div>
-            <div>
-              <h3>Titolo puntata #4</h3>
-              <div class="meta">Data • Durata • Ospite</div>
-              <div class="links">
-                <a href="#" target="_blank" rel="noopener">Ascolta</a>
-                <a href="#" target="_blank" rel="noopener">Articolo</a>
-                <a href="#" target="_blank" rel="noopener">Download</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="programma">
-        <div class="section-head">
-          <h2>Il programma</h2>
-          <span>Chi sei, cosa fai, perché ascoltare</span>
-        </div>
-
-        <div class="card" style="padding:18px">
-          <p style="margin:0; color:var(--muted)">
-            Inserisci qui una descrizione più completa: format, rubriche fisse, stile, ospiti ricorrenti,
-            e cosa trova l’ascoltatore ogni settimana.
-          </p>
-
-          <div class="grid" style="margin-top:14px">
-            <div class="card item">
-              <h3>🧩 Rubriche</h3>
-              <p>Elenco di 2–4 rubriche fisse con una riga ciascuna.</p>
-            </div>
-            <div class="card item">
-              <h3>👥 Conduce</h3>
-              <p>Nome conduttore/i + breve bio.</p>
-            </div>
-            <div class="card item">
-              <h3>📍 Dove</h3>
-              <p>Emittente / piattaforma / città (se serve).</p>
-            </div>
+        <section class="section card" id="contatti" style="padding:14px;margin-top:14px;">
+          <div class="sectionHead">
+            <h2>Contatti</h2>
+            <span>email / whatsapp</span>
           </div>
-        </div>
-      </section>
-
-      <section id="contatti">
-        <div class="section-head">
-          <h2>Contatti</h2>
-          <span>Per ospiti, segnalazioni e collaborazioni</span>
-        </div>
-
-        <div class="card contact">
-          <div class="card" style="padding:16px">
-            <h3 style="margin:0">Email</h3>
-            <p>Scrivi a: <a href="mailto:info@grandangolosettimanale.it">info@grandangolosettimanale.it</a></p>
+          <div style="color:var(--muted); font-size:14px; line-height:1.6;">
+            Email: <a href="mailto:info@grandangolosettimanale.it">info@grandangolosettimanale.it</a><br/>
+            WhatsApp: <span style="opacity:.9;">(inserisci numero)</span>
           </div>
-          <div class="card" style="padding:16px">
-            <h3 style="margin:0">Social</h3>
-            <p>
-              <a href="#" target="_blank" rel="noopener">Instagram</a> •
-              <a href="#" target="_blank" rel="noopener">Facebook</a> •
-              <a href="#" target="_blank" rel="noopener">YouTube</a>
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </aside>
+    </div>
 
     <footer>
       <div>© <span id="year"></span> Grandangolo Settimanale — Radio</div>
@@ -488,107 +262,216 @@
     </footer>
   </div>
 
+  <div class="bottomBar">
+    <div class="bottomInner">
+      <div>
+        <div class="bottomTitle">Diretta</div>
+        <div class="bottomMeta" id="bottomStatus">Pronto</div>
+      </div>
+      <button class="miniBtn" id="bottomPlay" type="button">▶ Listen Live</button>
+    </div>
+  </div>
+
   <script>
-    // ============================
-    // STREAM (TUO URL FUNZIONANTE)
-    // ============================
-    const STREAM_URL = "http://nr11.newradio.it:9242/stream?type=http&nocache=147999";
+    // ✅ tuo streaming HTTPS via Netlify (route /stream)
+    const STREAM_URL = "/stream";
 
-    // ============================
-    // Elements
-    // ============================
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // ✅ PODCAST: incolla qui i link Spotify (episode o show)
+    // Esempi link:
+    // https://open.spotify.com/episode/XXXXXXXX
+    // https://open.spotify.com/show/YYYYYYYY
+    const PODCASTS = [
+      // { title: "Puntata #1 — Titolo", url: "https://open.spotify.com/episode/XXXX", tag: "politica" },
+      // { title: "Puntata #2 — Titolo", url: "https://open.spotify.com/episode/YYYY", tag: "cronaca" },
+      // { title: "Il nostro show", url: "https://open.spotify.com/show/ZZZZ", tag: "show" },
+    ];
 
+    // ---------- PLAYER ----------
     const audio = document.getElementById("audio");
     const playBtn = document.getElementById("playBtn");
-    const muteBtn = document.getElementById("muteBtn");
+    const stopBtn = document.getElementById("stopBtn");
     const playIcon = document.getElementById("playIcon");
     const playText = document.getElementById("playText");
-    const muteIcon = document.getElementById("muteIcon");
     const vol = document.getElementById("vol");
     const statusLine = document.getElementById("statusLine");
     const clockLine = document.getElementById("clockLine");
-    const sslWarn = document.getElementById("sslWarn");
+    const bottomStatus = document.getElementById("bottomStatus");
+    const bottomPlay = document.getElementById("bottomPlay");
+    const jumpPlay = document.getElementById("jumpPlay");
+    const heroPlay = document.getElementById("heroPlay");
+    const liveChip = document.getElementById("liveChip");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
 
     let playing = false;
 
-    function setStatus(txt){ statusLine.textContent = "Stato: " + txt; }
-
-    function setClock(){
-      const d = new Date();
-      clockLine.textContent = d.toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit"});
+    function setStatus(t){
+      statusLine.textContent = "Stato: " + t;
+      bottomStatus.textContent = t;
     }
-    setInterval(setClock, 1000); setClock();
-
-    function uiPlaying(on){
+    function ui(on){
       playing = on;
       playIcon.textContent = on ? "⏸" : "▶";
       playText.textContent = on ? "Pausa" : "Play";
+      bottomPlay.textContent = on ? "⏸ In riproduzione" : "▶ Listen Live";
+      liveChip.style.opacity = on ? "1" : ".65";
+    }
+    function tick(){
+      const d = new Date();
+      clockLine.textContent = d.toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit"});
+    }
+    tick(); setInterval(tick, 1000);
+
+    vol.addEventListener("input", () => audio.volume = Math.max(0, Math.min(1, parseFloat(vol.value))));
+
+    async function start(){
+      try{
+        setStatus("connessione…");
+        if (audio.src !== STREAM_URL) audio.src = STREAM_URL;
+        await audio.play();
+        ui(true);
+        setStatus("in riproduzione");
+      } catch(e){
+        console.error(e);
+        ui(false);
+        setStatus("errore riproduzione (tocca Play di nuovo)");
+      }
+    }
+    function pause(){
+      audio.pause();
+      ui(false);
+      setStatus("in pausa");
+    }
+    function stop(){
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+      ui(false);
+      setStatus("pronto");
     }
 
-    function uiMuted(on){
-      audio.muted = on;
-      muteIcon.textContent = on ? "🔇" : "🔊";
-    }
+    playBtn.addEventListener("click", () => playing ? pause() : start());
+    bottomPlay.addEventListener("click", () => playing ? pause() : start());
+    stopBtn.addEventListener("click", stop);
 
-    // Mixed content warning if site is https and stream is http
-    try{
-      if (location.protocol === "https:" && STREAM_URL.startsWith("http://")){
-        sslWarn.style.display = "inline-flex";
-      }
-    } catch(e){}
-
-    vol.addEventListener("input", () => {
-      audio.volume = Math.max(0, Math.min(1, parseFloat(vol.value)));
+    jumpPlay.addEventListener("click", () => {
+      document.getElementById("live").scrollIntoView({behavior:"smooth", block:"start"});
+      setTimeout(() => start(), 250);
     });
-
-    muteBtn.addEventListener("click", () => {
-      uiMuted(!audio.muted);
-    });
-
-    playBtn.addEventListener("click", async () => {
-      if (!playing){
-        try{
-          setStatus("connessione…");
-          // Imposta src solo quando serve (evita richieste inutili)
-          if (audio.src !== STREAM_URL) audio.src = STREAM_URL;
-
-          await audio.play();
-          uiPlaying(true);
-          setStatus("in riproduzione");
-        } catch(e){
-          console.error(e);
-          uiPlaying(false);
-          setStatus("errore riproduzione");
-          // Se siamo in https e lo stream è http, spesso è quello il motivo
-          if (location.protocol === "https:" && STREAM_URL.startsWith("http://")){
-            setStatus("bloccato (HTTPS/HTTP). Serve stream HTTPS o proxy.");
-            sslWarn.style.display = "inline-flex";
-          }
-        }
-      } else {
-        audio.pause();
-        uiPlaying(false);
-        setStatus("in pausa");
-      }
+    heroPlay.addEventListener("click", () => {
+      document.getElementById("live").scrollIntoView({behavior:"smooth", block:"start"});
+      setTimeout(() => start(), 250);
     });
 
     audio.addEventListener("waiting", () => setStatus("buffering…"));
-    audio.addEventListener("playing", () => { uiPlaying(true); setStatus("in riproduzione"); });
-    audio.addEventListener("pause",   () => { uiPlaying(false); setStatus("in pausa"); });
-    audio.addEventListener("error",   () => {
-      uiPlaying(false);
-      setStatus("errore stream");
-      if (location.protocol === "https:" && STREAM_URL.startsWith("http://")){
-        sslWarn.style.display = "inline-flex";
-      }
-    });
+    audio.addEventListener("error", () => { ui(false); setStatus("errore stream"); });
 
-    // defaults
     audio.volume = 0.85;
-    uiMuted(false);
-    uiPlaying(false);
+    ui(false);
     setStatus("pronto");
+
+    // ---------- SPOTIFY PODCAST EMBEDS ----------
+    // Spotify embed: usiamo open.spotify.com/embed/{episode|show}/{id}
+    // (Spotify permette l'embed tramite Share → Embed episode/show) :contentReference[oaicite:3]{index=3}
+    function toSpotifyEmbed(url){
+      try{
+        const u = new URL(url);
+        const parts = u.pathname.split("/").filter(Boolean); // ["episode","ID"] o ["show","ID"]
+        const type = parts[0];
+        const id = parts[1];
+        if(!type || !id) return null;
+        if(type !== "episode" && type !== "show") return null;
+        return `https://open.spotify.com/embed/${type}/${id}`;
+      } catch { return null; }
+    }
+
+    const podGrid = document.getElementById("podGrid");
+    const q = document.getElementById("q");
+    const tagFilter = document.getElementById("tagFilter");
+
+    function uniqueTags(items){
+      const s = new Set(items.map(x => (x.tag||"").trim()).filter(Boolean));
+      return ["all", ...Array.from(s).sort((a,b)=>a.localeCompare(b))];
+    }
+
+    function buildTagOptions(){
+      const tags = uniqueTags(PODCASTS);
+      tagFilter.innerHTML = tags.map(t => `<option value="${t}">${t === "all" ? "Tutti i tag" : t}</option>`).join("");
+    }
+
+    function renderPods(){
+      const query = (q.value||"").trim().toLowerCase();
+      const tf = tagFilter.value;
+
+      const filtered = PODCASTS.filter(p => {
+        const hay = `${p.title||""} ${(p.tag||"")}`.toLowerCase();
+        const okQ = !query || hay.includes(query);
+        const okT = (tf === "all") || ((p.tag||"") === tf);
+        return okQ && okT;
+      });
+
+      if(PODCASTS.length === 0){
+        podGrid.innerHTML = `
+          <div class="podCard" style="grid-column:1/-1">
+            <div class="podName">Nessuna puntata inserita</div>
+            <div style="color:var(--muted);margin-top:6px;font-size:13px;line-height:1.5">
+              Apri un episodio su Spotify → ⋯ → Share → copia il link. Poi aggiungilo nell'array <b>PODCASTS</b> in cima al file. :contentReference[oaicite:4]{index=4}
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if(filtered.length === 0){
+        podGrid.innerHTML = `
+          <div class="podCard" style="grid-column:1/-1">
+            <div class="podName">Nessun risultato</div>
+            <div style="color:var(--muted);margin-top:6px;font-size:13px">Prova a cambiare ricerca o tag.</div>
+          </div>
+        `;
+        return;
+      }
+
+      podGrid.innerHTML = filtered.map(p => {
+        const embed = toSpotifyEmbed(p.url);
+        const safeTitle = (p.title||"Podcast").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        const safeTag = (p.tag||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        if(!embed){
+          return `
+            <div class="podCard">
+              <div class="podTop">
+                <div class="podName">${safeTitle}</div>
+                ${safeTag ? `<div class="podTag">${safeTag}</div>` : ""}
+              </div>
+              <div style="color:var(--muted);font-size:13px;line-height:1.5">
+                Link Spotify non valido. Usa link tipo <b>open.spotify.com/episode/...</b> o <b>/show/...</b>.
+              </div>
+            </div>
+          `;
+        }
+        return `
+          <div class="podCard">
+            <div class="podTop">
+              <div class="podName">${safeTitle}</div>
+              ${safeTag ? `<div class="podTag">${safeTag}</div>` : ""}
+            </div>
+            <div class="iframeWrap">
+              <iframe
+                loading="lazy"
+                src="${embed}"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                title="${safeTitle}">
+              </iframe>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    buildTagOptions();
+    renderPods();
+    q.addEventListener("input", renderPods);
+    tagFilter.addEventListener("change", renderPods);
   </script>
 </body>
 </html>
