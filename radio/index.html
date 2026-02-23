@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radio | Grandangolo Settimanale</title>
+  <meta name="description" content="Ascolta la diretta radio di Grandangolo Settimanale, recupera le puntate e contattaci." />
+  <meta name="theme-color" content="#0f1115" />
+
+  <style>
+    :root{
+      --bg:#0f1115;
+      --card: rgba(21,24,36,.78);
+      --card2: rgba(0,0,0,.22);
+      --text:#f2f4f8;
+      --muted:#b7bfd6;
+      --accent:#7bdcff;
+      --accent2:#9b8cff;
+      --danger:#ff4d6d;
+      --border: rgba(255,255,255,.11);
+      --shadow: 0 14px 38px rgba(0,0,0,.38);
+      --radius: 18px;
+      --max: 1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--font);
+      color:var(--text);
+      line-height:1.55;
+      background:
+        radial-gradient(1200px 650px at 18% -10%, rgba(123,220,255,.18), transparent 55%),
+        radial-gradient(900px 520px at 92% 8%, rgba(155,140,255,.16), transparent 60%),
+        radial-gradient(1000px 600px at 60% 110%, rgba(255,77,109,.08), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 0 10px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+    .logo{
+      width:44px; height:44px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(123,220,255,.95), rgba(155,140,255,.95));
+      box-shadow: var(--shadow);
+    }
+    .brand h1{margin:0; font-size:16px; letter-spacing:.35px}
+    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+    nav{display:flex; gap:10px; flex-wrap:wrap}
+    nav a{
+      text-decoration:none; font-size:13px; color:var(--muted);
+      padding:8px 10px; border:1px solid transparent; border-radius:999px;
+    }
+    nav a:hover{border-color:var(--border); color:var(--text)}
+    nav a.active{border-color:var(--border); color:var(--text); background: rgba(255,255,255,.05)}
+
+    .hero{
+      margin-top:10px;
+      display:grid; grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+    }
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    .hero .left{padding:22px}
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      font-size:12px; color:var(--muted);
+      border:1px solid var(--border);
+      padding:7px 10px; border-radius:999px;
+      background: rgba(255,255,255,.03);
+    }
+    .liveDot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--danger);
+      box-shadow: 0 0 0 6px rgba(255,77,109,.12);
+      animation: pulse 1.4s infinite ease-in-out;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); opacity: 1; }
+      50%{ transform: scale(1.25); opacity: .75; }
+    }
+
+    .title{
+      margin:14px 0 8px;
+      font-size:34px; line-height:1.08;
+      letter-spacing:-.6px;
+    }
+    .subtitle{margin:0; color:var(--muted); font-size:15px; max-width:62ch}
+
+    .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding:11px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      text-decoration:none;
+      font-size:13px;
+      background: transparent;
+      cursor:pointer;
+      color: var(--text);
+      user-select:none;
+      transition: transform .08s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06)}
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(123,220,255,.95), rgba(155,140,255,.95));
+      color:#0b0c10;
+      font-weight:900;
+    }
+
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+    }
+    .item{padding:16px}
+    .item h3{margin:0 0 6px; font-size:15px}
+    .item p{margin:0; color:var(--muted); font-size:13px}
+
+    .hero .right{padding:18px}
+    .panel-title{margin:0 0 10px; font-size:14px; color:var(--muted); letter-spacing:.3px}
+
+    .playerShell{
+      border-radius: 16px;
+      border:1px solid var(--border);
+      background: var(--card2);
+      padding: 14px;
+    }
+    .playerTop{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:12px; margin-bottom: 10px;
+    }
+    .nowLabel{
+      font-size:12px; color:rgba(255,255,255,.55);
+      text-transform:uppercase; letter-spacing:.12em;
+    }
+    .nowTitle{margin-top:6px; font-size:18px; font-weight:900}
+    .nowSub{margin-top:3px; color:var(--muted); font-size:13px}
+
+    .viz{
+      display:flex; gap:4px; align-items:flex-end; height: 32px; padding-top: 4px;
+      opacity: .9;
+    }
+    .bar{
+      width:5px; height:12px; border-radius:999px;
+      background: linear-gradient(180deg, rgba(123,220,255,.95), rgba(155,140,255,.90));
+      opacity:.85; transform-origin:bottom;
+      animation:bounce 900ms infinite ease-in-out;
+    }
+    .bar:nth-child(2){animation-delay:80ms}
+    .bar:nth-child(3){animation-delay:160ms}
+    .bar:nth-child(4){animation-delay:240ms}
+    .bar:nth-child(5){animation-delay:320ms}
+    .bar:nth-child(6){animation-delay:400ms}
+    @keyframes bounce{ 0%,100%{transform:scaleY(.35);opacity:.55} 50%{transform:scaleY(1.15);opacity:1} }
+
+    audio{width:100%; margin-top: 2px}
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top: 10px;
+    }
+    @media (max-width:520px){ .controls{grid-template-columns:1fr} }
+
+    .ctl{
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      font-weight:900;
+      user-select:none;
+      transition: transform .08s ease, background .12s ease, border-color .12s ease;
+    }
+    .ctl:hover{background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.18);}
+    .ctl:active{transform: translateY(1px)}
+    .ctl.primary{
+      background: linear-gradient(135deg, rgba(123,220,255,.95), rgba(155,140,255,.90));
+      color:#0b0c10;
+      border-color: transparent;
+    }
+
+    .volRow{
+      grid-column: 1 / -1;
+      display:flex; align-items:center; gap:12px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
+    .volRow label{
+      width:72px;
+      font-size:12px; color:rgba(255,255,255,.55);
+      text-transform:uppercase; letter-spacing:.12em;
+    }
+    .volRow input{width:100%; accent-color: var(--accent2);}
+
+    .metaRow{
+      margin-top:10px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      font-size:12px; color:rgba(255,255,255,.55);
+    }
+    .pillWarn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.70);
+      font-size:12px;
+      margin-top: 10px;
+    }
+
+    section{margin-top:22px}
+    .section-head{
+      display:flex; align-items:end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .section-head h2{margin:0; font-size:18px}
+    .section-head span{color:var(--muted); font-size:13px}
+
+    .episodes{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
+    .episode{padding:16px; display:flex; gap:14px; align-items:flex-start}
+    .badge{
+      min-width:44px; height:44px; border-radius:14px;
+      background: rgba(123,220,255,.15);
+      border:1px solid rgba(123,220,255,.35);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--accent);
+      font-weight:900;
+    }
+    .episode h3{margin:0; font-size:15px}
+    .meta{margin-top:4px; color:var(--muted); font-size:12px}
+    .episode .links{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap}
+    .episode .links a{font-size:12px; color:var(--text); opacity:.9}
+    .episode .links a:hover{opacity:1; text-decoration:none}
+
+    .contact{
+      padding:18px;
+      display:grid; grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .contact p{margin:6px 0 0; color:var(--muted)}
+
+    footer{
+      margin:26px 0 10px;
+      color:var(--muted);
+      font-size:12px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns: 1fr}
+      .grid{grid-template-columns: 1fr}
+      .episodes{grid-template-columns: 1fr}
+      .contact{grid-template-columns: 1fr}
+      .title{font-size:30px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/radio" aria-label="Radio - Home">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Radio • Grandangolo Settimanale</h1>
+          <p>Diretta, puntate e contatti</p>
+        </div>
+      </a>
+
+      <nav>
+        <a class="active" href="/radio">Radio</a>
+        <a href="#puntate">Puntate</a>
+        <a href="#programma">Programma</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="card left">
+          <div class="kicker"><span class="liveDot"></span> Diretta attiva</div>
+          <h2 class="title">IL TUO PROGRAMMA RADIO</h2>
+          <p class="subtitle">
+            Inserisci qui la descrizione del programma: format, temi, ospiti, giorno e orario.
+          </p>
+
+          <div class="cta">
+            <a class="btn primary" href="#ascolta">▶ Ascolta ora</a>
+            <a class="btn" href="#puntate">🎧 Puntate</a>
+            <a class="btn" href="#contatti">✉️ Contatti</a>
+          </div>
+
+          <div class="grid" aria-label="Punti chiave">
+            <div class="card item">
+              <h3>📡 Diretta</h3>
+              <p>Streaming live integrato direttamente nel sito con player dedicato.</p>
+            </div>
+            <div class="card item">
+              <h3>🎙 Ospiti</h3>
+              <p>Spazio per interviste, rubriche e approfondimenti.</p>
+            </div>
+            <div class="card item">
+              <h3>🗞 Extra</h3>
+              <p>Link ad articoli e contenuti correlati su Grandangolo Settimanale.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card right" id="ascolta">
+          <p class="panel-title">ASCOLTA</p>
+
+          <div class="playerShell">
+            <div class="playerTop">
+              <div>
+                <div class="nowLabel">Ora in onda</div>
+                <div class="nowTitle">Diretta</div>
+                <div class="nowSub">Grandangolo Settimanale</div>
+              </div>
+              <div class="viz" aria-hidden="true">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+              </div>
+            </div>
+
+            <!-- AUDIO STREAM -->
+            <audio id="audio" preload="none" playsinline></audio>
+
+            <div class="controls">
+              <button class="ctl primary" id="playBtn" type="button">
+                <span id="playIcon">▶</span> <span id="playText">Play</span>
+              </button>
+
+              <button class="ctl" id="muteBtn" type="button">
+                <span id="muteIcon">🔊</span> Mute
+              </button>
+
+              <div class="volRow">
+                <label for="vol">Volume</label>
+                <input id="vol" type="range" min="0" max="1" step="0.01" value="0.85" />
+              </div>
+            </div>
+
+            <div class="metaRow">
+              <div id="statusLine">Stato: pronto</div>
+              <div id="clockLine">—</div>
+            </div>
+
+            <div class="pillWarn" id="sslWarn" style="display:none;">
+              ⚠️ Nota: lo stream è HTTP. Se la pagina è in HTTPS e non senti nulla, serve stream HTTPS o un proxy.
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <section id="puntate">
+        <div class="section-head">
+          <h2>Puntate</h2>
+          <span>Aggiorna i link quando pubblichi</span>
+        </div>
+
+        <div class="episodes">
+          <article class="card episode">
+            <div class="badge">01</div>
+            <div>
+              <h3>Titolo puntata #1</h3>
+              <div class="meta">Data • Durata • Ospite</div>
+              <div class="links">
+                <a href="#" target="_blank" rel="noopener">Ascolta</a>
+                <a href="#" target="_blank" rel="noopener">Articolo</a>
+                <a href="#" target="_blank" rel="noopener">Download</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card episode">
+            <div class="badge">02</div>
+            <div>
+              <h3>Titolo puntata #2</h3>
+              <div class="meta">Data • Durata • Ospite</div>
+              <div class="links">
+                <a href="#" target="_blank" rel="noopener">Ascolta</a>
+                <a href="#" target="_blank" rel="noopener">Articolo</a>
+                <a href="#" target="_blank" rel="noopener">Download</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card episode">
+            <div class="badge">03</div>
+            <div>
+              <h3>Titolo puntata #3</h3>
+              <div class="meta">Data • Durata • Ospite</div>
+              <div class="links">
+                <a href="#" target="_blank" rel="noopener">Ascolta</a>
+                <a href="#" target="_blank" rel="noopener">Articolo</a>
+                <a href="#" target="_blank" rel="noopener">Download</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card episode">
+            <div class="badge">04</div>
+            <div>
+              <h3>Titolo puntata #4</h3>
+              <div class="meta">Data • Durata • Ospite</div>
+              <div class="links">
+                <a href="#" target="_blank" rel="noopener">Ascolta</a>
+                <a href="#" target="_blank" rel="noopener">Articolo</a>
+                <a href="#" target="_blank" rel="noopener">Download</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="programma">
+        <div class="section-head">
+          <h2>Il programma</h2>
+          <span>Chi sei, cosa fai, perché ascoltare</span>
+        </div>
+
+        <div class="card" style="padding:18px">
+          <p style="margin:0; color:var(--muted)">
+            Inserisci qui una descrizione più completa: format, rubriche fisse, stile, ospiti ricorrenti,
+            e cosa trova l’ascoltatore ogni settimana.
+          </p>
+
+          <div class="grid" style="margin-top:14px">
+            <div class="card item">
+              <h3>🧩 Rubriche</h3>
+              <p>Elenco di 2–4 rubriche fisse con una riga ciascuna.</p>
+            </div>
+            <div class="card item">
+              <h3>👥 Conduce</h3>
+              <p>Nome conduttore/i + breve bio.</p>
+            </div>
+            <div class="card item">
+              <h3>📍 Dove</h3>
+              <p>Emittente / piattaforma / città (se serve).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contatti">
+        <div class="section-head">
+          <h2>Contatti</h2>
+          <span>Per ospiti, segnalazioni e collaborazioni</span>
+        </div>
+
+        <div class="card contact">
+          <div class="card" style="padding:16px">
+            <h3 style="margin:0">Email</h3>
+            <p>Scrivi a: <a href="mailto:info@grandangolosettimanale.it">info@grandangolosettimanale.it</a></p>
+          </div>
+          <div class="card" style="padding:16px">
+            <h3 style="margin:0">Social</h3>
+            <p>
+              <a href="#" target="_blank" rel="noopener">Instagram</a> •
+              <a href="#" target="_blank" rel="noopener">Facebook</a> •
+              <a href="#" target="_blank" rel="noopener">YouTube</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Grandangolo Settimanale — Radio</div>
+      <div><a href="/">Torna al sito</a></div>
+    </footer>
+  </div>
+
+  <script>
+    // ============================
+    // STREAM (TUO URL FUNZIONANTE)
+    // ============================
+    const STREAM_URL = "http://nr11.newradio.it:9242/stream?type=http&nocache=147999";
+
+    // ============================
+    // Elements
+    // ============================
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const audio = document.getElementById("audio");
+    const playBtn = document.getElementById("playBtn");
+    const muteBtn = document.getElementById("muteBtn");
+    const playIcon = document.getElementById("playIcon");
+    const playText = document.getElementById("playText");
+    const muteIcon = document.getElementById("muteIcon");
+    const vol = document.getElementById("vol");
+    const statusLine = document.getElementById("statusLine");
+    const clockLine = document.getElementById("clockLine");
+    const sslWarn = document.getElementById("sslWarn");
+
+    let playing = false;
+
+    function setStatus(txt){ statusLine.textContent = "Stato: " + txt; }
+
+    function setClock(){
+      const d = new Date();
+      clockLine.textContent = d.toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit"});
+    }
+    setInterval(setClock, 1000); setClock();
+
+    function uiPlaying(on){
+      playing = on;
+      playIcon.textContent = on ? "⏸" : "▶";
+      playText.textContent = on ? "Pausa" : "Play";
+    }
+
+    function uiMuted(on){
+      audio.muted = on;
+      muteIcon.textContent = on ? "🔇" : "🔊";
+    }
+
+    // Mixed content warning if site is https and stream is http
+    try{
+      if (location.protocol === "https:" && STREAM_URL.startsWith("http://")){
+        sslWarn.style.display = "inline-flex";
+      }
+    } catch(e){}
+
+    vol.addEventListener("input", () => {
+      audio.volume = Math.max(0, Math.min(1, parseFloat(vol.value)));
+    });
+
+    muteBtn.addEventListener("click", () => {
+      uiMuted(!audio.muted);
+    });
+
+    playBtn.addEventListener("click", async () => {
+      if (!playing){
+        try{
+          setStatus("connessione…");
+          // Imposta src solo quando serve (evita richieste inutili)
+          if (audio.src !== STREAM_URL) audio.src = STREAM_URL;
+
+          await audio.play();
+          uiPlaying(true);
+          setStatus("in riproduzione");
+        } catch(e){
+          console.error(e);
+          uiPlaying(false);
+          setStatus("errore riproduzione");
+          // Se siamo in https e lo stream è http, spesso è quello il motivo
+          if (location.protocol === "https:" && STREAM_URL.startsWith("http://")){
+            setStatus("bloccato (HTTPS/HTTP). Serve stream HTTPS o proxy.");
+            sslWarn.style.display = "inline-flex";
+          }
+        }
+      } else {
+        audio.pause();
+        uiPlaying(false);
+        setStatus("in pausa");
+      }
+    });
+
+    audio.addEventListener("waiting", () => setStatus("buffering…"));
+    audio.addEventListener("playing", () => { uiPlaying(true); setStatus("in riproduzione"); });
+    audio.addEventListener("pause",   () => { uiPlaying(false); setStatus("in pausa"); });
+    audio.addEventListener("error",   () => {
+      uiPlaying(false);
+      setStatus("errore stream");
+      if (location.protocol === "https:" && STREAM_URL.startsWith("http://")){
+        sslWarn.style.display = "inline-flex";
+      }
+    });
+
+    // defaults
+    audio.volume = 0.85;
+    uiMuted(false);
+    uiPlaying(false);
+    setStatus("pronto");
+  </script>
+</body>
+</html>
