@@ -4,255 +4,425 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Radio | Grandangolo Settimanale</title>
-  <meta name="theme-color" content="#0b0e14" />
+  <meta name="theme-color" content="#081018" />
   <style>
     :root{
-      --bg:#0b0e14;
-      --panel:rgba(255,255,255,.06);
-      --border:rgba(255,255,255,.10);
-      --text:#f2f5ff;
-      --muted:rgba(255,255,255,.70);
-      --muted2:rgba(255,255,255,.55);
-      --shadow:0 18px 60px rgba(0,0,0,.55);
-      --r:16px;
-      --max:1180px;
-      --a1:#00E5FF;
-      --a2:#8A6CFF;
-      --bad:#ff4d6d;
+      /* base */
+      --bg:#071018;
+      --panel: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.12);
+      --text:#f2f7ff;
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+      --shadow: 0 20px 70px rgba(0,0,0,.58);
+      --r:18px;
+      --max:1100px;
+
+      /* accents: blu + verde + rosso */
+      --blue:#00a3ff;
+      --green:#26f2a3;
+      --red:#ff2a4d;
+
+      --glass: rgba(10,16,26,.62);
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
       background:
-        radial-gradient(1100px 650px at 15% -15%, rgba(0,229,255,.18), transparent 55%),
-        radial-gradient(900px 520px at 92% 8%, rgba(138,108,255,.16), transparent 60%),
+        radial-gradient(1100px 650px at 12% -18%, rgba(0,163,255,.20), transparent 58%),
+        radial-gradient(900px 520px at 92% 8%, rgba(38,242,163,.14), transparent 60%),
+        radial-gradient(900px 520px at 70% 120%, rgba(255,42,77,.10), transparent 60%),
         var(--bg);
     }
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max);margin:0 auto;padding:18px}
-    /* Topbar */
+
+    /* top header */
     .topbar{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter:blur(12px);
-      background:linear-gradient(to bottom, rgba(11,14,20,.92), rgba(11,14,20,.72));
+      position:sticky; top:0; z-index:40;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(7,16,24,.92), rgba(7,16,24,.68));
       border-bottom:1px solid rgba(255,255,255,.08);
     }
-    .topbar .inner{max-width:var(--max);margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px}
-    .brand{display:flex;align-items:center;gap:12px;min-width:230px}
-    .logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.95));box-shadow:var(--shadow)}
-    .brand .t1{font-weight:900;letter-spacing:-.2px;line-height:1.1}
+    .topbar .inner{
+      max-width:var(--max); margin:0 auto; padding:12px 18px;
+      display:flex; align-items:center; gap:14px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:240px}
+    .logo{
+      width:44px;height:44px;border-radius:16px;
+      background: linear-gradient(135deg, rgba(0,163,255,.96), rgba(38,242,163,.92));
+      box-shadow: var(--shadow);
+    }
+    .brand .t1{font-weight:900;letter-spacing:-.3px;line-height:1.1}
     .brand .t2{font-size:12px;color:var(--muted);margin-top:2px}
     nav{display:flex;gap:10px;flex-wrap:wrap}
-    nav a{font-size:13px;color:var(--muted);padding:8px 10px;border-radius:999px;border:1px solid transparent}
+    nav a{
+      font-size:13px;color:var(--muted);
+      padding:8px 10px;border-radius:999px;border:1px solid transparent;
+    }
     nav a:hover{border-color:var(--border);color:var(--text);background:rgba(255,255,255,.03)}
     .spacer{flex:1}
-    .btnLive{
+
+    /* utilities */
+    .card{
+      background: var(--panel);
+      border:1px solid var(--border);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+    }
+    .badge{
       display:inline-flex;align-items:center;gap:10px;
-      padding:10px 12px;border-radius:999px;border:1px solid transparent;
-      background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.92));
-      color:#071018;font-weight:900;cursor:pointer;white-space:nowrap;
-      box-shadow:0 12px 40px rgba(0,0,0,.35);
-    }
-    .btnLive:active{transform:translateY(1px)}
-    /* Layout */
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:16px;align-items:start}
-    @media(max-width:980px){.grid{grid-template-columns:1fr}}
-    .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
-    .hero{padding:18px}
-    .badge{display:inline-flex;align-items:center;gap:10px;padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:var(--muted);font-size:12px}
-    .dot{width:8px;height:8px;border-radius:50%;background:var(--bad);box-shadow:0 0 0 6px rgba(255,77,109,.12);animation:pulse 1.4s infinite ease-in-out}
-    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
-    h1{margin:12px 0 6px;font-size:34px;line-height:1.06;letter-spacing:-.8px}
-    .sub{margin:0;color:var(--muted);max-width:70ch;font-size:15px}
-    .heroActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:10px 12px;border-radius:999px;
+      padding:7px 10px;border-radius:999px;
       border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      color:var(--text);font-size:13px;cursor:pointer;font-weight:800;
+      background: rgba(255,255,255,.04);
+      color:var(--muted); font-size:12px;
     }
-    .btn.primary{border-color:transparent;background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.92));color:#071018}
-    .btn:hover{background:rgba(255,255,255,.06)}
-    /* Player */
-    .playerCard{padding:14px}
-    .playerHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .label{font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.12em}
-    .title{margin-top:6px;font-size:18px;font-weight:900}
-    .meta{margin-top:3px;color:var(--muted);font-size:13px}
-    .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
-    .shell{border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.24);padding:12px}
+
+    /* IN DIRETTA blinking */
+    .liveDot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--red);
+      box-shadow: 0 0 0 7px rgba(255,42,77,.14);
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
+    .liveText{
+      color: var(--red);
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      animation: blink 1s infinite steps(2, end);
+    }
+    @keyframes blink { 50% { opacity: .15; } }
+
+    /* hero + player */
+    .hero{padding:18px}
+    h1{margin:12px 0 6px;font-size:34px;line-height:1.06;letter-spacing:-.8px}
+    .sub{margin:0;color:var(--muted);font-size:15px;max-width:75ch}
+
+    .playerBox{
+      margin-top:14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.24);
+      padding:14px;
+    }
+    .playerTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .onAirLabel{
+      font-size:12px;color:rgba(255,255,255,.55);
+      text-transform:uppercase;letter-spacing:.12em;
+    }
+    .onAirTitle{margin-top:6px;font-size:18px;font-weight:900}
+    .onAirMeta{margin-top:3px;color:var(--muted);font-size:13px}
+    .nowTime{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:7px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .clock{
+      font-variant-numeric: tabular-nums;
+      letter-spacing:.02em;
+    }
+
     audio{display:none}
-    .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-    @media(max-width:520px){.controls{grid-template-columns:1fr}}
-    .ctl{
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media(max-width:720px){
+      .controls{grid-template-columns:1fr}
+    }
+    .btn{
       display:flex;align-items:center;justify-content:center;gap:10px;
       padding:12px 14px;border-radius:14px;
       border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      color:var(--text);cursor:pointer;font-weight:900;
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:900;
     }
-    .ctl.primary{background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.90));color:#071018;border-color:transparent}
-    .ctl:active{transform:translateY(1px)}
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(0,163,255,.95), rgba(38,242,163,.86));
+      color:#061018;
+    }
+    .btn.danger{
+      border-color: rgba(255,42,77,.32);
+      background: rgba(255,42,77,.10);
+      color: var(--text);
+    }
+    .btn:active{transform:translateY(1px)}
     .volRow{
-      grid-column:1/-1;display:flex;align-items:center;gap:12px;
+      grid-column:1 / -1;
+      display:flex;align-items:center;gap:12px;
       padding:10px 12px;border-radius:14px;
       border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.05);
+      background: rgba(255,255,255,.05);
     }
-    .volRow label{width:72px;font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.12em}
-    .volRow input{width:100%;accent-color:var(--a2)}
-    .metaRow{margin-top:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.60)}
-    /* Sections */
+    .volRow label{
+      width:72px;
+      font-size:12px;color:rgba(255,255,255,.55);
+      text-transform:uppercase;letter-spacing:.12em;
+    }
+    .volRow input{width:100%; accent-color: var(--green);}
+    .metaRow{
+      margin-top:10px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      font-size:12px; color: rgba(255,255,255,.62);
+    }
+
+    /* Podcast section */
     .section{margin-top:16px}
-    .sectionHead{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+    .sectionHead{
+      display:flex; align-items:end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
     .sectionHead h2{margin:0;font-size:16px}
     .sectionHead span{color:var(--muted);font-size:13px}
-    /* Podcast */
+
     .podTools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
     .input{
       flex:1;min-width:220px;
       padding:10px 12px;border-radius:12px;
       border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      color:var(--text);outline:none;
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
     }
     .select{
       padding:10px 12px;border-radius:12px;
       border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      color:var(--text);outline:none;
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
     }
-    .podGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media(max-width:980px){.podGrid{grid-template-columns:1fr}}
-    .podCard{padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05)}
+
+    .podGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media(max-width:980px){ .podGrid{grid-template-columns:1fr} }
+
+    .podCard{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
     .podTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
     .podName{font-weight:900}
-    .podTag{font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,.10);padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.04)}
-    .iframeWrap{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18)}
+    .podTag{
+      font-size:12px;color:rgba(255,255,255,.78);
+      border:1px solid rgba(0,163,255,.28);
+      padding:5px 8px;border-radius:999px;
+      background: rgba(0,163,255,.10);
+      white-space:nowrap;
+    }
+    .iframeWrap{
+      border-radius:14px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
     iframe{width:100%;height:232px;border:0}
-    footer{margin:18px 0 10px;color:var(--muted2);font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-    /* Mobile bottom */
-    .bottomBar{
-      position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;
+
+    footer{
+      margin:18px 0 10px;
+      color: var(--muted2);
+      font-size:12px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+
+    /* Sticky mini player on scroll */
+    .stickyPlayer{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:14px;
+      z-index:80;
+      width:min(var(--max), calc(100% - 24px));
+      display:none;
+    }
+    .stickyPlayer.show{display:block}
+    .stickyInner{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(10,16,26,.82), rgba(10,16,26,.58));
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
       padding:10px 12px;
-      background:linear-gradient(to top, rgba(11,14,20,.98), rgba(11,14,20,.65));
-      border-top:1px solid rgba(255,255,255,.08);
-      backdrop-filter:blur(12px);
+      display:flex; align-items:center; gap:12px;
     }
-    .bottomInner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:10px}
-    .bottomTitle{font-weight:900;font-size:13px}
-    .bottomMeta{color:var(--muted);font-size:12px}
+    .stickyLeft{
+      display:flex; align-items:center; gap:10px;
+      min-width: 160px;
+    }
+    .stickyMid{
+      min-width:0;
+      display:flex; flex-direction:column;
+      gap:2px;
+    }
+    .stickyTitle{font-weight:900;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .stickyMeta{font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .stickyRight{margin-left:auto;display:flex;align-items:center;gap:10px}
     .miniBtn{
-      margin-left:auto;display:inline-flex;align-items:center;gap:10px;
-      padding:10px 12px;border-radius:999px;border:1px solid transparent;
-      background:linear-gradient(135deg, rgba(0,229,255,.95), rgba(138,108,255,.92));
-      color:#071018;font-weight:900;cursor:pointer;white-space:nowrap;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      background: linear-gradient(135deg, rgba(0,163,255,.95), rgba(38,242,163,.86));
+      color:#061018;
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
     }
-    @media(max-width:980px){.bottomBar{display:block} body{padding-bottom:78px}}
+    .miniBtn.alt{
+      border:1px solid rgba(255,42,77,.32);
+      background: rgba(255,42,77,.10);
+      color: var(--text);
+    }
+    .miniClock{
+      font-variant-numeric: tabular-nums;
+      color: rgba(255,255,255,.80);
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      white-space:nowrap;
+    }
+
+    /* give room to sticky player on mobile so it doesn't cover content */
+    @media(max-width:980px){
+      body{ padding-bottom: 86px; }
+    }
   </style>
 </head>
-<body>
 
+<body>
   <div class="topbar">
     <div class="inner">
       <a class="brand" href="/radio/">
         <div class="logo" aria-hidden="true"></div>
         <div>
           <div class="t1">Grandangolo Radio</div>
-          <div class="t2">Diretta • Podcast • Highlights</div>
+          <div class="t2">Diretta & Podcast</div>
         </div>
       </a>
 
       <nav>
-        <a href="#live">Diretta</a>
+        <a href="#diretta">Diretta</a>
         <a href="#podcast">Podcast</a>
         <a href="#contatti">Contatti</a>
       </nav>
 
       <div class="spacer"></div>
-      <button class="btnLive" id="jumpPlay" type="button">▶ Listen Live</button>
+
+      <div class="badge" title="Siamo live">
+        <span class="liveDot"></span>
+        <span class="liveText">IN DIRETTA</span>
+      </div>
     </div>
   </div>
 
   <div class="wrap">
-    <div class="grid">
-      <section class="card hero">
-        <div class="badge"><span class="dot"></span> Live • In diretta</div>
-        <h1>Grandangolo NEWS ON RADIO</h1>
-        <p class="sub">
-          Trasmettiamo su Radio In Agrigento sui 104.8 FM
-        </p>
+    <!-- TOP: PLAYER -->
+    <section class="card hero" id="diretta">
+      <div class="badge">
+        <span class="liveDot"></span>
+        <span class="liveText">IN DIRETTA</span>
+        <span style="opacity:.8">• streaming</span>
+      </div>
 
-        <div class="heroActions">
-          <button class="btn primary" id="heroPlay" type="button">▶ Listen Live</button>
-          <a class="btn" href="#podcast">🎧 Vai ai Podcast</a>
-        </div>
+      <h1>Grandangolo Settimanale — Radio</h1>
+      <p class="sub">
+        Premi play per ascoltare la diretta. Scorrendo la pagina comparirà un mini-player fisso con “IN DIRETTA” e l’orario in tempo reale.
+      </p>
 
-        <div class="section" id="podcast">
-          <div class="sectionHead">
-            <h2>Podcast</h2>
-            <span>incolla i link Spotify e li embeddiamo qui</span>
+      <div class="playerBox" id="mainPlayer">
+        <div class="playerTop">
+          <div>
+            <div class="onAirLabel">Ora in onda</div>
+            <div class="onAirTitle">Diretta</div>
+            <div class="onAirMeta">Grandangolo Settimanale</div>
           </div>
 
-          <div class="podTools">
-            <input class="input" id="q" placeholder="Cerca (titolo / tag)..." />
-            <select class="select" id="tagFilter">
-              <option value="all">Tutti i tag</option>
-            </select>
-          </div>
-
-          <div class="podGrid" id="podGrid"></div>
-
-          <div style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.5">
-            Per ottenere il link: apri Spotify → ⋯ → <b>Share</b> → <b>Copy link</b> oppure <b>Embed episode/show</b>. :contentReference[oaicite:2]{index=2}
+          <div class="nowTime" title="Orario locale">
+            <span class="liveText" style="animation:none">IN DIRETTA</span>
+            <span class="clock" id="clockTop">—</span>
           </div>
         </div>
-      </section>
 
-      <aside>
-        <section class="card playerCard" id="live">
-          <div class="playerHead">
-            <div>
-              <div class="label">On Air Now</div>
-              <div class="title">Diretta</div>
-              <div class="meta">Grandangolo Settimanale</div>
-            </div>
-            <div class="chip" id="liveChip">● Live</div>
+        <audio id="audio" preload="none" playsinline></audio>
+
+        <div class="controls">
+          <button class="btn primary" id="playBtn" type="button">
+            <span id="playIcon">▶</span> <span id="playText">Play</span>
+          </button>
+
+          <button class="btn" id="pauseBtn" type="button">⏸ Pausa</button>
+
+          <button class="btn danger" id="stopBtn" type="button">⏹ Stop</button>
+
+          <div class="volRow">
+            <label for="vol">Volume</label>
+            <input id="vol" type="range" min="0" max="1" step="0.01" value="0.85" />
           </div>
+        </div>
 
-          <div class="shell">
-            <audio id="audio" preload="none" playsinline></audio>
+        <div class="metaRow">
+          <div id="statusLine">Stato: pronto</div>
+          <div>Stream: <span style="color:rgba(255,255,255,.78)">HTTPS</span></div>
+        </div>
+      </div>
+    </section>
 
-            <div class="controls">
-              <button class="ctl primary" id="playBtn" type="button"><span id="playIcon">▶</span> <span id="playText">Play</span></button>
-              <button class="ctl" id="stopBtn" type="button">⏹ Stop</button>
+    <!-- PODCAST -->
+    <section class="section" id="podcast">
+      <div class="sectionHead">
+        <h2>Podcast & Registrazioni</h2>
+        <span>da Spotify</span>
+      </div>
 
-              <div class="volRow">
-                <label for="vol">Volume</label>
-                <input id="vol" type="range" min="0" max="1" step="0.01" value="0.85" />
-              </div>
-            </div>
+      <div class="card" style="padding:14px">
+        <div class="podTools">
+          <input class="input" id="q" placeholder="Cerca (titolo / tag)..." />
+          <select class="select" id="tagFilter">
+            <option value="all">Tutti i tag</option>
+          </select>
+        </div>
 
-            <div class="metaRow">
-              <div id="statusLine">Stato: pronto</div>
-              <div id="clockLine">—</div>
-            </div>
-          </div>
-        </section>
+        <div class="podGrid" id="podGrid"></div>
+      </div>
+    </section>
 
-        <section class="section card" id="contatti" style="padding:14px;margin-top:14px;">
-          <div class="sectionHead">
-            <h2>Contatti</h2>
-            <span></span>
-          </div>
-          <div style="color:var(--muted); font-size:14px; line-height:1.6;">
-            Email: <a href="mailto:redazione@grandangoloagrigento.it">info@grandangolosettimanale.it</a><br/>
-        </section>
-      </aside>
-    </div>
+    <!-- CONTATTI -->
+    <section class="section" id="contatti">
+      <div class="sectionHead">
+        <h2>Contatti</h2>
+        <span>email / whatsapp</span>
+      </div>
+      <div class="card" style="padding:14px">
+        <div style="color:var(--muted); font-size:14px; line-height:1.6;">
+          Email: <a href="mailto:info@grandangolosettimanale.it">info@grandangolosettimanale.it</a><br/>
+          WhatsApp: <span style="opacity:.9;">(inserisci numero)</span>
+        </div>
+      </div>
+    </section>
 
     <footer>
       <div>© <span id="year"></span> Grandangolo Settimanale — Radio</div>
@@ -260,89 +430,80 @@
     </footer>
   </div>
 
-  <div class="bottomBar">
-    <div class="bottomInner">
-      <div>
-        <div class="bottomTitle">Diretta</div>
-        <div class="bottomMeta" id="bottomStatus">Pronto</div>
+  <!-- STICKY MINI PLAYER (compare quando scrolli) -->
+  <div class="stickyPlayer" id="stickyPlayer" aria-hidden="true">
+    <div class="stickyInner">
+      <div class="stickyLeft">
+        <span class="liveDot"></span>
+        <span class="liveText">IN DIRETTA</span>
       </div>
-      <button class="miniBtn" id="bottomPlay" type="button">▶ Listen Live</button>
+
+      <div class="stickyMid">
+        <div class="stickyTitle">Diretta • Grandangolo</div>
+        <div class="stickyMeta">
+          <span id="stickyStatus">pronto</span>
+          <span class="miniClock" id="clockSticky">—</span>
+        </div>
+      </div>
+
+      <div class="stickyRight">
+        <button class="miniBtn" id="stickyPlay" type="button"><span id="stickyIcon">▶</span> <span id="stickyText">Play</span></button>
+        <button class="miniBtn alt" id="stickyStop" type="button">⏹</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // ✅ tuo streaming HTTPS via Netlify (route /stream)
+    // ✅ Stream HTTPS via Netlify route /stream
     const STREAM_URL = "https://effervescent-naiad-840d7f.netlify.app/stream";
 
-    // ✅ PODCAST: incolla qui i link Spotify (episode o show)
-    // Esempi link:
-    // https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7?si=_8ECmLJ3T6OIIl7B3t9bTg
-    // https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7?si=_8ECmLJ3T6OIIl7B3t9bTg
+    // ✅ Podcast Spotify (già inserito quello che mi hai dato)
     const PODCASTS = [
-        { 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-{ 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-{ 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-{ 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-{ 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-{ 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-{ 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-{ 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-{ 
-  title: "Edizione del 4 Luglio 2024",
-  url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-  tag: "news"
-},
-      // { title: "Puntata #1 — Titolo", url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7?si=_8ECmLJ3T6OIIl7B3t9bTg", tag: "politica" },
-      // { title: "Puntata #2 — Titolo", url: "https://open.spotify.com/episode/YYYY", tag: "cronaca" },
-      // { title: "Il nostro show", url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7?si=_8ECmLJ3T6OIIl7B3t9bTg", tag: "show" },
-    ];
+  {
+    title: "Edizione del 4 Luglio 2024",
+    url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
+    tag: "news"
+  },
 
-    // ---------- PLAYER ----------
+  {
+    title: "Puntata 10 — Intervista",
+    url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
+    tag: "interviste"
+  },
+
+  {
+    title: "Puntata 11 — Speciale",
+    url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
+    tag: "speciali"
+  }
+];
+    // ---------- clock ----------
+    const clockTop = document.getElementById("clockTop");
+    const clockSticky = document.getElementById("clockSticky");
+    function tick(){
+      const d = new Date();
+      const t = d.toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit", second:"2-digit"});
+      clockTop.textContent = t;
+      clockSticky.textContent = t;
+    }
+    tick(); setInterval(tick, 1000);
+
+    // ---------- player ----------
     const audio = document.getElementById("audio");
     const playBtn = document.getElementById("playBtn");
+    const pauseBtn = document.getElementById("pauseBtn");
     const stopBtn = document.getElementById("stopBtn");
     const playIcon = document.getElementById("playIcon");
     const playText = document.getElementById("playText");
     const vol = document.getElementById("vol");
     const statusLine = document.getElementById("statusLine");
-    const clockLine = document.getElementById("clockLine");
-    const bottomStatus = document.getElementById("bottomStatus");
-    const bottomPlay = document.getElementById("bottomPlay");
-    const jumpPlay = document.getElementById("jumpPlay");
-    const heroPlay = document.getElementById("heroPlay");
-    const liveChip = document.getElementById("liveChip");
+
+    const stickyPlayer = document.getElementById("stickyPlayer");
+    const stickyStatus = document.getElementById("stickyStatus");
+    const stickyPlay = document.getElementById("stickyPlay");
+    const stickyStop = document.getElementById("stickyStop");
+    const stickyIcon = document.getElementById("stickyIcon");
+    const stickyText = document.getElementById("stickyText");
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -350,22 +511,17 @@
 
     function setStatus(t){
       statusLine.textContent = "Stato: " + t;
-      bottomStatus.textContent = t;
+      stickyStatus.textContent = t;
     }
+
     function ui(on){
       playing = on;
       playIcon.textContent = on ? "⏸" : "▶";
       playText.textContent = on ? "Pausa" : "Play";
-      bottomPlay.textContent = on ? "⏸ In riproduzione" : "▶ Listen Live";
-      liveChip.style.opacity = on ? "1" : ".65";
-    }
-    function tick(){
-      const d = new Date();
-      clockLine.textContent = d.toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit"});
-    }
-    tick(); setInterval(tick, 1000);
 
-    vol.addEventListener("input", () => audio.volume = Math.max(0, Math.min(1, parseFloat(vol.value))));
+      stickyIcon.textContent = on ? "⏸" : "▶";
+      stickyText.textContent = on ? "Pausa" : "Play";
+    }
 
     async function start(){
       try{
@@ -377,14 +533,16 @@
       } catch(e){
         console.error(e);
         ui(false);
-        setStatus("errore riproduzione (tocca Play di nuovo)");
+        setStatus("errore (tocca Play di nuovo)");
       }
     }
+
     function pause(){
       audio.pause();
       ui(false);
       setStatus("in pausa");
     }
+
     function stop(){
       audio.pause();
       audio.removeAttribute("src");
@@ -393,35 +551,45 @@
       setStatus("pronto");
     }
 
-    playBtn.addEventListener("click", () => playing ? pause() : start());
-    bottomPlay.addEventListener("click", () => playing ? pause() : start());
+    playBtn.addEventListener("click", ()=> playing ? pause() : start());
+    pauseBtn.addEventListener("click", pause);
     stopBtn.addEventListener("click", stop);
 
-    jumpPlay.addEventListener("click", () => {
-      document.getElementById("live").scrollIntoView({behavior:"smooth", block:"start"});
-      setTimeout(() => start(), 250);
-    });
-    heroPlay.addEventListener("click", () => {
-      document.getElementById("live").scrollIntoView({behavior:"smooth", block:"start"});
-      setTimeout(() => start(), 250);
-    });
+    stickyPlay.addEventListener("click", ()=> playing ? pause() : start());
+    stickyStop.addEventListener("click", stop);
 
-    audio.addEventListener("waiting", () => setStatus("buffering…"));
-    audio.addEventListener("error", () => { ui(false); setStatus("errore stream"); });
+    vol.addEventListener("input", ()=> audio.volume = Math.max(0, Math.min(1, parseFloat(vol.value))));
+
+    audio.addEventListener("waiting", ()=> setStatus("buffering…"));
+    audio.addEventListener("error", ()=> { ui(false); setStatus("errore stream"); });
 
     audio.volume = 0.85;
     ui(false);
     setStatus("pronto");
 
-    // ---------- SPOTIFY PODCAST EMBEDS ----------
-    // Spotify embed: usiamo open.spotify.com/embed/{episode|show}/{id}
-    // (Spotify permette l'embed tramite Share → Embed episode/show) :contentReference[oaicite:3]{index=3}
+    // ---------- sticky on scroll (IntersectionObserver) ----------
+    const mainPlayer = document.getElementById("mainPlayer");
+
+    const io = new IntersectionObserver((entries)=>{
+      const entry = entries[0];
+      const isVisible = entry.isIntersecting;
+      if (!isVisible){
+        stickyPlayer.classList.add("show");
+        stickyPlayer.setAttribute("aria-hidden","false");
+      } else {
+        stickyPlayer.classList.remove("show");
+        stickyPlayer.setAttribute("aria-hidden","true");
+      }
+    }, { threshold: 0.25 });
+
+    io.observe(mainPlayer);
+
+    // ---------- Spotify embeds ----------
     function toSpotifyEmbed(url){
       try{
         const u = new URL(url);
-        const parts = u.pathname.split("/").filter(Boolean); // ["episode","ID"] o ["show","ID"]
-        const type = parts[0];
-        const id = parts[1];
+        const parts = u.pathname.split("/").filter(Boolean); // ["episode","ID"] or ["show","ID"]
+        const type = parts[0], id = parts[1];
         if(!type || !id) return null;
         if(type !== "episode" && type !== "show") return null;
         return `https://open.spotify.com/embed/${type}/${id}`;
@@ -436,7 +604,6 @@
       const s = new Set(items.map(x => (x.tag||"").trim()).filter(Boolean));
       return ["all", ...Array.from(s).sort((a,b)=>a.localeCompare(b))];
     }
-
     function buildTagOptions(){
       const tags = uniqueTags(PODCASTS);
       tagFilter.innerHTML = tags.map(t => `<option value="${t}">${t === "all" ? "Tutti i tag" : t}</option>`).join("");
@@ -456,12 +623,11 @@
       if(PODCASTS.length === 0){
         podGrid.innerHTML = `
           <div class="podCard" style="grid-column:1/-1">
-            <div class="podName">Nessuna puntata inserita</div>
+            <div class="podName">Nessun podcast inserito</div>
             <div style="color:var(--muted);margin-top:6px;font-size:13px;line-height:1.5">
-              Apri un episodio su Spotify → ⋯ → Share → copia il link. Poi aggiungilo nell'array <b>PODCASTS</b> in cima al file. :contentReference[oaicite:4]{index=4}
+              Aggiungi link Spotify dentro l'array <b>PODCASTS</b>.
             </div>
-          </div>
-        `;
+          </div>`;
         return;
       }
 
@@ -469,9 +635,8 @@
         podGrid.innerHTML = `
           <div class="podCard" style="grid-column:1/-1">
             <div class="podName">Nessun risultato</div>
-            <div style="color:var(--muted);margin-top:6px;font-size:13px">Prova a cambiare ricerca o tag.</div>
-          </div>
-        `;
+            <div style="color:var(--muted);margin-top:6px;font-size:13px">Cambia ricerca o tag.</div>
+          </div>`;
         return;
       }
 
@@ -487,10 +652,9 @@
                 ${safeTag ? `<div class="podTag">${safeTag}</div>` : ""}
               </div>
               <div style="color:var(--muted);font-size:13px;line-height:1.5">
-                Link Spotify non valido. Usa link tipo <b>open.spotify.com/episode/...</b> o <b>/show/...</b>.
+                Link Spotify non valido. Usa <b>open.spotify.com/episode/...</b> o <b>/show/...</b>.
               </div>
-            </div>
-          `;
+            </div>`;
         }
         return `
           <div class="podCard">
@@ -506,8 +670,7 @@
                 title="${safeTitle}">
               </iframe>
             </div>
-          </div>
-        `;
+          </div>`;
       }).join("");
     }
 
