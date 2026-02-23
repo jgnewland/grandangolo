@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/stream"
+  to = "http://nr11.newradio.it:9242/stream?type=http&nocache=147999"
+  status = 200
+  force = true
