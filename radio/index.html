@@ -700,19 +700,7 @@
         </div>
       </div>
     </section>
-
-    <!-- PODCAST -->
-    <section class="section" id="podcast">
-      <div class="sectionHead">
-        <h2>Podcast & Registrazioni</h2>
-        <span>da Spotify</span>
-      </div>
-
-      <div class="card" style="padding:14px">
-        <div class="podGrid" id="podGrid"></div>
-      </div>
-    </section>
-<!-- ====== NOTIZIE (4) con immagine - SENZA NETLIFY ====== -->
+<!-- ====== NOTIZIE (4) con immagine - WP JSON (SENZA NETLIFY) ====== -->
 <section class="section" id="notizie">
   <div class="sectionHead">
     <h2>Ultime notizie</h2>
@@ -723,7 +711,9 @@
     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
       <div class="badge" style="gap:10px;">
         <span class="liveDot"></span>
-        <span style="font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#ff2a4d;">News</span>
+        <span style="font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#ff2a4d;">
+          News in tempo reale
+        </span>
       </div>
 
       <button class="btnSmall" id="refreshNews" type="button">↻ Aggiorna</button>
@@ -796,53 +786,12 @@
 </style>
 
 <script>
-  // Feed RSS (meglio https)
-  const RSS_URL = "https://www.grandangoloagrigento.it/feed/";
-
-  // Proxy pubblici (fallback). Se uno non va, prova l'altro.
-  const PROXIES = [
-    (url) => "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
-    (url) => "https://r.jina.ai/http://r.jina.ai/" + url.replace(/^https?:\/\//, "")
-    // Jina: rende il contenuto come testo; spesso bypassa blocchi. Se non va, allorigins basta.
-  ];
+  // --- WP REST API: 4 post + _embed per avere la featured image ---
+  const WP_POSTS_API = "https://www.grandangoloagrigento.it/wp-json/wp/v2/posts?per_page=4&_embed=1";
 
   const newsGrid = document.getElementById("newsGrid");
   const newsMeta = document.getElementById("newsMeta");
   const refreshNews = document.getElementById("refreshNews");
-
-  function esc(s){
-    return String(s).replace(/[&<>"']/g, m => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[m]));
-  }
-  function firstImageFromHTML(html){
-    if(!html) return "";
-    const m = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-    return m ? m[1] : "";
-  }
-  function getItemImage(item){
-    // 1) <media:content url="">
-    const media = item.querySelector("media\\:content, content");
-    const mediaUrl = media?.getAttribute("url") || "";
-    if(mediaUrl) return mediaUrl;
-
-    // 2) <media:thumbnail url="">
-    const thumb = item.querySelector("media\\:thumbnail, thumbnail");
-    const thumbUrl = thumb?.getAttribute("url") || "";
-    if(thumbUrl) return thumbUrl;
-
-    // 3) <enclosure url="">
-    const enc = item.querySelector("enclosure");
-    const encUrl = enc?.getAttribute("url") || "";
-    if(encUrl) return encUrl;
-
-    // 4) Prima img dentro content:encoded
-    const encoded = item.querySelector("content\\:encoded")?.textContent || "";
-    const imgFromEncoded = firstImageFromHTML(encoded);
-    if(imgFromEncoded) return imgFromEncoded;
-
-    return "";
-  }
 
   const fallbackImg = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="400" height="260">
@@ -860,21 +809,29 @@
     </svg>
   `);
 
-  async function fetchWithFallback(url){
-    let lastErr = null;
-    for(const makeProxy of PROXIES){
-      try{
-        const proxied = makeProxy(url) + (makeProxy === PROXIES[0] ? ("&ts=" + Date.now()) : "");
-        const res = await fetch(proxied, { cache: "no-store" });
-        if(!res.ok) throw new Error("HTTP " + res.status);
-        const txt = await res.text();
-        // Se Jina aggiunge prefissi, proviamo comunque a parsare XML
-        return txt;
-      }catch(e){
-        lastErr = e;
-      }
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[m]));
+  }
+
+  function getFeaturedImage(post){
+    // WP: _embedded["wp:featuredmedia"][0].source_url
+    try{
+      const fm = post?._embedded?.["wp:featuredmedia"]?.[0];
+      return fm?.source_url || fm?.media_details?.sizes?.medium?.source_url || "";
+    }catch{
+      return "";
     }
-    throw lastErr || new Error("fetch failed");
+  }
+
+  function fmtDate(iso){
+    try{
+      return new Date(iso).toLocaleString("it-IT", {
+        day:"2-digit", month:"2-digit", year:"numeric",
+        hour:"2-digit", minute:"2-digit"
+      });
+    }catch{ return ""; }
   }
 
   async function loadNews(){
@@ -882,36 +839,31 @@
       newsMeta.textContent = "Aggiornamento…";
       newsGrid.innerHTML = `<div class="newsEmpty">Caricamento notizie…</div>`;
 
-      const xmlText = await fetchWithFallback(RSS_URL);
-      const xml = new DOMParser().parseFromString(xmlText, "text/xml");
+      // cache bust per evitare risposte vecchie
+      const url = WP_POSTS_API + "&_ts=" + Date.now();
+      const res = await fetch(url, { cache: "no-store" });
+      if(!res.ok) throw new Error("HTTP " + res.status);
 
-      const items = Array.from(xml.querySelectorAll("item")).slice(0, 4);
-      if(!items.length){
-        newsGrid.innerHTML = `<div class="newsEmpty">Nessuna notizia trovata (feed vuoto o bloccato).</div>`;
+      const posts = await res.json();
+      if(!Array.isArray(posts) || posts.length === 0){
+        newsGrid.innerHTML = `<div class="newsEmpty">Nessuna notizia trovata.</div>`;
         newsMeta.textContent = "Nessuna notizia";
         return;
       }
 
-      newsGrid.innerHTML = items.map(it => {
-        const title = (it.querySelector("title")?.textContent || "Notizia").trim();
-        const link = (it.querySelector("link")?.textContent || "#").trim();
-        const pubDateRaw = (it.querySelector("pubDate")?.textContent || "").trim();
+      newsGrid.innerHTML = posts.slice(0,4).map(p => {
+        const title = p?.title?.rendered ? p.title.rendered.replace(/<[^>]*>/g,"") : "Notizia";
+        const link = p?.link || "#";
+        const date = fmtDate(p?.date);
+        const img = getFeaturedImage(p) || fallbackImg;
 
-        let pub = "";
-        try{
-          pub = pubDateRaw ? new Date(pubDateRaw).toLocaleString("it-IT", {
-            day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit"
-          }) : "";
-        }catch{}
-
-        const img = getItemImage(it);
         return `
           <a class="newsCard" href="${link}" target="_blank" rel="noopener">
-            <img class="newsImg" src="${img || fallbackImg}" alt="">
+            <img class="newsImg" src="${img}" alt="">
             <div class="newsBody">
               <div class="newsTitle">${esc(title)}</div>
               <div class="newsMetaRow">
-                ${pub ? `<span>🕒 ${pub}</span>` : ""}
+                ${date ? `<span>🕒 ${esc(date)}</span>` : ""}
                 <span style="color:rgba(38,242,163,.9);font-weight:900">Leggi →</span>
               </div>
             </div>
@@ -922,7 +874,13 @@
       newsMeta.textContent = "Aggiornato ora";
     }catch(e){
       console.error(e);
-      newsGrid.innerHTML = `<div class="newsEmpty">Errore nel caricamento notizie (CORS/proxy). Premi “Aggiorna”.</div>`;
+      newsGrid.innerHTML = `
+        <div class="newsEmpty">
+          Errore nel caricamento notizie. Premi “Aggiorna”.
+          <div style="margin-top:8px;color:rgba(255,255,255,.55);font-size:12px;">
+            (Se continua: potrebbe essere bloccato dal browser/CORS. In quel caso lo risolviamo con un feed interno nel tuo dominio.)
+          </div>
+        </div>`;
       newsMeta.textContent = "Errore";
     }
   }
@@ -931,7 +889,18 @@
   loadNews();
   setInterval(loadNews, 5 * 60 * 1000);
 </script>
-</script>
+    <!-- PODCAST -->
+    <section class="section" id="podcast">
+      <div class="sectionHead">
+        <h2>Podcast & Registrazioni</h2>
+        <span>da Spotify</span>
+      </div>
+
+      <div class="card" style="padding:14px">
+        <div class="podGrid" id="podGrid"></div>
+      </div>
+    </section>
+
     <!-- CONTATTI -->
     <section class="section" id="contatti">
       <div class="sectionHead">
