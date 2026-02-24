@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Radio | Grandangolo Settimanale</title>
-  <meta name="theme-color" content="#081018" />
+  <title>Grandangolo Radio</title>
+  <meta name="theme-color" content="#050a0e" />
+  <link rel="preconnect" href="https://open.spotify.com">
+  <link rel="preconnect" href="https://www.grandangoloagrigento.it">
+
   <style>
     :root{
-      /* base */
       --bg:#071018;
       --panel: rgba(255,255,255,.06);
       --border: rgba(255,255,255,.12);
@@ -16,63 +18,316 @@
       --muted2: rgba(255,255,255,.55);
       --shadow: 0 20px 70px rgba(0,0,0,.58);
       --r:18px;
-      --max:1100px;
+      --max:1200px;
 
-      /* accents: blu + verde + rosso */
       --blue:#00a3ff;
       --green:#26f2a3;
       --red:#ff2a4d;
 
-      --glass: rgba(10,16,26,.62);
+      --headerH: 96px; /* altezza barra desktop */
     }
 
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
       background:
-        radial-gradient(1100px 650px at 12% -18%, rgba(0,163,255,.20), transparent 58%),
-        radial-gradient(900px 520px at 92% 8%, rgba(38,242,163,.14), transparent 60%),
+        radial-gradient(1100px 650px at 12% -18%, rgba(0,163,255,.18), transparent 58%),
+        radial-gradient(900px 520px at 92% 8%, rgba(38,242,163,.12), transparent 60%),
         radial-gradient(900px 520px at 70% 120%, rgba(255,42,77,.10), transparent 60%),
-        var(--bg);
+        #050a0e;
+      padding-top: var(--headerH); /* spazio per header fixed */
     }
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max);margin:0 auto;padding:18px}
 
-    /* top header */
-    .topbar{
-      position:sticky; top:0; z-index:40;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(7,16,24,.92), rgba(7,16,24,.68));
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .topbar .inner{
-      max-width:var(--max); margin:0 auto; padding:12px 18px;
-      display:flex; align-items:center; gap:14px;
-    }
-    .brand{display:flex;align-items:center;gap:12px;min-width:240px}
-    .logo{
-      width:44px;height:44px;border-radius:16px;
-      background: linear-gradient(135deg, rgba(0,163,255,.96), rgba(38,242,163,.92));
-      box-shadow: var(--shadow);
-    }
-    .brand .t1{font-weight:900;letter-spacing:-.3px;line-height:1.1}
-    .brand .t2{font-size:12px;color:var(--muted);margin-top:2px}
-    nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    nav a{
-      font-size:13px;color:var(--muted);
-      padding:8px 10px;border-radius:999px;border:1px solid transparent;
-    }
-    nav a:hover{border-color:var(--border);color:var(--text);background:rgba(255,255,255,.03)}
-    .spacer{flex:1}
-
-    /* utilities */
     .card{
       background: var(--panel);
       border:1px solid var(--border);
       border-radius: var(--r);
       box-shadow: var(--shadow);
+    }
+
+    /* ===== HEADER FIXED SOVRAPPOSTO ALLO SLIDESHOW ===== */
+    header.topbar2{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      background: rgba(5,10,14,.55); /* semi-trasparente sopra slideshow */
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .topbar2-inner{
+      max-width: var(--max);
+      margin: auto;
+      height: var(--headerH);
+      padding: 10px 18px;
+      display: grid;
+      grid-template-columns: 420px 1fr 260px; /* logo grande | menu centrato | destra */
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* LOGO GRANDE */
+    .topbar2-logo{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      cursor:pointer;
+      min-width: 0;
+    }
+    .topbar2-logo img{
+      height: 80px;         /* <<< DIMENSIONE LOGO */
+      width: auto;
+      max-height:none;
+      display:block;
+      object-fit:contain;
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,.65));
+      transition: transform .18s ease, filter .18s ease;
+    }
+    .topbar2-logo:hover img{
+      transform: translateY(-1px);
+      filter: drop-shadow(0 16px 36px rgba(0,0,0,.75));
+    }
+
+    /* MENU GRANDE */
+    .topbar2-nav{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 34px;
+    }
+    .topbar2-nav a{
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.82);
+      padding: 10px 8px;
+      border-bottom: 2px solid transparent;
+      transition: color .18s ease, border-color .18s ease, transform .18s ease;
+      font-weight: 800;
+    }
+    .topbar2-nav a:hover{
+      color: rgba(255,255,255,.98);
+      border-color: rgba(38,242,163,.55);
+      transform: translateY(-1px);
+    }
+
+    .topbar2-right{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .livePill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.85);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .liveDot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--red);
+      box-shadow:0 0 0 7px rgba(255,42,77,.14);
+      animation:pulse 1.2s infinite ease-in-out;
+    }
+    .liveText{
+      color: var(--red);
+      font-weight: 950;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      animation: blink 1s infinite steps(2, end);
+    }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
+    @keyframes blink { 50% { opacity: .15; } }
+
+    .hamburger2{
+      display:none;
+      width:46px;height:46px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      padding:10px;
+    }
+    .hamburger2 span{
+      display:block;
+      height:2px;
+      background: rgba(255,255,255,.92);
+      border-radius:2px;
+      margin:6px 0;
+    }
+
+    /* ===== HERO SLIDESHOW GRANDE ===== */
+    .heroBlock{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .slider{
+      position:relative;
+      border-radius: 22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      min-height: 460px;
+      height: min(70vh, 640px); /* grande e “presentazione” */
+      box-shadow: var(--shadow);
+    }
+    .slides{
+      display:flex;
+      width:100%;
+      height:100%;
+      transform: translateX(0);
+      transition: transform .60s cubic-bezier(.2,.9,.1,1);
+    }
+    .slide{
+      flex: 0 0 100%;
+      position:relative;
+      height:100%;
+    }
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .slide::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 520px at 12% 0%, rgba(0,163,255,.22), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, rgba(38,242,163,.14), transparent 60%),
+        linear-gradient(to top, rgba(0,0,0,.42), transparent 58%);
+      pointer-events:none;
+    }
+
+    .sliderBadge{
+      position:absolute;
+      top:14px; left:14px;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,16,26,.62);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,.86);
+      font-size:12px;
+      z-index:2;
+    }
+    .sliderUI{
+      position:absolute;
+      inset:auto 0 0 0;
+      padding:12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      z-index:2;
+    }
+    .dots{display:flex; gap:7px; align-items:center; flex-wrap:wrap;}
+    .dotBtn{
+      width:11px;height:11px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.10);
+      cursor:pointer;
+      padding:0;
+    }
+    .dotBtn.active{
+      background: rgba(38,242,163,.90);
+      border-color: transparent;
+      box-shadow: 0 0 0 7px rgba(38,242,163,.14);
+    }
+    .arrows{display:flex; gap:8px; align-items:center;}
+    .arrowBtn{
+      width:44px;height:44px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.07);
+      color: var(--text);
+      cursor:pointer;
+      font-weight: 950;
+      font-size: 20px;
+    }
+    .arrowBtn:active{ transform: translateY(1px); }
+
+    /* CTA sovrapposta allo slideshow */
+    .heroOverlay{
+      position:absolute;
+      inset:auto 18px 18px 18px;
+      z-index:3;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
+      pointer-events:none;
+    }
+    .heroOverlay .heroText{
+      pointer-events:auto;
+      max-width: 720px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,16,26,.55);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+    }
+    .heroOverlay h1{
+      margin:0;
+      font-size: 28px;
+      letter-spacing: -0.6px;
+      line-height: 1.1;
+    }
+    .heroOverlay p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .heroActions{
+      pointer-events:auto;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .btnSmall{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 16px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      cursor:pointer;
+      font-weight: 950;
+      font-size: 13px;
+    }
+    .btnSmall.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(0,163,255,.95), rgba(38,242,163,.86));
+      color:#061018;
+    }
+    .btnSmall.red{
+      border-color: rgba(255,42,77,.35);
+      background: rgba(255,42,77,.14);
+    }
+
+    /* ===== DIRETTA ===== */
+    .hero{
+      padding:18px;
+      margin-top: 16px; /* subito sotto lo slideshow */
     }
     .badge{
       display:inline-flex;align-items:center;gap:10px;
@@ -80,29 +335,8 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
       color:var(--muted); font-size:12px;
+      white-space:nowrap;
     }
-
-    /* IN DIRETTA blinking */
-    .liveDot{
-      width:8px;height:8px;border-radius:50%;
-      background: var(--red);
-      box-shadow: 0 0 0 7px rgba(255,42,77,.14);
-      animation: pulse 1.2s infinite ease-in-out;
-    }
-    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
-    .liveText{
-      color: var(--red);
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      animation: blink 1s infinite steps(2, end);
-    }
-    @keyframes blink { 50% { opacity: .15; } }
-
-    /* hero + player */
-    .hero{padding:18px}
-    h1{margin:12px 0 6px;font-size:34px;line-height:1.06;letter-spacing:-.8px}
-    .sub{margin:0;color:var(--muted);font-size:15px;max-width:75ch}
 
     .playerBox{
       margin-top:14px;
@@ -119,7 +353,7 @@
       font-size:12px;color:rgba(255,255,255,.55);
       text-transform:uppercase;letter-spacing:.12em;
     }
-    .onAirTitle{margin-top:6px;font-size:18px;font-weight:900}
+    .onAirTitle{margin-top:6px;font-size:20px;font-weight:950}
     .onAirMeta{margin-top:3px;color:var(--muted);font-size:13px}
     .nowTime{
       display:inline-flex; align-items:center; gap:10px;
@@ -130,11 +364,7 @@
       font-size:12px;
       white-space:nowrap;
     }
-    .clock{
-      font-variant-numeric: tabular-nums;
-      letter-spacing:.02em;
-    }
-
+    .clock{font-variant-numeric: tabular-nums;letter-spacing:.02em;}
     audio{display:none}
 
     .controls{
@@ -143,9 +373,6 @@
       gap:10px;
       margin-top:10px;
     }
-    @media(max-width:720px){
-      .controls{grid-template-columns:1fr}
-    }
     .btn{
       display:flex;align-items:center;justify-content:center;gap:10px;
       padding:12px 14px;border-radius:14px;
@@ -153,7 +380,7 @@
       background: rgba(255,255,255,.06);
       color:var(--text);
       cursor:pointer;
-      font-weight:900;
+      font-weight:950;
     }
     .btn.primary{
       border-color: transparent;
@@ -163,9 +390,9 @@
     .btn.danger{
       border-color: rgba(255,42,77,.32);
       background: rgba(255,42,77,.10);
-      color: var(--text);
     }
     .btn:active{transform:translateY(1px)}
+
     .volRow{
       grid-column:1 / -1;
       display:flex;align-items:center;gap:12px;
@@ -179,13 +406,14 @@
       text-transform:uppercase;letter-spacing:.12em;
     }
     .volRow input{width:100%; accent-color: var(--green);}
+
     .metaRow{
       margin-top:10px;
       display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
       font-size:12px; color: rgba(255,255,255,.62);
     }
 
-    /* Podcast section */
+    /* ===== PODCAST ===== */
     .section{margin-top:16px}
     .sectionHead{
       display:flex; align-items:end; justify-content:space-between; gap:12px; flex-wrap:wrap;
@@ -194,30 +422,7 @@
     .sectionHead h2{margin:0;font-size:16px}
     .sectionHead span{color:var(--muted);font-size:13px}
 
-    .podTools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-    .input{
-      flex:1;min-width:220px;
-      padding:10px 12px;border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
-      outline:none;
-    }
-    .select{
-      padding:10px 12px;border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
-      outline:none;
-    }
-
-    .podGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    @media(max-width:980px){ .podGrid{grid-template-columns:1fr} }
-
+    .podGrid{display:grid;grid-template-columns: 1fr 1fr;gap:12px}
     .podCard{
       padding:12px;
       border-radius:16px;
@@ -225,7 +430,7 @@
       background: rgba(255,255,255,.05);
     }
     .podTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .podName{font-weight:900}
+    .podName{font-weight:950}
     .podTag{
       font-size:12px;color:rgba(255,255,255,.78);
       border:1px solid rgba(0,163,255,.28);
@@ -240,20 +445,13 @@
     }
     iframe{width:100%;height:232px;border:0}
 
-    footer{
-      margin:18px 0 10px;
-      color: var(--muted2);
-      font-size:12px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-    }
-
-    /* Sticky mini player on scroll */
+    /* ===== MINI PLAYER STICKY ===== */
     .stickyPlayer{
       position:fixed;
       left:50%;
       transform:translateX(-50%);
       bottom:14px;
-      z-index:80;
+      z-index:450;
       width:min(var(--max), calc(100% - 24px));
       display:none;
     }
@@ -267,17 +465,13 @@
       padding:10px 12px;
       display:flex; align-items:center; gap:12px;
     }
-    .stickyLeft{
-      display:flex; align-items:center; gap:10px;
-      min-width: 160px;
+    .stickyLeft{display:flex; align-items:center; gap:10px; min-width:160px;}
+    .stickyMid{min-width:0; display:flex; flex-direction:column; gap:2px;}
+    .stickyTitle{font-weight:950;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .stickyMeta{
+      font-size:12px;color:var(--muted);
+      display:flex;gap:10px;align-items:center;flex-wrap:wrap
     }
-    .stickyMid{
-      min-width:0;
-      display:flex; flex-direction:column;
-      gap:2px;
-    }
-    .stickyTitle{font-weight:900;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .stickyMeta{font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .stickyRight{margin-left:auto;display:flex;align-items:center;gap:10px}
     .miniBtn{
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
@@ -286,7 +480,7 @@
       border:1px solid transparent;
       background: linear-gradient(135deg, rgba(0,163,255,.95), rgba(38,242,163,.86));
       color:#061018;
-      font-weight:900;
+      font-weight:950;
       cursor:pointer;
       white-space:nowrap;
     }
@@ -306,116 +500,167 @@
       white-space:nowrap;
     }
 
-    /* give room to sticky player on mobile so it doesn't cover content */
-    @media(max-width:980px){
-      body{ padding-bottom: 86px; }
+    footer{
+      margin:18px 0 10px;
+      color: var(--muted2);
+      font-size:12px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
     }
-    /* ====== RESPONSIVE MOBILE PACK ====== */
 
-/* Base: rendi leggibile tutto su schermi piccoli */
-@media (max-width: 980px){
-  .wrap{ padding:14px; }
-  .topbar .inner{ padding:10px 14px; gap:10px; }
+    /* ===== MOBILE MENU OVERLAY ===== */
+    .menuOverlay{
+      position:fixed; inset:0; z-index:800;
+      background: rgba(0,0,0,.62);
+      display:none;
+      align-items:flex-end;
+      padding:14px;
+    }
+    .menuOverlay.open{ display:flex; }
+    .menuSheet{
+      width:min(520px, 100%);
+      border-radius: 20px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(10,16,26,.92), rgba(10,16,26,.72));
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .menuTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .menuBrand{ display:flex; align-items:center; gap:12px; }
+    .menuLogo{
+      width:42px; height:42px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(0,163,255,.96), rgba(38,242,163,.92));
+    }
+    .menuT1{ font-weight:950; letter-spacing:-.2px; }
+    .menuT2{ font-size:12px; color: var(--muted); margin-top:2px; }
+    .menuClose{
+      width:44px; height:44px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      font-weight:950;
+    }
+    .menuLinks{ padding:10px; display:grid; gap:10px; }
+    .menuLink{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      font-weight:950;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    .menuLink::after{ content:"›"; color: rgba(255,255,255,.70); font-size:18px; }
+    .menuFoot{ padding:14px; border-top:1px solid rgba(255,255,255,.10); }
 
-  .brand{ min-width: 0; }
-  nav{ gap:6px; }
-  nav a{ padding:7px 9px; font-size:12px; }
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 980px){
+      :root{ --headerH: 78px; }
+      body{ padding-top: var(--headerH); padding-bottom: 96px; }
 
-  h1{ font-size:28px; letter-spacing:-.6px; }
-  .sub{ font-size:14px; }
+      .wrap{ padding:14px; }
+      .topbar2-inner{
+        grid-template-columns: 1fr auto;
+        padding: 8px 14px;
+        height: var(--headerH);
+      }
+      .topbar2-nav{ display:none; }
+      .hamburger2{ display:inline-block; }
+      .livePill{ display:none; }
+      .topbar2-logo img{ height: 58px; } /* logo grande anche su mobile */
 
-  .hero{ padding:14px; }
-  .playerBox{ padding:12px; }
+      .slider{ min-height: 260px; height: min(58vh, 420px); }
+      .heroOverlay{ inset:auto 12px 12px 12px; flex-direction:column; align-items:stretch; }
+      .heroActions{ justify-content:flex-start; }
 
-  .playerTop{ gap:10px; }
-  .onAirTitle{ font-size:16px; }
-  .onAirMeta{ font-size:12px; }
-
-  .nowTime{ padding:6px 9px; font-size:12px; }
-  .clock{ letter-spacing:0; }
-
-  /* pulsanti: meglio grandi e comodi */
-  .controls{ grid-template-columns:1fr; }
-  .btn{ padding:13px 14px; border-radius:14px; }
-
-  /* tools podcast su mobile */
-  .podTools{ gap:8px; }
-  .input, .select{ width:100%; min-width:0; }
-
-  /* griglia podcast a colonna singola */
-  .podGrid{ grid-template-columns:1fr; }
-
-  /* spotify embed più compatto */
-  iframe{ height: 200px; }
-}
-
-/* Extra-small: telefoni piccoli */
-@media (max-width: 420px){
-  h1{ font-size:24px; }
-  .sub{ font-size:13px; }
-
-  .badge{ font-size:11px; padding:6px 8px; }
-
-  .nowTime{ font-size:11px; }
-  iframe{ height: 190px; }
-}
-
-/* Sticky player: più compatto su mobile */
-@media (max-width: 600px){
-  .stickyInner{ padding:9px 10px; gap:10px; }
-  .stickyLeft{ min-width: 130px; }
-  .stickyTitle{ font-size:12px; }
-  .stickyMeta{ font-size:11px; gap:8px; }
-  .miniClock{ padding:6px 9px; font-size:11px; }
-  .miniBtn{ padding:9px 10px; }
-}
-
-/* Evita che il mini-player copra l’ultimo contenuto */
-@media (max-width: 980px){
-  body{ padding-bottom: 96px; } /* un po’ più spazio */
-}
+      .controls{ grid-template-columns:1fr; }
+      .podGrid{ grid-template-columns:1fr; }
+      iframe{ height: 200px; }
+    }
+    @media (max-width: 420px){
+      .heroOverlay h1{ font-size: 22px; }
+      iframe{ height: 190px; }
+    }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="inner">
-      <a class="brand" href="/radio/">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <div class="t1">Grandangolo Radio</div>
-          <div class="t2">Diretta & Podcast</div>
-        </div>
+
+  <!-- HEADER (sovrapposto allo slideshow e fisso) -->
+  <header class="topbar2">
+    <div class="topbar2-inner">
+      <a class="topbar2-logo" href="/radio/" aria-label="Home Grandangolo Radio">
+        <img
+          src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/LOGO-NUOVO-NEWS-ON-RADIO-1.png"
+          alt="Grandangolo Radio"
+          decoding="async"
+          loading="eager"
+          referrerpolicy="no-referrer"
+        />
       </a>
 
-      <nav>
-        <a href="#diretta">Diretta</a>
-        <a href="#podcast">Podcast</a>
-        <a href="#contatti">Contatti</a>
+      <nav class="topbar2-nav" aria-label="Menu">
+        <a href="#home">HOME</a>
+        <a href="#diretta">DIRETTA</a>
+        <a href="#podcast">PODCAST</a>
+        <a href="#contatti">CONTATTI</a>
       </nav>
 
-      <div class="spacer"></div>
+      <div class="topbar2-right">
+        <span class="livePill" title="Siamo live">
+          <span class="liveDot"></span>
+          <span class="liveText">IN DIRETTA</span>
+        </span>
 
-      <div class="badge" title="Siamo live">
-        <span class="liveDot"></span>
-        <span class="liveText">IN DIRETTA</span>
+        <button class="hamburger2" id="openMenu" type="button" aria-label="Apri menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
-  </div>
+  </header>
+
+  <!-- HERO / SLIDESHOW -->
+  <section class="heroBlock" id="home" aria-label="Promo">
+    <div class="slider" id="promoSlider">
+      <div class="sliderBadge">Promo</div>
+      <div class="slides" id="slides"></div>
+
+      <div class="heroOverlay">
+       
+
+        <div class="heroActions">
+          <button class="btnSmall primary" id="heroPlayTop" type="button">▶ Ascolta la diretta</button>
+          <a class="btnSmall" href="#podcast">🎧 Vai ai podcast</a>
+          <a class="btnSmall red" href="#contatti">✉ Contatti</a>
+        </div>
+      </div>
+
+      <div class="sliderUI">
+        <div class="dots" id="dots"></div>
+        <div class="arrows">
+          <button class="arrowBtn" id="prevSlide" type="button" aria-label="Slide precedente">‹</button>
+          <button class="arrowBtn" id="nextSlide" type="button" aria-label="Slide successiva">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div class="wrap">
-    <!-- TOP: PLAYER -->
+    <!-- DIRETTA (subito sotto) -->
     <section class="card hero" id="diretta">
       <div class="badge">
         <span class="liveDot"></span>
         <span class="liveText">IN DIRETTA</span>
-        <span style="opacity:.8">• streaming</span>
+        <span style="opacity:.8">• FM 104.800</span>
       </div>
-
-      <h1>Grandangolo Settimanale — Radio</h1>
-      <p class="sub">
-        Premi play per ascoltare la diretta. Scorrendo la pagina comparirà un mini-player fisso con “IN DIRETTA” e l’orario in tempo reale.
-      </p>
 
       <div class="playerBox" id="mainPlayer">
         <div class="playerTop">
@@ -431,6 +676,7 @@
           </div>
         </div>
 
+        <!-- AUDIO -->
         <audio id="audio" preload="none" playsinline></audio>
 
         <div class="controls">
@@ -450,7 +696,7 @@
 
         <div class="metaRow">
           <div id="statusLine">Stato: pronto</div>
-          <div>Stream: <span style="color:rgba(255,255,255,.78)">HTTPS</span></div>
+          <div>Stream: <span style="color:rgba(255,255,255,.78)">/stream</span></div>
         </div>
       </div>
     </section>
@@ -463,38 +709,186 @@
       </div>
 
       <div class="card" style="padding:14px">
-        <div class="podTools">
-          <input class="input" id="q" placeholder="Cerca (titolo / tag)..." />
-          <select class="select" id="tagFilter">
-            <option value="all">Tutti i tag</option>
-          </select>
-        </div>
-
         <div class="podGrid" id="podGrid"></div>
       </div>
     </section>
+<!-- =========================
+     ULTIME NOTIZIE (RSS)
+     Inserire tra DIRETTA e PODCAST
+========================= -->
 
+<section id="notizie" style="margin-top:20px;">
+  <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+    <span id="newsMeta" style="color:rgba(255,255,255,.65);font-size:13px;">Aggiornamento…</span>
+  </div>
+
+  <div style="
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      box-shadow:0 20px 60px rgba(0,0,0,.5);
+  ">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="
+          width:10px;height:10px;border-radius:50%;
+          background:#ff2a4d;
+          box-shadow:0 0 0 6px rgba(255,42,77,.18);
+          animation:pulseNews 1.2s infinite ease-in-out;
+        "></span>
+        <span style="font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:#ff2a4d;">
+          News in tempo reale da grandangoloagrigento.it
+        </span>
+      </div>
+
+      <button id="refreshNews"
+        style="
+          padding:8px 14px;
+          border-radius:999px;
+          border:1px solid rgba(255,255,255,.15);
+          background:rgba(255,255,255,.08);
+          color:#fff;
+          cursor:pointer;
+          font-weight:700;
+        ">
+        ↻ Aggiorna
+      </button>
+    </div>
+
+    <div id="newsList" style="display:grid;gap:10px;">
+      <div style="color:rgba(255,255,255,.6);">Caricamento notizie…</div>
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes pulseNews {
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.3)}
+}
+.newsItem{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  text-decoration:none;
+  transition:.15s ease;
+}
+.newsItem:hover{
+  transform:translateY(-2px);
+  border-color:#00a3ff;
+}
+.newsTitle{
+  font-weight:900;
+  line-height:1.3;
+  color:#fff;
+}
+.newsMeta{
+  margin-top:6px;
+  font-size:12px;
+  color:rgba(255,255,255,.6);
+}
+</style>
+
+<script>
+const FEED_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://www.grandangoloagrigento.it/feed");
+
+const newsList = document.getElementById("newsList");
+const newsMeta = document.getElementById("newsMeta");
+const refreshBtn = document.getElementById("refreshNews");
+
+async function loadNews(){
+  try{
+    newsMeta.textContent = "Aggiornamento…";
+    const res = await fetch(FEED_URL, { cache:"no-store" });
+    const xmlText = await res.text();
+
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(xmlText, "text/xml");
+
+    const items = Array.from(xml.querySelectorAll("item")).slice(0, 8);
+
+    if(!items.length){
+      newsList.innerHTML = "<div style='color:rgba(255,255,255,.6);'>Nessuna notizia trovata.</div>";
+      return;
+    }
+
+    newsList.innerHTML = items.map(item=>{
+      const title = item.querySelector("title")?.textContent || "Notizia";
+      const link = item.querySelector("link")?.textContent || "#";
+      const dateRaw = item.querySelector("pubDate")?.textContent;
+      let date = "";
+      if(dateRaw){
+        try{
+          date = new Date(dateRaw).toLocaleString("it-IT", {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+          });
+        }catch{}
+      }
+
+      return `
+        <a class="newsItem" href="${link}" target="_blank">
+          <div>
+            <div class="newsTitle">${escapeHtml(title)}</div>
+            <div class="newsMeta">🕒 ${date} • grandangoloagrigento.it</div>
+          </div>
+        </a>
+      `;
+    }).join("");
+
+    newsMeta.textContent = "Aggiornato ora";
+  }catch(err){
+    newsList.innerHTML = "<div style='color:#ff2a4d;'>Errore nel caricamento notizie.</div>";
+    newsMeta.textContent = "Errore";
+  }
+}
+
+function escapeHtml(text){
+  return text.replace(/[&<>"']/g, function(m){
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    }[m];
+  });
+}
+
+refreshBtn.addEventListener("click", loadNews);
+
+loadNews();
+setInterval(loadNews, 300000); // aggiorna ogni 5 minuti
+</script>
     <!-- CONTATTI -->
     <section class="section" id="contatti">
       <div class="sectionHead">
         <h2>Contatti</h2>
-        <span>email / whatsapp</span>
+        <span>email / social</span>
       </div>
+
       <div class="card" style="padding:14px">
-        <div style="color:var(--muted); font-size:14px; line-height:1.6;">
-          Email: <a href="mailto:info@grandangolosettimanale.it">info@grandangolosettimanale.it</a><br/>
-          WhatsApp: <span style="opacity:.9;">(inserisci numero)</span>
+        <div style="color:var(--muted); font-size:14px; line-height:1.7;">
+          Email: <a href="mailto:info@grandangolosettimanale.it">info@grandangolosettimanale.it</a>
         </div>
       </div>
     </section>
 
     <footer>
       <div>© <span id="year"></span> Grandangolo Settimanale — Radio</div>
-      <div><a href="/">Torna al sito</a></div>
+      <div><a href="#home">Torna su</a></div>
     </footer>
   </div>
 
-  <!-- STICKY MINI PLAYER (compare quando scrolli) -->
+  <!-- MINI PLAYER STICKY -->
   <div class="stickyPlayer" id="stickyPlayer" aria-hidden="true">
     <div class="stickyInner">
       <div class="stickyLeft">
@@ -511,37 +905,69 @@
       </div>
 
       <div class="stickyRight">
-        <button class="miniBtn" id="stickyPlay" type="button"><span id="stickyIcon">▶</span> <span id="stickyText">Play</span></button>
+        <button class="miniBtn" id="stickyPlay" type="button">
+          <span id="stickyIcon">▶</span> <span id="stickyText">Play</span>
+        </button>
         <button class="miniBtn alt" id="stickyStop" type="button">⏹</button>
       </div>
     </div>
   </div>
 
+  <!-- MOBILE MENU -->
+  <div class="menuOverlay" id="menuOverlay" aria-hidden="true">
+    <div class="menuSheet" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="menuTop">
+        <div class="menuBrand">
+          <div class="menuLogo" aria-hidden="true"></div>
+          <div>
+            <div class="menuT1">Grandangolo Radio</div>
+            <div class="menuT2">Navigazione</div>
+          </div>
+        </div>
+        <button class="menuClose" id="closeMenu" type="button" aria-label="Chiudi menu">✕</button>
+      </div>
+
+      <div class="menuLinks">
+        <a href="#home" class="menuLink">Home</a>
+        <a href="#diretta" class="menuLink">Diretta</a>
+        <a href="#podcast" class="menuLink">Podcast</a>
+        <a href="#contatti" class="menuLink">Contatti</a>
+      </div>
+
+      <div class="menuFoot">
+        <div class="badge" style="display:inline-flex; gap:10px;">
+          <span class="liveDot"></span>
+          <span class="liveText">IN DIRETTA</span>
+        </div>
+        <div style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.5">
+          Premi Play e scorri: il mini-player resta sempre visibile.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // ✅ Stream HTTPS via Netlify route /stream
+    // =========================
+    // CONFIG
+    // =========================
     const STREAM_URL = "https://effervescent-naiad-840d7f.netlify.app/stream";
 
-    // ✅ Podcast Spotify (già inserito quello che mi hai dato)
+    // PROMO:
+    // 1) carica i tuoi JPG/PNG in /radio/promo/
+    // 2) metti qui i path, es: "/radio/promo/promo1.jpg"
+    const PROMOS = [
+      "https://mmo.aiircdn.com/301/691d92f287ffd.png",
+      "https://mmo.aiircdn.com/301/691d92f287ffd.png"
+    ];
+
+    // PODCAST: aggiungi qui altri link Spotify (episode o show)
     const PODCASTS = [
-  {
-    title: "Edizione del 4 Luglio 2024",
-    url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-    tag: "news"
-  },
+      { title: "Episodio Spotify", url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7", tag: "spotify" }
+    ];
 
-  {
-    title: "Puntata 10 — Intervista",
-    url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-    tag: "interviste"
-  },
-
-  {
-    title: "Puntata 11 — Speciale",
-    url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7",
-    tag: "speciali"
-  }
-];
-    // ---------- clock ----------
+    // =========================
+    // CLOCK
+    // =========================
     const clockTop = document.getElementById("clockTop");
     const clockSticky = document.getElementById("clockSticky");
     function tick(){
@@ -551,8 +977,11 @@
       clockSticky.textContent = t;
     }
     tick(); setInterval(tick, 1000);
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ---------- player ----------
+    // =========================
+    // AUDIO PLAYER
+    // =========================
     const audio = document.getElementById("audio");
     const playBtn = document.getElementById("playBtn");
     const pauseBtn = document.getElementById("pauseBtn");
@@ -569,20 +998,16 @@
     const stickyIcon = document.getElementById("stickyIcon");
     const stickyText = document.getElementById("stickyText");
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-
     let playing = false;
 
     function setStatus(t){
       statusLine.textContent = "Stato: " + t;
       stickyStatus.textContent = t;
     }
-
     function ui(on){
       playing = on;
       playIcon.textContent = on ? "⏸" : "▶";
       playText.textContent = on ? "Pausa" : "Play";
-
       stickyIcon.textContent = on ? "⏸" : "▶";
       stickyText.textContent = on ? "Pausa" : "Play";
     }
@@ -600,13 +1025,11 @@
         setStatus("errore (tocca Play di nuovo)");
       }
     }
-
     function pause(){
       audio.pause();
       ui(false);
       setStatus("in pausa");
     }
-
     function stop(){
       audio.pause();
       audio.removeAttribute("src");
@@ -618,12 +1041,10 @@
     playBtn.addEventListener("click", ()=> playing ? pause() : start());
     pauseBtn.addEventListener("click", pause);
     stopBtn.addEventListener("click", stop);
-
     stickyPlay.addEventListener("click", ()=> playing ? pause() : start());
     stickyStop.addEventListener("click", stop);
 
     vol.addEventListener("input", ()=> audio.volume = Math.max(0, Math.min(1, parseFloat(vol.value))));
-
     audio.addEventListener("waiting", ()=> setStatus("buffering…"));
     audio.addEventListener("error", ()=> { ui(false); setStatus("errore stream"); });
 
@@ -631,9 +1052,14 @@
     ui(false);
     setStatus("pronto");
 
-    // ---------- sticky on scroll (IntersectionObserver) ----------
-    const mainPlayer = document.getElementById("mainPlayer");
+    // CTA hero -> scroll + play
+    document.getElementById("heroPlayTop").addEventListener("click", () => {
+      document.getElementById("diretta").scrollIntoView({behavior:"smooth", block:"start"});
+      setTimeout(() => start(), 260);
+    });
 
+    // Sticky appears when main player leaves view
+    const mainPlayer = document.getElementById("mainPlayer");
     const io = new IntersectionObserver((entries)=>{
       const entry = entries[0];
       const isVisible = entry.isIntersecting;
@@ -645,14 +1071,106 @@
         stickyPlayer.setAttribute("aria-hidden","true");
       }
     }, { threshold: 0.25 });
-
     io.observe(mainPlayer);
 
-    // ---------- Spotify embeds ----------
+    // =========================
+    // SLIDESHOW
+    // =========================
+    const slidesEl = document.getElementById("slides");
+    const dotsEl = document.getElementById("dots");
+    const prevBtn = document.getElementById("prevSlide");
+    const nextBtn = document.getElementById("nextSlide");
+    const slider = document.getElementById("promoSlider");
+
+    let slideIndex = 0;
+    let timer = null;
+    const AUTOPLAY_MS = 4500;
+
+    function buildSlides(){
+      const list = (PROMOS && PROMOS.length) ? PROMOS : [
+        "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1">
+                <stop offset="0" stop-color="#00a3ff" stop-opacity="0.9"/>
+                <stop offset="0.6" stop-color="#26f2a3" stop-opacity="0.75"/>
+                <stop offset="1" stop-color="#ff2a4d" stop-opacity="0.45"/>
+              </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="#0b0e14"/>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#g)" opacity="0.35"/>
+            <text x="60" y="140" fill="#f2f7ff" font-size="64" font-family="Arial" font-weight="800">Carica i tuoi promo</text>
+            <text x="60" y="220" fill="#f2f7ff" opacity="0.85" font-size="34" font-family="Arial">Metti JPG/PNG in /radio/promo/</text>
+            <text x="60" y="290" fill="#f2f7ff" opacity="0.8" font-size="28" font-family="Arial">e aggiorna l'array PROMOS nello script</text>
+          </svg>
+        `)
+      ];
+
+      slidesEl.innerHTML = list.map(src => `
+        <div class="slide"><img src="${src}" alt="Promo"></div>
+      `).join("");
+
+      dotsEl.innerHTML = list.map((_, i) => `
+        <button class="dotBtn ${i===0?'active':''}" type="button" aria-label="Vai alla slide ${i+1}" data-i="${i}"></button>
+      `).join("");
+
+      dotsEl.querySelectorAll(".dotBtn").forEach(btn => {
+        btn.addEventListener("click", () => goTo(parseInt(btn.dataset.i, 10), true));
+      });
+
+      update();
+    }
+
+    function update(){
+      slidesEl.style.transform = `translateX(-${slideIndex * 100}%)`;
+      dotsEl.querySelectorAll(".dotBtn").forEach((d,i)=> d.classList.toggle("active", i===slideIndex));
+    }
+    function goTo(i, user=false){
+      const total = slidesEl.children.length || 1;
+      slideIndex = (i + total) % total;
+      update();
+      if(user) restartAutoplay();
+    }
+    function next(){ goTo(slideIndex + 1, true); }
+    function prev(){ goTo(slideIndex - 1, true); }
+
+    function startAutoplay(){
+      stopAutoplay();
+      if((slidesEl.children.length || 0) <= 1) return;
+      timer = setInterval(() => goTo(slideIndex + 1, false), AUTOPLAY_MS);
+    }
+    function stopAutoplay(){
+      if(timer){ clearInterval(timer); timer = null; }
+    }
+    function restartAutoplay(){ startAutoplay(); }
+
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
+
+    slider.addEventListener("mouseenter", stopAutoplay);
+    slider.addEventListener("mouseleave", startAutoplay);
+
+    // swipe mobile
+    let x0 = null;
+    slider.addEventListener("touchstart", (e)=> { x0 = e.touches?.[0]?.clientX ?? null; }, {passive:true});
+    slider.addEventListener("touchend", (e)=>{
+      if(x0 === null) return;
+      const x1 = e.changedTouches?.[0]?.clientX ?? x0;
+      const dx = x1 - x0;
+      if(Math.abs(dx) > 40){ dx < 0 ? next() : prev(); }
+      x0 = null;
+    }, {passive:true});
+
+    buildSlides();
+    startAutoplay();
+
+    // =========================
+    // PODCAST EMBEDS
+    // =========================
     function toSpotifyEmbed(url){
       try{
         const u = new URL(url);
-        const parts = u.pathname.split("/").filter(Boolean); // ["episode","ID"] or ["show","ID"]
+        const parts = u.pathname.split("/").filter(Boolean);
         const type = parts[0], id = parts[1];
         if(!type || !id) return null;
         if(type !== "episode" && type !== "show") return null;
@@ -661,65 +1179,11 @@
     }
 
     const podGrid = document.getElementById("podGrid");
-    const q = document.getElementById("q");
-    const tagFilter = document.getElementById("tagFilter");
-
-    function uniqueTags(items){
-      const s = new Set(items.map(x => (x.tag||"").trim()).filter(Boolean));
-      return ["all", ...Array.from(s).sort((a,b)=>a.localeCompare(b))];
-    }
-    function buildTagOptions(){
-      const tags = uniqueTags(PODCASTS);
-      tagFilter.innerHTML = tags.map(t => `<option value="${t}">${t === "all" ? "Tutti i tag" : t}</option>`).join("");
-    }
-
     function renderPods(){
-      const query = (q.value||"").trim().toLowerCase();
-      const tf = tagFilter.value;
-
-      const filtered = PODCASTS.filter(p => {
-        const hay = `${p.title||""} ${(p.tag||"")}`.toLowerCase();
-        const okQ = !query || hay.includes(query);
-        const okT = (tf === "all") || ((p.tag||"") === tf);
-        return okQ && okT;
-      });
-
-      if(PODCASTS.length === 0){
-        podGrid.innerHTML = `
-          <div class="podCard" style="grid-column:1/-1">
-            <div class="podName">Nessun podcast inserito</div>
-            <div style="color:var(--muted);margin-top:6px;font-size:13px;line-height:1.5">
-              Aggiungi link Spotify dentro l'array <b>PODCASTS</b>.
-            </div>
-          </div>`;
-        return;
-      }
-
-      if(filtered.length === 0){
-        podGrid.innerHTML = `
-          <div class="podCard" style="grid-column:1/-1">
-            <div class="podName">Nessun risultato</div>
-            <div style="color:var(--muted);margin-top:6px;font-size:13px">Cambia ricerca o tag.</div>
-          </div>`;
-        return;
-      }
-
-      podGrid.innerHTML = filtered.map(p => {
+      podGrid.innerHTML = PODCASTS.map(p => {
         const embed = toSpotifyEmbed(p.url);
         const safeTitle = (p.title||"Podcast").replace(/</g,"&lt;").replace(/>/g,"&gt;");
         const safeTag = (p.tag||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-        if(!embed){
-          return `
-            <div class="podCard">
-              <div class="podTop">
-                <div class="podName">${safeTitle}</div>
-                ${safeTag ? `<div class="podTag">${safeTag}</div>` : ""}
-              </div>
-              <div style="color:var(--muted);font-size:13px;line-height:1.5">
-                Link Spotify non valido. Usa <b>open.spotify.com/episode/...</b> o <b>/show/...</b>.
-              </div>
-            </div>`;
-        }
         return `
           <div class="podCard">
             <div class="podTop">
@@ -727,9 +1191,7 @@
               ${safeTag ? `<div class="podTag">${safeTag}</div>` : ""}
             </div>
             <div class="iframeWrap">
-              <iframe
-                loading="lazy"
-                src="${embed}"
+              <iframe loading="lazy" src="${embed}"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 title="${safeTitle}">
               </iframe>
@@ -737,11 +1199,30 @@
           </div>`;
       }).join("");
     }
-
-    buildTagOptions();
     renderPods();
-    q.addEventListener("input", renderPods);
-    tagFilter.addEventListener("change", renderPods);
+
+    // =========================
+    // MOBILE MENU
+    // =========================
+    const openMenuBtn = document.getElementById("openMenu");
+    const closeMenuBtn = document.getElementById("closeMenu");
+    const menuOverlay = document.getElementById("menuOverlay");
+
+    function openMenu(){
+      menuOverlay.classList.add("open");
+      menuOverlay.setAttribute("aria-hidden", "false");
+      openMenuBtn.setAttribute("aria-expanded", "true");
+    }
+    function closeMenu(){
+      menuOverlay.classList.remove("open");
+      menuOverlay.setAttribute("aria-hidden", "true");
+      openMenuBtn.setAttribute("aria-expanded", "false");
+    }
+    openMenuBtn.addEventListener("click", openMenu);
+    closeMenuBtn.addEventListener("click", closeMenu);
+    menuOverlay.addEventListener("click", (e) => { if (e.target === menuOverlay) closeMenu(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && menuOverlay.classList.contains("open")) closeMenu(); });
+    document.querySelectorAll(".menuLink").forEach(link => link.addEventListener("click", closeMenu));
   </script>
 </body>
 </html>
