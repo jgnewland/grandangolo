@@ -712,161 +712,225 @@
         <div class="podGrid" id="podGrid"></div>
       </div>
     </section>
-<!-- =========================
-     ULTIME NOTIZIE (RSS)
-     Inserire tra DIRETTA e PODCAST
-========================= -->
-
-<section id="notizie" style="margin-top:20px;">
-  <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
-    <span id="newsMeta" style="color:rgba(255,255,255,.65);font-size:13px;">Aggiornamento…</span>
+<!-- ====== NOTIZIE (4) con immagine - SENZA NETLIFY ====== -->
+<section class="section" id="notizie">
+  <div class="sectionHead">
+    <h2>Ultime notizie</h2>
+    <span id="newsMeta">Aggiornamento…</span>
   </div>
 
-  <div style="
-      padding:16px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.05);
-      box-shadow:0 20px 60px rgba(0,0,0,.5);
-  ">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span style="
-          width:10px;height:10px;border-radius:50%;
-          background:#ff2a4d;
-          box-shadow:0 0 0 6px rgba(255,42,77,.18);
-          animation:pulseNews 1.2s infinite ease-in-out;
-        "></span>
-        <span style="font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:#ff2a4d;">
-          News in tempo reale da grandangoloagrigento.it
-        </span>
+  <div class="card" style="padding:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
+      <div class="badge" style="gap:10px;">
+        <span class="liveDot"></span>
+        <span style="font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#ff2a4d;">News</span>
       </div>
 
-      <button id="refreshNews"
-        style="
-          padding:8px 14px;
-          border-radius:999px;
-          border:1px solid rgba(255,255,255,.15);
-          background:rgba(255,255,255,.08);
-          color:#fff;
-          cursor:pointer;
-          font-weight:700;
-        ">
-        ↻ Aggiorna
-      </button>
+      <button class="btnSmall" id="refreshNews" type="button">↻ Aggiorna</button>
     </div>
 
-    <div id="newsList" style="display:grid;gap:10px;">
-      <div style="color:rgba(255,255,255,.6);">Caricamento notizie…</div>
+    <div class="newsGrid" id="newsGrid">
+      <div class="newsEmpty">Caricamento notizie…</div>
     </div>
   </div>
 </section>
 
 <style>
-@keyframes pulseNews {
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.3)}
-}
-.newsItem{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  padding:14px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  text-decoration:none;
-  transition:.15s ease;
-}
-.newsItem:hover{
-  transform:translateY(-2px);
-  border-color:#00a3ff;
-}
-.newsTitle{
-  font-weight:900;
-  line-height:1.3;
-  color:#fff;
-}
-.newsMeta{
-  margin-top:6px;
-  font-size:12px;
-  color:rgba(255,255,255,.6);
-}
+  .newsGrid{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap:12px;
+  }
+  .newsCard{
+    display:flex;
+    gap:12px;
+    padding:12px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.05);
+    text-decoration:none;
+    transition: transform .15s ease, border-color .15s ease;
+    overflow:hidden;
+    min-height: 104px;
+  }
+  .newsCard:hover{ transform: translateY(-2px); border-color: rgba(0,163,255,.35); }
+  .newsImg{
+    width:124px;
+    height:84px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(0,0,0,.2);
+    object-fit: cover;
+    flex:0 0 auto;
+  }
+  .newsBody{ min-width:0; }
+  .newsTitle{
+    font-weight:950;
+    color: rgba(255,255,255,.92);
+    line-height:1.25;
+    display:-webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow:hidden;
+  }
+  .newsMetaRow{
+    margin-top:8px;
+    font-size:12px;
+    color: rgba(255,255,255,.62);
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .newsEmpty{
+    color: rgba(255,255,255,.65);
+    padding:12px;
+    border-radius:16px;
+    border:1px dashed rgba(255,255,255,.14);
+    background: rgba(0,0,0,.18);
+    grid-column:1/-1;
+  }
+  @media (max-width: 980px){
+    .newsGrid{ grid-template-columns: 1fr; }
+    .newsImg{ width:116px; height:78px; }
+  }
 </style>
 
 <script>
-const FEED_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://www.grandangoloagrigento.it/feed");
+  // Feed RSS (meglio https)
+  const RSS_URL = "https://www.grandangoloagrigento.it/feed/";
 
-const newsList = document.getElementById("newsList");
-const newsMeta = document.getElementById("newsMeta");
-const refreshBtn = document.getElementById("refreshNews");
+  // Proxy pubblici (fallback). Se uno non va, prova l'altro.
+  const PROXIES = [
+    (url) => "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
+    (url) => "https://r.jina.ai/http://r.jina.ai/" + url.replace(/^https?:\/\//, "")
+    // Jina: rende il contenuto come testo; spesso bypassa blocchi. Se non va, allorigins basta.
+  ];
 
-async function loadNews(){
-  try{
-    newsMeta.textContent = "Aggiornamento…";
-    const res = await fetch(FEED_URL, { cache:"no-store" });
-    const xmlText = await res.text();
+  const newsGrid = document.getElementById("newsGrid");
+  const newsMeta = document.getElementById("newsMeta");
+  const refreshNews = document.getElementById("refreshNews");
 
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(xmlText, "text/xml");
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[m]));
+  }
+  function firstImageFromHTML(html){
+    if(!html) return "";
+    const m = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+    return m ? m[1] : "";
+  }
+  function getItemImage(item){
+    // 1) <media:content url="">
+    const media = item.querySelector("media\\:content, content");
+    const mediaUrl = media?.getAttribute("url") || "";
+    if(mediaUrl) return mediaUrl;
 
-    const items = Array.from(xml.querySelectorAll("item")).slice(0, 8);
+    // 2) <media:thumbnail url="">
+    const thumb = item.querySelector("media\\:thumbnail, thumbnail");
+    const thumbUrl = thumb?.getAttribute("url") || "";
+    if(thumbUrl) return thumbUrl;
 
-    if(!items.length){
-      newsList.innerHTML = "<div style='color:rgba(255,255,255,.6);'>Nessuna notizia trovata.</div>";
-      return;
+    // 3) <enclosure url="">
+    const enc = item.querySelector("enclosure");
+    const encUrl = enc?.getAttribute("url") || "";
+    if(encUrl) return encUrl;
+
+    // 4) Prima img dentro content:encoded
+    const encoded = item.querySelector("content\\:encoded")?.textContent || "";
+    const imgFromEncoded = firstImageFromHTML(encoded);
+    if(imgFromEncoded) return imgFromEncoded;
+
+    return "";
+  }
+
+  const fallbackImg = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="400" height="260">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1">
+          <stop offset="0" stop-color="#00a3ff" stop-opacity="0.65"/>
+          <stop offset="0.6" stop-color="#26f2a3" stop-opacity="0.45"/>
+          <stop offset="1" stop-color="#ff2a4d" stop-opacity="0.35"/>
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="#0b0e14"/>
+      <rect width="100%" height="100%" fill="url(#g)" opacity="0.45"/>
+      <text x="18" y="70" fill="#ffffff" font-family="Arial" font-size="28" font-weight="800">Grandangolo</text>
+      <text x="18" y="110" fill="#ffffff" opacity="0.85" font-family="Arial" font-size="18">Ultime notizie</text>
+    </svg>
+  `);
+
+  async function fetchWithFallback(url){
+    let lastErr = null;
+    for(const makeProxy of PROXIES){
+      try{
+        const proxied = makeProxy(url) + (makeProxy === PROXIES[0] ? ("&ts=" + Date.now()) : "");
+        const res = await fetch(proxied, { cache: "no-store" });
+        if(!res.ok) throw new Error("HTTP " + res.status);
+        const txt = await res.text();
+        // Se Jina aggiunge prefissi, proviamo comunque a parsare XML
+        return txt;
+      }catch(e){
+        lastErr = e;
+      }
     }
+    throw lastErr || new Error("fetch failed");
+  }
 
-    newsList.innerHTML = items.map(item=>{
-      const title = item.querySelector("title")?.textContent || "Notizia";
-      const link = item.querySelector("link")?.textContent || "#";
-      const dateRaw = item.querySelector("pubDate")?.textContent;
-      let date = "";
-      if(dateRaw){
-        try{
-          date = new Date(dateRaw).toLocaleString("it-IT", {
-            day:"2-digit",
-            month:"2-digit",
-            year:"numeric",
-            hour:"2-digit",
-            minute:"2-digit"
-          });
-        }catch{}
+  async function loadNews(){
+    try{
+      newsMeta.textContent = "Aggiornamento…";
+      newsGrid.innerHTML = `<div class="newsEmpty">Caricamento notizie…</div>`;
+
+      const xmlText = await fetchWithFallback(RSS_URL);
+      const xml = new DOMParser().parseFromString(xmlText, "text/xml");
+
+      const items = Array.from(xml.querySelectorAll("item")).slice(0, 4);
+      if(!items.length){
+        newsGrid.innerHTML = `<div class="newsEmpty">Nessuna notizia trovata (feed vuoto o bloccato).</div>`;
+        newsMeta.textContent = "Nessuna notizia";
+        return;
       }
 
-      return `
-        <a class="newsItem" href="${link}" target="_blank">
-          <div>
-            <div class="newsTitle">${escapeHtml(title)}</div>
-            <div class="newsMeta">🕒 ${date} • grandangoloagrigento.it</div>
-          </div>
-        </a>
-      `;
-    }).join("");
+      newsGrid.innerHTML = items.map(it => {
+        const title = (it.querySelector("title")?.textContent || "Notizia").trim();
+        const link = (it.querySelector("link")?.textContent || "#").trim();
+        const pubDateRaw = (it.querySelector("pubDate")?.textContent || "").trim();
 
-    newsMeta.textContent = "Aggiornato ora";
-  }catch(err){
-    newsList.innerHTML = "<div style='color:#ff2a4d;'>Errore nel caricamento notizie.</div>";
-    newsMeta.textContent = "Errore";
+        let pub = "";
+        try{
+          pub = pubDateRaw ? new Date(pubDateRaw).toLocaleString("it-IT", {
+            day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit"
+          }) : "";
+        }catch{}
+
+        const img = getItemImage(it);
+        return `
+          <a class="newsCard" href="${link}" target="_blank" rel="noopener">
+            <img class="newsImg" src="${img || fallbackImg}" alt="">
+            <div class="newsBody">
+              <div class="newsTitle">${esc(title)}</div>
+              <div class="newsMetaRow">
+                ${pub ? `<span>🕒 ${pub}</span>` : ""}
+                <span style="color:rgba(38,242,163,.9);font-weight:900">Leggi →</span>
+              </div>
+            </div>
+          </a>
+        `;
+      }).join("");
+
+      newsMeta.textContent = "Aggiornato ora";
+    }catch(e){
+      console.error(e);
+      newsGrid.innerHTML = `<div class="newsEmpty">Errore nel caricamento notizie (CORS/proxy). Premi “Aggiorna”.</div>`;
+      newsMeta.textContent = "Errore";
+    }
   }
-}
 
-function escapeHtml(text){
-  return text.replace(/[&<>"']/g, function(m){
-    return {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;'
-    }[m];
-  });
-}
-
-refreshBtn.addEventListener("click", loadNews);
-
-loadNews();
-setInterval(loadNews, 300000); // aggiorna ogni 5 minuti
+  refreshNews?.addEventListener("click", loadNews);
+  loadNews();
+  setInterval(loadNews, 5 * 60 * 1000);
+</script>
 </script>
     <!-- CONTATTI -->
     <section class="section" id="contatti">
@@ -956,8 +1020,8 @@ setInterval(loadNews, 300000); // aggiorna ogni 5 minuti
     // 1) carica i tuoi JPG/PNG in /radio/promo/
     // 2) metti qui i path, es: "/radio/promo/promo1.jpg"
     const PROMOS = [
-      "https://mmo.aiircdn.com/301/691d92f287ffd.png",
-      "https://mmo.aiircdn.com/301/691d92f287ffd.png"
+      "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_54f423.jpg",
+      "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_b5d204.jpg"
     ];
 
     // PODCAST: aggiungi qui altri link Spotify (episode o show)
