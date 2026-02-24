@@ -589,6 +589,43 @@
       .heroOverlay h1{ font-size: 22px; }
       iframe{ height: 190px; }
     }
+    /* ===== FIX MINI PLAYER MOBILE ===== */
+@media (max-width: 640px){
+
+  .stickyInner{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .stickyLeft{
+    justify-content: flex-start;
+  }
+
+  .stickyMid{
+    width: 100%;
+  }
+
+  .stickyTitle{
+    white-space: normal;
+    font-size: 14px;
+  }
+
+  .stickyMeta{
+    justify-content: space-between;
+  }
+
+  .stickyRight{
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .miniBtn{
+    flex: 1;
+    justify-content: center;
+  }
+
+}
   </style>
 </head>
 
