@@ -32,7 +32,7 @@
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:18px 18px 60px}
 
-    /* HEADER STICKY (logo+menu trascinati) */
+    /* HEADER STICKY */
     .topbar{
       position: sticky;
       top: 0;
@@ -127,7 +127,7 @@
       border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.06);
       color:var(--text);
-      font-weight:700;font-size:14px;
+      font-weight:800;font-size:14px;
       cursor:pointer;user-select:none;
       transition: transform .15s ease;
     }
@@ -219,7 +219,7 @@
     .newsTitle{margin:0;font-size:15px;line-height:1.25}
     .newsMeta{color:var(--muted);font-size:12px;display:flex;gap:10px;flex-wrap:wrap}
     .newsExcerpt{margin:0;color:var(--muted);font-size:13px}
-    .newsMore{margin-top:auto;font-weight:800;font-size:13px;opacity:.95}
+    .newsMore{margin-top:auto;font-weight:900;font-size:13px;opacity:.95}
 
     .notice{
       margin-top:10px;
@@ -231,7 +231,7 @@
       background: rgba(255,255,255,.03);
     }
 
-    /* MODAL (YouTube player) */
+    /* MODAL */
     .modal{
       position:fixed; inset:0;
       background: rgba(0,0,0,.70);
@@ -266,7 +266,7 @@
       border-radius: 12px;
       padding:8px 10px;
       cursor:pointer;
-      font-weight:800;
+      font-weight:900;
     }
     .playerWrap{aspect-ratio:16/9;background:#000}
     .playerWrap iframe{width:100%;height:100%;border:0;display:block}
@@ -279,7 +279,6 @@
 </head>
 
 <body>
-  <!-- STICKY BAR -->
   <div class="topbar">
     <header>
       <a class="brand" href="index.html" aria-label="Grandangolo TV">
@@ -303,22 +302,21 @@
       <div class="heroVideo">
         <div class="badge"><span class="dot"></span> In evidenza</div>
         <iframe id="heroFrame"
-          src="https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv"
+          src=""
           title="Grandangolo TV - In evidenza"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
+          allowfullscreen></iframe>
       </div>
 
       <aside class="heroInfo">
         <div class="kicker">
           <span class="pill">Grandangolo TV</span>
           <span class="pill">News On Video</span>
-          <span class="pill" id="heroDuration">YouTube</span>
+          <span class="pill">YouTube</span>
         </div>
         <h2 class="heroTitle" id="heroTitle">Titolo del video in evidenza</h2>
         <p class="heroDesc" id="heroDesc">
-          Descrizione/mini articolo: breve, stile Grandangolo. (Puoi anche renderla dinamica se vuoi.)
+          Descrizione/mini articolo: breve, stile Grandangolo.
         </p>
 
         <div class="actions">
@@ -370,41 +368,73 @@
 
   <script>
     /* =======================
-       1) VIDEO: SOLO YOUTUBE
+       VIDEO: SOLO YOUTUBE (con link completi!)
        ======================= */
 
-    // ✅ METTI QUI I TUOI VIDEO (ID + titolo + sottotitolo)
+    // ✅ INCOLLA QUI I LINK COMPLETI DEI VIDEO (watch / youtu.be / shorts / embed)
     const YT_VIDEOS = [
-      { id: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Titolo video in evidenza", meta: "Grandangolo TV · Speciale" }, // HERO
-      { id: "ysz5S6PUM-U", title: "Video 1", meta: "8 min · Politica · Reportage" },
-      { id: "jNQXAC9IVRw", title: "Video 2", meta: "14 min · Società · Talk" },
-      { id: "kJQP7kiw5Fk", title: "Video 3", meta: "11 min · Economia · Analisi" },
-      { id: "M7lc1UVf-VE", title: "Video 4", meta: "22 min · Cultura · Speciale" },
-      { id: "aqz-KE-bpKQ", title: "Video 5", meta: "10 min · Cronaca" },
-      { id: "C0DPdy98e4c", title: "Video 6", meta: "9 min · Intervista" }
+      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Titolo video in evidenza", meta: "Grandangolo TV · Speciale" },
+      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 1", meta: "8 min · Politica · Reportage" },
+      { url: "hhttps://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 2", meta: "14 min · Società · Talk" },
+      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 3", meta: "11 min · Economia · Analisi" },
+      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 4", meta: "22 min · Cultura · Speciale" },
+      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 5", meta: "10 min · Cronaca" },
+      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 6", meta: "9 min · Intervista" }
     ];
+
+    function getYouTubeId(input){
+      try{
+        // se già è un ID (11 char) lo accetta
+        if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+
+        const u = new URL(input);
+
+        // youtu.be/ID
+        if (u.hostname.includes("youtu.be")) {
+          const id = u.pathname.replace("/", "").slice(0, 11);
+          return /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : "";
+        }
+
+        // youtube.com/watch?v=ID
+        const v = u.searchParams.get("v");
+        if (v && /^[a-zA-Z0-9_-]{11}$/.test(v)) return v;
+
+        // youtube.com/embed/ID  o  /shorts/ID
+        const parts = u.pathname.split("/").filter(Boolean);
+        const iEmbed = parts.indexOf("embed");
+        if (iEmbed >= 0 && parts[iEmbed+1]) return parts[iEmbed+1].slice(0,11);
+
+        const iShorts = parts.indexOf("shorts");
+        if (iShorts >= 0 && parts[iShorts+1]) return parts[iShorts+1].slice(0,11);
+
+        return "";
+      }catch{
+        return "";
+      }
+    }
+
+    function ytEmbedUrl(urlOrId, autoplay=false){
+      const id = getYouTubeId(urlOrId);
+      const ap = autoplay ? 1 : 0;
+      return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&autoplay=${ap}`;
+    }
+    function ytThumb(urlOrId){
+      const id = getYouTubeId(urlOrId);
+      return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    }
 
     const hero = YT_VIDEOS[0];
     const heroFrame = document.getElementById("heroFrame");
     const heroTitle = document.getElementById("heroTitle");
     const heroDesc = document.getElementById("heroDesc");
     const heroPlayBtn = document.getElementById("heroPlayBtn");
+    const videoRow = document.getElementById("videoRow");
 
-    function ytEmbedUrl(id, autoplay=false){
-      const ap = autoplay ? 1 : 0;
-      return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&autoplay=${ap}`;
-    }
-    function ytThumb(id){
-      // hqdefault va benissimo “stile Netflix”; maxres a volte non esiste
-      return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-    }
-
-    // HERO: embed senza autoplay (più pulito)
-    heroFrame.src = ytEmbedUrl(hero.id, false);
-    heroTitle.textContent = hero.title;
+    heroFrame.src = ytEmbedUrl(hero.url, false);
+    heroTitle.textContent = hero.title || "In evidenza";
     heroDesc.textContent = "Inserisci qui la descrizione/mini articolo del video in evidenza (stile Grandangolo).";
 
-    /* Modal */
+    /* MODAL */
     const ytModal = document.getElementById("ytModal");
     const modalFrame = document.getElementById("modalFrame");
     const modalTitle = document.getElementById("modalTitle");
@@ -412,36 +442,31 @@
 
     function openVideo(video){
       modalTitle.textContent = video.title || "Riproduzione";
-      modalFrame.src = ytEmbedUrl(video.id, true);
+      modalFrame.src = ytEmbedUrl(video.url, true);
       ytModal.classList.add("open");
     }
     function closeVideo(){
       ytModal.classList.remove("open");
-      modalFrame.src = ""; // stop
+      modalFrame.src = "";
     }
 
     closeModal.addEventListener("click", closeVideo);
-    ytModal.addEventListener("click", (e) => {
-      if(e.target === ytModal) closeVideo();
-    });
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape") closeVideo();
-    });
+    ytModal.addEventListener("click", (e) => { if(e.target === ytModal) closeVideo(); });
+    document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeVideo(); });
 
     heroPlayBtn.addEventListener("click", () => openVideo(hero));
 
-    // Row video (tutti YouTube)
-    const videoRow = document.getElementById("videoRow");
+    // RIGA "Netflix"
     YT_VIDEOS.slice(1).forEach(v => {
       const el = document.createElement("div");
       el.className = "card";
       el.innerHTML = `
         <div class="thumb">
-          <img src="${ytThumb(v.id)}" alt="">
+          <img src="${ytThumb(v.url)}" alt="">
           <div class="play" aria-hidden="true">▶</div>
         </div>
         <div class="meta">
-          <h3>${v.title}</h3>
+          <h3>${v.title || "Video"}</h3>
           <p>${v.meta || "YouTube"}</p>
         </div>
       `;
@@ -450,15 +475,13 @@
     });
 
     /* =========================
-       2) NEWS: 6 CARD VISIBILI
+       NEWS: 6 CARD VISIBILI (REST -> fallback RSS proxy)
        ========================= */
-
     const newsGrid = document.getElementById("newsGrid");
     const newsNotice = document.getElementById("newsNotice");
 
-    // “sistema il feed rss”: usiamo prima REST (stabile) e fallback RSS (proxy pubblico)
     const WP_REST = "https://www.grandangoloagrigento.it/wp-json/wp/v2/posts?per_page=6&_embed=1";
-    const RSS_URL = "https://www.grandangoloagrigento.it/feed";
+    const RSS_URL = "https://grandangoloagrigento.it/feed";
     const RSS_PROXY = (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
 
     function showNotice(msg){
@@ -481,7 +504,6 @@
 
     function pickFeaturedFromWp(post){
       try{
-        // WP _embedded: wp:featuredmedia[0].source_url
         const fm = post?._embedded?.["wp:featuredmedia"]?.[0];
         return fm?.source_url || "";
       }catch{ return ""; }
@@ -562,7 +584,6 @@
     }
 
     async function loadNewsViaRss(){
-      // uso proxy per evitare CORS e renderle SEMPRE visibili
       const res = await fetch(RSS_PROXY(RSS_URL), { cache:"no-store" });
       if(!res.ok) throw new Error("RSS fetch fallito");
       const xmlText = await res.text();
@@ -573,13 +594,12 @@
 
     async function loadNews(){
       try{
-        await loadNewsViaRest(); // 1) via REST: di solito perfetto
+        await loadNewsViaRest();
       }catch(e){
-        // 2) fallback: RSS (proxy) così le 6 card si vedono sempre
         try{
           await loadNewsViaRss();
         }catch(e2){
-          showNotice("Non riesco a caricare le notizie (REST e RSS falliti). Dimmi dove pubblichi la pagina e te lo rendo blindato al 100%.");
+          showNotice("Non riesco a caricare le notizie (REST e RSS falliti).");
         }
       }
     }
