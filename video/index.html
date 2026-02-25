@@ -127,7 +127,7 @@
       border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.06);
       color:var(--text);
-      font-weight:800;font-size:14px;
+      font-weight:900;font-size:14px;
       cursor:pointer;user-select:none;
       transition: transform .15s ease;
     }
@@ -191,7 +191,7 @@
       box-shadow: 0 14px 34px rgba(0,0,0,.5);
     }
 
-    /* NEWS GRID (6 card visibili) */
+    /* NEWS GRID */
     .newsGrid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -229,6 +229,153 @@
       color:var(--muted);
       font-size:13px;
       background: rgba(255,255,255,.03);
+    }
+
+    /* RADIO PLAYER "FIGO" (da inserire in basso) */
+    .radioDock{
+      margin-top: 18px;
+      border-radius: var(--radius);
+      background:
+        radial-gradient(600px 220px at 20% 0%, rgba(255,45,85,.18), transparent 60%),
+        radial-gradient(520px 240px at 95% 20%, rgba(60,220,255,.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .radioInner{
+      display:grid;
+      grid-template-columns: 220px 1fr;
+      gap:14px;
+      padding:14px;
+      align-items:center;
+    }
+    @media (max-width: 780px){
+      .radioInner{grid-template-columns:1fr; }
+    }
+
+    .radioLogoBox{
+      border-radius: 16px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.10);
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 92px;
+    }
+    .radioLogoBox img{
+      max-width: 100%;
+      height: 56px;
+      width:auto;
+      display:block;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
+    }
+
+    .radioControls{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .radioTopRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .radioTitleRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .onair{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      font-weight:900;
+      font-size:12px;
+    }
+    .liveDot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--accent);
+      box-shadow:0 0 0 3px rgba(255,45,85,.18);
+    }
+
+    .radioBtns{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .radioBar{
+      border-radius: 14px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .radioHint{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Progress bar custom */
+    .progWrap{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .prog{
+      flex:1;
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.10);
+      overflow:hidden;
+      position:relative;
+      min-width: 200px;
+    }
+    .progFill{
+      height:100%;
+      width: 18%;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,45,85,.95), rgba(60,220,255,.7));
+      filter: saturate(1.1);
+      transition: width .25s ease;
+    }
+    .volWrap{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color: var(--muted);
+      font-size:12px;
+      white-space: nowrap;
+    }
+    .vol{
+      width: 160px;
+      accent-color: var(--accent);
+    }
+    @media (max-width: 520px){
+      .vol{width: 130px;}
+    }
+
+    /* Accessibilità: nascondo il tag audio (lo uso solo come motore) */
+    .sr-only{
+      position:absolute !important;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);
+      white-space:nowrap;border:0;
     }
 
     /* MODAL */
@@ -346,6 +493,62 @@
       <div id="newsGrid" class="newsGrid" aria-live="polite"></div>
     </section>
 
+    <!-- RADIO (FIGO) - in basso -->
+    <section class="section" id="radio">
+      <div class="sectionHead">
+        <h2>News On Radio</h2>
+        <div class="hint">Ascolta in diretta</div>
+      </div>
+
+      <div class="radioDock">
+        <div class="radioInner">
+          <div class="radioLogoBox">
+            <img
+              src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/LOGO-NUOVO-NEWS-ON-RADIO-1.png"
+              alt="News On Radio">
+          </div>
+
+          <div class="radioControls">
+            <div class="radioTopRow">
+              <div class="radioTitleRow">
+                <span class="onair"><span class="liveDot"></span> ON AIR</span>
+                <strong>Grandangolo · News On Radio</strong>
+              </div>
+
+              <div class="radioBtns">
+                <button class="btn primary" id="radioToggle">▶ Play</button>
+                <a class="btn" href="https://nr11.newradio.it/proxy/ncastron?mp=/stream?ext=.mp3" target="_blank" rel="noopener">
+                  Apri stream
+                </a>
+              </div>
+            </div>
+
+            <div class="radioBar">
+              <p class="radioHint">
+                Suggerimento: alcuni browser bloccano l’audio finché non clicchi “Play”.
+              </p>
+
+              <div class="progWrap">
+                <div class="prog" aria-label="Indicatore ascolto live">
+                  <div class="progFill" id="liveFill" style="width:18%"></div>
+                </div>
+
+                <div class="volWrap">
+                  <span>Volume</span>
+                  <input class="vol" id="radioVol" type="range" min="0" max="1" step="0.01" value="0.9" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Motore audio (nascosto) -->
+            <audio class="sr-only" id="radioPlayer" preload="none" crossorigin="anonymous">
+              <source src="https://nr11.newradio.it/proxy/ncastron?mp=/stream?ext=.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <footer>© Grandangolo · Sezione Video/TV</footer>
   </div>
 
@@ -371,35 +574,29 @@
        VIDEO: SOLO YOUTUBE (con link completi!)
        ======================= */
 
-    // ✅ INCOLLA QUI I LINK COMPLETI DEI VIDEO (watch / youtu.be / shorts / embed)
     const YT_VIDEOS = [
-      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Titolo video in evidenza", meta: "Grandangolo TV · Speciale" },
-      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 1", meta: "8 min · Politica · Reportage" },
-      { url: "hhttps://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 2", meta: "14 min · Società · Talk" },
-      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 3", meta: "11 min · Economia · Analisi" },
-      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 4", meta: "22 min · Cultura · Speciale" },
-      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 5", meta: "10 min · Cronaca" },
-      { url: "https://youtu.be/L28J5c4siWY?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 6", meta: "9 min · Intervista" }
+      { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Titolo video in evidenza", meta: "Grandangolo TV · Speciale" },
+      { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 1", meta: "8 min · Politica · Reportage" },
+      { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 2", meta: "14 min · Società · Talk" },
+      { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 3", meta: "11 min · Economia · Analisi" },
+      { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 4", meta: "22 min · Cultura · Speciale" },
+      { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 5", meta: "10 min · Cronaca" },
+      { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 6", meta: "9 min · Intervista" }
     ];
 
     function getYouTubeId(input){
       try{
-        // se già è un ID (11 char) lo accetta
         if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
-
         const u = new URL(input);
 
-        // youtu.be/ID
         if (u.hostname.includes("youtu.be")) {
           const id = u.pathname.replace("/", "").slice(0, 11);
           return /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : "";
         }
 
-        // youtube.com/watch?v=ID
         const v = u.searchParams.get("v");
         if (v && /^[a-zA-Z0-9_-]{11}$/.test(v)) return v;
 
-        // youtube.com/embed/ID  o  /shorts/ID
         const parts = u.pathname.split("/").filter(Boolean);
         const iEmbed = parts.indexOf("embed");
         if (iEmbed >= 0 && parts[iEmbed+1]) return parts[iEmbed+1].slice(0,11);
@@ -449,14 +646,11 @@
       ytModal.classList.remove("open");
       modalFrame.src = "";
     }
-
     closeModal.addEventListener("click", closeVideo);
     ytModal.addEventListener("click", (e) => { if(e.target === ytModal) closeVideo(); });
     document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeVideo(); });
-
     heroPlayBtn.addEventListener("click", () => openVideo(hero));
 
-    // RIGA "Netflix"
     YT_VIDEOS.slice(1).forEach(v => {
       const el = document.createElement("div");
       el.className = "card";
@@ -488,27 +682,23 @@
       newsNotice.textContent = msg;
       newsNotice.style.display = "block";
     }
-
     function stripHtml(html){
       const div = document.createElement("div");
       div.innerHTML = html || "";
       return (div.textContent || div.innerText || "").trim();
     }
-
     function formatDate(isoOrDate){
       try{
         const d = (isoOrDate instanceof Date) ? isoOrDate : new Date(isoOrDate);
         return new Intl.DateTimeFormat("it-IT", { day:"2-digit", month:"short", year:"numeric" }).format(d);
       }catch{ return ""; }
     }
-
     function pickFeaturedFromWp(post){
       try{
         const fm = post?._embedded?.["wp:featuredmedia"]?.[0];
         return fm?.source_url || "";
       }catch{ return ""; }
     }
-
     function renderNews(items){
       newsGrid.innerHTML = "";
       items.slice(0,6).forEach(it => {
@@ -534,7 +724,6 @@
         newsGrid.appendChild(a);
       });
     }
-
     async function loadNewsViaRest(){
       const res = await fetch(WP_REST, { cache: "no-store" });
       if(!res.ok) throw new Error("REST non disponibile");
@@ -547,7 +736,6 @@
         const excerptRaw = stripHtml(p.excerpt?.rendered || p.content?.rendered || "");
         const excerpt = excerptRaw.length > 160 ? excerptRaw.slice(0,160).trim() + "…" : excerptRaw;
         const image = pickFeaturedFromWp(p);
-
         return { title, link, dateLabel, excerpt: excerpt || "Apri l’articolo per leggere di più.", image };
       });
 
@@ -559,7 +747,6 @@
       const m = html.match(/<img[^>]+src=["']([^"']+)["']/i);
       return m ? m[1] : "";
     }
-
     function parseRss(xmlText){
       const parser = new DOMParser();
       const xml = parser.parseFromString(xmlText, "text/xml");
@@ -582,7 +769,6 @@
         return { title, link, dateLabel, excerpt: excerpt || "Apri l’articolo per leggere di più.", image };
       });
     }
-
     async function loadNewsViaRss(){
       const res = await fetch(RSS_PROXY(RSS_URL), { cache:"no-store" });
       if(!res.ok) throw new Error("RSS fetch fallito");
@@ -591,20 +777,75 @@
       renderNews(items);
       showNotice("Feed caricato via RSS (proxy anti-CORS).");
     }
-
     async function loadNews(){
-      try{
-        await loadNewsViaRest();
-      }catch(e){
-        try{
-          await loadNewsViaRss();
-        }catch(e2){
-          showNotice("Non riesco a caricare le notizie (REST e RSS falliti).");
-        }
+      try{ await loadNewsViaRest(); }
+      catch(e){
+        try{ await loadNewsViaRss(); }
+        catch(e2){ showNotice("Non riesco a caricare le notizie (REST e RSS falliti)."); }
       }
     }
-
     loadNews();
+
+    /* =========================
+       RADIO PLAYER "FIGO"
+       ========================= */
+    const RADIO_STREAM = "https://nr11.newradio.it/proxy/ncastron?mp=/stream?ext=.mp3";
+    const radioPlayer = document.getElementById("radioPlayer");
+    const radioToggle = document.getElementById("radioToggle");
+    const radioVol = document.getElementById("radioVol");
+    const liveFill = document.getElementById("liveFill");
+
+    // Imposta volume iniziale
+    radioPlayer.volume = parseFloat(radioVol.value || "0.9");
+    radioVol.addEventListener("input", () => {
+      radioPlayer.volume = parseFloat(radioVol.value);
+    });
+
+    function setRadioBtn(playing){
+      radioToggle.textContent = playing ? "⏸ Pausa" : "▶ Play";
+    }
+
+    // Animazione finta "live" sul progress bar (carina, non è tempo reale)
+    let liveAnim = null;
+    function startLiveAnim(){
+      if(liveAnim) return;
+      let w = 18;
+      let dir = 1;
+      liveAnim = setInterval(() => {
+        w += dir * (Math.random()*6);
+        if(w > 96){ w = 96; dir = -1; }
+        if(w < 12){ w = 12; dir = 1; }
+        liveFill.style.width = w.toFixed(0) + "%";
+      }, 260);
+    }
+    function stopLiveAnim(){
+      if(!liveAnim) return;
+      clearInterval(liveAnim);
+      liveAnim = null;
+      liveFill.style.width = "18%";
+    }
+
+    radioToggle.addEventListener("click", async () => {
+      try{
+        if (radioPlayer.paused) {
+          // assicuro la source
+          if(!radioPlayer.src) radioPlayer.src = RADIO_STREAM;
+          await radioPlayer.play();
+          setRadioBtn(true);
+          startLiveAnim();
+        } else {
+          radioPlayer.pause();
+          setRadioBtn(false);
+          stopLiveAnim();
+        }
+      }catch{
+        setRadioBtn(false);
+        stopLiveAnim();
+      }
+    });
+
+    radioPlayer.addEventListener("play", () => { setRadioBtn(true); startLiveAnim(); });
+    radioPlayer.addEventListener("pause", () => { setRadioBtn(false); stopLiveAnim(); });
   </script>
 </body>
 </html>
