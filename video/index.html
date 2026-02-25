@@ -638,7 +638,6 @@
         <a href="https://grandangolosettimanale.it">Settimanale</a>
         <a href="https://grandangolosettimanale.it/radio">Radio</a>
         <a href="https://grandangolosettimanale.it/libreria">Libri</a>
-        <a href="https://grandangoloagrigento.it">Notizie</a>
       </nav>
     </header>
   </div>
@@ -658,7 +657,7 @@
       <aside class="heroInfo">
         <div class="kicker">
           <span class="pill">Grandangolo TV</span>
-          <span class="pill">di Gioacchino Schicch</span>
+          <span class="pill">di Gioacchino Schicchi</span>
         </div>
         <h2 class="heroTitle" id="heroTitle">Titolo del video in evidenza</h2>
         <p class="heroDesc" id="heroDesc">
@@ -746,7 +745,7 @@
       </div>
     </section>
 
-    <footer>© Grandangolo · Sezione Video/TV</footer>
+    <footer>© Grandangolo 2026 · Reparto Video/TV · Edizioni Grandangolo - Via Mazzini, 187 - 92100 Agrigento; Numero di telefono 0922822788 - Cell 351 533 9611 - 92100 Agrigento - Codice Issn: 2499-8907 - Iscrizione R.O.C.: 34513 - Registrazione al Tribunale di Agrigento n. 264/04 · Direttore Responsabile Franco Castaldo · Contattaci a redazione@grandangolosettimanale.it</footer>
   </div>
 
   <!-- MODAL -->
@@ -1036,6 +1035,292 @@
     radioPlayer.addEventListener("pause", () => { setRadioBtn(false); stopLiveAnim(); });
     
   </script>
-  
+  <style>
+  /* COOKIE BAR - FORZA VISIBILE */
+  #gaCookieBanner{
+    position: fixed;
+    left: 14px; right: 14px; bottom: 14px;
+    z-index: 2147483647; /* sopra a tutto */
+    border-radius: 18px;
+    background: rgba(18,21,34,.94);
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 18px 45px rgba(0,0,0,.65);
+    backdrop-filter: blur(10px);
+    display: none;
+    overflow: hidden;
+  }
+  #gaCookieBanner.show{ display:block; }
+
+  .gaCookieInner{
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+  @media (max-width: 820px){
+    .gaCookieInner{ grid-template-columns: 1fr; }
+  }
+
+  .gaCookieText h3{ margin:0 0 6px; font-size:14px; color:#e9ecf3; }
+  .gaCookieText p{ margin:0; font-size:13px; color: rgba(233,236,243,.72); line-height:1.4; }
+
+  .gaCookieLinks{
+    margin-top: 8px;
+    display:flex; gap:10px; flex-wrap:wrap;
+    font-size:12px;
+  }
+  .gaCookieLinks a{
+    color: rgba(233,236,243,.78);
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.05);
+    padding:6px 10px;
+    border-radius: 999px;
+    text-decoration:none;
+  }
+
+  .gaCookieActions{
+    display:flex;
+    gap:10px;
+    justify-content: flex-end;
+    flex-wrap:wrap;
+  }
+  @media (max-width: 820px){
+    .gaCookieActions{ justify-content:flex-start; }
+    .gaCBtn{ flex:1; }
+  }
+
+  .gaCBtn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 12px;
+    border-radius: 12px;
+    border:1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color:#e9ecf3;
+    font-weight: 900;
+    font-size: 13px;
+    cursor: pointer;
+    user-select:none;
+    white-space:nowrap;
+  }
+  .gaCBtn.primary{
+    border-color: rgba(255,45,85,.35);
+    background: linear-gradient(135deg, rgba(255,45,85,.9), rgba(255,45,85,.45));
+  }
+  .gaCBtn.ghost{
+    background: rgba(0,0,0,.15);
+  }
+
+  /* Modal preferenze */
+  #gaCookieModal{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 2147483647;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding: 18px;
+  }
+  #gaCookieModal.open{ display:flex; }
+
+  .gaModalBox{
+    width: min(760px, 100%);
+    border-radius: 18px;
+    background: rgba(18,21,34,.96);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow: 0 18px 45px rgba(0,0,0,.7);
+    overflow:hidden;
+  }
+  .gaModalTop{
+    padding: 12px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,.10);
+    color:#e9ecf3;
+    gap:10px;
+  }
+  .gaModalBody{ padding:14px; display:flex; flex-direction:column; gap:12px; }
+  .gaRow{
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.04);
+    border-radius: 14px;
+    padding: 12px;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    color:#e9ecf3;
+  }
+  .gaRow p{ margin:6px 0 0; color: rgba(233,236,243,.72); font-size:13px; }
+  .gaRow label{ font-weight:900; font-size:13px; }
+
+  .gaSwitch{ width:46px; height:28px; position:relative; flex:0 0 auto; }
+  .gaSwitch input{ display:none; }
+  .gaSlider{
+    position:absolute; inset:0;
+    background: rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:999px;
+  }
+  .gaSlider:before{
+    content:"";
+    position:absolute;
+    width:22px;height:22px;
+    left:3px; top:2px;
+    border-radius:50%;
+    background: rgba(255,255,255,.90);
+    transition:.2s ease;
+  }
+  .gaSwitch input:checked + .gaSlider{
+    background: rgba(255,45,85,.45);
+    border-color: rgba(255,45,85,.45);
+  }
+  .gaSwitch input:checked + .gaSlider:before{
+    transform: translateX(18px);
+  }
+
+  .gaModalActions{
+    padding: 12px 14px 14px;
+    border-top:1px solid rgba(255,255,255,.10);
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+  }
+  @media (max-width:520px){
+    .gaModalActions .gaCBtn{ flex:1; }
+  }
+</style>
+
+<!-- COOKIE BANNER -->
+<div id="gaCookieBanner" role="dialog" aria-modal="true" aria-label="Cookie banner">
+  <div class="gaCookieInner">
+    <div class="gaCookieText">
+      <h3>Cookie & Privacy</h3>
+      <p>
+        Usiamo cookie tecnici necessari e, con il tuo consenso, cookie di statistica/marketing.
+        Puoi cambiare scelta quando vuoi. Questo sito è proprietà di Edizioni Grandangolo - Via Mazzini, 187 - 92100 Agrigento; Issn: 2499-8907 -  R.O.C.: 34513 - Registrazione al Tribunale di Agrigento n. 264/04 - Direttore Responsabile Franco Castaldo
+      </p>
+      <div class="gaCookieLinks">
+        <a href="https://grandangolosettimanale.it/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="https://grandangolosettimanale.it/cookie.html" target="_blank" rel="noopener">Cookie Policy</a>
+      </div>
+    </div>
+
+    <div class="gaCookieActions">
+      <button class="gaCBtn ghost" id="gaCookieReject">Rifiuta</button>
+      <button class="gaCBtn" id="gaCookiePrefs">Personalizza</button>
+      <button class="gaCBtn primary" id="gaCookieAccept">Accetta</button>
+    </div>
+  </div>
+</div>
+
+<!-- COOKIE MODAL -->
+<div id="gaCookieModal" aria-hidden="true">
+  <div class="gaModalBox">
+    <div class="gaModalTop">
+      <strong>Preferenze cookie</strong>
+      <button class="gaCBtn ghost" id="gaCookieClose">Chiudi ✕</button>
+    </div>
+
+    <div class="gaModalBody">
+      <div class="gaRow">
+        <div>
+          <label>Necessari</label>
+          <p>Servono al funzionamento del sito (sempre attivi).</p>
+        </div>
+        <div class="gaSwitch">
+          <input type="checkbox" checked disabled>
+          <span class="gaSlider"></span>
+        </div>
+      </div>
+
+      <div class="gaRow">
+        <div>
+          <label for="gaConsentAnalytics">Statistiche</label>
+          <p>Ci aiutano a capire come viene usato il sito.</p>
+        </div>
+        <div class="gaSwitch">
+          <input id="gaConsentAnalytics" type="checkbox">
+          <span class="gaSlider"></span>
+        </div>
+      </div>
+
+      <div class="gaRow">
+        <div>
+          <label for="gaConsentMarketing">Marketing</label>
+          <p>Personalizzazione e contenuti promozionali (se usati).</p>
+        </div>
+        <div class="gaSwitch">
+          <input id="gaConsentMarketing" type="checkbox">
+          <span class="gaSlider"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gaModalActions">
+      <button class="gaCBtn ghost" id="gaCookieSaveMinimal">Salva (solo necessari)</button>
+      <button class="gaCBtn primary" id="gaCookieSavePrefs">Salva preferenze</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const KEY = "ga_consent_v1";
+
+  const banner = document.getElementById("gaCookieBanner");
+  const modal  = document.getElementById("gaCookieModal");
+
+  const accept = document.getElementById("gaCookieAccept");
+  const reject = document.getElementById("gaCookieReject");
+  const prefs  = document.getElementById("gaCookiePrefs");
+  const close  = document.getElementById("gaCookieClose");
+  const saveMin= document.getElementById("gaCookieSaveMinimal");
+  const save   = document.getElementById("gaCookieSavePrefs");
+
+  const a = document.getElementById("gaConsentAnalytics");
+  const m = document.getElementById("gaConsentMarketing");
+
+  function getConsent(){
+    try{ return JSON.parse(localStorage.getItem(KEY) || "null"); }
+    catch(e){ return null; }
+  }
+  function setConsent(obj){
+    localStorage.setItem(KEY, JSON.stringify(obj));
+  }
+  function showBanner(){ banner.classList.add("show"); }
+  function hideBanner(){ banner.classList.remove("show"); }
+  function openModal(){ modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); }
+  function closeModal(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); }
+
+  // 🔥 FORZA: se non c'è consenso -> mostra SEMPRE
+  const c = getConsent();
+  if(!c) showBanner();
+
+  // Azioni
+  accept.addEventListener("click", ()=>{ setConsent({necessary:true, analytics:true, marketing:true, ts:Date.now()}); hideBanner(); closeModal(); });
+  reject.addEventListener("click", ()=>{ setConsent({necessary:true, analytics:false, marketing:false, ts:Date.now()}); hideBanner(); closeModal(); });
+
+  prefs.addEventListener("click", ()=>{
+    const c2 = getConsent();
+    if(c2){ a.checked = !!c2.analytics; m.checked = !!c2.marketing; }
+    openModal();
+  });
+
+  close.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e)=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeModal(); });
+
+  saveMin.addEventListener("click", ()=>{ setConsent({necessary:true, analytics:false, marketing:false, ts:Date.now()}); hideBanner(); closeModal(); });
+  save.addEventListener("click", ()=>{ setConsent({necessary:true, analytics:!!a.checked, marketing:!!m.checked, ts:Date.now()}); hideBanner(); closeModal(); });
+
+  // Debug rapido (se vuoi vedere in console)
+  console.log("[Cookie] init ok. Consent:", getConsent());
+})();
+</script>
 </body>
 </html>
