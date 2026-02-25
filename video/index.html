@@ -438,6 +438,189 @@
     @media (prefers-reduced-motion: reduce){
       .card, .btn{transition:none}
     }
+    /* =========================
+   COOKIE BAR + PRIVACY
+   ========================= */
+.cookieBanner{
+  position: fixed;
+  inset: auto 18px 18px 18px;
+  z-index: 3000;
+  border-radius: 18px;
+  background:
+    radial-gradient(520px 180px at 15% 0%, rgba(255,45,85,.18), transparent 65%),
+    radial-gradient(520px 180px at 95% 20%, rgba(60,220,255,.12), transparent 65%),
+    rgba(18,21,34,.92);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 45px rgba(0,0,0,.6);
+  backdrop-filter: blur(10px);
+  overflow:hidden;
+  display:none;
+}
+.cookieBanner.show{ display:block; }
+
+.cookieInner{
+  display:grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap:12px;
+  padding:14px;
+  align-items:center;
+}
+@media (max-width: 780px){
+  .cookieBanner{ inset: auto 12px 12px 12px; }
+  .cookieInner{ grid-template-columns: 1fr; }
+}
+
+.cookieText h3{
+  margin:0 0 6px;
+  font-size:14px;
+  letter-spacing:.2px;
+}
+.cookieText p{
+  margin:0;
+  color: var(--muted);
+  font-size:13px;
+}
+.cookieLinks{
+  margin-top:8px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  font-size:12px;
+  color: var(--muted);
+}
+.cookieLinks a{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+}
+.cookieLinks a:hover{ color: var(--text); }
+
+.cookieActions{
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+}
+@media (max-width: 780px){
+  .cookieActions{ justify-content:flex-start; }
+  .cookieActions .btn{ flex:1; }
+}
+
+.cookieBtn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:10px 12px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  font-weight:900;font-size:13px;
+  cursor:pointer;user-select:none;
+  transition: transform .15s ease;
+  white-space:nowrap;
+}
+.cookieBtn:hover{ transform: translateY(-1px); }
+.cookieBtn:active{ transform: translateY(0); }
+.cookieBtn.primary{
+  border-color: rgba(255,45,85,.35);
+  background: linear-gradient(135deg, rgba(255,45,85,.9), rgba(255,45,85,.45));
+  box-shadow: 0 10px 22px rgba(255,45,85,.18);
+}
+.cookieBtn.ghost{
+  background: rgba(0,0,0,.12);
+}
+
+/* Modal preferenze */
+.cookieModal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.70);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index: 3100;
+}
+.cookieModal.open{ display:flex; }
+
+.cookieModalBox{
+  width: min(760px, 100%);
+  border-radius: 18px;
+  background: rgba(18,21,34,.94);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 45px rgba(0,0,0,.65);
+  overflow:hidden;
+}
+.cookieModalTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 14px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.cookieModalTop strong{ font-size:14px; }
+.cookieModalBody{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.cookieRow{
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  border-radius: 14px;
+  padding:12px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.cookieRow p{ margin:6px 0 0; color: var(--muted); font-size:13px; }
+.cookieRow label{ font-weight:900; font-size:13px; }
+
+/* Switch */
+.switch{
+  position:relative;
+  width:46px;height:28px;
+  flex:0 0 auto;
+}
+.switch input{ display:none; }
+.slider{
+  position:absolute;inset:0;
+  background: rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  transition: .2s ease;
+}
+.slider:before{
+  content:"";
+  position:absolute;
+  width:22px;height:22px;
+  left:3px;top:2px;
+  border-radius:50%;
+  background: rgba(255,255,255,.88);
+  transition: .2s ease;
+}
+.switch input:checked + .slider{
+  background: rgba(255,45,85,.45);
+  border-color: rgba(255,45,85,.45);
+}
+.switch input:checked + .slider:before{
+  transform: translateX(18px);
+  background: rgba(255,255,255,.95);
+}
+
+.cookieModalActions{
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  padding:12px 14px 14px;
+  border-top:1px solid rgba(255,255,255,.10);
+}
+@media (max-width:520px){
+  .cookieModalActions .cookieBtn{ flex:1; }
+}
   </style>
 </head>
 
@@ -451,10 +634,11 @@
       </a>
 
       <nav>
-        <a href="#">Home</a>
-        <a href="#">Settimanale</a>
-        <a class="active" href="#">Video/TV</a>
-        <a href="#">Radio</a>
+        <a href="https://grandangolosettimanale.it/video">Home</a>
+        <a href="https://grandangolosettimanale.it">Settimanale</a>
+        <a href="https://grandangolosettimanale.it/radio">Radio</a>
+        <a href="https://grandangolosettimanale.it/libreria">Libri</a>
+        <a href="https://grandangoloagrigento.it">Notizie</a>
       </nav>
     </header>
   </div>
@@ -850,6 +1034,8 @@
 
     radioPlayer.addEventListener("play", () => { setRadioBtn(true); startLiveAnim(); });
     radioPlayer.addEventListener("pause", () => { setRadioBtn(false); stopLiveAnim(); });
+    
   </script>
+  
 </body>
 </html>
