@@ -50,8 +50,16 @@
       gap:16px;
       padding:12px 18px;
     }
+    .brand{display:flex;align-items:center;gap:10px;min-width:160px}
     .brand img{height:48px;width:auto;display:block}
-    nav{display:flex;gap:10px;color:var(--muted);font-size:14px;flex-wrap:wrap}
+    nav{
+      display:flex;
+      gap:10px;
+      color:var(--muted);
+      font-size:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
     nav a{padding:8px 10px;border-radius:10px}
     nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
     nav a.active{background:rgba(255,255,255,.06);color:var(--text)}
@@ -64,8 +72,6 @@
       align-items:stretch;
       margin-top:18px;
     }
-    @media (max-width: 980px){ .hero{grid-template-columns:1fr;} }
-
     .heroVideo{
       position:relative;
       border-radius: var(--radius);
@@ -100,7 +106,6 @@
       background:var(--accent);
       box-shadow:0 0 0 3px rgba(255,45,85,.18);
     }
-
     .heroInfo{
       border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
@@ -110,6 +115,7 @@
       display:flex;
       flex-direction:column;
       gap:12px;
+      min-height: 340px;
     }
     .kicker{display:flex;flex-wrap:wrap;gap:10px;color:var(--muted);font-size:12px;align-items:center}
     .pill{
@@ -130,6 +136,7 @@
       font-weight:900;font-size:14px;
       cursor:pointer;user-select:none;
       transition: transform .15s ease;
+      white-space:nowrap;
     }
     .btn.primary{
       border-color: rgba(255,45,85,.35);
@@ -144,17 +151,19 @@
     .sectionHead{
       display:flex;align-items:baseline;justify-content:space-between;
       gap:10px;margin:18px 2px 12px;
+      flex-wrap:wrap;
     }
     .sectionHead h2{margin:0;font-size:18px;letter-spacing:.2px}
     .sectionHead .hint{color:var(--muted);font-size:13px}
 
-    /* Netflix row videos */
+    /* Netflix row */
     .row{
       display:flex;gap:14px;overflow:auto;
       padding:8px 2px 14px;
       scroll-snap-type:x mandatory;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,.2) transparent;
+      -webkit-overflow-scrolling: touch;
     }
     .row::-webkit-scrollbar{height:10px}
     .row::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:999px}
@@ -171,7 +180,6 @@
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
       cursor:pointer;
     }
-    @media (max-width:520px){ .card{flex-basis:200px;} }
     .thumb{aspect-ratio:16/9;background:#000;position:relative;overflow:hidden}
     .thumb img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);filter:contrast(1.05) saturate(1.05)}
     .play{
@@ -198,9 +206,6 @@
       gap:14px;
       margin-top:10px;
     }
-    @media (max-width:980px){ .newsGrid{grid-template-columns:repeat(2, 1fr);} }
-    @media (max-width:620px){ .newsGrid{grid-template-columns:1fr;} }
-
     .newsCard{
       border-radius: var(--radius-sm);
       overflow:hidden;
@@ -231,7 +236,7 @@
       background: rgba(255,255,255,.03);
     }
 
-    /* RADIO PLAYER "FIGO" (da inserire in basso) */
+    /* RADIO DOCK */
     .radioDock{
       margin-top: 18px;
       border-radius: var(--radius);
@@ -249,9 +254,6 @@
       gap:14px;
       padding:14px;
       align-items:center;
-    }
-    @media (max-width: 780px){
-      .radioInner{grid-template-columns:1fr; }
     }
 
     .radioLogoBox{
@@ -272,11 +274,7 @@
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
     }
 
-    .radioControls{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
+    .radioControls{display:flex;flex-direction:column;gap:10px}
     .radioTopRow{
       display:flex;
       align-items:center;
@@ -284,35 +282,20 @@
       gap:12px;
       flex-wrap:wrap;
     }
-    .radioTitleRow{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+    .radioTitleRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .onair{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.05);
-      font-weight:900;
-      font-size:12px;
+      font-weight:900;font-size:12px;
     }
     .liveDot{
       width:8px;height:8px;border-radius:50%;
       background: var(--accent);
       box-shadow:0 0 0 3px rgba(255,45,85,.18);
     }
-
-    .radioBtns{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
+    .radioBtns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
     .radioBar{
       border-radius: 14px;
@@ -323,13 +306,8 @@
       flex-direction:column;
       gap:10px;
     }
-    .radioHint{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-    }
+    .radioHint{margin:0;color:var(--muted);font-size:13px}
 
-    /* Progress bar custom */
     .progWrap{
       display:flex;
       align-items:center;
@@ -350,7 +328,6 @@
       width: 18%;
       border-radius:999px;
       background: linear-gradient(90deg, rgba(255,45,85,.95), rgba(60,220,255,.7));
-      filter: saturate(1.1);
       transition: width .25s ease;
     }
     .volWrap{
@@ -361,15 +338,7 @@
       font-size:12px;
       white-space: nowrap;
     }
-    .vol{
-      width: 160px;
-      accent-color: var(--accent);
-    }
-    @media (max-width: 520px){
-      .vol{width: 130px;}
-    }
-
-    /* Accessibilità: nascondo il tag audio (lo uso solo come motore) */
+    .vol{width: 160px; accent-color: var(--accent);}
     .sr-only{
       position:absolute !important;
       width:1px;height:1px;
@@ -421,6 +390,53 @@
     footer{
       margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
       color:var(--muted);font-size:12px;
+    }
+
+    /* =========================
+       RESPONSIVE BREAKPOINTS
+       ========================= */
+
+    /* <= 980px: hero stack + news 2 cols */
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      .heroVideo{min-height: 260px}
+      .heroVideo iframe{min-height:260px}
+      .heroInfo{min-height:auto}
+      .newsGrid{grid-template-columns: repeat(2, 1fr);}
+      .card{flex-basis: 220px;}
+    }
+
+    /* <= 780px: header wraps + radio stacks */
+    @media (max-width: 780px){
+      header{flex-wrap:wrap; gap:10px}
+      nav{justify-content:flex-start}
+      .brand img{height:44px}
+      .wrap{padding:16px 14px 54px}
+      .radioInner{grid-template-columns:1fr}
+      .radioLogoBox{min-height: 86px}
+      .vol{width: 180px}
+    }
+
+    /* <= 520px: tighter UI */
+    @media (max-width: 520px){
+      .wrap{padding:14px 12px 48px}
+      .brand{min-width: 120px}
+      .brand img{height:40px}
+      nav a{padding:7px 9px}
+      .heroTitle{font-size:20px}
+      .btn{width:100%}
+      .actions{gap:8px}
+      .sectionHead{margin:16px 2px 10px}
+      .newsGrid{grid-template-columns:1fr}
+      .card{flex-basis: 190px}
+      .prog{min-width: 100%}
+      .volWrap{width:100%; justify-content:space-between}
+      .vol{width: 100%}
+    }
+
+    /* Preferenze utente: riduci animazioni */
+    @media (prefers-reduced-motion: reduce){
+      .card, .btn{transition:none}
     }
   </style>
 </head>
@@ -476,8 +492,8 @@
     <!-- ALTRI VIDEO -->
     <section class="section" id="guarda">
       <div class="sectionHead">
-        <h2>Altri video</h2>
-        <div class="hint">Stile Netflix · scorri →</div>
+        <h2>Gli altri video</h2>
+        <div class="hint"> per tutti i video scorri →</div>
       </div>
       <div class="row" id="videoRow"></div>
     </section>
@@ -485,7 +501,7 @@
     <!-- NEWS -->
     <section class="section" id="news">
       <div class="sectionHead">
-        <h2>Ultime notizie</h2>
+        <h2>Le ultime da Grandangolo</h2>
         <div class="hint">6 card sempre visibili</div>
       </div>
 
@@ -493,7 +509,7 @@
       <div id="newsGrid" class="newsGrid" aria-live="polite"></div>
     </section>
 
-    <!-- RADIO (FIGO) - in basso -->
+    <!-- RADIO -->
     <section class="section" id="radio">
       <div class="sectionHead">
         <h2>News On Radio</h2>
@@ -540,7 +556,6 @@
               </div>
             </div>
 
-            <!-- Motore audio (nascosto) -->
             <audio class="sr-only" id="radioPlayer" preload="none" crossorigin="anonymous">
               <source src="https://nr11.newradio.it/proxy/ncastron?mp=/stream?ext=.mp3" type="audio/mpeg">
             </audio>
@@ -571,11 +586,10 @@
 
   <script>
     /* =======================
-       VIDEO: SOLO YOUTUBE (con link completi!)
+       VIDEO: SOLO YOUTUBE (con link completi)
        ======================= */
-
     const YT_VIDEOS = [
-      { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Titolo video in evidenza", meta: "Grandangolo TV · Speciale" },
+      { url: "https://www.youtube.com/watch?v=nr5UY4TJWdc", title: "La Vardera scuote l’Area progressista: “Tendiamo la mano, ma qualcuno la raccoglierà?”", meta: "Grandangolo TV · Speciale" },
       { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 1", meta: "8 min · Politica · Reportage" },
       { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 2", meta: "14 min · Società · Talk" },
       { url: "https://youtu.be/tmKdlaxBUBc?list=PL5eq-Grtbxm9BWF1PKlJ3wmzCaJquBFJv", title: "Video 3", meta: "11 min · Economia · Analisi" },
@@ -593,7 +607,6 @@
           const id = u.pathname.replace("/", "").slice(0, 11);
           return /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : "";
         }
-
         const v = u.searchParams.get("v");
         if (v && /^[a-zA-Z0-9_-]{11}$/.test(v)) return v;
 
@@ -605,9 +618,7 @@
         if (iShorts >= 0 && parts[iShorts+1]) return parts[iShorts+1].slice(0,11);
 
         return "";
-      }catch{
-        return "";
-      }
+      }catch{ return ""; }
     }
 
     function ytEmbedUrl(urlOrId, autoplay=false){
@@ -629,7 +640,7 @@
 
     heroFrame.src = ytEmbedUrl(hero.url, false);
     heroTitle.textContent = hero.title || "In evidenza";
-    heroDesc.textContent = "Inserisci qui la descrizione/mini articolo del video in evidenza (stile Grandangolo).";
+    heroDesc.textContent = "Il deputato regionale chiarisce che l'idea è rimanere nella coalizione, se ci saranno i margini, ma sembra chiudere la porta a Dispenza";
 
     /* MODAL */
     const ytModal = document.getElementById("ytModal");
@@ -787,15 +798,13 @@
     loadNews();
 
     /* =========================
-       RADIO PLAYER "FIGO"
+       RADIO PLAYER
        ========================= */
-    const RADIO_STREAM = "https://nr11.newradio.it/proxy/ncastron?mp=/stream?ext=.mp3";
     const radioPlayer = document.getElementById("radioPlayer");
     const radioToggle = document.getElementById("radioToggle");
     const radioVol = document.getElementById("radioVol");
     const liveFill = document.getElementById("liveFill");
 
-    // Imposta volume iniziale
     radioPlayer.volume = parseFloat(radioVol.value || "0.9");
     radioVol.addEventListener("input", () => {
       radioPlayer.volume = parseFloat(radioVol.value);
@@ -805,7 +814,6 @@
       radioToggle.textContent = playing ? "⏸ Pausa" : "▶ Play";
     }
 
-    // Animazione finta "live" sul progress bar (carina, non è tempo reale)
     let liveAnim = null;
     function startLiveAnim(){
       if(liveAnim) return;
@@ -828,8 +836,6 @@
     radioToggle.addEventListener("click", async () => {
       try{
         if (radioPlayer.paused) {
-          // assicuro la source
-          if(!radioPlayer.src) radioPlayer.src = RADIO_STREAM;
           await radioPlayer.play();
           setRadioBtn(true);
           startLiveAnim();
