@@ -518,11 +518,39 @@ l.parentNode.insertBefore(s, l);
 
     /* MOBILE: single page, no thumbnails */
     @media (max-width: 600px) {
-      .fb-thumb-strip { display: none; }
-      .fb-bottombar { gap: 12px; }
-      .fb-nav-arrow { width: 52px; height: 52px; font-size: 22px; }
+      /* topbar compatta */
+      .fb-topbar { padding: 8px 10px; gap: 6px; }
+      .fb-title { font-size: 12px; }
+      .fb-subtitle { display: none; }
       .fb-zoom-wrap { display: none; }
+      .fb-page-indicator { min-width: 50px; font-size: 11px; }
+      .fb-btn { width: 32px; height: 32px; font-size: 15px; }
+
+      /* viewport: occupa tutto, no padding laterale */
+      .fb-viewport {
+        padding: 0 !important;
+        align-items: flex-start;
+        overflow: hidden; /* il pan avviene via touch nativo */
+      }
+
+      /* lo spread diventa scrollabile orizzontalmente a zoom > 1 */
+      .fb-spread {
+        touch-action: pan-x pan-y;
+      }
+
+      /* spine e side arrows nascosti */
       .fb-spine { display: none; }
+      .fb-side-arrow { display: none; }
+
+      /* bottom bar: frecce grandi + indicatore, niente thumbnail */
+      .fb-bottombar { padding: 8px 12px; gap: 0; justify-content: space-between; }
+      .fb-thumb-strip { display: none; }
+      .fb-nav-arrow { width: 56px; height: 56px; font-size: 26px; border-radius: 14px; flex-shrink: 0; }
+
+      /* blur inner più compatta */
+      .fb-blur-inner { padding: 14px 12px; }
+      .fb-blur-title { font-size: 14px; }
+      .fb-blur-desc { font-size: 11px; margin-bottom: 10px; }
     }
   </style>
 </head>
@@ -1318,8 +1346,14 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       // ── ZOOM ──────────────────────────────────────────────────────────────
       function calcFitWidth(isDouble) {
         const PAGE_RATIO = 1.414;
+        const mobile = isMobile();
+        if (mobile) {
+          // Su mobile: larghezza = 100% viewport, nessun margine
+          const vw = viewport.clientWidth;
+          return vw;
+        }
         const vh = viewport.clientHeight - 48;
-        const vw = viewport.clientWidth - 80;
+        const vw = viewport.clientWidth - 140; // spazio frecce laterali
         const fitByHeight = vh / PAGE_RATIO;
         const maxW = isDouble ? vw / 2 : vw;
         return Math.min(fitByHeight, maxW);
@@ -1328,19 +1362,29 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       function applyZoom() {
         const z = ZOOM_STEPS[zoomIdx];
         const sp = spreadPages(spreadIdx);
-        const isDouble = !sp.single && !isMobile() && sp.left !== null;
+        const mobile = isMobile();
+        const isDouble = !sp.single && !mobile && sp.left !== null;
         const base = calcFitWidth(isDouble);
         const w = base * z;
-        leftSlot.style.width  = isDouble ? w + "px" : "0px";
+        leftSlot.style.width   = isDouble ? w + "px" : "0px";
         leftSlot.style.display = isDouble ? "block" : "none";
         spine.style.display    = isDouble ? "block" : "none";
         rightSlot.style.width  = w + "px";
         zoomLevelEl.textContent = Math.round(z * 100) + "%";
-        zoomOutBtn.disabled  = zoomIdx <= 0;
-        zoomInBtn.disabled   = zoomIdx >= ZOOM_STEPS.length - 1;
-        // pan cursor
-        viewport.style.cursor = z > 1 ? "grab" : "default";
-        spread.style.cursor = "inherit";
+        zoomOutBtn.disabled = zoomIdx <= 0;
+        zoomInBtn.disabled  = zoomIdx >= ZOOM_STEPS.length - 1;
+
+        if (mobile) {
+          // Su mobile il pan è nativo (overflow: auto sul viewport riabilitato)
+          viewport.style.overflowX = z > 1 ? "auto" : "hidden";
+          viewport.style.overflowY = z > 1 ? "auto" : "hidden";
+          viewport.style.cursor = "default";
+          spread.style.cursor = "default";
+        } else {
+          viewport.style.overflow = "auto";
+          viewport.style.cursor = z > 1 ? "grab" : "default";
+          spread.style.cursor = "inherit";
+        }
       }
 
       zoomInBtn.addEventListener("click",   e => { e.stopPropagation(); if (zoomIdx < ZOOM_STEPS.length-1){zoomIdx++; applyZoom();} });
@@ -1354,7 +1398,30 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
         }
       }, { passive: false });
 
-      // ── DRAG TO PAN ────────────────────────────────────────────────────────
+      // ── PINCH TO ZOOM (mobile) ────────────────────────────────────────────
+      let lastPinchDist = null;
+      viewport.addEventListener("touchstart", e => {
+        if (e.touches.length === 2) {
+          lastPinchDist = Math.hypot(
+            e.touches[1].clientX - e.touches[0].clientX,
+            e.touches[1].clientY - e.touches[0].clientY
+          );
+        }
+      }, { passive: true });
+      viewport.addEventListener("touchmove", e => {
+        if (e.touches.length === 2 && lastPinchDist !== null) {
+          const dist = Math.hypot(
+            e.touches[1].clientX - e.touches[0].clientX,
+            e.touches[1].clientY - e.touches[0].clientY
+          );
+          const ratio = dist / lastPinchDist;
+          if (ratio > 1.12 && zoomIdx < ZOOM_STEPS.length - 1) { zoomIdx++; applyZoom(); lastPinchDist = dist; }
+          else if (ratio < 0.88 && zoomIdx > 0) { zoomIdx--; applyZoom(); lastPinchDist = dist; }
+        }
+      }, { passive: true });
+      viewport.addEventListener("touchend", e => {
+        if (e.touches.length < 2) lastPinchDist = null;
+      }, { passive: true });
       let isDragging = false, dragStartX, dragStartY, scrollStartX, scrollStartY;
       viewport.addEventListener("mousedown", function(e) {
         if (ZOOM_STEPS[zoomIdx] <= 1) return;
@@ -1500,7 +1567,8 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
         const activeThumb = thumbStrip.querySelectorAll(".fb-thumb")[sp.right !== null ? sp.right : sp.left];
         if (activeThumb) activeThumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
 
-        // Reset scroll/zoom on navigation
+        // Reset scroll + zoom su mobile ad ogni cambio pagina
+        if (isMobile()) { zoomIdx = 2; applyZoom(); }
         viewport.scrollTop = 0; viewport.scrollLeft = 0;
       }
 
@@ -1520,11 +1588,16 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       }
       document.addEventListener("keydown", onKeyDown);
 
-      // ── SWIPE ─────────────────────────────────────────────────────────────
+      // ── SWIPE (mobile: solo a zoom 1x, altrimenti pan nativo) ────────────
       let touchStartX = null, touchStartY = null;
-      viewport.addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; }, { passive: true });
+      viewport.addEventListener("touchstart", e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
       viewport.addEventListener("touchend", e => {
         if (touchStartX === null) return;
+        // Se in zoom, lascia fare il pan nativo, non sfoglia
+        if (isMobile() && ZOOM_STEPS[zoomIdx] > 1) { touchStartX = null; return; }
         const dx = e.changedTouches[0].clientX - touchStartX;
         const dy = e.changedTouches[0].clientY - touchStartY;
         if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
