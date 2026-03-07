@@ -134,6 +134,396 @@ l.parentNode.insertBefore(s, l);
       .brand img{height:80px}
       .hero-banner{max-width:100%;height:auto}
     }
+
+    /* =============================================
+       FLIPBOOK READER — DOUBLE PAGE + FLIP EFFECT
+       ============================================= */
+
+    .fb-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #0a0a10;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* TOP BAR */
+    .fb-topbar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(8,8,16,0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .fb-topbar-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+    .fb-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .fb-subtitle {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .fb-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .fb-btn {
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s ease, border-color .15s ease;
+      flex-shrink: 0;
+    }
+    .fb-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
+    .fb-btn:disabled { opacity: .3; cursor: default; }
+    .fb-btn-close {
+      border-color: rgba(255,80,80,0.4);
+      background: rgba(255,60,60,0.1);
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .fb-btn-close:hover { background: rgba(255,60,60,0.25); border-color: rgba(255,80,80,0.8); }
+
+    /* PAGE INDICATOR */
+    .fb-page-indicator {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      white-space: nowrap;
+      padding: 0 4px;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    /* ZOOM CONTROLS */
+    .fb-zoom-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 3px 6px;
+    }
+    .fb-zoom-level {
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      min-width: 36px;
+      text-align: center;
+    }
+    .fb-zoom-btn {
+      border: none;
+      background: none;
+      color: #fff;
+      font-size: 18px;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s;
+      line-height: 1;
+    }
+    .fb-zoom-btn:hover { background: rgba(255,255,255,0.1); }
+    .fb-zoom-btn:disabled { opacity: .3; cursor: default; }
+
+    /* ── MAIN VIEWPORT ── */
+    .fb-viewport {
+      flex: 1;
+      overflow: auto;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 70px;
+      background: #111115;
+      -webkit-overflow-scrolling: touch;
+      perspective: 2000px;
+    }
+    @media (max-width: 700px) {
+      .fb-viewport { padding: 12px 8px; }
+    }
+
+    /* ── SIDE NAV ARROWS (fixed over viewport) ── */
+    .fb-side-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(15,15,25,0.82);
+      color: #fff;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, transform .15s;
+      backdrop-filter: blur(6px);
+      flex-shrink: 0;
+    }
+    .fb-side-arrow:hover:not(:disabled) {
+      background: rgba(0,166,81,0.25);
+      border-color: rgba(0,166,81,0.7);
+      transform: translateY(-50%) scale(1.08);
+    }
+    .fb-side-arrow:disabled { opacity: .2; cursor: default; }
+    .fb-side-arrow.fb-side-prev { left: 12px; }
+    .fb-side-arrow.fb-side-next { right: 12px; }
+    @media (max-width: 600px) {
+      .fb-side-arrow { display: none; }
+    }
+
+    /* ── SPREAD (double page container) ── */
+    .fb-spread {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      position: relative;
+      transform-origin: center center;
+      transition: transform .2s ease;
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.8));
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Each page slot */
+    .fb-page-slot {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .fb-page-slot.fb-left {
+      border-radius: 4px 0 0 4px;
+      box-shadow: inset -6px 0 18px rgba(0,0,0,0.45), inset -1px 0 0 rgba(0,0,0,0.3);
+    }
+    .fb-page-slot.fb-right {
+      border-radius: 0 4px 4px 0;
+      box-shadow: inset 6px 0 18px rgba(0,0,0,0.45), inset 1px 0 0 rgba(0,0,0,0.3);
+    }
+    .fb-page-slot.fb-single {
+      border-radius: 4px;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.7);
+    }
+
+    /* Thin spine line between pages */
+    .fb-spine {
+      width: 3px;
+      align-self: stretch;
+      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(90,90,110,0.3), rgba(0,0,0,0.6));
+      flex-shrink: 0;
+      z-index: 2;
+    }
+
+    .fb-page-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+      transition: filter .25s ease;
+    }
+
+    /* ── FLIP ANIMATION ── */
+    .fb-flip-layer {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      backface-visibility: hidden;
+      pointer-events: none;
+      z-index: 10;
+      overflow: hidden;
+    }
+    .fb-flip-layer img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fb-flip-forward {
+      transform-origin: right center;
+      animation: flipForward 0.42s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    .fb-flip-backward {
+      transform-origin: left center;
+      animation: flipBackward 0.42s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    @keyframes flipForward {
+      0%   { transform: rotateY(0deg);    filter: brightness(1); }
+      45%  { transform: rotateY(-90deg);  filter: brightness(0.55); box-shadow: -12px 0 30px rgba(0,0,0,0.7); }
+      100% { transform: rotateY(-180deg); filter: brightness(0.9); }
+    }
+    @keyframes flipBackward {
+      0%   { transform: rotateY(0deg);   filter: brightness(1); }
+      45%  { transform: rotateY(90deg);  filter: brightness(0.55); box-shadow: 12px 0 30px rgba(0,0,0,0.7); }
+      100% { transform: rotateY(180deg); filter: brightness(0.9); }
+    }
+    .fb-flip-layer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0) 55%, rgba(0,0,0,0.4) 100%);
+      pointer-events: none;
+    }
+
+    /* ── BLUR OVERLAY ── */
+    .fb-blur-overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 13px;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.05), rgba(0,0,0,0.82));
+      z-index: 5;
+    }
+    .fb-blur-overlay.visible { display: flex; }
+    .fb-blur-inner {
+      max-width: 320px;
+      background: rgba(10,10,20,0.94);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 20px 18px;
+    }
+    .fb-blur-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .fb-blur-desc { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 14px; line-height: 1.5; }
+    .fb-buy-btn {
+      display: block; width: 100%;
+      padding: 10px 18px; border-radius: 999px; border: none;
+      cursor: pointer; font-size: 13px; font-weight: 700;
+      background: #00a651; color: #fff;
+      box-shadow: 0 5px 16px rgba(0,166,81,0.45);
+      margin-bottom: 12px;
+      transition: filter .15s, transform .15s;
+    }
+    .fb-buy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .fb-code-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 5px; }
+    .fb-code-row { display: flex; gap: 5px; }
+    .fb-code-input {
+      flex: 1; padding: 7px 9px; font-size: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px; color: #000; background: #f5f5f5;
+      outline: none;
+    }
+    .fb-unlock-btn {
+      padding: 7px 12px; border-radius: 8px; border: 1px solid #00a651;
+      background: #00a651; color: #fff; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: filter .15s;
+      white-space: nowrap;
+    }
+    .fb-unlock-btn:hover { filter: brightness(1.1); }
+    .fb-code-msg { margin-top: 6px; font-size: 11px; color: #ff8080; display: none; }
+
+    /* BOTTOM NAV BAR */
+    .fb-bottombar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(8,8,16,0.98);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .fb-nav-arrow {
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, border-color .15s, transform .1s;
+      flex-shrink: 0;
+    }
+    .fb-nav-arrow:hover:not(:disabled) {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.35);
+      transform: scale(1.06);
+    }
+    .fb-nav-arrow:disabled { opacity: .3; cursor: default; }
+
+    /* THUMBNAIL STRIP */
+    .fb-thumb-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      align-items: center;
+      flex: 1;
+      max-width: 600px;
+      padding: 0 4px;
+      scrollbar-width: none;
+    }
+    .fb-thumb-strip::-webkit-scrollbar { display: none; }
+    .fb-thumb {
+      flex-shrink: 0;
+      width: 30px;
+      height: 42px;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color .15s, transform .15s, opacity .15s;
+      opacity: .5;
+    }
+    .fb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .fb-thumb.active { border-color: #00a651; opacity: 1; transform: scale(1.08); }
+    .fb-thumb:hover:not(.active) { opacity: .8; transform: scale(1.04); }
+    .fb-thumb.locked img { filter: blur(2px) brightness(0.6); }
+    .fb-thumb.locked::after {
+      content: "🔒";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10px;
+    }
+    .fb-thumb { position: relative; }
+
+    /* MOBILE: single page, no thumbnails */
+    @media (max-width: 600px) {
+      .fb-thumb-strip { display: none; }
+      .fb-bottombar { gap: 12px; }
+      .fb-nav-arrow { width: 52px; height: 52px; font-size: 22px; }
+      .fb-zoom-wrap { display: none; }
+      .fb-spine { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -186,7 +576,6 @@ l.parentNode.insertBefore(s, l);
           Nessuna app da installare e niente da scaricare. Basta acquistare il tuo codice per leggere la tua copia del settimanale di Grandangolo.
         </div>
 
-    
         <!-- WIDGET NEWS RETTANGOLARE LIVE -->
         <div class="hero-banner">
           <div class="hero-news-inner">
@@ -285,7 +674,7 @@ l.parentNode.insertBefore(s, l);
   Edicola digitale di Grandangolo. Tutti i diritti riservati. Edizioni Grandangolo - Via Mazzini, 187 - 92100 Agrigento;
 Numero di telefono 0922822788 - Cell 351 533 9611 - 92100 Agrigento - Codice Issn: 2499-8907 -
 Iscrizione R.O.C.: 34513 - Registrazione al Tribunale di Agrigento n. 264/04
-Direttore Responsabile Franco Castaldo - Segnalazioni a redazione@grandangoloagrigento.it
+Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bac8dfdedbc0d3d5d4dffaddc8dbd4dedbd4ddd5d6d5dbddc8d3dddfd4ced594d3ce">[email&#160;protected]</a>
   <div style="margin-top:6px;">
     <a href="/privacy.html" style="color:#b0b0b0;text-decoration:none;margin-right:10px;">Privacy Policy</a>
     <span style="opacity:.5;">|</span>
@@ -297,7 +686,7 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a redazione@grandangoloagr
 
   <!-- SCRIPT EDICOLA -->
   
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   (function() {
     const issues = [
         {
@@ -733,12 +1122,14 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a redazione@grandangoloagr
       edicolaRoot.appendChild(card);
     });
 
+    // ─── FLIPBOOK READER ─────────────────────────────────────────────────────
+
+    const ZOOM_STEPS = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
+    const FREE_PAGES = 2;
+
     function performUnlock(issue, value, onSuccess, onError) {
       const v = (value || "").trim();
-      if (!v) {
-        if (typeof onError === "function") onError("Inserisci un codice.");
-        return;
-      }
+      if (!v) { if (typeof onError === "function") onError("Inserisci un codice."); return; }
       if (v === issue.unlockCode) {
         issue._unlocked = true;
         if (typeof onSuccess === "function") onSuccess();
@@ -748,218 +1139,428 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a redazione@grandangoloagr
     }
 
     function openFlipbook(issue, startIndex) {
-      let index = startIndex || 0;
+      // index = logical page index (0-based).
+      // Page 0 = cover (single). Pages 1+ shown in pairs: [1], [2,3], [4,5], ...
+      // "spread" index: 0 = cover, 1 = spread(1,2), 2 = spread(3,4), ...
+      // We track spreadIdx internally and derive which pages to show.
+
       const pages = issue.pages || [];
       if (!pages.length) return;
 
-      const overlay = document.createElement("div");
-      overlay.style.cssText =
-        "position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;" +
-        "display:flex;justify-content:center;align-items:flex-start;" +
-        "overflow-y:auto;padding:40px 16px;";
-
-      const content = document.createElement("div");
-      content.style.cssText =
-        "max-width:1100px;width:100%;margin:0 auto 40px;color:#fff;";
-
-      const header = document.createElement("div");
-      header.style.cssText =
-        "display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;";
-
-      const titleEl = document.createElement("div");
-      titleEl.innerHTML = `
-        <div style="font-size:15px;font-weight:600;">${issue.title}</div>
-        <div style="font-size:12px;opacity:.7;">${issue.subtitle || ""}</div>
-      `;
-
-      const closeBtn = document.createElement("button");
-      closeBtn.type = "button";
-      closeBtn.textContent = "×";
-      closeBtn.style.cssText =
-        "border:none;background:transparent;color:#fff;font-size:24px;" +
-        "cursor:pointer;line-height:1;padding:0 4px;";
-
-      header.appendChild(titleEl);
-      header.appendChild(closeBtn);
-
-      const wrap = document.createElement("div");
-      wrap.style.cssText =
-        "position:relative;max-width:100%;max-height:90vh;overflow:auto;" +
-        "perspective:1400px;display:flex;align-items:flex-start;justify-content:center;background:#000;";
-
-      const img = document.createElement("img");
-      img.style.cssText =
-        "width:100%;height:auto;border-radius:8px;" +
-        "box-shadow:0 12px 30px rgba(0,0,0,0.6);" +
-        "display:block;cursor:zoom-in;" +
-        "transition:width .25s ease,filter .25s ease;";
-
-      let zoom = 1;
-
-      img.addEventListener("click", function(e) {
-        e.stopPropagation();
-        if (zoom === 1) {
-          zoom = 2;
-          img.style.width = "200%";
-          img.style.cursor = "zoom-out";
-        } else {
-          zoom = 1;
-          img.style.width = "100%";
-          img.style.cursor = "zoom-in";
-          wrap.scrollTop = 0;
-          wrap.scrollLeft = 0;
-        }
-      });
-
-      const arrowBase =
-        "position:absolute;top:50%;transform:translateY(-50%);border:none;" +
-        "background:rgba(0,0,0,0.4);color:#fff;font-size:26px;width:42px;height:42px;" +
-        "border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;";
-
-      const prevBtn = document.createElement("button");
-      prevBtn.innerHTML = "❮";
-      prevBtn.type = "button";
-      prevBtn.style.cssText = arrowBase + "left:-12px;";
-
-      const nextBtn = document.createElement("button");
-      nextBtn.innerHTML = "❯";
-      nextBtn.type = "button";
-      nextBtn.style.cssText = arrowBase + "right:-12px;";
-
-      const overlayBuy = document.createElement("div");
-      overlayBuy.style.cssText =
-        "position:absolute;inset:0;display:none;align-items:center;justify-content:center;" +
-        "padding:0 20px;text-align:center;color:#fff;font-size:13px;" +
-        "background:radial-gradient(circle at center,rgba(0,0,0,0.2),rgba(0,0,0,0.85));";
-
-      const obInner = document.createElement("div");
-      obInner.innerHTML =
-        "<div style='font-size:15px;margin-bottom:8px;font-weight:600;'>Continua a sfogliare</div>" +
-        "<div style='margin-bottom:12px;'>Le pagine successive sono oscurate: acquista il numero completo per leggere tutto il settimanale.</div>";
-
-      const buyBtn = document.createElement("button");
-      buyBtn.type = "button";
-      buyBtn.textContent = "Acquista il numero completo";
-      buyBtn.style.cssText =
-        "padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-size:13px;" +
-        "font-weight:600;background:#00a651;color:#fff;box-shadow:0 5px 14px rgba(0,0,0,0.35);margin-bottom:10px;";
-
-      const codeBox = document.createElement("div");
-      codeBox.style.cssText = "margin-top:4px;font-size:11px;";
-
-      const codeLabel = document.createElement("div");
-      codeLabel.textContent = "Hai già acquistato? Inserisci il codice di accesso:";
-      codeLabel.style.marginBottom = "4px";
-
-      const codeRow = document.createElement("div");
-      codeRow.style.cssText = "display:flex;gap:4px;";
-
-      const codeInput = document.createElement("input");
-      codeInput.type = "text";
-      codeInput.placeholder = "Inserisci il codice";
-      codeInput.style.cssText =
-        "flex:1;padding:4px 6px;font-size:11px;border:1px solid #ccc;border-radius:4px;color:#000;background:#fff;";
-
-      const unlockBtn = document.createElement("button");
-      unlockBtn.type = "button";
-      unlockBtn.textContent = "Sblocca";
-      unlockBtn.style.cssText =
-        "padding:4px 8px;border-radius:4px;border:1px solid #00a651;" +
-        "background:#00a651;color:#fff;font-size:11px;cursor:pointer;";
-
-      const codeMsg = document.createElement("div");
-      codeMsg.style.cssText = "margin-top:4px;font-size:11px;color:#ffd5d5;display:none;";
-
-      codeRow.appendChild(codeInput);
-      codeRow.appendChild(unlockBtn);
-      codeBox.appendChild(codeLabel);
-      codeBox.appendChild(codeRow);
-      codeBox.appendChild(codeMsg);
-
-      obInner.appendChild(buyBtn);
-      obInner.appendChild(codeBox);
-      overlayBuy.appendChild(obInner);
-
-      const indicator = document.createElement("div");
-      indicator.style.cssText = "text-align:center;font-size:12px;margin-top:10px;";
-
-      wrap.appendChild(prevBtn);
-      wrap.appendChild(img);
-      wrap.appendChild(nextBtn);
-      wrap.appendChild(overlayBuy);
-
-      content.appendChild(header);
-      content.appendChild(wrap);
-      content.appendChild(indicator);
-      overlay.appendChild(content);
-      document.body.appendChild(overlay);
-
-      prevBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        if (index > 0) { index--; updatePage(); }
-      });
-
-      nextBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        if (index < pages.length - 1) { index++; updatePage(); }
-      });
-
-      closeBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        document.body.removeChild(overlay);
-      });
-
-      overlay.addEventListener("click", function(e) {
-        if (e.target === overlay) document.body.removeChild(overlay);
-      });
-
-      buyBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        if (issue.buyUrl && issue.buyUrl !== "#") window.location.href = issue.buyUrl;
-      });
-
-      unlockBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        performUnlock(
-          issue,
-          codeInput.value,
-          function() {
-            codeMsg.style.display = "none";
-            alert("Numero sbloccato! Ora puoi leggere tutte le pagine.");
-            updatePage();
-          },
-          function(msg) {
-            codeMsg.textContent = msg;
-            codeMsg.style.display = "block";
-          }
-        );
-      });
-
-      function updatePage() {
-        img.src = pages[index];
-
-        const isUnlocked = !!issue._unlocked;
-
-        if (isUnlocked || index <= 1) {
-          img.style.filter = "none";
-          overlayBuy.style.display = "none";
-        } else {
-          img.style.filter = "blur(6px) brightness(0.85)";
-          overlayBuy.style.display = "flex";
-        }
-
-        prevBtn.disabled = (index === 0);
-        nextBtn.disabled = (index === pages.length - 1);
-        indicator.textContent = "Pagina " + (index + 1) + " di " + pages.length;
-
-        zoom = 1;
-        img.style.width = "100%";
-        img.style.cursor = "zoom-in";
-        wrap.scrollTop = 0;
-        wrap.scrollLeft = 0;
+      // Convert a page index to a spread index
+      function pageToSpread(p) {
+        if (p === 0) return 0;           // cover
+        return Math.ceil(p / 2);         // page 1→spread1, 2→spread1, 3→spread2, ...
+      }
+      // Get the left/right page indices for a spread
+      function spreadPages(s) {
+        if (s === 0) return { left: null, right: 0, single: true };
+        const left  = s * 2 - 1;  // e.g. spread1→pages[1,2]
+        const right = s * 2;
+        return {
+          left:   left  < pages.length ? left  : null,
+          right:  right < pages.length ? right : null,
+          single: false
+        };
       }
 
-      updatePage();
+      const totalSpreads = pageToSpread(pages.length - 1) + (pages.length > 1 && pages.length % 2 === 0 ? 1 : 0);
+      // simpler: max spread = ceil((pages.length-1)/2)
+      const maxSpread = Math.ceil((pages.length - 1) / 2);
+
+      let spreadIdx = pageToSpread(startIndex || 0);
+      let zoomIdx = 2; // 1x
+      let isAnimating = false;
+      const isMobile = () => window.innerWidth <= 600;
+
+      document.body.style.overflow = "hidden";
+
+      // ── BUILD OVERLAY ──────────────────────────────────────────────────────
+      const overlay = document.createElement("div");
+      overlay.className = "fb-overlay";
+
+      // TOP BAR
+      const topbar = document.createElement("div");
+      topbar.className = "fb-topbar";
+      const topLeft = document.createElement("div");
+      topLeft.className = "fb-topbar-left";
+      topLeft.innerHTML = `<div class="fb-title">${issue.title}</div><div class="fb-subtitle">${issue.subtitle || ""}</div>`;
+      const topRight = document.createElement("div");
+      topRight.className = "fb-topbar-right";
+
+      const zoomWrap = document.createElement("div");
+      zoomWrap.className = "fb-zoom-wrap";
+      const zoomOutBtn = document.createElement("button");
+      zoomOutBtn.className = "fb-zoom-btn"; zoomOutBtn.type = "button"; zoomOutBtn.innerHTML = "−"; zoomOutBtn.title = "Riduci";
+      const zoomLevelEl = document.createElement("span");
+      zoomLevelEl.className = "fb-zoom-level";
+      const zoomInBtn = document.createElement("button");
+      zoomInBtn.className = "fb-zoom-btn"; zoomInBtn.type = "button"; zoomInBtn.innerHTML = "+"; zoomInBtn.title = "Ingrandisci";
+      const zoomResetBtn = document.createElement("button");
+      zoomResetBtn.className = "fb-zoom-btn"; zoomResetBtn.type = "button"; zoomResetBtn.innerHTML = "⊙"; zoomResetBtn.title = "Zoom originale"; zoomResetBtn.style.fontSize = "13px";
+      zoomWrap.appendChild(zoomOutBtn); zoomWrap.appendChild(zoomLevelEl); zoomWrap.appendChild(zoomInBtn); zoomWrap.appendChild(zoomResetBtn);
+
+      const pageIndicator = document.createElement("span");
+      pageIndicator.className = "fb-page-indicator";
+
+      const closeBtn = document.createElement("button");
+      closeBtn.className = "fb-btn fb-btn-close"; closeBtn.type = "button"; closeBtn.innerHTML = "×"; closeBtn.title = "Chiudi";
+
+      topRight.appendChild(zoomWrap);
+      topRight.appendChild(pageIndicator);
+      topRight.appendChild(closeBtn);
+      topbar.appendChild(topLeft);
+      topbar.appendChild(topRight);
+
+      // VIEWPORT
+      const viewport = document.createElement("div");
+      viewport.className = "fb-viewport";
+
+      // SIDE ARROWS (inside viewport, fixed left/right)
+      const sidePrevBtn = document.createElement("button");
+      sidePrevBtn.className = "fb-side-arrow fb-side-prev";
+      sidePrevBtn.type = "button";
+      sidePrevBtn.innerHTML = "&#10094;";
+      sidePrevBtn.title = "Pagina precedente";
+
+      const sideNextBtn = document.createElement("button");
+      sideNextBtn.className = "fb-side-arrow fb-side-next";
+      sideNextBtn.type = "button";
+      sideNextBtn.innerHTML = "&#10095;";
+      sideNextBtn.title = "Pagina successiva";
+
+      // SPREAD container
+      const spread = document.createElement("div");
+      spread.className = "fb-spread";
+
+      // Left page slot
+      const leftSlot = document.createElement("div");
+      leftSlot.className = "fb-page-slot fb-left";
+      const leftImg = document.createElement("img");
+      leftImg.className = "fb-page-img";
+      leftImg.draggable = false;
+      leftSlot.appendChild(leftImg);
+
+      // Spine
+      const spine = document.createElement("div");
+      spine.className = "fb-spine";
+
+      // Right page slot (also holds the blur overlay for locked pages)
+      const rightSlot = document.createElement("div");
+      rightSlot.className = "fb-page-slot fb-right";
+      const rightImg = document.createElement("img");
+      rightImg.className = "fb-page-img";
+      rightImg.draggable = false;
+      rightSlot.appendChild(rightImg);
+
+      // Blur overlay lives inside rightSlot (or leftSlot for single)
+      const blurOverlay = document.createElement("div");
+      blurOverlay.className = "fb-blur-overlay";
+      const blurInner = document.createElement("div");
+      blurInner.className = "fb-blur-inner";
+      blurInner.innerHTML = `<div class="fb-blur-title">Continua a sfogliare</div>
+        <div class="fb-blur-desc">Le pagine successive sono oscurate. Acquista il numero completo per leggere tutto il settimanale.</div>`;
+      const buyBtn = document.createElement("button");
+      buyBtn.type = "button"; buyBtn.className = "fb-buy-btn"; buyBtn.textContent = "Acquista il numero completo →";
+      const codeLabel = document.createElement("div");
+      codeLabel.className = "fb-code-label"; codeLabel.textContent = "Hai già acquistato? Inserisci il codice:";
+      const codeRow = document.createElement("div"); codeRow.className = "fb-code-row";
+      const codeInput = document.createElement("input");
+      codeInput.type = "text"; codeInput.className = "fb-code-input"; codeInput.placeholder = "Codice di accesso";
+      const unlockBtn = document.createElement("button");
+      unlockBtn.type = "button"; unlockBtn.className = "fb-unlock-btn"; unlockBtn.textContent = "Sblocca";
+      const codeMsg = document.createElement("div"); codeMsg.className = "fb-code-msg";
+      codeRow.appendChild(codeInput); codeRow.appendChild(unlockBtn);
+      blurInner.appendChild(buyBtn); blurInner.appendChild(codeLabel); blurInner.appendChild(codeRow); blurInner.appendChild(codeMsg);
+      blurOverlay.appendChild(blurInner);
+      rightSlot.appendChild(blurOverlay);
+
+      spread.appendChild(leftSlot);
+      spread.appendChild(spine);
+      spread.appendChild(rightSlot);
+      viewport.appendChild(sidePrevBtn);
+      viewport.appendChild(spread);
+      viewport.appendChild(sideNextBtn);
+
+      // BOTTOM BAR
+      const bottombar = document.createElement("div");
+      bottombar.className = "fb-bottombar";
+      const prevBtn = document.createElement("button");
+      prevBtn.className = "fb-nav-arrow"; prevBtn.type = "button"; prevBtn.innerHTML = "&#10094;"; prevBtn.title = "Sfoglia indietro";
+      const thumbStrip = document.createElement("div");
+      thumbStrip.className = "fb-thumb-strip";
+      const nextBtn = document.createElement("button");
+      nextBtn.className = "fb-nav-arrow"; nextBtn.type = "button"; nextBtn.innerHTML = "&#10095;"; nextBtn.title = "Sfoglia avanti";
+      bottombar.appendChild(prevBtn); bottombar.appendChild(thumbStrip); bottombar.appendChild(nextBtn);
+
+      overlay.appendChild(topbar); overlay.appendChild(viewport); overlay.appendChild(bottombar);
+      document.body.appendChild(overlay);
+
+      // Build thumbnails (one per page)
+      pages.forEach((pageUrl, i) => {
+        const thumb = document.createElement("div");
+        thumb.className = "fb-thumb";
+        const tImg = document.createElement("img");
+        tImg.src = pageUrl; tImg.alt = "p" + (i + 1); tImg.loading = "lazy";
+        thumb.appendChild(tImg);
+        thumb.addEventListener("click", function(e) {
+          e.stopPropagation();
+          const targetSpread = pageToSpread(i);
+          if (targetSpread !== spreadIdx) {
+            const dir = targetSpread > spreadIdx ? "forward" : "backward";
+            spreadIdx = targetSpread;
+            updateSpread(dir);
+          }
+        });
+        thumbStrip.appendChild(thumb);
+      });
+
+      // ── ZOOM ──────────────────────────────────────────────────────────────
+      function calcFitWidth(isDouble) {
+        const PAGE_RATIO = 1.414;
+        const vh = viewport.clientHeight - 48;
+        const vw = viewport.clientWidth - 80;
+        const fitByHeight = vh / PAGE_RATIO;
+        const maxW = isDouble ? vw / 2 : vw;
+        return Math.min(fitByHeight, maxW);
+      }
+
+      function applyZoom() {
+        const z = ZOOM_STEPS[zoomIdx];
+        const sp = spreadPages(spreadIdx);
+        const isDouble = !sp.single && !isMobile() && sp.left !== null;
+        const base = calcFitWidth(isDouble);
+        const w = base * z;
+        leftSlot.style.width  = isDouble ? w + "px" : "0px";
+        leftSlot.style.display = isDouble ? "block" : "none";
+        spine.style.display    = isDouble ? "block" : "none";
+        rightSlot.style.width  = w + "px";
+        zoomLevelEl.textContent = Math.round(z * 100) + "%";
+        zoomOutBtn.disabled  = zoomIdx <= 0;
+        zoomInBtn.disabled   = zoomIdx >= ZOOM_STEPS.length - 1;
+        // pan cursor
+        viewport.style.cursor = z > 1 ? "grab" : "default";
+        spread.style.cursor = "inherit";
+      }
+
+      zoomInBtn.addEventListener("click",   e => { e.stopPropagation(); if (zoomIdx < ZOOM_STEPS.length-1){zoomIdx++; applyZoom();} });
+      zoomOutBtn.addEventListener("click",  e => { e.stopPropagation(); if (zoomIdx > 0){zoomIdx--; applyZoom();} });
+      zoomResetBtn.addEventListener("click",e => { e.stopPropagation(); zoomIdx=2; applyZoom(); viewport.scrollTop=0; viewport.scrollLeft=0; });
+      viewport.addEventListener("wheel", function(e) {
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          if (e.deltaY < 0 && zoomIdx < ZOOM_STEPS.length-1){zoomIdx++; applyZoom();}
+          else if (e.deltaY > 0 && zoomIdx > 0){zoomIdx--; applyZoom();}
+        }
+      }, { passive: false });
+
+      // ── DRAG TO PAN ────────────────────────────────────────────────────────
+      let isDragging = false, dragStartX, dragStartY, scrollStartX, scrollStartY;
+      viewport.addEventListener("mousedown", function(e) {
+        if (ZOOM_STEPS[zoomIdx] <= 1) return;
+        isDragging = true;
+        dragStartX = e.clientX; dragStartY = e.clientY;
+        scrollStartX = viewport.scrollLeft; scrollStartY = viewport.scrollTop;
+        viewport.style.cursor = "grabbing";
+        e.preventDefault();
+      });
+      document.addEventListener("mousemove", function(e) {
+        if (!isDragging) return;
+        viewport.scrollLeft = scrollStartX - (e.clientX - dragStartX);
+        viewport.scrollTop  = scrollStartY - (e.clientY - dragStartY);
+      });
+      document.addEventListener("mouseup", function() {
+        if (isDragging) {
+          isDragging = false;
+          viewport.style.cursor = ZOOM_STEPS[zoomIdx] > 1 ? "grab" : "default";
+        }
+      });
+
+      // ── FLIP ANIMATION ─────────────────────────────────────────────────────
+      function doFlip(direction, fromSrc, slot) {
+        return new Promise(resolve => {
+          const layer = document.createElement("div");
+          layer.className = "fb-flip-layer " + (direction === "forward" ? "fb-flip-forward" : "fb-flip-backward");
+          const fImg = document.createElement("img");
+          fImg.src = fromSrc || ""; fImg.draggable = false;
+          fImg.style.cssText = "display:block;width:100%;height:100%;object-fit:cover;";
+          layer.appendChild(fImg);
+          slot.appendChild(layer);
+          layer.addEventListener("animationend", function() {
+            layer.remove();
+            resolve();
+          }, { once: true });
+        });
+      }
+
+      // ── UPDATE SPREAD ──────────────────────────────────────────────────────
+      function updateSpread(direction) {
+        if (isAnimating) return;
+        const sp = spreadPages(spreadIdx);
+        const isUnlocked = !!issue._unlocked;
+        const mobile = isMobile();
+
+        // On mobile: show single page (right = current logical page)
+        // On desktop: show double spread
+        const showDouble = !sp.single && !mobile && sp.left !== null;
+
+        // Which page index are we "on" for indicator/thumbnail purposes?
+        // Use the right page (or left if right missing)
+        const currentPageIdx = sp.single ? sp.right : (showDouble ? (sp.right !== null ? sp.right : sp.left) : sp.right);
+
+        // BLUR logic: a spread is locked if the FIRST locked page index is in it
+        const FREE_PAGES = 2;
+        const leftIdx  = sp.single ? null : sp.left;
+        const rightIdx = sp.single ? sp.right : sp.right;
+
+        const leftLocked  = leftIdx  !== null && !isUnlocked && leftIdx  >= FREE_PAGES;
+        const rightLocked = rightIdx !== null && !isUnlocked && rightIdx >= FREE_PAGES;
+
+        // Capture old src for flip animation
+        const oldRightSrc = rightImg.src;
+        const oldLeftSrc  = leftImg.src;
+
+        // Set new images
+        const leftSrc  = (leftIdx  !== null) ? pages[leftIdx]  : "";
+        const rightSrc = (rightIdx !== null) ? pages[rightIdx] : "";
+
+        // Apply zoom/layout first
+        applyZoom();
+
+        // Run flip animation
+        if (direction && oldRightSrc && oldRightSrc !== rightSrc) {
+          isAnimating = true;
+          const flipSlot = direction === "forward" ? rightSlot : leftSlot;
+          const flipSrc  = direction === "forward" ? oldRightSrc : oldLeftSrc;
+          // Update images immediately under the animation layer
+          leftImg.src  = leftSrc  || "";
+          rightImg.src = rightSrc || "";
+          doFlip(direction, flipSrc, flipSlot).then(() => { isAnimating = false; });
+        } else {
+          leftImg.src  = leftSrc  || "";
+          rightImg.src = rightSrc || "";
+        }
+
+        // Left slot visibility
+        if (showDouble) {
+          leftSlot.style.display = "block";
+          spine.style.display    = "block";
+          leftImg.style.filter   = leftLocked  ? "blur(8px) brightness(0.65)" : "none";
+        } else {
+          leftSlot.style.display = "none";
+          spine.style.display    = "none";
+        }
+
+        // Right slot
+        rightImg.style.filter = rightLocked ? "blur(8px) brightness(0.65)" : "none";
+
+        // Blur overlay: show if right page (main visible page) is locked
+        if (rightLocked) {
+          blurOverlay.classList.add("visible");
+          codeMsg.style.display = "none";
+          codeInput.value = "";
+        } else {
+          blurOverlay.classList.remove("visible");
+        }
+
+        // Single / double slot styling
+        if (sp.single || mobile) {
+          rightSlot.classList.remove("fb-right");
+          rightSlot.classList.add("fb-single");
+        } else {
+          rightSlot.classList.remove("fb-single");
+          rightSlot.classList.add("fb-right");
+        }
+
+        // Indicator
+        if (sp.single) {
+          pageIndicator.textContent = "1 / " + pages.length;
+        } else if (showDouble) {
+          const r = sp.right !== null ? sp.right + 1 : "";
+          const l = sp.left + 1;
+          pageIndicator.textContent = l + "–" + r + " / " + pages.length;
+        } else {
+          // mobile: show right page
+          const idx = sp.right !== null ? sp.right : sp.left;
+          pageIndicator.textContent = (idx + 1) + " / " + pages.length;
+        }
+
+        prevBtn.disabled = spreadIdx === 0;
+        nextBtn.disabled = spreadIdx >= maxSpread;
+        sidePrevBtn.disabled = spreadIdx === 0;
+        sideNextBtn.disabled = spreadIdx >= maxSpread;
+
+        // Thumbnails
+        const thumbs = thumbStrip.querySelectorAll(".fb-thumb");
+        thumbs.forEach((t, i) => {
+          const inSpread = sp.single ? (i === sp.right) : (i === sp.left || i === sp.right);
+          t.classList.toggle("active", inSpread);
+          t.classList.toggle("locked", !isUnlocked && i >= FREE_PAGES);
+        });
+        const activeThumb = thumbStrip.querySelectorAll(".fb-thumb")[sp.right !== null ? sp.right : sp.left];
+        if (activeThumb) activeThumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+
+        // Reset scroll/zoom on navigation
+        viewport.scrollTop = 0; viewport.scrollLeft = 0;
+      }
+
+      // ── KEYBOARD ──────────────────────────────────────────────────────────
+      function onKeyDown(e) {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          if (spreadIdx < maxSpread) { spreadIdx++; updateSpread("forward"); }
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          if (spreadIdx > 0) { spreadIdx--; updateSpread("backward"); }
+        } else if (e.key === "Escape") {
+          closeFn();
+        } else if (e.key === "+" || e.key === "=") {
+          if (zoomIdx < ZOOM_STEPS.length-1){ zoomIdx++; applyZoom(); }
+        } else if (e.key === "-") {
+          if (zoomIdx > 0){ zoomIdx--; applyZoom(); }
+        }
+      }
+      document.addEventListener("keydown", onKeyDown);
+
+      // ── SWIPE ─────────────────────────────────────────────────────────────
+      let touchStartX = null, touchStartY = null;
+      viewport.addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; }, { passive: true });
+      viewport.addEventListener("touchend", e => {
+        if (touchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+          if (dx < 0 && spreadIdx < maxSpread) { spreadIdx++; updateSpread("forward"); }
+          else if (dx > 0 && spreadIdx > 0)    { spreadIdx--; updateSpread("backward"); }
+        }
+        touchStartX = null;
+      }, { passive: true });
+
+      // ── NAVIGATION BUTTONS ─────────────────────────────────────────────────
+      prevBtn.addEventListener("click", e => { e.stopPropagation(); if (!isAnimating && spreadIdx > 0){ spreadIdx--; updateSpread("backward"); } });
+      nextBtn.addEventListener("click", e => { e.stopPropagation(); if (!isAnimating && spreadIdx < maxSpread){ spreadIdx++; updateSpread("forward"); } });
+      sidePrevBtn.addEventListener("click", e => { e.stopPropagation(); if (!isAnimating && spreadIdx > 0){ spreadIdx--; updateSpread("backward"); } });
+      sideNextBtn.addEventListener("click", e => { e.stopPropagation(); if (!isAnimating && spreadIdx < maxSpread){ spreadIdx++; updateSpread("forward"); } });
+
+      // ── BUY / UNLOCK ────────────────────────────────────────────────────────
+      buyBtn.addEventListener("click", e => { e.stopPropagation(); if (issue.buyUrl && issue.buyUrl !== "#") window.location.href = issue.buyUrl; });
+      unlockBtn.addEventListener("click", e => {
+        e.stopPropagation();
+        performUnlock(issue, codeInput.value,
+          () => { codeMsg.style.display = "none"; updateSpread(null); },
+          msg => { codeMsg.textContent = msg; codeMsg.style.display = "block"; }
+        );
+      });
+      codeInput.addEventListener("keydown", e => { if (e.key === "Enter") { e.stopPropagation(); unlockBtn.click(); } });
+
+      // ── CLOSE ─────────────────────────────────────────────────────────────
+      function closeFn() {
+        document.body.removeChild(overlay);
+        document.body.style.overflow = "";
+        document.removeEventListener("keydown", onKeyDown);
+      }
+      closeBtn.addEventListener("click", e => { e.stopPropagation(); closeFn(); });
+
+      // ── INITIAL RENDER ────────────────────────────────────────────────────
+      updateSpread(null);
     }
 
   })();
@@ -1034,7 +1635,7 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a redazione@grandangoloagr
     <div style="min-width:240px;flex:1;">
       <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Cookie e Privacy</div>
       <div style="font-size:12px;line-height:1.4;color:#b0b0b0;">
-        Usiamo cookie tecnici e, solo con il tuo consenso, cookie analitici e pubblicitari (Google AdSense) per migliorare l’esperienza e mostrare annunci.
+        Usiamo cookie tecnici e, solo con il tuo consenso, cookie analitici e pubblicitari (Google AdSense) per migliorare l'esperienza e mostrare annunci.
         <a href="/privacy.html" style="color:#b0ffcf;text-decoration:none;">Privacy</a> ·
         <a href="/cookie.html" style="color:#b0ffcf;text-decoration:none;">Cookie</a>
       </div>
@@ -1088,16 +1689,4 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a redazione@grandangoloagr
   accept && accept.addEventListener("click", function(){
     setConsent(true);
     hide();
-    // forza il refresh dei blocchi ads già presenti
-    try{ (adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
-  });
-
-  reject && reject.addEventListener("click", function(){
-    setConsent(false);
-    hide();
-  });
-})();
-</script>
-
-</body>
-</html>
+    // forza il refr
