@@ -1,1385 +1,1316 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Grandangolo Radio</title>
-  <meta name="theme-color" content="#050a0e" />
-  <link rel="preconnect" href="https://open.spotify.com">
-  <link rel="preconnect" href="https://www.grandangoloagrigento.it">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Grandangolo Radio · FM 104.800</title>
+  <meta name="theme-color" content="#03050a"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,600;0,700;0,900;1,700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#071018;
-      --panel: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.12);
-      --text:#f2f7ff;
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.55);
-      --shadow: 0 20px 70px rgba(0,0,0,.58);
-      --r:18px;
-      --max:1200px;
+  /* ═══════════════════════════════════════════════════════════════
+     DESIGN TOKENS
+  ═══════════════════════════════════════════════════════════════ */
+  :root {
+    --ink:    #03050a;
+    --ink1:   #070c15;
+    --ink2:   #0b1220;
+    --glass:  rgba(255,255,255,.042);
+    --glass2: rgba(255,255,255,.072);
+    --rim:    rgba(255,255,255,.09);
+    --rim2:   rgba(255,255,255,.055);
+    --snow:   #e8eef8;
+    --fog:    rgba(232,238,248,.62);
+    --fog2:   rgba(232,238,248,.38);
 
-      --blue:#00a3ff;
-      --green:#26f2a3;
-      --red:#ff2a4d;
+    /* ACCENTS */
+    --signal: #ff1744;       /* rosso segnale */
+    --signal-glow: rgba(255,23,68,.32);
+    --signal-dim:  rgba(255,23,68,.12);
+    --freq:   #00e5d4;       /* ciano frequenza */
+    --freq-glow: rgba(0,229,212,.28);
+    --freq-dim:  rgba(0,229,212,.10);
+    --amber:  #ff9800;
 
-      --headerH: 96px; /* altezza barra desktop */
-    }
+    --fDisplay: 'Barlow Condensed', sans-serif;
+    --fBody:    'Syne', sans-serif;
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1100px 650px at 12% -18%, rgba(0,163,255,.18), transparent 58%),
-        radial-gradient(900px 520px at 92% 8%, rgba(38,242,163,.12), transparent 60%),
-        radial-gradient(900px 520px at 70% 120%, rgba(255,42,77,.10), transparent 60%),
-        #050a0e;
-      padding-top: var(--headerH); /* spazio per header fixed */
-    }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:var(--max);margin:0 auto;padding:18px}
+    --hh: 76px;
+    --max: 1180px;
+    --gap: 18px;
+    --r: 20px;
+  }
 
-    .card{
-      background: var(--panel);
-      border:1px solid var(--border);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-    /* ===== HEADER FIXED SOVRAPPOSTO ALLO SLIDESHOW ===== */
-    header.topbar2{
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 500;
-      background: rgba(5,10,14,.55); /* semi-trasparente sopra slideshow */
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,.10);
-    }
-    .topbar2-inner{
-      max-width: var(--max);
-      margin: auto;
-      height: var(--headerH);
-      padding: 10px 18px;
-      display: grid;
-      grid-template-columns: 420px 1fr 260px; /* logo grande | menu centrato | destra */
-      align-items: center;
-      gap: 12px;
-    }
+  body {
+    font-family: var(--fBody);
+    background: var(--ink);
+    color: var(--snow);
+    padding-top: var(--hh);
+    overflow-x: hidden;
+    cursor: default;
+  }
 
-    /* LOGO GRANDE */
-    .topbar2-logo{
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
-      cursor:pointer;
-      min-width: 0;
-    }
-    .topbar2-logo img{
-      height: 80px;         /* <<< DIMENSIONE LOGO */
-      width: auto;
-      max-height:none;
-      display:block;
-      object-fit:contain;
-      filter: drop-shadow(0 12px 28px rgba(0,0,0,.65));
-      transition: transform .18s ease, filter .18s ease;
-    }
-    .topbar2-logo:hover img{
-      transform: translateY(-1px);
-      filter: drop-shadow(0 16px 36px rgba(0,0,0,.75));
-    }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  button { font-family: var(--fBody); }
 
-    /* MENU GRANDE */
-    .topbar2-nav{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 34px;
-    }
-    .topbar2-nav a{
-      font-size: 13px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.82);
-      padding: 10px 8px;
-      border-bottom: 2px solid transparent;
-      transition: color .18s ease, border-color .18s ease, transform .18s ease;
-      font-weight: 800;
-    }
-    .topbar2-nav a:hover{
-      color: rgba(255,255,255,.98);
-      border-color: rgba(38,242,163,.55);
-      transform: translateY(-1px);
-    }
+  /* ── SCANLINE texture ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,.12) 2px,
+      rgba(0,0,0,.12) 4px
+    );
+    mix-blend-mode: multiply;
+  }
 
-    .topbar2-right{
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      gap: 12px;
-      min-width: 0;
-    }
+  /* ── AMBIENT ── */
+  .ambient {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 1100px 600px at -8% -12%, rgba(255,23,68,.13) 0%, transparent 55%),
+      radial-gradient(ellipse 800px 500px at 108% 20%,  rgba(0,229,212,.09) 0%, transparent 55%),
+      radial-gradient(ellipse 600px 400px at 55% 115%,  rgba(255,152,0,.07)  0%, transparent 60%);
+  }
 
-    .livePill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.85);
-      font-size: 12px;
-      white-space: nowrap;
-    }
-    .liveDot{
-      width:8px;height:8px;border-radius:50%;
-      background: var(--red);
-      box-shadow:0 0 0 7px rgba(255,42,77,.14);
-      animation:pulse 1.2s infinite ease-in-out;
-    }
-    .liveText{
-      color: var(--red);
-      font-weight: 950;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      animation: blink 1s infinite steps(2, end);
-    }
-    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
-    @keyframes blink { 50% { opacity: .15; } }
+  .z1 { position: relative; z-index: 1; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gap); }
 
-    .hamburger2{
-      display:none;
-      width:46px;height:46px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      cursor:pointer;
-      padding:10px;
-    }
-    .hamburger2 span{
-      display:block;
-      height:2px;
-      background: rgba(255,255,255,.92);
-      border-radius:2px;
-      margin:6px 0;
-    }
+  /* ═══════════════════════════════════════════════════════════════
+     HEADER
+  ═══════════════════════════════════════════════════════════════ */
+  header {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--hh); z-index: 900;
+    background: rgba(3,5,10,.72);
+    backdrop-filter: blur(22px) saturate(1.6);
+    border-bottom: 1px solid var(--rim2);
+  }
 
-    /* ===== HERO SLIDESHOW GRANDE ===== */
-    .heroBlock{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px;
-    }
+  .hdr-inner {
+    max-width: var(--max); margin: 0 auto;
+    height: 100%; padding: 0 var(--gap);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
 
-    .slider{
-      position:relative;
-      border-radius: 22px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      min-height: 460px;
-      height: min(70vh, 640px); /* grande e “presentazione” */
-      box-shadow: var(--shadow);
-    }
-    .slides{
-      display:flex;
-      width:100%;
-      height:100%;
-      transform: translateX(0);
-      transition: transform .60s cubic-bezier(.2,.9,.1,1);
-    }
-    .slide{
-      flex: 0 0 100%;
-      position:relative;
-      height:100%;
-    }
-    .slide img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .slide::after{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(900px 520px at 12% 0%, rgba(0,163,255,.22), transparent 60%),
-        radial-gradient(900px 520px at 90% 10%, rgba(38,242,163,.14), transparent 60%),
-        linear-gradient(to top, rgba(0,0,0,.42), transparent 58%);
-      pointer-events:none;
-    }
+  .hdr-logo { display: flex; align-items: center; }
+  .hdr-logo img {
+    height: 58px; width: auto;
+    filter: drop-shadow(0 0 20px var(--signal-glow));
+    transition: filter .2s;
+  }
+  .hdr-logo:hover img { filter: drop-shadow(0 0 32px rgba(255,23,68,.55)); }
 
-    .sliderBadge{
-      position:absolute;
-      top:14px; left:14px;
-      display:inline-flex; align-items:center; gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(10,16,26,.62);
-      backdrop-filter: blur(10px);
-      color: rgba(255,255,255,.86);
-      font-size:12px;
-      z-index:2;
-    }
-    .sliderUI{
-      position:absolute;
-      inset:auto 0 0 0;
-      padding:12px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      z-index:2;
-    }
-    .dots{display:flex; gap:7px; align-items:center; flex-wrap:wrap;}
-    .dotBtn{
-      width:11px;height:11px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.35);
-      background: rgba(255,255,255,.10);
-      cursor:pointer;
-      padding:0;
-    }
-    .dotBtn.active{
-      background: rgba(38,242,163,.90);
-      border-color: transparent;
-      box-shadow: 0 0 0 7px rgba(38,242,163,.14);
-    }
-    .arrows{display:flex; gap:8px; align-items:center;}
-    .arrowBtn{
-      width:44px;height:44px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.07);
-      color: var(--text);
-      cursor:pointer;
-      font-weight: 950;
-      font-size: 20px;
-    }
-    .arrowBtn:active{ transform: translateY(1px); }
+  nav.hdr-nav { display: flex; gap: 8px; }
+  nav.hdr-nav a {
+    font-family: var(--fDisplay);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--fog);
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: color .16s, background .16s, border-color .16s;
+  }
+  nav.hdr-nav a:hover {
+    color: var(--snow);
+    background: var(--glass2);
+    border-color: var(--rim2);
+  }
 
-    /* CTA sovrapposta allo slideshow */
-    .heroOverlay{
-      position:absolute;
-      inset:auto 18px 18px 18px;
-      z-index:3;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 14px;
-      pointer-events:none;
-    }
-    .heroOverlay .heroText{
-      pointer-events:auto;
-      max-width: 720px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(10,16,26,.55);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.55);
-    }
-    .heroOverlay h1{
-      margin:0;
-      font-size: 28px;
-      letter-spacing: -0.6px;
-      line-height: 1.1;
-    }
-    .heroOverlay p{
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .heroActions{
-      pointer-events:auto;
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-end;
-    }
-    .btnSmall{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px 16px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
-      color: var(--text);
-      cursor:pointer;
-      font-weight: 950;
-      font-size: 13px;
-    }
-    .btnSmall.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, rgba(0,163,255,.95), rgba(38,242,163,.86));
-      color:#061018;
-    }
-    .btnSmall.red{
-      border-color: rgba(255,42,77,.35);
-      background: rgba(255,42,77,.14);
-    }
+  .hdr-right { display: flex; align-items: center; gap: 10px; }
 
-    /* ===== DIRETTA ===== */
-    .hero{
-      padding:18px;
-      margin-top: 16px; /* subito sotto lo slideshow */
-    }
-    .badge{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:7px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color:var(--muted); font-size:12px;
-      white-space:nowrap;
-    }
+  /* ON AIR PILL */
+  .on-air {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,23,68,.30);
+    background: rgba(255,23,68,.10);
+    font-family: var(--fDisplay);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--signal);
+  }
+  .dot-pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0 0 var(--signal-glow);
+    animation: dotPulse 1.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes dotPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(255,23,68,.5); }
+    50%      { box-shadow: 0 0 0 9px rgba(255,23,68,.0); }
+  }
 
-    .playerBox{
-      margin-top:14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.24);
-      padding:14px;
-    }
-    .playerTop{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .onAirLabel{
-      font-size:12px;color:rgba(255,255,255,.55);
-      text-transform:uppercase;letter-spacing:.12em;
-    }
-    .onAirTitle{margin-top:6px;font-size:20px;font-weight:950}
-    .onAirMeta{margin-top:3px;color:var(--muted);font-size:13px}
-    .nowTime{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:7px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.78);
-      font-size:12px;
-      white-space:nowrap;
-    }
-    .clock{font-variant-numeric: tabular-nums;letter-spacing:.02em;}
-    audio{display:none}
+  .hbg {
+    display: none;
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    border: 1px solid var(--rim);
+    background: var(--glass);
+    cursor: pointer;
+    flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  }
+  .hbg span { display: block; width: 18px; height: 1.5px; background: var(--snow); border-radius: 2px; }
 
-    .controls{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:10px;
-      margin-top:10px;
-    }
-    .btn{
-      display:flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px 14px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      cursor:pointer;
-      font-weight:950;
-    }
-    .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, rgba(0,163,255,.95), rgba(38,242,163,.86));
-      color:#061018;
-    }
-    .btn.danger{
-      border-color: rgba(255,42,77,.32);
-      background: rgba(255,42,77,.10);
-    }
-    .btn:active{transform:translateY(1px)}
+  /* ═══════════════════════════════════════════════════════════════
+     HERO SLIDER
+  ═══════════════════════════════════════════════════════════════ */
+  .hero-wrap {
+    padding: var(--gap) var(--gap) 0;
+    max-width: var(--max); margin: 0 auto;
+  }
 
-    .volRow{
-      grid-column:1 / -1;
-      display:flex;align-items:center;gap:12px;
-      padding:10px 12px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-    }
-    .volRow label{
-      width:72px;
-      font-size:12px;color:rgba(255,255,255,.55);
-      text-transform:uppercase;letter-spacing:.12em;
-    }
-    .volRow input{width:100%; accent-color: var(--green);}
+  .slider-shell {
+    position: relative;
+    border-radius: 26px; overflow: hidden;
+    height: clamp(280px, 56vw, 580px);
+    border: 1px solid var(--rim);
+    box-shadow: 0 32px 80px rgba(0,0,0,.7);
+  }
 
-    .metaRow{
-      margin-top:10px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      font-size:12px; color: rgba(255,255,255,.62);
-    }
+  .slides-track {
+    display: flex; width: 100%; height: 100%;
+    transition: transform .65s cubic-bezier(.22,.9,.1,1);
+  }
+  .slide { flex: 0 0 100%; position: relative; height: 100%; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; }
+  .slide::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, rgba(3,5,10,.80) 0%, rgba(3,5,10,.2) 45%, transparent 100%),
+      linear-gradient(120deg, rgba(255,23,68,.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
 
-    /* ===== PODCAST ===== */
-    .section{margin-top:16px}
-    .sectionHead{
-      display:flex; align-items:end; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .sectionHead h2{margin:0;font-size:16px}
-    .sectionHead span{color:var(--muted);font-size:13px}
+  /* FM STAMP — overlapping top left */
+  .fm-stamp {
+    position: absolute; top: 20px; left: 20px; z-index: 4;
+    pointer-events: none;
+  }
+  .fm-stamp-inner {
+    display: inline-flex; flex-direction: column;
+    padding: 10px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(3,5,10,.55);
+    backdrop-filter: blur(12px);
+    gap: 2px;
+  }
+  .fm-eyebrow {
+    font-family: var(--fDisplay);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--freq);
+  }
+  .fm-number {
+    font-family: var(--fDisplay);
+    font-size: 48px; font-weight: 900; line-height: 1;
+    color: var(--snow);
+    letter-spacing: .02em;
+  }
+  .fm-unit {
+    font-family: var(--fDisplay);
+    font-size: 16px; font-weight: 600; color: var(--fog);
+  }
 
-    .podGrid{display:grid;grid-template-columns: 1fr 1fr;gap:12px}
-    .podCard{
-      padding:12px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-    }
-    .podTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .podName{font-weight:950}
-    .podTag{
-      font-size:12px;color:rgba(255,255,255,.78);
-      border:1px solid rgba(0,163,255,.28);
-      padding:5px 8px;border-radius:999px;
-      background: rgba(0,163,255,.10);
-      white-space:nowrap;
-    }
-    .iframeWrap{
-      border-radius:14px; overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-    }
-    iframe{width:100%;height:232px;border:0}
+  /* HERO BOTTOM OVERLAY */
+  .hero-bottom {
+    position: absolute; inset: auto 20px 20px 20px; z-index: 4;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 14px;
+  }
+  .hero-copy h1 {
+    font-family: var(--fDisplay);
+    font-size: clamp(24px, 3.8vw, 52px);
+    font-weight: 900; line-height: 1;
+    letter-spacing: .03em;
+    text-shadow: 0 2px 24px rgba(0,0,0,.8);
+  }
+  .hero-copy p {
+    margin-top: 8px;
+    font-size: 14px; color: var(--fog);
+    max-width: 500px;
+  }
 
-    /* ===== MINI PLAYER STICKY ===== */
-    .stickyPlayer{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:14px;
-      z-index:450;
-      width:min(var(--max), calc(100% - 24px));
-      display:none;
-    }
-    .stickyPlayer.show{display:block}
-    .stickyInner{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(10,16,26,.82), rgba(10,16,26,.58));
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow);
-      padding:10px 12px;
-      display:flex; align-items:center; gap:12px;
-    }
-    .stickyLeft{display:flex; align-items:center; gap:10px; min-width:160px;}
-    .stickyMid{min-width:0; display:flex; flex-direction:column; gap:2px;}
-    .stickyTitle{font-weight:950;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .stickyMeta{
-      font-size:12px;color:var(--muted);
-      display:flex;gap:10px;align-items:center;flex-wrap:wrap
-    }
-    .stickyRight{margin-left:auto;display:flex;align-items:center;gap:10px}
-    .miniBtn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid transparent;
-      background: linear-gradient(135deg, rgba(0,163,255,.95), rgba(38,242,163,.86));
-      color:#061018;
-      font-weight:950;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-    .miniBtn.alt{
-      border:1px solid rgba(255,42,77,.32);
-      background: rgba(255,42,77,.10);
-      color: var(--text);
-    }
-    .miniClock{
-      font-variant-numeric: tabular-nums;
-      color: rgba(255,255,255,.80);
-      font-size:12px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      white-space:nowrap;
-    }
+  .btn-play-hero {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 22px;
+    border-radius: 999px; border: none;
+    background: var(--signal);
+    color: #fff;
+    font-family: var(--fDisplay);
+    font-size: 17px; font-weight: 700; letter-spacing: .10em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 8px 32px var(--signal-glow);
+    transition: transform .15s, filter .15s;
+    white-space: nowrap;
+  }
+  .btn-play-hero:hover { transform: translateY(-2px); filter: brightness(1.1); }
+  .btn-play-hero:active { transform: scale(.97); }
 
-    footer{
-      margin:18px 0 10px;
-      color: var(--muted2);
-      font-size:12px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-    }
+  /* SLIDER NAV */
+  .slider-nav {
+    position: absolute; inset: auto 0 0 0; z-index: 5;
+    padding: 14px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .s-dots { display: flex; gap: 6px; }
+  .s-dot {
+    height: 3px; width: 24px; border-radius: 3px;
+    background: rgba(255,255,255,.25);
+    border: none; cursor: pointer; padding: 0;
+    transition: background .2s, width .25s;
+  }
+  .s-dot.active { background: var(--signal); width: 36px; }
+  .s-arrows { display: flex; gap: 8px; }
+  .s-arr {
+    width: 40px; height: 40px; border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(8px);
+    color: var(--snow); font-size: 20px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .s-arr:hover { background: rgba(255,255,255,.14); }
 
-    /* ===== MOBILE MENU OVERLAY ===== */
-    .menuOverlay{
-      position:fixed; inset:0; z-index:800;
-      background: rgba(0,0,0,.62);
-      display:none;
-      align-items:flex-end;
-      padding:14px;
-    }
-    .menuOverlay.open{ display:flex; }
-    .menuSheet{
-      width:min(520px, 100%);
-      border-radius: 20px;
-      border:1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(10,16,26,.92), rgba(10,16,26,.72));
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .menuTop{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:14px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-    }
-    .menuBrand{ display:flex; align-items:center; gap:12px; }
-    .menuLogo{
-      width:42px; height:42px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(0,163,255,.96), rgba(38,242,163,.92));
-    }
-    .menuT1{ font-weight:950; letter-spacing:-.2px; }
-    .menuT2{ font-size:12px; color: var(--muted); margin-top:2px; }
-    .menuClose{
-      width:44px; height:44px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      cursor:pointer;
-      font-weight:950;
-    }
-    .menuLinks{ padding:10px; display:grid; gap:10px; }
-    .menuLink{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      font-weight:950;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      font-size:12px;
-    }
-    .menuLink::after{ content:"›"; color: rgba(255,255,255,.70); font-size:18px; }
-    .menuFoot{ padding:14px; border-top:1px solid rgba(255,255,255,.10); }
+  /* ═══════════════════════════════════════════════════════════════
+     TWO-COLUMN LAYOUT
+  ═══════════════════════════════════════════════════════════════ */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: var(--gap);
+    padding: var(--gap);
+    max-width: var(--max); margin: 0 auto;
+  }
+  @media (max-width: 920px) { .two-col { grid-template-columns: 1fr; } }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 980px){
-      :root{ --headerH: 78px; }
-      body{ padding-top: var(--headerH); padding-bottom: 96px; }
+  /* ═══════════════════════════════════════════════════════════════
+     PLAYER CARD
+  ═══════════════════════════════════════════════════════════════ */
+  .player-card {
+    border-radius: var(--r);
+    border: 1px solid var(--rim);
+    background: var(--ink1);
+    overflow: hidden;
+    position: relative;
+  }
 
-      .wrap{ padding:14px; }
-      .topbar2-inner{
-        grid-template-columns: 1fr auto;
-        padding: 8px 14px;
-        height: var(--headerH);
-      }
-      .topbar2-nav{ display:none; }
-      .hamburger2{ display:inline-block; }
-      .livePill{ display:none; }
-      .topbar2-logo img{ height: 58px; } /* logo grande anche su mobile */
+  /* spectrum bar at top */
+  .spectrum-bar {
+    height: 4px;
+    background: linear-gradient(90deg,
+      var(--signal) 0%, #ff6d00 25%, var(--freq) 50%, #0091ea 75%, var(--signal) 100%);
+    background-size: 200%;
+    animation: specScroll 4s linear infinite;
+  }
+  @keyframes specScroll { to { background-position: 200% 0; } }
 
-      .slider{ min-height: 260px; height: min(58vh, 420px); }
-      .heroOverlay{ inset:auto 12px 12px 12px; flex-direction:column; align-items:stretch; }
-      .heroActions{ justify-content:flex-start; }
+  .player-inner { padding: 28px; }
 
-      .controls{ grid-template-columns:1fr; }
-      .podGrid{ grid-template-columns:1fr; }
-      iframe{ height: 200px; }
-    }
-    @media (max-width: 420px){
-      .heroOverlay h1{ font-size: 22px; }
-      iframe{ height: 190px; }
-    }
-    /* ===== FIX MINI PLAYER MOBILE ===== */
-@media (max-width: 640px){
+  .player-top {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
 
-  .stickyInner{
-    flex-direction: column;
-    align-items: stretch;
+  .air-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,23,68,.28);
+    background: var(--signal-dim);
+    font-family: var(--fDisplay);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--signal);
+    margin-bottom: 10px; display: block; width: fit-content;
+  }
+  .stn-name {
+    font-family: var(--fDisplay);
+    font-size: clamp(32px, 4vw, 50px);
+    font-weight: 900; letter-spacing: .06em; line-height: 1;
+    color: var(--snow);
+  }
+  .stn-sub { font-size: 13px; color: var(--fog2); margin-top: 6px; }
+
+  .clock-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--rim);
+    background: var(--glass);
+    font-size: 20px; font-variant-numeric: tabular-nums;
+    color: var(--freq);
+    letter-spacing: .04em;
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* ANIMATED WAVE */
+  .wave-viz {
+    display: flex; align-items: flex-end; gap: 3px;
+    height: 44px; margin: 20px 0;
+  }
+  .wave-viz .b {
+    flex: 1; min-height: 3px;
+    border-radius: 3px 3px 0 0;
+    background: linear-gradient(to top, var(--signal), rgba(255,23,68,.25));
+    transform-origin: bottom center;
+  }
+  .wave-viz.live .b {
+    animation: waveAnim .8s ease-in-out infinite alternate;
+  }
+  /* give each bar a different delay + height via nth-child */
+  .wave-viz .b:nth-child(1)  { height:22%; animation-delay:.00s }
+  .wave-viz .b:nth-child(2)  { height:55%; animation-delay:.04s }
+  .wave-viz .b:nth-child(3)  { height:38%; animation-delay:.08s }
+  .wave-viz .b:nth-child(4)  { height:85%; animation-delay:.12s }
+  .wave-viz .b:nth-child(5)  { height:48%; animation-delay:.16s }
+  .wave-viz .b:nth-child(6)  { height:72%; animation-delay:.20s }
+  .wave-viz .b:nth-child(7)  { height:30%; animation-delay:.24s }
+  .wave-viz .b:nth-child(8)  { height:91%; animation-delay:.28s }
+  .wave-viz .b:nth-child(9)  { height:57%; animation-delay:.32s }
+  .wave-viz .b:nth-child(10) { height:100%;animation-delay:.36s }
+  .wave-viz .b:nth-child(11) { height:42%; animation-delay:.40s }
+  .wave-viz .b:nth-child(12) { height:78%; animation-delay:.44s }
+  .wave-viz .b:nth-child(13) { height:35%; animation-delay:.48s }
+  .wave-viz .b:nth-child(14) { height:65%; animation-delay:.52s }
+  .wave-viz .b:nth-child(15) { height:52%; animation-delay:.56s }
+  .wave-viz .b:nth-child(16) { height:88%; animation-delay:.60s }
+  .wave-viz .b:nth-child(17) { height:44%; animation-delay:.64s }
+  .wave-viz .b:nth-child(18) { height:70%; animation-delay:.68s }
+  .wave-viz .b:nth-child(19) { height:28%; animation-delay:.72s }
+  .wave-viz .b:nth-child(20) { height:62%; animation-delay:.76s }
+  @keyframes waveAnim {
+    from { transform: scaleY(.15); opacity: .5; }
+    to   { transform: scaleY(1);   opacity: 1;  }
+  }
+
+  /* CONTROLS */
+  .ctrls {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 10px;
   }
+  .cbtn {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--rim);
+    background: var(--glass);
+    color: var(--snow);
+    font-family: var(--fDisplay);
+    font-size: 16px; font-weight: 700; letter-spacing: .08em;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .1s, box-shadow .15s;
+  }
+  .cbtn:active { transform: scale(.96); }
+  .cbtn:hover  { background: var(--glass2); border-color: var(--rim); }
 
-  .stickyLeft{
-    justify-content: flex-start;
+  .cbtn.play {
+    background: var(--signal);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 8px 28px var(--signal-glow);
+  }
+  .cbtn.play:hover { filter: brightness(1.1); }
+
+  .cbtn.stop {
+    border-color: rgba(255,23,68,.22);
+    color: var(--signal);
+  }
+  .cbtn.stop:hover { background: var(--signal-dim); }
+
+  .vol-row {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--rim2);
+    background: var(--glass);
+    margin-top: 2px;
+  }
+  .vol-lbl {
+    font-family: var(--fDisplay);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--fog2); width: 64px; flex-shrink: 0;
+  }
+  input[type=range] {
+    flex: 1; height: 4px;
+    -webkit-appearance: none; appearance: none;
+    background: rgba(255,255,255,.12);
+    border-radius: 999px; outline: none; cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--freq);
+    box-shadow: 0 0 8px var(--freq-glow);
+    cursor: pointer;
   }
 
-  .stickyMid{
-    width: 100%;
+  .status-row {
+    margin-top: 14px; padding: 10px 14px;
+    border-radius: 10px;
+    background: rgba(0,0,0,.28);
+    border: 1px solid var(--rim2);
+    font-size: 12px; color: var(--fog2);
+    display: flex; justify-content: space-between; gap: 10px;
+  }
+  .status-row .accent { color: var(--freq); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SIDEBAR
+  ═══════════════════════════════════════════════════════════════ */
+  .sidebar { display: flex; flex-direction: column; gap: var(--gap); }
+
+  .sid-card {
+    border-radius: var(--r);
+    border: 1px solid var(--rim);
+    background: var(--ink1);
+    overflow: hidden;
+  }
+  .sid-card-inner { padding: 22px; }
+
+  /* frequency dial */
+  .freq-dial {
+    text-align: center;
+    padding: 24px 0 18px;
+  }
+  .freq-big {
+    font-family: var(--fDisplay);
+    font-size: 72px; font-weight: 900; line-height: 1;
+    letter-spacing: .04em;
+    background: linear-gradient(135deg, var(--freq), rgba(255,255,255,.9) 60%, var(--freq));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 18px var(--freq-glow));
+  }
+  .freq-fm {
+    font-family: var(--fDisplay);
+    font-size: 24px; font-weight: 600; color: var(--fog2);
+    letter-spacing: .08em;
+  }
+  .freq-sub {
+    font-size: 11px; letter-spacing: .20em; text-transform: uppercase;
+    color: var(--fog2); margin-top: 8px;
+  }
+  /* mini waveform under freq */
+  .mini-wave {
+    display: flex; align-items: flex-end; justify-content: center; gap: 3px;
+    height: 24px; margin-top: 16px; padding: 0 20px;
+  }
+  .mini-wave .mb {
+    flex: 1; border-radius: 2px;
+    background: var(--freq-dim);
+    border: 1px solid rgba(0,229,212,.18);
+    animation: mWave 1.4s ease-in-out infinite alternate;
+  }
+  .mini-wave .mb:nth-child(odd) { animation-delay: .15s; }
+  .mini-wave .mb:nth-child(3n)  { animation-delay: .30s; background: var(--freq-glow); }
+  @keyframes mWave {
+    from { height: 15%; opacity: .35; }
+    to   { height: 100%; opacity: 1;  }
   }
 
-  .stickyTitle{
-    white-space: normal;
-    font-size: 14px;
+  /* section label */
+  .sec-label {
+    font-family: var(--fDisplay);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--fog2); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sec-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--rim2);
   }
 
-  .stickyMeta{
-    justify-content: space-between;
+  .contact-list { display: flex; flex-direction: column; gap: 8px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--rim2);
+    background: var(--glass);
+    font-size: 13px; color: var(--fog);
+    transition: border-color .15s, background .15s, color .15s;
+  }
+  .contact-item:hover { border-color: var(--rim); background: var(--glass2); color: var(--snow); }
+  .c-icon {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: var(--glass2); border: 1px solid var(--rim2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
   }
 
-  .stickyRight{
-    width: 100%;
-    justify-content: space-between;
+  /* ═══════════════════════════════════════════════════════════════
+     CONTENT SECTIONS
+  ═══════════════════════════════════════════════════════════════ */
+  .content-section {
+    padding: 0 var(--gap) var(--gap);
+    max-width: var(--max); margin: 0 auto;
   }
 
-  .miniBtn{
-    flex: 1;
-    justify-content: center;
+  .sec-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; margin-bottom: var(--gap);
+  }
+  .sec-title {
+    font-family: var(--fDisplay);
+    font-size: 38px; font-weight: 900; line-height: 1;
+    letter-spacing: .04em;
+  }
+  .sec-title em { font-style: normal; color: var(--signal); }
+  .sec-title .t-freq { color: var(--freq); }
+
+  .tag-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--rim);
+    background: var(--glass);
+    font-family: var(--fDisplay);
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--fog); cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .tag-pill:hover { background: var(--glass2); color: var(--snow); }
+
+  /* ── NEWS GRID ── */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 680px) { .news-grid { grid-template-columns: 1fr; } }
+
+  .news-card {
+    display: flex; gap: 14px;
+    padding: 14px;
+    border-radius: var(--r);
+    border: 1px solid var(--rim2);
+    background: var(--ink1);
+    text-decoration: none;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    overflow: hidden; align-items: flex-start;
+  }
+  .news-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0,229,212,.28);
+    box-shadow: 0 12px 40px rgba(0,0,0,.45);
+  }
+  .n-img {
+    width: 108px; height: 76px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid var(--rim2);
+  }
+  .n-body { min-width: 0; flex: 1; }
+  .n-title {
+    font-size: 14px; font-weight: 700;
+    line-height: 1.35; color: var(--snow);
+    display: -webkit-box; -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .n-meta {
+    margin-top: 8px; font-size: 11px; color: var(--fog2);
+    display: flex; gap: 10px; align-items: center;
+  }
+  .n-read { color: var(--freq); font-weight: 700; }
+  .news-empty {
+    grid-column: 1 / -1; padding: 18px;
+    border-radius: var(--r); border: 1px dashed var(--rim2);
+    color: var(--fog2); font-size: 13px; text-align: center;
   }
 
-}
+  /* ── ROLLING STONE ── */
+  .rolling-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 12px;
+  }
+  .rolling-card {
+    border-radius: var(--r); border: 1px solid var(--rim2);
+    background: var(--ink1); overflow: hidden;
+    display: flex; flex-direction: column;
+    text-decoration: none; color: var(--snow);
+    transition: transform .2s, border-color .2s;
+  }
+  .rolling-card:hover { transform: translateY(-4px); border-color: rgba(255,152,0,.35); }
+  .rolling-img { width: 100%; height: 168px; object-fit: cover; }
+  .rolling-body { padding: 14px; }
+  .rolling-title { font-weight: 700; font-size: 14px; line-height: 1.3; margin-bottom: 6px; }
+  .rolling-date  { font-size: 11px; color: var(--fog2); }
+
+  /* ── PODCAST ── */
+  .pod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .pod-card {
+    border-radius: var(--r); border: 1px solid var(--rim2);
+    background: var(--ink1); overflow: hidden; padding: 16px;
+  }
+  .pod-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 12px;
+  }
+  .pod-name { font-weight: 700; font-size: 14px; }
+  .pod-tag {
+    font-family: var(--fDisplay);
+    font-size: 12px; font-weight: 700;
+    padding: 5px 10px; border-radius: 999px;
+    border: 1px solid rgba(0,229,212,.25);
+    background: var(--freq-dim); color: var(--freq);
+    white-space: nowrap;
+  }
+  .pod-iframe { border-radius: 12px; overflow: hidden; border: 1px solid var(--rim2); }
+  .pod-iframe iframe { width: 100%; height: 220px; border: 0; display: block; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     STICKY MINI PLAYER
+  ═══════════════════════════════════════════════════════════════ */
+  .sticky {
+    position: fixed; bottom: 14px; left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    width: min(var(--max), calc(100% - 24px));
+    z-index: 800;
+    transition: transform .38s cubic-bezier(.22,.9,.1,1);
+  }
+  .sticky.show { transform: translateX(-50%) translateY(0); }
+
+  .sticky-inner {
+    display: flex; align-items: center; gap: 14px;
+    padding: 11px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,.11);
+    background: rgba(5,9,15,.86);
+    backdrop-filter: blur(20px) saturate(1.6);
+    box-shadow: 0 20px 60px rgba(0,0,0,.65), 0 0 0 1px rgba(255,23,68,.10);
+  }
+
+  .st-wave { display: flex; align-items: flex-end; gap: 2px; height: 22px; flex-shrink: 0; }
+  .st-wave .b {
+    width: 3px; border-radius: 2px;
+    background: var(--signal);
+    animation: waveAnim .6s ease-in-out infinite alternate;
+  }
+  .st-wave .b:nth-child(2) { animation-delay: .1s; }
+  .st-wave .b:nth-child(3) { animation-delay: .2s; }
+  .st-wave .b:nth-child(4) { animation-delay: .3s; }
+  .st-wave .b:nth-child(5) { animation-delay: .4s; }
+  .st-wave .b:nth-child(1) { height: 40%; }
+  .st-wave .b:nth-child(2) { height: 80%; }
+  .st-wave .b:nth-child(3) { height: 55%; }
+  .st-wave .b:nth-child(4) { height: 95%; }
+  .st-wave .b:nth-child(5) { height: 65%; }
+
+  .st-info { flex: 1; min-width: 0; }
+  .st-name { font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .st-sub  {
+    font-size: 11px; color: var(--fog2); margin-top: 2px;
+    display: flex; gap: 8px; align-items: center;
+  }
+  .st-sub .dot-pulse { width: 6px; height: 6px; }
+
+  .st-btns { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+  .stbtn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 10px 18px; border-radius: 999px;
+    font-family: var(--fDisplay);
+    font-size: 15px; font-weight: 700; letter-spacing: .08em;
+    cursor: pointer;
+    transition: filter .15s, transform .1s;
+  }
+  .stbtn:active { transform: scale(.95); }
+  .stbtn.play { background: var(--signal); border: none; color: #fff; box-shadow: 0 4px 16px var(--signal-glow); }
+  .stbtn.play:hover { filter: brightness(1.12); }
+  .stbtn.stp  { background: transparent; border: 1px solid var(--rim); color: var(--fog); }
+  .stbtn.stp:hover { background: var(--glass2); color: var(--snow); }
+  .st-clock { font-size: 12px; color: var(--fog2); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     MOBILE MENU
+  ═══════════════════════════════════════════════════════════════ */
+  .mob-veil {
+    position: fixed; inset: 0; z-index: 950;
+    background: rgba(0,0,0,.6); backdrop-filter: blur(5px);
+    display: none; align-items: flex-end; padding: 12px;
+  }
+  .mob-veil.open { display: flex; }
+  .mob-sheet {
+    width: min(520px, 100%);
+    border-radius: 24px;
+    border: 1px solid var(--rim);
+    background: var(--ink1);
+    box-shadow: 0 24px 80px rgba(0,0,0,.7);
+    overflow: hidden;
+  }
+  .mob-hd {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 16px; border-bottom: 1px solid var(--rim2);
+  }
+  .mob-brand {
+    font-family: var(--fDisplay);
+    font-size: 28px; font-weight: 900; letter-spacing: .06em;
+  }
+  .mob-close {
+    width: 42px; height: 42px; border-radius: 14px;
+    border: 1px solid var(--rim); background: var(--glass);
+    color: var(--snow); font-size: 18px; cursor: pointer;
+  }
+  .mob-links { padding: 12px; display: grid; gap: 8px; }
+  .mob-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 1px solid var(--rim2); background: var(--glass);
+    font-family: var(--fDisplay);
+    font-size: 18px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase;
+    color: var(--fog);
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .mob-link:hover { background: var(--glass2); border-color: var(--rim); color: var(--snow); }
+  .mob-link::after { content: '›'; font-size: 22px; color: var(--fog2); }
+  .mob-ft { padding: 14px; border-top: 1px solid var(--rim2); font-size: 12px; color: var(--fog2); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════════════════════════════ */
+  .site-ft {
+    max-width: var(--max); margin: 0 auto;
+    padding: 18px var(--gap) 32px;
+    border-top: 1px solid var(--rim2);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; flex-wrap: wrap;
+    font-size: 12px; color: var(--fog2);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     RESPONSIVE
+  ═══════════════════════════════════════════════════════════════ */
+  @media (max-width: 860px) {
+    nav.hdr-nav { display: none; }
+    .hbg { display: flex; }
+    .on-air { display: none; }
+    .hero-bottom { flex-direction: column; align-items: flex-start; }
+    .btn-play-hero { width: 100%; justify-content: center; }
+  }
+  @media (max-width: 640px) {
+    :root { --hh: 66px; }
+    .player-inner { padding: 18px; }
+    .stn-name { font-size: 30px; }
+    .freq-big { font-size: 54px; }
+    .ctrls { grid-template-columns: 1fr 1fr; }
+    .cbtn.play { grid-column: 1 / -1; }
+    .sticky-inner { gap: 8px; }
+    .st-clock { display: none; }
+    .sec-title { font-size: 28px; }
+    .two-col { gap: 12px; }
+  }
   </style>
 </head>
 
 <body>
+<div class="ambient"></div>
 
-  <!-- HEADER (sovrapposto allo slideshow e fisso) -->
-  <header class="topbar2">
-    <div class="topbar2-inner">
-      <a class="topbar2-logo" href="/radio/" aria-label="Home Grandangolo Radio">
-        <img
-          src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/LOGO-NUOVO-NEWS-ON-RADIO-1.png"
-          alt="Grandangolo Radio"
-          decoding="async"
-          loading="eager"
-          referrerpolicy="no-referrer"
-        />
-      </a>
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+  <div class="hdr-inner">
+    <a class="hdr-logo" href="/radio/" aria-label="Grandangolo Radio">
+      <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/LOGO-NUOVO-NEWS-ON-RADIO-1.png" alt="Grandangolo Radio">
+    </a>
 
-      <nav class="topbar2-nav" aria-label="Menu">
-        <a href="#home">HOME</a>
-        <a href="#diretta">DIRETTA</a>
-        <a href="#podcast">PODCAST</a>
-        <a href="#contatti">CONTATTI</a>
-      </nav>
+    <nav class="hdr-nav" aria-label="Navigazione">
+      <a href="#home">Home</a>
+      <a href="#diretta">Diretta</a>
+      <a href="#notizie">Notizie</a>
+      <a href="#podcast">Podcast</a>
+      <a href="#contatti">Contatti</a>
+    </nav>
 
-      <div class="topbar2-right">
-        <span class="livePill" title="Siamo live">
-          <span class="liveDot"></span>
-          <span class="liveText">IN DIRETTA</span>
-        </span>
+    <div class="hdr-right">
+      <div class="on-air">
+        <span class="dot-pulse"></span>
+        In Diretta
+      </div>
+      <button class="hbg" id="openMenu" type="button" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-        <button class="hamburger2" id="openMenu" type="button" aria-label="Apri menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+<!-- ══════════════ HERO SLIDER ══════════════ -->
+<section class="hero-wrap z1" id="home">
+  <div class="slider-shell" id="promoSlider">
+
+    <div class="fm-stamp">
+      <div class="fm-stamp-inner">
+        <span class="fm-eyebrow">Grandangolo Radio</span>
+        <span class="fm-number">104.8<span class="fm-unit"> FM</span></span>
       </div>
     </div>
-  </header>
 
-  <!-- HERO / SLIDESHOW -->
-  <section class="heroBlock" id="home" aria-label="Promo">
-    <div class="slider" id="promoSlider">
-      <div class="sliderBadge">Promo</div>
-      <div class="slides" id="slides"></div>
+    <div class="slides-track" id="slides"></div>
 
-      <div class="heroOverlay">
-       
-
-        <div class="heroActions">
-          <button="" id="heroPlayTop" type
-        </div>
+      <div class="hero-copy">
       </div>
+      <button class="btn-play-hero" id="heroPlayTop" type="button">
+      </button>
+    </div>
 
-      <div class="sliderUI">
-        <div class="dots" id="dots"></div>
-        <div class="arrows">
-          <button class="arrowBtn" id="prevSlide" type="button" aria-label="Slide precedente">‹</button>
-          <button class="arrowBtn" id="nextSlide" type="button" aria-label="Slide successiva">›</button>
+    <div class="slider-nav">
+      <div class="s-dots" id="sDots"></div>
+      <div class="s-arrows">
+        <button class="s-arr" id="prevSlide" type="button" aria-label="Precedente">‹</button>
+        <button class="s-arr" id="nextSlide" type="button" aria-label="Successivo">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TWO COLUMN ══════════════ -->
+<div class="two-col z1">
+
+  <!-- PLAYER -->
+  <section id="diretta">
+    <div class="player-card">
+      <div class="spectrum-bar"></div>
+      <div class="player-inner">
+        <div class="player-top">
+          <div>
+            <div class="air-tag">
+              <span class="dot-pulse" style="width:6px;height:6px;"></span>
+              In Diretta · FM 104.800
+            </div>
+            <div class="stn-name">GRANDANGOLO</div>
+            <div class="stn-sub">Grandangolo Settimanale · Agrigento</div>
+          </div>
+          <div class="clock-chip" id="clockTop">00:00:00</div>
+        </div>
+
+        <div class="wave-viz" id="waveViz">
+          <div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div>
+          <div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div>
+          <div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div>
+          <div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div>
+          <div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div>
+        </div>
+
+        <div class="ctrls">
+          <button class="cbtn play" id="playBtn" type="button">
+            <span id="playIcon">▶</span><span id="playText">Play</span>
+          </button>
+          <button class="cbtn" id="pauseBtn" type="button">⏸ Pausa</button>
+          <button class="cbtn stop" id="stopBtn" type="button">⏹ Stop</button>
+          <div class="vol-row">
+            <span class="vol-lbl">Volume</span>
+            <input id="vol" type="range" min="0" max="1" step="0.01" value="0.85">
+          </div>
+        </div>
+
+        <div class="status-row">
+          <span id="statusLine">Stato: pronto</span>
+          <span>Stream: <span class="accent">/stream</span></span>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="wrap">
-    <!-- DIRETTA (subito sotto) -->
-    <section class="card hero" id="diretta">
-      <div class="badge">
-        <span class="liveDot"></span>
-        <span class="liveText">IN DIRETTA</span>
-        <span style="opacity:.8">• FM 104.800</span>
-      </div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
 
-      <div class="playerBox" id="mainPlayer">
-        <div class="playerTop">
-          <div>
-            <div class="onAirLabel">Ora in onda</div>
-            <div class="onAirTitle">Diretta</div>
-            <div class="onAirMeta">Grandangolo Settimanale</div>
-          </div>
-
-          <div class="nowTime" title="Orario locale">
-            <span class="liveText" style="animation:none">IN DIRETTA</span>
-            <span class="clock" id="clockTop">—</span>
-          </div>
-        </div>
-
-        <!-- AUDIO -->
-        <audio id="audio" preload="none" playsinline></audio>
-
-        <div class="controls">
-          <button class="btn primary" id="playBtn" type="button">
-            <span id="playIcon">▶</span> <span id="playText">Play</span>
-          </button>
-
-          <button class="btn" id="pauseBtn" type="button">⏸ Pausa</button>
-
-          <button class="btn danger" id="stopBtn" type="button">⏹ Stop</button>
-
-          <div class="volRow">
-            <label for="vol">Volume</label>
-            <input id="vol" type="range" min="0" max="1" step="0.01" value="0.85" />
-          </div>
-        </div>
-
-        <div class="metaRow">
-          <div id="statusLine">Stato: pronto</div>
-          <div>Stream: <span style="color:rgba(255,255,255,.78)">/stream</span></div>
+    <div class="sid-card">
+      <div class="sid-card-inner" style="padding:0">
+        <div class="freq-dial">
+          <div class="freq-big">104.8<span class="freq-fm"> FM</span></div>
+          <div class="freq-sub">Agrigento · Provincia</div>
+          <div class="mini-wave" id="miniWave"></div>
         </div>
       </div>
-    </section>
-<!-- ====== NOTIZIE (4) con immagine - WP JSON (SENZA NETLIFY) ====== -->
-<section class="section" id="notizie">
-  <div class="sectionHead">
-    <h2>Ultime notizie</h2>
-    <span id="newsMeta">Aggiornamento…</span>
-  </div>
-
-  <div class="card" style="padding:14px">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
-      <div class="badge" style="gap:10px;">
-        <span class="liveDot"></span>
-        <span style="font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#ff2a4d;">
-          LIVE DA GRANDANGOLO
-        </span>
-      </div>
-
-      <button class="btnSmall" id="refreshNews" type="button">↻ Aggiorna</button>
     </div>
 
-    <div class="newsGrid" id="newsGrid">
-      <div class="newsEmpty">Caricamento notizie…</div>
-    </div>
-  </div>
-</section>
-
-<style>
-  .newsGrid{
-    display:grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap:12px;
-  }
-  .newsCard{
-    display:flex;
-    gap:12px;
-    padding:12px;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,.10);
-    background: rgba(255,255,255,.05);
-    text-decoration:none;
-    transition: transform .15s ease, border-color .15s ease;
-    overflow:hidden;
-    min-height: 104px;
-  }
-  .newsCard:hover{ transform: translateY(-2px); border-color: rgba(0,163,255,.35); }
-  .newsImg{
-    width:124px;
-    height:84px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,.10);
-    background: rgba(0,0,0,.2);
-    object-fit: cover;
-    flex:0 0 auto;
-  }
-  .newsBody{ min-width:0; }
-  .newsTitle{
-    font-weight:950;
-    color: rgba(255,255,255,.92);
-    line-height:1.25;
-    display:-webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow:hidden;
-  }
-  .newsMetaRow{
-    margin-top:8px;
-    font-size:12px;
-    color: rgba(255,255,255,.62);
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  .newsEmpty{
-    color: rgba(255,255,255,.65);
-    padding:12px;
-    border-radius:16px;
-    border:1px dashed rgba(255,255,255,.14);
-    background: rgba(0,0,0,.18);
-    grid-column:1/-1;
-  }
-  @media (max-width: 980px){
-    .newsGrid{ grid-template-columns: 1fr; }
-    .newsImg{ width:116px; height:78px; }
-  }
-</style>
-
-<script>
-  // --- WP REST API: 4 post + _embed per avere la featured image ---
-  const WP_POSTS_API = "https://www.grandangoloagrigento.it/wp-json/wp/v2/posts?per_page=4&_embed=1";
-
-  const newsGrid = document.getElementById("newsGrid");
-  const newsMeta = document.getElementById("newsMeta");
-  const refreshNews = document.getElementById("refreshNews");
-
-  const fallbackImg = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
-    <svg xmlns="http://www.w3.org/2000/svg" width="400" height="260">
-      <defs>
-        <linearGradient id="g" x1="0" x2="1">
-          <stop offset="0" stop-color="#00a3ff" stop-opacity="0.65"/>
-          <stop offset="0.6" stop-color="#26f2a3" stop-opacity="0.45"/>
-          <stop offset="1" stop-color="#ff2a4d" stop-opacity="0.35"/>
-        </linearGradient>
-      </defs>
-      <rect width="100%" height="100%" fill="#0b0e14"/>
-      <rect width="100%" height="100%" fill="url(#g)" opacity="0.45"/>
-      <text x="18" y="70" fill="#ffffff" font-family="Arial" font-size="28" font-weight="800">Grandangolo</text>
-      <text x="18" y="110" fill="#ffffff" opacity="0.85" font-family="Arial" font-size="18">Ultime notizie</text>
-    </svg>
-  `);
-
-  function esc(s){
-    return String(s).replace(/[&<>"']/g, m => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[m]));
-  }
-
-  function getFeaturedImage(post){
-    // WP: _embedded["wp:featuredmedia"][0].source_url
-    try{
-      const fm = post?._embedded?.["wp:featuredmedia"]?.[0];
-      return fm?.source_url || fm?.media_details?.sizes?.medium?.source_url || "";
-    }catch{
-      return "";
-    }
-  }
-
-  function fmtDate(iso){
-    try{
-      return new Date(iso).toLocaleString("it-IT", {
-        day:"2-digit", month:"2-digit", year:"numeric",
-        hour:"2-digit", minute:"2-digit"
-      });
-    }catch{ return ""; }
-  }
-
-  async function loadNews(){
-    try{
-      newsMeta.textContent = "Aggiornamento…";
-      newsGrid.innerHTML = `<div class="newsEmpty">Caricamento notizie…</div>`;
-
-      // cache bust per evitare risposte vecchie
-      const url = WP_POSTS_API + "&_ts=" + Date.now();
-      const res = await fetch(url, { cache: "no-store" });
-      if(!res.ok) throw new Error("HTTP " + res.status);
-
-      const posts = await res.json();
-      if(!Array.isArray(posts) || posts.length === 0){
-        newsGrid.innerHTML = `<div class="newsEmpty">Nessuna notizia trovata.</div>`;
-        newsMeta.textContent = "Nessuna notizia";
-        return;
-      }
-
-      newsGrid.innerHTML = posts.slice(0,4).map(p => {
-        const title = p?.title?.rendered ? p.title.rendered.replace(/<[^>]*>/g,"") : "Notizia";
-        const link = p?.link || "#";
-        const date = fmtDate(p?.date);
-        const img = getFeaturedImage(p) || fallbackImg;
-
-        return `
-          <a class="newsCard" href="${link}" target="_blank" rel="noopener">
-            <img class="newsImg" src="${img}" alt="">
-            <div class="newsBody">
-              <div class="newsTitle">${esc(title)}</div>
-              <div class="newsMetaRow">
-                ${date ? `<span>🕒 ${esc(date)}</span>` : ""}
-                <span style="color:rgba(38,242,163,.9);font-weight:900">Leggi →</span>
-              </div>
-            </div>
+    <div class="sid-card" id="contatti">
+      <div class="sid-card-inner">
+        <div class="sec-label">Contatti</div>
+        <div class="contact-list">
+          <a class="contact-item" href="mailto:redazione@grandangoloagrigento.it">
+            <div class="c-icon">✉</div>
+            redazione@grandangoloagrigento.it
           </a>
-        `;
-      }).join("");
-
-      newsMeta.textContent = "Aggiornato ora";
-    }catch(e){
-      console.error(e);
-      newsGrid.innerHTML = `
-        <div class="newsEmpty">
-          Errore nel caricamento notizie. Premi “Aggiorna”.
-          <div style="margin-top:8px;color:rgba(255,255,255,.55);font-size:12px;">
-            (Se continua: potrebbe essere bloccato dal browser/CORS. In quel caso lo risolviamo con un feed interno nel tuo dominio.)
+          <div class="contact-item">
+            <div class="c-icon">📻</div>
+            FM 104.800 · Agrigento
           </div>
-        </div>`;
-      newsMeta.textContent = "Errore";
-    }
-  }
+          <a class="contact-item" href="https://www.grandangoloagrigento.it" target="_blank" rel="noopener">
+            <div class="c-icon">🌐</div>
+            grandangoloagrigento.it
+          </a>
+        </div>
+      </div>
+    </div>
 
-  refreshNews?.addEventListener("click", loadNews);
-  loadNews();
-  setInterval(loadNews, 5 * 60 * 1000);
-</script>
-<section id="rollingNews" style="margin-top:24px;">
-  <h2 style="margin-bottom:16px;font-size:22px;color:#fff;">
-    
-  </h2>
-  <div id="rollingCards" style="
-      display:grid;
-      gap:20px;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  "></div>
-</section>
+  </aside>
+</div>
 
-<style>
-.rollingCard{
-  background:rgba(0,0,0,.25);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:18px;
-  overflow:hidden;
-  text-decoration:none;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  transition:.2s ease;
-}
-.rollingCard:hover{
-  transform:translateY(-4px);
-  border-color:#26f2a3;
-}
-.rollingImg{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  display:block;
-}
-.rollingBody{
-  padding:14px;
-}
-.rollingTitle{
-  font-weight:900;
-  font-size:17px;
-  line-height:1.25;
-  margin-bottom:8px;
-}
-.rollingDate{
-  font-size:12px;
-  color:rgba(255,255,255,.6);
-}
-</style>
+<!-- ══════════════ NOTIZIE ══════════════ -->
+<div class="content-section z1" id="notizie">
+  <div class="sec-header">
+    <h2 class="sec-title">Ultime <em>Notizie</em></h2>
+    <button class="tag-pill" id="refreshNews" type="button">↻ Aggiorna</button>
+  </div>
+  <div class="news-grid" id="newsGrid">
+    <div class="news-empty">Caricamento notizie…</div>
+  </div>
+</div>
+
+<!-- ══════════════ MUSICA ══════════════ -->
+<div class="content-section z1">
+  <div class="sec-header">
+    <h2 class="sec-title">Musica &amp; <span class="t-freq">Cultura</span></h2>
+    <span style="font-size:12px;color:var(--fog2)">da Rolling Stone Italia</span>
+  </div>
+  <div class="rolling-grid" id="rollingGrid">
+    <div class="news-empty">Caricamento…</div>
+  </div>
+</div>
+
+<!-- ══════════════ PODCAST ══════════════ -->
+<div class="content-section z1" id="podcast">
+  <div class="sec-header">
+    <h2 class="sec-title">Podcast &amp; <em>Registrazioni</em></h2>
+    <span style="font-size:12px;color:var(--fog2)">da Spotify</span>
+  </div>
+  <div class="pod-grid" id="podGrid"></div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="site-ft z1">
+  <span>© <span id="year"></span> Grandangolo Radio · Agrigento FM 104.800</span>
+  <a href="#home" style="color:var(--fog2)">↑ Torna su</a>
+</footer>
+
+<!-- ══════════════ STICKY PLAYER ══════════════ -->
+<div class="sticky" id="stickyPlayer">
+  <div class="sticky-inner">
+    <div class="st-wave">
+      <div class="b"></div><div class="b"></div><div class="b"></div>
+      <div class="b"></div><div class="b"></div>
+    </div>
+    <div class="st-info">
+      <div class="st-name">Grandangolo Radio · FM 104.800</div>
+      <div class="st-sub">
+        <span class="dot-pulse"></span>
+        <span id="stickyStatus">pronto</span>
+      </div>
+    </div>
+    <span class="st-clock" id="clockSticky"></span>
+    <div class="st-btns">
+      <button class="stbtn play" id="stickyPlay" type="button">
+        <span id="stickyIcon">▶</span> <span id="stickyText">Play</span>
+      </button>
+      <button class="stbtn stp" id="stickyStop" type="button">⏹</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MOBILE MENU ══════════════ -->
+<div class="mob-veil" id="menuOverlay" aria-hidden="true">
+  <div class="mob-sheet" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="mob-hd">
+      <div class="mob-brand">GRANDANGOLO</div>
+      <button class="mob-close" id="closeMenu" type="button" aria-label="Chiudi">✕</button>
+    </div>
+    <div class="mob-links">
+      <a href="#home"     class="mob-link">Home</a>
+      <a href="#diretta"  class="mob-link">Diretta</a>
+      <a href="#notizie"  class="mob-link">Notizie</a>
+      <a href="#podcast"  class="mob-link">Podcast</a>
+      <a href="#contatti" class="mob-link">Contatti</a>
+    </div>
+    <div class="mob-ft">Grandangolo Radio · FM 104.800 Agrigento</div>
+  </div>
+</div>
+
+<audio id="audio" preload="none" playsinline></audio>
 
 <script>
-(async function(){
+/* ════════════════════════════════════════════════
+   CONFIG
+════════════════════════════════════════════════ */
+const STREAM_URL = "https://nr11.newradio.it/proxy/ncastron?mp=/stream?ext=.mp3";
+const PROMOS = [
+  "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_54f423.jpg",
+  "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_b5d204.jpg"
+];
+const PODCASTS = [
+  { title: "Episodio Spotify", url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7", tag: "Spotify" }
+];
+const WP_API = "https://www.grandangoloagrigento.it/wp-json/wp/v2/posts?per_page=4&_embed=1";
 
-  const API = "https://www.rollingstone.it/wp-json/wp/v2/posts?per_page=6&_embed=1";
+/* ════════════════════════════════════════════════
+   CLOCK
+════════════════════════════════════════════════ */
+const $clockTop    = document.getElementById("clockTop");
+const $clockSticky = document.getElementById("clockSticky");
+function tick() {
+  const t = new Date().toLocaleTimeString("it-IT");
+  $clockTop.textContent = t;
+  $clockSticky.textContent = t;
+}
+tick(); setInterval(tick, 1000);
+document.getElementById("year").textContent = new Date().getFullYear();
 
-  const container = document.getElementById("rollingCards");
+/* ════════════════════════════════════════════════
+   MINI-WAVE BUILD
+════════════════════════════════════════════════ */
+const miniWaveEl = document.getElementById("miniWave");
+for (let i = 0; i < 20; i++) {
+  const b = document.createElement("div");
+  b.className = "mb";
+  b.style.height = (Math.random() * 75 + 20) + "%";
+  b.style.animationDelay = (Math.random() * 1.4) + "s";
+  b.style.animationDuration = (.7 + Math.random() * .9) + "s";
+  miniWaveEl.appendChild(b);
+}
 
-  try{
-    const res = await fetch(API);
+/* ════════════════════════════════════════════════
+   AUDIO
+════════════════════════════════════════════════ */
+const audio      = document.getElementById("audio");
+const playBtn    = document.getElementById("playBtn");
+const pauseBtn   = document.getElementById("pauseBtn");
+const stopBtn    = document.getElementById("stopBtn");
+const playIcon   = document.getElementById("playIcon");
+const playText   = document.getElementById("playText");
+const volEl      = document.getElementById("vol");
+const statusLine = document.getElementById("statusLine");
+const waveViz    = document.getElementById("waveViz");
+
+const stickyEl     = document.getElementById("stickyPlayer");
+const stickyStatus = document.getElementById("stickyStatus");
+const stickyPlay   = document.getElementById("stickyPlay");
+const stickyStop   = document.getElementById("stickyStop");
+const stickyIcon   = document.getElementById("stickyIcon");
+const stickyText   = document.getElementById("stickyText");
+
+let isPlaying = false;
+
+function setStatus(t) { statusLine.textContent = "Stato: " + t; stickyStatus.textContent = t; }
+function setUI(on) {
+  isPlaying = on;
+  playIcon.textContent  = on ? "⏸" : "▶";
+  playText.textContent  = on ? "Pausa" : "Play";
+  stickyIcon.textContent = on ? "⏸" : "▶";
+  stickyText.textContent = on ? "Pausa" : "Play";
+  waveViz.classList.toggle("live", on);
+}
+
+async function doPlay() {
+  try {
+    setStatus("connessione…");
+    if (audio.src !== STREAM_URL) audio.src = STREAM_URL;
+    await audio.play();
+    setUI(true); setStatus("in riproduzione");
+  } catch(e) { console.error(e); setUI(false); setStatus("tocca Play di nuovo"); }
+}
+function doPause() { audio.pause(); setUI(false); setStatus("in pausa"); }
+function doStop()  {
+  audio.pause(); audio.removeAttribute("src"); audio.load();
+  setUI(false); setStatus("pronto");
+}
+
+playBtn.addEventListener("click",   () => isPlaying ? doPause() : doPlay());
+pauseBtn.addEventListener("click",  doPause);
+stopBtn.addEventListener("click",   doStop);
+stickyPlay.addEventListener("click",() => isPlaying ? doPause() : doPlay());
+stickyStop.addEventListener("click",doStop);
+volEl.addEventListener("input", () => { audio.volume = Math.min(1, Math.max(0, +volEl.value)); });
+audio.addEventListener("waiting", () => setStatus("buffering…"));
+audio.addEventListener("error",   () => { setUI(false); setStatus("errore stream"); });
+audio.volume = 0.85; setUI(false); setStatus("pronto");
+
+document.getElementById("heroPlayTop").addEventListener("click", () => {
+  document.getElementById("diretta").scrollIntoView({ behavior: "smooth" });
+  setTimeout(doPlay, 260);
+});
+
+// sticky visibility
+new IntersectionObserver(([e]) => {
+  stickyEl.classList.toggle("show", !e.isIntersecting);
+}, { threshold: 0.1 }).observe(document.querySelector(".player-card"));
+
+/* ════════════════════════════════════════════════
+   SLIDER
+════════════════════════════════════════════════ */
+const slidesEl = document.getElementById("slides");
+const sDotsEl  = document.getElementById("sDots");
+const slider   = document.getElementById("promoSlider");
+let cur = 0, autoT = null;
+
+function buildSlider() {
+  const list = PROMOS.length ? PROMOS : [
+    "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600"><rect width="100%" height="100%" fill="#07090f"/><text x="50%" y="50%" fill="#222" font-size="32" text-anchor="middle" font-family="Arial">Grandangolo Radio</text></svg>')
+  ];
+  slidesEl.innerHTML = list.map(src => `<div class="slide"><img src="${src}" alt="Promo"></div>`).join("");
+  sDotsEl.innerHTML = list.map((_, i) =>
+    `<button class="s-dot${i===0?' active':''}" data-i="${i}" type="button" aria-label="Slide ${i+1}"></button>`
+  ).join("");
+  sDotsEl.querySelectorAll(".s-dot").forEach(b => b.addEventListener("click", () => goTo(+b.dataset.i)));
+  render();
+}
+function render() {
+  slidesEl.style.transform = `translateX(-${cur * 100}%)`;
+  sDotsEl.querySelectorAll(".s-dot").forEach((d,i) => d.classList.toggle("active", i === cur));
+}
+function goTo(i, restart = true) {
+  cur = (i + (slidesEl.children.length || 1)) % (slidesEl.children.length || 1);
+  render(); if (restart) startAuto();
+}
+function startAuto() {
+  clearInterval(autoT);
+  if ((slidesEl.children.length || 0) <= 1) return;
+  autoT = setInterval(() => goTo(cur + 1, false), 4800);
+}
+document.getElementById("prevSlide").addEventListener("click", () => goTo(cur - 1));
+document.getElementById("nextSlide").addEventListener("click", () => goTo(cur + 1));
+slider.addEventListener("mouseenter", () => clearInterval(autoT));
+slider.addEventListener("mouseleave", startAuto);
+
+let sx = null;
+slider.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+slider.addEventListener("touchend",   e => {
+  if (sx === null) return;
+  const dx = e.changedTouches[0].clientX - sx;
+  if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
+  sx = null;
+}, { passive: true });
+
+buildSlider(); startAuto();
+
+/* ════════════════════════════════════════════════
+   NEWS — WP REST
+════════════════════════════════════════════════ */
+const newsGrid = document.getElementById("newsGrid");
+const FALLBACK = `data:image/svg+xml;charset=utf-8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><rect width="100%" height="100%" fill="#0b1220"/><text x="50%" y="50%" fill="#1a2030" font-size="20" text-anchor="middle" font-family="Arial">Grandangolo</text></svg>')}`;
+
+function esc(s) { return String(s).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])); }
+function getFImg(p) { try { return p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || ""; } catch { return ""; } }
+function fmtDate(iso) {
+  try { return new Date(iso).toLocaleDateString("it-IT", { day:"2-digit", month:"long", year:"numeric" }); } catch { return ""; }
+}
+
+async function loadNews() {
+  try {
+    newsGrid.innerHTML = `<div class="news-empty">Caricamento…</div>`;
+    const res = await fetch(WP_API + "&_ts=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) throw new Error();
     const posts = await res.json();
-
-    container.innerHTML = posts.map(post => {
-
-      const title = post.title.rendered.replace(/<[^>]+>/g,'');
-      const link  = post.link;
-      const date  = new Date(post.date).toLocaleDateString("it-IT", {
-        day:"2-digit", month:"2-digit", year:"numeric"
-      });
-
-      let image = "";
-      if(post._embedded && post._embedded["wp:featuredmedia"]){
-        image = post._embedded["wp:featuredmedia"][0].source_url;
-      }
-
+    if (!posts.length) { newsGrid.innerHTML = `<div class="news-empty">Nessuna notizia.</div>`; return; }
+    newsGrid.innerHTML = posts.slice(0,4).map(p => {
+      const title = (p.title?.rendered || "Notizia").replace(/<[^>]*>/g, "");
+      const img   = getFImg(p) || FALLBACK;
+      const date  = fmtDate(p.date);
       return `
-        <a class="rollingCard" href="${link}" target="_blank">
-          <img class="rollingImg" src="${image}" alt="">
-          <div class="rollingBody">
-            <div class="rollingTitle">${title}</div>
-            <div class="rollingDate">${date}</div>
+        <a class="news-card" href="${p.link||'#'}" target="_blank" rel="noopener">
+          <img class="n-img" src="${img}" alt="" loading="lazy">
+          <div class="n-body">
+            <div class="n-title">${esc(title)}</div>
+            <div class="n-meta">
+              ${date ? `<span>🕒 ${esc(date)}</span>` : ''}
+              <span class="n-read">Leggi →</span>
+            </div>
           </div>
-        </a>
-      `;
+        </a>`;
     }).join("");
-
-  } catch(err){
-    container.innerHTML = "<div style='color:#fff'>Errore caricamento notizie.</div>";
+  } catch {
+    newsGrid.innerHTML = `<div class="news-empty">Errore caricamento. Premi Aggiorna.</div>`;
   }
+}
+document.getElementById("refreshNews").addEventListener("click", loadNews);
+loadNews(); setInterval(loadNews, 5 * 60 * 1000);
 
-})();
-</script>
-    <!-- PODCAST -->
-    <section class="section" id="podcast">
-      <div class="sectionHead">
-        <h2>Podcast & Registrazioni</h2>
-        <span>da Spotify</span>
-      </div>
-
-      <div class="card" style="padding:14px">
-        <div class="podGrid" id="podGrid"></div>
-      </div>
-    </section>
-
-    <!-- CONTATTI -->
-    <section class="section" id="contatti">
-      <div class="sectionHead">
-        <h2>Contatti</h2>
-        <span>email / social</span>
-      </div>
-
-      <div class="card" style="padding:14px">
-        <div style="color:var(--muted); font-size:14px; line-height:1.7;">
-          Email: <a href="mailto:redazione@grandangoloagrigento.it">redazione@grandangoloagrigento.it</a>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div>© <span id="year"></span> Grandangolo Settimanale - Radio In Agrigento FM 104.800</div>
-      <div><a href="#home">Torna su</a></div>
-    </footer>
-  </div>
-
-  <!-- MINI PLAYER STICKY -->
-  <div class="stickyPlayer" id="stickyPlayer" aria-hidden="true">
-    <div class="stickyInner">
-      <div class="stickyLeft">
-        <span class="liveDot"></span>
-        <span class="liveText">IN DIRETTA</span>
-      </div>
-
-      <div class="stickyMid">
-        <div class="stickyTitle">Diretta • Grandangolo</div>
-        <div class="stickyMeta">
-          <span id="stickyStatus">pronto</span>
-          <span class="miniClock" id="clockSticky">—</span>
-        </div>
-      </div>
-
-      <div class="stickyRight">
-        <button class="miniBtn" id="stickyPlay" type="button">
-          <span id="stickyIcon">▶</span> <span id="stickyText">Play</span>
-        </button>
-        <button class="miniBtn alt" id="stickyStop" type="button">⏹</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOBILE MENU -->
-  <div class="menuOverlay" id="menuOverlay" aria-hidden="true">
-    <div class="menuSheet" role="dialog" aria-modal="true" aria-label="Menu">
-      <div class="menuTop">
-        <div class="menuBrand">
-          <div class="menuLogo" aria-hidden="true"></div>
-          <div>
-            <div class="menuT1">Grandangolo Radio</div>
-            <div class="menuT2">Navigazione</div>
+/* ════════════════════════════════════════════════
+   ROLLING STONE
+════════════════════════════════════════════════ */
+(async () => {
+  const c = document.getElementById("rollingGrid");
+  try {
+    const res = await fetch("https://www.rollingstone.it/wp-json/wp/v2/posts?per_page=6&_embed=1");
+    const posts = await res.json();
+    c.innerHTML = posts.map(p => {
+      const title = p.title.rendered.replace(/<[^>]+>/g,"");
+      const date  = new Date(p.date).toLocaleDateString("it-IT", { day:"2-digit", month:"2-digit", year:"numeric" });
+      const img   = p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "";
+      return `
+        <a class="rolling-card" href="${p.link}" target="_blank" rel="noopener">
+          ${img ? `<img class="rolling-img" src="${img}" alt="" loading="lazy">` : ""}
+          <div class="rolling-body">
+            <div class="rolling-title">${title}</div>
+            <div class="rolling-date">${date}</div>
           </div>
-        </div>
-        <button class="menuClose" id="closeMenu" type="button" aria-label="Chiudi menu">✕</button>
+        </a>`;
+    }).join("");
+  } catch { c.innerHTML = `<div class="news-empty">Errore caricamento Rolling Stone.</div>`; }
+})();
+
+/* ════════════════════════════════════════════════
+   PODCAST
+════════════════════════════════════════════════ */
+function toEmbed(url) {
+  try {
+    const p = new URL(url).pathname.split("/").filter(Boolean);
+    if (!["episode","show"].includes(p[0])) return null;
+    return `https://open.spotify.com/embed/${p[0]}/${p[1]}`;
+  } catch { return null; }
+}
+document.getElementById("podGrid").innerHTML = PODCASTS.map(p => {
+  const embed = toEmbed(p.url);
+  const t = (p.title||"Podcast").replace(/</g,"&lt;");
+  return `
+    <div class="pod-card">
+      <div class="pod-top">
+        <div class="pod-name">${t}</div>
+        ${p.tag ? `<div class="pod-tag">${p.tag}</div>` : ""}
       </div>
-
-      <div class="menuLinks">
-        <a href="#home" class="menuLink">Home</a>
-        <a href="#diretta" class="menuLink">Diretta</a>
-        <a href="#podcast" class="menuLink">Podcast</a>
-        <a href="#contatti" class="menuLink">Contatti</a>
+      <div class="pod-iframe">
+        <iframe loading="lazy" src="${embed}"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          title="${t}"></iframe>
       </div>
+    </div>`;
+}).join("");
 
-      <div class="menuFoot">
-        <div class="badge" style="display:inline-flex; gap:10px;">
-          <span class="liveDot"></span>
-          <span class="liveText">IN DIRETTA</span>
-        </div>
-        <div style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.5">
-          Premi Play e scorri: il mini-player resta sempre visibile.
-        </div>
-      </div>
-    </div>
-  </div>
+/* ════════════════════════════════════════════════
+   MOBILE MENU
+════════════════════════════════════════════════ */
+const menuEl = document.getElementById("menuOverlay");
+document.getElementById("openMenu").addEventListener("click", () => { menuEl.classList.add("open"); menuEl.setAttribute("aria-hidden","false"); });
+document.getElementById("closeMenu").addEventListener("click", () => { menuEl.classList.remove("open"); menuEl.setAttribute("aria-hidden","true"); });
+menuEl.addEventListener("click", e => { if (e.target === menuEl) menuEl.classList.remove("open"); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") menuEl.classList.remove("open"); });
+document.querySelectorAll(".mob-link").forEach(l => l.addEventListener("click", () => menuEl.classList.remove("open")));
+</script>
 
-  <script>
-    // =========================
-    // CONFIG
-    // =========================
-    const STREAM_URL = "https://nr11.newradio.it/proxy/ncastron?mp=/stream?ext=.mp3";
-
-    // PROMO:
-    // 1) carica i tuoi JPG/PNG in /radio/promo/
-    // 2) metti qui i path, es: "/radio/promo/promo1.jpg"
-    const PROMOS = [
-      "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_54f423.jpg",
-      "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_b5d204.jpg"
-    ];
-
-    // PODCAST: aggiungi qui altri link Spotify (episode o show)
-    const PODCASTS = [
-      { title: "Episodio Spotify", url: "https://open.spotify.com/episode/4GPeBhKUWSLMsJU1kCpJd7", tag: "spotify" }
-    ];
-
-    // =========================
-    // CLOCK
-    // =========================
-    const clockTop = document.getElementById("clockTop");
-    const clockSticky = document.getElementById("clockSticky");
-    function tick(){
-      const d = new Date();
-      const t = d.toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit", second:"2-digit"});
-      clockTop.textContent = t;
-      clockSticky.textContent = t;
-    }
-    tick(); setInterval(tick, 1000);
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // =========================
-    // AUDIO PLAYER
-    // =========================
-    const audio = document.getElementById("audio");
-    const playBtn = document.getElementById("playBtn");
-    const pauseBtn = document.getElementById("pauseBtn");
-    const stopBtn = document.getElementById("stopBtn");
-    const playIcon = document.getElementById("playIcon");
-    const playText = document.getElementById("playText");
-    const vol = document.getElementById("vol");
-    const statusLine = document.getElementById("statusLine");
-
-    const stickyPlayer = document.getElementById("stickyPlayer");
-    const stickyStatus = document.getElementById("stickyStatus");
-    const stickyPlay = document.getElementById("stickyPlay");
-    const stickyStop = document.getElementById("stickyStop");
-    const stickyIcon = document.getElementById("stickyIcon");
-    const stickyText = document.getElementById("stickyText");
-
-    let playing = false;
-
-    function setStatus(t){
-      statusLine.textContent = "Stato: " + t;
-      stickyStatus.textContent = t;
-    }
-    function ui(on){
-      playing = on;
-      playIcon.textContent = on ? "⏸" : "▶";
-      playText.textContent = on ? "Pausa" : "Play";
-      stickyIcon.textContent = on ? "⏸" : "▶";
-      stickyText.textContent = on ? "Pausa" : "Play";
-    }
-
-    async function start(){
-      try{
-        setStatus("connessione…");
-        if (audio.src !== STREAM_URL) audio.src = STREAM_URL;
-        await audio.play();
-        ui(true);
-        setStatus("in riproduzione");
-      } catch(e){
-        console.error(e);
-        ui(false);
-        setStatus("errore (tocca Play di nuovo)");
-      }
-    }
-    function pause(){
-      audio.pause();
-      ui(false);
-      setStatus("in pausa");
-    }
-    function stop(){
-      audio.pause();
-      audio.removeAttribute("src");
-      audio.load();
-      ui(false);
-      setStatus("pronto");
-    }
-
-    playBtn.addEventListener("click", ()=> playing ? pause() : start());
-    pauseBtn.addEventListener("click", pause);
-    stopBtn.addEventListener("click", stop);
-    stickyPlay.addEventListener("click", ()=> playing ? pause() : start());
-    stickyStop.addEventListener("click", stop);
-
-    vol.addEventListener("input", ()=> audio.volume = Math.max(0, Math.min(1, parseFloat(vol.value))));
-    audio.addEventListener("waiting", ()=> setStatus("buffering…"));
-    audio.addEventListener("error", ()=> { ui(false); setStatus("errore stream"); });
-
-    audio.volume = 0.85;
-    ui(false);
-    setStatus("pronto");
-
-    // CTA hero -> scroll + play
-    document.getElementById("heroPlayTop").addEventListener("click", () => {
-      document.getElementById("diretta").scrollIntoView({behavior:"smooth", block:"start"});
-      setTimeout(() => start(), 260);
-    });
-
-    // Sticky appears when main player leaves view
-    const mainPlayer = document.getElementById("mainPlayer");
-    const io = new IntersectionObserver((entries)=>{
-      const entry = entries[0];
-      const isVisible = entry.isIntersecting;
-      if (!isVisible){
-        stickyPlayer.classList.add("show");
-        stickyPlayer.setAttribute("aria-hidden","false");
-      } else {
-        stickyPlayer.classList.remove("show");
-        stickyPlayer.setAttribute("aria-hidden","true");
-      }
-    }, { threshold: 0.25 });
-    io.observe(mainPlayer);
-
-    // =========================
-    // SLIDESHOW
-    // =========================
-    const slidesEl = document.getElementById("slides");
-    const dotsEl = document.getElementById("dots");
-    const prevBtn = document.getElementById("prevSlide");
-    const nextBtn = document.getElementById("nextSlide");
-    const slider = document.getElementById("promoSlider");
-
-    let slideIndex = 0;
-    let timer = null;
-    const AUTOPLAY_MS = 4500;
-
-    function buildSlides(){
-      const list = (PROMOS && PROMOS.length) ? PROMOS : [
-        "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
-          <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700">
-            <defs>
-              <linearGradient id="g" x1="0" x2="1">
-                <stop offset="0" stop-color="#00a3ff" stop-opacity="0.9"/>
-                <stop offset="0.6" stop-color="#26f2a3" stop-opacity="0.75"/>
-                <stop offset="1" stop-color="#ff2a4d" stop-opacity="0.45"/>
-              </linearGradient>
-            </defs>
-            <rect width="100%" height="100%" fill="#0b0e14"/>
-            <rect x="0" y="0" width="100%" height="100%" fill="url(#g)" opacity="0.35"/>
-            <text x="60" y="140" fill="#f2f7ff" font-size="64" font-family="Arial" font-weight="800">Carica i tuoi promo</text>
-            <text x="60" y="220" fill="#f2f7ff" opacity="0.85" font-size="34" font-family="Arial">Metti JPG/PNG in /radio/promo/</text>
-            <text x="60" y="290" fill="#f2f7ff" opacity="0.8" font-size="28" font-family="Arial">e aggiorna l'array PROMOS nello script</text>
-          </svg>
-        `)
-      ];
-
-      slidesEl.innerHTML = list.map(src => `
-        <div class="slide"><img src="${src}" alt="Promo"></div>
-      `).join("");
-
-      dotsEl.innerHTML = list.map((_, i) => `
-        <button class="dotBtn ${i===0?'active':''}" type="button" aria-label="Vai alla slide ${i+1}" data-i="${i}"></button>
-      `).join("");
-
-      dotsEl.querySelectorAll(".dotBtn").forEach(btn => {
-        btn.addEventListener("click", () => goTo(parseInt(btn.dataset.i, 10), true));
-      });
-
-      update();
-    }
-
-    function update(){
-      slidesEl.style.transform = `translateX(-${slideIndex * 100}%)`;
-      dotsEl.querySelectorAll(".dotBtn").forEach((d,i)=> d.classList.toggle("active", i===slideIndex));
-    }
-    function goTo(i, user=false){
-      const total = slidesEl.children.length || 1;
-      slideIndex = (i + total) % total;
-      update();
-      if(user) restartAutoplay();
-    }
-    function next(){ goTo(slideIndex + 1, true); }
-    function prev(){ goTo(slideIndex - 1, true); }
-
-    function startAutoplay(){
-      stopAutoplay();
-      if((slidesEl.children.length || 0) <= 1) return;
-      timer = setInterval(() => goTo(slideIndex + 1, false), AUTOPLAY_MS);
-    }
-    function stopAutoplay(){
-      if(timer){ clearInterval(timer); timer = null; }
-    }
-    function restartAutoplay(){ startAutoplay(); }
-
-    prevBtn.addEventListener("click", prev);
-    nextBtn.addEventListener("click", next);
-
-    slider.addEventListener("mouseenter", stopAutoplay);
-    slider.addEventListener("mouseleave", startAutoplay);
-
-    // swipe mobile
-    let x0 = null;
-    slider.addEventListener("touchstart", (e)=> { x0 = e.touches?.[0]?.clientX ?? null; }, {passive:true});
-    slider.addEventListener("touchend", (e)=>{
-      if(x0 === null) return;
-      const x1 = e.changedTouches?.[0]?.clientX ?? x0;
-      const dx = x1 - x0;
-      if(Math.abs(dx) > 40){ dx < 0 ? next() : prev(); }
-      x0 = null;
-    }, {passive:true});
-
-    buildSlides();
-    startAutoplay();
-
-    // =========================
-    // PODCAST EMBEDS
-    // =========================
-    function toSpotifyEmbed(url){
-      try{
-        const u = new URL(url);
-        const parts = u.pathname.split("/").filter(Boolean);
-        const type = parts[0], id = parts[1];
-        if(!type || !id) return null;
-        if(type !== "episode" && type !== "show") return null;
-        return `https://open.spotify.com/embed/${type}/${id}`;
-      } catch { return null; }
-    }
-
-    const podGrid = document.getElementById("podGrid");
-    function renderPods(){
-      podGrid.innerHTML = PODCASTS.map(p => {
-        const embed = toSpotifyEmbed(p.url);
-        const safeTitle = (p.title||"Podcast").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-        const safeTag = (p.tag||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-        return `
-          <div class="podCard">
-            <div class="podTop">
-              <div class="podName">${safeTitle}</div>
-              ${safeTag ? `<div class="podTag">${safeTag}</div>` : ""}
-            </div>
-            <div class="iframeWrap">
-              <iframe loading="lazy" src="${embed}"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                title="${safeTitle}">
-              </iframe>
-            </div>
-          </div>`;
-      }).join("");
-    }
-    renderPods();
-
-    // =========================
-    // MOBILE MENU
-    // =========================
-    const openMenuBtn = document.getElementById("openMenu");
-    const closeMenuBtn = document.getElementById("closeMenu");
-    const menuOverlay = document.getElementById("menuOverlay");
-
-    function openMenu(){
-      menuOverlay.classList.add("open");
-      menuOverlay.setAttribute("aria-hidden", "false");
-      openMenuBtn.setAttribute("aria-expanded", "true");
-    }
-    function closeMenu(){
-      menuOverlay.classList.remove("open");
-      menuOverlay.setAttribute("aria-hidden", "true");
-      openMenuBtn.setAttribute("aria-expanded", "false");
-    }
-    openMenuBtn.addEventListener("click", openMenu);
-    closeMenuBtn.addEventListener("click", closeMenu);
-    menuOverlay.addEventListener("click", (e) => { if (e.target === menuOverlay) closeMenu(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && menuOverlay.classList.contains("open")) closeMenu(); });
-    document.querySelectorAll(".menuLink").forEach(link => link.addEventListener("click", closeMenu));
-  </script>
 </body>
 </html>
