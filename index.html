@@ -57,12 +57,64 @@ l.parentNode.insertBefore(s, l);
     a{color:inherit;text-decoration:none}
 
     header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:linear-gradient(to bottom,rgba(5,5,9,0.95),rgba(5,5,9,0.85));border-bottom:1px solid var(--border-soft)}
-    .nav-inner{max-width:1100px;margin:0 auto;padding:6px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;align-items:center;gap:10px;font-size:14px}
-    .brand img{height:100px;width:auto;display:block}
-    nav{display:flex;gap:16px;font-size:13px}
-    nav a{padding:6px 10px;border-radius:999px;color:var(--muted);transition:background .2s ease,color .2s ease}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:6px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px}
+    .brand{display:flex;align-items:center;gap:10px;font-size:14px;flex-shrink:0}
+    .brand img{height:52px;width:auto;display:block}
+    nav{display:flex;gap:8px;font-size:13px;flex-wrap:nowrap;overflow:hidden}
+    nav a{padding:6px 10px;border-radius:999px;color:var(--muted);transition:background .2s ease,color .2s ease;white-space:nowrap}
     nav a:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+
+    /* hamburger button — nascosto su desktop */
+    .nav-hamburger{
+      display:none;
+      flex-shrink:0;
+      width:40px;height:40px;border-radius:12px;
+      border:1px solid var(--border-soft);background:rgba(255,255,255,0.04);
+      cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+      -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+    }
+    .nav-hamburger span{display:block;width:18px;height:1.5px;background:var(--text);border-radius:2px;transition:transform .2s,opacity .2s}
+
+    /* drawer mobile — nascosto di default */
+    .nav-drawer-veil{
+      position:fixed;inset:0;z-index:200;
+      background:rgba(0,0,0,0.6);
+      display:none;align-items:flex-end;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .nav-drawer-veil.open{display:flex}
+    .nav-drawer{
+      width:100%;
+      border-radius:22px 22px 0 0;
+      background:#0d0d18;
+      border:1px solid rgba(255,255,255,0.08);
+      border-bottom:none;
+      box-shadow:0 -12px 40px rgba(0,0,0,0.7);
+      overflow:hidden;
+    }
+    .nav-drawer-handle{
+      width:40px;height:4px;background:rgba(255,255,255,0.18);
+      border-radius:999px;margin:12px auto 4px;
+    }
+    .nav-drawer-links{padding:8px 12px 16px;display:grid;gap:4px}
+    .nav-drawer-link{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 16px;border-radius:14px;
+      border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);
+      font-size:15px;font-weight:600;color:var(--muted);
+      transition:background .15s,color .15s;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .nav-drawer-link:hover,.nav-drawer-link:active{background:rgba(255,255,255,0.07);color:var(--text)}
+    .nav-drawer-link::after{content:'›';font-size:20px;color:rgba(255,255,255,0.2)}
+    .nav-drawer-ft{padding:10px 16px 20px;font-size:11px;color:var(--muted);border-top:1px solid rgba(255,255,255,0.06);margin-top:4px}
+
+    @media (max-width:720px){
+      nav{display:none}
+      .nav-hamburger{display:flex}
+      .brand img{height:44px}
+      .nav-inner{padding:6px 14px;min-height:52px}
+    }
 
     main{max-width:1100px;margin:0 auto;padding:22px 18px 40px}
     section{margin-bottom:40px}
@@ -131,12 +183,8 @@ l.parentNode.insertBefore(s, l);
     footer{border-top:1px solid var(--border-soft);padding:12px 18px 18px;font-size:11px;color:var(--muted);text-align:center;background:radial-gradient(circle at bottom,#151525 0,#050509 55%)}
 
     @media (max-width:600px){
-      .brand img{height:60px}
-      nav{gap:6px;font-size:12px}
-      nav a{padding:5px 7px}
       main{padding:14px 12px 32px}
       .hero-banner{max-width:100%;height:auto;min-height:0}
-      /* edicola: 2 colonne ottimizzate su mobile */
       #edicola-grandangolo{grid-template-columns:repeat(2,1fr);gap:14px}
       .edicola-label-title{font-size:13px}
       .edicola-label-sub{font-size:11px}
@@ -815,8 +863,26 @@ l.parentNode.insertBefore(s, l);
         <a href="https://grandangolosettimanale.it/radio">RADIO</a>
         <a href="https://grandangolosettimanale.it/video" target="_blank" rel="noopener">VIDEO/TV</a>
       </nav>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <!-- MOBILE DRAWER -->
+  <div class="nav-drawer-veil" id="navDrawerVeil">
+    <div class="nav-drawer" id="navDrawer">
+      <div class="nav-drawer-handle"></div>
+      <div class="nav-drawer-links">
+        <a href="https://grandangolosettimanale.it" class="nav-drawer-link" target="_blank" rel="noopener">Home</a>
+        <a href="#about"  class="nav-drawer-link" id="drawerAbout">Come funziona</a>
+        <a href="#edicola" class="nav-drawer-link" id="drawerEdicola">Edicola</a>
+        <a href="https://grandangolosettimanale.it/radio" class="nav-drawer-link">Radio</a>
+        <a href="https://grandangolosettimanale.it/video" class="nav-drawer-link" target="_blank" rel="noopener">Video / TV</a>
+      </div>
+      <div class="nav-drawer-ft">Grandangolo · Edicola Digitale</div>
+    </div>
+  </div>
 <script>
 (function(izzgx){
 var d = document,
@@ -2211,3 +2277,36 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
     setConsent(true);
     hide();
     // forza il refr
+  accept && reject && (reject.addEventListener("click", function(){ setConsent(false); hide(); }));
+})();
+</script>
+
+<script>
+/* ── MOBILE NAV DRAWER ── */
+(function(){
+  const hamburger = document.getElementById("navHamburger");
+  const veil      = document.getElementById("navDrawerVeil");
+  if (!hamburger || !veil) return;
+
+  function openDrawer(){
+    veil.classList.add("open");
+    hamburger.setAttribute("aria-expanded","true");
+  }
+  function closeDrawer(){
+    veil.classList.remove("open");
+    hamburger.setAttribute("aria-expanded","false");
+  }
+
+  hamburger.addEventListener("click", function(){ veil.classList.contains("open") ? closeDrawer() : openDrawer(); });
+  veil.addEventListener("click", function(e){ if(e.target === veil) closeDrawer(); });
+
+  // Chiudi e scorri all'ancora
+  document.querySelectorAll(".nav-drawer-link").forEach(function(link){
+    link.addEventListener("click", function(){ closeDrawer(); });
+  });
+
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeDrawer(); });
+})();
+</script>
+</body>
+</html>
