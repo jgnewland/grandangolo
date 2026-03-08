@@ -809,23 +809,17 @@ l.parentNode.insertBefore(s, l);
       /* ─── BOTTOMBAR MOBILE: flottante, semi-trasparente
          position: fixed in fondo — NON sottrae spazio al viewport ─── */
       .fb-bottombar {
-        /* esce dal flusso flex, si posiziona sopra la pagina */
-        position: fixed;
-        left: 0; right: 0;
-        bottom: 0;
-        bottom: env(safe-area-inset-bottom, 0px);
-        z-index: 10001;
-        padding: 10px 16px;
-        /* bottombar più sottile, quasi invisibile */
-        padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
-        background: rgba(6,6,14,0.88);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-top: 1px solid rgba(255,255,255,0.08);
+        /* Torna nel flusso flex: il viewport ha esattamente lo spazio giusto */
+        position: static;
+        flex-shrink: 0;
+        padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px));
+        background: rgba(6,6,14,0.98);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-top: 1px solid rgba(255,255,255,0.10);
         gap: 0;
         justify-content: space-between;
-        /* Altezza fissa e nota (usata dal JS per calcolare lo spazio pagina) */
-        height: 64px;
+        min-height: 60px;
       }
       .fb-thumb-strip { display: none; }
       .fb-nav-arrow {
@@ -1739,20 +1733,15 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
 
       // ── ZOOM ──────────────────────────────────────────────────────────────
       function getMobilePageSize() {
-        // Misura lo spazio REALMENTE disponibile per la pagina
-        const topbarH  = topbar.offsetHeight  || 52;
-        // Bottombar è fixed a 64px su mobile
-        const bottombarH = 64;
+        // viewport.clientHeight = spazio già al netto di topbar e bottombar (flex flow)
         const vw = window.innerWidth;
-        const vh = window.innerHeight; // innerHeight esclude la barra indirizzi mobile
-        const availH = vh - topbarH - bottombarH - 8; // 8px margine
+        const vh = viewport.clientHeight || (window.innerHeight - (topbar.offsetHeight||52) - (bottombar.offsetHeight||60));
+        const margin = 0; // nessun margine extra, il flex flow gestisce tutto
+        const availH = vh - margin;
         const availW = vw;
-        // Ratio A4 (larghezza:altezza = 1:1.414)
         const PAGE_RATIO = 1.414;
-        // Scala per altezza
         let w = availH / PAGE_RATIO;
         let h = availH;
-        // Se troppo larga, scala per larghezza
         if (w > availW) { w = availW; h = availW * PAGE_RATIO; }
         return { w: Math.floor(w), h: Math.floor(h) };
       }
@@ -1781,7 +1770,6 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
           const scaledW = Math.floor(w * z);
           const scaledH = Math.floor(h * z);
 
-          // Imposta dimensioni esatte sull'immagine
           rightImg.style.width  = scaledW + "px";
           rightImg.style.height = scaledH + "px";
           leftSlot.style.display  = "none";
@@ -1789,15 +1777,18 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
           rightSlot.style.width   = scaledW + "px";
           rightSlot.style.height  = scaledH + "px";
 
-          // A zoom 1x: nessuno scroll, pagina esattamente nel viewport
-          // A zoom > 1x: scroll pan nativo
           if (z <= 1) {
-            viewport.style.overflow  = "hidden";
-            viewport.style.alignItems = "center";
+            viewport.style.overflow      = "hidden";
+            viewport.style.paddingBottom = "0px";
+            viewport.style.alignItems    = "center";
             viewport.style.justifyContent = "center";
           } else {
-            viewport.style.overflow  = "auto";
-            viewport.style.alignItems = "flex-start";
+            // Zoom > 1: pan nativo. padding-bottom = altezza bottombar
+            // così il fondo pagina non finisce MAI sotto la barra durante il pan
+            const bbH = bottombar.offsetHeight || 60;
+            viewport.style.overflow      = "auto";
+            viewport.style.paddingBottom = bbH + "px";
+            viewport.style.alignItems    = "flex-start";
             viewport.style.justifyContent = "flex-start";
           }
           spread.style.transform = "";
