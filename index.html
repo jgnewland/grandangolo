@@ -131,8 +131,19 @@ l.parentNode.insertBefore(s, l);
     footer{border-top:1px solid var(--border-soft);padding:12px 18px 18px;font-size:11px;color:var(--muted);text-align:center;background:radial-gradient(circle at bottom,#151525 0,#050509 55%)}
 
     @media (max-width:600px){
-      .brand img{height:80px}
-      .hero-banner{max-width:100%;height:auto}
+      .brand img{height:60px}
+      nav{gap:6px;font-size:12px}
+      nav a{padding:5px 7px}
+      main{padding:14px 12px 32px}
+      .hero-banner{max-width:100%;height:auto;min-height:0}
+      /* edicola: 2 colonne ottimizzate su mobile */
+      #edicola-grandangolo{grid-template-columns:repeat(2,1fr);gap:14px}
+      .edicola-label-title{font-size:13px}
+      .edicola-label-sub{font-size:11px}
+    }
+    @media (max-width:380px){
+      /* telefoni molto piccoli: 1 colonna */
+      #edicola-grandangolo{grid-template-columns:1fr;gap:14px;max-width:280px;margin-left:auto;margin-right:auto}
     }
 
     /* =============================================
@@ -198,6 +209,8 @@ l.parentNode.insertBefore(s, l);
       justify-content: center;
       transition: background .15s ease, border-color .15s ease;
       flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     .fb-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
     .fb-btn:disabled { opacity: .3; cursor: default; }
@@ -265,6 +278,9 @@ l.parentNode.insertBefore(s, l);
       background: #111115;
       -webkit-overflow-scrolling: touch;
       perspective: 2000px;
+      /* Android: forza il contenuto a non uscire */
+      min-height: 0;
+      min-width: 0;
     }
     @media (max-width: 700px) {
       .fb-viewport { padding: 12px 8px; }
@@ -471,6 +487,8 @@ l.parentNode.insertBefore(s, l);
       justify-content: center;
       transition: background .15s, border-color .15s, transform .1s;
       flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     .fb-nav-arrow:hover:not(:disabled) {
       background: rgba(255,255,255,0.14);
@@ -518,24 +536,74 @@ l.parentNode.insertBefore(s, l);
 
     /* MOBILE: single page, no thumbnails */
     @media (max-width: 600px) {
+      /* ─── OVERLAY: usa dvh per Android Chrome con barra indirizzi ─── */
+      .fb-overlay {
+        /* fallback per browser senza dvh */
+        height: 100vh;
+        /* sovrascrittura con dvh dove supportato */
+        height: 100dvh;
+        width: 100vw;
+        /* Android: evita che il contenuto esca */
+        overflow: hidden;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+      }
+
       /* topbar compatta */
       .fb-topbar { padding: 8px 10px; gap: 6px; }
       .fb-title { font-size: 12px; }
       .fb-subtitle { display: none; }
       .fb-zoom-wrap { display: none; }
       .fb-page-indicator { min-width: 50px; font-size: 11px; }
-      .fb-btn { width: 32px; height: 32px; font-size: 15px; }
+      .fb-btn { width: 36px; height: 36px; font-size: 15px; }
+      .fb-btn-close { width: 40px; height: 40px; font-size: 18px; }
 
-      /* viewport: occupa tutto, no padding laterale */
+      /* ─── VIEWPORT MOBILE ─── 
+         Trucco Android: NON usare overflow:hidden sul viewport principale.
+         Usa invece un wrapper scrollabile con scroll-snap.
+         La pagina riempie tutto lo spazio disponibile. */
       .fb-viewport {
         padding: 0 !important;
         align-items: flex-start;
-        overflow: hidden; /* il pan avviene via touch nativo */
+        justify-content: flex-start;
+        /* scroll orizzontale nativo per il pan a zoom > 1x */
+        overflow-x: hidden;
+        overflow-y: hidden;
+        /* Android: forza dimensioni corrette */
+        width: 100%;
+        min-height: 0;
       }
 
-      /* lo spread diventa scrollabile orizzontalmente a zoom > 1 */
+      /* spread: occupa tutto il viewport disponibile */
       .fb-spread {
-        touch-action: pan-x pan-y;
+        width: 100%;
+        min-width: 100%;
+        justify-content: center;
+        /* Android: usa will-change solo per transform, non filter */
+        filter: none;
+        will-change: transform;
+      }
+
+      /* slot pagina mobile: larghezza piena */
+      .fb-page-slot.fb-single {
+        width: 100% !important;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .fb-page-slot.fb-right {
+        width: 100% !important;
+      }
+
+      /* immagine pagina: altezza automatica, larghezza 100% */
+      .fb-page-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        /* Android: evita rendering glitch */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
       }
 
       /* spine e side arrows nascosti */
@@ -543,14 +611,28 @@ l.parentNode.insertBefore(s, l);
       .fb-side-arrow { display: none; }
 
       /* bottom bar: frecce grandi + indicatore, niente thumbnail */
-      .fb-bottombar { padding: 8px 12px; gap: 0; justify-content: space-between; }
+      .fb-bottombar {
+        padding: 10px 14px;
+        gap: 0;
+        justify-content: space-between;
+        /* Android: altezza minima per target touch */
+        min-height: 64px;
+      }
       .fb-thumb-strip { display: none; }
-      .fb-nav-arrow { width: 56px; height: 56px; font-size: 26px; border-radius: 14px; flex-shrink: 0; }
+      .fb-nav-arrow {
+        width: 60px; height: 60px;
+        font-size: 28px; border-radius: 14px; flex-shrink: 0;
+        /* Android: area touch più grande */
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
 
-      /* blur inner più compatta */
-      .fb-blur-inner { padding: 14px 12px; }
-      .fb-blur-title { font-size: 14px; }
-      .fb-blur-desc { font-size: 11px; margin-bottom: 10px; }
+      /* blur overlay: testo più grande su mobile */
+      .fb-blur-inner { padding: 16px 14px; }
+      .fb-blur-title { font-size: 16px; }
+      .fb-blur-desc { font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+      .fb-buy-btn { font-size: 15px; padding: 12px; }
+      .fb-code-input { font-size: 16px; } /* 16px evita zoom automatico Android */
     }
   </style>
 </head>
@@ -1202,6 +1284,10 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       const isMobile = () => window.innerWidth <= 600;
 
       document.body.style.overflow = "hidden";
+      // Android: blocca anche il documento
+      document.documentElement.style.overflow = "hidden";
+      document.documentElement.style.position = "fixed";
+      document.documentElement.style.width = "100%";
 
       // ── BUILD OVERLAY ──────────────────────────────────────────────────────
       const overlay = document.createElement("div");
@@ -1348,9 +1434,9 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
         const PAGE_RATIO = 1.414;
         const mobile = isMobile();
         if (mobile) {
-          // Su mobile: larghezza = 100% viewport, nessun margine
-          const vw = viewport.clientWidth;
-          return vw;
+          // Su mobile: la pagina riempie tutto il viewport (gestito via CSS width:100%)
+          // Restituiamo comunque la larghezza per il calcolo zoom
+          return viewport.clientWidth || window.innerWidth;
         }
         const vh = viewport.clientHeight - 48;
         const vw = viewport.clientWidth - 140; // spazio frecce laterali
@@ -1364,27 +1450,38 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
         const sp = spreadPages(spreadIdx);
         const mobile = isMobile();
         const isDouble = !sp.single && !mobile && sp.left !== null;
-        const base = calcFitWidth(isDouble);
-        const w = base * z;
-        leftSlot.style.width   = isDouble ? w + "px" : "0px";
-        leftSlot.style.display = isDouble ? "block" : "none";
-        spine.style.display    = isDouble ? "block" : "none";
-        rightSlot.style.width  = w + "px";
-        zoomLevelEl.textContent = Math.round(z * 100) + "%";
-        zoomOutBtn.disabled = zoomIdx <= 0;
-        zoomInBtn.disabled  = zoomIdx >= ZOOM_STEPS.length - 1;
 
         if (mobile) {
-          // Su mobile il pan è nativo (overflow: auto sul viewport riabilitato)
+          // MOBILE: CSS gestisce tutto, non impostiamo width in px
+          // La pagina è sempre width:100%, height:auto
+          leftSlot.style.width   = "";
+          leftSlot.style.display = "none";
+          spine.style.display    = "none";
+          rightSlot.style.width  = "";
+          // Se zoom > 1 su mobile, scala lo spread via transform
+          spread.style.transformOrigin = "top left";
+          spread.style.transform = z > 1 ? `scale(${z})` : "";
+          spread.style.width = z > 1 ? (100 / z) + "%" : "100%";
+          // Abilita scroll quando zoom > 1
           viewport.style.overflowX = z > 1 ? "auto" : "hidden";
           viewport.style.overflowY = z > 1 ? "auto" : "hidden";
-          viewport.style.cursor = "default";
-          spread.style.cursor = "default";
         } else {
+          const base = calcFitWidth(isDouble);
+          const w = base * z;
+          leftSlot.style.width   = isDouble ? w + "px" : "0px";
+          leftSlot.style.display = isDouble ? "block" : "none";
+          spine.style.display    = isDouble ? "block" : "none";
+          rightSlot.style.width  = w + "px";
+          spread.style.transform = "";
+          spread.style.width = "";
           viewport.style.overflow = "auto";
           viewport.style.cursor = z > 1 ? "grab" : "default";
           spread.style.cursor = "inherit";
         }
+
+        zoomLevelEl.textContent = Math.round(z * 100) + "%";
+        zoomOutBtn.disabled = zoomIdx <= 0;
+        zoomInBtn.disabled  = zoomIdx >= ZOOM_STEPS.length - 1;
       }
 
       zoomInBtn.addEventListener("click",   e => { e.stopPropagation(); if (zoomIdx < ZOOM_STEPS.length-1){zoomIdx++; applyZoom();} });
@@ -1534,6 +1631,8 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
         if (sp.single || mobile) {
           rightSlot.classList.remove("fb-right");
           rightSlot.classList.add("fb-single");
+          // Mobile: azzera larghezza inline per lasciare fare al CSS
+          if (mobile) rightSlot.style.width = "";
         } else {
           rightSlot.classList.remove("fb-single");
           rightSlot.classList.add("fb-right");
@@ -1568,7 +1667,13 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
         if (activeThumb) activeThumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
 
         // Reset scroll + zoom su mobile ad ogni cambio pagina
-        if (isMobile()) { zoomIdx = 2; applyZoom(); }
+        if (isMobile()) {
+          zoomIdx = 2; // 1x
+          spread.style.transform = "";
+          spread.style.width = "100%";
+          viewport.style.overflowX = "hidden";
+          viewport.style.overflowY = "hidden";
+        }
         viewport.scrollTop = 0; viewport.scrollLeft = 0;
       }
 
@@ -1589,18 +1694,24 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       document.addEventListener("keydown", onKeyDown);
 
       // ── SWIPE (mobile: solo a zoom 1x, altrimenti pan nativo) ────────────
-      let touchStartX = null, touchStartY = null;
+      let touchStartX = null, touchStartY = null, touchMoved = false;
       viewport.addEventListener("touchstart", e => {
+        if (e.touches.length !== 1) return;
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
+        touchMoved = false;
+      }, { passive: true });
+      viewport.addEventListener("touchmove", e => {
+        touchMoved = true;
       }, { passive: true });
       viewport.addEventListener("touchend", e => {
         if (touchStartX === null) return;
         // Se in zoom, lascia fare il pan nativo, non sfoglia
         if (isMobile() && ZOOM_STEPS[zoomIdx] > 1) { touchStartX = null; return; }
+        if (!touchMoved) { touchStartX = null; return; }
         const dx = e.changedTouches[0].clientX - touchStartX;
         const dy = e.changedTouches[0].clientY - touchStartY;
-        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 44) {
           if (dx < 0 && spreadIdx < maxSpread) { spreadIdx++; updateSpread("forward"); }
           else if (dx > 0 && spreadIdx > 0)    { spreadIdx--; updateSpread("backward"); }
         }
@@ -1628,6 +1739,9 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       function closeFn() {
         document.body.removeChild(overlay);
         document.body.style.overflow = "";
+        document.documentElement.style.overflow = "";
+        document.documentElement.style.position = "";
+        document.documentElement.style.width = "";
         document.removeEventListener("keydown", onKeyDown);
       }
       closeBtn.addEventListener("click", e => { e.stopPropagation(); closeFn(); });
