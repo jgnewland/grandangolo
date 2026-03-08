@@ -461,6 +461,158 @@ l.parentNode.insertBefore(s, l);
     .fb-unlock-btn:hover { filter: brightness(1.1); }
     .fb-code-msg { margin-top: 6px; font-size: 11px; color: #ff8080; display: none; }
 
+    /* ── UNLOCK MODAL (separato, position:fixed, sopra tutto) ── */
+    .fb-unlock-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10010;
+      /* sfondo scuro semi-trasparente */
+      background: rgba(0,0,0,0.72);
+      display: none;
+      align-items: flex-end; /* su mobile: sale dal basso → sopra la tastiera */
+      justify-content: center;
+      padding: 0;
+      /* Android: evita che il modal si sposti con la tastiera */
+      -webkit-overflow-scrolling: none;
+    }
+    .fb-unlock-modal.open { display: flex; }
+
+    .fb-unlock-sheet {
+      width: 100%;
+      max-width: 480px;
+      background: #13131f;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px 22px 0 0;
+      padding: 0 0 env(safe-area-inset-bottom, 0px); /* notch iPhone/Android */
+      box-shadow: 0 -12px 40px rgba(0,0,0,0.7);
+      /* Android: il sheet resta sopra la tastiera */
+      position: relative;
+    }
+
+    /* drag handle estetico */
+    .fb-unlock-handle {
+      width: 40px; height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 999px;
+      margin: 12px auto 0;
+    }
+
+    .fb-unlock-body {
+      padding: 18px 20px 24px;
+    }
+
+    .fb-unlock-title {
+      font-size: 17px; font-weight: 700;
+      color: #fff; margin-bottom: 4px;
+      text-align: center;
+    }
+    .fb-unlock-desc {
+      font-size: 13px; color: rgba(255,255,255,0.55);
+      text-align: center; margin-bottom: 20px; line-height: 1.45;
+    }
+
+    /* Bottone acquisto nel modal */
+    .fb-unlock-buy {
+      display: block; width: 100%;
+      padding: 14px; border-radius: 14px; border: none;
+      cursor: pointer; font-size: 15px; font-weight: 700;
+      background: #00a651; color: #fff;
+      box-shadow: 0 5px 16px rgba(0,166,81,0.4);
+      margin-bottom: 16px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    /* Separatore */
+    .fb-unlock-sep {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+      font-size: 11px; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    .fb-unlock-sep::before,
+    .fb-unlock-sep::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Label */
+    .fb-unlock-label {
+      font-size: 12px; color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+
+    /* Campo codice */
+    .fb-unlock-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px; /* 16px = no autozoom Android */
+      font-family: monospace;
+      letter-spacing: .06em;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      outline: none;
+      caret-color: #00a651;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      /* Android: evita shadow inset di default */
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .fb-unlock-input:focus {
+      border-color: #00a651;
+      background: rgba(0,166,81,0.08);
+    }
+    .fb-unlock-input::placeholder {
+      color: rgba(255,255,255,0.25);
+      font-family: inherit;
+      letter-spacing: normal;
+    }
+
+    /* Bottone sblocca */
+    .fb-unlock-go {
+      display: block; width: 100%;
+      padding: 14px; border-radius: 14px;
+      border: 1.5px solid #00a651;
+      background: rgba(0,166,81,0.15);
+      color: #00a651; font-size: 15px; font-weight: 700;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .fb-unlock-go:active { background: rgba(0,166,81,0.28); }
+
+    /* Messaggio errore/successo */
+    .fb-unlock-msg {
+      margin-top: 10px; font-size: 13px;
+      text-align: center; display: none;
+      padding: 8px 12px; border-radius: 10px;
+    }
+    .fb-unlock-msg.err {
+      display: block;
+      color: #ff8080; background: rgba(255,80,80,0.1);
+      border: 1px solid rgba(255,80,80,0.2);
+    }
+    .fb-unlock-msg.ok {
+      display: block;
+      color: #8fffc1; background: rgba(0,166,81,0.12);
+      border: 1px solid rgba(0,166,81,0.25);
+    }
+
+    /* Bottone chiudi modal */
+    .fb-unlock-close {
+      position: absolute; top: 14px; right: 16px;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.7);
+      font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     /* BOTTOM NAV BAR */
     .fb-bottombar {
       flex-shrink: 0;
@@ -1376,16 +1528,14 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
         <div class="fb-blur-desc">Le pagine successive sono oscurate. Acquista il numero completo per leggere tutto il settimanale.</div>`;
       const buyBtn = document.createElement("button");
       buyBtn.type = "button"; buyBtn.className = "fb-buy-btn"; buyBtn.textContent = "Acquista il numero completo →";
-      const codeLabel = document.createElement("div");
-      codeLabel.className = "fb-code-label"; codeLabel.textContent = "Hai già acquistato? Inserisci il codice:";
-      const codeRow = document.createElement("div"); codeRow.className = "fb-code-row";
-      const codeInput = document.createElement("input");
-      codeInput.type = "text"; codeInput.className = "fb-code-input"; codeInput.placeholder = "Codice di accesso";
-      const unlockBtn = document.createElement("button");
-      unlockBtn.type = "button"; unlockBtn.className = "fb-unlock-btn"; unlockBtn.textContent = "Sblocca";
-      const codeMsg = document.createElement("div"); codeMsg.className = "fb-code-msg";
-      codeRow.appendChild(codeInput); codeRow.appendChild(unlockBtn);
-      blurInner.appendChild(buyBtn); blurInner.appendChild(codeLabel); blurInner.appendChild(codeRow); blurInner.appendChild(codeMsg);
+      // Bottone che apre il modal separato per il codice
+      const openUnlockBtn = document.createElement("button");
+      openUnlockBtn.type = "button";
+      openUnlockBtn.className = "fb-unlock-btn";
+      openUnlockBtn.style.cssText = "display:block;width:100%;margin-top:8px;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);color:#fff;font-size:13px;font-weight:600;cursor:pointer;";
+      openUnlockBtn.textContent = "Ho già il codice →";
+      blurInner.appendChild(buyBtn);
+      blurInner.appendChild(openUnlockBtn);
       blurOverlay.appendChild(blurInner);
       rightSlot.appendChild(blurOverlay);
 
@@ -1408,6 +1558,87 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       bottombar.appendChild(prevBtn); bottombar.appendChild(thumbStrip); bottombar.appendChild(nextBtn);
 
       overlay.appendChild(topbar); overlay.appendChild(viewport); overlay.appendChild(bottombar);
+
+      // ── UNLOCK MODAL (position:fixed, separato dal viewport) ──────────────
+      const unlockModal = document.createElement("div");
+      unlockModal.className = "fb-unlock-modal";
+      unlockModal.setAttribute("aria-modal", "true");
+      unlockModal.setAttribute("role", "dialog");
+
+      const unlockSheet = document.createElement("div");
+      unlockSheet.className = "fb-unlock-sheet";
+
+      const unlockHandle = document.createElement("div");
+      unlockHandle.className = "fb-unlock-handle";
+
+      const unlockCloseBtn = document.createElement("button");
+      unlockCloseBtn.type = "button";
+      unlockCloseBtn.className = "fb-unlock-close";
+      unlockCloseBtn.innerHTML = "✕";
+      unlockCloseBtn.setAttribute("aria-label", "Chiudi");
+
+      const unlockBody = document.createElement("div");
+      unlockBody.className = "fb-unlock-body";
+
+      unlockBody.innerHTML = `
+        <div class="fb-unlock-title">Sblocca il numero</div>
+        <div class="fb-unlock-desc">Inserisci il codice ricevuto dopo l'acquisto.</div>
+      `;
+
+      // Bottone acquista
+      const unlockBuyBtn = document.createElement("button");
+      unlockBuyBtn.type = "button";
+      unlockBuyBtn.className = "fb-unlock-buy";
+      unlockBuyBtn.textContent = "Acquista il numero completo →";
+
+      // Separatore
+      const unlockSep = document.createElement("div");
+      unlockSep.className = "fb-unlock-sep";
+      unlockSep.textContent = "oppure inserisci il codice";
+
+      // Label
+      const unlockLabel = document.createElement("div");
+      unlockLabel.className = "fb-unlock-label";
+      unlockLabel.textContent = "Codice di sblocco";
+
+      // Campo input (separato, focusabile, incollabile)
+      const unlockInput = document.createElement("input");
+      unlockInput.type = "text";
+      unlockInput.className = "fb-unlock-input";
+      unlockInput.placeholder = "es. GR22-XXXXX";
+      unlockInput.setAttribute("inputmode", "text");
+      unlockInput.setAttribute("autocomplete", "off");
+      unlockInput.setAttribute("autocorrect", "off");
+      unlockInput.setAttribute("autocapitalize", "none");
+      unlockInput.setAttribute("spellcheck", "false");
+      // Permette incolla esplicito su Android
+      unlockInput.setAttribute("data-lpignore", "true");
+
+      // Bottone sblocca
+      const unlockGoBtn = document.createElement("button");
+      unlockGoBtn.type = "button";
+      unlockGoBtn.className = "fb-unlock-go";
+      unlockGoBtn.textContent = "Sblocca";
+
+      // Messaggio
+      const unlockMsg = document.createElement("div");
+      unlockMsg.className = "fb-unlock-msg";
+
+      unlockBody.appendChild(unlockBuyBtn);
+      unlockBody.appendChild(unlockSep);
+      unlockBody.appendChild(unlockLabel);
+      unlockBody.appendChild(unlockInput);
+      unlockBody.appendChild(unlockGoBtn);
+      unlockBody.appendChild(unlockMsg);
+
+      unlockSheet.appendChild(unlockHandle);
+      unlockSheet.appendChild(unlockCloseBtn);
+      unlockSheet.appendChild(unlockBody);
+      unlockModal.appendChild(unlockSheet);
+
+      // Il modal va nel body, NON nell'overlay — così non risente del resize
+      document.body.appendChild(unlockModal);
+
       document.body.appendChild(overlay);
 
       // Build thumbnails (one per page)
@@ -1679,6 +1910,11 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
 
       // ── KEYBOARD ──────────────────────────────────────────────────────────
       function onKeyDown(e) {
+        // Se il modal è aperto, Escape chiude solo il modal
+        if (unlockModal.classList.contains("open")) {
+          if (e.key === "Escape") { closeUnlockModal(); }
+          return; // non passare altri comandi al reader quando si digita
+        }
         if (e.key === "ArrowRight" || e.key === "ArrowDown") {
           if (spreadIdx < maxSpread) { spreadIdx++; updateSpread("forward"); }
         } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
@@ -1724,19 +1960,61 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       sidePrevBtn.addEventListener("click", e => { e.stopPropagation(); if (!isAnimating && spreadIdx > 0){ spreadIdx--; updateSpread("backward"); } });
       sideNextBtn.addEventListener("click", e => { e.stopPropagation(); if (!isAnimating && spreadIdx < maxSpread){ spreadIdx++; updateSpread("forward"); } });
 
-      // ── BUY / UNLOCK ────────────────────────────────────────────────────────
-      buyBtn.addEventListener("click", e => { e.stopPropagation(); if (issue.buyUrl && issue.buyUrl !== "#") window.location.href = issue.buyUrl; });
-      unlockBtn.addEventListener("click", e => {
-        e.stopPropagation();
-        performUnlock(issue, codeInput.value,
-          () => { codeMsg.style.display = "none"; updateSpread(null); },
-          msg => { codeMsg.textContent = msg; codeMsg.style.display = "block"; }
+      // ── APRI / CHIUDI UNLOCK MODAL ─────────────────────────────────────────
+      function openUnlockModal() {
+        unlockMsg.className = "fb-unlock-msg";
+        unlockMsg.textContent = "";
+        unlockInput.value = "";
+        unlockModal.classList.add("open");
+        // Focus dopo breve delay per Android (evita il flash del layout prima del focus)
+        setTimeout(() => { unlockInput.focus(); }, 120);
+      }
+      function closeUnlockModal() {
+        unlockModal.classList.remove("open");
+        // Android: forza blur per nascondere la tastiera
+        unlockInput.blur();
+      }
+
+      // Trigger dal blur overlay
+      openUnlockBtn.addEventListener("click", e => { e.stopPropagation(); openUnlockModal(); });
+      // Chiudi
+      unlockCloseBtn.addEventListener("click", closeUnlockModal);
+      unlockModal.addEventListener("click", e => { if (e.target === unlockModal) closeUnlockModal(); });
+
+      // Acquista
+      buyBtn.addEventListener("click", e => { e.stopPropagation(); if (issue.buyUrl && issue.buyUrl !== "#") window.open(issue.buyUrl, "_blank"); });
+      unlockBuyBtn.addEventListener("click", e => { e.stopPropagation(); if (issue.buyUrl && issue.buyUrl !== "#") window.open(issue.buyUrl, "_blank"); closeUnlockModal(); });
+
+      // Sblocca con codice
+      function doUnlock() {
+        const v = unlockInput.value.trim();
+        if (!v) {
+          unlockMsg.className = "fb-unlock-msg err";
+          unlockMsg.textContent = "Inserisci il codice.";
+          return;
+        }
+        performUnlock(issue, v,
+          () => {
+            unlockMsg.className = "fb-unlock-msg ok";
+            unlockMsg.textContent = "✓ Codice corretto! Buona lettura.";
+            setTimeout(() => { closeUnlockModal(); updateSpread(null); }, 900);
+          },
+          msg => {
+            unlockMsg.className = "fb-unlock-msg err";
+            unlockMsg.textContent = msg;
+            unlockInput.select();
+          }
         );
+      }
+      unlockGoBtn.addEventListener("click", e => { e.stopPropagation(); doUnlock(); });
+      unlockInput.addEventListener("keydown", e => {
+        if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); doUnlock(); }
       });
-      codeInput.addEventListener("keydown", e => { if (e.key === "Enter") { e.stopPropagation(); unlockBtn.click(); } });
 
       // ── CLOSE ─────────────────────────────────────────────────────────────
       function closeFn() {
+        // Chiudi il modal sblocco se aperto
+        if (unlockModal.parentNode) unlockModal.parentNode.removeChild(unlockModal);
         document.body.removeChild(overlay);
         document.body.style.overflow = "";
         document.documentElement.style.overflow = "";
