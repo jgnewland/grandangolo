@@ -853,6 +853,7 @@ l.parentNode.insertBefore(s, l);
       <nav>
         <a href="https://grandangolosettimanale.it" target="_blank" rel="noopener">HOME</a>
         <a href="#about">COME FUNZIONA</a>
+        <a href="#offerta" style="color:#00a651;font-weight:700;">★ OFFERTA</a>
         <a href="#edicola">EDICOLA</a>
         <a href="https://grandangolosettimanale.it/radio">RADIO</a>
         <a href="https://grandangolosettimanale.it/video" target="_blank" rel="noopener">VIDEO/TV</a>
@@ -870,6 +871,7 @@ l.parentNode.insertBefore(s, l);
       <div class="nav-drawer-links">
         <a href="https://grandangolosettimanale.it" class="nav-drawer-link" target="_blank" rel="noopener">Home</a>
         <a href="#about"  class="nav-drawer-link" id="drawerAbout">Come funziona</a>
+        <a href="#offerta" class="nav-drawer-link" id="drawerOfferta" style="color:#00a651;border-color:rgba(0,166,81,0.20);background:rgba(0,166,81,0.06);">★ Offerta speciale</a>
         <a href="#edicola" class="nav-drawer-link" id="drawerEdicola">Edicola</a>
         <a href="https://grandangolosettimanale.it/radio" class="nav-drawer-link">Radio</a>
         <a href="https://grandangolosettimanale.it/video" class="nav-drawer-link" target="_blank" rel="noopener">Video / TV</a>
@@ -969,6 +971,161 @@ l.parentNode.insertBefore(s, l);
       <p style="margin-top:10px;"></p>
     </section>
 
+    <!-- OFFERTA SPECIALE -->
+    <section id="offerta" style="margin-bottom:32px;">
+      <div style="
+        position:relative;overflow:hidden;
+        border-radius:22px;
+        background: linear-gradient(135deg, #081a0d 0%, #061210 55%, #091a0f 100%);
+        border:1px solid rgba(0,166,81,0.38);
+        box-shadow: 0 0 0 1px rgba(0,166,81,0.10), 0 24px 60px rgba(0,0,0,0.60);
+        padding: 32px 28px;
+      ">
+        <!-- Glow sfondo -->
+        <div style="position:absolute;inset:0;pointer-events:none;
+          background: radial-gradient(ellipse 80% 70% at 5% 50%, rgba(0,166,81,0.16) 0%, transparent 60%),
+                      radial-gradient(ellipse 55% 55% at 95% 15%, rgba(0,210,100,0.09) 0%, transparent 60%);
+        "></div>
+
+        <div style="position:relative;">
+
+          <!-- Badge + titolo centrato -->
+          <div style="text-align:center;margin-bottom:26px;">
+            <div style="display:inline-flex;align-items:center;gap:8px;
+              padding:6px 14px;border-radius:999px;margin-bottom:14px;
+              background:rgba(0,166,81,0.18);border:1px solid rgba(0,166,81,0.50);
+            ">
+              <span style="width:8px;height:8px;border-radius:50%;background:#00a651;
+                box-shadow:0 0 0 3px rgba(0,166,81,0.28);display:inline-block;
+                animation:offerPulse 1.6s ease-in-out infinite;"></span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8fffc1;">Offerta speciale</span>
+            </div>
+            <h2 style="margin:0 0 10px;font-size:clamp(22px,4vw,30px);line-height:1.15;color:#f5f5f5;font-weight:800;">
+              Ultimi 4 numeri<br>
+              <span style="color:#00a651;">tutti insieme a soli €&nbsp;4,50</span>
+            </h2>
+            <p style="margin:0 auto;max-width:480px;font-size:14px;color:#b0b0b0;line-height:1.55;">
+              Con un solo acquisto leggi i 4 numeri più recenti direttamente online — nessuna app, nessun download. Riceverai il codice di sblocco via email dopo il pagamento.
+            </p>
+          </div>
+
+          <!-- 4 cover cliccabili — aprono il reader -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;">
+
+            <div class="promo-cover-card" data-promo-id="promo-n9" style="cursor:pointer;text-align:center;">
+              <div style="position:relative;border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,166,81,0.35);box-shadow:0 8px 20px rgba(0,0,0,0.55);aspect-ratio:3/4;background:#0a0a12;transition:transform .2s,box-shadow .2s;">
+                <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg"
+                     alt="N.9/2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <div class="promo-play-icon" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.38);opacity:0;transition:opacity .2s;">
+                  <div style="width:42px;height:42px;border-radius:50%;background:#00a651;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,166,81,0.6);">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:8px;font-size:12px;font-weight:700;color:#e8e8e8;">N.&thinsp;9 / 2026</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.38);">7 mar 2026</div>
+            </div>
+
+            <div class="promo-cover-card" data-promo-id="promo-n8" style="cursor:pointer;text-align:center;">
+              <div style="position:relative;border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,166,81,0.35);box-shadow:0 8px 20px rgba(0,0,0,0.55);aspect-ratio:3/4;background:#0a0a12;transition:transform .2s,box-shadow .2s;">
+                <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg"
+                     alt="N.8/2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <div class="promo-play-icon" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.38);opacity:0;transition:opacity .2s;">
+                  <div style="width:42px;height:42px;border-radius:50%;background:#00a651;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,166,81,0.6);">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:8px;font-size:12px;font-weight:700;color:#e8e8e8;">N.&thinsp;8 / 2026</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.38);">28 feb 2026</div>
+            </div>
+
+            <div class="promo-cover-card" data-promo-id="promo-n7" style="cursor:pointer;text-align:center;">
+              <div style="position:relative;border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,166,81,0.35);box-shadow:0 8px 20px rgba(0,0,0,0.55);aspect-ratio:3/4;background:#0a0a12;transition:transform .2s,box-shadow .2s;">
+                <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg"
+                     alt="N.7/2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <div class="promo-play-icon" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.38);opacity:0;transition:opacity .2s;">
+                  <div style="width:42px;height:42px;border-radius:50%;background:#00a651;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,166,81,0.6);">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:8px;font-size:12px;font-weight:700;color:#e8e8e8;">N.&thinsp;7 / 2026</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.38);">21 feb 2026</div>
+            </div>
+
+            <div class="promo-cover-card" data-promo-id="promo-n6" style="cursor:pointer;text-align:center;">
+              <div style="position:relative;border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,166,81,0.35);box-shadow:0 8px 20px rgba(0,0,0,0.55);aspect-ratio:3/4;background:#0a0a12;transition:transform .2s,box-shadow .2s;">
+                <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_fc5642.jpg"
+                     alt="N.6/2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <div class="promo-play-icon" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.38);opacity:0;transition:opacity .2s;">
+                  <div style="width:42px;height:42px;border-radius:50%;background:#00a651;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,166,81,0.6);">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:8px;font-size:12px;font-weight:700;color:#e8e8e8;">N.&thinsp;6 / 2026</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.38);">14 feb 2026</div>
+            </div>
+
+          </div>
+          <p style="text-align:center;font-size:12px;color:rgba(143,255,193,0.55);margin:-18px 0 22px;">
+            ▲ Clicca su una copertina per sfogliare l'anteprima
+          </p>
+
+          <!-- Prezzo + CTA -->
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px;">
+            <div style="text-align:center;line-height:1;">
+              <div style="font-size:50px;font-weight:900;color:#00a651;letter-spacing:-.02em;">€&nbsp;4,50</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px;">4 numeri · codice via email</div>
+            </div>
+            <a href="https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i"
+               target="_blank" rel="noopener"
+               style="
+                 display:inline-flex;align-items:center;gap:10px;
+                 padding:16px 36px;border-radius:16px;
+                 background:#00a651;color:#fff;
+                 font-size:17px;font-weight:800;
+                 text-decoration:none;letter-spacing:.01em;
+                 box-shadow:0 10px 32px rgba(0,166,81,0.50);
+                 transition:filter .15s,transform .15s;
+                 -webkit-tap-highlight-color:transparent;
+               "
+               onmouseover="this.style.filter='brightness(1.12)';this.style.transform='translateY(-2px)'"
+               onmouseout="this.style.filter='';this.style.transform=''">
+              Acquista ora &nbsp;→
+            </a>
+          </div>
+
+          <p style="text-align:center;margin:14px 0 0;font-size:11px;color:rgba(255,255,255,0.25);">
+            Pagamento sicuro via Stripe &nbsp;·&nbsp; Il codice di sblocco arriva via email entro pochi minuti
+          </p>
+
+        </div>
+      </div>
+
+      <style>
+      @keyframes offerPulse {
+          0%,100% { box-shadow: 0 0 0 0 rgba(0,166,81,0.45); }
+          50%      { box-shadow: 0 0 0 8px rgba(0,166,81,0.00); }
+        }
+        /* hover copertine promo */
+        .promo-cover-card:hover > div:first-child {
+          transform: translateY(-4px);
+          box-shadow: 0 14px 32px rgba(0,0,0,0.7), 0 0 0 2px rgba(0,166,81,0.55) !important;
+        }
+        .promo-cover-card:hover .promo-play-icon { opacity: 1 !important; }
+        /* tap mobile */
+        .promo-cover-card:active > div:first-child { transform: scale(0.97); }
+        @media (max-width:600px){
+          #offerta > div { padding: 22px 14px; }
+          .promo-play-icon { opacity: 1 !important; }
+        }
+          #offerta .promo-covers { gap: 8px !important; }
+        }
+      </style>
+    </section>
+
     <!-- ADSENSE #2 (strategico: tra testo e griglia edicola) -->
     <div style="margin:10px 0 18px;min-width:250px;">
       <ins class="adsbygoogle"
@@ -1022,6 +1179,47 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   (function() {
     const issues = [
+      // ── BUNDLE PROMO (gestiti separatamente nella sezione offerta) ──────────
+      {
+        id: "promo-n9",
+        title: "Grandangolo Settimanale N. 9",
+        subtitle: "7 Marzo 2026",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg",
+        buyUrl: "https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i",
+        unlockCode: "GR22-4F3j/tAs)",
+        _promoBundle: true,
+        pages: ["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/11.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/12.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/16.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/19.jpg"]
+      },
+      {
+        id: "promo-n8",
+        title: "Grandangolo Settimanale N. 8",
+        subtitle: "28 Febbraio 2026",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg",
+        buyUrl: "https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i",
+        unlockCode: "GR22-ì/Y£h6hh8ç!",
+        _promoBundle: true,
+        pages: ["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_9a0787.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_4ab205.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_f252a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_e3e862.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_cfd7da.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_f1bd50.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_71b1c7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_7ecb47.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_b9f964.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_f58bb9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_386673.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13_ed065c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14_3a7d97.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15_bab07d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16_bca0ed.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/19.jpg"]
+      },
+      {
+        id: "promo-n7",
+        title: "Grandangolo Settimanale N. 7",
+        subtitle: "21 Febbraio 2026",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg",
+        buyUrl: "https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i",
+        unlockCode: "GR22-C6AGh/1j\u00a3@",
+        _promoBundle: true,
+        pages: ["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_bb80a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_c804c1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_c93849.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_fa4a01.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_3b8841.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_7f7e61.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_4c65fd.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_2ca547.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_00c593.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_180d27.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_8baaf1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16.jpg"]
+      },
+      {
+        id: "promo-n6",
+        title: "Grandangolo Settimanale N. 6",
+        subtitle: "14 Febbraio 2026",
+        cover: "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_fc5642.jpg",
+        buyUrl: "https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i",
+        unlockCode: "GR22-HSbd=js1(",
+        _promoBundle: true,
+        pages: ["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_fc5642.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_c8d01c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_2d718f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_fff784.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_923e1c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_b2f641.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_15d971.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_440337.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_191cbc.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_534258.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_e5acb3.jpg"]
+      },
         {
         id: "ga2",
         title: "Grandangolo Settimanale N. 9",
@@ -1426,7 +1624,7 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
     const edicolaRoot = document.getElementById("edicola-grandangolo");
     if (!edicolaRoot || !issues.length) return;
 
-    issues.forEach((issue, index) => {
+    issues.filter(issue => !issue._promoBundle).forEach((issue, index) => {
       const card = document.createElement("article");
       card.className = "edicola-card";
       card.setAttribute("data-issue-id", issue.id);
@@ -1455,15 +1653,30 @@ Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/emai
       edicolaRoot.appendChild(card);
     });
 
+    // ─── PROMO COVER CARDS → collegamento al reader (dentro lo stesso scope) ──
+    document.querySelectorAll(".promo-cover-card").forEach(function(card) {
+      card.addEventListener("click", function() {
+        var id = card.getAttribute("data-promo-id");
+        var issue = issues.find(function(i) { return i.id === id; });
+        if (issue) openFlipbook(issue, 0);
+      });
+    });
+
     // ─── FLIPBOOK READER ─────────────────────────────────────────────────────
 
     const ZOOM_STEPS = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
     const FREE_PAGES = 2;
 
+    // Codice bundle promo (non visibile in pagina)
+    var PROMO_CODE = "GR22-PRM-11e65/t\u00a3J";
+    var PROMO_IDS  = ["promo-n9","promo-n8","promo-n7","promo-n6"];
+
     function performUnlock(issue, value, onSuccess, onError) {
-      const v = (value || "").trim();
+      var v = (value || "").trim();
       if (!v) { if (typeof onError === "function") onError("Inserisci un codice."); return; }
-      if (v === issue.unlockCode) {
+      var matchesOwn   = (v === issue.unlockCode);
+      var matchesPromo = (v === PROMO_CODE && PROMO_IDS.indexOf(issue.id) !== -1);
+      if (matchesOwn || matchesPromo) {
         issue._unlocked = true;
         if (typeof onSuccess === "function") onSuccess();
       } else {
