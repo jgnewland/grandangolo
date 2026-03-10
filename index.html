@@ -1145,7 +1145,206 @@ l.parentNode.insertBefore(s, l);
 
       <div id="edicola-grandangolo"></div>
     </section>
+<!-- LIBRERIA GRANDANGOLO -->
+    <section id="libreria" style="margin-bottom:32px;">
+      <div style="
+        position:relative;overflow:hidden;
+        border-radius:22px;
+        background: linear-gradient(135deg, #0f0d08 0%, #100e06 55%, #0f0d08 100%);
+        border:1px solid rgba(210,160,0,0.38);
+        box-shadow: 0 0 0 1px rgba(210,160,0,0.10), 0 24px 60px rgba(0,0,0,0.60);
+        padding: 36px 28px 30px;
+      ">
+        <!-- Glow sfondo oro -->
+        <div style="position:absolute;inset:0;pointer-events:none;
+          background:
+            radial-gradient(ellipse 80% 60% at 0% 60%, rgba(210,160,0,0.16) 0%, transparent 55%),
+            radial-gradient(ellipse 60% 50% at 100% 10%, rgba(255,190,0,0.09) 0%, transparent 55%),
+            radial-gradient(ellipse 40% 40% at 50% 100%, rgba(180,120,0,0.08) 0%, transparent 60%);
+        "></div>
 
+        <!-- Texture grain overlay sottile -->
+        <div style="position:absolute;inset:0;pointer-events:none;opacity:.04;
+          background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/></filter><rect width=%2260%22 height=%2260%22 filter=%22url(%23n)%22 opacity=%221%22/></svg>');
+        "></div>
+
+        <div style="position:relative;">
+
+          <!-- Badge animato + titolo -->
+          <div style="text-align:center;margin-bottom:28px;">
+            <div style="display:inline-flex;align-items:center;gap:8px;
+              padding:6px 16px;border-radius:999px;margin-bottom:16px;
+              background:rgba(210,160,0,0.15);border:1px solid rgba(210,160,0,0.50);
+            ">
+              <span style="width:7px;height:7px;border-radius:50%;background:#d4a000;
+                box-shadow:0 0 0 3px rgba(210,160,0,0.28);display:inline-block;
+                animation:libreriaPulse 1.6s ease-in-out infinite;"></span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffe08a;">&#128218;&nbsp; Libreria Grandangolo</span>
+            </div>
+
+            <h2 style="margin:0 0 12px;font-size:clamp(24px,4vw,34px);line-height:1.1;color:#f5f5f5;font-weight:900;letter-spacing:-.01em;">
+              Leggi la storia vera<br>
+              <span style="
+                color:transparent;
+                background: linear-gradient(90deg, #d4a000 0%, #ffe566 50%, #c88000 100%);
+                -webkit-background-clip:text;
+                background-clip:text;
+              ">della mafia agrigentina</span>
+            </h2>
+            <p style="margin:0 auto;max-width:500px;font-size:14px;color:#b0b0b0;line-height:1.6;">
+               Cinquant'anni di Cosa Nostra, Stidda e cronaca siciliana raccontati dall&rsquo;interno.
+            </p>
+          </div>
+
+          <!-- Trust strip -->
+          <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:28px;">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,224,138,0.65);">
+              <span style="font-size:14px;">&#128274;</span> Pagamento sicuro
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,224,138,0.65);">
+              <span style="font-size:14px;">&#128231;</span> Ricevuta immediata
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,224,138,0.65);">
+              <span style="font-size:14px;">&#128666;</span> Spedizione in tutta Europa
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,224,138,0.65);">
+              <span style="font-size:14px;">&#9733;</span> Spedizione assicurata
+            </div>
+          </div>
+
+          <!-- 3 copertine cliccabili -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:10px;" id="libri-covers-grid">
+
+            <!-- Libro 1: Mafiare (acquistabile subito) -->
+            <div class="lib-cover-card" style="cursor:pointer;text-align:center;"
+                 onclick="window.open('https://buy.stripe.com/6oU3cx2S46oh2SV5kQ9MY0e','_blank')">
+              <div style="position:relative;border-radius:12px;overflow:hidden;
+                border:1.5px solid rgba(210,160,0,0.55);
+                box-shadow:0 8px 24px rgba(0,0,0,0.60), 0 0 0 0 rgba(210,160,0,0);
+                aspect-ratio:3/4;background:#0a0a08;
+                transition:transform .22s,box-shadow .22s;">
+                <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/COPERTINA-MAFIARE-1.png"
+                     alt="Mafiare" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <!-- Vignetta bordi -->
+                <div style="position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(0,0,0,0.4);pointer-events:none;"></div>
+                <div style="position:absolute;top:8px;left:8px;background:#e60000;color:#fff;padding:4px 8px;border-radius:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;box-shadow:0 2px 8px rgba(0,0,0,0.4);">&#128293; ultima uscita</div>
+                <div class="lib-play-icon" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,0.50);opacity:0;transition:opacity .2s;">
+                  <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#ffdd44,#c88000);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(210,160,0,0.7);">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg>
+                  </div>
+                  <span style="font-size:11px;font-weight:700;color:#ffe08a;letter-spacing:.06em;text-transform:uppercase;">Acquista ora</span>
+                </div>
+              </div>
+              <div style="margin-top:10px;">
+                <div style="font-size:12px;font-weight:700;color:#f0f0f0;line-height:1.2;">Mafiare</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Cosa Nostra e Stidda</div>
+                <div style="margin-top:6px;font-size:16px;font-weight:900;color:#d4a000;">&euro;&thinsp;18,00</div>
+              </div>
+            </div>
+
+            <!-- Libro 2: La Mafia, la Stidda -->
+            <div class="lib-cover-card" style="cursor:pointer;text-align:center;"
+                 onclick="window.open('https://grandangolosettimanale.it/libreria','_blank')">
+              <div style="position:relative;border-radius:12px;overflow:hidden;
+                border:1.5px solid rgba(210,160,0,0.28);
+                box-shadow:0 8px 24px rgba(0,0,0,0.55);
+                aspect-ratio:3/4;background:#0a0a08;
+                transition:transform .22s,box-shadow .22s;">
+                <img src="https://m.media-amazon.com/images/I/81CV+6c7ADL._SL1328_.jpg"
+                     alt="La Mafia la Stidda" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <div style="position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(0,0,0,0.4);pointer-events:none;"></div>
+                <div style="position:absolute;top:8px;left:8px;background:#f5a623;color:#000;padding:4px 8px;border-radius:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;box-shadow:0 2px 8px rgba(0,0,0,0.4);">&#11088; Best seller</div>
+                <div class="lib-play-icon" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,0.50);opacity:0;transition:opacity .2s;">
+                  <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#ffdd44,#c88000);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(210,160,0,0.7);">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg>
+                  </div>
+                  <span style="font-size:11px;font-weight:700;color:#ffe08a;letter-spacing:.06em;text-transform:uppercase;">Scopri</span>
+                </div>
+              </div>
+              <div style="margin-top:10px;">
+                <div style="font-size:12px;font-weight:700;color:#f0f0f0;line-height:1.2;">La Mafia, la &ldquo;Stidda&rdquo;</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Storia e analisi</div>
+                <div style="margin-top:6px;font-size:16px;font-weight:900;color:#d4a000;">&euro;&thinsp;12,00 <span style="font-size:11px;font-weight:400;color:#555;text-decoration:line-through;">&euro;14</span></div>
+              </div>
+            </div>
+
+            <!-- Libro 3: Da Falsone a Messina -->
+            <div class="lib-cover-card" style="cursor:pointer;text-align:center;"
+                 onclick="window.open('https://grandangolosettimanale.it/libreria','_blank')">
+              <div style="position:relative;border-radius:12px;overflow:hidden;
+                border:1.5px solid rgba(210,160,0,0.28);
+                box-shadow:0 8px 24px rgba(0,0,0,0.55);
+                aspect-ratio:3/4;background:#0a0a08;
+                transition:transform .22s,box-shadow .22s;">
+                <img src="https://www.unilibro.it/cover/libro/9788890523502B.jpg"
+                     alt="Da Falsone a Messina" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <div style="position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(0,0,0,0.4);pointer-events:none;"></div>
+                <div style="position:absolute;top:8px;left:8px;background:#f5a623;color:#000;padding:4px 8px;border-radius:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;box-shadow:0 2px 8px rgba(0,0,0,0.4);">&#11088; Best seller</div>
+                <div class="lib-play-icon" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,0.50);opacity:0;transition:opacity .2s;">
+                  <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#ffdd44,#c88000);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(210,160,0,0.7);">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg>
+                  </div>
+                  <span style="font-size:11px;font-weight:700;color:#ffe08a;letter-spacing:.06em;text-transform:uppercase;">Scopri</span>
+                </div>
+              </div>
+              <div style="margin-top:10px;">
+                <div style="font-size:12px;font-weight:700;color:#f0f0f0;line-height:1.2;">Da Falsone a Messina</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Strade senza ritorno</div>
+                <div style="margin-top:6px;font-size:16px;font-weight:900;color:#d4a000;">In arrivo</div>
+              </div>
+            </div>
+
+          </div>
+
+          <p style="text-align:center;font-size:12px;color:rgba(255,200,80,0.40);margin:0 0 26px;">
+            &#9650; Clicca su una copertina per acquistare
+          </p>
+
+          <!-- CTA principale — senza prezzo, solo bottone potente -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+            <a href="https://grandangolosettimanale.it/libreria"
+               target="_blank" rel="noopener"
+               style="
+                 display:inline-flex;align-items:center;gap:12px;
+                 padding:17px 42px;border-radius:16px;
+                 background:linear-gradient(135deg,#e0b000,#c88000);
+                 color:#0a0800;
+                 font-size:18px;font-weight:900;
+                 text-decoration:none;letter-spacing:.02em;
+                 box-shadow:0 12px 38px rgba(210,160,0,0.55), 0 2px 0 rgba(255,220,60,0.3) inset;
+                 transition:filter .15s,transform .15s,box-shadow .15s;
+                 -webkit-tap-highlight-color:transparent;
+               "
+               onmouseover="this.style.filter='brightness(1.1)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 18px 48px rgba(210,160,0,0.65), 0 2px 0 rgba(255,220,60,0.3) inset'"
+               onmouseout="this.style.filter='';this.style.transform='';this.style.boxShadow='0 12px 38px rgba(210,160,0,0.55), 0 2px 0 rgba(255,220,60,0.3) inset'">
+              &#128218;&nbsp; Vai alla libreria completa &nbsp;&rarr;
+            </a>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;font-size:11px;color:rgba(255,255,255,0.25);">
+
+        </div>
+      </div>
+
+      <style>
+        @keyframes libreriaPulse {
+          0%,100% { box-shadow: 0 0 0 0 rgba(210,160,0,0.5); }
+          50%      { box-shadow: 0 0 0 9px rgba(210,160,0,0.00); }
+        }
+        .lib-cover-card:hover > div:first-child {
+          transform: translateY(-5px) !important;
+          box-shadow: 0 18px 36px rgba(0,0,0,0.7), 0 0 0 2px rgba(210,160,0,0.65) !important;
+        }
+        .lib-cover-card:hover .lib-play-icon { opacity: 1 !important; }
+        .lib-cover-card:active > div:first-child { transform: scale(0.97) !important; }
+        @media (max-width:600px) {
+          #libreria > div { padding: 24px 14px 22px !important; }
+          .lib-play-icon { opacity: 1 !important; }
+          #libri-covers-grid { gap: 10px !important; }
+        }
+        @media (max-width:460px) {
+          #libri-covers-grid { grid-template-columns: 1fr !important; max-width: 200px; margin-left:auto; margin-right:auto; }
+        }
+      </style>
+    </section>
     <!-- ADSENSE #3 (strategico: fine pagina prima del footer) -->
     <div style="margin:20px 0 0;min-width:250px;">
       <ins class="adsbygoogle"
