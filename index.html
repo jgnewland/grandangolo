@@ -248,6 +248,38 @@ l.parentNode.insertBefore(s, l);
 
     .fb-page-img { display: block; width: 100%; height: auto; pointer-events: none; transition: filter .25s ease; }
 
+    /* ── PROTEZIONE SCREENSHOT ───────────────────────────────────────────── */
+    /* Stampa: pagina bianca */
+    @media print {
+      body * { visibility: hidden !important; }
+      .fb-overlay { display: none !important; }
+    }
+    /* Overlay screenshot: appare solo quando la finestra perde il focus (es. tasto Stamp) */
+    .fb-screenshot-shield {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #0a0a10;
+      display: none;
+      pointer-events: none;
+    }
+    /* Watermark nascosto: visibile solo in screenshot grazie a mix-blend-mode */
+    .fb-watermark {
+      position: absolute; inset: 0; z-index: 4;
+      pointer-events: none;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      /* Il layer diventa visibile solo in cattura schermo dove il compositing è diverso */
+      mix-blend-mode: difference;
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.55);
+      text-align: center; line-height: 1.4;
+      letter-spacing: .04em;
+      padding: 20px;
+      user-select: none;
+    }
+    /* Su dispositivi che supportano media capture, nascondi il contenuto */
+    @media (display-mode: standalone) {
+      .fb-page-slot { -webkit-user-select: none; user-select: none; }
+    }
+
     .fb-flip-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; pointer-events: none; z-index: 10; overflow: hidden; }
     .fb-flip-layer img { display: block; width: 100%; height: 100%; object-fit: cover; }
     .fb-flip-forward { transform-origin: right center; animation: flipForward 0.42s cubic-bezier(0.4,0,0.2,1) forwards; }
@@ -324,6 +356,9 @@ l.parentNode.insertBefore(s, l);
   </style>
 </head>
 <body>
+
+  <!-- PROTEZIONE SCREENSHOT -->
+  <div id="fb-screenshot-shield" class="fb-screenshot-shield"></div>
 
   <header>
     <div class="nav-inner">
@@ -739,6 +774,12 @@ l.parentNode.insertBefore(s, l);
       blurInner.appendChild(buyBtn); blurInner.appendChild(openUnlockBtn);
       blurOverlay.appendChild(blurInner); rightSlot.appendChild(blurOverlay);
 
+      // Watermark anti-screenshot (visibile solo in cattura schermo)
+      const watermark = document.createElement("div");
+      watermark.className = "fb-watermark";
+      watermark.textContent = "© Grandangolo – Copia non autorizzata";
+      rightSlot.appendChild(watermark);
+
       spread.appendChild(leftSlot); spread.appendChild(spine); spread.appendChild(rightSlot);
       viewport.appendChild(sidePrevBtn); viewport.appendChild(spread); viewport.appendChild(sideNextBtn);
 
@@ -858,7 +899,7 @@ l.parentNode.insertBefore(s, l);
         return Math.min(byH, isDouble ? vw/2 : vw);
       }
 
-      function applyZoom() {
+      function applyZoom(centerScroll) {
         const z = ZOOM_STEPS[zoomIdx];
         const sp = spreadPages(spreadIdx);
         const isDouble = !sp.single && sp.left !== null;
@@ -875,9 +916,29 @@ l.parentNode.insertBefore(s, l);
         rightImg.style.height   = "";
         viewport.style.overflow = "auto";
         viewport.style.cursor   = z > 1 ? "grab" : "default";
+        // Quando zoom>1 usiamo flex-start per permettere scroll fino al bordo sinistro
+        if (z > 1) {
+          viewport.style.alignItems     = "flex-start";
+          viewport.style.justifyContent = "flex-start";
+          viewport.style.padding        = "20px";
+        } else {
+          viewport.style.alignItems     = "center";
+          viewport.style.justifyContent = "center";
+          viewport.style.padding        = "20px 70px 20px";
+        }
         zoomLevelEl.textContent = Math.round(z*100) + "%";
         zoomOutBtn.disabled = zoomIdx <= 0;
         zoomInBtn.disabled  = zoomIdx >= ZOOM_STEPS.length - 1;
+        // Centra lo scroll sullo spread dopo il layout
+        if (centerScroll) {
+          requestAnimationFrame(function() {
+            const spreadW = isDouble ? (w*2 + 3) : w;
+            const excessX = Math.max(0, spreadW + 40 - viewport.clientWidth);
+            const excessY = Math.max(0, (spread.offsetHeight||0) + 40 - viewport.clientHeight);
+            viewport.scrollLeft = Math.round(excessX / 2);
+            viewport.scrollTop  = Math.round(excessY / 2);
+          });
+        }
       }
 
       function render() {
@@ -937,21 +998,21 @@ l.parentNode.insertBefore(s, l);
       // ── ZOOM (desktop only) ───────────────────────────────────────────────
       zoomInBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-        if (!isMobile() && zoomIdx < ZOOM_STEPS.length-1) { zoomIdx++; applyZoom(); }
+        if (!isMobile() && zoomIdx < ZOOM_STEPS.length-1) { zoomIdx++; applyZoom(true); }
       });
       zoomOutBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-        if (!isMobile() && zoomIdx > 0) { zoomIdx--; applyZoom(); }
+        if (!isMobile() && zoomIdx > 0) { zoomIdx--; applyZoom(true); }
       });
       zoomResetBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-        zoomIdx = 2; applyZoom(); viewport.scrollTop=0; viewport.scrollLeft=0;
+        zoomIdx = 2; applyZoom(false); viewport.scrollTop=0; viewport.scrollLeft=0;
       });
       viewport.addEventListener("wheel", function(e) {
         if ((e.ctrlKey||e.metaKey) && !isMobile()) {
           e.preventDefault();
-          if(e.deltaY<0 && zoomIdx<ZOOM_STEPS.length-1){zoomIdx++;applyZoom();}
-          else if(e.deltaY>0 && zoomIdx>0){zoomIdx--;applyZoom();}
+          if(e.deltaY<0 && zoomIdx<ZOOM_STEPS.length-1){zoomIdx++;applyZoom(true);}
+          else if(e.deltaY>0 && zoomIdx>0){zoomIdx--;applyZoom(true);}
         }
       }, { passive:false });
 
@@ -963,7 +1024,10 @@ l.parentNode.insertBefore(s, l);
         viewport.style.cursor="grabbing"; e.preventDefault();
       });
       document.addEventListener("mousemove", function(e) {
-        if(!isDrag)return; viewport.scrollLeft=vSX-(e.clientX-dSX); viewport.scrollTop=vSY-(e.clientY-dSY);
+        if(!isDrag)return;
+        // scrollLeft aumenta andando a destra: trascinare a sinistra (dx<0) deve scrollare a destra
+        viewport.scrollLeft = vSX - (e.clientX - dSX);
+        viewport.scrollTop  = vSY - (e.clientY - dSY);
       });
       document.addEventListener("mouseup", function() {
         if(isDrag){isDrag=false; viewport.style.cursor=ZOOM_STEPS[zoomIdx]>1?"grab":"default";}
@@ -1037,9 +1101,9 @@ l.parentNode.insertBefore(s, l);
         } else if (e.key==="Escape") {
           closeFn();
         } else if ((e.key==="+"||e.key==="=") && !isMobile()) {
-          if(zoomIdx<ZOOM_STEPS.length-1){zoomIdx++;applyZoom();}
+          if(zoomIdx<ZOOM_STEPS.length-1){zoomIdx++;applyZoom(true);}
         } else if (e.key==="-" && !isMobile()) {
-          if(zoomIdx>0){zoomIdx--;applyZoom();}
+          if(zoomIdx>0){zoomIdx--;applyZoom(true);}
         }
       }
       document.addEventListener("keydown", onKeyDown);
@@ -1092,6 +1156,55 @@ l.parentNode.insertBefore(s, l);
       renderAll();
     }
 
+  })();
+  </script>
+
+  <!-- PROTEZIONE SCREENSHOT -->
+  <script>
+  (function() {
+    var shield = document.getElementById("fb-screenshot-shield");
+    if (!shield) return;
+
+    // 1. Tasto PrintScreen (Windows/Linux)
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "PrintScreen" || e.keyCode === 44) {
+        shield.style.display = "block";
+      }
+      // Blocca Ctrl/Cmd + S, P, U mentre il reader e' aperto
+      if ((e.ctrlKey || e.metaKey) && document.querySelector(".fb-overlay")) {
+        if ("spuSPU".indexOf(e.key) !== -1) { e.preventDefault(); }
+      }
+    });
+    document.addEventListener("keyup", function(e) {
+      if (e.key === "PrintScreen" || e.keyCode === 44) {
+        try { navigator.clipboard.writeText(""); } catch(err) {}
+        setTimeout(function() { shield.style.display = "none"; }, 600);
+      }
+    });
+
+    // 2. Mobile: visibilitychange copre screenshot e task-switcher
+    document.addEventListener("visibilitychange", function() {
+      if (!document.querySelector(".fb-overlay")) return;
+      if (document.hidden) {
+        shield.style.display = "block";
+      } else {
+        setTimeout(function() { shield.style.display = "none"; }, 400);
+      }
+    });
+
+    // 3. Blocca click destro sulle immagini del reader
+    document.addEventListener("contextmenu", function(e) {
+      if (e.target && e.target.closest && e.target.closest(".fb-overlay")) {
+        e.preventDefault();
+      }
+    });
+
+    // 4. Blocca drag delle immagini
+    document.addEventListener("dragstart", function(e) {
+      if (e.target && e.target.classList.contains("fb-page-img")) {
+        e.preventDefault();
+      }
+    });
   })();
   </script>
 
