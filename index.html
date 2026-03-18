@@ -138,6 +138,155 @@ l.parentNode.insertBefore(s, l);
     #edicola-header p{margin:0;font-size:12px;color:var(--muted)}
     #edicola-grandangolo{max-width:1100px;margin:0 auto 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:24px;font-family:inherit}
 
+    /* ── BARRA DI RICERCA EDICOLA ──────────────────────────────────────── */
+    #edicola-toolbar {
+      margin-bottom: 22px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    #edicola-search-wrap {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    #edicola-search-wrap svg.search-ico {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: rgba(255,255,255,0.32);
+      flex-shrink: 0;
+    }
+    #edicola-search {
+      width: 100%;
+      padding: 11px 40px 11px 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.035);
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .18s, background .18s, box-shadow .18s;
+      -webkit-appearance: none;
+      appearance: none;
+      letter-spacing: .01em;
+    }
+    #edicola-search:focus {
+      border-color: rgba(0,166,81,0.5);
+      background: rgba(0,166,81,0.04);
+      box-shadow: 0 0 0 3px rgba(0,166,81,0.10);
+    }
+    #edicola-search::placeholder { color: rgba(255,255,255,0.22); font-size: 12.5px; }
+    /* rimuove la ×  nativa su webkit/chrome */
+    #edicola-search::-webkit-search-cancel-button { -webkit-appearance: none; }
+    #edicola-search-clear {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.07);
+      border: none;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: none;
+      align-items: center; justify-content: center;
+      font-size: 11px;
+      line-height: 1;
+      transition: background .15s, color .15s;
+      flex-shrink: 0;
+    }
+    #edicola-search-clear.visible { display: flex; }
+    #edicola-search-clear:hover { background: rgba(255,255,255,0.14); color: var(--text); }
+    #edicola-search-results-info {
+      font-size: 11.5px;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    #edicola-search-results-info.visible { opacity: 1; }
+    #edicola-no-results {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    #edicola-no-results svg { display: block; margin: 0 auto 14px; opacity: .3; }
+
+    /* ── BANNER ABBONAMENTO ─────────────────────────────────────────────── */
+    #abbonamento-banner {
+      margin-bottom: 24px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,166,81,0.22);
+      background: rgba(0,166,81,0.055);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .abbonamento-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border-radius: 9px;
+      background: rgba(0,166,81,0.15);
+      border: 1px solid rgba(0,166,81,0.30);
+      display: flex; align-items: center; justify-content: center;
+      color: #6effa8;
+      font-size: 16px;
+    }
+    .abbonamento-text { flex: 1; min-width: 160px; }
+    .abbonamento-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .abbonamento-text span {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .abbonamento-btn {
+      flex-shrink: 0;
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,166,81,0.55);
+      background: rgba(0,166,81,0.12);
+      color: #8fffc1;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s, border-color .15s, transform .1s;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .abbonamento-btn:hover {
+      background: rgba(0,166,81,0.22);
+      border-color: rgba(0,166,81,0.75);
+      transform: translateY(-1px);
+    }
+    @media (max-width:600px) {
+      #edicola-toolbar { flex-direction: column; align-items: stretch; gap: 10px; }
+      #edicola-search-results-info { text-align: right; }
+      #abbonamento-banner { gap: 10px; }
+      .abbonamento-btn { width: 100%; justify-content: center; }
+    }
+
     .edicola-card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.35);cursor:pointer;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease,border .2s ease;border:1px solid rgba(255,255,255,0.03)}
     .edicola-card:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(0,0,0,0.5);border-color:rgba(255,255,255,0.1)}
     .edicola-cover-wrap{position:relative;width:100%;padding-top:133.333%;overflow:hidden}
@@ -249,25 +398,21 @@ l.parentNode.insertBefore(s, l);
     .fb-page-img { display: block; width: 100%; height: auto; pointer-events: none; transition: filter .25s ease; }
 
     /* ── PROTEZIONE SCREENSHOT ───────────────────────────────────────────── */
-    /* Stampa: pagina bianca */
     @media print {
       body * { visibility: hidden !important; }
       .fb-overlay { display: none !important; }
     }
-    /* Overlay screenshot: appare solo quando la finestra perde il focus (es. tasto Stamp) */
     .fb-screenshot-shield {
       position: fixed; inset: 0; z-index: 99999;
       background: #0a0a10;
       display: none;
       pointer-events: none;
     }
-    /* Watermark nascosto: visibile solo in screenshot grazie a mix-blend-mode */
     .fb-watermark {
       position: absolute; inset: 0; z-index: 4;
       pointer-events: none;
       display: flex; align-items: center; justify-content: center;
       opacity: 0;
-      /* Il layer diventa visibile solo in cattura schermo dove il compositing è diverso */
       mix-blend-mode: difference;
       font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.55);
       text-align: center; line-height: 1.4;
@@ -275,7 +420,6 @@ l.parentNode.insertBefore(s, l);
       padding: 20px;
       user-select: none;
     }
-    /* Su dispositivi che supportano media capture, nascondi il contenuto */
     @media (display-mode: standalone) {
       .fb-page-slot { -webkit-user-select: none; user-select: none; }
     }
@@ -316,6 +460,40 @@ l.parentNode.insertBefore(s, l);
     .fb-unlock-msg.err { display:block; color:#ff8080; background:rgba(255,80,80,0.1); border:1px solid rgba(255,80,80,0.2); }
     .fb-unlock-msg.ok { display:block; color:#8fffc1; background:rgba(0,166,81,0.12); border:1px solid rgba(0,166,81,0.25); }
     .fb-unlock-close { position:absolute; top:14px; right:16px; width:32px; height:32px; border-radius:50%; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.7); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; -webkit-tap-highlight-color:transparent; }
+
+    /* Badge PREMIUM nel modale */
+    .fb-premium-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
+      background: rgba(255,200,50,0.12); border: 1px solid rgba(255,200,50,0.35);
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: #ffe566;
+    }
+
+    /* Pulsante dorato PREMIUM nel blur overlay */
+    .fb-blur-sep {
+      font-size: 11px; color: rgba(255,255,255,0.35);
+      text-align: center; margin: 12px 0 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .fb-blur-sep::before, .fb-blur-sep::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1);
+    }
+    .fb-premium-unlock-btn {
+      display: block; width: 100%;
+      padding: 11px 16px; border-radius: 10px;
+      border: 1px solid rgba(255,200,50,0.55);
+      background: rgba(255,200,50,0.10);
+      color: #ffe566; font-size: 13px; font-weight: 700;
+      cursor: pointer; letter-spacing: .02em;
+      transition: background .15s, border-color .15s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .fb-premium-unlock-btn:hover {
+      background: rgba(255,200,50,0.20);
+      border-color: rgba(255,200,50,0.85);
+      transform: translateY(-1px);
+    }
 
     .fb-bottombar { flex-shrink:0; display:flex; align-items:center; justify-content:center; gap:8px; padding:10px 16px; background:rgba(8,8,16,0.98); border-top:1px solid rgba(255,255,255,0.08); }
     .fb-nav-arrow { border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.06); color:#fff; border-radius:10px; cursor:pointer; font-size:18px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; transition:background .15s,border-color .15s,transform .1s; flex-shrink:0; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
@@ -540,70 +718,298 @@ l.parentNode.insertBefore(s, l);
         <h2>Edicola digitale</h2>
         <p>Clicca su una copertina per aprire il giornale a tutto schermo.</p>
       </div>
-      <div id="edicola-grandangolo"></div>
-    </section>
 
-    <section id="libreria" style="margin-bottom:32px;">
-      <div style="position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(135deg,#0f0d08 0%,#100e06 55%,#0f0d08 100%);border:1px solid rgba(210,160,0,0.38);box-shadow:0 0 0 1px rgba(210,160,0,0.10),0 24px 60px rgba(0,0,0,0.60);padding:36px 28px 30px;">
-        <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 0% 60%,rgba(210,160,0,0.16) 0%,transparent 55%),radial-gradient(ellipse 60% 50% at 100% 10%,rgba(255,190,0,0.09) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 50% 100%,rgba(180,120,0,0.08) 0%,transparent 60%);"></div>
-        <div style="position:relative;">
-          <div style="text-align:center;margin-bottom:28px;">
-            <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;margin-bottom:16px;background:rgba(210,160,0,0.15);border:1px solid rgba(210,160,0,0.50);">
-              <span style="width:7px;height:7px;border-radius:50%;background:#d4a000;box-shadow:0 0 0 3px rgba(210,160,0,0.28);display:inline-block;animation:libreriaPulse 1.6s ease-in-out infinite;"></span>
-              <span style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffe08a;">&#128218;&nbsp; Libreria Grandangolo</span>
-            </div>
-            <h2 style="margin:0 0 12px;font-size:clamp(24px,4vw,34px);line-height:1.1;color:#f5f5f5;font-weight:900;letter-spacing:-.01em;">Leggi la storia vera<br><span style="color:transparent;background:linear-gradient(90deg,#d4a000 0%,#ffe566 50%,#c88000 100%);-webkit-background-clip:text;background-clip:text;">della mafia agrigentina</span></h2>
-            <p style="margin:0 auto;max-width:500px;font-size:14px;color:#b0b0b0;line-height:1.6;">Cinquant'anni di Cosa Nostra, Stidda e cronaca siciliana raccontati dall&rsquo;interno.</p>
-          </div>
-          <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:28px;">
-            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,224,138,0.65);"><span style="font-size:14px;">&#128274;</span>Pagamento sicuro</div>
-            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,224,138,0.65);"><span style="font-size:14px;">&#128231;</span>Ricevuta immediata</div>
-            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,224,138,0.65);"><span style="font-size:14px;">&#128666;</span>Spedizione in tutta Europa</div>
-            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,224,138,0.65);"><span style="font-size:14px;">&#9733;</span>Spedizione assicurata</div>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:10px;" id="libri-covers-grid">
-            <div class="lib-cover-card" style="cursor:pointer;text-align:center;" onclick="window.open('https://buy.stripe.com/6oU3cx2S46oh2SV5kQ9MY0e','_blank')">
-              <div style="position:relative;border-radius:12px;overflow:hidden;border:1.5px solid rgba(210,160,0,0.55);box-shadow:0 8px 24px rgba(0,0,0,0.60),0 0 0 0 rgba(210,160,0,0);aspect-ratio:3/4;background:#0a0a08;transition:transform .22s,box-shadow .22s;">
-                <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/COPERTINA-MAFIARE-1.png" alt="Mafiare" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-                <div style="position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(0,0,0,0.4);pointer-events:none;"></div>
-                <div style="position:absolute;top:8px;left:8px;background:#e60000;color:#fff;padding:4px 8px;border-radius:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;box-shadow:0 2px 8px rgba(0,0,0,0.4);">&#128293; ultima uscita</div>
-                <div class="lib-play-icon" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,0.50);opacity:0;transition:opacity .2s;"><div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#ffdd44,#c88000);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(210,160,0,0.7);"><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg></div><span style="font-size:11px;font-weight:700;color:#ffe08a;letter-spacing:.06em;text-transform:uppercase;">Acquista ora</span></div>
-              </div>
-              <div style="margin-top:10px;"><div style="font-size:12px;font-weight:700;color:#f0f0f0;line-height:1.2;">Mafiare</div><div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Cosa Nostra e Stidda</div><div style="margin-top:6px;font-size:16px;font-weight:900;color:#d4a000;">&euro;&thinsp;18,00</div></div>
-            </div>
-            <div class="lib-cover-card" style="cursor:pointer;text-align:center;" onclick="window.open('https://grandangolosettimanale.it/libreria','_blank')">
-              <div style="position:relative;border-radius:12px;overflow:hidden;border:1.5px solid rgba(210,160,0,0.28);box-shadow:0 8px 24px rgba(0,0,0,0.55);aspect-ratio:3/4;background:#0a0a08;transition:transform .22s,box-shadow .22s;">
-                <img src="https://m.media-amazon.com/images/I/81CV+6c7ADL._SL1328_.jpg" alt="La Mafia la Stidda" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-                <div style="position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(0,0,0,0.4);pointer-events:none;"></div>
-                <div style="position:absolute;top:8px;left:8px;background:#f5a623;color:#000;padding:4px 8px;border-radius:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;box-shadow:0 2px 8px rgba(0,0,0,0.4);">&#11088; Best seller</div>
-                <div class="lib-play-icon" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,0.50);opacity:0;transition:opacity .2s;"><div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#ffdd44,#c88000);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(210,160,0,0.7);"><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg></div><span style="font-size:11px;font-weight:700;color:#ffe08a;letter-spacing:.06em;text-transform:uppercase;">Scopri</span></div>
-              </div>
-              <div style="margin-top:10px;"><div style="font-size:12px;font-weight:700;color:#f0f0f0;line-height:1.2;">La Mafia, la &ldquo;Stidda&rdquo;</div><div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Storia e analisi</div><div style="margin-top:6px;font-size:16px;font-weight:900;color:#d4a000;">&euro;&thinsp;12,00 <span style="font-size:11px;font-weight:400;color:#555;text-decoration:line-through;">&euro;14</span></div></div>
-            </div>
-            <div class="lib-cover-card" style="cursor:pointer;text-align:center;" onclick="window.open('https://grandangolosettimanale.it/libreria','_blank')">
-              <div style="position:relative;border-radius:12px;overflow:hidden;border:1.5px solid rgba(210,160,0,0.28);box-shadow:0 8px 24px rgba(0,0,0,0.55);aspect-ratio:3/4;background:#0a0a08;transition:transform .22s,box-shadow .22s;">
-                <img src="https://www.unilibro.it/cover/libro/9788890523502B.jpg" alt="Da Falsone a Messina" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-                <div style="position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(0,0,0,0.4);pointer-events:none;"></div>
-                <div style="position:absolute;top:8px;left:8px;background:#f5a623;color:#000;padding:4px 8px;border-radius:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;box-shadow:0 2px 8px rgba(0,0,0,0.4);">&#11088; Best seller</div>
-                <div class="lib-play-icon" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,0.50);opacity:0;transition:opacity .2s;"><div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#ffdd44,#c88000);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(210,160,0,0.7);"><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg></div><span style="font-size:11px;font-weight:700;color:#ffe08a;letter-spacing:.06em;text-transform:uppercase;">Scopri</span></div>
-              </div>
-              <div style="margin-top:10px;"><div style="font-size:12px;font-weight:700;color:#f0f0f0;line-height:1.2;">Da Falsone a Messina</div><div style="font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px;">Strade senza ritorno</div><div style="margin-top:6px;font-size:16px;font-weight:900;color:#d4a000;">In arrivo</div></div>
-            </div>
-          </div>
-          <p style="text-align:center;font-size:12px;color:rgba(255,200,80,0.40);margin:0 0 26px;">&#9650; Clicca su una copertina per acquistare</p>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-            <a href="https://grandangolosettimanale.it/libreria" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;padding:17px 42px;border-radius:16px;background:linear-gradient(135deg,#e0b000,#c88000);color:#0a0800;font-size:18px;font-weight:900;text-decoration:none;letter-spacing:.02em;box-shadow:0 12px 38px rgba(210,160,0,0.55),0 2px 0 rgba(255,220,60,0.3) inset;transition:filter .15s,transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;" onmouseover="this.style.filter='brightness(1.1)';this.style.transform='translateY(-2px)'" onmouseout="this.style.filter='';this.style.transform=''">&#128218;&nbsp; Vai alla libreria completa &nbsp;&rarr;</a>
-          </div>
+      <!-- ══ BANNER ABBONAMENTO ════════════════════════════════════════════ -->
+      <div id="abbonamento-banner">
+        <div class="abbonamento-icon">★</div>
+        <div class="abbonamento-text">
+          <strong>LEGGI TUTTO L'ANNO A SOLI 50&nbsp;€</strong>
+          <span>Un solo codice che sblocca ogni uscita del 2026. Nessun rinnovo automatico, nessuna sorpresa.</span>
+        </div>
+        <a href="https://buy.stripe.com/eVqcN764gcMFaln5kQ9MY0k" target="_blank" rel="noopener" class="abbonamento-btn">
+          Abbonati a soli 50,00&nbsp;€
+        </a>
+      </div>
+
+      <!-- ══ BARRA DI RICERCA ══════════════════════════════════════════════ -->
+      <div id="edicola-toolbar">
+        <div id="edicola-search-wrap">
+          <svg class="search-ico" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="10.4" y1="10.4" x2="13.5" y2="13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <input
+            type="search"
+            id="edicola-search"
+            placeholder="Cerca numero o data — es. N. 9 · marzo · 2025"
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+          >
+          <button id="edicola-search-clear" type="button" aria-label="Cancella">✕</button>
+        </div>
+        <span id="edicola-search-results-info"></span>
+      </div>
+      <!-- ════════════════════════════════════════════════════════════════== -->
+
+      <div id="edicola-grandangolo">
+        <!-- Le card vengono inserite via JS -->
+        <div id="edicola-no-results">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="13" cy="13" r="9" stroke="currentColor" stroke-width="1.8"/><line x1="20" y1="20" x2="28" y2="28" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Nessun numero trovato.<br>
+          <small style="opacity:.55;">Prova con il numero (es. N. 5) o la data (es. gennaio 2026)</small>
         </div>
       </div>
+    </section>
+
+    <section id="libreria">
       <style>
-        @keyframes libreriaPulse { 0%,100%{box-shadow:0 0 0 0 rgba(210,160,0,0.5)} 50%{box-shadow:0 0 0 9px rgba(210,160,0,0.00)} }
-        .lib-cover-card:hover > div:first-child { transform:translateY(-5px) !important; box-shadow:0 18px 36px rgba(0,0,0,0.7),0 0 0 2px rgba(210,160,0,0.65) !important; }
-        .lib-cover-card:hover .lib-play-icon { opacity:1 !important; }
-        .lib-cover-card:active > div:first-child { transform:scale(0.97) !important; }
-        @media (max-width:600px) { #libreria > div { padding:24px 14px 22px !important; } .lib-play-icon { opacity:1 !important; } #libri-covers-grid { gap:10px !important; } }
-        @media (max-width:460px) { #libri-covers-grid { grid-template-columns:1fr !important; max-width:200px; margin-left:auto; margin-right:auto; } }
+        #libreria { margin-bottom: 40px; }
+        .lib-header {
+          display: flex; align-items: baseline; justify-content: space-between;
+          gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+        }
+        .lib-header-left { display: flex; flex-direction: column; gap: 4px; }
+        .lib-eyebrow {
+          font-size: 10.5px; font-weight: 700; letter-spacing: .12em;
+          text-transform: uppercase; color: var(--muted); opacity: .7;
+        }
+        .lib-heading {
+          font-size: clamp(17px,2.2vw,22px); font-weight: 700;
+          color: var(--text); margin: 0; letter-spacing: -.01em;
+        }
+        .lib-link-all {
+          font-size: 12px; color: var(--muted); text-decoration: none;
+          border-bottom: 1px solid rgba(255,255,255,0.15);
+          padding-bottom: 1px; white-space: nowrap;
+          transition: color .15s, border-color .15s;
+        }
+        .lib-link-all:hover { color: var(--text); border-color: rgba(255,255,255,0.45); }
+
+        .lib-divider {
+          height: 1px; background: var(--border-soft); margin-bottom: 24px;
+        }
+
+        #libri-covers-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+        }
+
+        .lib-book {
+          display: flex; flex-direction: column; gap: 0;
+          cursor: pointer;
+        }
+        /* copertina */
+        .lib-book-cover {
+          position: relative; width: 100%; padding-top: 142%;
+          overflow: hidden; background: #0d0d0d;
+          box-shadow: 4px 6px 20px rgba(0,0,0,0.55), -1px 0 0 rgba(255,255,255,0.04);
+          transition: box-shadow .25s, transform .25s;
+        }
+        .lib-book:hover .lib-book-cover {
+          transform: translateY(-4px);
+          box-shadow: 6px 16px 36px rgba(0,0,0,0.7), -1px 0 0 rgba(255,255,255,0.06);
+        }
+        .lib-book-cover img {
+          position: absolute; inset: 0; width: 100%; height: 100%;
+          object-fit: cover; display: block;
+          transition: filter .25s;
+        }
+        /* velo su hover */
+        .lib-book-cover::after {
+          content: ''; position: absolute; inset: 0;
+          background: rgba(0,0,0,0);
+          transition: background .25s;
+          pointer-events: none;
+        }
+        .lib-book:hover .lib-book-cover::after { background: rgba(0,0,0,0.18); }
+        /* badge nuovo / best */
+        .lib-badge {
+          position: absolute; top: 10px; left: 10px;
+          font-size: 9px; font-weight: 700; letter-spacing: .06em;
+          text-transform: uppercase; padding: 3px 7px;
+          border-radius: 3px; pointer-events: none; z-index: 2;
+        }
+        .lib-badge-new { background: #1a1a1a; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.12); }
+        .lib-badge-soon { background: #1a1a1a; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.08); }
+        /* spine decorativa */
+        .lib-book-cover::before {
+          content: ''; position: absolute; top: 0; left: 0; bottom: 0;
+          width: 5px; z-index: 1;
+          background: linear-gradient(to right, rgba(0,0,0,0.45), rgba(0,0,0,0));
+          pointer-events: none;
+        }
+        /* scheda testo sotto la copertina */
+        .lib-book-meta {
+          padding: 12px 2px 0;
+          border-top: 1px solid rgba(255,255,255,0.06);
+          margin-top: 0;
+        }
+        .lib-book-author {
+          font-size: 10px; letter-spacing: .05em; text-transform: uppercase;
+          color: var(--muted); opacity: .55; margin-bottom: 4px;
+        }
+        .lib-book-title {
+          font-size: 13.5px; font-weight: 600; color: var(--text);
+          line-height: 1.3; margin-bottom: 4px;
+        }
+        .lib-book-subtitle {
+          font-size: 11px; color: var(--muted); opacity: .6;
+          line-height: 1.4; margin-bottom: 10px;
+        }
+        .lib-book-footer {
+          display: flex; align-items: center;
+          justify-content: space-between; gap: 8px;
+        }
+        .lib-book-price {
+          font-size: 14px; font-weight: 700; color: var(--text);
+          letter-spacing: -.01em;
+        }
+        .lib-book-price-old {
+          font-size: 11px; font-weight: 400;
+          color: var(--muted); opacity: .45;
+          text-decoration: line-through; margin-left: 4px;
+        }
+        .lib-book-cta {
+          font-size: 11px; font-weight: 600;
+          color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.2);
+          padding-bottom: 1px; transition: color .15s, border-color .15s;
+          white-space: nowrap;
+        }
+        .lib-book:hover .lib-book-cta { color: var(--text); border-color: rgba(255,255,255,0.55); }
+        .lib-book-coming {
+          font-size: 11px; color: var(--muted); opacity: .4;
+          font-style: italic;
+        }
+
+        /* info spedizione — sotto la griglia */
+        .lib-info-row {
+          margin-top: 24px; padding-top: 18px;
+          border-top: 1px solid var(--border-soft);
+          display: flex; gap: 24px; flex-wrap: wrap;
+          align-items: center; justify-content: space-between;
+        }
+        .lib-info-items {
+          display: flex; gap: 20px; flex-wrap: wrap;
+        }
+        .lib-info-item {
+          font-size: 11px; color: var(--muted); opacity: .55;
+          display: flex; align-items: center; gap: 5px;
+        }
+        .lib-info-item svg { opacity: .7; flex-shrink: 0; }
+        .lib-cta-all {
+          display: inline-flex; align-items: center; gap: 7px;
+          padding: 9px 18px; border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.14);
+          background: rgba(255,255,255,0.03);
+          color: var(--muted); font-size: 12px; font-weight: 600;
+          text-decoration: none;
+          transition: background .15s, border-color .15s, color .15s;
+          white-space: nowrap;
+        }
+        .lib-cta-all:hover {
+          background: rgba(255,255,255,0.07);
+          border-color: rgba(255,255,255,0.28);
+          color: var(--text);
+        }
+
+        @media (max-width:700px) {
+          #libri-covers-grid { gap: 18px; }
+          .lib-book-title { font-size: 12px; }
+        }
+        @media (max-width:500px) {
+          #libri-covers-grid { grid-template-columns: repeat(2,1fr); gap: 14px; }
+          .lib-info-row { flex-direction: column; align-items: flex-start; gap: 14px; }
+        }
+        @media (max-width:340px) {
+          #libri-covers-grid { grid-template-columns: 1fr; max-width: 200px; margin: 0 auto; }
+        }
       </style>
+
+      <div class="lib-header">
+        <div class="lib-header-left">
+          <span class="lib-eyebrow">Edizioni Grandangolo</span>
+          <h2 class="lib-heading">Libreria</h2>
+        </div>
+        <a href="https://grandangolosettimanale.it/libreria" target="_blank" rel="noopener" class="lib-link-all">Catalogo completo &rarr;</a>
+      </div>
+      <div class="lib-divider"></div>
+
+      <div id="libri-covers-grid">
+
+        <!-- Libro 1 — Mafiare -->
+        <div class="lib-book" onclick="window.open('https://buy.stripe.com/6oU3cx2S46oh2SV5kQ9MY0e','_blank')">
+          <div class="lib-book-cover">
+            <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/COPERTINA-MAFIARE-1.png" alt="Mafiare" loading="lazy">
+            <span class="lib-badge lib-badge-new">Nuova uscita</span>
+          </div>
+          <div class="lib-book-meta">
+            <div class="lib-book-author">Franco Castaldo</div>
+            <div class="lib-book-title">Mafiare</div>
+            <div class="lib-book-subtitle">Cosa Nostra e Stidda: cinquant'anni di cronaca agrigentina dall'interno.</div>
+            <div class="lib-book-footer">
+              <span class="lib-book-price">&euro;&thinsp;18,00</span>
+              <span class="lib-book-cta">Acquista</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Libro 2 — La Mafia la Stidda -->
+        <div class="lib-book" onclick="window.open('https://grandangolosettimanale.it/libreria','_blank')">
+          <div class="lib-book-cover">
+            <img src="https://m.media-amazon.com/images/I/81CV+6c7ADL._SL1328_.jpg" alt="La Mafia la Stidda" loading="lazy">
+          </div>
+          <div class="lib-book-meta">
+            <div class="lib-book-author">Franco Castaldo</div>
+            <div class="lib-book-title">La Mafia, la &ldquo;Stidda&rdquo;</div>
+            <div class="lib-book-subtitle">Storia, struttura e analisi di due organizzazioni criminali a confronto.</div>
+            <div class="lib-book-footer">
+              <span class="lib-book-price">&euro;&thinsp;12,00 <span class="lib-book-price-old">&euro;14</span></span>
+              <span class="lib-book-cta">Scopri</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Libro 3 — Da Falsone a Messina -->
+        <div class="lib-book" onclick="window.open('https://grandangolosettimanale.it/libreria','_blank')">
+          <div class="lib-book-cover">
+            <img src="https://www.unilibro.it/cover/libro/9788890523502B.jpg" alt="Da Falsone a Messina" loading="lazy">
+            <span class="lib-badge lib-badge-soon">In uscita</span>
+          </div>
+          <div class="lib-book-meta">
+            <div class="lib-book-author">Franco Castaldo</div>
+            <div class="lib-book-title">Da Falsone a Messina</div>
+            <div class="lib-book-subtitle">Strade senza ritorno: le storie dei boss dalla cattura al silenzio.</div>
+            <div class="lib-book-footer">
+              <span class="lib-book-coming">Prossimamente</span>
+              <span class="lib-book-cta">Avvisami</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lib-info-row">
+        <div class="lib-info-items">
+          <span class="lib-info-item">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="3" width="10" height="7" rx="1.2" stroke="currentColor" stroke-width="1.2"/><path d="M4 3V2.5a2 2 0 0 1 4 0V3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Pagamento sicuro
+          </span>
+          <span class="lib-info-item">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 4h9M1.5 4v5.5h9V4M1.5 4l1.5-2.5h6L10.5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Spedizione in tutta Europa
+          </span>
+          <span class="lib-info-item">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.2 2.5 2.8.4-2 2 .5 2.8L6 7.4l-2.5 1.3.5-2.8-2-2 2.8-.4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            Spedizione assicurata
+          </span>
+        </div>
+        <a href="https://grandangolosettimanale.it/libreria" target="_blank" rel="noopener" class="lib-cta-all">
+          Catalogo completo &rarr;
+        </a>
+      </div>
+
     </section>
 
     <div style="margin:20px 0 0;min-width:250px;">
@@ -616,7 +1022,7 @@ l.parentNode.insertBefore(s, l);
     Edicola digitale di Grandangolo. Tutti i diritti riservati. Edizioni Grandangolo - Via Mazzini, 187 - 92100 Agrigento;
     Numero di telefono 0922822788 - Cell 351 533 9611 - 92100 Agrigento - Codice Issn: 2499-8907 -
     Iscrizione R.O.C.: 34513 - Registrazione al Tribunale di Agrigento n. 264/04
-    Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="75071011140f1c1a1b10351207141b11141b121a191a1412071c12101b011a5b1c01">[email&#160;protected]</a>
+    Direttore Responsabile Franco Castaldo - Segnalazioni a <a href="redazione@grandangoloagrigento.it" class="__cf_email__" data-cfemail="75071011140f1c1a1b10351207141b11141b121a191a1412071c12101b011a5b1c01">[redazione@grandangoloagrigento.it]</a>
     <div style="margin-top:6px;">
       <a href="/privacy.html" style="color:#b0b0b0;text-decoration:none;margin-right:10px;">Privacy Policy</a>
       <span style="opacity:.5;">|</span>
@@ -624,45 +1030,74 @@ l.parentNode.insertBefore(s, l);
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
   (function() {
+
+    // ═══════════════════════════════════════════════════════════════════════
+    //  CODICI DI ACCESSO
+    //  PROMO_CODE  = sblocca i 4 numeri del bundle
+    //  PREMIUM_CODE = abbonamento annuale — sblocca TUTTI i numeri
+    // ═══════════════════════════════════════════════════════════════════════
+    var PROMO_CODE   = "GR22-PRM-11e65/t\u00a3J";
+    var PREMIUM_CODE = "GR22-PREMIUM(SJjA?$\u00a3-AaX";
+    var PROMO_IDS    = ["promo-n10","promo-n9","promo-n8","promo-n7"];
+
+    // ═══════════════════════════════════════════════════════════════════════
+    //  DATABASE NUMERI
+    // ═══════════════════════════════════════════════════════════════════════
     const issues = [
       { id:"promo-n10", title:"Grandangolo Settimanale N. 10", subtitle:"14 Marzo 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1_57b464.jpg", buyUrl:"https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i", unlockCode:"GR22-H6ashyJ&3", _promoBundle:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1_57b464.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/2_6a7f2f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/3_49abf3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/4_64bd31.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/5_7e76d0.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/6_71e267.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/7_52130b.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/8_68f7aa.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/9_253c2c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/10_fc7300.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/11_ba02ee.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/12_57cc13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/13_6092b1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/14_911291.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/15_8f4388.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/16_3e2a5c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/17_b0a2b7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/18_f79f47.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/19_f88bda.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/20.jpg"] },
       { id:"promo-n9", title:"Grandangolo Settimanale N. 9", subtitle:"7 Marzo 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg", buyUrl:"https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i", unlockCode:"GR22-4F3j/tAs)", _promoBundle:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/11.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/12.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/16.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/19.jpg"] },
-      { id:"promo-n8", title:"Grandangolo Settimanale N. 8", subtitle:"28 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg", buyUrl:"https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i", unlockCode:"GR22-ì/Y£h6hh8ç!", _promoBundle:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_9a0787.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_4ab205.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_f252a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_e3e862.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_cfd7da.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_f1bd50.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_71b1c7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_7ecb47.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_b9f964.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_f58bb9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_386673.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13_ed065c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14_3a7d97.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15_bab07d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16_bca0ed.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/19.jpg"] },
-      { id:"promo-n7", title:"Grandangolo Settimanale N. 7", subtitle:"21 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg", buyUrl:"https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i", unlockCode:"GR22-C6AGh/1j£@", _promoBundle:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_bb80a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_c804c1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_c93849.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_fa4a01.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_3b8841.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_7f7e61.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_4c65fd.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_2ca547.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_00c593.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_180d27.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_8baaf1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16.jpg"] },
+      { id:"promo-n8", title:"Grandangolo Settimanale N. 8", subtitle:"28 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg", buyUrl:"https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i", unlockCode:"GR22-\u00ec/Y\u00a3h6hh8\u00e7!", _promoBundle:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_9a0787.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_4ab205.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_f252a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_e3e862.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_cfd7da.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_f1bd50.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_71b1c7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_7ecb47.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_b9f964.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_f58bb9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_386673.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13_ed065c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14_3a7d97.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15_bab07d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16_bca0ed.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/19.jpg"] },
+      { id:"promo-n7", title:"Grandangolo Settimanale N. 7", subtitle:"21 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg", buyUrl:"https://buy.stripe.com/dRm4gBgIU4g9fFH9B69MY0i", unlockCode:"GR22-C6AGh/1j\u00a3@", _promoBundle:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_bb80a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_c804c1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_c93849.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_fa4a01.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_3b8841.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_7f7e61.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_4c65fd.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_2ca547.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_00c593.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_180d27.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_8baaf1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16.jpg"] },
       { id:"ga2", title:"Grandangolo Settimanale N. 10", subtitle:"14 Marzo 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1_57b464.jpg", buyUrl:"https://buy.stripe.com/5kQdRbakw8wp0KNaFa9MY0j", unlockCode:"GR22-H6ashyJ&3", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1_57b464.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/2_6a7f2f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/3_49abf3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/4_64bd31.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/5_7e76d0.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/6_71e267.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/7_52130b.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/8_68f7aa.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/9_253c2c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/10_fc7300.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/11_ba02ee.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/12_57cc13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/13_6092b1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/14_911291.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/15_8f4388.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/16_3e2a5c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/17_b0a2b7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/18_f79f47.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/19_f88bda.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/20.jpg"] },
-      { id:"ga2", title:"Grandangolo Settimanale N. 9", subtitle:"7 Marzo 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg", buyUrl:"https://buy.stripe.com/00w3cx0JWeUNctvbJe9MY0h", unlockCode:"GR22-4F3j/tAs)", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/11.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/12.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/16.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/19.jpg"] },
-      { id:"ga2", title:"Grandangolo Settimanale N. 8", subtitle:"28 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg", buyUrl:"https://buy.stripe.com/3cI8wR0JW8wp0KN00w9MY0g", unlockCode:"GR22-ì/Y£h6hh8ç!", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_9a0787.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_4ab205.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_f252a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_e3e862.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_cfd7da.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_f1bd50.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_71b1c7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_7ecb47.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_b9f964.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_f58bb9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_386673.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13_ed065c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14_3a7d97.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15_bab07d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16_bca0ed.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/19.jpg"] },
-      { id:"ga2", title:"Grandangolo Settimanale N. 7", subtitle:"21 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg", buyUrl:"https://buy.stripe.com/aFa3cx2S4eUN0KNeVq9MY0f", unlockCode:"GR22-C6AGh/1j£@", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_bb80a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_c804c1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_c93849.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_fa4a01.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_3b8841.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_7f7e61.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_4c65fd.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_2ca547.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_00c593.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_180d27.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_8baaf1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16.jpg"] },
-      { id:"ga2", title:"Grandangolo Settimanale N. 6", subtitle:"14 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_fc5642.jpg", buyUrl:"https://buy.stripe.com/7sY9AV2S4bIB6575kQ9MY0d", unlockCode:"GR22-HSbd=js1(", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_fc5642.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_c8d01c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_2d718f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_fff784.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_923e1c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_b2f641.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_15d971.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_440337.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_191cbc.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_534258.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_e5acb3.jpg"] },
-      { id:"ga2", title:"Grandangolo Settimanale N. 5", subtitle:"7 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1.jpg", buyUrl:"https://buy.stripe.com/eVqeVfdwI4g95135kQ9MY0b", unlockCode:"GR22-ahdUONZ5sk!Ca", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12.jpg"] },
-      { id:"ga2", title:"Grandangolo Settimanale N. 4", subtitle:"31 Gennaio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_e5c14d.jpg", buyUrl:"https://buy.stripe.com/8x2eVfcsE2819hj7sY9MY0a", unlockCode:"GR22-ahdUONZ5sk!Ca", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_e5c14d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_950d00.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_c00845.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_8f02aa.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_c5452a.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_01cfda.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_7e41a1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_4cb673.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_4f3825.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_67eb6c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_f57f9a.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_df08dc.jpg"] },
-      { id:"ga2", title:"Grandangolo Settimanale N. 3", subtitle:"24 Gennaio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_48862b.jpg", buyUrl:"https://buy.stripe.com/cNi9AV50c4g9gJL4gM9MY09", unlockCode:"GR22-Jhgd7=J24BRi", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_48862b.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_0809ac.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_67e253.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_1df9f1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_925053.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_255ab1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_be76d1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_0e26ec.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_b5ab32.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_28431c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_2b24d8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_e2a6c0.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13_2e56a4.jpg"] },
-      { id:"ga2", title:"Grandangolo Settimanale N. 2", subtitle:"17 Gennaio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_c6405a.jpg", buyUrl:"https://buy.stripe.com/9B64gBeAMcMF79b14A9MY08", unlockCode:"GR22-UJHhs9?[s", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_c6405a.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_60fd10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_303556.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_a5296c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_953d76.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_f419a3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_14c700.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_5373d6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_14bc91.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_36afae.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_9b05b5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_a50e4a.jpg"] },
-      { id:"ga45", title:"Grandangolo Settimanale N. 1", subtitle:"10 Gennaio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1.jpg", buyUrl:"https://buy.stripe.com/9B628t64g13X2SV6oU9MY07", unlockCode:"GR22-Tg4Ie%Pol", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13.jpg"] },
-      { id:"ga45", title:"Grandangolo Settimanale N. 47", subtitle:"13 dicembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1_ef6153.jpg", buyUrl:"https://buy.stripe.com/6oU28tgIUaEx0KN7sY9MY06", unlockCode:"GR21-ST54dsh=s%", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1_ef6153.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/2_7bd602.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/3_63139b.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/4_056d4d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/5_114023.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/6_fb3250.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/7_a87039.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/8_12c608.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/9_c2bdc2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/10_9f47d2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/11_74ce64.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/12.jpg"] },
-      { id:"ga45", title:"Grandangolo Settimanale N. 46", subtitle:"6 dicembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1.jpg", buyUrl:"https://buy.stripe.com/bJeeVf1O09At1OR6oU9MY04", unlockCode:"GR21-dJPdc5j)", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/11.jpg"] },
-      { id:"ga44", title:"Grandangolo Settimanale N. 44", subtitle:"29 novembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_8358eb.jpg", buyUrl:"https://buy.stripe.com/3cIfZj50c7sl3WZeVq9MY03", unlockCode:"GR21-aDGcfh8w7", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_8358eb.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_1d2375.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_a8dd7c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_550129.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_ad3935.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_8acab6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_7ca78d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_a7f2d9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_dc8dbf.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_78ba51.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_299eca.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/12_dc1590.jpg"] },
-      { id:"ga43", title:"Grandangolo Settimanale N. 43", subtitle:"22 novembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_3b015f.jpg", buyUrl:"https://buy.stripe.com/3cI8wR50cfYR8df3cI9MY02", unlockCode:"GR21-JaZ5yYd3ZB", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_3b015f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a550a1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_14a806.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_660e07.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_ad778e.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_b68315.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_1ce699.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_a9c530.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_e39f1b.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_6b2490.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_0af8bd.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/12.jpg"] },
-      { id:"ga40", title:"Grandangolo Settimanale N. 42", subtitle:"15 novembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg", buyUrl:"https://buy.stripe.com/8x26oJ2S4h2V1OR5kQ9MY00", unlockCode:"GR21-rwYa7hvBD8M", isLatest:true, pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a54dca.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_70d2c7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_cbaf8f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_f2c14f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_2e6e09.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_f9df4d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_987272.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_737e71.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_eea7f6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_2268ca.jpg"] },
+      { id:"ga2", title:"Grandangolo Settimanale N. 9", subtitle:"7 Marzo 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg", buyUrl:"https://buy.stripe.com/00w3cx0JWeUNctvbJe9MY0h", unlockCode:"GR22-4F3j/tAs)", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/11.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/12.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/16.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/19.jpg"] },
+      { id:"ga2", title:"Grandangolo Settimanale N. 8", subtitle:"28 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg", buyUrl:"https://buy.stripe.com/3cI8wR0JW8wp0KN00w9MY0g", unlockCode:"GR22-\u00ec/Y\u00a3h6hh8\u00e7!", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_c9e840.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_9a0787.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_4ab205.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_f252a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_e3e862.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_cfd7da.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_f1bd50.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_71b1c7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_7ecb47.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_b9f964.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_f58bb9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_386673.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13_ed065c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14_3a7d97.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15_bab07d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16_bca0ed.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/17.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/18.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/19.jpg"] },
+      { id:"ga2", title:"Grandangolo Settimanale N. 7", subtitle:"21 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg", buyUrl:"https://buy.stripe.com/aFa3cx2S4eUN0KNeVq9MY0f", unlockCode:"GR22-C6AGh/1j\u00a3@", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_04319c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_bb80a4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_c804c1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_c93849.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_fa4a01.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_3b8841.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_7f7e61.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_4c65fd.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_2ca547.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_00c593.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_180d27.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12_8baaf1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/13.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/14.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/15.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/16.jpg"] },
+      { id:"ga2", title:"Grandangolo Settimanale N. 6", subtitle:"14 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_fc5642.jpg", buyUrl:"https://buy.stripe.com/7sY9AV2S4bIB6575kQ9MY0d", unlockCode:"GR22-HSbd=js1(", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1_fc5642.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2_c8d01c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3_2d718f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4_fff784.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5_923e1c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6_b2f641.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7_15d971.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8_440337.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9_191cbc.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10_534258.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11_e5acb3.jpg"] },
+      { id:"ga2", title:"Grandangolo Settimanale N. 5", subtitle:"7 Febbraio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1.jpg", buyUrl:"https://buy.stripe.com/eVqeVfdwI4g95135kQ9MY0b", unlockCode:"GR22-ahdUONZ5sk!Ca", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/11.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/02/12.jpg"] },
+      { id:"ga2", title:"Grandangolo Settimanale N. 4", subtitle:"31 Gennaio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_e5c14d.jpg", buyUrl:"https://buy.stripe.com/8x2eVfcsE2819hj7sY9MY0a", unlockCode:"GR22-ahdUONZ5sk!Ca", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_e5c14d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_950d00.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_c00845.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_8f02aa.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_c5452a.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_01cfda.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_7e41a1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_4cb673.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_4f3825.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_67eb6c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_f57f9a.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_df08dc.jpg"] },
+      { id:"ga2", title:"Grandangolo Settimanale N. 3", subtitle:"24 Gennaio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_48862b.jpg", buyUrl:"https://buy.stripe.com/cNi9AV50c4g9gJL4gM9MY09", unlockCode:"GR22-Jhgd7=J24BRi", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_48862b.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_0809ac.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_67e253.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_1df9f1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_925053.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_255ab1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_be76d1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_0e26ec.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_b5ab32.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_28431c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_2b24d8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_e2a6c0.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13_2e56a4.jpg"] },
+      { id:"ga2", title:"Grandangolo Settimanale N. 2", subtitle:"17 Gennaio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_c6405a.jpg", buyUrl:"https://buy.stripe.com/9B64gBeAMcMF79b14A9MY08", unlockCode:"GR22-UJHhs9?[s", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1_c6405a.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2_60fd10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3_303556.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4_a5296c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5_953d76.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6_f419a3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7_14c700.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8_5373d6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9_14bc91.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10_36afae.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11_9b05b5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12_a50e4a.jpg"] },
+      { id:"ga45", title:"Grandangolo Settimanale N. 1", subtitle:"10 Gennaio 2026", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1.jpg", buyUrl:"https://buy.stripe.com/9B628t64g13X2SV6oU9MY07", unlockCode:"GR22-Tg4Ie%Pol", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/11.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/12.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/01/13.jpg"] },
+      { id:"ga45", title:"Grandangolo Settimanale N. 47", subtitle:"13 dicembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1_ef6153.jpg", buyUrl:"https://buy.stripe.com/6oU28tgIUaEx0KN7sY9MY06", unlockCode:"GR21-ST54dsh=s%", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1_ef6153.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/2_7bd602.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/3_63139b.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/4_056d4d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/5_114023.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/6_fb3250.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/7_a87039.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/8_12c608.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/9_c2bdc2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/10_9f47d2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/11_74ce64.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/12.jpg"] },
+      { id:"ga45", title:"Grandangolo Settimanale N. 46", subtitle:"6 dicembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1.jpg", buyUrl:"https://buy.stripe.com/bJeeVf1O09At1OR6oU9MY04", unlockCode:"GR21-dJPdc5j)", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/3.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/4.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/5.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/8.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/10.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/12/11.jpg"] },
+      { id:"ga44", title:"Grandangolo Settimanale N. 44", subtitle:"29 novembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_8358eb.jpg", buyUrl:"https://buy.stripe.com/3cIfZj50c7sl3WZeVq9MY03", unlockCode:"GR21-aDGcfh8w7", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_8358eb.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_1d2375.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_a8dd7c.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_550129.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_ad3935.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_8acab6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_7ca78d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_a7f2d9.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_dc8dbf.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_78ba51.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_299eca.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/12_dc1590.jpg"] },
+      { id:"ga43", title:"Grandangolo Settimanale N. 43", subtitle:"22 novembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_3b015f.jpg", buyUrl:"https://buy.stripe.com/3cI8wR50cfYR8df3cI9MY02", unlockCode:"GR21-JaZ5yYd3ZB", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_3b015f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a550a1.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_14a806.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_660e07.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_ad778e.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_b68315.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_1ce699.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_a9c530.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_e39f1b.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_6b2490.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_0af8bd.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/12.jpg"] },
+      { id:"ga40", title:"Grandangolo Settimanale N. 42", subtitle:"15 novembre 2025", cover:"https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg", buyUrl:"https://buy.stripe.com/8x26oJ2S4h2V1OR5kQ9MY00", unlockCode:"GR21-rwYa7hvBD8M", pages:["https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/1_a60ca2.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/2_a54dca.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/3_70d2c7.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/4_cbaf8f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/5_f2c14f.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/6_2e6e09.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/7_f9df4d.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/8_987272.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/9_737e71.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/10_eea7f6.jpg","https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/11_2268ca.jpg"] },
       { id:"ga38", title:"Grandangolo Settimanale N. 41", subtitle:"8 novembre 2025", cover:"https://public-files.gumroad.com/vze72auouuw1kp5d6irdtuuef1vr", buyUrl:"#", unlockCode:"CODICE_SEGRETO_38", pages:["https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+38+-+Pagina+1","https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+38+-+Pagina+2","https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+38+-+Pagina+3","https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+38+-+Pagina+4"] },
       { id:"ga39", title:"Grandangolo Settimanale N. 40", subtitle:"4 novembre 2025", cover:"https://public-files.gumroad.com/60xrnhp8eqdix3xulhycv30c1bah", buyUrl:"#", unlockCode:"CODICE_SEGRETO_39", pages:["https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+39+-+Pagina+1","https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+39+-+Pagina+2","https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+39+-+Pagina+3","https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+39+-+Pagina+4"] },
       { id:"ga41", title:"Grandangolo Settimanale N. 39", subtitle:"25 ottobre 2025", cover:"https://public-files.gumroad.com/xraa7z5n1zin5gml492zmmj4wpu8", buyUrl:"#", unlockCode:"CODICE_SEGRETO_41", pages:["https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+41+-+Pagina+1","https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+41+-+Pagina+2","https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+41+-+Pagina+3","https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+41+-+Pagina+4"] },
       { id:"ga42", title:"Grandangolo Settimanale N. 38", subtitle:"18 ottobre 2025", cover:"https://public-files.gumroad.com/tu0kd4z4c5xcz38rkhp9zc92abe4", buyUrl:"#", unlockCode:"CODICE_SEGRETO_42", pages:["https://via.placeholder.com/1200x1600/333333/ffffff?text=N.+42+-+Pagina+1","https://via.placeholder.com/1200x1600/444444/ffffff?text=N.+42+-+Pagina+2","https://via.placeholder.com/1200x1600/555555/ffffff?text=N.+42+-+Pagina+3","https://via.placeholder.com/1200x1600/666666/ffffff?text=N.+42+-+Pagina+4"] }
     ];
 
-    const edicolaRoot = document.getElementById("edicola-grandangolo");
+    // ═══════════════════════════════════════════════════════════════════════
+    //  RENDER GRIGLIA EDICOLA
+    // ═══════════════════════════════════════════════════════════════════════
+    const edicolaRoot    = document.getElementById("edicola-grandangolo");
+    const noResults      = document.getElementById("edicola-no-results");
+    const searchInput    = document.getElementById("edicola-search");
+    const searchClear    = document.getElementById("edicola-search-clear");
+    const searchInfo     = document.getElementById("edicola-search-results-info");
+
     if (!edicolaRoot || !issues.length) return;
 
-    issues.filter(issue => !issue._promoBundle).forEach((issue, index) => {
+    // Filtra via i bundle promo (non appaiono in griglia)
+    const gridIssues = issues.filter(function(i){ return !i._promoBundle; });
+
+    // Crea tutte le card e le tieni in memoria per filtrarle
+    var allCards = [];
+    gridIssues.forEach(function(issue, index) {
       const card = document.createElement("article");
       card.className = "edicola-card";
       card.setAttribute("data-issue-id", issue.id);
+      // Campi ricercabili: title + subtitle concatenati lowercase
+      card.setAttribute("data-search", (issue.title + " " + (issue.subtitle||"")).toLowerCase());
       const isLatest = index === 0;
       card.innerHTML = `
         <div class="edicola-cover-wrap">
-          <img src="${issue.cover}" alt="${issue.title}">
+          <img src="${issue.cover}" alt="${issue.title}" loading="lazy">
           ${isLatest ? '<div class="issue-label-latest">ULTIMA USCITA · €1,50</div>' : ''}
         </div>
         <div class="edicola-label">
@@ -671,43 +1106,87 @@ l.parentNode.insertBefore(s, l);
           <div class="edicola-label-meta"><span>Prime pagine gratis</span><span>Codice per sbloccare</span></div>
         </div>`;
       card.addEventListener("click", function() { openFlipbook(issue, 0); });
-      edicolaRoot.appendChild(card);
+      // Inserisci prima del nodo #edicola-no-results
+      edicolaRoot.insertBefore(card, noResults);
+      allCards.push({ card: card, issue: issue });
     });
 
+    // Gestione promo covers (invariata)
     document.querySelectorAll(".promo-cover-card").forEach(function(card) {
       card.addEventListener("click", function() {
-        var id = card.getAttribute("data-promo-id");
-        var issue = issues.find(function(i) { return i.id === id; });
+        var pid = card.getAttribute("data-promo-id");
+        var issue = issues.find(function(i){ return i.id === pid; });
         if (issue) openFlipbook(issue, 0);
       });
     });
 
-    // ─── FLIPBOOK READER (riscrittura completa) ───────────────────────────────
+    // ═══════════════════════════════════════════════════════════════════════
+    //  LOGICA RICERCA
+    // ═══════════════════════════════════════════════════════════════════════
+    function applySearch() {
+      var q = (searchInput.value || "").trim().toLowerCase();
+      // pulsante ✕
+      if (q) { searchClear.classList.add("visible"); }
+      else   { searchClear.classList.remove("visible"); }
 
-    const FREE_PAGES = 2;
-    var PROMO_CODE = "GR22-PRM-11e65/t\u00a3J";
-    var PROMO_IDS  = ["promo-n10","promo-n9","promo-n8","promo-n7"];
+      var visible = 0;
+      allCards.forEach(function(item) {
+        var match = !q || item.card.getAttribute("data-search").indexOf(q) !== -1;
+        item.card.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
 
+      if (q) {
+        searchInfo.textContent = visible > 0
+          ? (visible === 1 ? "1 numero" : visible + " numeri")
+          : "Nessun risultato";
+        searchInfo.classList.add("visible");
+      } else {
+        searchInfo.textContent = "";
+        searchInfo.classList.remove("visible");
+      }
+      noResults.style.display = (visible === 0) ? "block" : "none";
+    }
+
+    searchInput.addEventListener("input", applySearch);
+    searchClear.addEventListener("click", function(){
+      searchInput.value = ""; applySearch(); searchInput.focus();
+    });
+
+    // ═══════════════════════════════════════════════════════════════════════
+    //  FUNZIONE SBLOCCO — include codice PREMIUM
+    // ═══════════════════════════════════════════════════════════════════════
     function performUnlock(issue, value, onSuccess, onError) {
       var v = (value || "").trim();
       if (!v) { if (typeof onError==="function") onError("Inserisci un codice."); return; }
-      if (v === issue.unlockCode || (v === PROMO_CODE && PROMO_IDS.indexOf(issue.id) !== -1)) {
+
+      // 1. Codice specifico del numero
+      // 2. Codice bundle promo (4 numeri)
+      // 3. Codice abbonamento PREMIUM — sblocca TUTTI i numeri
+      var isPremium = (v === PREMIUM_CODE);
+      var isPromo   = (v === PROMO_CODE) && (PROMO_IDS.indexOf(issue.id) !== -1);
+      var isOwn     = (v === issue.unlockCode);
+
+      if (isPremium || isPromo || isOwn) {
         issue._unlocked = true;
-        if (typeof onSuccess==="function") onSuccess();
+        if (typeof onSuccess==="function") onSuccess(isPremium);
       } else {
         if (typeof onError==="function") onError("Codice non valido.");
       }
     }
 
+    // ═══════════════════════════════════════════════════════════════════════
+    //  FLIPBOOK READER
+    // ═══════════════════════════════════════════════════════════════════════
+
     function openFlipbook(issue, startIndex) {
       const pages = issue.pages || [];
       if (!pages.length) return;
 
-      // ── COSTANTI ─────────────────────────────────────────────────────────
       const ZOOM_STEPS = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
-      const PAGE_RATIO = 1.414; // altezza/larghezza pagina A4
+      const PAGE_RATIO = 1.414;
+      const FREE_PAGES = 2;
 
-      // Helpers desktop (spread = coppia di pagine affiancate)
       function pageToSpread(p) { return p === 0 ? 0 : Math.ceil(p / 2); }
       function spreadPages(s) {
         if (s === 0) return { left: null, right: 0, single: true };
@@ -716,25 +1195,19 @@ l.parentNode.insertBefore(s, l);
       }
       const maxSpread = Math.ceil((pages.length - 1) / 2);
 
-      // ── STATO ────────────────────────────────────────────────────────────
-      // Su MOBILE: pageIdx = indice pagina singola (0..N-1), una per volta
-      // Su DESKTOP: spreadIdx = indice dello spread (0..maxSpread), 2 pagine affiancate
-      let pageIdx   = startIndex || 0;            // mobile
-      let spreadIdx = pageToSpread(startIndex||0); // desktop
-      let zoomIdx   = 2;                           // 1x di default
+      let pageIdx   = startIndex || 0;
+      let spreadIdx = pageToSpread(startIndex||0);
+      let zoomIdx   = 2;
       const isMobile = () => window.innerWidth <= 600;
 
-      // Blocca scroll body
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
       document.documentElement.style.position = "fixed";
       document.documentElement.style.width = "100%";
 
       // ── BUILD HTML ────────────────────────────────────────────────────────
-      const overlay = document.createElement("div");
-      overlay.className = "fb-overlay";
+      const overlay = document.createElement("div"); overlay.className = "fb-overlay";
 
-      // topbar
       const topbar = document.createElement("div"); topbar.className = "fb-topbar";
       const topLeft = document.createElement("div"); topLeft.className = "fb-topbar-left";
       topLeft.innerHTML = `<div class="fb-title">${issue.title}</div><div class="fb-subtitle">${issue.subtitle||""}</div>`;
@@ -746,11 +1219,11 @@ l.parentNode.insertBefore(s, l);
       const zoomResetBtn= document.createElement("button"); zoomResetBtn.className="fb-zoom-btn"; zoomResetBtn.type="button"; zoomResetBtn.innerHTML="⊙"; zoomResetBtn.style.fontSize="13px";
       zoomWrap.appendChild(zoomOutBtn); zoomWrap.appendChild(zoomLevelEl); zoomWrap.appendChild(zoomInBtn); zoomWrap.appendChild(zoomResetBtn);
       const pageIndicator = document.createElement("span"); pageIndicator.className="fb-page-indicator";
+
       const closeBtn = document.createElement("button"); closeBtn.className="fb-btn fb-btn-close"; closeBtn.type="button"; closeBtn.innerHTML="×";
       topRight.appendChild(zoomWrap); topRight.appendChild(pageIndicator); topRight.appendChild(closeBtn);
       topbar.appendChild(topLeft); topbar.appendChild(topRight);
 
-      // viewport + spread
       const viewport = document.createElement("div"); viewport.className="fb-viewport";
       const sidePrevBtn = document.createElement("button"); sidePrevBtn.className="fb-side-arrow fb-side-prev"; sidePrevBtn.type="button"; sidePrevBtn.innerHTML="&#10094;";
       const sideNextBtn = document.createElement("button"); sideNextBtn.className="fb-side-arrow fb-side-next"; sideNextBtn.type="button"; sideNextBtn.innerHTML="&#10095;";
@@ -763,18 +1236,20 @@ l.parentNode.insertBefore(s, l);
       const rightImg = document.createElement("img"); rightImg.className="fb-page-img"; rightImg.draggable=false;
       rightSlot.appendChild(rightImg);
 
-      // blur overlay (bloccante per pagine a pagamento)
       const blurOverlay = document.createElement("div"); blurOverlay.className="fb-blur-overlay";
       const blurInner = document.createElement("div"); blurInner.className="fb-blur-inner";
       blurInner.innerHTML=`<div class="fb-blur-title">Continua a sfogliare</div><div class="fb-blur-desc">Le pagine successive sono oscurate. Acquista il numero completo per leggere tutto il settimanale.</div>`;
       const buyBtn = document.createElement("button"); buyBtn.type="button"; buyBtn.className="fb-buy-btn"; buyBtn.textContent="Acquista il numero completo →";
+      // ── Separatore ────────────────────────────────────────────────────────
+      const blurSep = document.createElement("div"); blurSep.className="fb-blur-sep"; blurSep.textContent="Sei già abbonato?";
+      // ── Pulsante dorato PREMIUM ────────────────────────────────────────────
+      const premiumBtn = document.createElement("button"); premiumBtn.type="button"; premiumBtn.className="fb-premium-unlock-btn"; premiumBtn.innerHTML="★ Inserisci il codice abbonamento";
       const openUnlockBtn = document.createElement("button"); openUnlockBtn.type="button";
       openUnlockBtn.style.cssText="display:block;width:100%;margin-top:8px;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);color:#fff;font-size:13px;font-weight:600;cursor:pointer;";
-      openUnlockBtn.textContent="Ho già il codice →";
-      blurInner.appendChild(buyBtn); blurInner.appendChild(openUnlockBtn);
+      openUnlockBtn.textContent="Ho un codice singolo →";
+      blurInner.appendChild(buyBtn); blurInner.appendChild(blurSep); blurInner.appendChild(premiumBtn); blurInner.appendChild(openUnlockBtn);
       blurOverlay.appendChild(blurInner); rightSlot.appendChild(blurOverlay);
 
-      // Watermark anti-screenshot (visibile solo in cattura schermo)
       const watermark = document.createElement("div");
       watermark.className = "fb-watermark";
       watermark.textContent = "© Grandangolo – Copia non autorizzata";
@@ -783,7 +1258,6 @@ l.parentNode.insertBefore(s, l);
       spread.appendChild(leftSlot); spread.appendChild(spine); spread.appendChild(rightSlot);
       viewport.appendChild(sidePrevBtn); viewport.appendChild(spread); viewport.appendChild(sideNextBtn);
 
-      // bottombar
       const bottombar = document.createElement("div"); bottombar.className="fb-bottombar";
       const prevBtn = document.createElement("button"); prevBtn.className="fb-nav-arrow"; prevBtn.type="button"; prevBtn.innerHTML="&#10094;";
       const thumbStrip = document.createElement("div"); thumbStrip.className="fb-thumb-strip";
@@ -792,13 +1266,20 @@ l.parentNode.insertBefore(s, l);
 
       overlay.appendChild(topbar); overlay.appendChild(viewport); overlay.appendChild(bottombar);
 
-      // unlock modal (fuori dall'overlay, sopra tutto)
+      // ── UNLOCK MODAL ─────────────────────────────────────────────────────
       const unlockModal = document.createElement("div"); unlockModal.className="fb-unlock-modal";
       const unlockSheet = document.createElement("div"); unlockSheet.className="fb-unlock-sheet";
       const unlockHandle = document.createElement("div"); unlockHandle.className="fb-unlock-handle";
       const unlockCloseBtn = document.createElement("button"); unlockCloseBtn.type="button"; unlockCloseBtn.className="fb-unlock-close"; unlockCloseBtn.innerHTML="✕";
       const unlockBody = document.createElement("div"); unlockBody.className="fb-unlock-body";
-      unlockBody.innerHTML=`<div class="fb-unlock-title">Sblocca il numero</div><div class="fb-unlock-desc">Inserisci il codice ricevuto dopo l'acquisto.</div>`;
+
+      // Badge PREMIUM nel modale
+      const premiumHint = document.createElement("div");
+      premiumHint.style.cssText = "text-align:center;margin-bottom:4px;";
+      premiumHint.innerHTML = `
+        <div class="fb-unlock-title">Sblocca il numero</div>
+        <div class="fb-unlock-desc">Inserisci il codice del numero, il codice bundle o il tuo <span class="fb-premium-badge">★ PREMIUM</span> per accedere a tutti i numeri.</div>`;
+
       const unlockBuyBtn = document.createElement("button"); unlockBuyBtn.type="button"; unlockBuyBtn.className="fb-unlock-buy"; unlockBuyBtn.textContent="Acquista il numero completo →";
       const unlockSep = document.createElement("div"); unlockSep.className="fb-unlock-sep"; unlockSep.textContent="oppure inserisci il codice";
       const unlockLabel = document.createElement("div"); unlockLabel.className="fb-unlock-label"; unlockLabel.textContent="Codice di sblocco";
@@ -808,6 +1289,8 @@ l.parentNode.insertBefore(s, l);
       unlockInput.setAttribute("spellcheck","false");
       const unlockGoBtn = document.createElement("button"); unlockGoBtn.type="button"; unlockGoBtn.className="fb-unlock-go"; unlockGoBtn.textContent="Sblocca";
       const unlockMsg = document.createElement("div"); unlockMsg.className="fb-unlock-msg";
+
+      unlockBody.appendChild(premiumHint);
       unlockBody.appendChild(unlockBuyBtn); unlockBody.appendChild(unlockSep);
       unlockBody.appendChild(unlockLabel); unlockBody.appendChild(unlockInput);
       unlockBody.appendChild(unlockGoBtn); unlockBody.appendChild(unlockMsg);
@@ -816,7 +1299,7 @@ l.parentNode.insertBefore(s, l);
       document.body.appendChild(unlockModal);
       document.body.appendChild(overlay);
 
-      // thumbnails
+      // Thumbnails
       pages.forEach(function(pageUrl, i) {
         const thumb = document.createElement("div"); thumb.className="fb-thumb";
         const tImg = document.createElement("img"); tImg.src=pageUrl; tImg.alt="p"+(i+1); tImg.loading="lazy";
@@ -829,12 +1312,8 @@ l.parentNode.insertBefore(s, l);
         thumbStrip.appendChild(thumb);
       });
 
-      // ─────────────────────────────────────────────────────────────────────
-      // MOBILE: logica completamente separata e semplicissima
-      // Usa solo pageIdx, img.src diretto, zero animazioni, zero applyZoom
-      // ─────────────────────────────────────────────────────────────────────
+      // ── MOBILE ───────────────────────────────────────────────────────────
       function goToPage(i) {
-        // Clamp
         i = Math.max(0, Math.min(pages.length - 1, i));
         pageIdx = i;
         renderMobile();
@@ -843,17 +1322,12 @@ l.parentNode.insertBefore(s, l);
       function renderMobile() {
         const isUnlocked = !!issue._unlocked;
         const locked = !isUnlocked && pageIdx >= FREE_PAGES;
-
-        // Calcola dimensioni pagina per riempire lo schermo
         const vw = window.innerWidth;
         const vh = viewport.clientHeight || (window.innerHeight - 52 - 60);
         let pw = vw;
         let ph = Math.round(pw * PAGE_RATIO);
         if (ph > vh) { ph = vh; pw = Math.round(ph / PAGE_RATIO); }
-        pw = Math.max(1, pw);
-        ph = Math.max(1, ph);
-
-        // Mostra solo rightSlot come pagina singola
+        pw = Math.max(1, pw); ph = Math.max(1, ph);
         leftSlot.style.display  = "none";
         spine.style.display     = "none";
         rightSlot.className     = "fb-page-slot fb-single";
@@ -863,24 +1337,14 @@ l.parentNode.insertBefore(s, l);
         rightImg.style.height   = ph + "px";
         rightImg.style.filter   = locked ? "blur(8px) brightness(0.65)" : "none";
         rightImg.src            = pages[pageIdx];
-
-        // Viewport centrato, no overflow
         viewport.style.overflow        = "hidden";
         viewport.style.alignItems      = "center";
         viewport.style.justifyContent  = "center";
-
-        // Blur overlay
         if (locked) { blurOverlay.classList.add("visible"); }
         else        { blurOverlay.classList.remove("visible"); }
-
-        // Indicatore
         pageIndicator.textContent = (pageIdx + 1) + " / " + pages.length;
-
-        // Pulsanti
         prevBtn.disabled    = pageIdx <= 0;
         nextBtn.disabled    = pageIdx >= pages.length - 1;
-
-        // Thumbnails
         thumbStrip.querySelectorAll(".fb-thumb").forEach(function(t, i2) {
           t.classList.toggle("active",  i2 === pageIdx);
           t.classList.toggle("locked",  !isUnlocked && i2 >= FREE_PAGES);
@@ -889,9 +1353,7 @@ l.parentNode.insertBefore(s, l);
         if (at) at.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"center" });
       }
 
-      // ─────────────────────────────────────────────────────────────────────
-      // DESKTOP: logica spread doppio con zoom
-      // ─────────────────────────────────────────────────────────────────────
+      // ── DESKTOP ───────────────────────────────────────────────────────────
       function calcPageWidth(isDouble) {
         const vh = (viewport.clientHeight||400) - 48;
         const vw = (viewport.clientWidth||800)  - 140;
@@ -916,7 +1378,6 @@ l.parentNode.insertBefore(s, l);
         rightImg.style.height   = "";
         viewport.style.overflow = "auto";
         viewport.style.cursor   = z > 1 ? "grab" : "default";
-        // Quando zoom>1 usiamo flex-start per permettere scroll fino al bordo sinistro
         if (z > 1) {
           viewport.style.alignItems     = "flex-start";
           viewport.style.justifyContent = "flex-start";
@@ -929,7 +1390,6 @@ l.parentNode.insertBefore(s, l);
         zoomLevelEl.textContent = Math.round(z*100) + "%";
         zoomOutBtn.disabled = zoomIdx <= 0;
         zoomInBtn.disabled  = zoomIdx >= ZOOM_STEPS.length - 1;
-        // Centra lo scroll sullo spread dopo il layout
         if (centerScroll) {
           requestAnimationFrame(function() {
             const spreadW = isDouble ? (w*2 + 3) : w;
@@ -945,24 +1405,15 @@ l.parentNode.insertBefore(s, l);
         const isUnlocked = !!issue._unlocked;
         const sp = spreadPages(spreadIdx);
         const isDouble = !sp.single && sp.left !== null;
-
         applyZoom();
-
         leftImg.src  = (sp.left  !== null) ? pages[sp.left]  : "";
         rightImg.src = (sp.right !== null) ? pages[sp.right] : "";
-
         const leftLocked  = sp.left  !== null && !isUnlocked && sp.left  >= FREE_PAGES;
         const rightLocked = sp.right !== null && !isUnlocked && sp.right >= FREE_PAGES;
-
-        if (isDouble) {
-          leftImg.style.filter = leftLocked  ? "blur(8px) brightness(0.65)" : "none";
-        }
+        if (isDouble) { leftImg.style.filter = leftLocked  ? "blur(8px) brightness(0.65)" : "none"; }
         rightImg.style.filter = rightLocked ? "blur(8px) brightness(0.65)" : "none";
-
         if (rightLocked) { blurOverlay.classList.add("visible"); }
         else             { blurOverlay.classList.remove("visible"); }
-
-        // indicatore
         if (sp.single) {
           pageIndicator.textContent = "1 / " + pages.length;
         } else {
@@ -970,13 +1421,10 @@ l.parentNode.insertBefore(s, l);
           const r = sp.right !== null ? sp.right + 1 : "";
           pageIndicator.textContent = l + "–" + r + " / " + pages.length;
         }
-
         prevBtn.disabled    = spreadIdx <= 0;
         nextBtn.disabled    = spreadIdx >= maxSpread;
         sidePrevBtn.disabled= spreadIdx <= 0;
         sideNextBtn.disabled= spreadIdx >= maxSpread;
-
-        // thumbnails
         thumbStrip.querySelectorAll(".fb-thumb").forEach(function(t, i) {
           const inActive = sp.single ? (i===sp.right) : (i===sp.left || i===sp.right);
           t.classList.toggle("active", inActive);
@@ -985,17 +1433,15 @@ l.parentNode.insertBefore(s, l);
         const ai = sp.right !== null ? sp.right : sp.left;
         const at = thumbStrip.querySelectorAll(".fb-thumb")[ai];
         if (at) at.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"center" });
-
         viewport.scrollTop = 0; viewport.scrollLeft = 0;
       }
 
-      // ── ENTRY POINT: sceglie mobile o desktop ────────────────────────────
       function renderAll() {
         if (isMobile()) { renderMobile(); }
         else            { render(); }
       }
 
-      // ── ZOOM (desktop only) ───────────────────────────────────────────────
+      // ── ZOOM ──────────────────────────────────────────────────────────────
       zoomInBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         if (!isMobile() && zoomIdx < ZOOM_STEPS.length-1) { zoomIdx++; applyZoom(true); }
@@ -1016,7 +1462,7 @@ l.parentNode.insertBefore(s, l);
         }
       }, { passive:false });
 
-      // ── MOUSE DRAG (desktop zoom>1) ───────────────────────────────────────
+      // ── MOUSE DRAG ────────────────────────────────────────────────────────
       let isDrag=false, dSX, dSY, vSX, vSY;
       viewport.addEventListener("mousedown", function(e) {
         if (isMobile()||ZOOM_STEPS[zoomIdx]<=1) return;
@@ -1025,7 +1471,6 @@ l.parentNode.insertBefore(s, l);
       });
       document.addEventListener("mousemove", function(e) {
         if(!isDrag)return;
-        // scrollLeft aumenta andando a destra: trascinare a sinistra (dx<0) deve scrollare a destra
         viewport.scrollLeft = vSX - (e.clientX - dSX);
         viewport.scrollTop  = vSY - (e.clientY - dSY);
       });
@@ -1034,37 +1479,25 @@ l.parentNode.insertBefore(s, l);
       });
 
       // ── SWIPE MOBILE ──────────────────────────────────────────────────────
-      // Registra touchstart e touchend DIRETTAMENTE sull'overlay per massima affidabilità
-      var swipeStartX = null;
-      var swipeStartY = null;
-      var swipeIsSwipe = false; // true se il gesto è prevalentemente orizzontale
-
+      var swipeStartX = null, swipeStartY = null, swipeIsSwipe = false;
       overlay.addEventListener("touchstart", function(e) {
         if (e.touches.length !== 1) { swipeStartX = null; return; }
-        swipeStartX = e.touches[0].clientX;
-        swipeStartY = e.touches[0].clientY;
-        swipeIsSwipe = false;
+        swipeStartX = e.touches[0].clientX; swipeStartY = e.touches[0].clientY; swipeIsSwipe = false;
       }, { passive: true });
-
       overlay.addEventListener("touchmove", function(e) {
         if (swipeStartX === null || e.touches.length !== 1) return;
         var dx = e.touches[0].clientX - swipeStartX;
         var dy = e.touches[0].clientY - swipeStartY;
-        if (!swipeIsSwipe && Math.abs(dx) > 8) {
-          swipeIsSwipe = Math.abs(dx) > Math.abs(dy);
-        }
+        if (!swipeIsSwipe && Math.abs(dx) > 8) { swipeIsSwipe = Math.abs(dx) > Math.abs(dy); }
       }, { passive: true });
-
       overlay.addEventListener("touchend", function(e) {
         if (swipeStartX === null) return;
         if (!isMobile()) { swipeStartX = null; return; }
         var dx = e.changedTouches[0].clientX - swipeStartX;
         var dy = e.changedTouches[0].clientY - swipeStartY;
         swipeStartX = null;
-        // Considera swipe solo se prevalentemente orizzontale e abbastanza lungo
         if (!swipeIsSwipe || Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
-        if (dx < 0) { goToPage(pageIdx + 1); }   // swipe sinistra → avanti
-        else        { goToPage(pageIdx - 1); }    // swipe destra  → indietro
+        if (dx < 0) { goToPage(pageIdx + 1); } else { goToPage(pageIdx - 1); }
       }, { passive: true });
 
       // ── NAV BUTTONS ───────────────────────────────────────────────────────
@@ -1089,7 +1522,7 @@ l.parentNode.insertBefore(s, l);
         else { if(spreadIdx < maxSpread){ spreadIdx++; render(); } }
       });
 
-      // ── KEYBOARD ─────────────────────────────────────────────────────────
+      // ── KEYBOARD ──────────────────────────────────────────────────────────
       function onKeyDown(e) {
         if (unlockModal.classList.contains("open")) { if(e.key==="Escape") closeUnlockModal(); return; }
         if (e.key==="ArrowRight"||e.key==="ArrowDown") {
@@ -1118,6 +1551,7 @@ l.parentNode.insertBefore(s, l);
         unlockModal.classList.remove("open"); unlockInput.blur();
       }
       openUnlockBtn.addEventListener("click", function(e){ e.stopPropagation(); openUnlockModal(); });
+      premiumBtn.addEventListener("click", function(e){ e.stopPropagation(); openUnlockModal(); });
       unlockCloseBtn.addEventListener("click", closeUnlockModal);
       unlockModal.addEventListener("click", function(e){ if(e.target===unlockModal) closeUnlockModal(); });
       buyBtn.addEventListener("click", function(e){ e.stopPropagation(); if(issue.buyUrl&&issue.buyUrl!=="#") window.open(issue.buyUrl,"_blank"); });
@@ -1127,8 +1561,16 @@ l.parentNode.insertBefore(s, l);
         var v = unlockInput.value.trim();
         if(!v){ unlockMsg.className="fb-unlock-msg err"; unlockMsg.textContent="Inserisci il codice."; return; }
         performUnlock(issue, v,
-          function(){ unlockMsg.className="fb-unlock-msg ok"; unlockMsg.textContent="✓ Codice corretto! Buona lettura.";
-            setTimeout(function(){ closeUnlockModal(); renderAll(); }, 900); },
+          function(isPremium){
+            if (isPremium) {
+              unlockMsg.className="fb-unlock-msg ok";
+              unlockMsg.textContent="★ Abbonamento PREMIUM attivo! Tutti i numeri sbloccati. Buona lettura.";
+            } else {
+              unlockMsg.className="fb-unlock-msg ok";
+              unlockMsg.textContent="✓ Codice corretto! Buona lettura.";
+            }
+            setTimeout(function(){ closeUnlockModal(); renderAll(); }, 1100);
+          },
           function(msg){ unlockMsg.className="fb-unlock-msg err"; unlockMsg.textContent=msg; unlockInput.select(); }
         );
       }
@@ -1152,7 +1594,6 @@ l.parentNode.insertBefore(s, l);
       function onResize() { renderAll(); }
       window.addEventListener("resize", onResize, { passive:true });
 
-      // ── AVVIO ─────────────────────────────────────────────────────────────
       renderAll();
     }
 
@@ -1164,13 +1605,10 @@ l.parentNode.insertBefore(s, l);
   (function() {
     var shield = document.getElementById("fb-screenshot-shield");
     if (!shield) return;
-
-    // 1. Tasto PrintScreen (Windows/Linux)
     document.addEventListener("keydown", function(e) {
       if (e.key === "PrintScreen" || e.keyCode === 44) {
         shield.style.display = "block";
       }
-      // Blocca Ctrl/Cmd + S, P, U mentre il reader e' aperto
       if ((e.ctrlKey || e.metaKey) && document.querySelector(".fb-overlay")) {
         if ("spuSPU".indexOf(e.key) !== -1) { e.preventDefault(); }
       }
@@ -1181,29 +1619,16 @@ l.parentNode.insertBefore(s, l);
         setTimeout(function() { shield.style.display = "none"; }, 600);
       }
     });
-
-    // 2. Mobile: visibilitychange copre screenshot e task-switcher
     document.addEventListener("visibilitychange", function() {
       if (!document.querySelector(".fb-overlay")) return;
-      if (document.hidden) {
-        shield.style.display = "block";
-      } else {
-        setTimeout(function() { shield.style.display = "none"; }, 400);
-      }
+      if (document.hidden) { shield.style.display = "block"; }
+      else { setTimeout(function() { shield.style.display = "none"; }, 400); }
     });
-
-    // 3. Blocca click destro sulle immagini del reader
     document.addEventListener("contextmenu", function(e) {
-      if (e.target && e.target.closest && e.target.closest(".fb-overlay")) {
-        e.preventDefault();
-      }
+      if (e.target && e.target.closest && e.target.closest(".fb-overlay")) { e.preventDefault(); }
     });
-
-    // 4. Blocca drag delle immagini
     document.addEventListener("dragstart", function(e) {
-      if (e.target && e.target.classList.contains("fb-page-img")) {
-        e.preventDefault();
-      }
+      if (e.target && e.target.classList.contains("fb-page-img")) { e.preventDefault(); }
     });
   })();
   </script>
@@ -1279,4 +1704,10 @@ l.parentNode.insertBefore(s, l);
     function closeDrawer(){ veil.classList.remove("open"); hamburger.setAttribute("aria-expanded","false"); }
     hamburger.addEventListener("click",function(){ veil.classList.contains("open")?closeDrawer():openDrawer(); });
     veil.addEventListener("click",function(e){ if(e.target===veil)closeDrawer(); });
-    document.querySelec
+    document.querySelectorAll("#drawerAbout,#drawerOfferta,#drawerEdicola").forEach(function(a){
+      a.addEventListener("click",function(){ closeDrawer(); });
+    });
+  })();
+  </script>
+</body>
+</html>
