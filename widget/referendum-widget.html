@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  body {
+    margin: 0;
+    background: transparent;
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  .card {
+    border-radius: 16px;
+    padding: 14px;
+    color: #e5e7eb;
+    background: linear-gradient(180deg, #111827, #0f172a);
+    border: 1px solid rgba(148,163,184,.18);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .kicker {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 700;
+  }
+
+  .live {
+    font-size: 10px;
+    padding: 4px 6px;
+    border-radius: 999px;
+    background: rgba(59,130,246,.15);
+  }
+
+  .bar {
+    display: flex;
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 10px 0;
+    background: rgba(148,163,184,.12);
+  }
+
+  .yes-bar {
+    background: #22c55e;
+    width: 50%;
+  }
+
+  .no-bar {
+    background: #ef4444;
+    width: 50%;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .value {
+    font-size: 26px;
+    font-weight: 800;
+  }
+
+  .label {
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  .updated {
+    text-align: center;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 10px;
+  }
+</style>
+</head>
+
+<body>
+<div class="card">
+  <div class="top">
+    <div class="kicker">Referendum</div>
+    <div class="live">LIVE</div>
+  </div>
+
+  <div class="bar">
+    <div id="yesBar" class="yes-bar"></div>
+    <div id="noBar" class="no-bar"></div>
+  </div>
+
+  <div class="row">
+    <div>
+      <div class="label">SÌ</div>
+      <div id="yes" class="value">—%</div>
+    </div>
+
+    <div style="text-align:right;">
+      <div class="label">NO</div>
+      <div id="no" class="value">—%</div>
+    </div>
+  </div>
+
+  <div id="updated" class="updated">Aggiornamento…</div>
+</div>
+
+<script>
+const worker = 'https://lucky-glade-a34e.gabriele-newland.workers.dev';
+
+function n(x){ return Number(String(x).replace(',','.')); }
+function f(x){ return x.toLocaleString('it-IT',{minimumFractionDigits:2})+'%'; }
+
+function date(raw){
+  if(!raw) return '';
+  const s=String(raw);
+  if(!/^\\d{14}$/.test(s)) return '';
+
+  const d=s.slice(6,8);
+  const m=s.slice(4,6);
+  const h=s.slice(8,10);
+  const i=s.slice(10,12);
+
+  return `Aggiornato ${d}/${m} · ${h}:${i}`;
+}
+
+async function load(){
+  try{
+    const r=await fetch(worker+'/?type=scrutini',{cache:'no-store'});
+    const j=await r.json();
+    const s=j.scheda[0];
+
+    const si=n(s.perc_si);
+    const no=n(s.perc_no);
+
+    document.getElementById('yes').textContent=f(si);
+    document.getElementById('no').textContent=f(no);
+
+    document.getElementById('yesBar').style.width=si+'%';
+    document.getElementById('noBar').style.width=no+'%';
+
+    document.getElementById('updated').textContent=date(s.dt_agg);
+
+  }catch(e){
+    document.getElementById('updated').textContent='Dati non disponibili';
+  }
+}
+
+load();
+setInterval(load,60000);
+</script>
+
+</body>
+</html>
