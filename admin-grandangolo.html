@@ -251,7 +251,7 @@
   const ADMIN_PW     = 'impaginato2026';
   const SUPABASE_URL = 'https://xfmiikymagamnexsbrdt.supabase.co';
   const SERVICE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8';
-  const MAKE_WEBHOOK = 'https://hook.eu1.make.com/ckx2xo3g1bm0cvd4xr2w63irg5akn2su';
+  const RESEND_KEY = 're_Fr9pW3vM_5fKdjDnwZJcU1Zx5oWBxBXH9';
   const TEST_EMAIL   = 'terranova.grandangoloagrigento@gmail.com';
 
   let allUsers = [];
@@ -427,11 +427,15 @@
           + "</div></div>"
           + "<p style='margin-top:16px;font-size:11px;color:rgba(255,255,255,0.2);text-align:center'>Grandangolo Settimanale - Via Mazzini 187, Agrigento</p>"
           + "</body></html>";
-        const res = await fetch(MAKE_WEBHOOK, {
+        const res = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://api.resend.com/emails'), {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + RESEND_KEY
+          },
           body: JSON.stringify({
-            email,
+            from: 'Grandangolo Settimanale <noreply@grandangolosettimanale.it>',
+            to: [email],
             subject: 'Nuovo numero! Grandangolo Settimanale ' + (numero||''),
             html: htmlBody
           })
