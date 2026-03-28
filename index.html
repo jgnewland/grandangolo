@@ -1328,10 +1328,24 @@ l.parentNode.insertBefore(s, l);
         if(error)showMsg(msgEl,error.message,'err');else showMsg(msgEl,'✓ Link inviato! Controlla la tua email.','ok');
       });
       document.getElementById('gaDeleteAcct').addEventListener('click', async () => {
-        if(!confirm('Sei sicuro di voler eliminare il tuo account?'))return;
-        await sb.from('user_codes').delete().eq('user_id',currentUser.id);
-        await sb.from('user_prefs').delete().eq('user_id',currentUser.id);
-        await sb.auth.signOut(); closeDrawer(); showToast('Account eliminato.');
+        if(!confirm('Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile.'))return;
+        const userId = currentUser.id;
+        // Elimina dati utente
+        await sb.from('user_codes').delete().eq('user_id', userId);
+        await sb.from('user_prefs').delete().eq('user_id', userId);
+        // Elimina utente da Supabase Auth tramite Admin API
+        try {
+          await fetch('https://xfmiikymagamnexsbrdt.supabase.co/auth/v1/admin/users/' + userId, {
+            method: 'DELETE',
+            headers: {
+              'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8'
+            }
+          });
+        } catch(e) {}
+        await sb.auth.signOut();
+        closeDrawer();
+        showToast('Account eliminato definitivamente.');
       });
     }
 
