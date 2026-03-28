@@ -1061,12 +1061,38 @@ l.parentNode.insertBefore(s, l);
       } else { showToast('Errore nel salvataggio.', 'err'); }
     }
 
+    // ══ CONTROLLA CODICI UTENTE ALL'AVVIO ══════════════════════════
+    async function applyUserCodes(user) {
+      if (!user) return;
+      try {
+        const { data: rows } = await sb.from('user_codes').select('code,type').eq('user_id', user.id);
+        if (!rows || !rows.length) return;
+        const allIssues = (typeof window.issues !== 'undefined') ? window.issues : [];
+        const hasPremium = rows.some(r => r.code === PREMIUM_CODE || r.type === 'premium');
+        if (hasPremium) {
+          // Sblocca tutti i numeri
+          allIssues.forEach(i => { i._unlocked = true; });
+          return;
+        }
+        // Sblocca i numeri singoli e bundle
+        rows.forEach(r => {
+          if (r.code === PROMO_CODE) {
+            allIssues.filter(i => PROMO_IDS.includes(i.id)).forEach(i => { i._unlocked = true; });
+          } else {
+            allIssues.filter(i => i.unlockCode === r.code).forEach(i => { i._unlocked = true; });
+          }
+        });
+      } catch(e) {}
+    }
+
     sb.auth.getSession().then(({ data: { session } }) => {
       currentUser = session?.user ?? null; updateBtn(currentUser);
+      applyUserCodes(currentUser);
       checkUrlCodice();
     });
     sb.auth.onAuthStateChange((_event, session) => {
       currentUser = session?.user ?? null; updateBtn(currentUser);
+      applyUserCodes(currentUser);
       if (drawer.classList.contains('open')) renderDrawerContent();
     });
 
@@ -1182,9 +1208,47 @@ l.parentNode.insertBefore(s, l);
         return;
       }
       rows.forEach(row => {
-        const card = document.createElement('div'); card.className = 'ga-code-card';
-        const badgeClass = row.type==='premium'?'premium':row.type==='bundle'?'bundle':'singolo';
-        const badgeLabel = row.type==='premium'?'★ PREMIUM':row.type==='bundle'?'Bundle':'Singolo';
+        const card = document.createElement('div');
+
+        // ── CARD PREMIUM SPECIALE ────────────────────────────────────
+        if (row.type === 'premium') {
+          card.style.cssText = 'margin-bottom:14px;';
+          card.innerHTML = `
+            <div style="background:linear-gradient(135deg,rgba(255,200,50,0.12),rgba(255,160,0,0.05));border:1px solid rgba(255,200,50,0.35);border-radius:14px;padding:18px 16px;position:relative;overflow:hidden;">
+              <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,200,50,0.12),transparent 70%);pointer-events:none;"></div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#ffd700,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">★</div>
+                <div>
+                  <div style="font-size:13px;font-weight:800;color:#ffe566;letter-spacing:.04em;text-transform:uppercase;">Abbonamento Premium</div>
+                  <div style="font-size:11px;color:rgba(255,200,50,0.6);margin-top:1px;">Accesso completo · Anno 2026</div>
+                </div>
+                <span style="margin-left:auto;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:rgba(255,200,50,0.15);border:1px solid rgba(255,200,50,0.4);color:#ffe566;flex-shrink:0;">PREMIUM</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+                <div style="display:flex;align-items:center;gap:5px;font-size:11.5px;color:rgba(255,255,255,0.65);">
+                  <span style="color:#ffe566;">✓</span> Tutti i numeri del 2026
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;font-size:11.5px;color:rgba(255,255,255,0.65);">
+                  <span style="color:#ffe566;">✓</span> Accesso immediato
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;font-size:11.5px;color:rgba(255,255,255,0.65);">
+                  <span style="color:#ffe566;">✓</span> Nuove uscite automatiche
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div style="font-size:11px;color:rgba(255,200,50,0.45);">Attivo dal ${new Date(row.added_at||row.created_at).toLocaleDateString('it-IT')}</div>
+                <button class="ga-open-btn" data-code="${row.code}" style="background:rgba(255,200,50,0.15);border-color:rgba(255,200,50,0.4);color:#ffe566;">Apri edicola →</button>
+              </div>
+            </div>`;
+          container.appendChild(card);
+          card.querySelector('.ga-open-btn').addEventListener('click', () => { openWithCode(row.code); });
+          return;
+        }
+
+        // ── CARD NORMALE (singolo / bundle) ─────────────────────────
+        card.className = 'ga-code-card';
+        const badgeClass = row.type==='bundle'?'bundle':'singolo';
+        const badgeLabel = row.type==='bundle'?'Bundle':'Singolo';
         card.innerHTML = `<div class="ga-code-cover"><img src="${row.cover_url||''}" alt="copertina" loading="lazy" onerror="this.style.display='none'"></div><div class="ga-code-info"><div class="ga-code-title">${row.label||'Codice'}</div><div class="ga-code-sub">${new Date(row.added_at||row.created_at).toLocaleDateString('it-IT')}</div></div><span class="ga-code-badge ${badgeClass}">${badgeLabel}</span><button class="ga-open-btn" data-code="${row.code}">Apri →</button><button class="ga-delete-btn" data-id="${row.id}" title="Rimuovi">🗑</button>`;
         container.appendChild(card);
         card.querySelector('.ga-open-btn').addEventListener('click', () => openWithCode(row.code));
