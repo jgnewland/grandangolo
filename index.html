@@ -275,6 +275,31 @@ l.parentNode.insertBefore(s, l);
     /* ══════════════════════════════════════════════════════════════
        AREA UTENTI — CSS
        ══════════════════════════════════════════════════════════════ */
+    /* ── CAMPANELLA NOTIFICHE ───────────────────────────────────── */
+    .ga-bell-btn{position:relative;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.7);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,border-color .15s;-webkit-tap-highlight-color:transparent;}
+    .ga-bell-btn:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.25);color:#fff;}
+    .ga-bell-badge{position:absolute;top:-3px;right:-3px;width:17px;height:17px;border-radius:50%;background:#e60000;color:#fff;font-size:9px;font-weight:800;display:none;align-items:center;justify-content:center;border:2px solid #050509;}
+    .ga-bell-badge.visible{display:flex;}
+    .ga-notif-panel{position:fixed;top:60px;right:16px;z-index:8500;width:min(360px,calc(100vw - 32px));background:#0d0d18;border:1px solid rgba(255,255,255,0.1);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,0.7);overflow:hidden;display:none;}
+    .ga-notif-panel.open{display:block;}
+    .ga-notif-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.07);}
+    .ga-notif-panel-title{font-size:14px;font-weight:700;color:#fff;}
+    .ga-notif-mark-all{font-size:11px;color:#00a651;cursor:pointer;background:none;border:none;font-family:inherit;padding:0;}
+    .ga-notif-list{max-height:380px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent;}
+    .ga-notif-item{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background .15s;text-decoration:none;}
+    .ga-notif-item:hover{background:rgba(255,255,255,0.04);}
+    .ga-notif-item.unread{background:rgba(0,166,81,0.05);}
+    .ga-notif-item.unread:hover{background:rgba(0,166,81,0.09);}
+    .ga-notif-cover{width:40px;height:56px;border-radius:5px;object-fit:cover;flex-shrink:0;background:#1a1a2a;border:1px solid rgba(255,255,255,0.08);}
+    .ga-notif-cover-placeholder{width:40px;height:56px;border-radius:5px;flex-shrink:0;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;}
+    .ga-notif-info{flex:1;min-width:0;}
+    .ga-notif-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .ga-notif-body{font-size:11.5px;color:rgba(255,255,255,0.45);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .ga-notif-time{font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;}
+    .ga-notif-dot{width:7px;height:7px;border-radius:50%;background:#00a651;flex-shrink:0;margin-top:5px;}
+    .ga-notif-empty{padding:32px 16px;text-align:center;font-size:13px;color:rgba(255,255,255,0.3);}
+    .ga-notif-panel-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,0.07);text-align:center;}
+
     .ga-user-btn{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.04);color:#f5f5f5;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s;-webkit-tap-highlight-color:transparent;flex-shrink:0;}
     .ga-user-btn:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.28);}
     .ga-user-btn .ga-avatar{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#00a651,#005c2e);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0;}
@@ -383,6 +408,21 @@ l.parentNode.insertBefore(s, l);
         <a href="https://grandangolosettimanale.it/radio">RADIO</a>
         <a href="https://grandangolosettimanale.it/video" target="_blank" rel="noopener">VIDEO/TV</a>
       </nav>
+      <!-- CAMPANELLA NOTIFICHE -->
+      <button class="ga-bell-btn" id="gaBellBtn" style="display:none;" title="Notifiche">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="ga-bell-badge" id="gaBellBadge"></span>
+      </button>
+      <!-- PANNELLO NOTIFICHE -->
+      <div class="ga-notif-panel" id="gaNotifPanel">
+        <div class="ga-notif-panel-header">
+          <span class="ga-notif-panel-title">🔔 Notifiche</span>
+          <button class="ga-notif-mark-all" id="gaMarkAll">Segna tutte come lette</button>
+        </div>
+        <div class="ga-notif-list" id="gaNotifList">
+          <div class="ga-notif-empty">Nessuna notifica</div>
+        </div>
+      </div>
       <!-- PULSANTE AREA UTENTI -->
       <button class="ga-user-btn" id="gaUserBtn">
         <span class="ga-dot" id="gaUserDot"></span>
@@ -1089,10 +1129,12 @@ l.parentNode.insertBefore(s, l);
       currentUser = session?.user ?? null; updateBtn(currentUser);
       applyUserCodes(currentUser);
       checkUrlCodice();
+      loadNotifiche(currentUser);
     });
     sb.auth.onAuthStateChange((_event, session) => {
       currentUser = session?.user ?? null; updateBtn(currentUser);
       applyUserCodes(currentUser);
+      loadNotifiche(currentUser);
       if (drawer.classList.contains('open')) renderDrawerContent();
     });
 
@@ -1355,6 +1397,108 @@ l.parentNode.insertBefore(s, l);
         showToast('Account eliminato definitivamente.');
       });
     }
+
+    // ══ NOTIFICHE IN-APP ═══════════════════════════════════════════
+    const bellBtn     = document.getElementById('gaBellBtn');
+    const bellBadge   = document.getElementById('gaBellBadge');
+    const notifPanel  = document.getElementById('gaNotifPanel');
+    const notifList   = document.getElementById('gaNotifList');
+    const markAllBtn  = document.getElementById('gaMarkAll');
+
+    let notifData = [];
+    let readIds   = new Set();
+
+    async function loadNotifiche(user) {
+      if (!user) { bellBtn.style.display='none'; return; }
+      bellBtn.style.display='flex';
+
+      // Carica notifiche
+      const { data: notifs } = await sb.from('notifications').select('*').order('created_at', { ascending: false }).limit(20);
+      notifData = notifs || [];
+
+      // Carica già lette
+      const { data: reads } = await sb.from('notification_reads').select('notification_id').eq('user_id', user.id);
+      readIds = new Set((reads||[]).map(r => r.notification_id));
+
+      renderNotifPanel();
+    }
+
+    function renderNotifPanel() {
+      const unread = notifData.filter(n => !readIds.has(n.id)).length;
+      if (unread > 0) {
+        bellBadge.textContent = unread > 9 ? '9+' : unread;
+        bellBadge.classList.add('visible');
+      } else {
+        bellBadge.classList.remove('visible');
+      }
+
+      if (!notifData.length) {
+        notifList.innerHTML = '<div class="ga-notif-empty">📭 Nessuna notifica ancora.</div>';
+        return;
+      }
+
+      notifList.innerHTML = '';
+      notifData.forEach(n => {
+        const isUnread = !readIds.has(n.id);
+        const item = document.createElement('a');
+        item.className = 'ga-notif-item' + (isUnread ? ' unread' : '');
+        item.href = n.link || 'https://grandangolosettimanale.it';
+        item.target = '_blank';
+        item.rel = 'noopener';
+        const timeAgo = formatTimeAgo(n.created_at);
+        item.innerHTML = `
+          ${n.cover_url
+            ? `<img class="ga-notif-cover" src="${n.cover_url}" alt="">`
+            : `<div class="ga-notif-cover-placeholder">📰</div>`}
+          <div class="ga-notif-info">
+            <div class="ga-notif-title">${n.title}</div>
+            <div class="ga-notif-body">${n.body}</div>
+            <div class="ga-notif-time">${timeAgo}</div>
+          </div>
+          ${isUnread ? '<div class="ga-notif-dot"></div>' : ''}`;
+        item.addEventListener('click', () => markAsRead(n.id));
+        notifList.appendChild(item);
+      });
+    }
+
+    async function markAsRead(notifId) {
+      if (readIds.has(notifId) || !currentUser) return;
+      readIds.add(notifId);
+      renderNotifPanel();
+      await sb.from('notification_reads').insert({ user_id: currentUser.id, notification_id: notifId }).onConflict('user_id,notification_id').ignore();
+    }
+
+    async function markAllAsRead() {
+      if (!currentUser) return;
+      const unread = notifData.filter(n => !readIds.has(n.id));
+      unread.forEach(n => readIds.add(n.id));
+      renderNotifPanel();
+      const rows = unread.map(n => ({ user_id: currentUser.id, notification_id: n.id }));
+      if (rows.length) await sb.from('notification_reads').upsert(rows, { onConflict: 'user_id,notification_id' });
+    }
+
+    function formatTimeAgo(iso) {
+      const diff = Math.floor((Date.now() - new Date(iso)) / 1000);
+      if (diff < 60) return 'Ora';
+      if (diff < 3600) return Math.floor(diff/60) + ' min fa';
+      if (diff < 86400) return Math.floor(diff/3600) + ' ore fa';
+      return Math.floor(diff/86400) + ' giorni fa';
+    }
+
+    // Toggle pannello
+    bellBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      notifPanel.classList.toggle('open');
+    });
+    markAllBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      markAllAsRead();
+    });
+    document.addEventListener('click', function(e) {
+      if (!notifPanel.contains(e.target) && e.target !== bellBtn) {
+        notifPanel.classList.remove('open');
+      }
+    });
 
     // ══ HERO AUTH CARD FUNCTIONS ══════════════════════════════════
     function hacRender(user) {
