@@ -2,22 +2,21 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Grazie – Codice di accesso N. 47 | Grandangolo Settimanale</title>
+  <title>Grazie – Codice di accesso N. 12 | Grandangolo Settimanale</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta property="og:title" content="Accesso Grandangolo N. 47">
-  <meta property="og:description" content="Grazie per il tuo acquisto! Qui trovi il codice di accesso al numero 47.">
+  <meta property="og:title" content="Accesso Grandangolo N. 12">
+  <meta property="og:description" content="Grazie per il tuo acquisto! Qui trovi il codice di accesso al numero 12.">
   <meta property="og:image" content="https://jgnewland.github.io/grandangolo/og-default.jpg">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jgnewland.github.io/grandangolo/grazie-codice-47.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
       --bg: #050509;
-      --bg-alt: #101018;
       --accent: #00a651;
       --accent-glow: rgba(0,166,81,0.18);
       --text: #f5f5f5;
@@ -26,409 +25,131 @@
       --border-soft: rgba(255,255,255,0.07);
       --gold: #d4a843;
     }
-
     * { box-sizing: border-box; }
-
     body {
-      margin: 0;
-      min-height: 100vh;
+      margin: 0; min-height: 100vh;
       font-family: 'DM Sans', system-ui, sans-serif;
-      background: #050509;
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      background: #050509; color: var(--text);
+      display: flex; justify-content: center; align-items: flex-start;
       padding: 40px 16px 60px;
     }
-
-    /* subtle grid texture */
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none; z-index: 0;
     }
-
     body::after {
-      content: '';
-      position: fixed;
-      top: -30%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 700px;
-      height: 500px;
+      content: ''; position: fixed; top: -30%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
       background: radial-gradient(ellipse, rgba(0,166,81,0.07) 0%, transparent 65%);
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
+    .wrap { position: relative; z-index: 1; width: 100%; max-width: 580px; display: flex; flex-direction: column; gap: 0; }
 
-    .wrap {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 580px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    /* ── HEADER ── */
-    .header {
-      text-align: center;
-      margin-bottom: 32px;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .logo-row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .logo-row img {
-      height: 72px;
-      width: auto;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--accent-glow);
-      border: 1px solid rgba(0,166,81,0.3);
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: 11px;
-      color: #4cde8a;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
-
-    .badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #00a651;
-      box-shadow: 0 0 6px #00a651;
-    }
-
-    h1 {
-      font-family: 'DM Serif Display', Georgia, serif;
-      font-size: 28px;
-      font-weight: 400;
-      margin: 0 0 8px;
-      line-height: 1.2;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: var(--muted);
-      margin: 0;
-      line-height: 1.6;
-    }
-
+    /* HEADER */
+    .header { text-align: center; margin-bottom: 32px; animation: fadeUp 0.6s ease both; }
+    .logo-row { display: flex; justify-content: center; margin-bottom: 20px; }
+    .logo-row img { height: 72px; width: auto; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-glow); border: 1px solid rgba(0,166,81,0.3); border-radius: 999px; padding: 4px 12px; font-size: 11px; color: #4cde8a; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
+    .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #00a651; box-shadow: 0 0 6px #00a651; }
+    h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; font-weight: 400; margin: 0 0 8px; line-height: 1.2; }
+    .subtitle { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.6; }
     .subtitle strong { color: var(--text); }
 
-    /* ── CODE CARD ── */
-    .code-card {
-      background: linear-gradient(135deg, rgba(0,166,81,0.08), rgba(0,166,81,0.03));
-      border: 1px solid rgba(0,166,81,0.25);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      animation: fadeUp 0.6s 0.1s ease both;
-    }
-
-    .code-card-label {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .code-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .code-value {
-      font-family: 'Courier New', monospace;
-      font-size: 17px;
-      font-weight: 700;
-      color: #7dffb3;
-      letter-spacing: 0.12em;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(0,166,81,0.35);
-      border-radius: 8px;
-      padding: 9px 16px;
-      flex: 1;
-      min-width: 0;
-      word-break: break-all;
-    }
-
-    .btn-copy {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 9px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      transition: background 0.2s, transform 0.1s;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
+    /* CODE CARD */
+    .code-card { background: linear-gradient(135deg, rgba(0,166,81,0.08), rgba(0,166,81,0.03)); border: 1px solid rgba(0,166,81,0.25); border-radius: 16px; padding: 20px; margin-bottom: 16px; animation: fadeUp 0.6s 0.1s ease both; }
+    .code-card-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+    .code-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .code-value { font-family: 'Courier New', monospace; font-size: 17px; font-weight: 700; color: #7dffb3; letter-spacing: 0.12em; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,166,81,0.35); border-radius: 8px; padding: 9px 16px; flex: 1; min-width: 0; word-break: break-all; }
+    .btn-copy { display: flex; align-items: center; gap: 6px; background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s, transform 0.1s; white-space: nowrap; flex-shrink: 0; }
     .btn-copy:hover { background: #00b85c; transform: translateY(-1px); }
-    .btn-copy:active { transform: translateY(0); }
     .btn-copy.copied { background: #2d7a4f; }
 
-    /* ── GUIDE ── */
-    .section-title {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
-
-    .steps-card {
-      background: var(--card);
-      border: 1px solid var(--border-soft);
+    /* ══ SAVE TO ACCOUNT BOX ══ */
+    .save-box {
+      background: rgba(0,166,81,0.06);
+      border: 1px solid rgba(0,166,81,0.22);
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 20px;
-      animation: fadeUp 0.6s 0.2s ease both;
+      animation: fadeUp 0.6s 0.15s ease both;
     }
+    .save-box-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .save-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(0,166,81,0.15); border: 1px solid rgba(0,166,81,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .save-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .save-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
 
-    .steps-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
+    /* Stato: logged in */
+    #save-logged { display: none; }
+    .save-user-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .save-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg,#00a651,#005c2e); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .save-email { font-size: 13px; color: rgba(255,255,255,0.7); }
+    .btn-save { width: 100%; padding: 13px; border-radius: 12px; border: none; background: #00a651; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 6px 20px rgba(0,166,81,0.35); transition: filter .15s, transform .1s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-save:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-save:disabled { opacity: .5; cursor: default; filter: none; transform: none; }
+    .save-result { margin-top: 12px; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+    .save-result.ok { display: block; background: rgba(0,166,81,0.12); border: 1px solid rgba(0,166,81,0.3); color: #8fffc1; }
+    .save-result.err { display: block; background: rgba(255,80,80,0.10); border: 1px solid rgba(255,80,80,0.25); color: #ff9090; }
 
-    .step {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border-soft);
-      position: relative;
-    }
+    /* Stato: non loggato */
+    #save-auth { display: none; }
+    .auth-tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 16px; }
+    .auth-tab { flex: 1; padding: 9px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.4); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; font-family: 'DM Sans', sans-serif; }
+    .auth-tab.active { color: #00a651; border-bottom-color: #00a651; }
+    .ga-field { margin-bottom: 12px; }
+    .ga-field label { display: block; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45); margin-bottom: 5px; letter-spacing: .04em; text-transform: uppercase; }
+    .ga-field input { width: 100%; padding: 11px 13px; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; background: rgba(255,255,255,0.05); color: #fff; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color .18s; -webkit-appearance: none; }
+    .ga-field input:focus { border-color: #00a651; }
+    .ga-field input::placeholder { color: rgba(255,255,255,0.2); }
+    .btn-auth { width: 100%; padding: 12px; border-radius: 12px; border: none; background: #00a651; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 6px 20px rgba(0,166,81,0.3); transition: filter .15s; margin-top: 4px; }
+    .btn-auth:hover { filter: brightness(1.1); }
+    .btn-auth:disabled { opacity: .5; cursor: default; }
+    .auth-msg { margin-top: 10px; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; display: none; }
+    .auth-msg.ok { display: block; background: rgba(0,166,81,0.10); border: 1px solid rgba(0,166,81,0.3); color: #8fffc1; }
+    .auth-msg.err { display: block; background: rgba(255,80,80,0.08); border: 1px solid rgba(255,80,80,0.2); color: #ff9090; }
+    .auth-note { font-size: 11px; color: rgba(255,255,255,0.3); text-align: center; margin-top: 10px; }
 
+    /* Stato: loading */
+    #save-loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 0; }
+    .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.1); border-top-color: #00a651; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* CTA */
+    .cta-row { display: flex; justify-content: center; margin-bottom: 20px; animation: fadeUp 0.6s 0.3s ease both; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; font-family: 'DM Sans', sans-serif; box-shadow: 0 12px 30px rgba(0,166,81,0.4); transition: box-shadow 0.2s, transform 0.15s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(0,166,81,0.5); }
+
+    /* GUIDE */
+    .section-title { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+    .steps-card { background: var(--card); border: 1px solid var(--border-soft); border-radius: 16px; padding: 20px; margin-bottom: 20px; animation: fadeUp 0.6s 0.2s ease both; }
+    .steps-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+    .step { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border-soft); }
     .step:last-child { border-bottom: none; padding-bottom: 0; }
     .step:first-child { padding-top: 0; }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(0,166,81,0.12); border: 1px solid rgba(0,166,81,0.3); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #4cde8a; flex-shrink: 0; margin-top: 1px; }
+    .step-content h3 { margin: 0 0 3px; font-size: 14px; font-weight: 600; }
+    .step-content p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .step-content p a { color: #4cde8a; text-decoration: none; }
 
-    .step-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(0,166,81,0.12);
-      border: 1px solid rgba(0,166,81,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: #4cde8a;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+    /* SUBSCRIPTION */
+    .sub-card { background: linear-gradient(135deg, rgba(212,168,67,0.07), rgba(212,168,67,0.02)); border: 1px solid rgba(212,168,67,0.22); border-radius: 16px; padding: 20px; animation: fadeUp 0.6s 0.4s ease both; }
+    .sub-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .sub-icon { font-size: 22px; line-height: 1; margin-top: 2px; }
+    .sub-header h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 18px; font-weight: 400; margin: 0 0 4px; }
+    .sub-header p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .sub-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
+    .sub-price { font-family: 'DM Serif Display', Georgia, serif; font-size: 32px; color: var(--gold); line-height: 1; }
+    .sub-price-label { font-size: 12px; color: var(--muted); }
+    .sub-perks { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .sub-perks li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: #ccc; }
+    .perk-check { width: 18px; height: 18px; border-radius: 50%; background: rgba(212,168,67,0.15); border: 1px solid rgba(212,168,67,0.3); display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; color: var(--gold); }
+    .btn-sub { display: inline-flex; align-items: center; gap: 7px; padding: 11px 22px; border-radius: 999px; background: transparent; border: 1px solid rgba(212,168,67,0.5); color: var(--gold); font-size: 13px; font-weight: 600; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: background 0.2s, transform 0.15s; }
+    .btn-sub:hover { background: rgba(212,168,67,0.1); transform: translateY(-1px); }
 
-    .step-content h3 {
-      margin: 0 0 3px;
-      font-size: 14px;
-      font-weight: 600;
-    }
+    .footer-note { margin-top: 20px; font-size: 11px; color: #555; text-align: center; animation: fadeUp 0.6s 0.5s ease both; }
 
-    .step-content p {
-      margin: 0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .step-content p a {
-      color: #4cde8a;
-      text-decoration: none;
-    }
-
-    .step-content p a:hover { text-decoration: underline; }
-
-    /* ── CTA ── */
-    .cta-row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-      animation: fadeUp 0.6s 0.3s ease both;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 28px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      font-family: 'DM Sans', sans-serif;
-      box-shadow: 0 12px 30px rgba(0,166,81,0.4);
-      transition: box-shadow 0.2s, transform 0.15s;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(0,166,81,0.5);
-    }
-
-    /* ── SUBSCRIPTION ── */
-    .sub-card {
-      background: linear-gradient(135deg, rgba(212,168,67,0.07), rgba(212,168,67,0.02));
-      border: 1px solid rgba(212,168,67,0.22);
-      border-radius: 16px;
-      padding: 20px;
-      animation: fadeUp 0.6s 0.4s ease both;
-    }
-
-    .sub-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .sub-icon {
-      font-size: 22px;
-      line-height: 1;
-      margin-top: 2px;
-    }
-
-    .sub-header h2 {
-      font-family: 'DM Serif Display', Georgia, serif;
-      font-size: 18px;
-      font-weight: 400;
-      margin: 0 0 4px;
-    }
-
-    .sub-header p {
-      font-size: 13px;
-      color: var(--muted);
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    .sub-price-row {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .sub-price {
-      font-family: 'DM Serif Display', Georgia, serif;
-      font-size: 32px;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .sub-price-label {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .sub-perks {
-      list-style: none;
-      margin: 0 0 16px;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .sub-perks li {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 13px;
-      color: #ccc;
-    }
-
-    .perk-check {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(212,168,67,0.15);
-      border: 1px solid rgba(212,168,67,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      flex-shrink: 0;
-      color: var(--gold);
-    }
-
-    .btn-sub {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 11px 22px;
-      border-radius: 999px;
-      background: transparent;
-      border: 1px solid rgba(212,168,67,0.5);
-      color: var(--gold);
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      font-family: 'DM Sans', sans-serif;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-sub:hover {
-      background: rgba(212,168,67,0.1);
-      transform: translateY(-1px);
-    }
-
-    /* ── FOOTER ── */
-    .footer-note {
-      margin-top: 20px;
-      font-size: 11px;
-      color: #555;
-      text-align: center;
-      animation: fadeUp 0.6s 0.5s ease both;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 420px) {
-      h1 { font-size: 23px; }
-      .code-value { font-size: 14px; }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 420px) { h1 { font-size: 23px; } .code-value { font-size: 14px; } }
   </style>
 </head>
 <body>
@@ -449,11 +170,63 @@
   <div class="code-card">
     <div class="code-card-label">Il tuo codice di accesso</div>
     <div class="code-row">
-      <div class="code-value" id="codeVal">GR22-H?0$788A&£f</div>
+      <div class="code-value" id="codeVal">GR22-H?0$788A&amp;£f</div>
       <button class="btn-copy" id="copyBtn" onclick="copyCode()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         Copia
       </button>
+    </div>
+  </div>
+
+  <!-- ══ SALVA NEL ACCOUNT ══ -->
+  <div class="save-box">
+    <div class="save-box-header">
+      <div class="save-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a651" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div>
+        <div class="save-title">Salva il codice nel tuo account</div>
+        <div class="save-desc">Così non lo perdi e puoi riaprire il giornale in qualsiasi momento.</div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="save-loading">
+      <div class="spinner"></div>
+      <span style="font-size:13px;color:var(--muted);">Verifica account…</span>
+    </div>
+
+    <!-- Loggato: mostra email + tasto salva -->
+    <div id="save-logged">
+      <div class="save-user-row">
+        <div class="save-avatar" id="saveAvatar">?</div>
+        <div class="save-email" id="saveEmail">—</div>
+      </div>
+      <button class="btn-save" id="saveBtn" onclick="saveCode()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Salva nel mio account
+      </button>
+      <div class="save-result" id="saveResult"></div>
+    </div>
+
+    <!-- Non loggato: form login/registrazione -->
+    <div id="save-auth">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Accedi</button>
+        <button class="auth-tab" id="tabReg" onclick="switchTab('register')">Registrati</button>
+      </div>
+      <div id="auth-login">
+        <div class="ga-field"><label>Email</label><input type="email" id="loginEmail" placeholder="mario@email.it" autocomplete="email" inputmode="email"></div>
+        <div class="ga-field"><label>Password</label><input type="password" id="loginPw" placeholder="La tua password" autocomplete="current-password"></div>
+        <button class="btn-auth" id="loginBtn" onclick="doLogin()">Accedi e salva il codice →</button>
+      </div>
+      <div id="auth-register" style="display:none;">
+        <div class="ga-field"><label>Email</label><input type="email" id="regEmail" placeholder="mario@email.it" autocomplete="email" inputmode="email"></div>
+        <div class="ga-field"><label>Password</label><input type="password" id="regPw" placeholder="Almeno 8 caratteri" autocomplete="new-password"></div>
+        <button class="btn-auth" id="regBtn" onclick="doRegister()">Registrati e salva il codice →</button>
+      </div>
+      <div class="auth-msg" id="authMsg"></div>
+      <p class="auth-note">Il codice verrà salvato automaticamente dopo l'accesso.</p>
     </div>
   </div>
 
@@ -473,21 +246,21 @@
         <div class="step-num">1</div>
         <div class="step-content">
           <h3>Vai all'edicola digitale</h3>
-          <p>Clicca su «Apri l'edicola digitale» qui sopra oppure visita direttamente <a href="https://grandangolosettimanale.it" target="_blank">grandangolosettimanale.it</a>.</p>
+          <p>Clicca su «Apri l'edicola digitale» qui sopra oppure visita <a href="https://grandangolosettimanale.it" target="_blank">grandangolosettimanale.it</a>.</p>
         </div>
       </li>
       <li class="step">
         <div class="step-num">2</div>
         <div class="step-content">
           <h3>Seleziona il numero acquistato</h3>
-          <p>Dalla lista delle edizioni disponibili, scegli il numero che hai acquistato e clicca su «Sblocca».</p>
+          <p>Dalla lista delle edizioni disponibili, scegli il numero che hai acquistato e clicca sulla copertina.</p>
         </div>
       </li>
       <li class="step">
         <div class="step-num">3</div>
         <div class="step-content">
           <h3>Inserisci il codice</h3>
-          <p>Incolla o digita il codice di accesso nel campo apposito e conferma. Il giornale si aprirà istantaneamente.</p>
+          <p>Incolla o digita il codice nel campo apposito e conferma. Il giornale si aprirà istantaneamente.</p>
         </div>
       </li>
       <li class="step">
@@ -514,26 +287,12 @@
       <span class="sub-price-label">un unico pagamento · valido 12 mesi</span>
     </div>
     <ul class="sub-perks">
-      <li>
-        <div class="perk-check">✓</div>
-        Un codice personale valido per un anno intero
-      </li>
-      <li>
-        <div class="perk-check">✓</div>
-        Accesso a tutti i numeri pubblicati durante l'anno
-      </li>
-      <li>
-        <div class="perk-check">✓</div>
-        Nessun rinnovo automatico, paghi una volta sola
-      </li>
-      <li>
-        <div class="perk-check">✓</div>
-        Funziona su smartphone, tablet e computer
-      </li>
+      <li><div class="perk-check">✓</div>Un codice personale valido per un anno intero</li>
+      <li><div class="perk-check">✓</div>Accesso a tutti i numeri pubblicati durante l'anno</li>
+      <li><div class="perk-check">✓</div>Nessun rinnovo automatico, paghi una volta sola</li>
+      <li><div class="perk-check">✓</div>Funziona su smartphone, tablet e computer</li>
     </ul>
-    <a href="https://buy.stripe.com/eVqcN764gcMFaln5kQ9MY0k" target="_blank" class="btn-sub">
-      Abbonati a 50€
-    </a>
+    <a href="https://buy.stripe.com/eVqcN764gcMFaln5kQ9MY0k" target="_blank" class="btn-sub">Abbonati a 50€</a>
   </div>
 
   <p class="footer-note">Conserva questo codice per gli accessi futuri &nbsp;·&nbsp; Per assistenza scrivi a <a href="mailto:redazione@grandangoloagrigento.it" style="color:#555">redazione@grandangoloagrigento.it</a></p>
@@ -541,8 +300,147 @@
 </div>
 
 <script>
+  // ══ CONFIGURAZIONE ══════════════════════════════════════════════
+  const SUPABASE_URL = 'https://xfmiikymagamnexsbrdt.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn';
+
+  // Il codice di questo numero (modifica per ogni pagina)
+  const ISSUE_CODE  = 'GR22-H?0$788A&£f';
+  const ISSUE_LABEL = 'Grandangolo Settimanale N. 12/2026';
+  const ISSUE_COVER = 'https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1_99f439.jpg';
+  const ISSUE_TYPE  = 'singolo';
+  const ISSUE_IDS   = ['promo-n12'];
+  // ════════════════════════════════════════════════════════════════
+
+  const { createClient } = supabase;
+  const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+  let currentUser = null;
+
+  // ── INIT ──
+  sb.auth.getSession().then(({ data: { session } }) => {
+    currentUser = session?.user ?? null;
+    renderSaveBox();
+  });
+  sb.auth.onAuthStateChange((_e, session) => {
+    currentUser = session?.user ?? null;
+    renderSaveBox();
+  });
+
+  function renderSaveBox() {
+    document.getElementById('save-loading').style.display = 'none';
+    if (currentUser) {
+      document.getElementById('save-auth').style.display = 'none';
+      document.getElementById('save-logged').style.display = 'block';
+      const initials = (currentUser.email || 'U')[0].toUpperCase();
+      document.getElementById('saveAvatar').textContent = initials;
+      document.getElementById('saveEmail').textContent = currentUser.email;
+    } else {
+      document.getElementById('save-logged').style.display = 'none';
+      document.getElementById('save-auth').style.display = 'block';
+    }
+  }
+
+  // ── SALVA CODICE ──
+  async function saveCode() {
+    if (!currentUser) return;
+    const btn = document.getElementById('saveBtn');
+    const result = document.getElementById('saveResult');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner" style="border-top-color:#fff;width:16px;height:16px;border-width:2px;"></div> Salvataggio…';
+
+    // Controlla se già salvato
+    const { data: existing } = await sb.from('user_codes')
+      .select('id').eq('user_id', currentUser.id).eq('code', ISSUE_CODE).maybeSingle();
+
+    if (existing) {
+      result.textContent = '✓ Codice già presente nel tuo wallet!';
+      result.className = 'save-result ok';
+      btn.textContent = '✓ Già nel wallet';
+      return;
+    }
+
+    const { error } = await sb.from('user_codes').insert({
+      user_id:   currentUser.id,
+      code:      ISSUE_CODE,
+      type:      ISSUE_TYPE,
+      issue_ids: ISSUE_IDS,
+      label:     ISSUE_LABEL,
+      cover_url: ISSUE_COVER,
+      added_at:  new Date().toISOString()
+    });
+
+    if (!error) {
+      result.textContent = '✓ Codice salvato! Lo trovi nel tuo wallet su grandangolosettimanale.it';
+      result.className = 'save-result ok';
+      btn.innerHTML = '✓ Salvato nel wallet';
+      btn.style.background = '#2d7a4f';
+    } else {
+      result.textContent = 'Errore nel salvataggio. Riprova.';
+      result.className = 'save-result err';
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/></svg> Salva nel mio account';
+    }
+  }
+
+  // ── SWITCH TAB ──
+  function switchTab(tab) {
+    document.getElementById('auth-login').style.display    = tab === 'login'    ? 'block' : 'none';
+    document.getElementById('auth-register').style.display = tab === 'register' ? 'block' : 'none';
+    document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('tabReg').classList.toggle('active', tab === 'register');
+    document.getElementById('authMsg').className = 'auth-msg';
+  }
+
+  function showAuthMsg(text, type) {
+    const el = document.getElementById('authMsg');
+    el.textContent = text; el.className = 'auth-msg ' + type;
+  }
+
+  function traduci(msg) {
+    if (msg.includes('Invalid login')) return 'Email o password errati.';
+    if (msg.includes('already registered')) return 'Email già registrata. Prova ad accedere.';
+    if (msg.includes('Email not confirmed')) return 'Email non confermata. Controlla la tua casella.';
+    if (msg.includes('Password should be')) return 'La password deve avere almeno 8 caratteri.';
+    return msg;
+  }
+
+  // ── LOGIN ──
+  async function doLogin() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pw    = document.getElementById('loginPw').value;
+    if (!email || !pw) { showAuthMsg('Compila tutti i campi.', 'err'); return; }
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true; btn.textContent = 'Accesso…';
+    const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+    if (error) { showAuthMsg(traduci(error.message), 'err'); btn.disabled = false; btn.textContent = 'Accedi e salva il codice →'; }
+    // se ok → onAuthStateChange aggiorna il box e salva automaticamente
+  }
+
+  // ── REGISTRAZIONE ──
+  async function doRegister() {
+    const email = document.getElementById('regEmail').value.trim();
+    const pw    = document.getElementById('regPw').value;
+    if (!email || !pw) { showAuthMsg('Compila tutti i campi.', 'err'); return; }
+    if (pw.length < 8) { showAuthMsg('La password deve avere almeno 8 caratteri.', 'err'); return; }
+    const btn = document.getElementById('regBtn');
+    btn.disabled = true; btn.textContent = 'Registrazione…';
+    const { error } = await sb.auth.signUp({ email, password: pw });
+    if (error) { showAuthMsg(traduci(error.message), 'err'); btn.disabled = false; btn.textContent = 'Registrati e salva il codice →'; }
+    else { showAuthMsg('✓ Registrato! Controlla la tua email per confermare, poi torna qui e accedi.', 'ok'); btn.textContent = 'Registrati e salva il codice →'; btn.disabled = false; }
+  }
+
+  // ── AUTO-SALVA DOPO LOGIN ──
+  sb.auth.onAuthStateChange(async (_e, session) => {
+    if (session?.user && !currentUser) {
+      // utente appena loggato dalla pagina → salva automaticamente
+      await new Promise(r => setTimeout(r, 600));
+      saveCode();
+    }
+  });
+
+  // ── COPIA CODICE ──
   function copyCode() {
-    const code = document.getElementById('codeVal').textContent.trim();
+    const code = 'GR22-H?0$788A&£f';
     navigator.clipboard.writeText(code).then(() => {
       const btn = document.getElementById('copyBtn');
       btn.textContent = '✓ Copiato';
