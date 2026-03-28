@@ -1241,7 +1241,14 @@ l.parentNode.insertBefore(s, l);
               </div>
             </div>`;
           container.appendChild(card);
-          card.querySelector('.ga-open-btn').addEventListener('click', () => { openWithCode(row.code); });
+          card.querySelector('.ga-open-btn').addEventListener('click', () => {
+            // Premium: chiudi drawer e scrolla all'edicola
+            closeDrawer();
+            setTimeout(() => {
+              const edicola = document.getElementById('edicola');
+              if (edicola) edicola.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+          });
           return;
         }
 
