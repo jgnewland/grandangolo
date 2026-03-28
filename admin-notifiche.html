@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin — Notifiche Grandangolo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root{--bg:#050509;--accent:#00a651;--text:#f5f5f5;--muted:#888;--card:#0d0d18;--border:rgba(255,255,255,0.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+
+    /* LOGIN */
+    #login-screen{width:100%;max-width:380px;}
+    .login-logo{text-align:center;margin-bottom:28px;}
+    .login-logo img{height:56px;}
+    .login-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px;}
+    .login-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:24px;}
+    .field{margin-bottom:14px;}
+    .field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);margin-bottom:6px;letter-spacing:.05em;text-transform:uppercase;}
+    .field input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:14px;font-family:inherit;outline:none;transition:border-color .18s;}
+    .field input:focus{border-color:var(--accent);}
+    .btn-green{width:100%;padding:13px;border-radius:12px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(0,166,81,0.35);transition:filter .15s;}
+    .btn-green:hover{filter:brightness(1.1);}
+    .btn-green:disabled{opacity:.5;cursor:default;filter:none;}
+    .err-msg{padding:10px 14px;border-radius:8px;font-size:13px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090;margin-bottom:12px;display:none;}
+
+    /* ADMIN PANEL */
+    #admin-screen{display:none;width:100%;max-width:680px;}
+    .admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+    .admin-header-left{display:flex;align-items:center;gap:12px;}
+    .admin-header-left img{height:44px;}
+    .admin-title{font-size:18px;font-weight:800;}
+    .admin-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+    .logout-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit;}
+    .logout-btn:hover{background:rgba(255,255,255,0.08);color:#fff;}
+
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px;}
+    .card-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+    .card-sub{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.5;}
+
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:560px){.form-row{grid-template-columns:1fr;}}
+    textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:13px;font-family:inherit;outline:none;resize:vertical;min-height:90px;transition:border-color .18s;}
+    textarea:focus{border-color:var(--accent);}
+    textarea::placeholder{color:rgba(255,255,255,0.2);}
+    .field input::placeholder{color:rgba(255,255,255,0.2);}
+
+    .preview-box{background:rgba(0,166,81,0.05);border:1px solid rgba(0,166,81,0.2);border-radius:12px;padding:16px;margin-bottom:20px;display:none;}
+    .preview-box.visible{display:block;}
+    .preview-title{font-size:11px;font-weight:700;color:rgba(0,166,81,0.8);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+    .preview-cover{width:60px;height:84px;border-radius:6px;object-fit:cover;float:left;margin-right:14px;border:1px solid var(--border);}
+    .preview-nome{font-size:15px;font-weight:700;margin-bottom:4px;}
+    .preview-testo{font-size:12px;color:var(--muted);line-height:1.5;clear:none;}
+    .preview-clear{clear:both;}
+
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+    .stat-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+    .stat-num{font-size:28px;font-weight:800;color:var(--accent);}
+    .stat-label{font-size:11px;color:var(--muted);margin-top:2px;}
+
+    .result-box{padding:14px 16px;border-radius:10px;font-size:13px;line-height:1.5;margin-top:14px;display:none;}
+    .result-box.ok{display:block;background:rgba(0,166,81,0.1);border:1px solid rgba(0,166,81,0.3);color:#8fffc1;}
+    .result-box.err{display:block;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090;}
+
+    .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    .log-list{list-style:none;font-size:12px;color:var(--muted);max-height:160px;overflow-y:auto;margin-top:12px;}
+    .log-list li{padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+    .log-list li:last-child{border-bottom:none;}
+    .log-list .ok{color:#8fffc1;}
+    .log-list .err{color:#ff9090;}
+  </style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="login-screen">
+  <div class="login-logo">
+    <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo">
+  </div>
+  <div class="login-title">Area Admin</div>
+  <div class="login-sub">Accesso riservato alla redazione di Grandangolo.</div>
+  <div class="err-msg" id="loginErr">Password errata.</div>
+  <div class="field">
+    <label>Password admin</label>
+    <input type="password" id="adminPw" placeholder="••••••••••••" autocomplete="current-password">
+  </div>
+  <button class="btn-green" onclick="doLogin()">Accedi →</button>
+</div>
+
+<!-- ══ ADMIN PANEL ══ -->
+<div id="admin-screen">
+  <div class="admin-header">
+    <div class="admin-header-left">
+      <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo">
+      <div>
+        <div class="admin-title">Pannello Notifiche</div>
+        <div class="admin-sub">Invia email agli utenti iscritti alle notifiche</div>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">Esci</button>
+  </div>
+
+  <!-- STATISTICHE -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="statTotale">—</div>
+      <div class="stat-label">Utenti totali</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statNotifiche">—</div>
+      <div class="stat-label">Iscritti notifiche</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statPremium">—</div>
+      <div class="stat-label">Abbonati premium</div>
+    </div>
+  </div>
+
+  <!-- FORM NOTIFICA -->
+  <div class="card">
+    <div class="card-title">📢 Nuova notifica — uscita settimanale</div>
+    <div class="card-sub">Compila i campi e clicca "Invia" per mandare l'email a tutti gli utenti con le notifiche attive.</div>
+
+    <div class="form-row">
+      <div class="field">
+        <label>Numero (es. N. 13/2026)</label>
+        <input type="text" id="nNumero" placeholder="N. 13/2026">
+      </div>
+      <div class="field">
+        <label>Data uscita</label>
+        <input type="text" id="nData" placeholder="4 aprile 2026">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>URL copertina</label>
+      <input type="url" id="nCover" placeholder="https://..." oninput="aggiornaPreview()">
+    </div>
+
+    <div class="field">
+      <label>Testo dell'email (breve anteprima del numero)</label>
+      <textarea id="nTesto" placeholder="Questa settimana su Grandangolo: ..." oninput="aggiornaPreview()"></textarea>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="preview-box" id="previewBox">
+      <div class="preview-title">Anteprima email</div>
+      <img id="previewCover" class="preview-cover" src="" alt="copertina">
+      <div class="preview-nome" id="previewNome"></div>
+      <div class="preview-testo" id="previewTesto"></div>
+      <div class="preview-clear"></div>
+    </div>
+
+    <button class="btn-green" id="inviaBtn" onclick="inviaNotifica()">
+      Invia notifica a tutti gli iscritti →
+    </button>
+    <div class="result-box" id="resultBox"></div>
+    <ul class="log-list" id="logList"></ul>
+  </div>
+</div>
+
+<script>
+  const ADMIN_PW      = 'impaginato2026';
+  const SUPABASE_URL  = 'https://xfmiikymagamnexsbrdt.supabase.co';
+  const SERVICE_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8';
+  const RESEND_KEY    = 're_Fr9pW3vM_5fKdjDnwZJcU1Zx5oWBxBXH9';
+  const FROM_EMAIL    = 'noreply@grandangolosettimanale.it';
+  const EDICOLA_URL   = 'https://grandangolosettimanale.it';
+
+  // ── LOGIN ──
+  function doLogin() {
+    const pw = document.getElementById('adminPw').value;
+    if (pw === ADMIN_PW) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-screen').style.display = 'block';
+      caricaStats();
+    } else {
+      document.getElementById('loginErr').style.display = 'block';
+    }
+  }
+  document.getElementById('adminPw').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+  function doLogout() {
+    document.getElementById('admin-screen').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'block';
+    document.getElementById('adminPw').value = '';
+  }
+
+  // ── STATS ──
+  async function caricaStats() {
+    try {
+      // Utenti totali
+      const res = await fetch(`${SUPABASE_URL}/auth/v1/admin/users?per_page=1000`, {
+        headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY }
+      });
+      const data = await res.json();
+      const users = data.users || [];
+      document.getElementById('statTotale').textContent = users.length;
+
+      // Iscritti notifiche e premium
+      const prefsRes = await fetch(`${SUPABASE_URL}/rest/v1/user_prefs?select=data`, {
+        headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY }
+      });
+      const prefs = await prefsRes.json();
+      const iscritti = prefs.filter(p => p.data && p.data.nuova_uscita !== false).length;
+      document.getElementById('statNotifiche').textContent = iscritti;
+
+      const codesRes = await fetch(`${SUPABASE_URL}/rest/v1/user_codes?select=type&type=eq.premium`, {
+        headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY }
+      });
+      const codes = await codesRes.json();
+      document.getElementById('statPremium').textContent = codes.length;
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
+  // ── PREVIEW ──
+  function aggiornaPreview() {
+    const cover = document.getElementById('nCover').value;
+    const testo = document.getElementById('nTesto').value;
+    const numero = document.getElementById('nNumero').value;
+    const data = document.getElementById('nData').value;
+    const box = document.getElementById('previewBox');
+    if (cover || testo) {
+      box.classList.add('visible');
+      document.getElementById('previewCover').src = cover || '';
+      document.getElementById('previewNome').textContent = numero ? `Grandangolo Settimanale ${numero}` : 'Grandangolo Settimanale';
+      document.getElementById('previewTesto').textContent = (data ? `Uscita del ${data}. ` : '') + testo;
+    } else {
+      box.classList.remove('visible');
+    }
+  }
+
+  // ── INVIA NOTIFICHE ──
+  async function inviaNotifica() {
+    const numero = document.getElementById('nNumero').value.trim();
+    const data   = document.getElementById('nData').value.trim();
+    const cover  = document.getElementById('nCover').value.trim();
+    const testo  = document.getElementById('nTesto').value.trim();
+
+    if (!numero || !testo) {
+      mostraRisultato('Compila almeno il numero e il testo.', 'err');
+      return;
+    }
+
+    const btn = document.getElementById('inviaBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Caricamento utenti…';
+    document.getElementById('logList').innerHTML = '';
+    mostraRisultato('', '');
+
+    try {
+      // 1. Prendi tutti gli utenti
+      const usersRes = await fetch(`${SUPABASE_URL}/auth/v1/admin/users?per_page=1000`, {
+        headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY }
+      });
+      const usersData = await usersRes.json();
+      const tuttiUtenti = usersData.users || [];
+
+      // 2. Prendi preferenze notifiche
+      const prefsRes = await fetch(`${SUPABASE_URL}/rest/v1/user_prefs?select=user_id,data`, {
+        headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY }
+      });
+      const prefs = await prefsRes.json();
+
+      // Costruisci mappa user_id → preferenze
+      const prefsMap = {};
+      prefs.forEach(p => { prefsMap[p.user_id] = p.data; });
+
+      // 3. Filtra utenti con notifiche attive
+      const destinatari = tuttiUtenti.filter(u => {
+        const p = prefsMap[u.id];
+        // Se non ha preferenze salvate → default = notifiche attive
+        if (!p) return true;
+        return p.nuova_uscita !== false;
+      });
+
+      if (!destinatari.length) {
+        mostraRisultato('Nessun utente iscritto alle notifiche.', 'err');
+        btn.disabled = false;
+        btn.innerHTML = 'Invia notifica a tutti gli iscritti →';
+        return;
+      }
+
+      btn.innerHTML = `<span class="spinner"></span>Invio a ${destinatari.length} utenti…`;
+
+      // 4. Invia email a ciascuno
+      let ok = 0, errori = 0;
+      const log = document.getElementById('logList');
+
+      for (const utente of destinatari) {
+        const emailHtml = buildEmail(utente.email, numero, data, cover, testo);
+        try {
+          const r = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + RESEND_KEY,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              from: `Grandangolo Settimanale <${FROM_EMAIL}>`,
+              to: [utente.email],
+              subject: `📰 È uscito il nuovo numero! Grandangolo Settimanale ${numero}`,
+              html: emailHtml
+            })
+          });
+          if (r.ok) {
+            ok++;
+            aggiungiLog(utente.email, 'ok');
+          } else {
+            errori++;
+            aggiungiLog(utente.email, 'err');
+          }
+        } catch(e) {
+          errori++;
+          aggiungiLog(utente.email, 'err');
+        }
+        // Piccola pausa per non sovraccaricare l'API
+        await new Promise(r => setTimeout(r, 120));
+      }
+
+      mostraRisultato(`✓ Invio completato! ${ok} email inviate con successo${errori > 0 ? `, ${errori} errori` : ''}.`, ok > 0 ? 'ok' : 'err');
+
+    } catch(e) {
+      mostraRisultato('Errore: ' + e.message, 'err');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = 'Invia notifica a tutti gli iscritti →';
+    caricaStats();
+  }
+
+  function aggiungiLog(email, tipo) {
+    const log = document.getElementById('logList');
+    const li = document.createElement('li');
+    li.className = tipo;
+    li.textContent = (tipo === 'ok' ? '✓ ' : '✗ ') + email;
+    log.appendChild(li);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function mostraRisultato(testo, tipo) {
+    const box = document.getElementById('resultBox');
+    box.textContent = testo;
+    box.className = 'result-box' + (tipo ? ' ' + tipo : '');
+  }
+
+  // ── TEMPLATE EMAIL ──
+  function buildEmail(email, numero, data, cover, testo) {
+    const coverHtml = cover ? `
+      <div style="margin-bottom:20px;">
+        <img src="${cover}" alt="Copertina ${numero}" style="width:100px;height:140px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.1);display:block;">
+      </div>` : '';
+
+    return `
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#050509;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#050509;padding:40px 16px;">
+  <tr><td align="center">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;">
+
+      <tr><td align="center" style="padding-bottom:28px;">
+        <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo" height="56" style="display:block;">
+      </td></tr>
+
+      <tr><td style="background:linear-gradient(135deg,#12121f,#0a0a14);border-radius:20px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;">
+
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr><td style="background:linear-gradient(135deg,rgba(0,166,81,0.15),rgba(0,166,81,0.05));padding:28px 32px 24px;border-bottom:1px solid rgba(0,166,81,0.15);">
+            <p style="margin:0 0 10px;display:inline-block;background:rgba(0,166,81,0.15);border:1px solid rgba(0,166,81,0.3);border-radius:999px;padding:3px 12px;font-size:11px;color:#4cde8a;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;">📰 Nuova uscita</p>
+            <h1 style="margin:0;font-size:22px;font-weight:700;color:#ffffff;line-height:1.2;">È uscito il nuovo numero!</h1>
+          </td></tr>
+        </table>
+
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr><td style="padding:28px 32px;">
+            ${coverHtml}
+            <p style="margin:0 0 6px;font-size:16px;font-weight:700;color:#fff;">Grandangolo Settimanale ${numero}</p>
+            ${data ? `<p style="margin:0 0 14px;font-size:12px;color:rgba(255,255,255,0.4);">Uscita del ${data}</p>` : ''}
+            <p style="margin:0 0 24px;font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;">${testo.replace(/\n/g,'<br>')}</p>
+
+            <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+              <tr><td style="background:#00a651;border-radius:12px;box-shadow:0 8px 24px rgba(0,166,81,0.4);">
+                <a href="${EDICOLA_URL}" style="display:inline-block;padding:13px 28px;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;">
+                  Leggi ora →
+                </a>
+              </td></tr>
+            </table>
+
+            <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25);line-height:1.5;">
+              Hai ricevuto questa email perché sei iscritto alle notifiche di Grandangolo Settimanale.<br>
+              Puoi disattivarle in qualsiasi momento dal tuo <a href="${EDICOLA_URL}" style="color:rgba(0,166,81,0.6);text-decoration:none;">profilo utente</a>.
+            </p>
+          </td></tr>
+        </table>
+
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr><td style="padding:0 32px;"><div style="height:1px;background:rgba(255,255,255,0.06);"></div></td></tr>
+        </table>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr><td style="padding:16px 32px;">
+            <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.2);">Inviata a ${email}</p>
+          </td></tr>
+        </table>
+
+      </td></tr>
+
+      <tr><td style="padding:20px 0 0;text-align:center;">
+        <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.2);">
+          Grandangolo Settimanale · Via Mazzini 187, 92100 Agrigento<br>
+          <a href="${EDICOLA_URL}" style="color:rgba(0,166,81,0.4);text-decoration:none;">grandangolosettimanale.it</a>
+        </p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
+  }
+</script>
+</body>
+</html>
