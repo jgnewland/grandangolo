@@ -290,20 +290,21 @@
       let ok = 0, errori = 0;
       const log = document.getElementById('logList');
 
+      const MAKE_WEBHOOK = 'https://hook.eu1.make.com/ckx2xo3g1bm0cvd4xr2w63irg5akn2su';
+
       for (const utente of destinatari) {
         const emailHtml = buildEmail(utente.email, numero, data, cover, testo);
         try {
-          const r = await fetch('https://api.resend.com/emails', {
+          const r = await fetch(MAKE_WEBHOOK, {
             method: 'POST',
-            headers: {
-              'Authorization': 'Bearer ' + RESEND_KEY,
-              'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              from: `Grandangolo Settimanale <${FROM_EMAIL}>`,
-              to: [utente.email],
+              email: utente.email,
               subject: `📰 È uscito il nuovo numero! Grandangolo Settimanale ${numero}`,
-              html: emailHtml
+              numero: `Grandangolo Settimanale ${numero}`,
+              testo: testo,
+              copertina: cover,
+              data: data
             })
           });
           if (r.ok) {
@@ -317,8 +318,7 @@
           errori++;
           aggiungiLog(utente.email, 'err');
         }
-        // Piccola pausa per non sovraccaricare l'API
-        await new Promise(r => setTimeout(r, 120));
+        await new Promise(r => setTimeout(r, 200));
       }
 
       mostraRisultato(`✓ Invio completato! ${ok} email inviate con successo${errori > 0 ? `, ${errori} errori` : ''}.`, ok > 0 ? 'ok' : 'err');
@@ -420,6 +420,28 @@
 </table>
 </body>
 </html>`;
+  }
+  // ══ NOTIFICA IN-APP ══════════════════════════════════════════
+  async function inviaNotificaInApp() {
+    const title = document.getElementById('nNotifTitle').value.trim();
+    const body  = document.getElementById('nNotifBody').value.trim();
+    const cover = document.getElementById('nNotifCover').value.trim();
+    const link  = document.getElementById('nNotifLink').value.trim() || 'https://grandangolosettimanale.it';
+    if (!title || !body) { mostraRisultatoInApp('Compila titolo e testo.', 'err'); return; }
+    const btn = document.getElementById('inAppBtn');
+    btn.disabled = true; btn.textContent = 'Invio…';
+    const res = await fetch(SUPABASE_URL + '/rest/v1/notifications', {
+      method: 'POST',
+      headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ title, body, cover_url: cover || null, link })
+    });
+    btn.disabled = false; btn.textContent = 'Pubblica notifica →';
+    if (res.ok) mostraRisultatoInApp('✓ Notifica pubblicata! Apparirà a tutti gli utenti loggati.', 'ok');
+    else mostraRisultatoInApp('Errore nella pubblicazione.', 'err');
+  }
+  function mostraRisultatoInApp(text, type) {
+    const el = document.getElementById('inAppResult');
+    el.textContent = text; el.className = 'result-box ' + type;
   }
 </script>
 </body>
