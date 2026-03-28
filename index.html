@@ -268,6 +268,10 @@ l.parentNode.insertBefore(s, l);
     .promo-dot.active{background:#00a651;transform:scale(1.3);}
     @media(max-width:600px){.promo-carousel-slide{flex:0 0 50%;}}
 
+    .hac-msg{padding:9px 12px;border-radius:8px;font-size:12px;line-height:1.4;margin-bottom:10px;display:none;}
+    .hac-msg.err{display:block;background:rgba(255,80,80,0.10);border:1px solid rgba(255,80,80,0.25);color:#ff9090;}
+    .hac-msg.ok{display:block;background:rgba(0,166,81,0.10);border:1px solid rgba(0,166,81,0.30);color:#8fffc1;}
+
     /* ══════════════════════════════════════════════════════════════
        AREA UTENTI — CSS
        ══════════════════════════════════════════════════════════════ */
@@ -430,22 +434,93 @@ l.parentNode.insertBefore(s, l);
           <a href="https://grandangolo.gumroad.com/" class="btn-ghost" target="_blank" rel="noopener">ARCHIVIO STORICO</a>
         </div>
         <div class="hero-meta">Nessuna app da installare e niente da scaricare. Basta acquistare il tuo codice per leggere la tua copia del settimanale di Grandangolo.</div>
-        <div class="hero-banner">
-          <div class="hero-news-inner">
-            <div class="hero-news-header">
-              <div class="hero-news-title-wrap">
-                <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo" class="hero-news-logo">
-                <div class="hero-news-title"><strong>Ultime notizie</strong>Da grandangoloagrigento.it</div>
-              </div>
-              <div class="hero-news-badge">Live</div>
-            </div>
-            <a href="https://www.grandangoloagrigento.it/" target="_blank" rel="noopener" class="hero-news-link-site">
-              <span>Vai al sito</span><span style="font-size:12px;">↗</span>
-            </a>
-            <ul class="hero-news-list" id="hero-news-list">
-              <li class="hero-news-empty">Caricamento delle notizie in corso…</li>
-            </ul>
+        <!-- AREA ACCOUNT HERO -->
+        <div id="hero-auth-card" style="margin-top:14px;width:100%;max-width:530px;border-radius:18px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 30px rgba(0,0,0,0.55);background:linear-gradient(135deg,#12121f,#0a0a14);overflow:hidden;">
+
+          <!-- STATO: loading -->
+          <div id="hac-loading" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:40px 20px;">
+            <div style="width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);border-top-color:#00a651;animation:ga-spin .7s linear infinite;"></div>
+            <span style="font-size:13px;color:rgba(255,255,255,0.4);">Caricamento…</span>
           </div>
+
+          <!-- STATO: loggato -->
+          <div id="hac-logged" style="display:none;padding:22px 20px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+              <div id="hac-avatar" style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#00a651,#005c2e);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;flex-shrink:0;"></div>
+              <div style="min-width:0;">
+                <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:2px;">Il mio account</div>
+                <div id="hac-email" style="font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;"></div>
+              </div>
+              <button onclick="hacLogout()" style="margin-left:auto;padding:6px 12px;border-radius:8px;border:1px solid rgba(255,80,80,0.3);background:rgba(255,80,80,0.08);color:#ff9090;font-size:11.5px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;">Esci</button>
+            </div>
+            <button onclick="hacOpenWallet()" style="width:100%;padding:13px;border-radius:12px;border:none;background:#00a651;color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(0,166,81,0.35);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;font-family:inherit;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+              Apri il mio wallet
+            </button>
+            <button onclick="hacOpenTab('history')" style="width:100%;padding:11px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">
+              🧾 Cronologia acquisti
+            </button>
+          </div>
+
+          <!-- STATO: non loggato -->
+          <div id="hac-auth" style="display:none;padding:20px;">
+            <div style="text-align:center;margin-bottom:18px;">
+              <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:4px;">Accedi al tuo account</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.4;">Salva i tuoi codici e rileggi i numeri acquistati in qualsiasi momento.</div>
+            </div>
+            <!-- Tabs -->
+            <div style="display:flex;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:16px;">
+              <button class="hac-tab active" id="hac-tab-login" onclick="hacSwitchTab('login')" style="flex:1;padding:9px;font-size:12px;font-weight:600;color:#00a651;border:none;background:none;cursor:pointer;border-bottom:2px solid #00a651;font-family:inherit;">Accedi</button>
+              <button class="hac-tab" id="hac-tab-reg" onclick="hacSwitchTab('register')" style="flex:1;padding:9px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;font-family:inherit;">Registrati</button>
+            </div>
+            <!-- Form Login -->
+            <div id="hac-form-login">
+              <div style="margin-bottom:11px;">
+                <label style="display:block;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase;">Email</label>
+                <input type="email" id="hac-login-email" placeholder="mario@email.it" autocomplete="email" inputmode="email" style="width:100%;padding:11px 13px;border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;-webkit-appearance:none;" onfocus="this.style.borderColor='#00a651'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+              </div>
+              <div style="margin-bottom:14px;">
+                <label style="display:block;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase;">Password</label>
+                <div style="position:relative;">
+                  <input type="password" id="hac-login-pw" placeholder="La tua password" autocomplete="current-password" style="width:100%;padding:11px 42px 11px 13px;border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;-webkit-appearance:none;" onfocus="this.style.borderColor='#00a651'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+                  <button type="button" onclick="hacTogglePw('hac-login-pw',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.35);padding:4px;display:flex;align-items:center;">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="hac-msg" id="hac-msg-login"></div>
+              <button id="hac-login-btn" onclick="hacDoLogin()" style="width:100%;padding:13px;border-radius:12px;border:none;background:#00a651;color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(0,166,81,0.3);font-family:inherit;margin-bottom:8px;">Accedi →</button>
+              <button onclick="hacForgot()" style="width:100%;padding:9px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:none;color:rgba(255,255,255,0.4);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Ho dimenticato la password</button>
+            </div>
+            <!-- Form Registrazione -->
+            <div id="hac-form-reg" style="display:none;">
+              <div style="margin-bottom:11px;">
+                <label style="display:block;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase;">Email</label>
+                <input type="email" id="hac-reg-email" placeholder="mario@email.it" autocomplete="email" inputmode="email" style="width:100%;padding:11px 13px;border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;-webkit-appearance:none;" onfocus="this.style.borderColor='#00a651'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+              </div>
+              <div style="margin-bottom:11px;">
+                <label style="display:block;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase;">Password</label>
+                <div style="position:relative;">
+                  <input type="password" id="hac-reg-pw" placeholder="Almeno 8 caratteri" autocomplete="new-password" style="width:100%;padding:11px 42px 11px 13px;border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;-webkit-appearance:none;" onfocus="this.style.borderColor='#00a651'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+                  <button type="button" onclick="hacTogglePw('hac-reg-pw',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.35);padding:4px;display:flex;align-items:center;">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div style="margin-bottom:14px;">
+                <label style="display:block;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase;">Conferma password</label>
+                <div style="position:relative;">
+                  <input type="password" id="hac-reg-pw2" placeholder="Ripeti la password" autocomplete="new-password" style="width:100%;padding:11px 42px 11px 13px;border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;-webkit-appearance:none;" onfocus="this.style.borderColor='#00a651'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+                  <button type="button" onclick="hacTogglePw('hac-reg-pw2',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.35);padding:4px;display:flex;align-items:center;">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="hac-msg" id="hac-msg-reg"></div>
+              <button id="hac-reg-btn" onclick="hacDoRegister()" style="width:100%;padding:13px;border-radius:12px;border:none;background:#00a651;color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(0,166,81,0.3);font-family:inherit;">Registrati →</button>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="hero-card">
@@ -1194,6 +1269,100 @@ l.parentNode.insertBefore(s, l);
         await sb.from('user_prefs').delete().eq('user_id',currentUser.id);
         await sb.auth.signOut(); closeDrawer(); showToast('Account eliminato.');
       });
+    }
+
+    // ══ HERO AUTH CARD FUNCTIONS ══════════════════════════════════
+    function hacRender(user) {
+      document.getElementById('hac-loading').style.display = 'none';
+      if (user) {
+        document.getElementById('hac-auth').style.display = 'none';
+        document.getElementById('hac-logged').style.display = 'block';
+        document.getElementById('hac-avatar').textContent = (user.email||'U')[0].toUpperCase();
+        document.getElementById('hac-email').textContent = user.email;
+      } else {
+        document.getElementById('hac-logged').style.display = 'none';
+        document.getElementById('hac-auth').style.display = 'block';
+      }
+    }
+    // Hook into existing auth state
+    const _origGetSession = sb.auth.getSession.bind(sb.auth);
+    sb.auth.getSession().then(({data:{session}}) => hacRender(session?.user ?? null));
+    sb.auth.onAuthStateChange((_e, session) => hacRender(session?.user ?? null));
+
+    function hacSwitchTab(tab) {
+      document.getElementById('hac-form-login').style.display = tab==='login'?'block':'none';
+      document.getElementById('hac-form-reg').style.display  = tab==='register'?'block':'none';
+      const tl=document.getElementById('hac-tab-login'), tr=document.getElementById('hac-tab-reg');
+      tl.style.color = tab==='login'?'#00a651':'rgba(255,255,255,0.4)';
+      tl.style.borderBottom = tab==='login'?'2px solid #00a651':'2px solid transparent';
+      tr.style.color = tab==='register'?'#00a651':'rgba(255,255,255,0.4)';
+      tr.style.borderBottom = tab==='register'?'2px solid #00a651':'2px solid transparent';
+      ['hac-msg-login','hac-msg-reg'].forEach(id=>{const el=document.getElementById(id);if(el)el.className='hac-msg';});
+    }
+    function hacMsg(id, text, type) {
+      const el=document.getElementById(id); if(!el)return;
+      el.textContent=text; el.className='hac-msg '+type;
+    }
+    function hacTogglePw(inputId, btn) {
+      const inp=document.getElementById(inputId); if(!inp)return;
+      const show=inp.type==='password';
+      inp.type=show?'text':'password';
+      btn.style.color=show?'#00a651':'rgba(255,255,255,0.35)';
+      btn.innerHTML=show
+        ? '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+        : '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+    }
+    // Esponi funzioni HAC globalmente (chiamate da onclick nell'HTML)
+    window.hacSwitchTab = hacSwitchTab;
+    window.hacTogglePw  = hacTogglePw;
+    window.hacForgot    = hacForgot;
+    window.hacLogout    = hacLogout;
+    window.hacOpenWallet= hacOpenWallet;
+    window.hacOpenTab   = hacOpenTab;
+
+    async function hacDoLogin() {
+      const email=document.getElementById('hac-login-email').value.trim();
+      const pw=document.getElementById('hac-login-pw').value;
+      if(!email||!pw){hacMsg('hac-msg-login','Compila tutti i campi.','err');return;}
+      const btn=document.getElementById('hac-login-btn');
+      btn.disabled=true; btn.textContent='Accesso…';
+      const {error}=await sb.auth.signInWithPassword({email,password:pw});
+      if(error){hacMsg('hac-msg-login',traduciErrore(error.message),'err');btn.disabled=false;btn.textContent='Accedi →';}
+    }
+    async function hacDoRegister() {
+      const email=document.getElementById('hac-reg-email').value.trim();
+      const pw=document.getElementById('hac-reg-pw').value;
+      const pw2=document.getElementById('hac-reg-pw2').value;
+      if(!email||!pw){hacMsg('hac-msg-reg','Compila tutti i campi.','err');return;}
+      if(pw!==pw2){hacMsg('hac-msg-reg','Le password non coincidono.','err');return;}
+      if(pw.length<8){hacMsg('hac-msg-reg','La password deve avere almeno 8 caratteri.','err');return;}
+      const btn=document.getElementById('hac-reg-btn');
+      btn.disabled=true; btn.textContent='Registrazione…';
+      const {error}=await sb.auth.signUp({email,password:pw});
+      if(error){hacMsg('hac-msg-reg',traduciErrore(error.message),'err');btn.disabled=false;btn.textContent='Registrati →';}
+      else{hacMsg('hac-msg-reg','✓ Registrato! Controlla la tua email per confermare.','ok');btn.disabled=false;btn.textContent='Registrati →';}
+    }
+    window.hacDoLogin    = hacDoLogin;
+    window.hacDoRegister = hacDoRegister;
+    async function hacForgot() {
+      const email=document.getElementById('hac-login-email').value.trim();
+      if(!email){hacMsg('hac-msg-login','Inserisci la tua email sopra.','err');return;}
+      const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.href});
+      if(error)hacMsg('hac-msg-login',error.message,'err');
+      else hacMsg('hac-msg-login','✓ Email inviata! Controlla la tua casella.','ok');
+    }
+    async function hacLogout() {
+      await sb.auth.signOut(); showToast('Disconnesso.');
+    }
+    function hacOpenWallet() {
+      activeTab='wallet';
+      document.querySelectorAll('.ga-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab==='wallet'));
+      openDrawer(); renderTab('wallet');
+    }
+    function hacOpenTab(tab) {
+      activeTab=tab;
+      document.querySelectorAll('.ga-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+      openDrawer(); renderTab(tab);
     }
 
   })();
