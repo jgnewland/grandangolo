@@ -864,15 +864,78 @@ l.parentNode.insertBefore(s, l);
       window.addEventListener("resize",function(){buildDots();goTo(0);},{passive:true});
     })();
 
+    // ═══════ CARICA ISSUES DA SUPABASE ══════════════════════════════════
+    const SB_URL_SITE = 'https://xfmiikymagamnexsbrdt.supabase.co';
+    const SB_ANON_KEY = 'sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn';
+
+    async function caricaIssuesDaSupabase() {
+      try {
+        const res = await fetch(SB_URL_SITE + '/rest/v1/issues?order=sort_order.desc,created_at.desc', {
+          headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
+        });
+        const data = await res.json();
+        if (!data || !data.length) return;
+
+        // Converti formato Supabase in formato issues
+        const nuovi = data.map(function(r) {
+          return {
+            id: r.id,
+            title: r.title,
+            subtitle: r.subtitle || '',
+            cover: r.cover_url || '',
+            buyUrl: r.buy_url || '#',
+            unlockCode: r.unlock_code || '',
+            isLatest: r.is_latest || false,
+            pages: r.pages || []
+          };
+        });
+
+        // Aggiungi SOLO quelli nuovi (non presenti nell'array esistente)
+        const existingCodes = new Set(window.issues.map(function(i){ return i.unlockCode; }));
+        var aggiunti = 0;
+        nuovi.forEach(function(n) {
+          if (n.unlockCode && !existingCodes.has(n.unlockCode)) {
+            window.issues.unshift(n);
+            aggiunti++;
+          }
+        });
+
+        // Aggiorna ultima uscita se specificata
+        const latest = nuovi.find(function(n){ return n.isLatest; });
+        if (latest) {
+          const heroImg = document.querySelector('.hero-card-inner img');
+          const heroLabel = document.querySelector('.hero-card-label span');
+          if (heroImg && latest.cover) heroImg.src = latest.cover;
+          if (heroLabel) heroLabel.textContent = latest.title;
+        }
+
+        // Se ci sono nuovi numeri, aggiunge le card in testa alla griglia
+        if (aggiunti > 0) {
+          nuovi.filter(function(n){ return n.unlockCode; }).forEach(function(issue) {
+            const card = document.createElement('article');
+            card.className = 'edicola-card';
+            card.setAttribute('data-search', (issue.title+' '+(issue.subtitle||'')).toLowerCase());
+            card.innerHTML = '<div class="edicola-cover-wrap"><img src="'+issue.cover+'" alt="'+issue.title+'" loading="lazy">'+(issue.isLatest?'<div class="issue-label-latest">ULTIMA USCITA &middot; &euro;1,50</div>':'')+'</div><div class="edicola-label"><div class="edicola-label-title">'+issue.title+'</div><div class="edicola-label-sub">'+(issue.subtitle||'')+'</div><div class="edicola-label-meta"><span>Prime pagine gratis</span><span>Codice per sbloccare</span></div></div>';
+            card.addEventListener('click', function(){ openFlipbook(issue, 0); });
+            edicolaRoot.insertBefore(card, edicolaRoot.firstChild);
+            allCards.unshift({card:card, issue:issue});
+          });
+        }
+      } catch(e) { console.log('Supabase issues:', e.message); }
+    }
+
     // ═══════ GRIGLIA EDICOLA ══════════════════════════════════════════════
     const edicolaRoot=document.getElementById("edicola-grandangolo");
     const noResults=document.getElementById("edicola-no-results");
     const searchInput=document.getElementById("edicola-search");
     const searchClear=document.getElementById("edicola-search-clear");
     const searchInfo=document.getElementById("edicola-search-results-info");
-    if(!edicolaRoot||!issues.length)return;
-    const gridIssues=issues.filter(function(i){return!i._promoBundle;});
+    if(!edicolaRoot)return;
+
+    if(!window.issues.length) return;
+    const gridIssues=window.issues.filter(function(i){return!i._promoBundle;});
     var allCards=[];
+
     gridIssues.forEach(function(issue,index){
       const card=document.createElement("article");
       card.className="edicola-card";
@@ -884,6 +947,9 @@ l.parentNode.insertBefore(s, l);
       edicolaRoot.insertBefore(card,noResults);
       allCards.push({card:card,issue:issue});
     });
+    // Carica nuovi numeri da Supabase (li aggiunge SENZA rimuovere quelli esistenti)
+    caricaIssuesDaSupabase();
+
     document.querySelectorAll(".promo-cover-card").forEach(function(card){
       card.addEventListener("click",function(){var pid=card.getAttribute("data-promo-id");var issue=issues.find(function(i){return i.id===pid;});if(issue)openFlipbook(issue,0);});
     });
