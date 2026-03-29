@@ -7,105 +7,107 @@
   <style>
     :root{--bg:#050509;--accent:#00a651;--text:#f5f5f5;--muted:#888;--card:#0d0d18;--border:rgba(255,255,255,0.08)}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;min-height:100vh;padding:20px;}
+    body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;min-height:100vh;}
 
-    /* LOGIN */
-    #login-screen{max-width:380px;margin:80px auto;}
+    /* ── LOGIN ── */
+    #login-screen{max-width:380px;margin:100px auto;padding:0 20px;}
     .login-logo{text-align:center;margin-bottom:28px;}
     .login-logo img{height:56px;}
     .login-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px;}
     .login-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:24px;}
-    .field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);margin-bottom:6px;letter-spacing:.05em;text-transform:uppercase;}
+    .err-msg{padding:10px 14px;border-radius:8px;font-size:13px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090;margin-bottom:12px;display:none;}
+
+    /* ── LAYOUT ── */
+    #admin-screen{display:none;min-height:100vh;}
+    .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:#080810;border-right:1px solid var(--border);padding:20px 0;display:flex;flex-direction:column;}
+    .sidebar-logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+    .sidebar-logo img{height:40px;}
+    .sidebar-logo div{font-size:11px;color:var(--muted);margin-top:4px;}
+    .nav-item{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.45);cursor:pointer;transition:background .15s,color .15s;border-left:3px solid transparent;}
+    .nav-item:hover{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.8);}
+    .nav-item.active{color:#fff;border-left-color:var(--accent);background:rgba(0,166,81,0.07);}
+    .nav-item .icon{font-size:16px;width:20px;text-align:center;}
+    .sidebar-footer{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border);}
+    .logout-btn{width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit;}
+    .logout-btn:hover{background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.3);color:#ff9090;}
+
+    .main-content{margin-left:220px;padding:28px;min-height:100vh;}
+    .page-title{font-size:22px;font-weight:800;margin-bottom:4px;}
+    .page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+
+    /* ── STATS ── */
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+    .stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;}
+    .stat-icon{font-size:22px;margin-bottom:10px;}
+    .stat-num{font-size:28px;font-weight:800;color:var(--accent);line-height:1;}
+    .stat-label{font-size:12px;color:var(--muted);margin-top:4px;}
+    .stat-card.premium .stat-num{color:#ffe566;}
+
+    /* ── CARD ── */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:20px;}
+    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+    .card-title{font-size:15px;font-weight:700;}
+    .card-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+
+    /* ── FORMS ── */
     .field{margin-bottom:14px;}
-    .field input,.field textarea,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:14px;font-family:inherit;outline:none;transition:border-color .18s;}
+    .field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);margin-bottom:6px;letter-spacing:.05em;text-transform:uppercase;}
+    .field input,.field textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:13px;font-family:inherit;outline:none;transition:border-color .18s;}
     .field input:focus,.field textarea:focus{border-color:var(--accent);}
     .field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,0.2);}
     .field textarea{resize:vertical;min-height:80px;}
-    .btn-green{width:100%;padding:13px;border-radius:12px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(0,166,81,0.35);transition:filter .15s;font-family:inherit;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .btn-green{padding:12px 20px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:filter .15s;box-shadow:0 4px 16px rgba(0,166,81,0.3);}
     .btn-green:hover{filter:brightness(1.1);}
     .btn-green:disabled{opacity:.5;cursor:default;filter:none;}
-    .btn-ghost{width:100%;padding:11px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s;}
-    .btn-ghost:hover{background:rgba(255,255,255,0.08);color:#fff;}
-    .err-msg{padding:10px 14px;border-radius:8px;font-size:13px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090;margin-bottom:12px;display:none;}
-
-    /* ADMIN */
-    #admin-screen{display:none;max-width:760px;margin:0 auto;}
-    .admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;padding-bottom:20px;border-bottom:1px solid var(--border);}
-    .admin-header-left{display:flex;align-items:center;gap:12px;}
-    .admin-header-left img{height:44px;}
-    .admin-title{font-size:18px;font-weight:800;}
-    .admin-sub{font-size:12px;color:var(--muted);margin-top:2px;}
-    .logout-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit;}
-    .logout-btn:hover{background:rgba(255,255,255,0.08);color:#fff;}
-
-    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
-    .stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
-    .stat-num{font-size:32px;font-weight:800;color:var(--accent);}
-    .stat-label{font-size:11px;color:var(--muted);margin-top:3px;}
-
-    .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:24px;}
-    .tab{padding:11px 20px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.4);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;font-family:inherit;transition:color .15s;}
-    .tab.active{color:var(--accent);border-bottom-color:var(--accent);}
-    .tab:hover:not(.active){color:rgba(255,255,255,0.7);}
-
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px;}
-    .card-title{font-size:15px;font-weight:700;margin-bottom:4px;}
-    .card-sub{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.5;}
-
-    /* DESTINATARI */
-    .dest-options{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
-    .dest-opt{padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
-    .dest-opt.active{background:rgba(0,166,81,0.15);border-color:rgba(0,166,81,0.5);color:#8fffc1;}
-    .dest-opt:hover:not(.active){background:rgba(255,255,255,0.07);color:#fff;}
-
-    .user-list{max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:14px;}
-    .user-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background .15s;}
-    .user-item:last-child{border-bottom:none;}
-    .user-item:hover{background:rgba(255,255,255,0.04);}
-    .user-item input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;flex-shrink:0;cursor:pointer;}
-    .user-item-email{font-size:13px;color:rgba(255,255,255,0.8);}
-    .user-item-badge{font-size:9px;padding:2px 7px;border-radius:999px;background:rgba(255,200,50,0.15);border:1px solid rgba(255,200,50,0.3);color:#ffe566;margin-left:auto;flex-shrink:0;}
-    .sel-info{font-size:12px;color:var(--muted);margin-bottom:14px;}
-    .sel-info span{color:#8fffc1;font-weight:600;}
-
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    @media(max-width:560px){.form-row{grid-template-columns:1fr;}.stats-row{grid-template-columns:1fr 1fr;}}
-
-    .preview-box{background:rgba(0,166,81,0.05);border:1px solid rgba(0,166,81,0.2);border-radius:12px;padding:16px;margin-bottom:20px;display:none;}
-    .preview-box.visible{display:block;}
-    .preview-label{font-size:11px;font-weight:700;color:rgba(0,166,81,0.8);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
-    .preview-inner{display:flex;gap:12px;align-items:flex-start;}
-    .preview-cover{width:50px;height:70px;border-radius:6px;object-fit:cover;border:1px solid var(--border);flex-shrink:0;}
-    .preview-text-title{font-size:14px;font-weight:700;margin-bottom:4px;}
-    .preview-text-body{font-size:12px;color:var(--muted);line-height:1.5;}
-
-    .result-box{padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.5;margin-top:14px;display:none;}
+    .result-box{padding:10px 14px;border-radius:8px;font-size:12.5px;margin-top:12px;display:none;}
     .result-box.ok{display:block;background:rgba(0,166,81,0.1);border:1px solid rgba(0,166,81,0.3);color:#8fffc1;}
     .result-box.err{display:block;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090;}
-    .result-box.info{display:block;background:rgba(255,200,50,0.08);border:1px solid rgba(255,200,50,0.25);color:#ffe566;}
-
-    .log-list{list-style:none;font-size:12px;color:var(--muted);max-height:160px;overflow-y:auto;margin-top:10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:8px 12px;display:none;}
-    .log-list.visible{display:block;}
-    .log-list li{padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
-    .log-list li:last-child{border-bottom:none;}
-    .log-list .ok{color:#8fffc1;}
-    .log-list .err{color:#ff9090;}
-
-    .spinner{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
+    .spinner{display:inline-block;width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
     @keyframes spin{to{transform:rotate(360deg);}}
 
-    /* IN-APP */
-    .inapp-card{background:var(--card);border:1px solid rgba(0,166,81,0.25);border-radius:16px;padding:24px;margin-bottom:20px;background:rgba(0,166,81,0.04);}
+    /* ── NOTIFICHE LISTA ── */
+    .notif-item{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .notif-item:last-child{border-bottom:none;}
+    .notif-icon{width:38px;height:38px;border-radius:9px;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+    .notif-info{flex:1;min-width:0;}
+    .notif-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;}
+    .notif-body{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.4;margin-bottom:3px;}
+    .notif-meta{font-size:10px;color:rgba(255,255,255,0.25);}
+    .notif-del{padding:5px 10px;border-radius:6px;border:1px solid rgba(255,80,80,0.2);background:rgba(255,80,80,0.05);color:#ff9090;font-size:11px;cursor:pointer;font-family:inherit;flex-shrink:0;}
+    .notif-del:hover{background:rgba(255,80,80,0.15);}
 
-    /* NOTIFICHE PUBBLICATE */
-    .notif-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
-    .notif-row:last-child{border-bottom:none;}
-    .notif-row-icon{width:36px;height:36px;border-radius:8px;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.25);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-    .notif-row-title{font-size:13px;font-weight:600;color:#fff;}
-    .notif-row-body{font-size:11px;color:rgba(255,255,255,0.4);}
-    .notif-row-time{font-size:10px;color:rgba(255,255,255,0.25);margin-top:2px;}
-    .notif-del-btn{margin-left:auto;padding:5px 10px;border-radius:6px;border:1px solid rgba(255,80,80,0.2);background:rgba(255,80,80,0.06);color:#ff9090;font-size:11px;cursor:pointer;font-family:inherit;flex-shrink:0;}
-    .notif-del-btn:hover{background:rgba(255,80,80,0.15);}
+    /* ── UTENTI LISTA ── */
+    .search-bar{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.04);color:#fff;font-size:13px;font-family:inherit;outline:none;margin-bottom:16px;}
+    .search-bar:focus{border-color:var(--accent);}
+    .search-bar::placeholder{color:rgba(255,255,255,0.25);}
+    .users-table{width:100%;border-collapse:collapse;}
+    .users-table th{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;}
+    .users-table td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;vertical-align:middle;}
+    .users-table tr:last-child td{border-bottom:none;}
+    .users-table tr:hover td{background:rgba(255,255,255,0.02);}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+    .badge-premium{background:rgba(255,200,50,0.15);border:1px solid rgba(255,200,50,0.3);color:#ffe566;}
+    .badge-bundle{background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.25);color:#8fffc1;}
+    .badge-free{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);}
+    .badge-new{background:rgba(0,166,81,0.2);border:1px solid rgba(0,166,81,0.4);color:#4cde8a;font-size:8px;margin-left:4px;}
+    .empty-state{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;}
+    .empty-state div{font-size:32px;margin-bottom:10px;opacity:.4;}
+
+    /* ── ANALYTICS ── */
+    .analytics-placeholder{background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.12);border-radius:12px;padding:32px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6;}
+    .analytics-placeholder div{font-size:28px;margin-bottom:12px;opacity:.4;}
+
+    /* ── MOBILE ── */
+    @media(max-width:768px){
+      .sidebar{display:none;}
+      .main-content{margin-left:0;padding:16px;}
+      .stats-grid{grid-template-columns:1fr 1fr;}
+      .form-row{grid-template-columns:1fr;}
+    }
+
+    .tab-content{display:none;}
+    .tab-content.active{display:block;}
   </style>
 </head>
 <body>
@@ -116,148 +118,153 @@
     <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo">
   </div>
   <div class="login-title">Area Admin</div>
-  <div class="login-sub">Accesso riservato alla redazione.</div>
+  <div class="login-sub">Accesso riservato alla redazione di Grandangolo.</div>
   <div class="err-msg" id="loginErr">Password errata.</div>
   <div class="field">
     <label>Password admin</label>
     <input type="password" id="adminPw" placeholder="••••••••••••">
   </div>
-  <button class="btn-green" onclick="doLogin()">Accedi →</button>
+  <button class="btn-green" style="width:100%;" onclick="doLogin()">Accedi →</button>
 </div>
 
 <!-- ADMIN -->
 <div id="admin-screen">
-  <div class="admin-header">
-    <div class="admin-header-left">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
       <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="">
-      <div>
-        <div class="admin-title">Pannello Admin</div>
-        <div class="admin-sub">Grandangolo Settimanale</div>
+      <div>Pannello Admin</div>
+    </div>
+    <div class="nav-item active" onclick="showTab('dashboard')"><span class="icon">📊</span> Dashboard</div>
+    <div class="nav-item" onclick="showTab('notifiche')"><span class="icon">🔔</span> Notifiche in-app</div>
+    <div class="nav-item" onclick="showTab('utenti')"><span class="icon">👥</span> Utenti</div>
+    <div class="nav-item" onclick="showTab('analytics')"><span class="icon">📈</span> Visite sito</div>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="doLogout()">← Esci</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-content">
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="tab-content active">
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub">Panoramica generale del sito.</div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-num" id="s-totali">—</div><div class="stat-label">Utenti totali</div></div>
+        <div class="stat-card premium"><div class="stat-icon">★</div><div class="stat-num" id="s-premium">—</div><div class="stat-label">Abbonati premium</div></div>
+        <div class="stat-card"><div class="stat-icon">🔔</div><div class="stat-num" id="s-notifiche">—</div><div class="stat-label">Iscritti notifiche</div></div>
+        <div class="stat-card"><div class="stat-icon">📰</div><div class="stat-num" id="s-codici">—</div><div class="stat-label">Codici totali</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title">🆕 Nuovi iscritti recenti</div><div class="card-sub">Ultimi utenti registrati</div></div>
+        </div>
+        <div id="nuovi-iscritti-list"><div class="empty-state"><div>⏳</div>Caricamento...</div></div>
       </div>
     </div>
-    <button class="logout-btn" onclick="doLogout()">Esci</button>
-  </div>
 
-  <!-- STATS -->
-  <div class="stats-row">
-    <div class="stat-card"><div class="stat-num" id="statTot">—</div><div class="stat-label">Utenti totali</div></div>
-    <div class="stat-card"><div class="stat-num" id="statNotif">—</div><div class="stat-label">Iscritti notifiche</div></div>
-    <div class="stat-card"><div class="stat-num" id="statPrem">—</div><div class="stat-label">Premium</div></div>
-  </div>
+    <!-- NOTIFICHE -->
+    <div id="tab-notifiche" class="tab-content">
+      <div class="page-title">Notifiche in-app</div>
+      <div class="page-sub">Le notifiche appaiono a tutti gli utenti loggati tramite la campanella 🔔 nell'header del sito.</div>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('email')">📧 Email</button>
-    <button class="tab" onclick="switchTab('inapp')">🔔 Notifiche in-app</button>
-  </div>
-
-  <!-- TAB EMAIL -->
-  <div id="tab-email">
-    <div class="card">
-      <div class="card-title">Invia email agli utenti</div>
-      <div class="card-sub">Scegli i destinatari, compila il messaggio e invia.</div>
-
-      <!-- DESTINATARI -->
-      <div class="field">
-        <label>Destinatari</label>
-        <div class="dest-options">
-          <button class="dest-opt active" onclick="setDest('all')">Tutti gli utenti</button>
-          <button class="dest-opt" onclick="setDest('notif')">Solo iscritti notifiche</button>
-          <button class="dest-opt" onclick="setDest('premium')">Solo premium</button>
-          <button class="dest-opt" onclick="setDest('custom')">Scegli manualmente</button>
-          <button class="dest-opt" onclick="setDest('test')">Solo test (mia email)</button>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px;">Pubblica nuova notifica</div>
+        <div class="field"><label>Titolo</label><input type="text" id="n-title" placeholder="Es: Nuovo numero disponibile!"></div>
+        <div class="field"><label>Testo</label><textarea id="n-body" placeholder="Es: È uscito Grandangolo N.13/2026. Leggi ora!"></textarea></div>
+        <div class="form-row">
+          <div class="field"><label>URL copertina (opzionale)</label><input type="url" id="n-cover" placeholder="https://..."></div>
+          <div class="field"><label>Link al click</label><input type="url" id="n-link" placeholder="https://grandangolosettimanale.it"></div>
         </div>
-        <div id="user-select-wrap" style="display:none;">
-          <div class="user-list" id="userList"></div>
-        </div>
-        <div class="sel-info">Invierai a: <span id="selCount">tutti gli utenti</span></div>
+        <button class="btn-green" id="n-btn" onclick="pubblicaNotifica()">Pubblica notifica →</button>
+        <div class="result-box" id="n-result"></div>
       </div>
 
-      <!-- FORM EMAIL -->
-      <div class="form-row">
-        <div class="field">
-          <label>Numero (es. N. 13/2026)</label>
-          <input type="text" id="eNumero" placeholder="N. 13/2026" oninput="aggiornaPreview()">
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title">Notifiche pubblicate</div><div class="card-sub">Clicca elimina per rimuoverle dal sito</div></div>
+          <button class="btn-green" onclick="caricaNotifiche()" style="padding:8px 14px;font-size:12px;">↺ Aggiorna</button>
         </div>
-        <div class="field">
-          <label>Data uscita</label>
-          <input type="text" id="eData" placeholder="4 aprile 2026" oninput="aggiornaPreview()">
-        </div>
+        <div id="notif-list"><div class="empty-state"><div>⏳</div>Caricamento...</div></div>
       </div>
-      <div class="field">
-        <label>URL copertina</label>
-        <input type="url" id="eCover" placeholder="https://..." oninput="aggiornaPreview()">
-      </div>
-      <div class="field">
-        <label>Testo email</label>
-        <textarea id="eTesto" placeholder="Questa settimana su Grandangolo..." oninput="aggiornaPreview()"></textarea>
-      </div>
+    </div>
 
-      <!-- PREVIEW -->
-      <div class="preview-box" id="previewBox">
-        <div class="preview-label">Anteprima</div>
-        <div class="preview-inner">
-          <img id="prevCover" class="preview-cover" src="" alt="" style="display:none;">
+    <!-- UTENTI -->
+    <div id="tab-utenti" class="tab-content">
+      <div class="page-title">Utenti registrati</div>
+      <div class="page-sub">Lista completa degli utenti iscritti al sito.</div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title" id="utenti-count">Utenti</div><div class="card-sub">Clicca su una riga per vedere i dettagli</div></div>
+          <button class="btn-green" onclick="caricaUtenti()" style="padding:8px 14px;font-size:12px;">↺ Aggiorna</button>
+        </div>
+        <input type="search" class="search-bar" placeholder="🔍 Cerca per email..." id="user-search" oninput="filtraUtenti()">
+        <div style="overflow-x:auto;">
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Tipo</th>
+                <th>Iscritto il</th>
+                <th>Notifiche</th>
+                <th>Codici</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody">
+              <tr><td colspan="5" class="empty-state">Caricamento...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div id="tab-analytics" class="tab-content">
+      <div class="page-title">Visite al sito</div>
+      <div class="page-sub">Statistiche di Google Analytics per grandangolosettimanale.it</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
           <div>
-            <div class="preview-text-title" id="prevTitolo"></div>
-            <div class="preview-text-body" id="prevTesto"></div>
+            <div class="card-title">Google Analytics — Grandangolo</div>
+            <div class="card-sub">Property ID: 514033147 · grandangolosettimanale.it</div>
           </div>
+          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/intelligenthome" target="_blank" class="btn-green" style="display:inline-block;text-decoration:none;padding:9px 16px;font-size:12px;">Apri Analytics →</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--border);">
+          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/intelligenthome" target="_blank" style="display:block;padding:20px;text-align:center;text-decoration:none;border-right:1px solid var(--border);transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background=''">
+            <div style="font-size:22px;margin-bottom:6px;">👥</div>
+            <div style="font-size:12px;font-weight:700;color:#fff;">Utenti attivi</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Tempo reale</div>
+          </a>
+          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer?params=_u..nav%3Dmaui%26_r.explorerCard..startRow%3D0%26_r.explorerCard..rowsPerPage%3D10" target="_blank" style="display:block;padding:20px;text-align:center;text-decoration:none;border-right:1px solid var(--border);transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background=''">
+            <div style="font-size:22px;margin-bottom:6px;">📄</div>
+            <div style="font-size:12px;font-weight:700;color:#fff;">Pagine viste</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Report pagine</div>
+          </a>
+          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer?params=_u..nav%3Dmaui" target="_blank" style="display:block;padding:20px;text-align:center;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background=''">
+            <div style="font-size:22px;margin-bottom:6px;">🌍</div>
+            <div style="font-size:12px;font-weight:700;color:#fff;">Provenienza</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Traffico per fonte</div>
+          </a>
+        </div>
+        <div style="padding:16px 22px;background:rgba(0,166,81,0.04);">
+          <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">Clicca su una sezione per aprire il report corrispondente in Google Analytics. Devi essere loggato con il tuo account Google per vedere i dati.</p>
         </div>
       </div>
-
-      <button class="btn-green" id="sendEmailBtn" onclick="inviaEmail()">Invia email →</button>
-      <div class="result-box" id="emailResult"></div>
-      <ul class="log-list" id="emailLog"></ul>
     </div>
+
   </div>
-
-  <!-- TAB IN-APP -->
-  <div id="tab-inapp" style="display:none;">
-    <div class="inapp-card">
-      <div class="card-title">🔔 Pubblica notifica in-app</div>
-      <div class="card-sub">Appare a tutti gli utenti loggati tramite la campanella nell'header del sito.</div>
-      <div class="field">
-        <label>Titolo</label>
-        <input type="text" id="iTitle" placeholder="Es: Nuovo numero disponibile!">
-      </div>
-      <div class="field">
-        <label>Testo</label>
-        <textarea id="iBody" placeholder="Es: È uscito Grandangolo N.13/2026. Leggi ora!"></textarea>
-      </div>
-      <div class="form-row">
-        <div class="field">
-          <label>URL copertina (opzionale)</label>
-          <input type="url" id="iCover" placeholder="https://...">
-        </div>
-        <div class="field">
-          <label>Link al click</label>
-          <input type="url" id="iLink" placeholder="https://grandangolosettimanale.it">
-        </div>
-      </div>
-      <button class="btn-green" id="inappBtn" onclick="inviaInApp()">Pubblica notifica →</button>
-      <div class="result-box" id="inappResult"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Notifiche pubblicate</div>
-      <div class="card-sub">Le notifiche visibili agli utenti nel pannello campanella.</div>
-      <div id="notifPubblicate"><div style="color:var(--muted);font-size:13px;">Caricamento...</div></div>
-    </div>
-  </div>
-
 </div>
 
 <script>
-  const ADMIN_PW     = 'impaginato2026';
-  const SUPABASE_URL = 'https://xfmiikymagamnexsbrdt.supabase.co';
-  const SERVICE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8';
-  const RESEND_KEY = 're_Fr9pW3vM_5fKdjDnwZJcU1Zx5oWBxBXH9';
-  const TEST_EMAIL   = 'terranova.grandangoloagrigento@gmail.com';
+  const ADMIN_PW   = 'impaginato2026';
+  const SB_URL     = 'https://xfmiikymagamnexsbrdt.supabase.co';
+  const SB_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8';
 
-  let allUsers = [];
-  let allPrefs = [];
-  let selectedMode = 'all';
-  let manualSelected = new Set();
+  let allUsers = [], allPrefs = [], allCodes = [];
 
   // ── LOGIN ──
   function doLogin() {
@@ -276,255 +283,197 @@
     document.getElementById('adminPw').value = '';
   }
 
-  // ── INIT ──
-  async function init() {
-    await caricaUtenti();
-    caricaStats();
-    caricaNotifiche();
+  // ── TABS ──
+  function showTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('tab-'+tab).classList.add('active');
+    event.currentTarget.classList.add('active');
+    if (tab==='notifiche') caricaNotifiche();
+    if (tab==='utenti') renderUtenti();
   }
 
-  async function caricaUtenti() {
+  // ── INIT ──
+  async function init() {
+    await Promise.all([caricaUtenti(), caricaStats(), caricaNotifiche(), caricaNuoviIscritti()]);
+  }
+
+  async function sbFetch(path) {
+    const res = await fetch(SB_URL + path, {
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+    });
+    return res.json();
+  }
+
+  async function caricaStats() {
     try {
-      const res = await fetch(SUPABASE_URL + '/auth/v1/admin/users?per_page=1000', {
-        headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY }
-      });
-      const data = await res.json();
-      allUsers = (data.users || []).filter(u => u.email);
+      const users = await fetch(SB_URL+'/auth/v1/admin/users?per_page=1000', {
+        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+      }).then(r=>r.json());
+      allUsers = (users.users||[]).filter(u=>u.email);
 
-      const prefsRes = await fetch(SUPABASE_URL + '/rest/v1/user_prefs?select=user_id,data', {
-        headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY }
-      });
-      allPrefs = await prefsRes.json() || [];
+      const [prefs, codes] = await Promise.all([
+        sbFetch('/rest/v1/user_prefs?select=user_id,data'),
+        sbFetch('/rest/v1/user_codes?select=user_id,type,code,label,added_at')
+      ]);
+      allPrefs = prefs||[];
+      allCodes = codes||[];
 
-      const codesRes = await fetch(SUPABASE_URL + '/rest/v1/user_codes?select=user_id,type&type=eq.premium', {
-        headers: { 'apikey': SERVICE_KEY, 'Authorization': 'Bearer ' + SERVICE_KEY }
-      });
-      const premCodes = await codesRes.json() || [];
-      const premSet = new Set(premCodes.map(c => c.user_id));
-      allUsers.forEach(u => { u._premium = premSet.has(u.id); });
+      const prefsMap = {};
+      allPrefs.forEach(p => prefsMap[p.user_id]=p.data);
+      const premSet = new Set(allCodes.filter(c=>c.type==='premium').map(c=>c.user_id));
 
-      renderUserList();
-      aggiornaSelCount();
+      document.getElementById('s-totali').textContent = allUsers.length;
+      document.getElementById('s-premium').textContent = premSet.size;
+      document.getElementById('s-notifiche').textContent = allUsers.filter(u=>{ const p=prefsMap[u.id]; return !p||p.nuova_uscita!==false; }).length;
+      document.getElementById('s-codici').textContent = allCodes.length;
     } catch(e) { console.error(e); }
   }
 
-  function caricaStats() {
-    document.getElementById('statTot').textContent = allUsers.length;
-    const prefsMap = {};
-    allPrefs.forEach(p => prefsMap[p.user_id] = p.data);
-    const iscritti = allUsers.filter(u => { const p=prefsMap[u.id]; return !p || p.nuova_uscita !== false; }).length;
-    document.getElementById('statNotif').textContent = iscritti;
-    document.getElementById('statPrem').textContent = allUsers.filter(u => u._premium).length;
+  async function caricaNuoviIscritti() {
+    const container = document.getElementById('nuovi-iscritti-list');
+    try {
+      const users = await fetch(SB_URL+'/auth/v1/admin/users?per_page=1000', {
+        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+      }).then(r=>r.json());
+      const sorted = (users.users||[]).filter(u=>u.email).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,8);
+      if (!sorted.length) { container.innerHTML='<div class="empty-state"><div>👥</div>Nessun utente ancora.</div>'; return; }
+      container.innerHTML = '';
+      const now = Date.now();
+      sorted.forEach(u => {
+        const isNew = (now - new Date(u.created_at)) < 86400000*7;
+        const d = new Date(u.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
+        const row = document.createElement('div');
+        row.style.cssText='display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);';
+        row.innerHTML = `
+          <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#00a651,#005c2e);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;">${u.email[0].toUpperCase()}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${u.email}${isNew?'<span class="badge badge-new">NUOVO</span>':''}</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.35);">Iscritto il ${d}</div>
+          </div>`;
+        container.appendChild(row);
+      });
+    } catch(e) { container.innerHTML='<div class="empty-state"><div>⚠️</div>Errore caricamento.</div>'; }
   }
 
-  // ── TABS ──
-  function switchTab(tab) {
-    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', (tab==='email'&&i===0)||(tab==='inapp'&&i===1)));
-    document.getElementById('tab-email').style.display = tab==='email'?'block':'none';
-    document.getElementById('tab-inapp').style.display = tab==='inapp'?'block':'none';
-    if (tab==='inapp') caricaNotifiche();
-  }
-
-  // ── DESTINATARI ──
-  function setDest(mode) {
-    selectedMode = mode;
-    document.querySelectorAll('.dest-opt').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    document.getElementById('user-select-wrap').style.display = mode==='custom'?'block':'none';
-    aggiornaSelCount();
-  }
-
-  function renderUserList() {
-    const list = document.getElementById('userList');
-    list.innerHTML = '';
-    allUsers.forEach(u => {
-      const item = document.createElement('label');
-      item.className = 'user-item';
-      item.innerHTML = `<input type="checkbox" value="${u.email}" onchange="toggleManual('${u.email}')"><span class="user-item-email">${u.email}</span>${u._premium?'<span class="user-item-badge">PREMIUM</span>':''}`;
-      list.appendChild(item);
-    });
-  }
-
-  function toggleManual(email) {
-    if (manualSelected.has(email)) manualSelected.delete(email);
-    else manualSelected.add(email);
-    aggiornaSelCount();
-  }
-
-  function getDestinatari() {
-    const prefsMap = {};
-    allPrefs.forEach(p => prefsMap[p.user_id] = p.data);
-    switch(selectedMode) {
-      case 'all': return allUsers.map(u => u.email);
-      case 'notif': return allUsers.filter(u => { const p=prefsMap[u.id]; return !p||p.nuova_uscita!==false; }).map(u=>u.email);
-      case 'premium': return allUsers.filter(u => u._premium).map(u => u.email);
-      case 'custom': return [...manualSelected];
-      case 'test': return [TEST_EMAIL];
-    }
-    return [];
-  }
-
-  function aggiornaSelCount() {
-    const dest = getDestinatari();
-    const el = document.getElementById('selCount');
-    if (selectedMode==='test') el.textContent = 'solo ' + TEST_EMAIL + ' (test)';
-    else if (selectedMode==='custom') el.textContent = manualSelected.size + ' utenti selezionati';
-    else el.textContent = dest.length + ' utenti';
-  }
-
-  // ── PREVIEW ──
-  function aggiornaPreview() {
-    const cover = document.getElementById('eCover').value;
-    const testo = document.getElementById('eTesto').value;
-    const numero = document.getElementById('eNumero').value;
-    const data = document.getElementById('eData').value;
-    const box = document.getElementById('previewBox');
-    if (cover || testo || numero) {
-      box.classList.add('visible');
-      const img = document.getElementById('prevCover');
-      if (cover) { img.src=cover; img.style.display='block'; } else { img.style.display='none'; }
-      document.getElementById('prevTitolo').textContent = 'Grandangolo Settimanale ' + (numero||'');
-      document.getElementById('prevTesto').textContent = (data?'Uscita del '+data+'. ':'')+testo;
-    } else {
-      box.classList.remove('visible');
-    }
-  }
-
-  // ── INVIA EMAIL ──
-  async function inviaEmail() {
-    const numero = document.getElementById('eNumero').value.trim();
-    const data   = document.getElementById('eData').value.trim();
-    const cover  = document.getElementById('eCover').value.trim();
-    const testo  = document.getElementById('eTesto').value.trim();
-    const dest   = getDestinatari();
-
-    if (!testo) { mostraRis('emailResult','Inserisci almeno il testo.','err'); return; }
-    if (!dest.length) { mostraRis('emailResult','Nessun destinatario selezionato.','err'); return; }
-
-    const btn = document.getElementById('sendEmailBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Invio in corso…';
-
-    const log = document.getElementById('emailLog');
-    log.innerHTML = ''; log.classList.add('visible');
-    mostraRis('emailResult', 'Invio a ' + dest.length + ' destinatari…', 'info');
-
-    let ok=0, err=0;
-    for (const email of dest) {
-      try {
-        const htmlBody = "<html><body style='background:#050509;color:#f5f5f5;font-family:sans-serif;padding:32px 16px;max-width:560px;margin:0 auto'>"
-          + "<img src='https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png' style='height:48px;margin-bottom:24px;display:block'>"
-          + "<div style='background:#12121f;border-radius:16px;overflow:hidden'>"
-          + "<div style='background:rgba(0,166,81,0.12);padding:22px 26px'>"
-          + "<p style='margin:0 0 6px;font-size:11px;color:#4cde8a;text-transform:uppercase;font-weight:700'>Nuova uscita</p>"
-          + "<h1 style='margin:0;font-size:20px;color:#fff'>E uscito il nuovo numero!</h1>"
-          + "</div><div style='padding:22px 26px'>"
-          + (cover ? "<img src='" + cover + "' style='width:72px;border-radius:6px;margin-bottom:14px;display:block'>" : "")
-          + "<p style='margin:0 0 6px;font-size:15px;font-weight:700;color:#fff'>Grandangolo Settimanale " + (numero||'') + "</p>"
-          + (data ? "<p style='margin:0 0 12px;font-size:11px;color:rgba(255,255,255,0.4)'>Uscita del " + data + "</p>" : "")
-          + "<p style='margin:0 0 20px;font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6'>" + testo + "</p>"
-          + "<a href='https://grandangolosettimanale.it' style='display:inline-block;padding:11px 26px;background:#00a651;color:#fff;border-radius:10px;text-decoration:none;font-weight:700'>Leggi ora</a>"
-          + "</div></div>"
-          + "<p style='margin-top:16px;font-size:11px;color:rgba(255,255,255,0.2);text-align:center'>Grandangolo Settimanale - Via Mazzini 187, Agrigento</p>"
-          + "</body></html>";
-        const res = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://api.resend.com/emails'), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + RESEND_KEY
-          },
-          body: JSON.stringify({
-            from: 'Grandangolo Settimanale <noreply@grandangolosettimanale.it>',
-            to: [email],
-            subject: 'Nuovo numero! Grandangolo Settimanale ' + (numero||''),
-            html: htmlBody
-          })
-        });
-        if (res.ok) { ok++; addLog(email,'ok'); }
-        else { err++; addLog(email,'err'); }
-      } catch(e) { err++; addLog(email,'err'); }
-      await sleep(200);
-    }
-
-    btn.disabled=false; btn.textContent='Invia email →';
-    mostraRis('emailResult', '✓ Invio completato! ' + ok + ' consegnate' + (err?' · '+err+' errori':'') + '.', ok>0?'ok':'err');
-  }
-
-  function addLog(email, type) {
-    const li = document.createElement('li');
-    li.className = type;
-    li.textContent = (type==='ok'?'✓ ':'✗ ') + email;
-    document.getElementById('emailLog').appendChild(li);
-    document.getElementById('emailLog').scrollTop = 999;
-  }
-
-  // ── INVIA IN-APP ──
-  async function inviaInApp() {
-    const title = document.getElementById('iTitle').value.trim();
-    const body  = document.getElementById('iBody').value.trim();
-    const cover = document.getElementById('iCover').value.trim();
-    const link  = document.getElementById('iLink').value.trim() || 'https://grandangolosettimanale.it';
-    if (!title||!body) { mostraRis('inappResult','Compila titolo e testo.','err'); return; }
-    const btn = document.getElementById('inappBtn');
+  // ── NOTIFICHE ──
+  async function pubblicaNotifica() {
+    const title = document.getElementById('n-title').value.trim();
+    const body  = document.getElementById('n-body').value.trim();
+    const cover = document.getElementById('n-cover').value.trim();
+    const link  = document.getElementById('n-link').value.trim() || 'https://grandangolosettimanale.it';
+    if (!title||!body) { mostraRis('n-result','Compila titolo e testo.','err'); return; }
+    const btn = document.getElementById('n-btn');
     btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Pubblicazione…';
     try {
-      const payload = { title, body, link };
-      if (cover) payload.cover_url = cover;
-      const res = await fetch(SUPABASE_URL+'/rest/v1/notifications', {
+      const payload={title,body,link};
+      if(cover) payload.cover_url=cover;
+      const res = await fetch(SB_URL+'/rest/v1/notifications',{
         method:'POST',
-        headers:{ 'apikey':SERVICE_KEY, 'Authorization':'Bearer '+SERVICE_KEY, 'Content-Type':'application/json', 'Prefer':'return=representation' },
-        body: JSON.stringify(payload)
+        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+        body:JSON.stringify(payload)
       });
-      if (res.ok) {
-        mostraRis('inappResult','✓ Notifica pubblicata! Apparirà a tutti gli utenti loggati.','ok');
-        document.getElementById('iTitle').value='';
-        document.getElementById('iBody').value='';
-        document.getElementById('iCover').value='';
+      if(res.ok){
+        mostraRis('n-result','✓ Notifica pubblicata! Apparirà a tutti gli utenti loggati.','ok');
+        document.getElementById('n-title').value='';
+        document.getElementById('n-body').value='';
+        document.getElementById('n-cover').value='';
         caricaNotifiche();
       } else {
-        const d = await res.json().catch(()=>({}));
-        mostraRis('inappResult','Errore: '+JSON.stringify(d),'err');
+        const d=await res.json().catch(()=>({}));
+        mostraRis('n-result','Errore: '+JSON.stringify(d),'err');
       }
-    } catch(e) { mostraRis('inappResult','Errore: '+e.message,'err'); }
+    } catch(e){mostraRis('n-result','Errore: '+e.message,'err');}
     btn.disabled=false; btn.textContent='Pubblica notifica →';
   }
 
-  // ── CARICA NOTIFICHE PUBBLICATE ──
   async function caricaNotifiche() {
-    const container = document.getElementById('notifPubblicate');
+    const container=document.getElementById('notif-list');
     try {
-      const res = await fetch(SUPABASE_URL+'/rest/v1/notifications?order=created_at.desc', {
-        headers:{ 'apikey':SERVICE_KEY, 'Authorization':'Bearer '+SERVICE_KEY }
+      const data=await sbFetch('/rest/v1/notifications?order=created_at.desc');
+      if(!data.length){container.innerHTML='<div class="empty-state"><div>📭</div>Nessuna notifica pubblicata.</div>';return;}
+      container.innerHTML='';
+      data.forEach(n=>{
+        const item=document.createElement('div'); item.className='notif-item';
+        const d=new Date(n.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+        item.innerHTML=`
+          <div class="notif-icon">📰</div>
+          <div class="notif-info">
+            <div class="notif-title">${n.title}</div>
+            <div class="notif-body">${n.body}</div>
+            <div class="notif-meta">${d}${n.cover_url?` · <a href="${n.cover_url}" target="_blank" style="color:rgba(0,166,81,0.7);text-decoration:none;">copertina</a>`:''}</div>
+          </div>
+          <button class="notif-del" onclick="eliminaNotifica('${n.id}',this)">🗑 Elimina</button>`;
+        container.appendChild(item);
       });
-      const data = await res.json();
-      if (!data.length) { container.innerHTML='<div style="color:var(--muted);font-size:13px;">Nessuna notifica pubblicata.</div>'; return; }
-      container.innerHTML = '';
-      data.forEach(n => {
-        const row = document.createElement('div');
-        row.className = 'notif-row';
-        const d = new Date(n.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
-        row.innerHTML = `<div class="notif-row-icon">📰</div><div><div class="notif-row-title">${n.title}</div><div class="notif-row-body">${n.body}</div><div class="notif-row-time">${d}</div></div><button class="notif-del-btn" onclick="eliminaNotifica('${n.id}',this)">Elimina</button>`;
-        container.appendChild(row);
-      });
-    } catch(e) { container.innerHTML='<div style="color:#ff9090;font-size:13px;">Errore nel caricamento.</div>'; }
+    } catch(e){container.innerHTML='<div class="empty-state"><div>⚠️</div>Errore caricamento.</div>';}
   }
 
-  async function eliminaNotifica(id, btn) {
-    if (!confirm('Eliminare questa notifica?')) return;
+  async function eliminaNotifica(id,btn){
+    if(!confirm('Eliminare questa notifica?'))return;
     btn.disabled=true;
-    await fetch(SUPABASE_URL+'/rest/v1/notifications?id=eq.'+id, {
+    await fetch(SB_URL+'/rest/v1/notifications?id=eq.'+id,{
       method:'DELETE',
-      headers:{ 'apikey':SERVICE_KEY, 'Authorization':'Bearer '+SERVICE_KEY }
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
     });
     caricaNotifiche();
   }
 
-  // ── UTILS ──
-  function mostraRis(id, text, type) {
-    const el=document.getElementById(id);
-    el.textContent=text; el.className='result-box '+type;
+  // ── UTENTI ──
+  async function caricaUtenti() {
+    try {
+      const users=await fetch(SB_URL+'/auth/v1/admin/users?per_page=1000',{
+        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+      }).then(r=>r.json());
+      allUsers=(users.users||[]).filter(u=>u.email).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+
+      const [prefs,codes]=await Promise.all([
+        sbFetch('/rest/v1/user_prefs?select=user_id,data'),
+        sbFetch('/rest/v1/user_codes?select=user_id,type')
+      ]);
+      allPrefs=prefs||[];
+      allCodes=codes||[];
+      document.getElementById('utenti-count').textContent='Utenti registrati ('+allUsers.length+')';
+      renderUtenti();
+    } catch(e){console.error(e);}
   }
-  function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
+
+  function renderUtenti(filtro='') {
+    const tbody=document.getElementById('users-tbody');
+    const prefsMap={};
+    allPrefs.forEach(p=>prefsMap[p.user_id]=p.data);
+    const codesMap={};
+    allCodes.forEach(c=>{if(!codesMap[c.user_id])codesMap[c.user_id]=[];codesMap[c.user_id].push(c.type);});
+
+    const filtered=allUsers.filter(u=>!filtro||u.email.toLowerCase().includes(filtro.toLowerCase()));
+    if(!filtered.length){tbody.innerHTML='<tr><td colspan="5" class="empty-state">Nessun utente trovato.</td></tr>';return;}
+
+    const now=Date.now();
+    tbody.innerHTML='';
+    filtered.forEach(u=>{
+      const codes=codesMap[u.id]||[];
+      const isPremium=codes.includes('premium');
+      const isBundle=codes.includes('bundle');
+      const tipo=isPremium?'<span class="badge badge-premium">★ Premium</span>':isBundle?'<span class="badge badge-bundle">Bundle</span>':'<span class="badge badge-free">Free</span>';
+      const p=prefsMap[u.id];
+      const notif=!p||p.nuova_uscita!==false?'✅':'—';
+      const d=new Date(u.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'});
+      const isNew=(now-new Date(u.created_at))<86400000*7;
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td style="font-weight:500;">${u.email}${isNew?'<span class="badge badge-new" style="margin-left:6px;">NUOVO</span>':''}</td>
+        <td>${tipo}</td>
+        <td style="color:rgba(255,255,255,0.5);font-size:12px;">${d}</td>
+        <td style="text-align:center;">${notif}</td>
+        <td style="color:rgba(255,255,255,0.5);font-size:12px;">${codes.length} codici</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function filtraUtenti(){renderUtenti(document.getElementById('user-search').value);}
+
+  // ── UTILS ──
+  function mostraRis(id,text,type){const el=document.getElementById(id);el.textContent=text;el.className='result-box '+type;}
 </script>
 </body>
 </html>
