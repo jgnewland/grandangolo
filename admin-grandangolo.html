@@ -1,257 +1,348 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin — Grandangolo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    :root{--bg:#050509;--accent:#00a651;--text:#f5f5f5;--muted:#888;--card:#0d0d18;--border:rgba(255,255,255,0.08)}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;min-height:100vh;}
-
-    /* ── LOGIN ── */
-    #login-screen{max-width:380px;margin:100px auto;padding:0 20px;}
-    .login-logo{text-align:center;margin-bottom:28px;}
-    .login-logo img{height:56px;}
-    .login-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px;}
-    .login-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:24px;}
-    .err-msg{padding:10px 14px;border-radius:8px;font-size:13px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090;margin-bottom:12px;display:none;}
-
-    /* ── LAYOUT ── */
-    #admin-screen{display:none;min-height:100vh;}
-    .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:#080810;border-right:1px solid var(--border);padding:20px 0;display:flex;flex-direction:column;}
-    .sidebar-logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:12px;}
-    .sidebar-logo img{height:40px;}
-    .sidebar-logo div{font-size:11px;color:var(--muted);margin-top:4px;}
-    .nav-item{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.45);cursor:pointer;transition:background .15s,color .15s;border-left:3px solid transparent;}
-    .nav-item:hover{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.8);}
-    .nav-item.active{color:#fff;border-left-color:var(--accent);background:rgba(0,166,81,0.07);}
-    .nav-item .icon{font-size:16px;width:20px;text-align:center;}
-    .sidebar-footer{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border);}
-    .logout-btn{width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit;}
-    .logout-btn:hover{background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.3);color:#ff9090;}
-
-    .main-content{margin-left:220px;padding:28px;min-height:100vh;}
-    .page-title{font-size:22px;font-weight:800;margin-bottom:4px;}
-    .page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
-
-    /* ── STATS ── */
-    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
-    .stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;}
-    .stat-icon{font-size:22px;margin-bottom:10px;}
-    .stat-num{font-size:28px;font-weight:800;color:var(--accent);line-height:1;}
-    .stat-label{font-size:12px;color:var(--muted);margin-top:4px;}
-    .stat-card.premium .stat-num{color:#ffe566;}
-
-    /* ── CARD ── */
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:20px;}
-    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
-    .card-title{font-size:15px;font-weight:700;}
-    .card-sub{font-size:12px;color:var(--muted);margin-top:2px;}
-
-    /* ── FORMS ── */
-    .field{margin-bottom:14px;}
-    .field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);margin-bottom:6px;letter-spacing:.05em;text-transform:uppercase;}
-    .field input,.field textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:13px;font-family:inherit;outline:none;transition:border-color .18s;}
-    .field input:focus,.field textarea:focus{border-color:var(--accent);}
-    .field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,0.2);}
-    .field textarea{resize:vertical;min-height:80px;}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .btn-green{padding:12px 20px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:filter .15s;box-shadow:0 4px 16px rgba(0,166,81,0.3);}
-    .btn-green:hover{filter:brightness(1.1);}
-    .btn-green:disabled{opacity:.5;cursor:default;filter:none;}
-    .result-box{padding:10px 14px;border-radius:8px;font-size:12.5px;margin-top:12px;display:none;}
-    .result-box.ok{display:block;background:rgba(0,166,81,0.1);border:1px solid rgba(0,166,81,0.3);color:#8fffc1;}
-    .result-box.err{display:block;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090;}
-    .spinner{display:inline-block;width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
-    @keyframes spin{to{transform:rotate(360deg);}}
-
-    /* ── NOTIFICHE LISTA ── */
-    .notif-item{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
-    .notif-item:last-child{border-bottom:none;}
-    .notif-icon{width:38px;height:38px;border-radius:9px;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
-    .notif-info{flex:1;min-width:0;}
-    .notif-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;}
-    .notif-body{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.4;margin-bottom:3px;}
-    .notif-meta{font-size:10px;color:rgba(255,255,255,0.25);}
-    .notif-del{padding:5px 10px;border-radius:6px;border:1px solid rgba(255,80,80,0.2);background:rgba(255,80,80,0.05);color:#ff9090;font-size:11px;cursor:pointer;font-family:inherit;flex-shrink:0;}
-    .notif-del:hover{background:rgba(255,80,80,0.15);}
-
-    /* ── UTENTI LISTA ── */
-    .search-bar{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.04);color:#fff;font-size:13px;font-family:inherit;outline:none;margin-bottom:16px;}
-    .search-bar:focus{border-color:var(--accent);}
-    .search-bar::placeholder{color:rgba(255,255,255,0.25);}
-    .users-table{width:100%;border-collapse:collapse;}
-    .users-table th{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;}
-    .users-table td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;vertical-align:middle;}
-    .users-table tr:last-child td{border-bottom:none;}
-    .users-table tr:hover td{background:rgba(255,255,255,0.02);}
-    .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
-    .badge-premium{background:rgba(255,200,50,0.15);border:1px solid rgba(255,200,50,0.3);color:#ffe566;}
-    .badge-bundle{background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.25);color:#8fffc1;}
-    .badge-free{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);}
-    .badge-new{background:rgba(0,166,81,0.2);border:1px solid rgba(0,166,81,0.4);color:#4cde8a;font-size:8px;margin-left:4px;}
-    .empty-state{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;}
-    .empty-state div{font-size:32px;margin-bottom:10px;opacity:.4;}
-
-    /* ── ANALYTICS ── */
-    .analytics-placeholder{background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.12);border-radius:12px;padding:32px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6;}
-    .analytics-placeholder div{font-size:28px;margin-bottom:12px;opacity:.4;}
-
-    /* ── MOBILE ── */
-    @media(max-width:768px){
-      .sidebar{display:none;}
-      .main-content{margin-left:0;padding:16px;}
-      .stats-grid{grid-template-columns:1fr 1fr;}
-      .form-row{grid-template-columns:1fr;}
-    }
-
-    .tab-content{display:none;}
-    .tab-content.active{display:block;}
-  </style>
+<meta charset="UTF-8">
+<title>Admin Grandangolo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#050509;color:#f5f5f5;font-family:system-ui,-apple-system,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+/* LOGIN */
+#pg-login{max-width:380px;margin:100px auto;padding:0 20px}
+.lg-logo{text-align:center;margin-bottom:28px}
+.lg-logo img{height:56px}
+.lg-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
+.lg-sub{font-size:13px;color:#888;text-align:center;margin-bottom:24px}
+.lg-err{padding:10px 14px;border-radius:8px;font-size:13px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090;margin-bottom:12px;display:none}
+/* FORMS */
+.f{margin-bottom:14px}
+.f label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);margin-bottom:6px;letter-spacing:.05em;text-transform:uppercase}
+.f input,.f textarea,.f select{width:100%;padding:11px 14px;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:13px;font-family:inherit;outline:none;transition:border-color .18s}
+.f input:focus,.f textarea:focus{border-color:#00a651}
+.f input::placeholder,.f textarea::placeholder{color:rgba(255,255,255,0.2)}
+.f textarea{resize:vertical;min-height:80px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+/* BUTTONS */
+.btn{padding:11px 20px;border-radius:10px;border:none;background:#00a651;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:filter .15s;box-shadow:0 4px 16px rgba(0,166,81,0.3)}
+.btn:hover{filter:brightness(1.1)}
+.btn:disabled{opacity:.5;cursor:default;filter:none}
+.btn-w{width:100%}
+.btn-lg{padding:14px 24px;font-size:15px}
+.btn-sm{padding:7px 14px;font-size:12px}
+.ghost{padding:9px 16px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);font-size:12px;cursor:pointer;font-family:inherit;transition:all .15s}
+.ghost:hover{background:rgba(255,255,255,0.08);color:#fff}
+.res{padding:10px 14px;border-radius:8px;font-size:12.5px;margin-top:12px;display:none}
+.res.ok{display:block;background:rgba(0,166,81,0.1);border:1px solid rgba(0,166,81,0.3);color:#8fffc1}
+.res.err{display:block;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);color:#ff9090}
+/* LAYOUT */
+#pg-admin{display:none}
+.sb{position:fixed;top:0;left:0;bottom:0;width:220px;background:#080810;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column}
+.sb-logo{padding:18px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.sb-logo img{height:38px;display:block}
+.sb-logo p{font-size:11px;color:#888;margin-top:4px}
+.nav-i{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.4);cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.nav-i:hover{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.8)}
+.nav-i.on{color:#fff;border-left-color:#00a651;background:rgba(0,166,81,0.07)}
+.sb-ft{margin-top:auto;padding:14px 20px;border-top:1px solid rgba(255,255,255,0.08)}
+.sb-ft button{width:100%;padding:9px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#888;font-size:12px;cursor:pointer;font-family:inherit}
+.sb-ft button:hover{background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.3);color:#ff9090}
+.main{margin-left:220px;padding:28px;min-height:100vh}
+.pg{display:none}
+.pg.on{display:block}
+.pg-title{font-size:22px;font-weight:800;margin-bottom:4px}
+.pg-sub{font-size:13px;color:#888;margin-bottom:24px}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.stat{background:#0d0d18;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px}
+.stat-n{font-size:28px;font-weight:800;color:#00a651;line-height:1}
+.stat-l{font-size:12px;color:#888;margin-top:4px}
+/* CARDS */
+.card{background:#0d0d18;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:22px;margin-bottom:20px}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px;flex-wrap:wrap}
+.card-t{font-size:15px;font-weight:700}
+.card-s{font-size:12px;color:#888;margin-top:2px}
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:10px;font-weight:700;color:#888;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left}
+.tbl td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,0.02)}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.badge-p{background:rgba(255,200,50,0.15);border:1px solid rgba(255,200,50,0.3);color:#ffe566}
+.badge-b{background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.25);color:#8fffc1}
+.badge-f{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5)}
+.badge-n{background:rgba(0,166,81,0.2);border:1px solid rgba(0,166,81,0.4);color:#4cde8a;font-size:8px;margin-left:4px}
+.search{width:100%;padding:10px 14px;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;background:rgba(255,255,255,0.04);color:#fff;font-size:13px;font-family:inherit;outline:none;margin-bottom:16px}
+.search:focus{border-color:#00a651}
+.empty{text-align:center;padding:40px 20px;color:#888;font-size:13px}
+/* NOTIFICHE */
+.ni{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.ni:last-child{border-bottom:none}
+.ni-ic{width:38px;height:38px;border-radius:9px;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ni-info{flex:1;min-width:0}
+.ni-t{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.ni-b{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.4;margin-bottom:3px}
+.ni-m{font-size:10px;color:rgba(255,255,255,0.25)}
+.del-btn{padding:5px 10px;border-radius:6px;border:1px solid rgba(255,80,80,0.2);background:rgba(255,80,80,0.05);color:#ff9090;font-size:12px;cursor:pointer;font-family:inherit;flex-shrink:0}
+.del-btn:hover{background:rgba(255,80,80,0.15)}
+/* CODICE */
+.cod-box{background:rgba(0,0,0,0.3);border:1px solid rgba(0,166,81,0.3);border-radius:12px;padding:20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.cod-text{font-family:monospace;font-size:20px;font-weight:700;color:#8fffc1;letter-spacing:.08em;word-break:break-all}
+.stor-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.stor-row:last-child{border-bottom:none}
+/* PREVIEW NUMERO */
+.prev-box{background:rgba(0,166,81,0.05);border:1px solid rgba(0,166,81,0.2);border-radius:12px;padding:16px;margin-bottom:16px;display:none}
+.prev-inner{display:flex;gap:14px;align-items:flex-start}
+.prev-img{width:60px;height:84px;border-radius:6px;object-fit:cover;border:1px solid rgba(255,255,255,0.08);flex-shrink:0}
+.prev-t{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.prev-s{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:6px}
+.prev-info{font-size:12px;color:#8fffc1}
+/* CHECKBOX */
+input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
+@media(max-width:768px){.sb{display:none}.main{margin-left:0;padding:16px}.stats{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="login-screen">
-  <div class="login-logo">
-    <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo">
-  </div>
-  <div class="login-title">Area Admin</div>
-  <div class="login-sub">Accesso riservato alla redazione di Grandangolo.</div>
-  <div class="err-msg" id="loginErr">Password errata.</div>
-  <div class="field">
-    <label>Password admin</label>
-    <input type="password" id="adminPw" placeholder="••••••••••••">
-  </div>
-  <button class="btn-green" style="width:100%;" onclick="doLogin()">Accedi →</button>
+<div id="pg-login">
+  <div class="lg-logo"><img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo"></div>
+  <div class="lg-title">Area Admin</div>
+  <div class="lg-sub">Accesso riservato alla redazione di Grandangolo.</div>
+  <div class="lg-err" id="lg-err">Password errata.</div>
+  <div class="f"><label>Password admin</label><input type="password" id="pw" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+  <button class="btn btn-w" id="login-btn">Accedi &rarr;</button>
 </div>
 
 <!-- ADMIN -->
-<div id="admin-screen">
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="sidebar-logo">
-      <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="">
-      <div>Pannello Admin</div>
-    </div>
-    <div class="nav-item active" onclick="showTab('dashboard')"><span class="icon">📊</span> Dashboard</div>
-    <div class="nav-item" onclick="showTab('notifiche')"><span class="icon">🔔</span> Notifiche in-app</div>
-    <div class="nav-item" onclick="showTab('utenti')"><span class="icon">👥</span> Utenti</div>
-    <div class="nav-item" onclick="showTab('analytics')"><span class="icon">📈</span> Visite sito</div>
-    <div class="sidebar-footer">
-      <button class="logout-btn" onclick="doLogout()">← Esci</button>
-    </div>
+<div id="pg-admin">
+  <div class="sb">
+    <div class="sb-logo"><img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt=""><p>Pannello Admin</p></div>
+    <div class="nav-i on" data-pg="dashboard">&#128202; Dashboard</div>
+    <div class="nav-i" data-pg="notifiche">&#128276; Notifiche in-app</div>
+    <div class="nav-i" data-pg="nuovo">&#10133; Nuovo numero</div>
+    <div class="nav-i" data-pg="numeri">&#128240; Numeri &amp; Codici</div>
+    <div class="nav-i" data-pg="utenti">&#128101; Utenti</div>
+    <div class="nav-i" data-pg="genera">&#128273; Genera codice</div>
+    <div class="nav-i" data-pg="analytics">&#128200; Visite sito</div>
+    <div class="sb-ft"><button id="logout-btn">&#8592; Esci</button></div>
   </div>
 
-  <!-- MAIN -->
-  <div class="main-content">
+  <div class="main">
 
     <!-- DASHBOARD -->
-    <div id="tab-dashboard" class="tab-content active">
-      <div class="page-title">Dashboard</div>
-      <div class="page-sub">Panoramica generale del sito.</div>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-num" id="s-totali">—</div><div class="stat-label">Utenti totali</div></div>
-        <div class="stat-card premium"><div class="stat-icon">★</div><div class="stat-num" id="s-premium">—</div><div class="stat-label">Abbonati premium</div></div>
-        <div class="stat-card"><div class="stat-icon">🔔</div><div class="stat-num" id="s-notifiche">—</div><div class="stat-label">Iscritti notifiche</div></div>
-        <div class="stat-card"><div class="stat-icon">📰</div><div class="stat-num" id="s-codici">—</div><div class="stat-label">Codici totali</div></div>
+    <div class="pg on" id="pg-dashboard">
+      <div class="pg-title">Dashboard</div>
+      <div class="pg-sub">Panoramica generale.</div>
+      <div class="stats">
+        <div class="stat"><div style="font-size:22px;margin-bottom:8px">&#128101;</div><div class="stat-n" id="s-tot">-</div><div class="stat-l">Utenti totali</div></div>
+        <div class="stat"><div style="font-size:22px;margin-bottom:8px">&#9733;</div><div class="stat-n" id="s-prem" style="color:#ffe566">-</div><div class="stat-l">Premium</div></div>
+        <div class="stat"><div style="font-size:22px;margin-bottom:8px">&#128276;</div><div class="stat-n" id="s-notif">-</div><div class="stat-l">Iscritti notifiche</div></div>
+        <div class="stat"><div style="font-size:22px;margin-bottom:8px">&#128240;</div><div class="stat-n" id="s-cod">-</div><div class="stat-l">Codici totali</div></div>
       </div>
-
       <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">🆕 Nuovi iscritti recenti</div><div class="card-sub">Ultimi utenti registrati</div></div>
-        </div>
-        <div id="nuovi-iscritti-list"><div class="empty-state"><div>⏳</div>Caricamento...</div></div>
+        <div class="card-hdr"><div><div class="card-t">&#127381; Ultimi iscritti</div><div class="card-s">Nuovi utenti registrati</div></div></div>
+        <div id="nuovi-list"><div class="empty">Caricamento...</div></div>
       </div>
     </div>
 
     <!-- NOTIFICHE -->
-    <div id="tab-notifiche" class="tab-content">
-      <div class="page-title">Notifiche in-app</div>
-      <div class="page-sub">Le notifiche appaiono a tutti gli utenti loggati tramite la campanella 🔔 nell'header del sito.</div>
-
+    <div class="pg" id="pg-notifiche">
+      <div class="pg-title">Notifiche in-app</div>
+      <div class="pg-sub">Appaiono a tutti gli utenti loggati tramite la campanella.</div>
       <div class="card">
-        <div class="card-title" style="margin-bottom:16px;">Pubblica nuova notifica</div>
-        <div class="field"><label>Titolo</label><input type="text" id="n-title" placeholder="Es: Nuovo numero disponibile!"></div>
-        <div class="field"><label>Testo</label><textarea id="n-body" placeholder="Es: È uscito Grandangolo N.13/2026. Leggi ora!"></textarea></div>
-        <div class="form-row">
-          <div class="field"><label>URL copertina (opzionale)</label><input type="url" id="n-cover" placeholder="https://..."></div>
-          <div class="field"><label>Link al click</label><input type="url" id="n-link" placeholder="https://grandangolosettimanale.it"></div>
+        <div class="card-t" style="margin-bottom:16px">Pubblica nuova notifica</div>
+        <div class="f"><label>Titolo</label><input type="text" id="n-title" placeholder="Es: Nuovo numero disponibile!"></div>
+        <div class="f"><label>Testo</label><textarea id="n-body" placeholder="Es: E uscito Grandangolo N.13/2026"></textarea></div>
+        <div class="row2">
+          <div class="f"><label>URL copertina (opzionale)</label><input type="url" id="n-cover" placeholder="https://..."></div>
+          <div class="f"><label>Link al click</label><input type="url" id="n-link" placeholder="https://grandangolosettimanale.it"></div>
         </div>
-        <button class="btn-green" id="n-btn" onclick="pubblicaNotifica()">Pubblica notifica →</button>
-        <div class="result-box" id="n-result"></div>
+        <button class="btn" id="n-pubblica-btn">Pubblica notifica &rarr;</button>
+        <div class="res" id="n-res"></div>
       </div>
-
       <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">Notifiche pubblicate</div><div class="card-sub">Clicca elimina per rimuoverle dal sito</div></div>
-          <button class="btn-green" onclick="caricaNotifiche()" style="padding:8px 14px;font-size:12px;">↺ Aggiorna</button>
+        <div class="card-hdr">
+          <div><div class="card-t">Notifiche pubblicate</div></div>
+          <button class="ghost" id="n-refresh-btn">&#8635; Aggiorna</button>
         </div>
-        <div id="notif-list"><div class="empty-state"><div>⏳</div>Caricamento...</div></div>
+        <div id="n-list"><div class="empty">Caricamento...</div></div>
       </div>
     </div>
 
-    <!-- UTENTI -->
-    <div id="tab-utenti" class="tab-content">
-      <div class="page-title">Utenti registrati</div>
-      <div class="page-sub">Lista completa degli utenti iscritti al sito.</div>
+    <!-- NUOVO NUMERO -->
+    <div class="pg" id="pg-nuovo">
+      <div class="pg-title">Aggiungi nuovo numero</div>
+      <div class="pg-sub">Compila il form e pubblica. Il numero apparira automaticamente sul sito.</div>
       <div class="card">
-        <div class="card-header">
-          <div><div class="card-title" id="utenti-count">Utenti</div><div class="card-sub">Clicca su una riga per vedere i dettagli</div></div>
-          <button class="btn-green" onclick="caricaUtenti()" style="padding:8px 14px;font-size:12px;">↺ Aggiorna</button>
+        <div class="card-t" style="margin-bottom:16px">Informazioni numero</div>
+        <div class="row2">
+          <div class="f"><label>Titolo (es. Grandangolo Settimanale N. 13)</label><input type="text" id="nu-title" placeholder="Grandangolo Settimanale N. 13"></div>
+          <div class="f"><label>Data uscita (es. 4 Aprile 2026)</label><input type="text" id="nu-sub" placeholder="4 Aprile 2026"></div>
         </div>
-        <input type="search" class="search-bar" placeholder="🔍 Cerca per email..." id="user-search" oninput="filtraUtenti()">
-        <div style="overflow-x:auto;">
-          <table class="users-table">
-            <thead>
-              <tr>
-                <th>Email</th>
-                <th>Tipo</th>
-                <th>Iscritto il</th>
-                <th>Notifiche</th>
-                <th>Codici</th>
-              </tr>
-            </thead>
-            <tbody id="users-tbody">
-              <tr><td colspan="5" class="empty-state">Caricamento...</td></tr>
-            </tbody>
+        <div class="row2">
+          <div class="f"><label>Anno</label><input type="number" id="nu-anno" value="2026" min="2020" max="2030"></div>
+          <div class="f"><label>Ordine (numero piu alto = primo)</label><input type="number" id="nu-order" value="100" placeholder="100"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.2);border-radius:10px;margin-bottom:0">
+          <input type="checkbox" id="nu-latest">
+          <label for="nu-latest" style="font-size:13px;font-weight:600;color:#fff;cursor:pointer">&#11088; Segna come ULTIMA USCITA (badge rosso in homepage)</label>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t" style="margin-bottom:4px">Copertina e acquisto</div>
+        <div class="card-s" style="margin-bottom:16px">URL delle immagini caricate su WordPress.</div>
+        <div class="f"><label>URL copertina (JPG prima pagina)</label><input type="url" id="nu-cover" placeholder="https://www.grandangoloagrigento.it/wp-content/.../1.jpg"></div>
+        <div class="f"><label>Link Stripe per l'acquisto</label><input type="url" id="nu-buy" placeholder="https://buy.stripe.com/..."></div>
+        <div class="f">
+          <label>Codice di sblocco</label>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="nu-code" placeholder="GR22-XXXXX" style="font-family:monospace">
+            <button class="ghost" id="nu-gen-btn" style="white-space:nowrap;padding:11px 14px;flex-shrink:0">&#128273; Genera</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t" style="margin-bottom:4px">Pagine del numero (JPG)</div>
+        <div class="card-s" style="margin-bottom:16px">Inserisci un URL per riga, in ordine. Usa il generatore per URL sequenziali.</div>
+        <div class="f"><label>URL pagine (una per riga)</label><textarea id="nu-pages" style="min-height:180px;font-family:monospace;font-size:12px;line-height:1.6" placeholder="https://.../1.jpg"></textarea></div>
+        <div style="padding:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:10px">
+          <div class="card-t" style="font-size:13px;margin-bottom:12px">&#9889; Generatore URL rapido</div>
+          <div class="row2">
+            <div class="f"><label>URL base (cartella)</label><input type="url" id="gen-base" placeholder="https://.../2026/04/"></div>
+            <div class="f"><label>Numero pagine totali</label><input type="number" id="gen-count" placeholder="20" min="1" max="100"></div>
+          </div>
+          <div class="f"><label>Formato (usa {n} per il numero)</label><input type="text" id="gen-fmt" value="{n}.jpg" placeholder="{n}.jpg"></div>
+          <button class="ghost btn-sm" id="gen-btn">&#9889; Genera URL</button>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(0,166,81,0.25);background:rgba(0,166,81,0.04)">
+        <div class="prev-box" id="nu-prev">
+          <div style="font-size:13px;font-weight:700;color:rgba(0,166,81,0.8);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">Anteprima</div>
+          <div class="prev-inner">
+            <img class="prev-img" id="nu-prev-img" src="" alt="">
+            <div>
+              <div class="prev-t" id="nu-prev-title"></div>
+              <div class="prev-s" id="nu-prev-sub"></div>
+              <div class="prev-info" id="nu-prev-info"></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-w btn-lg" id="nu-pubblica-btn">&#128640; Pubblica numero sul sito</button>
+        <div class="res" id="nu-res"></div>
+      </div>
+    </div>
+
+    <!-- NUMERI -->
+    <div class="pg" id="pg-numeri">
+      <div class="pg-title">Numeri &amp; Codici</div>
+      <div class="pg-sub">Lista completa con codici di sblocco. Aggiornata dal sito in tempo reale.</div>
+      <div class="card">
+        <div class="card-hdr">
+          <div><div class="card-t">Filtro anno</div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-sm" id="f-tutti">Tutti</button>
+            <button class="ghost btn-sm" id="f-2026">2026</button>
+            <button class="ghost btn-sm" id="f-2025">2025</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th style="width:50px"></th><th>Numero</th><th>Data</th><th>Codice</th><th>Azioni</th></tr></thead>
+            <tbody id="num-body"><tr><td colspan="5" class="empty">Caricamento...</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ANALYTICS -->
-    <div id="tab-analytics" class="tab-content">
-      <div class="page-title">Visite al sito</div>
-      <div class="page-sub">Statistiche di Google Analytics per grandangolosettimanale.it</div>
-      <div class="card" style="padding:0;overflow:hidden;">
-        <div style="padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-          <div>
-            <div class="card-title">Google Analytics — Grandangolo</div>
-            <div class="card-sub">Property ID: 514033147 · grandangolosettimanale.it</div>
+    <!-- UTENTI -->
+    <div class="pg" id="pg-utenti">
+      <div class="pg-title">Utenti registrati</div>
+      <div class="pg-sub">Lista completa degli iscritti.</div>
+      <div class="card">
+        <div class="card-hdr">
+          <div><div class="card-t" id="u-count-title">Utenti</div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="ghost btn-sm" id="u-sel-all-btn">Seleziona tutti</button>
+            <button class="ghost btn-sm" id="u-copy-btn" style="border-color:rgba(0,166,81,0.3);color:#8fffc1">Copia selezionate</button>
+            <button class="ghost btn-sm" id="u-refresh-btn">&#8635;</button>
           </div>
-          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/intelligenthome" target="_blank" class="btn-green" style="display:inline-block;text-decoration:none;padding:9px 16px;font-size:12px;">Apri Analytics →</a>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--border);">
-          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/intelligenthome" target="_blank" style="display:block;padding:20px;text-align:center;text-decoration:none;border-right:1px solid var(--border);transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background=''">
-            <div style="font-size:22px;margin-bottom:6px;">👥</div>
-            <div style="font-size:12px;font-weight:700;color:#fff;">Utenti attivi</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Tempo reale</div>
-          </a>
-          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer?params=_u..nav%3Dmaui%26_r.explorerCard..startRow%3D0%26_r.explorerCard..rowsPerPage%3D10" target="_blank" style="display:block;padding:20px;text-align:center;text-decoration:none;border-right:1px solid var(--border);transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background=''">
-            <div style="font-size:22px;margin-bottom:6px;">📄</div>
-            <div style="font-size:12px;font-weight:700;color:#fff;">Pagine viste</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Report pagine</div>
-          </a>
-          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer?params=_u..nav%3Dmaui" target="_blank" style="display:block;padding:20px;text-align:center;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background=''">
-            <div style="font-size:22px;margin-bottom:6px;">🌍</div>
-            <div style="font-size:12px;font-weight:700;color:#fff;">Provenienza</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px;">Traffico per fonte</div>
-          </a>
+        <div id="u-sel-label" style="font-size:12px;color:#888;margin-bottom:10px"></div>
+        <input type="search" class="search" id="u-search" placeholder="Cerca per email...">
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr>
+              <th style="width:36px"><input type="checkbox" id="u-check-all"></th>
+              <th>Email</th><th>Tipo</th><th>Iscritto il</th><th>Notifiche</th><th>Azioni</th>
+            </tr></thead>
+            <tbody id="u-body"><tr><td colspan="6" class="empty">Caricamento...</td></tr></tbody>
+          </table>
         </div>
-        <div style="padding:16px 22px;background:rgba(0,166,81,0.04);">
-          <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;">Clicca su una sezione per aprire il report corrispondente in Google Analytics. Devi essere loggato con il tuo account Google per vedere i dati.</p>
+      </div>
+    </div>
+
+    <!-- GENERA -->
+    <div class="pg" id="pg-genera">
+      <div class="pg-title">Genera codice settimanale</div>
+      <div class="pg-sub">Crea il codice di sblocco per il nuovo numero nel formato GR22-.</div>
+      <div class="card">
+        <div class="cod-box">
+          <code class="cod-text" id="cod-val">-</code>
+          <button class="btn btn-sm" id="cod-copy-btn">&#128203; Copia</button>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+          <button class="btn" id="cod-gen-btn" style="padding:12px 24px">&#128260; Genera nuovo</button>
+          <button class="ghost" id="cod-custom-toggle" style="padding:12px 24px">&#9999; Personalizza</button>
+        </div>
+        <div id="cod-custom" style="display:none;padding:16px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.08);margin-bottom:0">
+          <div class="row2">
+            <div class="f"><label>Prefisso</label><input type="text" id="cod-prefix" value="GR22" placeholder="GR22"></div>
+            <div class="f"><label>Lunghezza: <span id="cod-len-val">12</span> caratteri</label><input type="range" id="cod-len" min="6" max="20" value="12" style="width:100%;accent-color:#00a651;margin-top:8px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t" style="margin-bottom:16px">Storico sessione</div>
+        <div id="cod-stor"><div class="empty">Nessun codice generato ancora.</div></div>
+      </div>
+      <div class="card" style="border-color:rgba(255,200,50,0.2);background:rgba(255,200,50,0.03)">
+        <div class="card-t" style="margin-bottom:10px">Come usare il codice</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.8">
+          1. Genera e copia il codice<br>
+          2. Vai su <strong>Nuovo numero</strong> e incollalo nel campo Codice<br>
+          3. Compila il resto e clicca Pubblica<br>
+          4. Il numero appare automaticamente sul sito
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="pg" id="pg-analytics">
+      <div class="pg-title">Visite al sito</div>
+      <div class="pg-sub">Statistiche Google Analytics per grandangolosettimanale.it</div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div style="padding:18px 22px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div><div class="card-t">Google Analytics</div><div class="card-s">Property ID: 514033147</div></div>
+          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/intelligenthome" target="_blank" class="btn btn-sm" style="display:inline-block">Apri Analytics &rarr;</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr)">
+          <a href="https://analytics.google.com/analytics/web/#/p514033147/realtime/overview" target="_blank" style="display:block;padding:20px;text-align:center;border-right:1px solid rgba(255,255,255,0.08)">
+            <div style="font-size:22px;margin-bottom:6px">&#128101;</div>
+            <div style="font-size:12px;font-weight:700;color:#fff">Utenti attivi</div>
+            <div style="font-size:11px;color:#888;margin-top:2px">Tempo reale</div>
+          </a>
+          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer" target="_blank" style="display:block;padding:20px;text-align:center;border-right:1px solid rgba(255,255,255,0.08)">
+            <div style="font-size:22px;margin-bottom:6px">&#128196;</div>
+            <div style="font-size:12px;font-weight:700;color:#fff">Pagine viste</div>
+            <div style="font-size:11px;color:#888;margin-top:2px">Report pagine</div>
+          </a>
+          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer" target="_blank" style="display:block;padding:20px;text-align:center">
+            <div style="font-size:22px;margin-bottom:6px">&#127757;</div>
+            <div style="font-size:12px;font-weight:700;color:#fff">Provenienza</div>
+            <div style="font-size:11px;color:#888;margin-top:2px">Traffico per fonte</div>
+          </a>
         </div>
       </div>
     </div>
@@ -260,220 +351,563 @@
 </div>
 
 <script>
-  const ADMIN_PW   = 'impaginato2026';
-  const SB_URL     = 'https://xfmiikymagamnexsbrdt.supabase.co';
-  const SB_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8';
+document.addEventListener("DOMContentLoaded", function() {
+var PW = 'impaginato2026';
+var SB = 'https://xfmiikymagamnexsbrdt.supabase.co';
+var SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8';
+var users=[], prefs=[], codes=[];
+var filtroAnno='tutti', storicoGen=[];
+var LETT='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz';
+var NUMS='23456789', SPEC='!@#$%&?=+';
+var ALL=LETT+NUMS+SPEC;
 
-  let allUsers = [], allPrefs = [], allCodes = [];
+// LOGIN
+document.getElementById('login-btn').onclick = doLogin;
+document.getElementById('pw').onkeydown = function(e){ if(e.key==='Enter') doLogin(); };
+function doLogin(){
+  if(document.getElementById('pw').value===PW){
+    document.getElementById('pg-login').style.display='none';
+    document.getElementById('pg-admin').style.display='block';
+    init();
+  } else {
+    document.getElementById('lg-err').style.display='block';
+  }
+}
+document.getElementById('logout-btn').onclick = function(){
+  document.getElementById('pg-admin').style.display='none';
+  document.getElementById('pg-login').style.display='block';
+  document.getElementById('pw').value='';
+};
 
-  // ── LOGIN ──
-  function doLogin() {
-    if (document.getElementById('adminPw').value === ADMIN_PW) {
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('admin-screen').style.display = 'block';
-      init();
+// NAVIGATION
+document.querySelectorAll('.nav-i').forEach(function(el){
+  el.onclick = function(){
+    document.querySelectorAll('.nav-i').forEach(function(x){ x.classList.remove('on'); });
+    document.querySelectorAll('.pg').forEach(function(x){ x.classList.remove('on'); });
+    el.classList.add('on');
+    var id = 'pg-' + el.getAttribute('data-pg');
+    document.getElementById(id).classList.add('on');
+    var pg = el.getAttribute('data-pg');
+    if(pg==='notifiche') loadNotif();
+    if(pg==='numeri') loadNumeri();
+    if(pg==='utenti') renderU('');
+    if(pg==='genera') genCod();
+  };
+});
+
+// INIT
+function init(){ loadDati(); loadNotif(); }
+
+async function sbGet(path){
+  var r = await fetch(SB+path, {headers:{'apikey':SK,'Authorization':'Bearer '+SK}});
+  return r.json();
+}
+async function sbPost(path, data){
+  return fetch(SB+path, {method:'POST', headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=representation'}, body:JSON.stringify(data)});
+}
+async function sbPatch(path, data){
+  return fetch(SB+path, {method:'PATCH', headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json'}, body:JSON.stringify(data)});
+}
+async function sbDel(path){
+  return fetch(SB+path, {method:'DELETE', headers:{'apikey':SK,'Authorization':'Bearer '+SK}});
+}
+
+async function loadDati(){
+  try{
+    var ur = await fetch(SB+'/auth/v1/admin/users?per_page=1000',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}});
+    var ud = await ur.json();
+    users = (ud.users||[]).filter(function(u){return u.email;});
+    users.sort(function(a,b){return new Date(b.created_at)-new Date(a.created_at);});
+    var pr = await sbGet('/rest/v1/user_prefs?select=user_id,data');
+    prefs = pr||[];
+    var cr = await sbGet('/rest/v1/user_codes?select=user_id,type,code');
+    codes = cr||[];
+    updateStats(); renderNuovi(); renderU('');
+  }catch(e){console.error(e);}
+}
+
+function updateStats(){
+  var pm={};prefs.forEach(function(p){pm[p.user_id]=p.data;});
+  var ps={};codes.forEach(function(c){if(c.type==='premium')ps[c.user_id]=1;});
+  document.getElementById('s-tot').textContent=users.length;
+  document.getElementById('s-prem').textContent=Object.keys(ps).length;
+  document.getElementById('s-cod').textContent=codes.length;
+  var isc=users.filter(function(u){var p=pm[u.id];return !p||p.nuova_uscita!==false;}).length;
+  document.getElementById('s-notif').textContent=isc;
+  document.getElementById('u-count-title').textContent='Utenti ('+users.length+')';
+}
+
+function renderNuovi(){
+  var el=document.getElementById('nuovi-list'), now=Date.now();
+  if(!users.length){el.innerHTML='<div class="empty">Nessun utente.</div>';return;}
+  el.innerHTML='';
+  users.slice(0,8).forEach(function(u){
+    var isN=(now-new Date(u.created_at))<86400000*7;
+    var d=new Date(u.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
+    var div=document.createElement('div');
+    div.style.cssText='display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05)';
+    div.innerHTML='<div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00a651,#005c2e);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0">'+u.email[0].toUpperCase()+'</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+u.email+(isN?' <span class="badge badge-n">NUOVO</span>':'')+'</div><div style="font-size:11px;color:rgba(255,255,255,0.35)">Iscritto il '+d+'</div></div>';
+    el.appendChild(div);
+  });
+}
+
+// NOTIFICHE
+document.getElementById('n-pubblica-btn').onclick = pubNotif;
+document.getElementById('n-refresh-btn').onclick = loadNotif;
+
+async function pubNotif(){
+  var t=document.getElementById('n-title').value.trim();
+  var b=document.getElementById('n-body').value.trim();
+  var c=document.getElementById('n-cover').value.trim();
+  var l=document.getElementById('n-link').value.trim()||'https://grandangolosettimanale.it';
+  if(!t||!b){showRes('n-res','Compila titolo e testo.','err');return;}
+  var btn=document.getElementById('n-pubblica-btn');
+  btn.disabled=true; btn.textContent='Pubblicazione...';
+  try{
+    var p={title:t,body:b,link:l};
+    if(c) p.cover_url=c;
+    var r=await sbPost('/rest/v1/notifications',p);
+    if(r.ok){
+      showRes('n-res','Notifica pubblicata!','ok');
+      document.getElementById('n-title').value='';
+      document.getElementById('n-body').value='';
+      document.getElementById('n-cover').value='';
+      loadNotif();
     } else {
-      document.getElementById('loginErr').style.display = 'block';
+      var d=await r.json().catch(function(){return{};});
+      showRes('n-res','Errore: '+JSON.stringify(d),'err');
     }
-  }
-  document.getElementById('adminPw').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-  function doLogout() {
-    document.getElementById('admin-screen').style.display = 'none';
-    document.getElementById('login-screen').style.display = 'block';
-    document.getElementById('adminPw').value = '';
-  }
+  }catch(e){showRes('n-res','Errore: '+e.message,'err');}
+  btn.disabled=false; btn.textContent='Pubblica notifica \u2192';
+}
 
-  // ── TABS ──
-  function showTab(tab) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.getElementById('tab-'+tab).classList.add('active');
-    event.currentTarget.classList.add('active');
-    if (tab==='notifiche') caricaNotifiche();
-    if (tab==='utenti') renderUtenti();
-  }
-
-  // ── INIT ──
-  async function init() {
-    await Promise.all([caricaUtenti(), caricaStats(), caricaNotifiche(), caricaNuoviIscritti()]);
-  }
-
-  async function sbFetch(path) {
-    const res = await fetch(SB_URL + path, {
-      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+async function loadNotif(){
+  var el=document.getElementById('n-list');
+  try{
+    var d=await sbGet('/rest/v1/notifications?order=created_at.desc');
+    if(!d.length){el.innerHTML='<div class="empty">Nessuna notifica.</div>';return;}
+    el.innerHTML='';
+    d.forEach(function(n){
+      var div=document.createElement('div');
+      div.className='ni';
+      var dt=new Date(n.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
+      div.innerHTML='<div class="ni-ic">&#128240;</div><div class="ni-info"><div class="ni-t">'+n.title+'</div><div class="ni-b">'+n.body+'</div><div class="ni-m">'+dt+'</div></div>';
+      var db=document.createElement('button');
+      db.className='del-btn';
+      db.textContent='Elimina';
+      db.onclick=function(){ delNotif(n.id,div); };
+      div.appendChild(db);
+      el.appendChild(div);
     });
-    return res.json();
+  }catch(e){el.innerHTML='<div class="empty">Errore.</div>';}
+}
+
+async function delNotif(id,el){
+  if(!confirm('Eliminare?'))return;
+  await sbDel('/rest/v1/notifications?id=eq.'+id);
+  el.remove();
+}
+
+// NUOVO NUMERO
+document.getElementById('nu-gen-btn').onclick = function(){ genCod(); document.getElementById('nu-code').value=document.getElementById('cod-val').textContent; };
+document.getElementById('gen-btn').onclick = genUrl;
+['nu-title','nu-sub','nu-cover','nu-code','nu-pages'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el) el.oninput=updatePrev;
+});
+
+function genUrl(){
+  var base=document.getElementById('gen-base').value.trim();
+  var cnt=parseInt(document.getElementById('gen-count').value)||0;
+  var fmt=document.getElementById('gen-fmt').value.trim()||'{n}.jpg';
+  if(!base||!cnt){alert('Inserisci URL base e numero pagine.');return;}
+  if(!base.endsWith('/')) base+='/';
+  var urls=[];
+  for(var i=1;i<=cnt;i++) urls.push(base+fmt.replace('{n}',i));
+  document.getElementById('nu-pages').value=urls.join(String.fromCharCode(10));
+  updatePrev();
+}
+
+function updatePrev(){
+  var t=document.getElementById('nu-title').value.trim();
+  var s=document.getElementById('nu-sub').value.trim();
+  var c=document.getElementById('nu-cover').value.trim();
+  var k=document.getElementById('nu-code').value.trim();
+  var pg=document.getElementById('nu-pages').value.trim().split(String.fromCharCode(10)).filter(function(l){return l.trim();});
+  var prev=document.getElementById('nu-prev');
+  if(t||c){
+    prev.style.display='block';
+    document.getElementById('nu-prev-img').src=c||'';
+    document.getElementById('nu-prev-title').textContent=t;
+    document.getElementById('nu-prev-sub').textContent=s;
+    document.getElementById('nu-prev-info').textContent=pg.length+' pagine'+(k?' · Codice: '+k:'');
+  } else {
+    prev.style.display='none';
   }
+}
 
-  async function caricaStats() {
-    try {
-      const users = await fetch(SB_URL+'/auth/v1/admin/users?per_page=1000', {
-        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
-      }).then(r=>r.json());
-      allUsers = (users.users||[]).filter(u=>u.email);
+document.getElementById('nu-pubblica-btn').onclick = async function(){
+  var t=document.getElementById('nu-title').value.trim();
+  var s=document.getElementById('nu-sub').value.trim();
+  var c=document.getElementById('nu-cover').value.trim();
+  var buy=document.getElementById('nu-buy').value.trim();
+  var k=document.getElementById('nu-code').value.trim();
+  var anno=parseInt(document.getElementById('nu-anno').value)||2026;
+  var ord=parseInt(document.getElementById('nu-order').value)||100;
+  var latest=document.getElementById('nu-latest').checked;
+  var pgs=document.getElementById('nu-pages').value.trim().split(String.fromCharCode(10)).map(function(l){return l.trim();}).filter(function(l){return l;});
+  if(!t){showRes('nu-res','Inserisci il titolo.','err');return;}
+  if(!k){showRes('nu-res','Inserisci il codice.','err');return;}
+  if(!pgs.length){showRes('nu-res','Inserisci le pagine.','err');return;}
+  var btn=document.getElementById('nu-pubblica-btn');
+  btn.disabled=true; btn.textContent='Pubblicazione...';
+  try{
+    if(latest) await sbPatch('/rest/v1/issues?is_latest=eq.true',{is_latest:false});
+    // Auto sort_order: prendi il massimo esistente + 1
+    try{
+      var maxR=await sbGet('/rest/v1/issues?select=sort_order&order=sort_order.desc&limit=1');
+      if(maxR&&maxR.length) ord=Math.max(ord,(maxR[0].sort_order||0)+1);
+    }catch(e2){}
+    var payload={title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno,sort_order:ord};
+    var r=await sbPost('/rest/v1/issues',payload);
+    if(r.ok){
+      showRes('nu-res','Numero pubblicato! Appare automaticamente sul sito.','ok');
+      ['nu-title','nu-sub','nu-cover','nu-buy','nu-code','nu-pages'].forEach(function(id){ document.getElementById(id).value=''; });
+      document.getElementById('nu-latest').checked=false;
+      document.getElementById('nu-prev').style.display='none';
+    } else {
+      var d=await r.json().catch(function(){return{};});
+      showRes('nu-res','Errore: '+JSON.stringify(d),'err');
+    }
+  }catch(e){showRes('nu-res','Errore: '+e.message,'err');}
+  btn.disabled=false; btn.textContent='\u{1F680} Pubblica numero sul sito';
+};
 
-      const [prefs, codes] = await Promise.all([
-        sbFetch('/rest/v1/user_prefs?select=user_id,data'),
-        sbFetch('/rest/v1/user_codes?select=user_id,type,code,label,added_at')
-      ]);
-      allPrefs = prefs||[];
-      allCodes = codes||[];
+// NUMERI
+document.getElementById('f-tutti').onclick=function(){ filtroAnno='tutti'; setFBtn('tutti'); renderNum(window._numeri||[]); };
+document.getElementById('f-2026').onclick=function(){ filtroAnno='2026'; setFBtn('2026'); renderNum(window._numeri||[]); };
+document.getElementById('f-2025').onclick=function(){ filtroAnno='2025'; setFBtn('2025'); renderNum(window._numeri||[]); };
 
-      const prefsMap = {};
-      allPrefs.forEach(p => prefsMap[p.user_id]=p.data);
-      const premSet = new Set(allCodes.filter(c=>c.type==='premium').map(c=>c.user_id));
+function setFBtn(a){
+  ['tutti','2026','2025'].forEach(function(x){
+    var b=document.getElementById('f-'+x);
+    b.className=x===a?'btn btn-sm':'ghost btn-sm';
+  });
+}
 
-      document.getElementById('s-totali').textContent = allUsers.length;
-      document.getElementById('s-premium').textContent = premSet.size;
-      document.getElementById('s-notifiche').textContent = allUsers.filter(u=>{ const p=prefsMap[u.id]; return !p||p.nuova_uscita!==false; }).length;
-      document.getElementById('s-codici').textContent = allCodes.length;
-    } catch(e) { console.error(e); }
-  }
-
-  async function caricaNuoviIscritti() {
-    const container = document.getElementById('nuovi-iscritti-list');
-    try {
-      const users = await fetch(SB_URL+'/auth/v1/admin/users?per_page=1000', {
-        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
-      }).then(r=>r.json());
-      const sorted = (users.users||[]).filter(u=>u.email).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,8);
-      if (!sorted.length) { container.innerHTML='<div class="empty-state"><div>👥</div>Nessun utente ancora.</div>'; return; }
-      container.innerHTML = '';
-      const now = Date.now();
-      sorted.forEach(u => {
-        const isNew = (now - new Date(u.created_at)) < 86400000*7;
-        const d = new Date(u.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
-        const row = document.createElement('div');
-        row.style.cssText='display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);';
-        row.innerHTML = `
-          <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#00a651,#005c2e);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;">${u.email[0].toUpperCase()}</div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${u.email}${isNew?'<span class="badge badge-new">NUOVO</span>':''}</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.35);">Iscritto il ${d}</div>
-          </div>`;
-        container.appendChild(row);
+async function loadNumeri(){
+  var tbody=document.getElementById('num-body');
+  tbody.innerHTML='<tr><td colspan="5" class="empty">Caricamento...</td></tr>';
+  try{
+    var r=await fetch('https://grandangolosettimanale.it/',{cache:'no-store'});
+    var h=await r.text();
+    var m=h.match(/window\.issues\s*=\s*(\[[\s\S]*?\]);/);
+    var issues=[];
+    if(m){
+      var parsed=Function('"use strict"; return '+m[1])();
+      var seen={};
+      parsed.forEach(function(i){
+        if(i.unlockCode&&!seen[i.unlockCode]){
+          seen[i.unlockCode]=1;
+          issues.push(i);
+        }
       });
-    } catch(e) { container.innerHTML='<div class="empty-state"><div>⚠️</div>Errore caricamento.</div>'; }
-  }
-
-  // ── NOTIFICHE ──
-  async function pubblicaNotifica() {
-    const title = document.getElementById('n-title').value.trim();
-    const body  = document.getElementById('n-body').value.trim();
-    const cover = document.getElementById('n-cover').value.trim();
-    const link  = document.getElementById('n-link').value.trim() || 'https://grandangolosettimanale.it';
-    if (!title||!body) { mostraRis('n-result','Compila titolo e testo.','err'); return; }
-    const btn = document.getElementById('n-btn');
-    btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Pubblicazione…';
-    try {
-      const payload={title,body,link};
-      if(cover) payload.cover_url=cover;
-      const res = await fetch(SB_URL+'/rest/v1/notifications',{
-        method:'POST',
-        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
-        body:JSON.stringify(payload)
+    }
+    // Aggiungi da Supabase
+    var sb=await sbGet('/rest/v1/issues?order=sort_order.desc,created_at.desc');
+    if(sb&&sb.length){
+      sb.forEach(function(r){
+        if(r.unlock_code&&!seen[r.unlock_code]){
+          seen[r.unlock_code]=1;
+          issues.push({title:r.title,subtitle:r.subtitle,cover:r.cover_url,unlockCode:r.unlock_code,buyUrl:r.buy_url,pages:r.pages,anno:r.anno,isLatest:r.is_latest,_sbId:r.id});
+        }
       });
-      if(res.ok){
-        mostraRis('n-result','✓ Notifica pubblicata! Apparirà a tutti gli utenti loggati.','ok');
-        document.getElementById('n-title').value='';
-        document.getElementById('n-body').value='';
-        document.getElementById('n-cover').value='';
-        caricaNotifiche();
-      } else {
-        const d=await res.json().catch(()=>({}));
-        mostraRis('n-result','Errore: '+JSON.stringify(d),'err');
-      }
-    } catch(e){mostraRis('n-result','Errore: '+e.message,'err');}
-    btn.disabled=false; btn.textContent='Pubblica notifica →';
+    }
+    // Codici speciali
+    issues.push({title:'Bundle 4 numeri (N.9-12/2026)',subtitle:'Offerta speciale',cover:'',unlockCode:'GR22-PRM-11e65/t\u00a3J'});
+    issues.push({title:'Abbonamento PREMIUM 2026',subtitle:'Tutti i numeri',cover:'',unlockCode:'GR22-PREMIUM(SJjA?$\u00a3-AaX'});
+    window._numeri=issues;
+    renderNum(issues);
+  }catch(e){
+    tbody.innerHTML='<tr><td colspan="5" class="empty">Errore: '+e.message+'</td></tr>';
   }
+}
 
-  async function caricaNotifiche() {
-    const container=document.getElementById('notif-list');
-    try {
-      const data=await sbFetch('/rest/v1/notifications?order=created_at.desc');
-      if(!data.length){container.innerHTML='<div class="empty-state"><div>📭</div>Nessuna notifica pubblicata.</div>';return;}
-      container.innerHTML='';
-      data.forEach(n=>{
-        const item=document.createElement('div'); item.className='notif-item';
-        const d=new Date(n.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-        item.innerHTML=`
-          <div class="notif-icon">📰</div>
-          <div class="notif-info">
-            <div class="notif-title">${n.title}</div>
-            <div class="notif-body">${n.body}</div>
-            <div class="notif-meta">${d}${n.cover_url?` · <a href="${n.cover_url}" target="_blank" style="color:rgba(0,166,81,0.7);text-decoration:none;">copertina</a>`:''}</div>
-          </div>
-          <button class="notif-del" onclick="eliminaNotifica('${n.id}',this)">🗑 Elimina</button>`;
-        container.appendChild(item);
-      });
-    } catch(e){container.innerHTML='<div class="empty-state"><div>⚠️</div>Errore caricamento.</div>';}
-  }
+function renderNum(issues){
+  var tbody=document.getElementById('num-body');
+  var filtered=issues.filter(function(i){
+    if(filtroAnno==='tutti')return true;
+    return i.subtitle&&i.subtitle.indexOf(filtroAnno)!==-1;
+  });
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="5" class="empty">Nessun numero.</td></tr>';return;}
+  tbody.innerHTML='';
+  filtered.forEach(function(issue){
+    var tr=document.createElement('tr');
+    var cv=issue.cover?'<img src="'+issue.cover+'" style="width:32px;height:44px;border-radius:4px;object-fit:cover;display:block" onerror="this.style.display=\'none\'">':'';
+    tr.innerHTML='<td>'+cv+'</td><td style="font-weight:600">'+issue.title+'</td><td style="color:rgba(255,255,255,0.5);font-size:12px">'+(issue.subtitle||'')+'</td><td><code style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:12px;color:#8fffc1;font-family:monospace">'+issue.unlockCode+'</code></td><td></td>';
+    var btns=tr.querySelector('td:last-child');
+    btns.style.cssText='display:flex;gap:6px;align-items:center;flex-wrap:wrap';
+    // COPIA
+    var btnC=document.createElement('button');
+    btnC.className='ghost btn-sm';
+    btnC.style.cssText='border-color:rgba(0,166,81,0.3);color:#8fffc1;background:rgba(0,166,81,0.08);white-space:nowrap';
+    btnC.textContent='Copia codice';
+    var cod=issue.unlockCode;
+    btnC.onclick=function(){ navigator.clipboard.writeText(cod).then(function(){ btnC.textContent='Copiato!'; setTimeout(function(){btnC.textContent='Copia codice';},2000); }); };
+    btns.appendChild(btnC);
+    // MODIFICA (solo numeri Supabase)
+    if(issue._sbId){
+      var btnE=document.createElement('button');
+      btnE.className='ghost btn-sm';
+      btnE.style.cssText='border-color:rgba(100,150,255,0.3);color:#a0b8ff;background:rgba(100,150,255,0.08);white-space:nowrap';
+      btnE.textContent='&#9998; Modifica';
+      btnE.onclick=function(){ openModal(issue); };
+      btns.appendChild(btnE);
+      // ELIMINA
+      var btnD=document.createElement('button');
+      btnD.className='del-btn btn-sm';
+      btnD.style.cssText='white-space:nowrap';
+      btnD.textContent='Elimina';
+      btnD.onclick=function(){ delNumero(issue._sbId, tr); };
+      btns.appendChild(btnD);
+    }
+    tbody.appendChild(tr);
+  });
+}
 
-  async function eliminaNotifica(id,btn){
-    if(!confirm('Eliminare questa notifica?'))return;
-    btn.disabled=true;
-    await fetch(SB_URL+'/rest/v1/notifications?id=eq.'+id,{
-      method:'DELETE',
-      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
-    });
-    caricaNotifiche();
-  }
+// UTENTI
+document.getElementById('u-check-all').onchange=function(){
+  document.querySelectorAll('.uch').forEach(function(c){c.checked=document.getElementById('u-check-all').checked;});
+  updSel();
+};
+document.getElementById('u-sel-all-btn').onclick=function(){
+  var checks=document.querySelectorAll('.uch');
+  var all=Array.from(checks).every(function(c){return c.checked;});
+  checks.forEach(function(c){c.checked=!all;});
+  document.getElementById('u-check-all').checked=!all;
+  updSel();
+};
+document.getElementById('u-copy-btn').onclick=function(){
+  var sel=document.querySelectorAll('.uch:checked');
+  if(!sel.length){alert('Seleziona almeno un utente.');return;}
+  var emails=Array.from(sel).map(function(c){return c.value;}).join(', ');
+  navigator.clipboard.writeText(emails).then(function(){
+    document.getElementById('u-copy-btn').textContent='Copiate!';
+    setTimeout(function(){document.getElementById('u-copy-btn').textContent='Copia selezionate';},2000);
+  });
+};
+document.getElementById('u-refresh-btn').onclick=loadDati;
+document.getElementById('u-search').oninput=function(){ renderU(this.value); };
 
-  // ── UTENTI ──
-  async function caricaUtenti() {
-    try {
-      const users=await fetch(SB_URL+'/auth/v1/admin/users?per_page=1000',{
-        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
-      }).then(r=>r.json());
-      allUsers=(users.users||[]).filter(u=>u.email).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+function updSel(){
+  var n=document.querySelectorAll('.uch:checked').length;
+  document.getElementById('u-sel-label').textContent=n>0?n+' selezionati':'';
+}
 
-      const [prefs,codes]=await Promise.all([
-        sbFetch('/rest/v1/user_prefs?select=user_id,data'),
-        sbFetch('/rest/v1/user_codes?select=user_id,type')
-      ]);
-      allPrefs=prefs||[];
-      allCodes=codes||[];
-      document.getElementById('utenti-count').textContent='Utenti registrati ('+allUsers.length+')';
-      renderUtenti();
-    } catch(e){console.error(e);}
-  }
+function renderU(filtro){
+  var tbody=document.getElementById('u-body');
+  var pm={};prefs.forEach(function(p){pm[p.user_id]=p.data;});
+  var cm={};codes.forEach(function(c){if(!cm[c.user_id])cm[c.user_id]=[];cm[c.user_id].push(c.type);});
+  var filtered=users.filter(function(u){return !filtro||u.email.toLowerCase().indexOf(filtro.toLowerCase())!==-1;});
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="6" class="empty">Nessun utente.</td></tr>';return;}
+  var now=Date.now();
+  tbody.innerHTML='';
+  filtered.forEach(function(u){
+    var cs=cm[u.id]||[];
+    var ip=cs.indexOf('premium')!==-1, ib=cs.indexOf('bundle')!==-1;
+    var tipo=ip?'<span class="badge badge-p">&#9733; Premium</span>':ib?'<span class="badge badge-b">Bundle</span>':'<span class="badge badge-f">Free</span>';
+    var p=pm[u.id];
+    var notif=(!p||p.nuova_uscita!==false)?'&#9989;':'&mdash;';
+    var d=new Date(u.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'});
+    var isN=(now-new Date(u.created_at))<86400000*7;
+    var tr=document.createElement('tr');
+    var email=u.email;
+    tr.innerHTML='<td><input type="checkbox" class="uch" value="'+email+'" style="width:15px;height:15px;accent-color:#00a651;cursor:pointer"></td><td style="font-weight:500">'+email+(isN?' <span class="badge badge-n">NUOVO</span>':'')+'</td><td>'+tipo+'</td><td style="color:rgba(255,255,255,0.5);font-size:12px">'+d+'</td><td style="text-align:center">'+notif+'</td><td></td>';
+    var cb=document.createElement('button');
+    cb.className='ghost btn-sm';
+    cb.textContent='&#128203;';
+    cb.title='Copia email';
+    cb.onclick=function(){ navigator.clipboard.writeText(email).then(function(){ cb.textContent='&#10003;'; setTimeout(function(){cb.textContent='&#128203;';},2000); }); };
+    tr.querySelector('td:last-child').appendChild(cb);
+    tr.querySelector('.uch').onchange=updSel;
+    tbody.appendChild(tr);
+  });
+}
 
-  function renderUtenti(filtro='') {
-    const tbody=document.getElementById('users-tbody');
-    const prefsMap={};
-    allPrefs.forEach(p=>prefsMap[p.user_id]=p.data);
-    const codesMap={};
-    allCodes.forEach(c=>{if(!codesMap[c.user_id])codesMap[c.user_id]=[];codesMap[c.user_id].push(c.type);});
+// GENERA CODICE
+document.getElementById('cod-gen-btn').onclick=genCod;
+document.getElementById('cod-copy-btn').onclick=function(){
+  var v=document.getElementById('cod-val').textContent;
+  if(v==='-')return;
+  navigator.clipboard.writeText(v).then(function(){
+    document.getElementById('cod-copy-btn').textContent='Copiato!';
+    setTimeout(function(){document.getElementById('cod-copy-btn').textContent='\u{1F4CB} Copia';},2000);
+  });
+};
+document.getElementById('cod-custom-toggle').onclick=function(){
+  var el=document.getElementById('cod-custom');
+  el.style.display=el.style.display==='none'?'block':'none';
+};
+document.getElementById('cod-len').oninput=function(){ document.getElementById('cod-len-val').textContent=this.value; };
 
-    const filtered=allUsers.filter(u=>!filtro||u.email.toLowerCase().includes(filtro.toLowerCase()));
-    if(!filtered.length){tbody.innerHTML='<tr><td colspan="5" class="empty-state">Nessun utente trovato.</td></tr>';return;}
+function genCod(){
+  var prefix=document.getElementById('cod-prefix').value.trim()||'GR22';
+  var len=parseInt(document.getElementById('cod-len').value)||12;
+  var p='';
+  p+=LETT[Math.floor(Math.random()*LETT.length)];
+  p+=NUMS[Math.floor(Math.random()*NUMS.length)];
+  p+=SPEC[Math.floor(Math.random()*SPEC.length)];
+  for(var i=3;i<len;i++) p+=ALL[Math.floor(Math.random()*ALL.length)];
+  p=p.split('').sort(function(){return Math.random()-.5;}).join('');
+  var cod=prefix+'-'+p;
+  document.getElementById('cod-val').textContent=cod;
+  storicoGen.unshift({c:cod,t:new Date().toLocaleTimeString('it-IT')});
+  renderStor();
+}
 
-    const now=Date.now();
-    tbody.innerHTML='';
-    filtered.forEach(u=>{
-      const codes=codesMap[u.id]||[];
-      const isPremium=codes.includes('premium');
-      const isBundle=codes.includes('bundle');
-      const tipo=isPremium?'<span class="badge badge-premium">★ Premium</span>':isBundle?'<span class="badge badge-bundle">Bundle</span>':'<span class="badge badge-free">Free</span>';
-      const p=prefsMap[u.id];
-      const notif=!p||p.nuova_uscita!==false?'✅':'—';
-      const d=new Date(u.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'});
-      const isNew=(now-new Date(u.created_at))<86400000*7;
-      const tr=document.createElement('tr');
-      tr.innerHTML=`
-        <td style="font-weight:500;">${u.email}${isNew?'<span class="badge badge-new" style="margin-left:6px;">NUOVO</span>':''}</td>
-        <td>${tipo}</td>
-        <td style="color:rgba(255,255,255,0.5);font-size:12px;">${d}</td>
-        <td style="text-align:center;">${notif}</td>
-        <td style="color:rgba(255,255,255,0.5);font-size:12px;">${codes.length} codici</td>`;
-      tbody.appendChild(tr);
-    });
-  }
+function renderStor(){
+  var el=document.getElementById('cod-stor');
+  if(!storicoGen.length){el.innerHTML='<div class="empty">Nessun codice.</div>';return;}
+  el.innerHTML='';
+  storicoGen.slice(0,10).forEach(function(item,i){
+    var row=document.createElement('div');
+    row.className='stor-row';
+    row.innerHTML='<div><code style="font-family:monospace;font-size:14px;color:'+(i===0?'#8fffc1':'rgba(255,255,255,0.6)')+';font-weight:'+(i===0?700:400)+'">'+item.c+'</code><span style="font-size:11px;color:rgba(255,255,255,0.25);margin-left:10px">'+item.t+'</span>'+(i===0?' <span class="badge badge-n">ULTIMO</span>':'')+'</div>';
+    var btn=document.createElement('button');
+    btn.className='ghost btn-sm';
+    btn.textContent='&#128203;';
+    var cod=item.c;
+    btn.onclick=function(){ navigator.clipboard.writeText(cod).then(function(){ btn.textContent='&#10003;'; setTimeout(function(){btn.textContent='&#128203;';},2000); }); };
+    row.appendChild(btn);
+    el.appendChild(row);
+  });
+}
 
-  function filtraUtenti(){renderUtenti(document.getElementById('user-search').value);}
+// MODAL MODIFICA
+var _editId = null;
 
-  // ── UTILS ──
-  function mostraRis(id,text,type){const el=document.getElementById(id);el.textContent=text;el.className='result-box '+type;}
+function openModal(issue){
+  _editId = issue._sbId;
+  document.getElementById('m-title').value = issue.title||'';
+  document.getElementById('m-sub').value = issue.subtitle||'';
+  document.getElementById('m-anno').value = issue.anno||2026;
+  document.getElementById('m-cover').value = issue.cover||'';
+  document.getElementById('m-buy').value = issue.buyUrl||'';
+  document.getElementById('m-code').value = issue.unlockCode||'';
+  document.getElementById('m-pages').value = (issue.pages||[]).join(String.fromCharCode(10));
+  document.getElementById('m-latest').checked = issue.isLatest||false;
+  document.getElementById('m-res').className='res';
+  var ov=document.getElementById('modal-overlay');
+  ov.style.display='flex';
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').style.display='none';
+  _editId=null;
+}
+
+document.getElementById('modal-close').onclick=closeModal;
+document.getElementById('modal-cancel-btn').onclick=closeModal;
+document.getElementById('modal-overlay').onclick=function(e){ if(e.target===this) closeModal(); };
+
+document.getElementById('modal-save-btn').onclick=async function(){
+  if(!_editId) return;
+  var t=document.getElementById('m-title').value.trim();
+  var s=document.getElementById('m-sub').value.trim();
+  var c=document.getElementById('m-cover').value.trim();
+  var buy=document.getElementById('m-buy').value.trim();
+  var k=document.getElementById('m-code').value.trim();
+  var anno=parseInt(document.getElementById('m-anno').value)||2026;
+  var latest=document.getElementById('m-latest').checked;
+  var pgs=document.getElementById('m-pages').value.trim().split(String.fromCharCode(10)).map(function(l){return l.trim();}).filter(function(l){return l;});
+  if(!t||!k){showRes('m-res','Inserisci titolo e codice.','err');return;}
+  var btn=document.getElementById('modal-save-btn');
+  btn.disabled=true; btn.textContent='Salvataggio...';
+  try{
+    if(latest) await sbPatch('/rest/v1/issues?is_latest=eq.true',{is_latest:false});
+    var r=await sbPatch('/rest/v1/issues?id=eq.'+_editId,{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno});
+    if(r.ok){
+      showRes('m-res','Modifiche salvate!','ok');
+      setTimeout(function(){ closeModal(); loadNumeri(); },1000);
+    } else {
+      var d=await r.json().catch(function(){return{};});
+      showRes('m-res','Errore: '+JSON.stringify(d),'err');
+    }
+  }catch(e){showRes('m-res','Errore: '+e.message,'err');}
+  btn.disabled=false; btn.textContent='Salva modifiche';
+};
+
+async function delNumero(id, tr){
+  if(!confirm('Eliminare questo numero? Azione non reversibile.')) return;
+  try{
+    var r=await sbDel('/rest/v1/issues?id=eq.'+id);
+    if(r.ok){ tr.remove(); }
+    else { alert('Errore durante eliminazione.'); }
+  }catch(e){ alert('Errore: '+e.message); }
+}
+
+// UTILS
+function showRes(id,text,type){
+  var el=document.getElementById(id);
+  el.textContent=text;
+  el.className='res '+type;
+}
+}); // end DOMContentLoaded
 </script>
+<!-- MODAL MODIFICA -->
+<div id="modal-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:9000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#0d0d18;border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:min(620px,100%);max-height:90vh;overflow-y:auto;padding:24px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-size:16px;font-weight:700">Modifica numero</div>
+      <button id="modal-close" style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">&times;</button>
+    </div>
+    <div class="f"><label>Titolo</label><input type="text" id="m-title" placeholder="Grandangolo Settimanale N. X"></div>
+    <div class="row2">
+      <div class="f"><label>Data uscita</label><input type="text" id="m-sub" placeholder="4 Aprile 2026"></div>
+      <div class="f"><label>Anno</label><input type="number" id="m-anno" value="2026"></div>
+    </div>
+    <div class="f"><label>URL copertina</label><input type="url" id="m-cover" placeholder="https://..."></div>
+    <div class="f"><label>Link Stripe</label><input type="url" id="m-buy" placeholder="https://buy.stripe.com/..."></div>
+    <div class="f"><label>Codice di sblocco</label><input type="text" id="m-code" style="font-family:monospace" placeholder="GR22-..."></div>
+    <div class="f"><label>Pagine JPG (una per riga)</label><textarea id="m-pages" style="min-height:160px;font-family:monospace;font-size:12px;line-height:1.6"></textarea></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.2);border-radius:10px;margin-bottom:16px">
+      <input type="checkbox" id="m-latest">
+      <label for="m-latest" style="font-size:13px;font-weight:600;color:#fff;cursor:pointer">&#11088; Segna come ULTIMA USCITA</label>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn" style="flex:1" id="modal-save-btn">Salva modifiche</button>
+      <button class="ghost" id="modal-cancel-btn">Annulla</button>
+    </div>
+    <div class="res" id="m-res"></div>
+  </div>
+</div>
+<!-- MODAL MODIFICA -->
+<div id="modal-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:9000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#0d0d18;border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:min(620px,100%);max-height:90vh;overflow-y:auto;padding:24px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-size:16px;font-weight:700">Modifica numero</div>
+      <button id="modal-close" style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">&times;</button>
+    </div>
+    <div class="f"><label>Titolo</label><input type="text" id="m-title" placeholder="Grandangolo Settimanale N. X"></div>
+    <div class="row2">
+      <div class="f"><label>Data uscita</label><input type="text" id="m-sub" placeholder="4 Aprile 2026"></div>
+      <div class="f"><label>Anno</label><input type="number" id="m-anno" value="2026"></div>
+    </div>
+    <div class="f"><label>URL copertina</label><input type="url" id="m-cover" placeholder="https://..."></div>
+    <div class="f"><label>Link Stripe</label><input type="url" id="m-buy" placeholder="https://buy.stripe.com/..."></div>
+    <div class="f"><label>Codice di sblocco</label><input type="text" id="m-code" style="font-family:monospace" placeholder="GR22-..."></div>
+    <div class="f"><label>Pagine JPG (una per riga)</label><textarea id="m-pages" style="min-height:160px;font-family:monospace;font-size:12px;line-height:1.6"></textarea></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.2);border-radius:10px;margin-bottom:16px">
+      <input type="checkbox" id="m-latest">
+      <label for="m-latest" style="font-size:13px;font-weight:600;color:#fff;cursor:pointer">&#11088; Segna come ULTIMA USCITA</label>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn" style="flex:1" id="modal-save-btn">Salva modifiche</button>
+      <button class="ghost" id="modal-cancel-btn">Annulla</button>
+    </div>
+    <div class="res" id="m-res"></div>
+  </div>
+</div>
+</body>
 </body>
 </html>
