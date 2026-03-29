@@ -1440,23 +1440,36 @@ l.parentNode.insertBefore(s, l);
       notifList.innerHTML = '';
       notifData.forEach(n => {
         const isUnread = !readIds.has(n.id);
-        const item = document.createElement('a');
+        const item = document.createElement('div');
         item.className = 'ga-notif-item' + (isUnread ? ' unread' : '');
-        item.href = n.link || 'https://grandangolosettimanale.it';
-        item.target = '_blank';
-        item.rel = 'noopener';
+        item.style.cssText = 'position:relative;';
         const timeAgo = formatTimeAgo(n.created_at);
         item.innerHTML = `
           ${n.cover_url
             ? `<img class="ga-notif-cover" src="${n.cover_url}" alt="">`
             : `<div class="ga-notif-cover-placeholder">📰</div>`}
-          <div class="ga-notif-info">
+          <div class="ga-notif-info" style="cursor:pointer;">
             <div class="ga-notif-title">${n.title}</div>
             <div class="ga-notif-body">${n.body}</div>
             <div class="ga-notif-time">${timeAgo}</div>
           </div>
-          ${isUnread ? '<div class="ga-notif-dot"></div>' : ''}`;
-        item.addEventListener('click', () => markAsRead(n.id));
+          ${isUnread ? '<div class="ga-notif-dot"></div>' : ''}
+          <button class="ga-notif-close-btn" title="Chiudi" style="position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>`;
+        
+        // Click on info → open link
+        item.querySelector('.ga-notif-info').addEventListener('click', () => {
+          markAsRead(n.id);
+          window.open(n.link || 'https://grandangolosettimanale.it', '_blank');
+          notifPanel.classList.remove('open');
+        });
+        // Click X → mark as read and remove from list
+        item.querySelector('.ga-notif-close-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          markAsRead(n.id);
+          item.style.transition = 'opacity .2s';
+          item.style.opacity = '0';
+          setTimeout(() => item.remove(), 200);
+        });
         notifList.appendChild(item);
       });
     }
