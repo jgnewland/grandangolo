@@ -1258,7 +1258,7 @@ l.parentNode.insertBefore(s, l);
     // ── BACHECA AVVISI ──────────────────────────────────────────────
     async function caricaAvvisoBanner() {
       try {
-        var r = await fetch(SB_URL_SITE + '/rest/v1/announcements?active=eq.true&order=created_at.desc&limit=1', {
+        var r = await fetch(SB_URL_SITE + '/rest/v1/avvisi?active=eq.true&order=created_at.desc&limit=1', {
           headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
         });
         var d = await r.json();
