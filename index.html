@@ -565,11 +565,11 @@ l.parentNode.insertBefore(s, l);
       </div>
       <div class="hero-card">
         <div class="hero-card-inner">
-          <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1_2560dd.jpg" alt="Grandangolo Settimanale N.11/2026">
+          <img id="hero-cover-img" src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/03/1_2560dd.jpg" alt="Grandangolo Settimanale N.11/2026">
         </div>
         <div class="hero-card-label">
-          <span>Grandangolo Settimanale ANNO XXII N.11/2026</span>
-          <span style="opacity:.7;">LA COPERTINA DELL'ULTIMA USCITA</span>
+          <span id="hero-cover-title">Grandangolo Settimanale ANNO XXII N.11/2026</span>
+          <span id="hero-cover-date" style="opacity:.7;">LA COPERTINA DELL'ULTIMA USCITA</span>
         </div>
       </div>
     </section>
@@ -903,27 +903,31 @@ l.parentNode.insertBefore(s, l);
         // Aggiorna ultima uscita: quella da Supabase sovrascrive tutto
         const latest = nuovi.find(function(n){ return n.isLatest; });
         if (latest) {
-          // Rimuovi isLatest da tutti i numeri esistenti
+          // 1. Rimuovi isLatest da tutti i numeri nell'array
           window.issues.forEach(function(i){ i.isLatest = false; });
-          // Imposta solo quello nuovo
+          // 2. Imposta isLatest sul numero corretto
           var found = window.issues.find(function(i){ return i.unlockCode === latest.unlockCode; });
           if (found) found.isLatest = true;
-          // Aggiorna hero card in homepage
-          const heroImg = document.querySelector('.hero-card-inner img');
-          const heroLabel = document.querySelector('.hero-card-label span');
+          // 3. Aggiorna hero card (copertina ultima uscita)
+          var heroImg = document.getElementById('hero-cover-img');
+          var heroTitle = document.getElementById('hero-cover-title');
+          var heroDate = document.getElementById('hero-cover-date');
           if (heroImg && latest.cover) heroImg.src = latest.cover;
-          if (heroLabel) heroLabel.textContent = latest.title;
-          // Aggiorna badge "ULTIMA USCITA" nelle card dell'edicola
+          if (heroTitle) heroTitle.textContent = latest.title;
+          if (heroDate && latest.subtitle) {
+            heroDate.textContent = latest.subtitle + " · LA COPERTINA DELL'ULTIMA USCITA";
+          }
+          // 4. Rimuovi tutti i badge "ULTIMA USCITA" dal carosello
+          document.querySelectorAll('.issue-label-latest').forEach(function(b){ b.remove(); });
+          // 5. Aggiungi badge solo alla card del nuovo numero
           document.querySelectorAll('.edicola-card').forEach(function(card){
-            var badge = card.querySelector('.issue-label-latest');
-            if (badge) badge.remove();
-          });
-          // Aggiungi badge solo alla card corretta
-          document.querySelectorAll('.edicola-card').forEach(function(card){
-            var search = card.getAttribute('data-search')||'';
-            if (search.indexOf(latest.title.toLowerCase()) !== -1) {
+            var code = card.getAttribute('data-code') || '';
+            var search = card.getAttribute('data-search') || '';
+            var match = (code && code === latest.unlockCode) ||
+                        search.indexOf(latest.title.toLowerCase()) !== -1;
+            if (match) {
               var wrap = card.querySelector('.edicola-cover-wrap');
-              if (wrap) {
+              if (wrap && !wrap.querySelector('.issue-label-latest')) {
                 var badge = document.createElement('div');
                 badge.className = 'issue-label-latest';
                 badge.textContent = 'ULTIMA USCITA · €1,50';
@@ -931,9 +935,6 @@ l.parentNode.insertBefore(s, l);
               }
             }
           });
-        } else if (nuovi.length > 0) {
-          // Se nessuno ha isLatest, rimuovi il flag da tutti i vecchi
-          // e lascia quello dell'array fisso invariato
         }
 
         // Se ci sono nuovi numeri, aggiunge le card in testa alla griglia
