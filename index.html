@@ -1258,7 +1258,7 @@ l.parentNode.insertBefore(s, l);
     // ── BACHECA AVVISI ──────────────────────────────────────────────
     async function caricaAvvisoBanner() {
       try {
-        var r = await fetch(SB_URL_SITE + '/rest/v1/avvisi?active=eq.true&order=created_at.desc&limit=1', {
+        var r = await fetch(SB_URL_SITE + '/rest/v1/avvisi?attivo=eq.true&order=created_at.desc&limit=1', {
           headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
         });
         var d = await r.json();
@@ -1269,23 +1269,20 @@ l.parentNode.insertBefore(s, l);
         var inner = document.getElementById('avviso-inner');
         var testoEl = document.getElementById('avviso-testo-el');
         var linkEl = document.getElementById('avviso-link-el');
-        // Colori per tipo
         var configs = {
-          info:    { bg: 'rgba(0,166,81,0.12)',    border: '1px solid rgba(0,166,81,0.25)',   color: '#8fffc1', emoji: 'INFO' },
-          warning: { bg: 'rgba(255,200,50,0.12)', border: '1px solid rgba(255,200,50,0.3)',  color: '#ffe566', emoji: 'AVVISO' },
-          promo:   { bg: 'rgba(150,100,255,0.12)',border: '1px solid rgba(150,100,255,0.3)', color: '#c4a0ff', emoji: 'PROMO' },
-          urgent:  { bg: 'rgba(255,80,80,0.12)',  border: '1px solid rgba(255,80,80,0.3)',   color: '#ff9090', emoji: 'URGENTE' }
+          info:    { bg: 'rgba(0,166,81,0.12)',    border: '1px solid rgba(0,166,81,0.25)',   color: '#8fffc1', emoji: 'ℹ️' },
+          warning: { bg: 'rgba(255,200,50,0.12)', border: '1px solid rgba(255,200,50,0.3)',  color: '#ffe566', emoji: '⚠️' },
+          promo:   { bg: 'rgba(150,100,255,0.12)',border: '1px solid rgba(150,100,255,0.3)', color: '#c4a0ff', emoji: '✦' },
+          urgent:  { bg: 'rgba(255,80,80,0.12)',  border: '1px solid rgba(255,80,80,0.3)',   color: '#ff9090', emoji: '🚨' }
         };
-        var c = configs[av.type] || configs.info;
+        var c = configs[av.tipo] || configs.info;
         banner.style.cssText = 'display:block;background:' + c.bg + ';border-bottom:' + c.border;
         inner.style.color = c.color;
-        var testo = c.emoji + ' ' + av.title;
-        if (av.body) testo += ' — ' + av.body;
-        testoEl.textContent = testo;
+        testoEl.textContent = c.emoji + ' ' + av.testo;
         if (av.link) {
           linkEl.style.display = 'inline';
           linkEl.href = av.link;
-          linkEl.textContent = av.link_text || 'Scopri di piu';
+          linkEl.textContent = av.link_testo || 'Scopri di più';
           linkEl.style.color = c.color;
         }
         document.getElementById('avviso-close-btn').onclick = function() {
