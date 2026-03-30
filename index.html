@@ -275,6 +275,20 @@ l.parentNode.insertBefore(s, l);
     /* ══════════════════════════════════════════════════════════════
        AREA UTENTI — CSS
        ══════════════════════════════════════════════════════════════ */
+    /* ── NEWS TICKER ────────────────────────────────────────────── */
+    .news-ticker-wrap{width:100%;background:#0a0a12;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);overflow:hidden;position:relative;z-index:10;}
+    .news-ticker-inner{display:flex;align-items:stretch;}
+    .news-ticker-label{flex-shrink:0;background:#00a651;color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:0 16px;display:flex;align-items:center;white-space:nowrap;gap:7px;z-index:2;}
+    .news-ticker-label::after{content:'';position:absolute;left:calc(16px + 4.5em);top:0;bottom:0;width:20px;background:linear-gradient(90deg,#00a651,transparent);pointer-events:none;}
+    .news-ticker-track{flex:1;overflow:hidden;position:relative;height:40px;}
+    .news-ticker-list{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 60s linear infinite;}
+    .news-ticker-list:hover{animation-play-state:paused;}
+    .news-ticker-item{display:inline-flex;align-items:center;gap:0;padding:0 32px;font-size:12.5px;color:rgba(255,255,255,0.7);cursor:pointer;transition:color .15s;text-decoration:none;}
+    .news-ticker-item:hover{color:#fff;}
+    .news-ticker-item::after{content:'◆';color:rgba(0,166,81,0.5);font-size:7px;margin-left:32px;}
+    .news-ticker-item:last-child::after{content:'';}
+    @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
     /* ── BACHECA AVVISI ─────────────────────────────────────────── */
     .ga-announce{position:relative;width:100%;padding:12px 16px;display:none;align-items:center;gap:12px;z-index:200;font-size:13px;font-weight:500;line-height:1.4;}
     .ga-announce.visible{display:flex;}
@@ -703,6 +717,19 @@ l.parentNode.insertBefore(s, l);
       <ins class="adsbygoogle" style="display:block;width:100%;" data-ad-client="ca-pub-9807260775949508" data-ad-slot="6706474453" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
     <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+
+    <!-- NEWS TICKER -->
+    <div class="news-ticker-wrap" id="news-ticker-wrap" style="display:none">
+      <div class="news-ticker-inner">
+        <div class="news-ticker-label">
+          <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#fff" opacity=".9"/></svg>
+          ULTIME NOTIZIE
+        </div>
+        <div class="news-ticker-track">
+          <div class="news-ticker-list" id="news-ticker-list"></div>
+        </div>
+      </div>
+    </div>
 
     <section id="edicola">
       <div id="edicola-header">
@@ -1254,6 +1281,63 @@ l.parentNode.insertBefore(s, l);
         });
       } catch(e) {}
     }
+
+    // ── NEWS TICKER ════════════════════════════════════════════════
+    async function caricaTicker() {
+      try {
+        // Use RSS2JSON proxy to read grandangoloagrigento.it RSS feed
+        var rssUrl = 'https://www.grandangoloagrigento.it/feed';
+        // Try rss2json first, fallback to allorigins
+        var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&count=20';
+        var r = await fetch(apiUrl);
+        var data = await r.json();
+        
+        // If rss2json fails, try allorigins proxy
+        if (!data.items || !data.items.length) {
+          var proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl);
+          var r2 = await fetch(proxy);
+          var raw = await r2.json();
+          // Parse XML manually
+          var parser = new DOMParser();
+          var xml = parser.parseFromString(raw.contents, 'text/xml');
+          var itemEls = xml.querySelectorAll('item');
+          data = { items: [] };
+          itemEls.forEach(function(el) {
+            data.items.push({
+              title: el.querySelector('title') ? el.querySelector('title').textContent : '',
+              link: el.querySelector('link') ? el.querySelector('link').textContent : '#'
+            });
+          });
+        }
+        if (!data.items || !data.items.length) return;
+
+        var wrap = document.getElementById('news-ticker-wrap');
+        var list = document.getElementById('news-ticker-list');
+
+        // Build ticker items (duplicated for seamless loop)
+        var items = data.items.slice(0, 15);
+        var html = '';
+        // Duplicate for seamless scroll
+        [items, items].forEach(function(set) {
+          set.forEach(function(item) {
+            var title = item.title.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#039;/g,"'").replace(/&quot;/g,'"');
+            var link = item.link || '#';
+            html += '<a class="news-ticker-item" href="' + link + '" target="_blank" rel="noopener">' + title + '</a>';
+          });
+        });
+        list.innerHTML = html;
+
+        // Adjust animation speed based on content width
+        var totalWidth = list.scrollWidth / 2;
+        var speed = Math.max(40, totalWidth / 8); // ~8px per second
+        list.style.animationDuration = speed + 's';
+
+        wrap.style.display = 'block';
+      } catch(e) {
+        console.log('Ticker non disponibile:', e.message);
+      }
+    }
+    caricaTicker();
 
     // ── BACHECA AVVISI ──────────────────────────────────────────────
     const _AV_URL = 'https://xfmiikymagamnexsbrdt.supabase.co';
