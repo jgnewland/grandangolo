@@ -1256,10 +1256,12 @@ l.parentNode.insertBefore(s, l);
     }
 
     // ── BACHECA AVVISI ──────────────────────────────────────────────
+    const _AV_URL = 'https://xfmiikymagamnexsbrdt.supabase.co';
+    const _AV_KEY = 'sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn';
     async function caricaAvvisoBanner() {
       try {
-        var r = await fetch(SB_URL_SITE + '/rest/v1/avvisi?attivo=eq.true&order=created_at.desc&limit=1', {
-          headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
+        var r = await fetch(_AV_URL + '/rest/v1/avvisi?attivo=eq.true&order=created_at.desc&limit=1', {
+          headers: { 'apikey': _AV_KEY, 'Authorization': 'Bearer ' + _AV_KEY }
         });
         var d = await r.json();
         if (!d || !d.length) return;
