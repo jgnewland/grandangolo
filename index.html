@@ -275,6 +275,25 @@ l.parentNode.insertBefore(s, l);
     /* ══════════════════════════════════════════════════════════════
        AREA UTENTI — CSS
        ══════════════════════════════════════════════════════════════ */
+    /* ── BACHECA AVVISI ─────────────────────────────────────────── */
+    .ga-announce{position:relative;width:100%;padding:12px 16px;display:none;align-items:center;gap:12px;z-index:200;font-size:13px;font-weight:500;line-height:1.4;}
+    .ga-announce.visible{display:flex;}
+    .ga-announce.info{background:rgba(0,166,81,0.12);border-bottom:1px solid rgba(0,166,81,0.25);color:#c8ffe0;}
+    .ga-announce.warning{background:rgba(255,200,50,0.1);border-bottom:1px solid rgba(255,200,50,0.25);color:#fff3b0;}
+    .ga-announce.promo{background:rgba(150,100,255,0.12);border-bottom:1px solid rgba(150,100,255,0.25);color:#e0d0ff;}
+    .ga-announce.urgent{background:rgba(255,80,80,0.12);border-bottom:1px solid rgba(255,80,80,0.25);color:#ffd0d0;}
+    .ga-announce-icon{font-size:16px;flex-shrink:0;}
+    .ga-announce-body{flex:1;min-width:0;}
+    .ga-announce-title{font-weight:700;margin-bottom:1px;}
+    .ga-announce-text{font-size:12px;opacity:.8;}
+    .ga-announce-link{padding:5px 12px;border-radius:999px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;}
+    .ga-announce.info .ga-announce-link{background:rgba(0,166,81,0.25);color:#8fffc1;border:1px solid rgba(0,166,81,0.4);}
+    .ga-announce.warning .ga-announce-link{background:rgba(255,200,50,0.2);color:#ffe566;border:1px solid rgba(255,200,50,0.4);}
+    .ga-announce.promo .ga-announce-link{background:rgba(150,100,255,0.2);color:#d0b0ff;border:1px solid rgba(150,100,255,0.4);}
+    .ga-announce.urgent .ga-announce-link{background:rgba(255,80,80,0.2);color:#ff9090;border:1px solid rgba(255,80,80,0.4);}
+    .ga-announce-close{width:26px;height:26px;border-radius:50%;border:none;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:background .15s;}
+    .ga-announce-close:hover{background:rgba(255,255,255,0.15);color:#fff;}
+
     /* ── CAMPANELLA NOTIFICHE ───────────────────────────────────── */
     .ga-bell-btn{position:relative;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.7);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,border-color .15s;-webkit-tap-highlight-color:transparent;}
     .ga-bell-btn:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.25);color:#fff;}
@@ -389,11 +408,27 @@ l.parentNode.insertBefore(s, l);
     .ga-toast.ok{border-color:rgba(0,166,81,0.4);}
     .ga-toast.err{border-color:rgba(255,80,80,0.4);}
     @media(max-width:480px){.ga-drawer{width:100vw;border-left:none;border-top:1px solid rgba(255,255,255,0.08);border-radius:18px 18px 0 0;top:auto;height:92dvh;transform:translateY(100%);}.ga-drawer.open{transform:translateY(0);}.ga-veil{align-items:flex-end;}}
+    /* ── BACHECA AVVISI ─────────────────────────────────────────────── */
+    #avviso-banner{display:none;width:100%;z-index:9999;position:relative;animation:slideDown .4s ease}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+    .avviso-inner{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;font-weight:500;justify-content:center;flex-wrap:wrap;position:relative}
+    .avviso-inner a{font-weight:700;text-decoration:underline;cursor:pointer}
+    .avviso-close{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:inherit;opacity:.6;cursor:pointer;font-size:16px;line-height:1;padding:4px}
+    .avviso-close:hover{opacity:1}
   </style>
 </head>
 <body>
 
   <div id="fb-screenshot-shield" style="position:fixed;inset:0;z-index:99999;background:#0a0a10;display:none;pointer-events:none;"></div>
+
+  <!-- BACHECA AVVISI -->
+  <div id="avviso-banner" style="display:none;width:100%;position:relative;z-index:9999">
+    <div id="avviso-inner" style="display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;font-weight:500;justify-content:center;flex-wrap:wrap;position:relative">
+      <span id="avviso-testo-el"></span>
+      <a id="avviso-link-el" style="display:none;font-weight:700;text-decoration:underline" target="_blank"></a>
+      <button id="avviso-close-btn" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:inherit;opacity:.6;cursor:pointer;font-size:18px;line-height:1;padding:4px">&times;</button>
+    </div>
+  </div>
 
   <header>
     <div class="nav-inner">
@@ -1219,6 +1254,49 @@ l.parentNode.insertBefore(s, l);
       } catch(e) {}
     }
 
+    // ── BACHECA AVVISI ──────────────────────────────────────────────
+    async function caricaAvvisoBanner() {
+      try {
+        var r = await fetch(SB_URL_SITE + '/rest/v1/announcements?active=eq.true&order=created_at.desc&limit=1', {
+          headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
+        });
+        var d = await r.json();
+        if (!d || !d.length) return;
+        if (sessionStorage.getItem('avviso-dismissed')) return;
+        var av = d[0];
+        var banner = document.getElementById('avviso-banner');
+        var inner = document.getElementById('avviso-inner');
+        var testoEl = document.getElementById('avviso-testo-el');
+        var linkEl = document.getElementById('avviso-link-el');
+        // Colori per tipo
+        var configs = {
+          info:    { bg: 'rgba(0,166,81,0.12)',    border: '1px solid rgba(0,166,81,0.25)',   color: '#8fffc1', emoji: 'INFO' },
+          warning: { bg: 'rgba(255,200,50,0.12)', border: '1px solid rgba(255,200,50,0.3)',  color: '#ffe566', emoji: 'AVVISO' },
+          promo:   { bg: 'rgba(150,100,255,0.12)',border: '1px solid rgba(150,100,255,0.3)', color: '#c4a0ff', emoji: 'PROMO' },
+          urgent:  { bg: 'rgba(255,80,80,0.12)',  border: '1px solid rgba(255,80,80,0.3)',   color: '#ff9090', emoji: 'URGENTE' }
+        };
+        var c = configs[av.type] || configs.info;
+        banner.style.cssText = 'display:block;background:' + c.bg + ';border-bottom:' + c.border;
+        inner.style.color = c.color;
+        var testo = c.emoji + ' ' + av.title;
+        if (av.body) testo += ' — ' + av.body;
+        testoEl.textContent = testo;
+        if (av.link) {
+          linkEl.style.display = 'inline';
+          linkEl.href = av.link;
+          linkEl.textContent = av.link_text || 'Scopri di piu';
+          linkEl.style.color = c.color;
+        }
+        document.getElementById('avviso-close-btn').onclick = function() {
+          banner.style.transition = 'opacity .3s';
+          banner.style.opacity = '0';
+          setTimeout(function(){ banner.style.display = 'none'; }, 300);
+          sessionStorage.setItem('avviso-dismissed', '1');
+        };
+      } catch(e) { /* silenzioso */ }
+    }
+    caricaAvvisoBanner();
+
     sb.auth.getSession().then(({ data: { session } }) => {
       currentUser = session?.user ?? null; updateBtn(currentUser);
       applyUserCodes(currentUser);
@@ -1492,7 +1570,41 @@ l.parentNode.insertBefore(s, l);
       });
     }
 
-    // ══ NOTIFICHE IN-APP ═══════════════════════════════════════════
+    // ══ BACHECA AVVISI ══════════════════════════════════════════════
+    async function caricaAvviso() {
+      try {
+        const res = await fetch(SB_URL_SITE + '/rest/v1/announcements?active=eq.true&order=created_at.desc&limit=1', {
+          headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
+        });
+        const data = await res.json();
+        if (!data || !data.length) return;
+        const av = data[0];
+        // Check if user dismissed this announcement
+        const dismissed = localStorage.getItem('ga_announce_dismissed');
+        if (dismissed === av.id) return;
+        const banner = document.getElementById('gaAnnounce');
+        const icons = {info:'ℹ️', warning:'⚠️', promo:'✦', urgent:'🚨'};
+        banner.className = 'ga-announce visible ' + (av.type || 'info');
+        document.getElementById('gaAnnounceIcon').textContent = icons[av.type] || 'ℹ️';
+        document.getElementById('gaAnnounceTitle').textContent = av.title;
+        if (av.body) {
+          document.getElementById('gaAnnounceText').textContent = av.body;
+        }
+        if (av.link) {
+          const linkEl = document.getElementById('gaAnnounceLink');
+          linkEl.href = av.link;
+          linkEl.textContent = av.link_text || 'Scopri di più';
+          linkEl.style.display = 'block';
+        }
+        document.getElementById('gaAnnounceClose').addEventListener('click', function() {
+          banner.classList.remove('visible');
+          try { localStorage.setItem('ga_announce_dismissed', av.id); } catch(e) {}
+        });
+      } catch(e) {}
+    }
+    caricaAvviso();
+
+    // ══ NOTIFICHE IN-APP ══════════════════════════════════════════════
     const bellBtn     = document.getElementById('gaBellBtn');
     const bellBadge   = document.getElementById('gaBellBadge');
     const notifPanel  = document.getElementById('gaNotifPanel');
