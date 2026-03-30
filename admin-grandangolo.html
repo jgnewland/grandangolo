@@ -767,7 +767,7 @@ async function pubAvviso() {
   if (!t) { showRes("av-res", "Inserisci il titolo.", "err"); return; }
   var btn = document.getElementById("av-pubblica-btn"); btn.disabled = true; btn.textContent = "Pubblicazione...";
   try {
-    var r = await sbPost("/rest/v1/avvisi", { title: t, body: b || null, type: type, active: active, link: link || null, link_text: lt || null });
+    var r = await sbPost("/rest/v1/avvisi", { testo: t + (b ? ' — ' + b : ''), tipo: type, attivo: active, link: link || null, link_testo: lt || null });
     if (r.ok) {
       showRes("av-res", "Avviso pubblicato!", "ok");
       ["av-title", "av-body", "av-link", "av-linktext"].forEach(function(id) { document.getElementById(id).value = ""; });
@@ -785,18 +785,18 @@ async function loadAvvisi() {
     el.innerHTML = "";
     d.forEach(function(av) {
       var colors = { info: "rgba(0,166,81", warning: "rgba(255,200,50", promo: "rgba(150,100,255", urgent: "rgba(255,80,80" };
-      var col = colors[av.type] || colors.info;
+      var col = colors[av.tipo] || colors.info;
       var div = document.createElement("div");
       div.style.cssText = "display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:" + col + ",0.06);border:1px solid " + col + ",0.2);margin-bottom:10px";
-      var icon = avIcons[av.type] || avIcons.info;
-      var bodyHtml = av.body ? "<div style=\"font-size:12px;color:rgba(255,255,255,0.5)\">" + av.body + "</div>" : "";
-      div.innerHTML = "<div style=\"font-size:20px;flex-shrink:0\">" + icon + "</div><div style=\"flex:1;min-width:0\"><div style=\"font-size:13px;font-weight:700;color:#fff;margin-bottom:3px\">" + av.title + "</div>" + bodyHtml + "</div><div style=\"display:flex;align-items:center;gap:8px;flex-shrink:0\"></div>";
+      var icon = avIcons[av.tipo] || avIcons.info;
+      var bodyHtml = '' ? "<div style=\"font-size:12px;color:rgba(255,255,255,0.5)\">" + '' + "</div>" : "";
+      div.innerHTML = "<div style=\"font-size:20px;flex-shrink:0\">" + icon + "</div><div style=\"flex:1;min-width:0\"><div style=\"font-size:13px;font-weight:700;color:#fff;margin-bottom:3px\">" + av.testo + "</div>" + bodyHtml + "</div><div style=\"display:flex;align-items:center;gap:8px;flex-shrink:0\"></div>";
       var actDiv = div.querySelector("div:last-child");
       // Toggle
       var tog = document.createElement("label"); tog.style.cssText = "display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:rgba(255,255,255,0.6)";
-      var chk = document.createElement("input"); chk.type = "checkbox"; chk.checked = av.active; chk.style.cssText = "width:16px;height:16px;accent-color:#00a651;cursor:pointer";
-      var lbl = document.createElement("span"); lbl.textContent = av.active ? "Attivo" : "Disattivo";
-      chk.onchange = async function() { await sbPatch("/rest/v1/avvisi?id=eq." + av.id, { active: chk.checked }); lbl.textContent = chk.checked ? "Attivo" : "Disattivo"; };
+      var chk = document.createElement("input"); chk.type = "checkbox"; chk.checked = av.attivo; chk.style.cssText = "width:16px;height:16px;accent-color:#00a651;cursor:pointer";
+      var lbl = document.createElement("span"); lbl.textContent = av.attivo ? "Attivo" : "Disattivo";
+      chk.onchange = async function() { await sbPatch("/rest/v1/avvisi?id=eq." + av.id, { attivo: chk.checked }); lbl.textContent = chk.checked ? "Attivo" : "Disattivo"; };
       tog.appendChild(chk); tog.appendChild(lbl); actDiv.appendChild(tog);
       // Elimina
       var db = document.createElement("button"); db.className = "del-btn"; db.style.cssText = "padding:5px 10px;font-size:11px"; db.textContent = "Elimina";
