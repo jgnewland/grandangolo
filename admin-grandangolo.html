@@ -767,7 +767,7 @@ async function pubAvviso() {
   if (!t) { showRes("av-res", "Inserisci il titolo.", "err"); return; }
   var btn = document.getElementById("av-pubblica-btn"); btn.disabled = true; btn.textContent = "Pubblicazione...";
   try {
-    var r = await sbPost("/rest/v1/announcements", { title: t, body: b || null, type: type, active: active, link: link || null, link_text: lt || null });
+    var r = await sbPost("/rest/v1/avvisi", { title: t, body: b || null, type: type, active: active, link: link || null, link_text: lt || null });
     if (r.ok) {
       showRes("av-res", "Avviso pubblicato!", "ok");
       ["av-title", "av-body", "av-link", "av-linktext"].forEach(function(id) { document.getElementById(id).value = ""; });
@@ -780,7 +780,7 @@ async function pubAvviso() {
 async function loadAvvisi() {
   var el = document.getElementById("av-list");
   try {
-    var d = await sbGet("/rest/v1/announcements?order=created_at.desc");
+    var d = await sbGet("/rest/v1/avvisi?order=created_at.desc");
     if (!d.length) { el.innerHTML = "<div class=\"empty\">Nessun avviso pubblicato.</div>"; return; }
     el.innerHTML = "";
     d.forEach(function(av) {
@@ -796,11 +796,11 @@ async function loadAvvisi() {
       var tog = document.createElement("label"); tog.style.cssText = "display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:rgba(255,255,255,0.6)";
       var chk = document.createElement("input"); chk.type = "checkbox"; chk.checked = av.active; chk.style.cssText = "width:16px;height:16px;accent-color:#00a651;cursor:pointer";
       var lbl = document.createElement("span"); lbl.textContent = av.active ? "Attivo" : "Disattivo";
-      chk.onchange = async function() { await sbPatch("/rest/v1/announcements?id=eq." + av.id, { active: chk.checked }); lbl.textContent = chk.checked ? "Attivo" : "Disattivo"; };
+      chk.onchange = async function() { await sbPatch("/rest/v1/avvisi?id=eq." + av.id, { active: chk.checked }); lbl.textContent = chk.checked ? "Attivo" : "Disattivo"; };
       tog.appendChild(chk); tog.appendChild(lbl); actDiv.appendChild(tog);
       // Elimina
       var db = document.createElement("button"); db.className = "del-btn"; db.style.cssText = "padding:5px 10px;font-size:11px"; db.textContent = "Elimina";
-      db.onclick = function() { if (confirm("Eliminare?")) sbDel("/rest/v1/announcements?id=eq." + av.id).then(function() { div.remove(); }); };
+      db.onclick = function() { if (confirm("Eliminare?")) sbDel("/rest/v1/avvisi?id=eq." + av.id).then(function() { div.remove(); }); };
       actDiv.appendChild(db); el.appendChild(div);
     });
   } catch(e) { el.innerHTML = "<div class=\"empty\">Errore caricamento.</div>"; }
