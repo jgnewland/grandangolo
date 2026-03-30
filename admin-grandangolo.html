@@ -125,7 +125,11 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="nav-i" data-pg="numeri">&#128240; Numeri &amp; Codici</div>
     <div class="nav-i" data-pg="utenti">&#128101; Utenti</div>
     <div class="nav-i" data-pg="genera">&#128273; Genera codice</div>
+    <div class="nav-i" data-pg="grazie">&#127881; Pagina ringraziamento</div>
+    <div class="nav-i" data-pg="avvisi">&#128226; Bacheca avvisi</div>
     <div class="nav-i" data-pg="analytics">&#128200; Visite sito</div>
+    <div class="nav-i" data-pg="grazie">&#127881; Pagina ringraziamento</div>
+    <div class="nav-i" data-pg="avvisi">&#128226; Bacheca avvisi</div>
     <div class="sb-ft"><button id="logout-btn">&#8592; Esci</button></div>
   </div>
 
@@ -318,6 +322,71 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
       </div>
     </div>
 
+    <!-- PAGINA RINGRAZIAMENTO -->
+    <div class="pg" id="pg-grazie">
+      <div class="pg-title">Genera pagina ringraziamento</div>
+      <div class="pg-sub">Crea la pagina di atterraggio Stripe per ogni nuovo numero. Scaricala e caricala sul server.</div>
+      <div class="card">
+        <div class="card-t" style="margin-bottom:16px">Dati del numero</div>
+        <div class="row2">
+          <div class="f"><label>Numero (es. 13)</label><input type="text" id="gz-num" placeholder="13"></div>
+          <div class="f"><label>Anno</label><input type="text" id="gz-anno" value="2026" placeholder="2026"></div>
+        </div>
+        <div class="f"><label>Titolo completo</label><input type="text" id="gz-title" placeholder="Grandangolo Settimanale N. 13/2026"></div>
+        <div class="f"><label>Codice di sblocco</label><input type="text" id="gz-code" placeholder="GR22-..." style="font-family:monospace"></div>
+        <div class="f"><label>URL copertina</label><input type="url" id="gz-cover" placeholder="https://..."></div>
+        <div class="f"><label>Link Stripe abbonamento annuale</label><input type="url" id="gz-stripe-sub" value="https://buy.stripe.com/eVqcN764gcMFaln5kQ9MY0k" placeholder="https://buy.stripe.com/..."></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
+          <button class="btn" id="gz-carica-btn">&#128260; Carica da ultimo numero</button>
+          <button class="btn" style="background:#1a1a2e;border:1px solid rgba(255,255,255,0.15)" id="gz-gen-btn">&#128190; Genera e scarica pagina</button>
+        </div>
+        <div class="res" id="gz-res"></div>
+      </div>
+      <div class="card" style="border-color:rgba(255,200,50,0.2);background:rgba(255,200,50,0.03)">
+        <div class="card-t" style="margin-bottom:10px">Come usarla</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.8">
+          1. Compila i campi o clicca "Carica da ultimo numero"<br>
+          2. Clicca "Genera e scarica pagina"<br>
+          3. Carica il file sul server come <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px">grazie-codice-13.html</code><br>
+          4. Imposta questo URL come redirect su Stripe dopo il pagamento
+        </div>
+      </div>
+    </div>
+
+    <!-- BACHECA AVVISI -->
+    <div class="pg" id="pg-avvisi">
+      <div class="pg-title">Bacheca avvisi</div>
+      <div class="pg-sub">Un banner elegante che appare in cima al sito. Attivalo e disattivalo quando vuoi.</div>
+      <div class="card">
+        <div class="card-hdr">
+          <div><div class="card-t">Stato attuale</div></div>
+          <div id="avviso-stato" style="font-size:13px;font-weight:700;color:#888">Caricamento...</div>
+        </div>
+        <div style="display:flex;gap:10px;margin-bottom:20px">
+          <button class="btn btn-sm" id="avviso-attiva-btn">&#9989; Attiva avviso</button>
+          <button class="ghost btn-sm" id="avviso-disattiva-btn">&#10060; Disattiva avviso</button>
+        </div>
+        <div class="f"><label>Tipo avviso</label>
+          <select id="avviso-tipo" style="width:100%;padding:11px 14px;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:13px;font-family:inherit;outline:none">
+            <option value="info">&#128226; Informazione (blu)</option>
+            <option value="success">&#127881; Successo (verde)</option>
+            <option value="warning">&#9888; Avviso (giallo)</option>
+            <option value="promo">&#11088; Promozione (dorato)</option>
+          </select>
+        </div>
+        <div class="f"><label>Testo avviso</label><input type="text" id="avviso-testo" placeholder="Es: Nuovo numero disponibile! Leggi ora..."></div>
+        <div class="f"><label>Link (opzionale)</label><input type="url" id="avviso-link" placeholder="https://grandangolosettimanale.it"></div>
+        <div class="f"><label>Testo del link (opzionale)</label><input type="text" id="avviso-link-testo" placeholder="Leggi ora"></div>
+        <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;margin-bottom:16px">
+          <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:10px">Anteprima</div>
+          <div id="avviso-preview" style="border-radius:8px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;background:rgba(0,100,255,0.1);border:1px solid rgba(0,100,255,0.25);color:#a0c4ff">
+            Compila i campi per vedere l'anteprima
+          </div>
+        </div>
+        <div class="res" id="avviso-res"></div>
+      </div>
+    </div>
+
     <!-- ANALYTICS -->
     <div class="pg" id="pg-analytics">
       <div class="pg-title">Visite al sito</div>
@@ -349,6 +418,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
 
   </div>
 </div>
+
 
 
 <script>
@@ -391,6 +461,10 @@ document.querySelectorAll(".nav-i").forEach(function(el){
     if(pg==="numeri")loadNumeri();
     if(pg==="utenti")renderU("");
     if(pg==="genera")genCod();
+    if(pg==="grazie")initGrazie();
+    if(pg==="avvisi")loadAvvisi();
+    if(pg==="avvisi")caricaAvviso();
+    if(pg==="grazie"){}; 
   };
 });
 
@@ -735,6 +809,346 @@ function renderStor(){
   });
 }
 
+// --- PAGINA RINGRAZIAMENTO ---
+function initGrazie(){
+  if(storicoGen.length&&!document.getElementById("gr-codice").value){
+    document.getElementById("gr-codice").value=storicoGen[0].c;
+  }
+}
+
+document.getElementById("gr-gen-btn").onclick=function(){
+  genCod();
+  document.getElementById("gr-codice").value=document.getElementById("cod-val").textContent;
+};
+document.getElementById("gr-genera-btn").onclick=function(){
+  var num=document.getElementById("gr-numero").value.trim();
+  var data=document.getElementById("gr-data").value.trim();
+  var codice=document.getElementById("gr-codice").value.trim();
+  var cover=document.getElementById("gr-cover").value.trim();
+  var stripe=document.getElementById("gr-stripe").value.trim();
+  if(!num||!codice){showRes("gr-res","Inserisci numero e codice.","err");return;}
+  var html=generaHtmlGrazie(num,data,codice,cover,stripe);
+  var blob=new Blob([html],{type:"text/html;charset=utf-8"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");
+  var slug=num.replace(/[^0-9]/g,"")||"XX";
+  a.href=url;a.download="grazie-codice-"+slug+".html";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showRes("gr-res","Pagina scaricata! Caricala sul server come grazie-codice-"+slug+".html","ok");
+};
+
+
+
+// --- BACHECA AVVISI ---
+document.getElementById("av-pubblica-btn").onclick=pubAvviso;
+document.getElementById("av-refresh-btn").onclick=loadAvvisi;
+
+async function pubAvviso(){
+  var t=document.getElementById("av-title").value.trim();
+  var b=document.getElementById("av-body").value.trim();
+  var type=document.getElementById("av-type").value;
+  var active=document.getElementById("av-active").checked;
+  var link=document.getElementById("av-link").value.trim();
+  var lt=document.getElementById("av-linktext").value.trim();
+  if(!t){showRes("av-res","Inserisci il titolo.","err");return;}
+  var btn=document.getElementById("av-pubblica-btn");
+  btn.disabled=true;btn.textContent="Pubblicazione...";
+  try{
+    var p={title:t,body:b||null,type:type,active:active,link:link||null,link_text:lt||null};
+    var r=await sbPost("/rest/v1/announcements",p);
+    if(r.ok){
+      showRes("av-res","Avviso pubblicato!","ok");
+      document.getElementById("av-title").value="";
+      document.getElementById("av-body").value="";
+      document.getElementById("av-link").value="";
+      document.getElementById("av-linktext").value="";
+      document.getElementById("av-active").checked=false;
+      loadAvvisi();
+    }else{var d=await r.json().catch(function(){return{};});showRes("av-res","Errore: "+JSON.stringify(d),"err");}
+  }catch(e){showRes("av-res","Errore: "+e.message,"err");}
+  btn.disabled=false;btn.textContent="Pubblica avviso";
+}
+
+async function loadAvvisi(){
+  var el=document.getElementById("av-list");
+  try{
+    var d=await sbGet("/rest/v1/announcements?order=created_at.desc");
+    if(!d.length){el.innerHTML='<div class="empty">Nessun avviso pubblicato.</div>';return;}
+    el.innerHTML="";
+    d.forEach(function(av){
+      var colors={info:"rgba(0,166,81",warning:"rgba(255,200,50",promo:"rgba(150,100,255",urgent:"rgba(255,80,80"};
+      var icons={info:"&#8505;",warning:"&#9888;",promo:"&#11088;",urgent:"&#128680;"};
+      var col=colors[av.type]||colors.info;
+      var icon=icons[av.type]||icons.info;
+      var div=document.createElement("div");
+      div.style.cssText="display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:"+col+",0.06);border:1px solid "+col+",0.2);margin-bottom:10px";
+            div.innerHTML='<div style="font-size:20px;flex-shrink:0">'+icon+'</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:3px">'+av.title+'</div>'+(av.body?'<div style="font-size:12px;color:rgba(255,255,255,0.5)">'+av.body+'</div>':'')+'</div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">';
+      // Toggle attivo
+      var tog=document.createElement("label");
+      tog.style.cssText="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:rgba(255,255,255,0.6)";
+      var chk=document.createElement("input");
+      chk.type="checkbox";chk.checked=av.active;chk.style.cssText="width:16px;height:16px;accent-color:#00a651;cursor:pointer";
+      chk.onchange=async function(){
+        await sbPatch("/rest/v1/announcements?id=eq."+av.id,{active:chk.checked});
+        var lbl=tog.querySelector("span");
+        if(lbl)lbl.textContent=chk.checked?"Attivo":"Disattivo";
+      };
+      var lbl=document.createElement("span");lbl.textContent=av.active?"Attivo":"Disattivo";
+      tog.appendChild(chk);tog.appendChild(lbl);
+      div.querySelector("div:last-child").appendChild(tog);
+      // Elimina
+      var db=document.createElement("button");db.className="del-btn";db.textContent="Elimina";db.style.cssText="padding:5px 10px;font-size:11px";
+      db.onclick=function(){if(confirm("Eliminare?"))sbDel("/rest/v1/announcements?id=eq."+av.id).then(function(){div.remove();});};
+      div.querySelector("div:last-child").appendChild(db);
+      el.appendChild(div);
+    });
+  }catch(e){el.innerHTML='<div class="empty">Errore caricamento.</div>';}
+}
+
+
+function generaHtmlGrazie(num,data,codice,cover,stripe){
+  var NL2=String.fromCharCode(10);
+  var slug=num.replace(/[^0-9]/g,"")||"XX";
+  var label="Grandangolo Settimanale "+num+(data?"/"+new Date().getFullYear():"");
+  var lines=[];
+  lines.push('<!DOCTYPE html>');
+  lines.push('<html lang="it">');
+  lines.push('<head>');
+  lines.push('<meta charset="UTF-8">');
+  lines.push('<title>Grazie \u2013 Codice di accesso '+num+' | Grandangolo Settimanale</title>');
+  lines.push('<meta name="viewport" content="width=device-width, initial-scale=1">');
+  lines.push('<meta property="og:title" content="Accesso Grandangolo '+num+'">');
+  lines.push('<meta property="og:description" content="Grazie per il tuo acquisto! Qui trovi il codice di accesso al numero '+slug+'.">');
+  lines.push('<meta property="og:image" content="'+(cover||'https://jgnewland.github.io/grandangolo/og-default.jpg')+'">');
+  lines.push('<link rel="preconnect" href="https://fonts.googleapis.com">');
+  lines.push('<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">');
+  lines.push('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>');
+  lines.push('<style>');
+  lines.push(':root{--bg:#050509;--accent:#00a651;--accent-glow:rgba(0,166,81,0.18);--text:#f5f5f5;--muted:#888;--card:rgba(255,255,255,0.03);--border-soft:rgba(255,255,255,0.07);--gold:#d4a843}');
+  lines.push('*{box-sizing:border-box}');
+  lines.push('body{margin:0;min-height:100vh;font-family:"DM Sans",system-ui,sans-serif;background:#050509;color:var(--text);display:flex;justify-content:center;align-items:flex-start;padding:40px 16px 60px}');
+  lines.push('body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}');
+  lines.push('body::after{content:"";position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(0,166,81,0.07) 0%,transparent 65%);pointer-events:none;z-index:0}');
+  lines.push('.wrap{position:relative;z-index:1;width:100%;max-width:580px;display:flex;flex-direction:column;gap:0}');
+  lines.push('.header{text-align:center;margin-bottom:32px;animation:fadeUp 0.6s ease both}');
+  lines.push('.logo-row{display:flex;justify-content:center;margin-bottom:20px}');
+  lines.push('.logo-row img{height:72px;width:auto}');
+  lines.push('.badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-glow);border:1px solid rgba(0,166,81,0.3);border-radius:999px;padding:4px 12px;font-size:11px;color:#4cde8a;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;margin-bottom:14px}');
+  lines.push('.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#00a651;box-shadow:0 0 6px #00a651}');
+  lines.push('h1{font-family:"DM Serif Display",Georgia,serif;font-size:28px;font-weight:400;margin:0 0 8px;line-height:1.2}');
+  lines.push('.subtitle{font-size:14px;color:var(--muted);margin:0;line-height:1.6}');
+  lines.push('.subtitle strong{color:var(--text)}');
+  lines.push('.code-card{background:linear-gradient(135deg,rgba(0,166,81,0.08),rgba(0,166,81,0.03));border:1px solid rgba(0,166,81,0.25);border-radius:16px;padding:20px;margin-bottom:16px;animation:fadeUp 0.6s 0.1s ease both}');
+  lines.push('.code-card-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:600}');
+  lines.push('.code-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}');
+  lines.push('.code-value{font-family:"Courier New",monospace;font-size:17px;font-weight:700;color:#7dffb3;letter-spacing:0.12em;background:rgba(0,0,0,0.4);border:1px solid rgba(0,166,81,0.35);border-radius:8px;padding:9px 16px;flex:1;min-width:0;word-break:break-all}');
+  lines.push('.btn-copy{display:flex;align-items:center;gap:6px;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif;transition:background 0.2s,transform 0.1s;white-space:nowrap;flex-shrink:0}');
+  lines.push('.btn-copy:hover{background:#00b85c;transform:translateY(-1px)}');
+  lines.push('.btn-copy.copied{background:#2d7a4f}');
+  lines.push('.save-box{background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.22);border-radius:16px;padding:20px;margin-bottom:20px;animation:fadeUp 0.6s 0.15s ease both}');
+  lines.push('.save-box-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}');
+  lines.push('.save-icon{width:38px;height:38px;border-radius:10px;background:rgba(0,166,81,0.15);border:1px solid rgba(0,166,81,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}');
+  lines.push('.save-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}');
+  lines.push('.save-desc{font-size:12px;color:var(--muted);line-height:1.4}');
+  lines.push('#save-logged{display:none}');
+  lines.push('.save-user-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}');
+  lines.push('.save-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00a651,#005c2e);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}');
+  lines.push('.save-email{font-size:13px;color:rgba(255,255,255,0.7)}');
+  lines.push('.btn-save{width:100%;padding:13px;border-radius:12px;border:none;background:#00a651;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:"DM Sans",sans-serif;box-shadow:0 6px 20px rgba(0,166,81,0.35);transition:filter .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:8px}');
+  lines.push('.btn-save:hover{filter:brightness(1.1);transform:translateY(-1px)}');
+  lines.push('.btn-save:disabled{opacity:.5;cursor:default;filter:none;transform:none}');
+  lines.push('.save-result{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:13px;display:none}');
+  lines.push('.save-result.ok{display:block;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.3);color:#8fffc1}');
+  lines.push('.save-result.err{display:block;background:rgba(255,80,80,0.10);border:1px solid rgba(255,80,80,0.25);color:#ff9090}');
+  lines.push('#save-auth{display:none}');
+  lines.push('.auth-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:16px}');
+  lines.push('.auth-tab{flex:1;padding:9px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;font-family:"DM Sans",sans-serif}');
+  lines.push('.auth-tab.active{color:#00a651;border-bottom-color:#00a651}');
+  lines.push('.ga-field{margin-bottom:12px}');
+  lines.push('.ga-field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}');
+  lines.push('.ga-field input{width:100%;padding:11px 13px;border:1.5px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.05);color:#fff;font-size:14px;font-family:"DM Sans",sans-serif;outline:none;transition:border-color .18s}');
+  lines.push('.ga-field input:focus{border-color:#00a651}');
+  lines.push('.ga-field input::placeholder{color:rgba(255,255,255,0.2)}');
+  lines.push('.btn-auth{width:100%;padding:12px;border-radius:12px;border:none;background:#00a651;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:"DM Sans",sans-serif;box-shadow:0 6px 20px rgba(0,166,81,0.3);transition:filter .15s;margin-top:4px}');
+  lines.push('.btn-auth:hover{filter:brightness(1.1)}');
+  lines.push('.btn-auth:disabled{opacity:.5;cursor:default}');
+  lines.push('.auth-msg{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:12.5px;display:none}');
+  lines.push('.auth-msg.ok{display:block;background:rgba(0,166,81,0.10);border:1px solid rgba(0,166,81,0.3);color:#8fffc1}');
+  lines.push('.auth-msg.err{display:block;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.2);color:#ff9090}');
+  lines.push('.auth-note{font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin-top:10px}');
+  lines.push('#save-loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 0}');
+  lines.push('.spinner{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);border-top-color:#00a651;animation:spin .7s linear infinite}');
+  lines.push('@keyframes spin{to{transform:rotate(360deg)}}');
+  lines.push('.cta-row{display:flex;justify-content:center;margin-bottom:20px;animation:fadeUp 0.6s 0.3s ease both}');
+  lines.push('.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;background:var(--accent);color:#fff;font-size:14px;font-weight:600;text-decoration:none;font-family:"DM Sans",sans-serif;box-shadow:0 12px 30px rgba(0,166,81,0.4);transition:box-shadow 0.2s,transform 0.15s}');
+  lines.push('.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(0,166,81,0.5)}');
+  lines.push('.section-title{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px}');
+  lines.push('.steps-card{background:var(--card);border:1px solid var(--border-soft);border-radius:16px;padding:20px;margin-bottom:20px;animation:fadeUp 0.6s 0.2s ease both}');
+  lines.push('.steps-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}');
+  lines.push('.step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border-soft)}');
+  lines.push('.step:last-child{border-bottom:none;padding-bottom:0}');
+  lines.push('.step:first-child{padding-top:0}');
+  lines.push('.step-num{width:28px;height:28px;border-radius:50%;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#4cde8a;flex-shrink:0;margin-top:1px}');
+  lines.push('.step-content h3{margin:0 0 3px;font-size:14px;font-weight:600}');
+  lines.push('.step-content p{margin:0;font-size:13px;color:var(--muted);line-height:1.55}');
+  lines.push('.step-content p a{color:#4cde8a;text-decoration:none}');
+  lines.push('.sub-card{background:linear-gradient(135deg,rgba(212,168,67,0.07),rgba(212,168,67,0.02));border:1px solid rgba(212,168,67,0.22);border-radius:16px;padding:20px;animation:fadeUp 0.6s 0.4s ease both}');
+  lines.push('.sub-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}');
+  lines.push('.sub-icon{font-size:22px;line-height:1;margin-top:2px}');
+  lines.push('.sub-header h2{font-family:"DM Serif Display",Georgia,serif;font-size:18px;font-weight:400;margin:0 0 4px}');
+  lines.push('.sub-header p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}');
+  lines.push('.sub-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:14px}');
+  lines.push('.sub-price{font-family:"DM Serif Display",Georgia,serif;font-size:32px;color:var(--gold);line-height:1}');
+  lines.push('.sub-price-label{font-size:12px;color:var(--muted)}');
+  lines.push('.sub-perks{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:8px}');
+  lines.push('.sub-perks li{display:flex;align-items:center;gap:9px;font-size:13px;color:#ccc}');
+  lines.push('.perk-check{width:18px;height:18px;border-radius:50%;background:rgba(212,168,67,0.15);border:1px solid rgba(212,168,67,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;color:var(--gold)}');
+  lines.push('.btn-sub{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:999px;background:transparent;border:1px solid rgba(212,168,67,0.5);color:var(--gold);font-size:13px;font-weight:600;text-decoration:none;font-family:"DM Sans",sans-serif;transition:background 0.2s,transform 0.15s}');
+  lines.push('.btn-sub:hover{background:rgba(212,168,67,0.1);transform:translateY(-1px)}');
+  lines.push('.footer-note{margin-top:20px;font-size:11px;color:#555;text-align:center;animation:fadeUp 0.6s 0.5s ease both}');
+  lines.push('@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}');
+  lines.push('@media(max-width:420px){h1{font-size:23px}.code-value{font-size:14px}}');
+  lines.push('<\/style>');
+  lines.push('<\/head>');
+  lines.push('<body>');
+  lines.push('<div class="wrap">');
+  lines.push('<div class="header">');
+  lines.push('<div class="logo-row"><img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo Settimanale"></div>');
+  lines.push('<div class="badge">Acquisto confermato</div>');
+  lines.push('<h1>Grazie per il tuo acquisto</h1>');
+  lines.push('<p class="subtitle">Hai acquistato <strong>Grandangolo Settimanale '+num+(data ? ' del '+data : '')+'</strong>.<br>Usa il codice qui sotto per sbloccare il giornale.</p>');
+  lines.push('<\/div>');
+  lines.push('<div class="code-card">');
+  lines.push('<div class="code-card-label">Il tuo codice di accesso</div>');
+  lines.push('<div class="code-row">');
+  lines.push('<div class="code-value" id="codeVal">'+codice+'</div>');
+  lines.push('<button class="btn-copy" id="copyBtn" onclick="copyCode()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"\/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"\/><\/svg>Copia</button>');
+  lines.push('<\/div>');
+  lines.push('<\/div>');
+  lines.push('<div class="save-box">');
+  lines.push('<div class="save-box-header"><div class="save-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a651" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"\/><circle cx="12" cy="7" r="4"\/><\/svg></div><div><div class="save-title">Salva il codice nel tuo account</div><div class="save-desc">Cos\u00ec non lo perdi e puoi riaprire il giornale in qualsiasi momento.</div></div></div>');
+  lines.push('<div id="save-loading"><div class="spinner"></div><span style="font-size:13px;color:var(--muted);">Verifica account\u2026</span></div>');
+  lines.push('<div id="save-logged">');
+  lines.push('<div class="save-user-row"><div class="save-avatar" id="saveAvatar">?</div><div class="save-email" id="saveEmail">\u2014</div></div>');
+  lines.push('<button class="btn-save" id="saveBtn" onclick="saveCode()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"\/><polyline points="17 21 17 13 7 13 7 21"\/><polyline points="7 3 7 8 15 8"\/><\/svg>Salva nel mio account</button>');
+  lines.push('<div class="save-result" id="saveResult"></div>');
+  lines.push('<\/div>');
+  lines.push('<div id="save-auth">');
+  lines.push('<div class="auth-tabs"><button class="auth-tab active" id="tabLogin" onclick="switchTab(\'login\')">Accedi</button><button class="auth-tab" id="tabReg" onclick="switchTab(\'register\')">Registrati</button></div>');
+  lines.push('<div id="auth-login"><div class="ga-field"><label>Email</label><input type="email" id="loginEmail" placeholder="mario@email.it" autocomplete="email"></div><div class="ga-field"><label>Password</label><input type="password" id="loginPw" placeholder="La tua password" autocomplete="current-password"></div><button class="btn-auth" id="loginBtn" onclick="doLogin()">Accedi e salva il codice \u2192</button></div>');
+  lines.push('<div id="auth-register" style="display:none"><div class="ga-field"><label>Email</label><input type="email" id="regEmail" placeholder="mario@email.it" autocomplete="email"></div><div class="ga-field"><label>Password</label><input type="password" id="regPw" placeholder="Almeno 8 caratteri" autocomplete="new-password"></div><button class="btn-auth" id="regBtn" onclick="doRegister()">Registrati e salva il codice \u2192</button></div>');
+  lines.push('<div class="auth-msg" id="authMsg"></div>');
+  lines.push('<p class="auth-note">Il codice verr\u00e0 salvato automaticamente dopo l\'accesso.</p>');
+  lines.push('<\/div>');
+  lines.push('<\/div>');
+  lines.push('<div class="cta-row"><a href="https://grandangolosettimanale.it" class="btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"\/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"\/><\/svg>Apri l\'edicola digitale</a></div>');
+  lines.push('<div class="steps-card"><div class="section-title">Come leggere il giornale</div><ol class="steps-list">');
+  lines.push('<li class="step"><div class="step-num">1</div><div class="step-content"><h3>Vai all\'edicola digitale</h3><p>Clicca su \u00abApri l\'edicola digitale\u00bb oppure visita <a href="https://grandangolosettimanale.it" target="_blank">grandangolosettimanale.it</a>.</p></div></li>');
+  lines.push('<li class="step"><div class="step-num">2</div><div class="step-content"><h3>Seleziona il numero acquistato</h3><p>Dalla lista delle edizioni disponibili, scegli il numero che hai acquistato e clicca sulla copertina.</p></div></li>');
+  lines.push('<li class="step"><div class="step-num">3</div><div class="step-content"><h3>Inserisci il codice</h3><p>Incolla o digita il codice nel campo apposito e conferma. Il giornale si aprir\u00e0 istantaneamente.</p></div></li>');
+  lines.push('<li class="step"><div class="step-num">4</div><div class="step-content"><h3>Leggi quando vuoi</h3><p>Puoi riaprire il numero in qualsiasi momento con lo stesso codice. Funziona su smartphone, tablet e computer.</p></div></li>');
+  lines.push('<\/ol><\/div>');
+  lines.push('<div class="sub-card"><div class="sub-header"><div class="sub-icon">\u2736</div><div><h2>Abbonati per un anno intero</h2><p>Un codice unico valido 12 mesi: leggi tutti i numeri del Grandangolo Settimanale con un solo acquisto.</p></div></div>');
+  lines.push('<div class="sub-price-row"><span class="sub-price">50\u20ac</span><span class="sub-price-label">un unico pagamento \u00b7 valido 12 mesi</span></div>');
+  lines.push('<ul class="sub-perks"><li><div class="perk-check">\u2713</div>Un codice personale valido per un anno intero</li><li><div class="perk-check">\u2713</div>Accesso a tutti i numeri pubblicati durante l\'anno</li><li><div class="perk-check">\u2713</div>Nessun rinnovo automatico, paghi una volta sola</li><li><div class="perk-check">\u2713</div>Funziona su smartphone, tablet e computer</li></ul>');
+  lines.push('<a href="https://buy.stripe.com/eVqcN764gcMFaln5kQ9MY0k" target="_blank" class="btn-sub">Abbonati a 50\u20ac</a></div>');
+  lines.push('<p class="footer-note">Conserva questo codice per gli accessi futuri &nbsp;\u00b7&nbsp; Per assistenza scrivi a <a href="mailto:redazione@grandangoloagrigento.it" style="color:#555">redazione@grandangoloagrigento.it</a></p>');
+  lines.push('<\/div>');
+  lines.push('<script>');
+  lines.push('const SUPABASE_URL="https://xfmiikymagamnexsbrdt.supabase.co";');
+  lines.push('const SUPABASE_KEY="sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn";');
+  lines.push('const ISSUE_CODE="'+codice+'";');
+  lines.push('const ISSUE_LABEL="'+label+'";');
+  lines.push('const ISSUE_COVER="'+(cover||'')+'";');
+  lines.push('const ISSUE_TYPE="singolo";');
+  lines.push('const {createClient}=supabase;');
+  lines.push('const sb=createClient(SUPABASE_URL,SUPABASE_KEY);');
+  lines.push('let currentUser=null;');
+  lines.push('sb.auth.getSession().then(({data:{session}})=>{currentUser=session?.user??null;renderSaveBox();});');
+  lines.push('sb.auth.onAuthStateChange((_e,session)=>{currentUser=session?.user??null;renderSaveBox();});');
+  lines.push('function renderSaveBox(){document.getElementById("save-loading").style.display="none";if(currentUser){document.getElementById("save-auth").style.display="none";document.getElementById("save-logged").style.display="block";document.getElementById("saveAvatar").textContent=(currentUser.email||"U")[0].toUpperCase();document.getElementById("saveEmail").textContent=currentUser.email;}else{document.getElementById("save-logged").style.display="none";document.getElementById("save-auth").style.display="block";}}');
+  lines.push('async function saveCode(){if(!currentUser)return;const btn=document.getElementById("saveBtn");const result=document.getElementById("saveResult");btn.disabled=true;btn.innerHTML="<div class=\\"spinner\\" style=\\"border-top-color:#fff;width:16px;height:16px;border-width:2px;\\"></div> Salvataggio\u2026";const{data:existing}=await sb.from("user_codes").select("id").eq("user_id",currentUser.id).eq("code",ISSUE_CODE).maybeSingle();if(existing){result.textContent="\u2713 Codice gi\u00e0 presente nel tuo wallet!";result.className="save-result ok";btn.textContent="\u2713 Gi\u00e0 nel wallet";return;}const{error}=await sb.from("user_codes").insert({user_id:currentUser.id,code:ISSUE_CODE,type:ISSUE_TYPE,label:ISSUE_LABEL,cover_url:ISSUE_COVER,added_at:new Date().toISOString()});if(!error){result.textContent="\u2713 Codice salvato! Lo trovi nel tuo wallet su grandangolosettimanale.it";result.className="save-result ok";btn.innerHTML="\u2713 Salvato nel wallet";btn.style.background="#2d7a4f";}else{result.textContent="Errore nel salvataggio. Riprova.";result.className="save-result err";btn.disabled=false;btn.textContent="Salva nel mio account";}}');
+  lines.push('function switchTab(tab){document.getElementById("auth-login").style.display=tab==="login"?"block":"none";document.getElementById("auth-register").style.display=tab==="register"?"block":"none";document.getElementById("tabLogin").classList.toggle("active",tab==="login");document.getElementById("tabReg").classList.toggle("active",tab==="register");document.getElementById("authMsg").className="auth-msg";}');
+  lines.push('function showAuthMsg(text,type){const el=document.getElementById("authMsg");el.textContent=text;el.className="auth-msg "+type;}');
+  lines.push('function traduci(msg){if(msg.includes("Invalid login"))return"Email o password errati.";if(msg.includes("already registered"))return"Email gi\u00e0 registrata. Prova ad accedere.";if(msg.includes("Email not confirmed"))return"Email non confermata. Controlla la tua casella.";if(msg.includes("Password should be"))return"La password deve avere almeno 8 caratteri.";return msg;}');
+  lines.push('async function doLogin(){const email=document.getElementById("loginEmail").value.trim();const pw=document.getElementById("loginPw").value;if(!email||!pw){showAuthMsg("Compila tutti i campi.","err");return;}const btn=document.getElementById("loginBtn");btn.disabled=true;btn.textContent="Accesso\u2026";const{error}=await sb.auth.signInWithPassword({email,password:pw});if(error){showAuthMsg(traduci(error.message),"err");btn.disabled=false;btn.textContent="Accedi e salva il codice \u2192";}}');
+  lines.push('async function doRegister(){const email=document.getElementById("regEmail").value.trim();const pw=document.getElementById("regPw").value;if(!email||!pw){showAuthMsg("Compila tutti i campi.","err");return;}if(pw.length<8){showAuthMsg("La password deve avere almeno 8 caratteri.","err");return;}const btn=document.getElementById("regBtn");btn.disabled=true;btn.textContent="Registrazione\u2026";const{error}=await sb.auth.signUp({email,password:pw});if(error){showAuthMsg(traduci(error.message),"err");btn.disabled=false;btn.textContent="Registrati e salva il codice \u2192";}else{showAuthMsg("\u2713 Registrato! Controlla la tua email per confermare, poi torna qui e accedi.","ok");btn.textContent="Registrati e salva il codice \u2192";btn.disabled=false;}}');
+  lines.push('sb.auth.onAuthStateChange(async(_e,session)=>{if(session?.user&&!currentUser){await new Promise(r=>setTimeout(r,600));saveCode();}});');
+  lines.push('function copyCode(){const code="'+codice+'";navigator.clipboard.writeText(code).then(()=>{const btn=document.getElementById("copyBtn");btn.textContent="\u2713 Copiato";btn.classList.add("copied");setTimeout(()=>{btn.innerHTML=\'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copia\';btn.classList.remove("copied");},2500);});}');
+  lines.push('<\/script>');
+  lines.push('<\/body>');
+  lines.push('<\/html>');
+  return lines.join(NL2);
+}
+
+// --- BACHECA AVVISI ---
+document.getElementById("av-pubblica-btn").onclick=pubAvviso;
+document.getElementById("av-refresh-btn").onclick=loadAvvisi;
+
+async function pubAvviso(){
+  var t=document.getElementById("av-title").value.trim();
+  var b=document.getElementById("av-body").value.trim();
+  var type=document.getElementById("av-type").value;
+  var active=document.getElementById("av-active").checked;
+  var link=document.getElementById("av-link").value.trim();
+  var lt=document.getElementById("av-linktext").value.trim();
+  if(!t){showRes("av-res","Inserisci il titolo.","err");return;}
+  var btn=document.getElementById("av-pubblica-btn");
+  btn.disabled=true;btn.textContent="Pubblicazione...";
+  try{
+    var p={title:t,body:b||null,type:type,active:active,link:link||null,link_text:lt||null};
+    var r=await sbPost("/rest/v1/announcements",p);
+    if(r.ok){
+      showRes("av-res","Avviso pubblicato!","ok");
+      document.getElementById("av-title").value="";
+      document.getElementById("av-body").value="";
+      document.getElementById("av-link").value="";
+      document.getElementById("av-linktext").value="";
+      document.getElementById("av-active").checked=false;
+      loadAvvisi();
+    }else{var d=await r.json().catch(function(){return{};});showRes("av-res","Errore: "+JSON.stringify(d),"err");}
+  }catch(e){showRes("av-res","Errore: "+e.message,"err");}
+  btn.disabled=false;btn.textContent="Pubblica avviso";
+}
+
+async function loadAvvisi(){
+  var el=document.getElementById("av-list");
+  try{
+    var d=await sbGet("/rest/v1/announcements?order=created_at.desc");
+    if(!d.length){el.innerHTML='<div class="empty">Nessun avviso pubblicato.</div>';return;}
+    el.innerHTML="";
+    d.forEach(function(av){
+      var colors={info:"rgba(0,166,81",warning:"rgba(255,200,50",promo:"rgba(150,100,255",urgent:"rgba(255,80,80"};
+      var icons={info:"&#8505;",warning:"&#9888;",promo:"&#11088;",urgent:"&#128680;"};
+      var col=colors[av.type]||colors.info;
+      var icon=icons[av.type]||icons.info;
+      var div=document.createElement("div");
+      div.style.cssText="display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:"+col+",0.06);border:1px solid "+col+",0.2);margin-bottom:10px";
+            div.innerHTML='<div style="font-size:20px;flex-shrink:0">'+icon+'</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:3px">'+av.title+'</div>'+(av.body?'<div style="font-size:12px;color:rgba(255,255,255,0.5)">'+av.body+'</div>':'')+'</div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">';
+      // Toggle attivo
+      var tog=document.createElement("label");
+      tog.style.cssText="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:rgba(255,255,255,0.6)";
+      var chk=document.createElement("input");
+      chk.type="checkbox";chk.checked=av.active;chk.style.cssText="width:16px;height:16px;accent-color:#00a651;cursor:pointer";
+      chk.onchange=async function(){
+        await sbPatch("/rest/v1/announcements?id=eq."+av.id,{active:chk.checked});
+        var lbl=tog.querySelector("span");
+        if(lbl)lbl.textContent=chk.checked?"Attivo":"Disattivo";
+      };
+      var lbl=document.createElement("span");lbl.textContent=av.active?"Attivo":"Disattivo";
+      tog.appendChild(chk);tog.appendChild(lbl);
+      div.querySelector("div:last-child").appendChild(tog);
+      // Elimina
+      var db=document.createElement("button");db.className="del-btn";db.textContent="Elimina";db.style.cssText="padding:5px 10px;font-size:11px";
+      db.onclick=function(){if(confirm("Eliminare?"))sbDel("/rest/v1/announcements?id=eq."+av.id).then(function(){div.remove();});};
+      div.querySelector("div:last-child").appendChild(db);
+      el.appendChild(div);
+    });
+  }catch(e){el.innerHTML='<div class="empty">Errore caricamento.</div>';}
+}
+
+
 // --- UTILS ---
 function showRes(id,text,type){var el=document.getElementById(id);el.textContent=text;el.className="res "+type;}
 
@@ -795,6 +1209,5 @@ function showRes(id,text,type){var el=document.getElementById(id);el.textContent
     <div class="res" id="m-res"></div>
   </div>
 </div>
-</body>
 </body>
 </html>
