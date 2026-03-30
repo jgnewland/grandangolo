@@ -350,510 +350,397 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
   </div>
 </div>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-var PW = 'impaginato2026';
-var SB = 'https://xfmiikymagamnexsbrdt.supabase.co';
-var SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8';
-var users=[], prefs=[], codes=[];
-var filtroAnno='tutti', storicoGen=[];
-var LETT='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz';
-var NUMS='23456789', SPEC='!@#$%&?=+';
-var ALL=LETT+NUMS+SPEC;
+var PW="impaginato2026";
+var SB="https://xfmiikymagamnexsbrdt.supabase.co";
+var SK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8";
+var users=[],prefs=[],codes=[],filtroAnno="tutti",storicoGen=[];
+var LETT="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz",NUMS="23456789",SPEC="!@#$%&?=+",ALL=LETT+NUMS+SPEC;
+var NL=String.fromCharCode(10);
+var editId=null;
 
-// LOGIN
-document.getElementById('login-btn').onclick = doLogin;
-document.getElementById('pw').onkeydown = function(e){ if(e.key==='Enter') doLogin(); };
+// --- LOGIN ---
+document.getElementById("login-btn").onclick=doLogin;
+document.getElementById("pw").onkeydown=function(e){if(e.key==="Enter")doLogin();};
 function doLogin(){
-  if(document.getElementById('pw').value===PW){
-    document.getElementById('pg-login').style.display='none';
-    document.getElementById('pg-admin').style.display='block';
+  if(document.getElementById("pw").value===PW){
+    document.getElementById("pg-login").style.display="none";
+    document.getElementById("pg-admin").style.display="block";
     init();
   } else {
-    document.getElementById('lg-err').style.display='block';
+    document.getElementById("lg-err").style.display="block";
   }
 }
-document.getElementById('logout-btn').onclick = function(){
-  document.getElementById('pg-admin').style.display='none';
-  document.getElementById('pg-login').style.display='block';
-  document.getElementById('pw').value='';
+document.getElementById("logout-btn").onclick=function(){
+  document.getElementById("pg-admin").style.display="none";
+  document.getElementById("pg-login").style.display="block";
+  document.getElementById("pw").value="";
 };
 
-// NAVIGATION
-document.querySelectorAll('.nav-i').forEach(function(el){
-  el.onclick = function(){
-    document.querySelectorAll('.nav-i').forEach(function(x){ x.classList.remove('on'); });
-    document.querySelectorAll('.pg').forEach(function(x){ x.classList.remove('on'); });
-    el.classList.add('on');
-    var id = 'pg-' + el.getAttribute('data-pg');
-    document.getElementById(id).classList.add('on');
-    var pg = el.getAttribute('data-pg');
-    if(pg==='notifiche') loadNotif();
-    if(pg==='numeri') loadNumeri();
-    if(pg==='utenti') renderU('');
-    if(pg==='genera') genCod();
+// --- NAVIGATION ---
+document.querySelectorAll(".nav-i").forEach(function(el){
+  el.onclick=function(){
+    document.querySelectorAll(".nav-i").forEach(function(x){x.classList.remove("on");});
+    document.querySelectorAll(".pg").forEach(function(x){x.classList.remove("on");});
+    el.classList.add("on");
+    document.getElementById("pg-"+el.getAttribute("data-pg")).classList.add("on");
+    var pg=el.getAttribute("data-pg");
+    if(pg==="notifiche")loadNotif();
+    if(pg==="numeri")loadNumeri();
+    if(pg==="utenti")renderU("");
+    if(pg==="genera")genCod();
   };
 });
 
-// INIT
-function init(){ loadDati(); loadNotif(); }
+// --- INIT ---
+function init(){loadDati();loadNotif();}
 
-async function sbGet(path){
-  var r = await fetch(SB+path, {headers:{'apikey':SK,'Authorization':'Bearer '+SK}});
-  return r.json();
-}
-async function sbPost(path, data){
-  return fetch(SB+path, {method:'POST', headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=representation'}, body:JSON.stringify(data)});
-}
-async function sbPatch(path, data){
-  return fetch(SB+path, {method:'PATCH', headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json'}, body:JSON.stringify(data)});
-}
-async function sbDel(path){
-  return fetch(SB+path, {method:'DELETE', headers:{'apikey':SK,'Authorization':'Bearer '+SK}});
-}
+async function sbGet(p){var r=await fetch(SB+p,{headers:{"apikey":SK,"Authorization":"Bearer "+SK}});return r.json();}
+async function sbPost(p,d){return fetch(SB+p,{method:"POST",headers:{"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json","Prefer":"return=representation"},body:JSON.stringify(d)});}
+async function sbPatch(p,d){return fetch(SB+p,{method:"PATCH",headers:{"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json"},body:JSON.stringify(d)});}
+async function sbDel(p){return fetch(SB+p,{method:"DELETE",headers:{"apikey":SK,"Authorization":"Bearer "+SK}});}
 
+// --- DATI ---
 async function loadDati(){
   try{
-    var ur = await fetch(SB+'/auth/v1/admin/users?per_page=1000',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}});
-    var ud = await ur.json();
-    users = (ud.users||[]).filter(function(u){return u.email;});
+    var r=await fetch(SB+"/auth/v1/admin/users?per_page=1000",{headers:{"apikey":SK,"Authorization":"Bearer "+SK}});
+    var d=await r.json();
+    users=(d.users||[]).filter(function(u){return u.email;});
     users.sort(function(a,b){return new Date(b.created_at)-new Date(a.created_at);});
-    var pr = await sbGet('/rest/v1/user_prefs?select=user_id,data');
-    prefs = pr||[];
-    var cr = await sbGet('/rest/v1/user_codes?select=user_id,type,code');
-    codes = cr||[];
-    updateStats(); renderNuovi(); renderU('');
+    var pr=await sbGet("/rest/v1/user_prefs?select=user_id,data");prefs=pr||[];
+    var cr=await sbGet("/rest/v1/user_codes?select=user_id,type,code");codes=cr||[];
+    updateStats();renderNuovi();renderU("");
   }catch(e){console.error(e);}
 }
 
 function updateStats(){
   var pm={};prefs.forEach(function(p){pm[p.user_id]=p.data;});
-  var ps={};codes.forEach(function(c){if(c.type==='premium')ps[c.user_id]=1;});
-  document.getElementById('s-tot').textContent=users.length;
-  document.getElementById('s-prem').textContent=Object.keys(ps).length;
-  document.getElementById('s-cod').textContent=codes.length;
+  var ps={};codes.forEach(function(c){if(c.type==="premium")ps[c.user_id]=1;});
+  document.getElementById("s-tot").textContent=users.length;
+  document.getElementById("s-prem").textContent=Object.keys(ps).length;
+  document.getElementById("s-cod").textContent=codes.length;
   var isc=users.filter(function(u){var p=pm[u.id];return !p||p.nuova_uscita!==false;}).length;
-  document.getElementById('s-notif').textContent=isc;
-  document.getElementById('u-count-title').textContent='Utenti ('+users.length+')';
+  document.getElementById("s-notif").textContent=isc;
+  document.getElementById("u-count-title").textContent="Utenti ("+users.length+")";
 }
 
 function renderNuovi(){
-  var el=document.getElementById('nuovi-list'), now=Date.now();
-  if(!users.length){el.innerHTML='<div class="empty">Nessun utente.</div>';return;}
-  el.innerHTML='';
+  var el=document.getElementById("nuovi-list"),now=Date.now();
+  if(!users.length){el.innerHTML="<div class=\"empty\">Nessun utente.</div>";return;}
+  el.innerHTML="";
   users.slice(0,8).forEach(function(u){
     var isN=(now-new Date(u.created_at))<86400000*7;
-    var d=new Date(u.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
-    var div=document.createElement('div');
-    div.style.cssText='display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05)';
-    div.innerHTML='<div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00a651,#005c2e);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0">'+u.email[0].toUpperCase()+'</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+u.email+(isN?' <span class="badge badge-n">NUOVO</span>':'')+'</div><div style="font-size:11px;color:rgba(255,255,255,0.35)">Iscritto il '+d+'</div></div>';
+    var d=new Date(u.created_at).toLocaleDateString("it-IT",{day:"2-digit",month:"long",year:"numeric"});
+    var div=document.createElement("div");
+    div.style.cssText="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05)";
+    div.innerHTML="<div style=\"width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00a651,#005c2e);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0\">"+u.email[0].toUpperCase()+"</div><div style=\"flex:1;min-width:0\"><div style=\"font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">"+u.email+(isN?" <span class=\"badge badge-n\">NUOVO</span>":"")+"</div><div style=\"font-size:11px;color:rgba(255,255,255,0.35)\">Iscritto il "+d+"</div></div>";
     el.appendChild(div);
   });
 }
 
-// NOTIFICHE
-document.getElementById('n-pubblica-btn').onclick = pubNotif;
-document.getElementById('n-refresh-btn').onclick = loadNotif;
+// --- NOTIFICHE ---
+document.getElementById("n-pubblica-btn").onclick=pubNotif;
+document.getElementById("n-refresh-btn").onclick=loadNotif;
 
 async function pubNotif(){
-  var t=document.getElementById('n-title').value.trim();
-  var b=document.getElementById('n-body').value.trim();
-  var c=document.getElementById('n-cover').value.trim();
-  var l=document.getElementById('n-link').value.trim()||'https://grandangolosettimanale.it';
-  if(!t||!b){showRes('n-res','Compila titolo e testo.','err');return;}
-  var btn=document.getElementById('n-pubblica-btn');
-  btn.disabled=true; btn.textContent='Pubblicazione...';
+  var t=document.getElementById("n-title").value.trim();
+  var b=document.getElementById("n-body").value.trim();
+  var c=document.getElementById("n-cover").value.trim();
+  var l=document.getElementById("n-link").value.trim()||"https://grandangolosettimanale.it";
+  if(!t||!b){showRes("n-res","Compila titolo e testo.","err");return;}
+  var btn=document.getElementById("n-pubblica-btn");
+  btn.disabled=true;btn.textContent="Pubblicazione...";
   try{
-    var p={title:t,body:b,link:l};
-    if(c) p.cover_url=c;
-    var r=await sbPost('/rest/v1/notifications',p);
-    if(r.ok){
-      showRes('n-res','Notifica pubblicata!','ok');
-      document.getElementById('n-title').value='';
-      document.getElementById('n-body').value='';
-      document.getElementById('n-cover').value='';
-      loadNotif();
-    } else {
-      var d=await r.json().catch(function(){return{};});
-      showRes('n-res','Errore: '+JSON.stringify(d),'err');
-    }
-  }catch(e){showRes('n-res','Errore: '+e.message,'err');}
-  btn.disabled=false; btn.textContent='Pubblica notifica \u2192';
+    var p={title:t,body:b,link:l};if(c)p.cover_url=c;
+    var r=await sbPost("/rest/v1/notifications",p);
+    if(r.ok){showRes("n-res","Notifica pubblicata!","ok");document.getElementById("n-title").value="";document.getElementById("n-body").value="";document.getElementById("n-cover").value="";loadNotif();}
+    else{var d=await r.json().catch(function(){return{};});showRes("n-res","Errore: "+JSON.stringify(d),"err");}
+  }catch(e){showRes("n-res","Errore: "+e.message,"err");}
+  btn.disabled=false;btn.textContent="Pubblica notifica \u2192";
 }
 
 async function loadNotif(){
-  var el=document.getElementById('n-list');
+  var el=document.getElementById("n-list");
   try{
-    var d=await sbGet('/rest/v1/notifications?order=created_at.desc');
-    if(!d.length){el.innerHTML='<div class="empty">Nessuna notifica.</div>';return;}
-    el.innerHTML='';
+    var d=await sbGet("/rest/v1/notifications?order=created_at.desc");
+    if(!d.length){el.innerHTML="<div class=\"empty\">Nessuna notifica.</div>";return;}
+    el.innerHTML="";
     d.forEach(function(n){
-      var div=document.createElement('div');
-      div.className='ni';
-      var dt=new Date(n.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
-      div.innerHTML='<div class="ni-ic">&#128240;</div><div class="ni-info"><div class="ni-t">'+n.title+'</div><div class="ni-b">'+n.body+'</div><div class="ni-m">'+dt+'</div></div>';
-      var db=document.createElement('button');
-      db.className='del-btn';
-      db.textContent='Elimina';
-      db.onclick=function(){ delNotif(n.id,div); };
-      div.appendChild(db);
-      el.appendChild(div);
+      var div=document.createElement("div");div.className="ni";
+      var dt=new Date(n.created_at).toLocaleDateString("it-IT",{day:"2-digit",month:"long",year:"numeric"});
+      div.innerHTML="<div class=\"ni-ic\">\u{1F4F0}</div><div class=\"ni-info\"><div class=\"ni-t\">"+n.title+"</div><div class=\"ni-b\">"+n.body+"</div><div class=\"ni-m\">"+dt+"</div></div>";
+      var db=document.createElement("button");db.className="del-btn";db.textContent="Elimina";
+      db.onclick=function(){if(confirm("Eliminare?"))sbDel("/rest/v1/notifications?id=eq."+n.id).then(function(){div.remove();});};
+      div.appendChild(db);el.appendChild(div);
     });
-  }catch(e){el.innerHTML='<div class="empty">Errore.</div>';}
+  }catch(e){el.innerHTML="<div class=\"empty\">Errore.</div>";}
 }
 
-async function delNotif(id,el){
-  if(!confirm('Eliminare?'))return;
-  await sbDel('/rest/v1/notifications?id=eq.'+id);
-  el.remove();
-}
-
-// NUOVO NUMERO
-document.getElementById('nu-gen-btn').onclick = function(){ genCod(); document.getElementById('nu-code').value=document.getElementById('cod-val').textContent; };
-document.getElementById('gen-btn').onclick = genUrl;
-['nu-title','nu-sub','nu-cover','nu-code','nu-pages'].forEach(function(id){
-  var el=document.getElementById(id);
-  if(el) el.oninput=updatePrev;
-});
+// --- NUOVO NUMERO ---
+document.getElementById("nu-gen-btn").onclick=function(){genCod();document.getElementById("nu-code").value=document.getElementById("cod-val").textContent;};
+document.getElementById("gen-btn").onclick=genUrl;
+["nu-title","nu-sub","nu-cover","nu-code","nu-pages"].forEach(function(id){var el=document.getElementById(id);if(el)el.oninput=updatePrev;});
 
 function genUrl(){
-  var base=document.getElementById('gen-base').value.trim();
-  var cnt=parseInt(document.getElementById('gen-count').value)||0;
-  var fmt=document.getElementById('gen-fmt').value.trim()||'{n}.jpg';
-  if(!base||!cnt){alert('Inserisci URL base e numero pagine.');return;}
-  if(!base.endsWith('/')) base+='/';
-  var urls=[];
-  for(var i=1;i<=cnt;i++) urls.push(base+fmt.replace('{n}',i));
-  document.getElementById('nu-pages').value=urls.join(String.fromCharCode(10));
+  var base=document.getElementById("gen-base").value.trim();
+  var cnt=parseInt(document.getElementById("gen-count").value)||0;
+  var fmt=document.getElementById("gen-fmt").value.trim()||"{n}.jpg";
+  if(!base||!cnt){alert("Inserisci URL base e numero pagine.");return;}
+  if(!base.endsWith("/"))base+="/";
+  var urls=[];for(var i=1;i<=cnt;i++)urls.push(base+fmt.replace("{n}",i));
+  document.getElementById("nu-pages").value=urls.join(NL);
   updatePrev();
 }
 
 function updatePrev(){
-  var t=document.getElementById('nu-title').value.trim();
-  var s=document.getElementById('nu-sub').value.trim();
-  var c=document.getElementById('nu-cover').value.trim();
-  var k=document.getElementById('nu-code').value.trim();
-  var pg=document.getElementById('nu-pages').value.trim().split(String.fromCharCode(10)).filter(function(l){return l.trim();});
-  var prev=document.getElementById('nu-prev');
+  var t=document.getElementById("nu-title").value.trim();
+  var s=document.getElementById("nu-sub").value.trim();
+  var c=document.getElementById("nu-cover").value.trim();
+  var k=document.getElementById("nu-code").value.trim();
+  var pg=document.getElementById("nu-pages").value.trim().split(NL).filter(function(l){return l.trim();});
+  var prev=document.getElementById("nu-prev");
   if(t||c){
-    prev.style.display='block';
-    document.getElementById('nu-prev-img').src=c||'';
-    document.getElementById('nu-prev-title').textContent=t;
-    document.getElementById('nu-prev-sub').textContent=s;
-    document.getElementById('nu-prev-info').textContent=pg.length+' pagine'+(k?' · Codice: '+k:'');
-  } else {
-    prev.style.display='none';
-  }
+    prev.style.display="block";
+    document.getElementById("nu-prev-img").src=c||"";
+    document.getElementById("nu-prev-title").textContent=t;
+    document.getElementById("nu-prev-sub").textContent=s;
+    document.getElementById("nu-prev-info").textContent=pg.length+" pagine"+(k?" \u00b7 Codice: "+k:"");
+  }else{prev.style.display="none";}
 }
 
-document.getElementById('nu-pubblica-btn').onclick = async function(){
-  var t=document.getElementById('nu-title').value.trim();
-  var s=document.getElementById('nu-sub').value.trim();
-  var c=document.getElementById('nu-cover').value.trim();
-  var buy=document.getElementById('nu-buy').value.trim();
-  var k=document.getElementById('nu-code').value.trim();
-  var anno=parseInt(document.getElementById('nu-anno').value)||2026;
-  var ord=parseInt(document.getElementById('nu-order').value)||100;
-  var latest=document.getElementById('nu-latest').checked;
-  var pgs=document.getElementById('nu-pages').value.trim().split(String.fromCharCode(10)).map(function(l){return l.trim();}).filter(function(l){return l;});
-  if(!t){showRes('nu-res','Inserisci il titolo.','err');return;}
-  if(!k){showRes('nu-res','Inserisci il codice.','err');return;}
-  if(!pgs.length){showRes('nu-res','Inserisci le pagine.','err');return;}
-  var btn=document.getElementById('nu-pubblica-btn');
-  btn.disabled=true; btn.textContent='Pubblicazione...';
+document.getElementById("nu-pubblica-btn").onclick=async function(){
+  var t=document.getElementById("nu-title").value.trim();
+  var s=document.getElementById("nu-sub").value.trim();
+  var c=document.getElementById("nu-cover").value.trim();
+  var buy=document.getElementById("nu-buy").value.trim();
+  var k=document.getElementById("nu-code").value.trim();
+  var anno=parseInt(document.getElementById("nu-anno").value)||2026;
+  var latest=document.getElementById("nu-latest").checked;
+  var pgs=document.getElementById("nu-pages").value.trim().split(NL).map(function(l){return l.trim();}).filter(function(l){return l;});
+  if(!t){showRes("nu-res","Inserisci il titolo.","err");return;}
+  if(!k){showRes("nu-res","Inserisci il codice.","err");return;}
+  if(!pgs.length){showRes("nu-res","Inserisci le pagine.","err");return;}
+  var btn=document.getElementById("nu-pubblica-btn");
+  btn.disabled=true;btn.textContent="Pubblicazione...";
   try{
-    if(latest) await sbPatch('/rest/v1/issues?is_latest=eq.true',{is_latest:false});
-    // Auto sort_order: prendi il massimo esistente + 1
-    try{
-      var maxR=await sbGet('/rest/v1/issues?select=sort_order&order=sort_order.desc&limit=1');
-      if(maxR&&maxR.length) ord=Math.max(ord,(maxR[0].sort_order||0)+1);
-    }catch(e2){}
+    if(latest)await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
+    var maxR=await sbGet("/rest/v1/issues?select=sort_order&order=sort_order.desc&limit=1");
+    var ord=(maxR&&maxR.length?(maxR[0].sort_order||0):0)+1;
     var payload={title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno,sort_order:ord};
-    var r=await sbPost('/rest/v1/issues',payload);
+    var r=await sbPost("/rest/v1/issues",payload);
     if(r.ok){
-      showRes('nu-res','Numero pubblicato! Appare automaticamente sul sito.','ok');
-      ['nu-title','nu-sub','nu-cover','nu-buy','nu-code','nu-pages'].forEach(function(id){ document.getElementById(id).value=''; });
-      document.getElementById('nu-latest').checked=false;
-      document.getElementById('nu-prev').style.display='none';
-    } else {
-      var d=await r.json().catch(function(){return{};});
-      showRes('nu-res','Errore: '+JSON.stringify(d),'err');
-    }
-  }catch(e){showRes('nu-res','Errore: '+e.message,'err');}
-  btn.disabled=false; btn.textContent='\u{1F680} Pubblica numero sul sito';
+      showRes("nu-res","Numero pubblicato! Appare automaticamente sul sito.","ok");
+      ["nu-title","nu-sub","nu-cover","nu-buy","nu-code","nu-pages"].forEach(function(id){document.getElementById(id).value="";});
+      document.getElementById("nu-latest").checked=false;
+      document.getElementById("nu-prev").style.display="none";
+    }else{var d=await r.json().catch(function(){return{};});showRes("nu-res","Errore: "+JSON.stringify(d),"err");}
+  }catch(e){showRes("nu-res","Errore: "+e.message,"err");}
+  btn.disabled=false;btn.textContent="\u{1F680} Pubblica numero sul sito";
 };
 
-// NUMERI
-document.getElementById('f-tutti').onclick=function(){ filtroAnno='tutti'; setFBtn('tutti'); renderNum(window._numeri||[]); };
-document.getElementById('f-2026').onclick=function(){ filtroAnno='2026'; setFBtn('2026'); renderNum(window._numeri||[]); };
-document.getElementById('f-2025').onclick=function(){ filtroAnno='2025'; setFBtn('2025'); renderNum(window._numeri||[]); };
+// --- NUMERI ---
+document.getElementById("f-tutti").onclick=function(){filtroAnno="tutti";setFBtn("tutti");if(window._numeri)renderNum(window._numeri);};
+document.getElementById("f-2026").onclick=function(){filtroAnno="2026";setFBtn("2026");if(window._numeri)renderNum(window._numeri);};
+document.getElementById("f-2025").onclick=function(){filtroAnno="2025";setFBtn("2025");if(window._numeri)renderNum(window._numeri);};
 
 function setFBtn(a){
-  ['tutti','2026','2025'].forEach(function(x){
-    var b=document.getElementById('f-'+x);
-    b.className=x===a?'btn btn-sm':'ghost btn-sm';
+  ["tutti","2026","2025"].forEach(function(x){
+    var b=document.getElementById("f-"+x);
+    b.className=x===a?"btn btn-sm":"ghost btn-sm";
   });
 }
 
 async function loadNumeri(){
-  var tbody=document.getElementById('num-body');
-  tbody.innerHTML='<tr><td colspan="5" class="empty">Caricamento...</td></tr>';
+  var tbody=document.getElementById("num-body");
+  tbody.innerHTML="<tr><td colspan=\"5\" class=\"empty\">Caricamento...</td></tr>";
+  var issues=[];
+  var seen={};
   try{
-    var r=await fetch('https://grandangolosettimanale.it/',{cache:'no-store'});
-    var h=await r.text();
-    var m=h.match(/window\.issues\s*=\s*(\[[\s\S]*?\]);/);
-    var issues=[];
-    if(m){
-      var parsed=Function('"use strict"; return '+m[1])();
-      var seen={};
-      parsed.forEach(function(i){
-        if(i.unlockCode&&!seen[i.unlockCode]){
-          seen[i.unlockCode]=1;
-          issues.push(i);
-        }
-      });
-    }
-    // Aggiungi da Supabase
-    var sb=await sbGet('/rest/v1/issues?order=sort_order.desc,created_at.desc');
+    // Da Supabase (prima, con ID per modifica/elimina)
+    var sb=await sbGet("/rest/v1/issues?order=sort_order.desc,created_at.desc");
     if(sb&&sb.length){
       sb.forEach(function(r){
         if(r.unlock_code&&!seen[r.unlock_code]){
           seen[r.unlock_code]=1;
-          issues.push({title:r.title,subtitle:r.subtitle,cover:r.cover_url,unlockCode:r.unlock_code,buyUrl:r.buy_url,pages:r.pages,anno:r.anno,isLatest:r.is_latest,_sbId:r.id});
+          issues.push({title:r.title,subtitle:r.subtitle||"",cover:r.cover_url||"",buyUrl:r.buy_url||"",unlockCode:r.unlock_code,pages:r.pages||[],anno:r.anno||2026,isLatest:r.is_latest||false,sbId:r.id});
         }
       });
     }
-    // Codici speciali
-    issues.push({title:'Bundle 4 numeri (N.9-12/2026)',subtitle:'Offerta speciale',cover:'',unlockCode:'GR22-PRM-11e65/t\u00a3J'});
-    issues.push({title:'Abbonamento PREMIUM 2026',subtitle:'Tutti i numeri',cover:'',unlockCode:'GR22-PREMIUM(SJjA?$\u00a3-AaX'});
-    window._numeri=issues;
-    renderNum(issues);
-  }catch(e){
-    tbody.innerHTML='<tr><td colspan="5" class="empty">Errore: '+e.message+'</td></tr>';
-  }
+  }catch(e){}
+  try{
+    // Dal sito principale (senza ID)
+    var res=await fetch("https://grandangolosettimanale.it/",{cache:"no-store"});
+    var h=await res.text();
+    var m=h.match(/window\.issues\s*=\s*(\[[\s\S]*?\]);/);
+    if(m){
+      var parsed=Function('"use strict"; return '+m[1])();
+      parsed.forEach(function(i){
+        if(i.unlockCode&&!seen[i.unlockCode]){
+          seen[i.unlockCode]=1;
+          issues.push({title:i.title,subtitle:i.subtitle||"",cover:i.cover||"",unlockCode:i.unlockCode,sbId:null});
+        }
+      });
+    }
+  }catch(e){}
+  // Codici speciali
+  ["GR22-PRM-11e65/t\u00a3J","GR22-PREMIUM(SJjA?$\u00a3-AaX"].forEach(function(k,i){
+    if(!seen[k]){seen[k]=1;issues.push({title:i===0?"Bundle 4 numeri":"Abbonamento PREMIUM 2026",subtitle:"Offerta speciale",cover:"",unlockCode:k,sbId:null});}
+  });
+  window._numeri=issues;
+  renderNum(issues);
 }
 
 function renderNum(issues){
-  var tbody=document.getElementById('num-body');
+  var tbody=document.getElementById("num-body");
   var filtered=issues.filter(function(i){
-    if(filtroAnno==='tutti')return true;
+    if(filtroAnno==="tutti")return true;
     return i.subtitle&&i.subtitle.indexOf(filtroAnno)!==-1;
   });
-  if(!filtered.length){tbody.innerHTML='<tr><td colspan="5" class="empty">Nessun numero.</td></tr>';return;}
-  tbody.innerHTML='';
+  if(!filtered.length){tbody.innerHTML="<tr><td colspan=\"5\" class=\"empty\">Nessun numero.</td></tr>";return;}
+  tbody.innerHTML="";
   filtered.forEach(function(issue){
-    var tr=document.createElement('tr');
-    var cv=issue.cover?'<img src="'+issue.cover+'" style="width:32px;height:44px;border-radius:4px;object-fit:cover;display:block" onerror="this.style.display=\'none\'">':'';
-    tr.innerHTML='<td>'+cv+'</td><td style="font-weight:600">'+issue.title+'</td><td style="color:rgba(255,255,255,0.5);font-size:12px">'+(issue.subtitle||'')+'</td><td><code style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:12px;color:#8fffc1;font-family:monospace">'+issue.unlockCode+'</code></td><td></td>';
-    var btns=tr.querySelector('td:last-child');
-    btns.style.cssText='display:flex;gap:6px;align-items:center;flex-wrap:wrap';
-    // COPIA
-    var btnC=document.createElement('button');
-    btnC.className='ghost btn-sm';
-    btnC.style.cssText='border-color:rgba(0,166,81,0.3);color:#8fffc1;background:rgba(0,166,81,0.08);white-space:nowrap';
-    btnC.textContent='Copia codice';
-    var cod=issue.unlockCode;
-    btnC.onclick=function(){ navigator.clipboard.writeText(cod).then(function(){ btnC.textContent='Copiato!'; setTimeout(function(){btnC.textContent='Copia codice';},2000); }); };
-    btns.appendChild(btnC);
-    // MODIFICA (solo numeri Supabase)
-    if(issue._sbId){
-      var btnE=document.createElement('button');
-      btnE.className='ghost btn-sm';
-      btnE.style.cssText='border-color:rgba(100,150,255,0.3);color:#a0b8ff;background:rgba(100,150,255,0.08);white-space:nowrap';
-      btnE.textContent='&#9998; Modifica';
-      btnE.onclick=function(){ openModal(issue); };
-      btns.appendChild(btnE);
-      // ELIMINA
-      var btnD=document.createElement('button');
-      btnD.className='del-btn btn-sm';
-      btnD.style.cssText='white-space:nowrap';
-      btnD.textContent='Elimina';
-      btnD.onclick=function(){ delNumero(issue._sbId, tr); };
-      btns.appendChild(btnD);
+    var tr=document.createElement("tr");
+    var cv=issue.cover?"<img src=\""+issue.cover+"\" style=\"width:32px;height:44px;border-radius:4px;object-fit:cover;display:block\" onerror=\"this.style.display='none'\">":"";
+    tr.innerHTML="<td>"+cv+"</td><td style=\"font-weight:600\">"+issue.title+"</td><td style=\"color:rgba(255,255,255,0.5);font-size:12px\">"+(issue.subtitle||"")+"</td><td><code style=\"background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;font-size:12px;color:#8fffc1;font-family:monospace\">"+issue.unlockCode+"</code></td><td style=\"display:flex;gap:6px;flex-wrap:wrap\"></td>";
+    var btns=tr.querySelector("td:last-child");
+    // Copia
+    var bc=document.createElement("button");bc.className="ghost btn-sm";bc.style.cssText="border-color:rgba(0,166,81,0.3);color:#8fffc1;background:rgba(0,166,81,0.08)";bc.textContent="Copia";
+    bc.onclick=function(){navigator.clipboard.writeText(issue.unlockCode).then(function(){bc.textContent="Copiato!";setTimeout(function(){bc.textContent="Copia";},2000);});};
+    btns.appendChild(bc);
+    // Modifica ed Elimina solo per numeri Supabase
+    if(issue.sbId){
+      var be=document.createElement("button");be.className="ghost btn-sm";be.style.cssText="border-color:rgba(100,150,255,0.3);color:#a0b8ff;background:rgba(100,150,255,0.08)";be.textContent="\u270E Modifica";
+      be.onclick=function(){openModal(issue);};
+      btns.appendChild(be);
+      var bd=document.createElement("button");bd.className="del-btn btn-sm";bd.textContent="Elimina";
+      bd.onclick=function(){
+        if(confirm("Eliminare questo numero?"))
+          sbDel("/rest/v1/issues?id=eq."+issue.sbId).then(function(r){if(r.ok){tr.remove();}else{alert("Errore eliminazione");}});
+      };
+      btns.appendChild(bd);
     }
     tbody.appendChild(tr);
   });
 }
 
-// UTENTI
-document.getElementById('u-check-all').onchange=function(){
-  document.querySelectorAll('.uch').forEach(function(c){c.checked=document.getElementById('u-check-all').checked;});
-  updSel();
-};
-document.getElementById('u-sel-all-btn').onclick=function(){
-  var checks=document.querySelectorAll('.uch');
-  var all=Array.from(checks).every(function(c){return c.checked;});
-  checks.forEach(function(c){c.checked=!all;});
-  document.getElementById('u-check-all').checked=!all;
-  updSel();
-};
-document.getElementById('u-copy-btn').onclick=function(){
-  var sel=document.querySelectorAll('.uch:checked');
-  if(!sel.length){alert('Seleziona almeno un utente.');return;}
-  var emails=Array.from(sel).map(function(c){return c.value;}).join(', ');
-  navigator.clipboard.writeText(emails).then(function(){
-    document.getElementById('u-copy-btn').textContent='Copiate!';
-    setTimeout(function(){document.getElementById('u-copy-btn').textContent='Copia selezionate';},2000);
-  });
-};
-document.getElementById('u-refresh-btn').onclick=loadDati;
-document.getElementById('u-search').oninput=function(){ renderU(this.value); };
-
-function updSel(){
-  var n=document.querySelectorAll('.uch:checked').length;
-  document.getElementById('u-sel-label').textContent=n>0?n+' selezionati':'';
+// --- MODAL MODIFICA ---
+function openModal(issue){
+  editId=issue.sbId;
+  document.getElementById("m-title").value=issue.title||"";
+  document.getElementById("m-sub").value=issue.subtitle||"";
+  document.getElementById("m-anno").value=issue.anno||2026;
+  document.getElementById("m-cover").value=issue.cover||"";
+  document.getElementById("m-buy").value=issue.buyUrl||"";
+  document.getElementById("m-code").value=issue.unlockCode||"";
+  document.getElementById("m-pages").value=(issue.pages||[]).join(NL);
+  document.getElementById("m-latest").checked=issue.isLatest||false;
+  document.getElementById("m-res").className="res";
+  document.getElementById("modal-overlay").style.display="flex";
 }
+function closeModal(){document.getElementById("modal-overlay").style.display="none";editId=null;}
+document.getElementById("modal-close").onclick=closeModal;
+document.getElementById("modal-cancel-btn").onclick=closeModal;
+document.getElementById("modal-overlay").onclick=function(e){if(e.target===this)closeModal();};
+document.getElementById("modal-save-btn").onclick=async function(){
+  if(!editId)return;
+  var t=document.getElementById("m-title").value.trim();
+  var s=document.getElementById("m-sub").value.trim();
+  var c=document.getElementById("m-cover").value.trim();
+  var buy=document.getElementById("m-buy").value.trim();
+  var k=document.getElementById("m-code").value.trim();
+  var anno=parseInt(document.getElementById("m-anno").value)||2026;
+  var latest=document.getElementById("m-latest").checked;
+  var pgs=document.getElementById("m-pages").value.trim().split(NL).map(function(l){return l.trim();}).filter(function(l){return l;});
+  if(!t||!k){showRes("m-res","Inserisci titolo e codice.","err");return;}
+  var btn=document.getElementById("modal-save-btn");btn.disabled=true;btn.textContent="Salvataggio...";
+  try{
+    if(latest)await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
+    var r=await sbPatch("/rest/v1/issues?id=eq."+editId,{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno});
+    if(r.ok){showRes("m-res","Salvato!","ok");setTimeout(function(){closeModal();loadNumeri();},800);}
+    else{var d=await r.json().catch(function(){return{};});showRes("m-res","Errore: "+JSON.stringify(d),"err");}
+  }catch(e){showRes("m-res","Errore: "+e.message,"err");}
+  btn.disabled=false;btn.textContent="Salva modifiche";
+};
 
+// --- UTENTI ---
+document.getElementById("u-check-all").onchange=function(){document.querySelectorAll(".uch").forEach(function(c){c.checked=this.checked;},this);updSel();};
+document.getElementById("u-sel-all-btn").onclick=function(){var checks=document.querySelectorAll(".uch");var all=Array.from(checks).every(function(c){return c.checked;});checks.forEach(function(c){c.checked=!all;});document.getElementById("u-check-all").checked=!all;updSel();};
+document.getElementById("u-copy-btn").onclick=function(){
+  var sel=document.querySelectorAll(".uch:checked");
+  if(!sel.length){alert("Seleziona almeno un utente.");return;}
+  var emails=Array.from(sel).map(function(c){return c.value;}).join(", ");
+  navigator.clipboard.writeText(emails).then(function(){document.getElementById("u-copy-btn").textContent="Copiate!";setTimeout(function(){document.getElementById("u-copy-btn").textContent="Copia selezionate";},2000);});
+};
+document.getElementById("u-refresh-btn").onclick=loadDati;
+document.getElementById("u-search").oninput=function(){renderU(this.value);};
+function updSel(){var n=document.querySelectorAll(".uch:checked").length;document.getElementById("u-sel-label").textContent=n>0?n+" selezionati":"";}
 function renderU(filtro){
-  var tbody=document.getElementById('u-body');
+  var tbody=document.getElementById("u-body");
   var pm={};prefs.forEach(function(p){pm[p.user_id]=p.data;});
   var cm={};codes.forEach(function(c){if(!cm[c.user_id])cm[c.user_id]=[];cm[c.user_id].push(c.type);});
   var filtered=users.filter(function(u){return !filtro||u.email.toLowerCase().indexOf(filtro.toLowerCase())!==-1;});
-  if(!filtered.length){tbody.innerHTML='<tr><td colspan="6" class="empty">Nessun utente.</td></tr>';return;}
-  var now=Date.now();
-  tbody.innerHTML='';
+  if(!filtered.length){tbody.innerHTML="<tr><td colspan=\"6\" class=\"empty\">Nessun utente.</td></tr>";return;}
+  var now=Date.now();tbody.innerHTML="";
   filtered.forEach(function(u){
     var cs=cm[u.id]||[];
-    var ip=cs.indexOf('premium')!==-1, ib=cs.indexOf('bundle')!==-1;
-    var tipo=ip?'<span class="badge badge-p">&#9733; Premium</span>':ib?'<span class="badge badge-b">Bundle</span>':'<span class="badge badge-f">Free</span>';
-    var p=pm[u.id];
-    var notif=(!p||p.nuova_uscita!==false)?'&#9989;':'&mdash;';
-    var d=new Date(u.created_at).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric'});
+    var ip=cs.indexOf("premium")!==-1,ib=cs.indexOf("bundle")!==-1;
+    var tipo=ip?"<span class=\"badge badge-p\">\u2605 Premium</span>":ib?"<span class=\"badge badge-b\">Bundle</span>":"<span class=\"badge badge-f\">Free</span>";
+    var p=pm[u.id];var notif=(!p||p.nuova_uscita!==false)?"\u2705":"&mdash;";
+    var d=new Date(u.created_at).toLocaleDateString("it-IT",{day:"2-digit",month:"2-digit",year:"numeric"});
     var isN=(now-new Date(u.created_at))<86400000*7;
-    var tr=document.createElement('tr');
-    var email=u.email;
-    tr.innerHTML='<td><input type="checkbox" class="uch" value="'+email+'" style="width:15px;height:15px;accent-color:#00a651;cursor:pointer"></td><td style="font-weight:500">'+email+(isN?' <span class="badge badge-n">NUOVO</span>':'')+'</td><td>'+tipo+'</td><td style="color:rgba(255,255,255,0.5);font-size:12px">'+d+'</td><td style="text-align:center">'+notif+'</td><td></td>';
-    var cb=document.createElement('button');
-    cb.className='ghost btn-sm';
-    cb.textContent='&#128203;';
-    cb.title='Copia email';
-    cb.onclick=function(){ navigator.clipboard.writeText(email).then(function(){ cb.textContent='&#10003;'; setTimeout(function(){cb.textContent='&#128203;';},2000); }); };
-    tr.querySelector('td:last-child').appendChild(cb);
-    tr.querySelector('.uch').onchange=updSel;
+    var tr=document.createElement("tr");var email=u.email;
+    tr.innerHTML="<td><input type=\"checkbox\" class=\"uch\" value=\""+email+"\" style=\"width:15px;height:15px;accent-color:#00a651;cursor:pointer\"></td><td style=\"font-weight:500\">"+email+(isN?" <span class=\"badge badge-n\">NUOVO</span>":"")+"</td><td>"+tipo+"</td><td style=\"color:rgba(255,255,255,0.5);font-size:12px\">"+d+"</td><td style=\"text-align:center\">"+notif+"</td><td></td>";
+    var cb=document.createElement("button");cb.className="ghost btn-sm";cb.textContent="\u{1F4CB}";cb.title="Copia email";
+    cb.onclick=function(){navigator.clipboard.writeText(email).then(function(){cb.textContent="\u2713";setTimeout(function(){cb.textContent="\u{1F4CB}";},2000);});};
+    tr.querySelector("td:last-child").appendChild(cb);
+    tr.querySelector(".uch").onchange=updSel;
     tbody.appendChild(tr);
   });
 }
 
-// GENERA CODICE
-document.getElementById('cod-gen-btn').onclick=genCod;
-document.getElementById('cod-copy-btn').onclick=function(){
-  var v=document.getElementById('cod-val').textContent;
-  if(v==='-')return;
-  navigator.clipboard.writeText(v).then(function(){
-    document.getElementById('cod-copy-btn').textContent='Copiato!';
-    setTimeout(function(){document.getElementById('cod-copy-btn').textContent='\u{1F4CB} Copia';},2000);
-  });
+// --- GENERA CODICE ---
+document.getElementById("cod-gen-btn").onclick=genCod;
+document.getElementById("cod-copy-btn").onclick=function(){
+  var v=document.getElementById("cod-val").textContent;if(v==="-")return;
+  navigator.clipboard.writeText(v).then(function(){document.getElementById("cod-copy-btn").textContent="Copiato!";setTimeout(function(){document.getElementById("cod-copy-btn").textContent="\u{1F4CB} Copia";},2000);});
 };
-document.getElementById('cod-custom-toggle').onclick=function(){
-  var el=document.getElementById('cod-custom');
-  el.style.display=el.style.display==='none'?'block':'none';
-};
-document.getElementById('cod-len').oninput=function(){ document.getElementById('cod-len-val').textContent=this.value; };
-
+document.getElementById("cod-custom-toggle").onclick=function(){var el=document.getElementById("cod-custom");el.style.display=el.style.display==="none"?"block":"none";};
+document.getElementById("cod-len").oninput=function(){document.getElementById("cod-len-val").textContent=this.value;};
 function genCod(){
-  var prefix=document.getElementById('cod-prefix').value.trim()||'GR22';
-  var len=parseInt(document.getElementById('cod-len').value)||12;
-  var p='';
+  var prefix=document.getElementById("cod-prefix").value.trim()||"GR22";
+  var len=parseInt(document.getElementById("cod-len").value)||12;
+  var p="";
   p+=LETT[Math.floor(Math.random()*LETT.length)];
   p+=NUMS[Math.floor(Math.random()*NUMS.length)];
   p+=SPEC[Math.floor(Math.random()*SPEC.length)];
-  for(var i=3;i<len;i++) p+=ALL[Math.floor(Math.random()*ALL.length)];
-  p=p.split('').sort(function(){return Math.random()-.5;}).join('');
-  var cod=prefix+'-'+p;
-  document.getElementById('cod-val').textContent=cod;
-  storicoGen.unshift({c:cod,t:new Date().toLocaleTimeString('it-IT')});
+  for(var i=3;i<len;i++)p+=ALL[Math.floor(Math.random()*ALL.length)];
+  p=p.split("").sort(function(){return Math.random()-.5;}).join("");
+  var cod=prefix+"-"+p;
+  document.getElementById("cod-val").textContent=cod;
+  storicoGen.unshift({c:cod,t:new Date().toLocaleTimeString("it-IT")});
   renderStor();
 }
-
 function renderStor(){
-  var el=document.getElementById('cod-stor');
-  if(!storicoGen.length){el.innerHTML='<div class="empty">Nessun codice.</div>';return;}
-  el.innerHTML='';
+  var el=document.getElementById("cod-stor");
+  if(!storicoGen.length){el.innerHTML="<div class=\"empty\">Nessun codice.</div>";return;}
+  el.innerHTML="";
   storicoGen.slice(0,10).forEach(function(item,i){
-    var row=document.createElement('div');
-    row.className='stor-row';
-    row.innerHTML='<div><code style="font-family:monospace;font-size:14px;color:'+(i===0?'#8fffc1':'rgba(255,255,255,0.6)')+';font-weight:'+(i===0?700:400)+'">'+item.c+'</code><span style="font-size:11px;color:rgba(255,255,255,0.25);margin-left:10px">'+item.t+'</span>'+(i===0?' <span class="badge badge-n">ULTIMO</span>':'')+'</div>';
-    var btn=document.createElement('button');
-    btn.className='ghost btn-sm';
-    btn.textContent='&#128203;';
-    var cod=item.c;
-    btn.onclick=function(){ navigator.clipboard.writeText(cod).then(function(){ btn.textContent='&#10003;'; setTimeout(function(){btn.textContent='&#128203;';},2000); }); };
-    row.appendChild(btn);
-    el.appendChild(row);
+    var row=document.createElement("div");row.className="stor-row";
+    row.innerHTML="<div><code style=\"font-family:monospace;font-size:14px;color:"+(i===0?"#8fffc1":"rgba(255,255,255,0.6)")+";font-weight:"+(i===0?700:400)+"\">"+item.c+"</code><span style=\"font-size:11px;color:rgba(255,255,255,0.25);margin-left:10px\">"+item.t+"</span>"+(i===0?" <span class=\"badge badge-n\">ULTIMO</span>":"")+"</div>";
+    var btn=document.createElement("button");btn.className="ghost btn-sm";btn.textContent="\u{1F4CB}";var cod=item.c;
+    btn.onclick=function(){navigator.clipboard.writeText(cod).then(function(){btn.textContent="\u2713";setTimeout(function(){btn.textContent="\u{1F4CB}";},2000);});};
+    row.appendChild(btn);el.appendChild(row);
   });
 }
 
-// MODAL MODIFICA
-var _editId = null;
+// --- UTILS ---
+function showRes(id,text,type){var el=document.getElementById(id);el.textContent=text;el.className="res "+type;}
 
-function openModal(issue){
-  _editId = issue._sbId;
-  document.getElementById('m-title').value = issue.title||'';
-  document.getElementById('m-sub').value = issue.subtitle||'';
-  document.getElementById('m-anno').value = issue.anno||2026;
-  document.getElementById('m-cover').value = issue.cover||'';
-  document.getElementById('m-buy').value = issue.buyUrl||'';
-  document.getElementById('m-code').value = issue.unlockCode||'';
-  document.getElementById('m-pages').value = (issue.pages||[]).join(String.fromCharCode(10));
-  document.getElementById('m-latest').checked = issue.isLatest||false;
-  document.getElementById('m-res').className='res';
-  var ov=document.getElementById('modal-overlay');
-  ov.style.display='flex';
-}
-
-function closeModal(){
-  document.getElementById('modal-overlay').style.display='none';
-  _editId=null;
-}
-
-document.getElementById('modal-close').onclick=closeModal;
-document.getElementById('modal-cancel-btn').onclick=closeModal;
-document.getElementById('modal-overlay').onclick=function(e){ if(e.target===this) closeModal(); };
-
-document.getElementById('modal-save-btn').onclick=async function(){
-  if(!_editId) return;
-  var t=document.getElementById('m-title').value.trim();
-  var s=document.getElementById('m-sub').value.trim();
-  var c=document.getElementById('m-cover').value.trim();
-  var buy=document.getElementById('m-buy').value.trim();
-  var k=document.getElementById('m-code').value.trim();
-  var anno=parseInt(document.getElementById('m-anno').value)||2026;
-  var latest=document.getElementById('m-latest').checked;
-  var pgs=document.getElementById('m-pages').value.trim().split(String.fromCharCode(10)).map(function(l){return l.trim();}).filter(function(l){return l;});
-  if(!t||!k){showRes('m-res','Inserisci titolo e codice.','err');return;}
-  var btn=document.getElementById('modal-save-btn');
-  btn.disabled=true; btn.textContent='Salvataggio...';
-  try{
-    if(latest) await sbPatch('/rest/v1/issues?is_latest=eq.true',{is_latest:false});
-    var r=await sbPatch('/rest/v1/issues?id=eq.'+_editId,{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno});
-    if(r.ok){
-      showRes('m-res','Modifiche salvate!','ok');
-      setTimeout(function(){ closeModal(); loadNumeri(); },1000);
-    } else {
-      var d=await r.json().catch(function(){return{};});
-      showRes('m-res','Errore: '+JSON.stringify(d),'err');
-    }
-  }catch(e){showRes('m-res','Errore: '+e.message,'err');}
-  btn.disabled=false; btn.textContent='Salva modifiche';
-};
-
-async function delNumero(id, tr){
-  if(!confirm('Eliminare questo numero? Azione non reversibile.')) return;
-  try{
-    var r=await sbDel('/rest/v1/issues?id=eq.'+id);
-    if(r.ok){ tr.remove(); }
-    else { alert('Errore durante eliminazione.'); }
-  }catch(e){ alert('Errore: '+e.message); }
-}
-
-// UTILS
-function showRes(id,text,type){
-  var el=document.getElementById(id);
-  el.textContent=text;
-  el.className='res '+type;
-}
 }); // end DOMContentLoaded
 </script>
+
 <!-- MODAL MODIFICA -->
 <div id="modal-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:9000;align-items:center;justify-content:center;padding:20px">
   <div style="background:#0d0d18;border:1px solid rgba(255,255,255,0.1);border-radius:16px;width:min(620px,100%);max-height:90vh;overflow-y:auto;padding:24px">
