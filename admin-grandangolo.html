@@ -100,7 +100,22 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
 .modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .modal-title{font-size:16px;font-weight:700}
 .modal-x{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;cursor:pointer;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center}
-@media(max-width:768px){.sb{display:none}.main{margin-left:0;padding:16px}.stats{grid-template-columns:1fr 1fr}.row2{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .sb{display:none}
+  .main{margin-left:0;padding:12px}
+  .stats{grid-template-columns:1fr 1fr;gap:10px}
+  .row2{grid-template-columns:1fr}
+  .pg-title{font-size:18px}
+  .card{padding:14px}
+  .tbl th,.tbl td{padding:8px 8px;font-size:11px}
+  #pg-login{padding:0 16px;margin:60px auto}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr 1fr;gap:8px}
+  .stat{padding:12px}
+  .stat-n{font-size:22px}
+  #pg-dashboard>[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+}
 </style>
 </head>
 <body>
@@ -109,8 +124,9 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
   <div class="lg-logo"><img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo"></div>
   <div class="lg-title">Area Admin</div>
   <div class="lg-sub">Accesso riservato alla redazione.</div>
-  <div class="lg-err" id="lg-err">Password errata.</div>
-  <div class="f"><label>Password admin</label><input type="password" id="pw" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+  <div class="lg-err" id="lg-err">Credenziali errate.</div>
+  <div class="f"><label>Nome utente</label><input type="text" id="username" placeholder="Nome utente" autocomplete="username"></div>
+  <div class="f"><label>Password admin</label><input type="password" id="pw" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password"></div>
   <button class="btn btn-w" id="login-btn">Accedi &rarr;</button>
 </div>
 
@@ -135,28 +151,60 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="pg on" id="pg-dashboard">
       <div class="pg-title">Dashboard</div>
       <div class="pg-sub">Panoramica generale.</div>
+
+      <!-- STATS -->
       <div class="stats">
         <div class="stat"><div style="font-size:22px;margin-bottom:8px">&#128101;</div><div class="stat-n" id="s-tot">-</div><div class="stat-l">Utenti totali</div></div>
         <div class="stat"><div style="font-size:22px;margin-bottom:8px">&#9733;</div><div class="stat-n" id="s-prem" style="color:#ffe566">-</div><div class="stat-l">Premium</div></div>
         <div class="stat"><div style="font-size:22px;margin-bottom:8px">&#128276;</div><div class="stat-n" id="s-notif">-</div><div class="stat-l">Iscritti notifiche</div></div>
         <div class="stat"><div style="font-size:22px;margin-bottom:8px">&#128240;</div><div class="stat-n" id="s-cod">-</div><div class="stat-l">Codici totali</div></div>
       </div>
+
+      <!-- STRIPE + ANALYTICS AFFIANCATI -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+
+        <!-- STRIPE MINI -->
+        <div class="card" style="padding:0;overflow:hidden">
+          <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between">
+            <div class="card-t">&#128179; Vendite</div>
+            <button class="ghost btn-sm" onclick="document.querySelector('[data-pg=stripe]').click()">Vedi tutto &rarr;</button>
+          </div>
+          <div style="padding:16px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+              <div style="background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.2);border-radius:8px;padding:12px;text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#00a651" id="dash-stripe-total">-</div>
+                <div style="font-size:10px;color:#888;margin-top:2px">Totale</div>
+              </div>
+              <div style="background:rgba(100,150,255,0.06);border:1px solid rgba(100,150,255,0.2);border-radius:8px;padding:12px;text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#a0b8ff" id="dash-stripe-count">-</div>
+                <div style="font-size:10px;color:#888;margin-top:2px">Pagamenti</div>
+              </div>
+            </div>
+            <div id="dash-stripe-list" style="font-size:12px">
+              <div class="empty" style="padding:10px 0">Caricamento...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANALYTICS MINI -->
+        <div class="card" style="padding:0;overflow:hidden">
+          <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between">
+            <div class="card-t">&#128200; Analytics</div>
+            <button class="ghost btn-sm" onclick="document.querySelector('[data-pg=analytics]').click()">Vedi tutto &rarr;</button>
+          </div>
+          <iframe
+            src="https://lookerstudio.google.com/embed/reporting/98f15242-060f-4357-afd8-98ec79c2febb/page/mtntF"
+            style="display:block;width:100%;height:260px;border:none;"
+            allowfullscreen
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- ULTIMI ISCRITTI IN BASSO -->
       <div class="card">
         <div class="card-hdr"><div><div class="card-t">&#127381; Ultimi iscritti</div></div></div>
         <div id="nuovi-list"><div class="empty">Caricamento...</div></div>
-      </div>
-      <!-- ANALYTICS MINI -->
-      <div class="card" style="padding:0;overflow:hidden">
-        <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between">
-          <div class="card-t">📊 Analytics</div>
-          <button class="ghost btn-sm" onclick="document.querySelector('[data-pg=analytics]').click()">Vedi tutto →</button>
-        </div>
-        <iframe
-          src="https://lookerstudio.google.com/embed/reporting/98f15242-060f-4357-afd8-98ec79c2febb/page/mtntF"
-          style="display:block;width:100%;height:320px;border:none;"
-          allowfullscreen
-          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
-        </iframe>
       </div>
     </div>
 
@@ -566,8 +614,9 @@ var NUMS = "23456789", SPEC = "!@#$%&?=+", ALL = LETT + NUMS + SPEC;
 // LOGIN
 document.getElementById("login-btn").onclick = doLogin;
 document.getElementById("pw").onkeydown = function(e) { if (e.key === "Enter") doLogin(); };
+document.getElementById("username").onkeydown = function(e) { if (e.key === "Enter") doLogin(); };
 function doLogin() {
-  if (document.getElementById("pw").value === PW) {
+  if (document.getElementById("pw").value === PW && document.getElementById("username").value === "Regia1") {
     document.getElementById("pg-login").style.display = "none";
     document.getElementById("pg-admin").style.display = "block";
     init();
@@ -600,7 +649,7 @@ document.querySelectorAll(".nav-i").forEach(function(el) {
 
 // SUPABASE HELPERS
 function init() {
-  loadDati(); loadNotif(); loadCustomBundles();
+  loadDati(); loadNotif(); loadCustomBundles(); loadDashStripe();
   // Inizializza codici speciali nella sezione Numeri
   var pcd = document.getElementById('premium-code-display');
   var bcd = document.getElementById('promo-code-display');
@@ -1239,11 +1288,42 @@ async function loadCustomBundles() {
   // ── STRIPE ══════════════════════════════════════════════════════
   document.getElementById('stripe-refresh-btn').onclick = loadStripe;
 
+  async function loadDashStripe() {
+    try {
+      var r = await fetch(SB + '/functions/v1/swift-processor', {
+        method: 'POST',
+        headers: { 'apikey': SK, 'Authorization': 'Bearer ' + SK, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ endpoint: 'charges', params: { limit: '10' } })
+      });
+      var data = await r.json();
+      if (!data.data) return;
+      var charges = data.data.filter(function(c){ return c.paid; });
+      var total = charges.reduce(function(s,c){ return s + c.amount; }, 0);
+      document.getElementById('dash-stripe-total').textContent = '€ ' + (total/100).toFixed(2);
+      document.getElementById('dash-stripe-count').textContent = charges.length;
+      var list = document.getElementById('dash-stripe-list');
+      if (!charges.length) { list.innerHTML = '<div class="empty" style="padding:10px 0">Nessun pagamento.</div>'; return; }
+      list.innerHTML = '';
+      charges.slice(0,5).forEach(function(c) {
+        var date = new Date(c.created*1000).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'});
+        var email = (c.billing_details&&c.billing_details.email)||'-';
+        var amount = '€ '+(c.amount/100).toFixed(2);
+        var row = document.createElement('div');
+        row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)';
+        row.innerHTML = '<div style="min-width:0"><div style="font-size:11px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px">'+email+'</div><div style="font-size:10px;color:#888">'+date+'</div></div><div style="font-size:12px;font-weight:700;color:#8fffc1;flex-shrink:0">'+amount+'</div>';
+        list.appendChild(row);
+      });
+    } catch(e) {
+      var el = document.getElementById('dash-stripe-list');
+      if(el) el.innerHTML = '<div style="font-size:11px;color:#888;padding:8px 0">Non disponibile</div>';
+    }
+  }
+
   async function loadStripe() {
     var tbody = document.getElementById('stripe-body');
     tbody.innerHTML = '<tr><td colspan="5" class="empty">Caricamento...</td></tr>';
     try {
-      var r = await fetch(SB + '/functions/v1/stripe-proxy', {
+      var r = await fetch(SB + '/functions/v1/swift-processor', {
         method: 'POST',
         headers: { 'apikey': SK, 'Authorization': 'Bearer ' + SK, 'Content-Type': 'application/json' },
         body: JSON.stringify({ endpoint: 'charges', params: { limit: '50' } })
