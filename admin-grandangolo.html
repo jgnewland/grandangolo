@@ -234,6 +234,60 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
             <button class="ghost btn-sm" id="f-2025">2025</button>
           </div>
         </div>
+        <!-- CODICI SPECIALI -->
+        <div id="special-codes-box" style="margin-bottom:12px;border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
+          <!-- PREMIUM -->
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,200,50,0.06);border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:20px;flex-shrink:0">★</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:700;color:#ffe566">Abbonamento PREMIUM 2026</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4)">Sblocca tutti i numeri dell&apos;anno</div>
+            </div>
+            <code id="premium-code-display" style="background:rgba(255,200,50,0.08);border:1px solid rgba(255,200,50,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#ffe566;font-family:monospace;flex-shrink:0"></code>
+            <button class="ghost btn-sm" id="copy-premium-btn" style="border-color:rgba(255,200,50,0.3);color:#ffe566;background:rgba(255,200,50,0.08);flex-shrink:0">Copia</button>
+          </div>
+          <!-- BUNDLE PASQUA -->
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(0,166,81,0.04);">
+            <div style="font-size:20px;flex-shrink:0">📦</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:700;color:#8fffc1">Bundle Pasqua &mdash; 6 numeri (N.7&ndash;12/2026)</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4)">Sblocca N.7, N.8, N.9, N.10, N.11, N.12</div>
+            </div>
+            <code id="promo-code-display" style="background:rgba(0,166,81,0.08);border:1px solid rgba(0,166,81,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#8fffc1;font-family:monospace;flex-shrink:0"></code>
+            <button class="ghost btn-sm" id="copy-promo-btn" style="border-color:rgba(0,166,81,0.3);color:#8fffc1;background:rgba(0,166,81,0.08);flex-shrink:0">Copia</button>
+          </div>
+        </div>
+        <!-- BUNDLE PERSONALIZZATI -->
+        <div class="card" style="margin-bottom:16px;border-color:rgba(100,150,255,0.2);background:rgba(100,150,255,0.03)">
+          <div class="card-hdr" style="margin-bottom:12px">
+            <div><div class="card-t">🎁 Bundle personalizzati</div><div class="card-s">Crea codici speciali: Natale, Estate, Omaggio...</div></div>
+            <button class="ghost btn-sm" id="toggle-new-bundle-btn" onclick="toggleNewBundle()">+ Nuovo bundle</button>
+          </div>
+          <!-- Form nuovo bundle (nascosto) -->
+          <div id="new-bundle-form" style="display:none;padding:16px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.08);margin-bottom:16px">
+            <div class="f"><label>Nome bundle (es. Offerta Natale)</label><input type="text" id="nb-nome" placeholder="Es. Offerta Natale 2026"></div>
+            <div class="f"><label>Codice di sblocco</label>
+              <div style="display:flex;gap:8px">
+                <input type="text" id="nb-codice" placeholder="GR22-XXXXX" style="font-family:monospace">
+                <button class="ghost" onclick="genBundleCod()" style="white-space:nowrap;padding:11px 14px;flex-shrink:0">🔑 Genera</button>
+              </div>
+            </div>
+            <div class="f"><label>Seleziona i numeri inclusi nel bundle</label>
+              <div id="nb-numeri-list" style="max-height:220px;overflow-y:auto;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px;background:rgba(0,0,0,0.2)">
+                <div style="font-size:12px;color:#888;padding:8px">Caricamento numeri...</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <button class="btn btn-sm" id="nb-save-btn" onclick="salvaBundlePersonalizzato()">Salva bundle</button>
+              <button class="ghost btn-sm" onclick="toggleNewBundle()">Annulla</button>
+            </div>
+            <div class="res" id="nb-res"></div>
+          </div>
+          <!-- Lista bundle salvati -->
+          <div id="custom-bundles-list"><div class="empty">Nessun bundle personalizzato ancora.</div></div>
+        </div>
+
+        <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0 4px;margin-bottom:8px">Numeri singoli</div>
         <div style="overflow-x:auto">
           <table class="tbl">
             <thead><tr><th style="width:50px"></th><th>Numero</th><th>Data</th><th>Codice</th><th>Azioni</th></tr></thead>
@@ -405,6 +459,9 @@ document.addEventListener("DOMContentLoaded", function() {
 var PW = "impaginato2026";
 var SB = "https://xfmiikymagamnexsbrdt.supabase.co";
 var SK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhmbWlpa3ltYWdhbW5leHNicmR0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDY5NjY1NSwiZXhwIjoyMDkwMjcyNjU1fQ.NPaM_jh0SQzTe6XFOR4RF3o2AjmFiPeC4VRm5SYTKZ8";
+var PROMO_CODE = "GR22-PRM-11e65/t£J";
+var PREMIUM_CODE = "GR22-PREMIUM(SJjA?$£-AaX";
+var PROMO_IDS = ["promo-n12","promo-n11","promo-n10","promo-n9","promo-n8","promo-n7"];
 var NL = String.fromCharCode(10);
 var users = [], prefs = [], codes = [];
 var filtroAnno = "tutti", storicoGen = [], editId = null;
@@ -438,7 +495,7 @@ document.querySelectorAll(".nav-i").forEach(function(el) {
     document.getElementById("pg-" + el.getAttribute("data-pg")).classList.add("on");
     var pg = el.getAttribute("data-pg");
     if (pg === "notifiche") loadNotif();
-    if (pg === "numeri") loadNumeri();
+    if (pg === "numeri") { loadNumeri(); loadCustomBundles(); }
     if (pg === "utenti") renderU("");
     if (pg === "genera") genCod();
     if (pg === "avvisi") loadAvvisi();
@@ -447,7 +504,18 @@ document.querySelectorAll(".nav-i").forEach(function(el) {
 });
 
 // SUPABASE HELPERS
-function init() { loadDati(); loadNotif(); }
+function init() {
+  loadDati(); loadNotif(); loadCustomBundles();
+  // Inizializza codici speciali nella sezione Numeri
+  var pcd = document.getElementById('premium-code-display');
+  var bcd = document.getElementById('promo-code-display');
+  if (pcd) pcd.textContent = PREMIUM_CODE;
+  if (bcd) bcd.textContent = PROMO_CODE;
+  var cpb = document.getElementById('copy-premium-btn');
+  var cbb = document.getElementById('copy-promo-btn');
+  if (cpb) cpb.onclick = function() { navigator.clipboard.writeText(PREMIUM_CODE).then(function(){ cpb.textContent='Copiato!'; setTimeout(function(){ cpb.textContent='Copia'; }, 2000); }); };
+  if (cbb) cbb.onclick = function() { navigator.clipboard.writeText(PROMO_CODE).then(function(){ cbb.textContent='Copiato!'; setTimeout(function(){ cbb.textContent='Copia'; }, 2000); }); };
+}
 async function sbGet(p) { var r = await fetch(SB + p, { headers: { "apikey": SK, "Authorization": "Bearer " + SK } }); return r.json(); }
 async function sbPost(p, d) { return fetch(SB + p, { method: "POST", headers: { "apikey": SK, "Authorization": "Bearer " + SK, "Content-Type": "application/json", "Prefer": "return=representation" }, body: JSON.stringify(d) }); }
 async function sbPatch(p, d) { return fetch(SB + p, { method: "PATCH", headers: { "apikey": SK, "Authorization": "Bearer " + SK, "Content-Type": "application/json" }, body: JSON.stringify(d) }); }
@@ -567,8 +635,12 @@ document.getElementById("nu-pubblica-btn").onclick = async function() {
     var r = await sbPost("/rest/v1/issues", { title: t, subtitle: s, cover_url: c || null, buy_url: buy || null, unlock_code: k, pages: pgs, is_latest: latest, anno: anno, sort_order: ord });
     if (r.ok) {
       showRes("nu-res", "Numero pubblicato! Appare automaticamente sul sito.", "ok");
+      // Auto-refresh lista numeri
+      if (window._numeri) { window._numeri = null; }
       ["nu-title", "nu-sub", "nu-cover", "nu-buy", "nu-code", "nu-pages"].forEach(function(id) { document.getElementById(id).value = ""; });
       document.getElementById("nu-latest").checked = false; document.getElementById("nu-prev").style.display = "none";
+      // Aggiorna lista numeri se visibile
+      setTimeout(function() { loadNumeri(); }, 500);
     } else { var d = await r.json().catch(function() { return {}; }); showRes("nu-res", "Errore: " + JSON.stringify(d), "err"); }
   } catch(e) { showRes("nu-res", "Errore: " + e.message, "err"); }
   btn.disabled = false; btn.textContent = "\uD83D\uDE80 Pubblica numero sul sito";
@@ -971,6 +1043,94 @@ function buildGrazieHtml(num, data, codice, cover) {
   p("</body>");
   p("</html>");
   return lines.join(NL);
+}
+
+// --- BUNDLE PERSONALIZZATI ---
+window.toggleNewBundle = toggleNewBundle;
+window.genBundleCod = genBundleCod;
+window.salvaBundlePersonalizzato = salvaBundlePersonalizzato;
+function toggleNewBundle() {
+  var form = document.getElementById('new-bundle-form');
+  var btn = document.getElementById('toggle-new-bundle-btn');
+  var open = form.style.display === 'none';
+  form.style.display = open ? 'block' : 'none';
+  btn.textContent = open ? '× Chiudi' : '+ Nuovo bundle';
+  if (open) {
+    // Carica sempre i numeri freschi prima di mostrare le checkbox
+    loadNumeri().then(function(){ renderNumeriCheckbox(); });
+  }
+}
+function genBundleCod() { genCod(); document.getElementById('nb-codice').value = document.getElementById('cod-val').textContent; }
+async function renderNumeriCheckbox() {
+  var list = document.getElementById('nb-numeri-list');
+  list.innerHTML = '<div style="font-size:12px;color:#888;padding:8px">Caricamento...</div>';
+  try {
+    // Usa window._numeri se già caricato (contiene sia Supabase che statici)
+    var issues = [];
+    if (window._numeri && window._numeri.length) {
+      issues = window._numeri;
+    } else {
+      // Fallback: carica da Supabase
+      var r = await sbGet('/rest/v1/issues?select=title,subtitle,unlock_code&order=sort_order.desc,created_at.desc');
+      if (r && r.length) {
+        issues = r.map(function(x){ return { title: x.title, subtitle: x.subtitle||'', unlockCode: x.unlock_code }; });
+      }
+    }
+    if (!issues.length) { list.innerHTML = '<div style="font-size:12px;color:#888;padding:8px">Nessun numero. Vai prima su "Numeri &amp; Codici" per caricare la lista.</div>'; return; }
+    list.innerHTML = '';
+    // Deduplicato per codice
+    var seen = {};
+    issues.forEach(function(issue) {
+      var code = issue.unlockCode || issue.unlock_code;
+      var title = issue.title;
+      var sub = issue.subtitle || '';
+      if (!code || seen[code]) return;
+      seen[code] = 1;
+      var row = document.createElement('label');
+      row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px;border-radius:6px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04)';
+      row.innerHTML = '<input type="checkbox" class="nb-check" value="' + code + '" style="width:15px;height:15px;accent-color:#00a651;cursor:pointer;flex-shrink:0"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:#fff">' + title + '</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">' + sub + '</div></div>';
+      list.appendChild(row);
+    });
+  } catch(e) { list.innerHTML = '<div style="font-size:12px;color:#ff9090;padding:8px">Errore: ' + e.message + '</div>'; }
+}
+async function salvaBundlePersonalizzato() {
+  var nome = document.getElementById('nb-nome').value.trim();
+  var codice = document.getElementById('nb-codice').value.trim();
+  var codes = Array.from(document.querySelectorAll('.nb-check:checked')).map(function(c){ return c.value; });
+  if (!nome) { showRes('nb-res','Inserisci il nome del bundle.','err'); return; }
+  if (!codice) { showRes('nb-res','Genera o inserisci un codice.','err'); return; }
+  if (!codes.length) { showRes('nb-res','Seleziona almeno un numero.','err'); return; }
+  var btn = document.getElementById('nb-save-btn'); btn.disabled=true; btn.textContent='Salvataggio...';
+  try {
+    var r = await sbPost('/rest/v1/custom_bundles', { nome: nome, codice: codice, issue_codes: codes });
+    if (r.ok) {
+      showRes('nb-res','✓ Bundle salvato!','ok');
+      document.getElementById('nb-nome').value=''; document.getElementById('nb-codice').value='';
+      document.querySelectorAll('.nb-check').forEach(function(c){ c.checked=false; });
+      loadCustomBundles();
+    } else { var d=await r.json().catch(function(){return{};}); showRes('nb-res','Errore: '+(d.message||JSON.stringify(d)),'err'); }
+  } catch(e) { showRes('nb-res','Errore: '+e.message,'err'); }
+  btn.disabled=false; btn.textContent='Salva bundle';
+}
+async function loadCustomBundles() {
+  var el = document.getElementById('custom-bundles-list');
+  if (!el) return;
+  try {
+    var d = await sbGet('/rest/v1/custom_bundles?order=created_at.desc');
+    if (!d||!d.length) { el.innerHTML='<div class="empty">Nessun bundle personalizzato ancora.</div>'; return; }
+    el.innerHTML='';
+    d.forEach(function(b) {
+      var div=document.createElement('div');
+      div.style.cssText='display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:rgba(100,150,255,0.06);border:1px solid rgba(100,150,255,0.15);margin-bottom:8px;flex-wrap:wrap';
+      div.innerHTML='<div style="font-size:18px;flex-shrink:0">🎁</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:2px">'+b.nome+'</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">'+(b.issue_codes?b.issue_codes.length:0)+' numeri · '+new Date(b.created_at).toLocaleDateString("it-IT")+'</div></div><code style="background:rgba(100,150,255,0.1);border:1px solid rgba(100,150,255,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#a0b8ff;font-family:monospace;flex-shrink:0">'+b.codice+'</code>';
+      var cb=document.createElement('button');cb.className='ghost btn-sm';cb.style.cssText='border-color:rgba(100,150,255,0.3);color:#a0b8ff;flex-shrink:0';cb.textContent='Copia';
+      cb.onclick=function(){navigator.clipboard.writeText(b.codice).then(function(){cb.textContent='Copiato!';setTimeout(function(){cb.textContent='Copia';},2000);});};
+      div.appendChild(cb);
+      var db=document.createElement('button');db.className='del-btn';db.style.cssText='padding:5px 10px;font-size:11px;flex-shrink:0';db.textContent='Elimina';
+      db.onclick=function(){if(confirm('Eliminare "'+b.nome+'"?'))sbDel('/rest/v1/custom_bundles?id=eq.'+b.id).then(function(){div.remove();});};
+      div.appendChild(db); el.appendChild(div);
+    });
+  } catch(e) { el.innerHTML='<div class="empty">Errore caricamento.</div>'; }
 }
 
 }); // end DOMContentLoaded
