@@ -1108,6 +1108,18 @@ l.parentNode.insertBefore(s, l);
       } catch(e) { console.log('Supabase issues:', e.message); }
     }
 
+    // ═══════ CARICA BUNDLE PERSONALIZZATI ══════════════════════════
+    async function caricaCustomBundles() {
+      try {
+        var r = await fetch(SB_URL_SITE + '/rest/v1/custom_bundles?select=codice,issue_codes', {
+          headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
+        });
+        var data = await r.json();
+        if (Array.isArray(data)) _customBundles = data;
+      } catch(e) {}
+    }
+    caricaCustomBundles();
+
     // ═══════ GRIGLIA EDICOLA ══════════════════════════════════════════════
     const edicolaRoot=document.getElementById("edicola-grandangolo");
     const noResults=document.getElementById("edicola-no-results");
@@ -1148,7 +1160,15 @@ l.parentNode.insertBefore(s, l);
       var isPremium=(v===PREMIUM_CODE);
       var isPromo=(v===PROMO_CODE)&&(PROMO_IDS.indexOf(issue.id)!==-1);
       var isOwn=(v===issue.unlockCode);
-      if(isPremium||isPromo||isOwn){issue._unlocked=true;if(typeof onSuccess==="function")onSuccess(isPremium);}
+      // Controlla bundle personalizzati
+      var isCustomBundle=false;
+      if(!isPremium&&!isPromo&&!isOwn&&_customBundles){
+        var bundle=_customBundles.find(function(b){ return b.codice===v; });
+        if(bundle&&bundle.issue_codes&&bundle.issue_codes.indexOf(issue.unlockCode)!==-1){
+          isCustomBundle=true;
+        }
+      }
+      if(isPremium||isPromo||isOwn||isCustomBundle){issue._unlocked=true;if(typeof onSuccess==="function")onSuccess(isPremium);}
       else{if(typeof onError==="function")onError("Codice non valido.");}
     }
 
@@ -1336,7 +1356,7 @@ l.parentNode.insertBefore(s, l);
       if (!codice) return;
       window.history.replaceState({}, '', window.location.pathname);
       if (!currentUser) return;
-      const resolved = resolveCode(codice);
+      const resolved = await resolveCode(codice);
       if (!resolved) { showToast('Codice acquisto non riconosciuto.', 'err'); return; }
       const { data: existing } = await sb.from('user_codes').select('id').eq('user_id', currentUser.id).eq('code', codice).maybeSingle();
       if (existing) { showToast('✓ Codice già nel tuo wallet!'); return; }
@@ -1369,7 +1389,13 @@ l.parentNode.insertBefore(s, l);
           if (r.code === PROMO_CODE) {
             allIssues.filter(i => PROMO_IDS.includes(i.id)).forEach(i => { i._unlocked = true; });
           } else {
-            allIssues.filter(i => i.unlockCode === r.code).forEach(i => { i._unlocked = true; });
+            // Controlla bundle personalizzati
+            var customBundle = _customBundles && _customBundles.find(function(b){ return b.codice === r.code; });
+            if (customBundle && customBundle.issue_codes) {
+              allIssues.filter(i => customBundle.issue_codes.includes(i.unlockCode)).forEach(i => { i._unlocked = true; });
+            } else {
+              allIssues.filter(i => i.unlockCode === r.code).forEach(i => { i._unlocked = true; });
+            }
           }
         });
       } catch(e) {}
@@ -1556,7 +1582,7 @@ l.parentNode.insertBefore(s, l);
         const code = codeInput.value.trim();
         if (!code) { showToast('Inserisci un codice.', 'err'); return; }
         addBtn.disabled = true; addBtn.textContent = '…';
-        const resolved = resolveCode(code);
+        const resolved = await resolveCode(code);
         if (!resolved) { showToast('Codice non riconosciuto.', 'err'); addBtn.disabled=false; addBtn.textContent='+ Aggiungi'; return; }
         const { error: insErr } = await sb.from('user_codes').insert({ user_id: currentUser.id, code: code, type: resolved.type, issue_ids: resolved.issueIds, label: resolved.label, cover_url: resolved.coverUrl, added_at: new Date().toISOString() });
         addBtn.disabled = false; addBtn.textContent = '+ Aggiungi';
@@ -1631,10 +1657,22 @@ l.parentNode.insertBefore(s, l);
       });
     }
 
-    function resolveCode(code) {
+    async function resolveCode(code) {
       const allIssues = (typeof issues !== 'undefined') ? issues : [];
       if (code === PREMIUM_CODE) return { type:'premium', issueIds:['all'], label:'Abbonamento PREMIUM 2026', coverUrl: allIssues[0]?.cover||'' };
       if (code === PROMO_CODE) { const pi=allIssues.filter(i=>PROMO_IDS.includes(i.id)); return { type:'bundle', issueIds:PROMO_IDS, label:'Bundle Pasqua 6 numeri (N.7–12/2026)', coverUrl:pi[0]?.cover||'' }; }
+      // Controlla bundle personalizzati su Supabase
+      try {
+        const r = await fetch(SUPABASE_URL + '/rest/v1/custom_bundles?codice=eq.' + encodeURIComponent(code) + '&select=nome,codice,issue_codes', {
+          headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+        });
+        const data = await r.json();
+        if (data && data.length) {
+          const b = data[0];
+          const matchedIssues = allIssues.filter(i => b.issue_codes && b.issue_codes.includes(i.unlockCode));
+          return { type:'bundle', issueIds: b.issue_codes, label: b.nome, coverUrl: matchedIssues[0]?.cover || '' };
+        }
+      } catch(e) {}
       const matched = allIssues.filter(i => i.unlockCode === code);
       if (matched.length) return { type:'singolo', issueIds:[matched[0].id], label:matched[0].title, coverUrl:matched[0].cover };
       return null;
