@@ -126,6 +126,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="nav-i" data-pg="grazie">&#127881; Pagina ringraziamento</div>
     <div class="nav-i" data-pg="avvisi">&#128226; Bacheca avvisi</div>
     <div class="nav-i" data-pg="analytics">&#128200; Visite sito</div>
+    <div class="nav-i" data-pg="stripe">&#128179; Storico vendite</div>
     <div class="sb-ft"><button id="logout-btn">&#8592; Esci</button></div>
   </div>
 
@@ -143,6 +144,19 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
       <div class="card">
         <div class="card-hdr"><div><div class="card-t">&#127381; Ultimi iscritti</div></div></div>
         <div id="nuovi-list"><div class="empty">Caricamento...</div></div>
+      </div>
+      <!-- ANALYTICS MINI -->
+      <div class="card" style="padding:0;overflow:hidden">
+        <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between">
+          <div class="card-t">📊 Analytics</div>
+          <button class="ghost btn-sm" onclick="document.querySelector('[data-pg=analytics]').click()">Vedi tutto →</button>
+        </div>
+        <iframe
+          src="https://lookerstudio.google.com/embed/reporting/98f15242-060f-4357-afd8-98ec79c2febb/page/mtntF"
+          style="display:block;width:100%;height:320px;border:none;"
+          allowfullscreen
+          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+        </iframe>
       </div>
     </div>
 
@@ -410,22 +424,103 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
       </div>
     </div>
 
-    <div class="pg" id="pg-analytics">
-      <div class="pg-title">Visite al sito</div>
-      <div class="pg-sub">Google Analytics per grandangolosettimanale.it</div>
-      <div class="card" style="padding:0;overflow:hidden">
-        <div style="padding:18px 22px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-          <div><div class="card-t">Google Analytics</div><div class="card-s">Property ID: 514033147</div></div>
-          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/intelligenthome" target="_blank" class="btn btn-sm" style="display:inline-block">Apri Analytics &rarr;</a>
+    <div class="pg" id="pg-stripe">
+      <div class="pg-title">Storico vendite</div>
+      <div class="pg-sub">Ultimi pagamenti ricevuti tramite Stripe.</div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-hdr" style="margin-bottom:0">
+          <div><div class="card-t">Riepilogo</div></div>
+          <button class="ghost btn-sm" id="stripe-refresh-btn">&#8635; Aggiorna</button>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr)">
-          <a href="https://analytics.google.com/analytics/web/#/p514033147/realtime/overview" target="_blank" style="display:block;padding:20px;text-align:center;border-right:1px solid rgba(255,255,255,0.08)"><div style="font-size:22px;margin-bottom:6px">&#128101;</div><div style="font-size:12px;font-weight:700;color:#fff">Utenti attivi</div><div style="font-size:11px;color:#888">Tempo reale</div></a>
-          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer" target="_blank" style="display:block;padding:20px;text-align:center;border-right:1px solid rgba(255,255,255,0.08)"><div style="font-size:22px;margin-bottom:6px">&#128196;</div><div style="font-size:12px;font-weight:700;color:#fff">Pagine viste</div><div style="font-size:11px;color:#888">Report pagine</div></a>
-          <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer" target="_blank" style="display:block;padding:20px;text-align:center"><div style="font-size:22px;margin-bottom:6px">&#127757;</div><div style="font-size:12px;font-weight:700;color:#fff">Provenienza</div><div style="font-size:11px;color:#888">Traffico</div></a>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px">
+          <div style="background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.2);border-radius:10px;padding:14px;text-align:center">
+            <div class="stat-n" id="stripe-total" style="font-size:22px">-</div>
+            <div class="stat-l">Totale incassato</div>
+          </div>
+          <div style="background:rgba(100,150,255,0.06);border:1px solid rgba(100,150,255,0.2);border-radius:10px;padding:14px;text-align:center">
+            <div class="stat-n" id="stripe-count" style="font-size:22px;color:#a0b8ff">-</div>
+            <div class="stat-l">Pagamenti totali</div>
+          </div>
+          <div style="background:rgba(255,200,50,0.06);border:1px solid rgba(255,200,50,0.2);border-radius:10px;padding:14px;text-align:center">
+            <div class="stat-n" id="stripe-today" style="font-size:22px;color:#ffe566">-</div>
+            <div class="stat-l">Oggi</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
+          <div class="card-t">Ultimi pagamenti</div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr>
+              <th>Data</th><th>Cliente</th><th>Descrizione</th><th>Importo</th><th>Stato</th>
+            </tr></thead>
+            <tbody id="stripe-body"><tr><td colspan="5" class="empty">Caricamento...</td></tr></tbody>
+          </table>
         </div>
       </div>
     </div>
 
+    <div class="pg" id="pg-analytics">
+      <div class="pg-title">Visite al sito</div>
+      <div class="pg-sub">Google Analytics · Looker Studio</div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;gap:10px">
+          <div><div class="card-t">📊 Dashboard Analytics</div><div class="card-s">Pagine viste · Fonti · Dispositivi · Paesi</div></div>
+          <a href="https://lookerstudio.google.com/s/pEnmLC6y-UA" target="_blank" class="ghost btn-sm">Schermo intero ↗</a>
+        </div>
+        <iframe
+          src="https://lookerstudio.google.com/embed/reporting/98f15242-060f-4357-afd8-98ec79c2febb/page/mtntF"
+          style="display:block;width:100%;height:calc(100vh - 160px);min-height:600px;border:none;"
+          allowfullscreen
+          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+        </iframe>
+      </div>
+    </div>
+      <div class="pg-title">Visite al sito</div>
+      <div class="pg-sub">Google Analytics · Looker Studio per grandangolosettimanale.it</div>
+
+      <!-- CTA principale Looker Studio -->
+      <div class="card" style="background:linear-gradient(135deg,rgba(0,166,81,0.08),rgba(0,166,81,0.02));border-color:rgba(0,166,81,0.25);text-align:center;padding:32px 24px;margin-bottom:16px">
+        <div style="font-size:40px;margin-bottom:12px">📊</div>
+        <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:6px">Dashboard Analytics</div>
+        <div style="font-size:13px;color:#888;margin-bottom:20px">Pagine viste · Fonti di traffico · Dispositivi · Paesi</div>
+        <a href="https://lookerstudio.google.com/s/pEnmLC6y-UA" target="_blank"
+           style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:12px;background:#00a651;color:#fff;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 6px 20px rgba(0,166,81,0.4)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Apri Dashboard
+        </a>
+      </div>
+
+      <!-- Scorciatoie GA4 -->
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+        <a href="https://analytics.google.com/analytics/web/#/p514033147/realtime/overview" target="_blank"
+           class="card" style="display:flex;align-items:center;gap:14px;padding:16px;text-decoration:none;transition:border-color .15s"
+           onmouseover="this.style.borderColor='rgba(0,166,81,0.4)'" onmouseout="this.style.borderColor=''">
+          <div style="width:42px;height:42px;border-radius:10px;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🟢</div>
+          <div><div style="font-size:13px;font-weight:700;color:#fff">Utenti in tempo reale</div><div style="font-size:11px;color:#888;margin-top:2px">Chi è online adesso</div></div>
+        </a>
+        <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer" target="_blank"
+           class="card" style="display:flex;align-items:center;gap:14px;padding:16px;text-decoration:none;transition:border-color .15s"
+           onmouseover="this.style.borderColor='rgba(0,166,81,0.4)'" onmouseout="this.style.borderColor=''">
+          <div style="width:42px;height:42px;border-radius:10px;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📈</div>
+          <div><div style="font-size:13px;font-weight:700;color:#fff">Report completo</div><div style="font-size:11px;color:#888;margin-top:2px">Tutte le metriche GA4</div></div>
+        </a>
+        <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer?params=_u..nav%3Dmaui" target="_blank"
+           class="card" style="display:flex;align-items:center;gap:14px;padding:16px;text-decoration:none;transition:border-color .15s"
+           onmouseover="this.style.borderColor='rgba(0,166,81,0.4)'" onmouseout="this.style.borderColor=''">
+          <div style="width:42px;height:42px;border-radius:10px;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🌍</div>
+          <div><div style="font-size:13px;font-weight:700;color:#fff">Provenienza utenti</div><div style="font-size:11px;color:#888;margin-top:2px">Paesi e fonti traffico</div></div>
+        </a>
+        <a href="https://analytics.google.com/analytics/web/#/p514033147/reports/explorer" target="_blank"
+           class="card" style="display:flex;align-items:center;gap:14px;padding:16px;text-decoration:none;transition:border-color .15s"
+           onmouseover="this.style.borderColor='rgba(0,166,81,0.4)'" onmouseout="this.style.borderColor=''">
+          <div style="width:42px;height:42px;border-radius:10px;background:rgba(0,166,81,0.12);border:1px solid rgba(0,166,81,0.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📱</div>
+          <div><div style="font-size:13px;font-weight:700;color:#fff">Dispositivi</div><div style="font-size:11px;color:#888;margin-top:2px">Mobile · Desktop · Tablet</div></div>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1132,6 +1227,57 @@ async function loadCustomBundles() {
     });
   } catch(e) { el.innerHTML='<div class="empty">Errore caricamento.</div>'; }
 }
+
+  // Hide analytics loader when iframe loads
+  document.querySelectorAll('#pg-analytics iframe').forEach(function(f){
+    f.addEventListener('load', function(){
+      var loader = document.getElementById('analytics-loader');
+      if (loader) { loader.style.opacity = '0'; setTimeout(function(){ loader.style.display='none'; }, 500); }
+    });
+  });
+
+  // ── STRIPE ══════════════════════════════════════════════════════
+  document.getElementById('stripe-refresh-btn').onclick = loadStripe;
+
+  async function loadStripe() {
+    var tbody = document.getElementById('stripe-body');
+    tbody.innerHTML = '<tr><td colspan="5" class="empty">Caricamento...</td></tr>';
+    try {
+      var r = await fetch(SB + '/functions/v1/stripe-proxy', {
+        method: 'POST',
+        headers: { 'apikey': SK, 'Authorization': 'Bearer ' + SK, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ endpoint: 'charges', params: { limit: '50' } })
+      });
+      var data = await r.json();
+      if (data.error) { tbody.innerHTML = '<tr><td colspan="5" class="empty">Errore: ' + data.error + '</td></tr>'; return; }
+      var charges = data.data || [];
+      if (!charges.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty">Nessun pagamento trovato.</td></tr>'; return; }
+
+      // Stats
+      var total = charges.filter(function(c){ return c.paid; }).reduce(function(s,c){ return s + c.amount; }, 0);
+      var today = new Date().toDateString();
+      var todayCount = charges.filter(function(c){ return new Date(c.created*1000).toDateString() === today && c.paid; }).length;
+      document.getElementById('stripe-total').textContent = '€ ' + (total/100).toFixed(2);
+      document.getElementById('stripe-count').textContent = charges.filter(function(c){ return c.paid; }).length;
+      document.getElementById('stripe-today').textContent = todayCount;
+
+      // Table
+      tbody.innerHTML = '';
+      charges.forEach(function(c) {
+        var tr = document.createElement('tr');
+        var date = new Date(c.created*1000).toLocaleDateString('it-IT', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+        var email = (c.billing_details && c.billing_details.email) || (c.customer_email) || '-';
+        var desc = c.description || c.statement_descriptor || '-';
+        var amount = '€ ' + (c.amount/100).toFixed(2);
+        var stato = c.paid ? '<span style="color:#8fffc1;font-size:11px;font-weight:700">✓ Pagato</span>' : '<span style="color:#ff9090;font-size:11px;font-weight:700">✗ Fallito</span>';
+        if (c.refunded) stato = '<span style="color:#ffe566;font-size:11px;font-weight:700">↩ Rimborsato</span>';
+        tr.innerHTML = '<td style="font-size:12px;color:rgba(255,255,255,0.5)">' + date + '</td><td style="font-size:12px">' + email + '</td><td style="font-size:12px;color:rgba(255,255,255,0.6);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + desc + '</td><td style="font-weight:700;color:#8fffc1">' + amount + '</td><td>' + stato + '</td>';
+        tbody.appendChild(tr);
+      });
+    } catch(e) {
+      tbody.innerHTML = '<tr><td colspan="5" class="empty">Errore: ' + e.message + '</td></tr>';
+    }
+  }
 
 }); // end DOMContentLoaded
 </script>
