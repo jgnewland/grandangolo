@@ -281,7 +281,7 @@ l.parentNode.insertBefore(s, l);
     .news-ticker-label{flex-shrink:0;background:#00a651;color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:0 16px;display:flex;align-items:center;white-space:nowrap;gap:7px;z-index:2;}
     .news-ticker-label::after{content:'';position:absolute;left:calc(16px + 4.5em);top:0;bottom:0;width:20px;background:linear-gradient(90deg,#00a651,transparent);pointer-events:none;}
     .news-ticker-track{flex:1;overflow:hidden;position:relative;height:40px;}
-    .news-ticker-list{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 60s linear infinite;}
+    .news-ticker-list{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 30s linear infinite;}
     .news-ticker-list:hover{animation-play-state:paused;}
     .news-ticker-item{display:inline-flex;align-items:center;gap:0;padding:0 32px;font-size:12.5px;color:rgba(255,255,255,0.7);cursor:pointer;transition:color .15s;text-decoration:none;}
     .news-ticker-item:hover{color:#fff;}
@@ -710,7 +710,7 @@ l.parentNode.insertBefore(s, l);
                   <div style="font-size:9px;color:rgba(255,255,255,0.38);">21 feb 2026</div>
                 </div>
               </div>
-            <div class="promo-carousel-dots" id="promo-dots" style="display:none!important"></div>
+            <div class="promo-carousel-dots" id="promo-dots"></div>
           </div>
           <p style="text-align:center;font-size:12px;color:rgba(143,255,193,0.55);margin:4px 0 22px;">▲ Clicca su una copertina per sfogliare l'anteprima</p>
           <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px;">
@@ -948,13 +948,26 @@ l.parentNode.insertBefore(s, l);
       window.addEventListener("resize",function(){buildDots();goTo(0);},{passive:true});
     })();
 
-    // Force carousel to show all slides static (no scrolling for 6-item grid)
+    // Carousel: griglia fissa su desktop, scorrevole su mobile
     (function(){
       var track = document.getElementById('promo-carousel-track');
-      if (track) {
-        track.style.transform = 'none';
-        track.style.transition = 'none';
+      var dotsEl = document.getElementById('promo-dots');
+      if (!track) return;
+      function isMob(){ return window.innerWidth <= 600; }
+      function applyMode(){
+        if (isMob()) {
+          // Mobile: carosello scorrevole, 2 slide per volta
+          track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
+          dotsEl.style.display = '';
+        } else {
+          // Desktop: griglia fissa, nessun transform
+          track.style.transform = 'none';
+          track.style.transition = 'none';
+          dotsEl.style.display = 'none';
+        }
       }
+      applyMode();
+      window.addEventListener('resize', applyMode, {passive:true});
     })();
 
     // ═══════ CARICA ISSUES DA SUPABASE ══════════════════════════════════
