@@ -647,8 +647,8 @@ l.parentNode.insertBefore(s, l);
             <h2 style="margin:0 0 10px;font-size:clamp(22px,4vw,30px);line-height:1.15;color:#f5f5f5;font-weight:800;">🐣 Offerta di Pasqua<br><span style="color:#00a651;">6 numeri a soli €&nbsp;7,50</span></h2>
             <p style="margin:0 auto;max-width:480px;font-size:14px;color:#b0b0b0;line-height:1.55;">Con un solo acquisto leggi i 6 numeri più recenti direttamente online. Nessuna app, nessun download. Riceverai il codice di sblocco dopo il pagamento.</p>
           </div>
-          <div id="promo-carousel-wrap" style="margin-bottom:28px;overflow:visible;">
-            <div id="promo-carousel-track" style="flex-wrap:nowrap;transform:none!important;">
+          <div id="promo-carousel-wrap" style="margin-bottom:28px;">
+            <div id="promo-carousel-track">
               <div class="promo-carousel-slide">
                 <div class="promo-cover-card" data-promo-id="promo-n12" style="cursor:pointer;text-align:center;">
                   <div style="position:relative;border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,166,81,0.35);box-shadow:0 8px 20px rgba(0,0,0,0.55);aspect-ratio:3/4;background:#0a0a12;transition:transform .2s,box-shadow .2s;">
@@ -925,50 +925,100 @@ l.parentNode.insertBefore(s, l);
 
     // ═══════ PROMO CAROUSEL ═══════════════════════════════════════════════
     (function(){
-      const track=document.getElementById("promo-carousel-track");
-      const dotsEl=document.getElementById("promo-dots");
-      if(!track)return;
-      const slides=track.querySelectorAll(".promo-carousel-slide");
-      const total=slides.length;
-      let current=0,autoTimer=null;
-      const isMob=()=>window.innerWidth<=600;
-      const visCount=()=>6;
-      function buildDots(){dotsEl.innerHTML="";const pages=Math.ceil(total/visCount());if(pages<=1){dotsEl.style.display="none";return;}dotsEl.style.display="flex";for(let i=0;i<pages;i++){const d=document.createElement("button");d.className="promo-dot"+(i===0?" active":"");d.type="button";d.addEventListener("click",function(){goTo(i);});dotsEl.appendChild(d);}}
-      function updateDots(){const page=Math.floor(current/visCount());dotsEl.querySelectorAll(".promo-dot").forEach(function(d,i){d.classList.toggle("active",i===page);});}
-      function goTo(page){const vc=visCount();current=Math.min(page*vc,total-vc);const pct=(current/total)*100;track.style.transform="translateX(-"+pct+"%)";updateDots();}
-      function next(){const vc=visCount();const maxPage=Math.ceil(total/vc)-1;const curPage=Math.floor(current/vc);goTo(curPage>=maxPage?0:curPage+1);}
-      function startAuto(){stopAuto();autoTimer=setInterval(next,3200);}
-      function stopAuto(){if(autoTimer){clearInterval(autoTimer);autoTimer=null;}}
-      buildDots();
-      track.closest("#promo-carousel-wrap").addEventListener("mouseenter",stopAuto);
-      track.closest("#promo-carousel-wrap").addEventListener("mouseleave",startAuto);
-      var sx=null;
-      track.addEventListener("touchstart",function(e){sx=e.touches[0].clientX;},{passive:true});
-      track.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)<40)return;const vc=visCount();const maxPage=Math.ceil(total/vc)-1;const curPage=Math.floor(current/vc);if(dx<0)goTo(Math.min(curPage+1,maxPage));else goTo(Math.max(curPage-1,0));},{passive:true});
-      window.addEventListener("resize",function(){buildDots();goTo(0);},{passive:true});
-    })();
-
-    // Carousel: griglia fissa su desktop, scorrevole su mobile
-    (function(){
       var track = document.getElementById('promo-carousel-track');
       var dotsEl = document.getElementById('promo-dots');
       if (!track) return;
-      function isMob(){ return window.innerWidth <= 600; }
-      function applyMode(){
-        if (isMob()) {
-          // Mobile: carosello scorrevole, 2 slide per volta
-          track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
-          dotsEl.style.display = '';
-        } else {
-          // Desktop: griglia fissa, nessun transform
-          track.style.transform = 'none';
-          track.style.transition = 'none';
-          dotsEl.style.display = 'none';
+
+      var slides = track.querySelectorAll('.promo-carousel-slide');
+      var total = slides.length;
+      var current = 0;
+      var autoTimer = null;
+
+      function isMob(){ return window.innerWidth <= 700; }
+      function visCount(){ return isMob() ? 2 : total; } // mobile: 2, desktop: tutti
+
+      function buildDots(){
+        dotsEl.innerHTML = '';
+        if (!isMob()) { dotsEl.style.display = 'none'; return; }
+        var pages = Math.ceil(total / visCount());
+        if (pages <= 1) { dotsEl.style.display = 'none'; return; }
+        dotsEl.style.display = 'flex';
+        for (var i = 0; i < pages; i++) {
+          var d = document.createElement('button');
+          d.className = 'promo-dot' + (i === 0 ? ' active' : '');
+          d.type = 'button';
+          d.addEventListener('click', (function(page){ return function(){ goTo(page); }; })(i));
+          dotsEl.appendChild(d);
         }
       }
+
+      function updateDots(){
+        var page = Math.floor(current / visCount());
+        dotsEl.querySelectorAll('.promo-dot').forEach(function(d,i){ d.classList.toggle('active', i === page); });
+      }
+
+      function goTo(page){
+        if (!isMob()) { track.style.transform = 'none'; return; }
+        var vc = visCount();
+        current = Math.min(page * vc, total - vc);
+        var pct = (current / total) * 100;
+        track.style.transform = 'translateX(-' + pct + '%)';
+        track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
+        updateDots();
+      }
+
+      function applyDesktop(){
+        stopAuto();
+        track.style.transform = 'none';
+        track.style.transition = 'none';
+        dotsEl.style.display = 'none';
+        // Make all slides show
+        slides.forEach(function(s){ s.style.flex = '0 0 ' + (100/total) + '%'; });
+      }
+
+      function applyMobile(){
+        slides.forEach(function(s){ s.style.flex = '0 0 50%'; });
+        buildDots();
+        goTo(0);
+        startAuto();
+      }
+
+      function applyMode(){
+        if (isMob()) applyMobile();
+        else applyDesktop();
+      }
+
+      function next(){
+        var vc = visCount();
+        var maxPage = Math.ceil(total / vc) - 1;
+        var curPage = Math.floor(current / vc);
+        goTo(curPage >= maxPage ? 0 : curPage + 1);
+      }
+
+      function startAuto(){ stopAuto(); autoTimer = setInterval(next, 3200); }
+      function stopAuto(){ if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+
+      // Touch swipe
+      var sx = null;
+      track.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+      track.addEventListener('touchend', function(e){
+        if (sx === null) return;
+        var dx = e.changedTouches[0].clientX - sx; sx = null;
+        if (!isMob() || Math.abs(dx) < 40) return;
+        var vc = visCount();
+        var maxPage = Math.ceil(total/vc)-1;
+        var curPage = Math.floor(current/vc);
+        if (dx < 0) goTo(Math.min(curPage+1, maxPage));
+        else goTo(Math.max(curPage-1, 0));
+      }, {passive:true});
+
+      track.closest('#promo-carousel-wrap').addEventListener('mouseenter', stopAuto);
+      track.closest('#promo-carousel-wrap').addEventListener('mouseleave', function(){ if(isMob()) startAuto(); });
+
       applyMode();
-      window.addEventListener('resize', applyMode, {passive:true});
+      window.addEventListener('resize', function(){ applyMode(); }, {passive:true});
     })();
+
 
     // ═══════ CARICA ISSUES DA SUPABASE ══════════════════════════════════
     const SB_URL_SITE = 'https://xfmiikymagamnexsbrdt.supabase.co';
