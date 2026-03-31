@@ -117,7 +117,9 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
   .mob-topbar{display:flex}
   .main{margin-left:0;padding:12px;padding-top:64px}
   .main{margin-left:0;padding:12px}
-  .stats{grid-template-columns:1fr 1fr;gap:10px}
+  .stats{grid-template-columns:1fr 1fr;gap:8px}
+  .stat{padding:12px 10px}
+  .stat-n{font-size:20px}
   .row2{grid-template-columns:1fr}
   .pg-title{font-size:18px}
   .card{padding:14px}
@@ -126,9 +128,12 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
 }
 @media(max-width:480px){
   .stats{grid-template-columns:1fr 1fr;gap:8px}
-  .stat{padding:12px}
-  .stat-n{font-size:22px}
-  #pg-dashboard>[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+  .stat{padding:10px 8px}
+  .stat-n{font-size:18px}
+  #dash-grid{grid-template-columns:1fr!important}
+  .card-hdr{flex-wrap:wrap;gap:8px}
+  .tbl{font-size:11px}
+  .tbl th,.tbl td{padding:6px 6px}
 }
 </style>
 </head>
@@ -199,7 +204,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
       </div>
 
       <!-- STRIPE + ANALYTICS AFFIANCATI -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div id="dash-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
 
         <!-- STRIPE MINI -->
         <div class="card" style="padding:0;overflow:hidden">
@@ -337,24 +342,32 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
         <!-- CODICI SPECIALI -->
         <div id="special-codes-box" style="margin-bottom:12px;border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;">
           <!-- PREMIUM -->
-          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,200,50,0.06);border-bottom:1px solid rgba(255,255,255,0.06);">
-            <div style="font-size:20px;flex-shrink:0">★</div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:13px;font-weight:700;color:#ffe566">Abbonamento PREMIUM 2026</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.4)">Sblocca tutti i numeri dell&apos;anno</div>
+          <div style="padding:12px 14px;background:rgba(255,200,50,0.06);border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <div style="font-size:18px;flex-shrink:0">★</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:700;color:#ffe566">Abbonamento PREMIUM 2026</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.4)">Sblocca tutti i numeri dell&apos;anno</div>
+              </div>
             </div>
-            <code id="premium-code-display" style="background:rgba(255,200,50,0.08);border:1px solid rgba(255,200,50,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#ffe566;font-family:monospace;flex-shrink:0"></code>
-            <button class="ghost btn-sm" id="copy-premium-btn" style="border-color:rgba(255,200,50,0.3);color:#ffe566;background:rgba(255,200,50,0.08);flex-shrink:0">Copia</button>
+            <div style="display:flex;align-items:center;gap:8px">
+              <code id="premium-code-display" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;background:rgba(255,200,50,0.08);border:1px solid rgba(255,200,50,0.3);border-radius:6px;padding:6px 10px;font-size:11px;color:#ffe566;font-family:monospace;display:block"></code>
+              <button class="ghost btn-sm" id="copy-premium-btn" style="border-color:rgba(255,200,50,0.3);color:#ffe566;background:rgba(255,200,50,0.08);flex-shrink:0;white-space:nowrap">Copia</button>
+            </div>
           </div>
           <!-- BUNDLE PASQUA -->
-          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(0,166,81,0.04);">
-            <div style="font-size:20px;flex-shrink:0">📦</div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:13px;font-weight:700;color:#8fffc1">Bundle Pasqua &mdash; 6 numeri (N.7&ndash;12/2026)</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.4)">Sblocca N.7, N.8, N.9, N.10, N.11, N.12</div>
+          <div style="padding:12px 14px;background:rgba(0,166,81,0.04);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <div style="font-size:18px;flex-shrink:0">📦</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13px;font-weight:700;color:#8fffc1">Bundle Pasqua &mdash; 6 numeri</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.4)">N.7, N.8, N.9, N.10, N.11, N.12</div>
+              </div>
             </div>
-            <code id="promo-code-display" style="background:rgba(0,166,81,0.08);border:1px solid rgba(0,166,81,0.3);border-radius:6px;padding:4px 10px;font-size:11px;color:#8fffc1;font-family:monospace;flex-shrink:0"></code>
-            <button class="ghost btn-sm" id="copy-promo-btn" style="border-color:rgba(0,166,81,0.3);color:#8fffc1;background:rgba(0,166,81,0.08);flex-shrink:0">Copia</button>
+            <div style="display:flex;align-items:center;gap:8px">
+              <code id="promo-code-display" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;background:rgba(0,166,81,0.08);border:1px solid rgba(0,166,81,0.3);border-radius:6px;padding:6px 10px;font-size:11px;color:#8fffc1;font-family:monospace;display:block"></code>
+              <button class="ghost btn-sm" id="copy-promo-btn" style="border-color:rgba(0,166,81,0.3);color:#8fffc1;background:rgba(0,166,81,0.08);flex-shrink:0;white-space:nowrap">Copia</button>
+            </div>
           </div>
         </div>
         <!-- BUNDLE PERSONALIZZATI -->
