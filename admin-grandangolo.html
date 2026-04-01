@@ -166,6 +166,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="nav-i" data-pg="utenti">&#128101; Utenti</div>
     <div class="nav-i" data-pg="genera">&#128273; Genera codice</div>
     <div class="nav-i" data-pg="grazie">&#127881; Pagina ringraziamento</div>
+    <div class="nav-i" data-pg="widget">&#128248; Widget settimanale</div>
     <div class="nav-i" data-pg="avvisi">&#128226; Bacheca avvisi</div>
     <div class="nav-i" data-pg="analytics">&#128200; Visite sito</div>
     <div class="nav-i" data-pg="stripe">&#128179; Storico vendite</div>
@@ -183,6 +184,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="nav-i" data-pg="utenti">&#128101; Utenti</div>
     <div class="nav-i" data-pg="genera">&#128273; Genera codice</div>
     <div class="nav-i" data-pg="grazie">&#127881; Pagina ringraziamento</div>
+    <div class="nav-i" data-pg="widget">&#128248; Widget settimanale</div>
     <div class="nav-i" data-pg="avvisi">&#128226; Bacheca avvisi</div>
     <div class="nav-i" data-pg="analytics">&#128200; Visite sito</div>
     <div class="nav-i" data-pg="stripe">&#128179; Storico vendite</div>
@@ -520,6 +522,50 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
       <div class="card">
         <div class="card-hdr"><div><div class="card-t">Avvisi pubblicati</div><div class="card-s">Attiva o disattiva con il toggle</div></div><button class="ghost btn-sm" id="av-refresh-btn">&#8635; Aggiorna</button></div>
         <div id="av-list"><div class="empty">Caricamento...</div></div>
+      </div>
+    </div>
+
+    <div class="pg" id="pg-widget">
+      <div class="pg-title">Widget settimanale</div>
+      <div class="pg-sub">Genera il codice HTML per il widget pagina interna e sidebar.</div>
+
+      <div class="card">
+        <div class="card-t" style="margin-bottom:16px">Dati del numero</div>
+        <div class="row2">
+          <div class="f"><label>Numero (es. N. 13/2026)</label><input type="text" id="wg-numero" placeholder="N. 13/2026"></div>
+          <div class="f"><label>Titolo badge (es. Ultima uscita)</label><input type="text" id="wg-badge" value="Ultima uscita"></div>
+        </div>
+        <div class="f"><label>URL copertina (prima pagina)</label><input type="url" id="wg-cover" placeholder="https://...jpg"></div>
+        <div class="f"><label>Codice di sblocco</label>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="wg-code" placeholder="GR22-XXXXX" style="font-family:monospace">
+            <button class="ghost" onclick="genCod();document.getElementById('wg-code').value=document.getElementById('cod-val').textContent" style="white-space:nowrap;padding:11px 14px;flex-shrink:0">🔑 Genera</button>
+          </div>
+        </div>
+        <div class="f"><label>Link acquisto Stripe</label><input type="url" id="wg-buy" placeholder="https://buy.stripe.com/..."></div>
+        <div class="f"><label>Pagine JPG (una per riga)</label><textarea id="wg-pages" style="min-height:120px;font-family:monospace;font-size:12px;line-height:1.6" placeholder="https://.../1.jpg&#10;https://.../2.jpg"></textarea></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="wg-gen-btn" onclick="generaWidget()">⚡ Genera entrambi i widget</button>
+        </div>
+        <div class="res" id="wg-res"></div>
+      </div>
+
+      <!-- OUTPUT WIDGET PAGINA INTERNA -->
+      <div class="card" id="wg-out-page" style="display:none">
+        <div class="card-hdr" style="margin-bottom:12px">
+          <div><div class="card-t">📄 Widget pagina interna</div><div class="card-s">Incolla questo codice nella pagina articolo di WordPress</div></div>
+          <button class="btn btn-sm" onclick="copiaWidget('wg-code-page')">📋 Copia</button>
+        </div>
+        <textarea id="wg-code-page" readonly style="width:100%;min-height:120px;font-family:monospace;font-size:11px;line-height:1.5;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#8fffc1;padding:12px;resize:vertical"></textarea>
+      </div>
+
+      <!-- OUTPUT WIDGET SIDEBAR -->
+      <div class="card" id="wg-out-sidebar" style="display:none">
+        <div class="card-hdr" style="margin-bottom:12px">
+          <div><div class="card-t">📌 Widget sidebar</div><div class="card-s">Incolla questo codice nel widget HTML della sidebar di WordPress</div></div>
+          <button class="btn btn-sm" onclick="copiaWidget('wg-code-sidebar')">📋 Copia</button>
+        </div>
+        <textarea id="wg-code-sidebar" readonly style="width:100%;min-height:120px;font-family:monospace;font-size:11px;line-height:1.5;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#8fffc1;padding:12px;resize:vertical"></textarea>
       </div>
     </div>
 
@@ -1451,6 +1497,252 @@ async function loadCustomBundles() {
     document.getElementById('username').value='';
     closeMobMenu();
   };
+
+  // ── WIDGET GENERATOR ══════════════════════════════════════════
+  window.generaWidget = generaWidget;
+  window.copiaWidget  = copiaWidget;
+
+  function copiaWidget(id) {
+    var ta = document.getElementById(id);
+    navigator.clipboard.writeText(ta.value).then(function(){ showToastW('Copiato!'); });
+  }
+  function showToastW(msg) {
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#00a651;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;z-index:9999;font-family:inherit;box-shadow:0 4px 16px rgba(0,0,0,0.4)';
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 2000);
+  }
+
+  function generaWidget() {
+    var numero = document.getElementById('wg-numero').value.trim();
+    var badge  = document.getElementById('wg-badge').value.trim() || 'Ultima uscita';
+    var cover  = document.getElementById('wg-cover').value.trim();
+    var code   = document.getElementById('wg-code').value.trim();
+    var buy    = document.getElementById('wg-buy').value.trim();
+    var pages  = document.getElementById('wg-pages').value.trim().split('\n').map(function(l){return l.trim();}).filter(function(l){return l;});
+
+    if (!numero || !cover || !code || !pages.length) {
+      showRes('wg-res','Compila numero, copertina, codice e pagine.','err'); return;
+    }
+
+    var pagesJson = JSON.stringify(pages, null, 4);
+    var pagesArr  = pages.map(function(p){return '    "'+p+'"';}).join(',\n');
+
+    // ── WIDGET PAGINA INTERNA (versione completa con lightbox) ──
+    var htmlPage = buildWidgetHtml(numero, badge, cover, code, buy, pages, 'page');
+    document.getElementById('wg-code-page').value = htmlPage;
+    document.getElementById('wg-out-page').style.display = 'block';
+
+    // ── WIDGET SIDEBAR (versione compatta senza lightbox) ──
+    var htmlSidebar = buildWidgetHtml(numero, badge, cover, code, buy, pages, 'sidebar');
+    document.getElementById('wg-code-sidebar').value = htmlSidebar;
+    document.getElementById('wg-out-sidebar').style.display = 'block';
+
+    showRes('wg-res','✓ Widget generati! Copia il codice e incollalo in WordPress.','ok');
+  }
+
+  function buildWidgetHtml(numero, badge, cover, code, buy, pages, type) {
+    var isSidebar = (type === 'sidebar');
+    var pagesStr = '    "' + pages.join('",\n    "') + '"';
+    var PREMIUM = 'GR22-PREMIUM(SJjA?$\u00a3-AaX';
+
+    var css = [
+      '#ga40-widget { max-width:360px; width:100%; margin:8px auto 16px; color:#f5f5f5; box-sizing:border-box; font-family:system-ui,-apple-system,sans-serif; }',
+      '#ga40-widget *, #ga40-widget *::before, #ga40-widget *::after { box-sizing:border-box; }',
+      '#ga40-widget .ga40-card { background:radial-gradient(circle at top,#19192b 0,#050509 55%); border-radius:16px; padding:16px 14px 14px; box-shadow:0 10px 26px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.08); }',
+      '#ga40-widget .ga40-header { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }',
+      '#ga40-widget .ga40-logo-wrap { display:flex; align-items:center; gap:8px; }',
+      '#ga40-widget .ga40-logo { height:30px; width:auto; display:block; }',
+      '#ga40-widget .ga40-title { font-size:12px; line-height:1.3; }',
+      '#ga40-widget .ga40-title strong { display:block; font-size:13px; }',
+      '#ga40-widget .ga40-badge { padding:4px 9px; border-radius:999px; background:rgba(0,166,81,0.18); color:#8fffc1; font-size:10px; text-transform:uppercase; letter-spacing:.4px; border:1px solid rgba(0,166,81,0.55); white-space:nowrap; }',
+      '#ga40-widget .ga40-edicola-link { display:inline-flex; align-items:center; gap:6px; margin-bottom:10px; font-size:11px; color:#b0ffcf; text-decoration:none; padding:5px 12px; border-radius:999px; border:1px solid rgba(0,166,81,0.4); background:rgba(0,166,81,0.12); transition:background .2s,transform .15s; }',
+      '#ga40-widget .ga40-edicola-link:hover { background:rgba(0,166,81,0.22); transform:translateY(-1px); }',
+      /* Flipbook area */
+      '#ga40-widget .ga40-flipbook { position:relative; width:100%; padding-top:133.333%; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.5); background:#000; }',
+      '#ga40-widget .ga40-flipbook img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity .3s ease; }',
+      /* Frecce grandi touch-friendly */
+      '#ga40-widget .ga40-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:10; border:none; background:rgba(0,0,0,0.55); color:#fff; width:44px; height:60px; border-radius:8px; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; transition:background .2s,opacity .2s; -webkit-tap-highlight-color:transparent; }',
+      '#ga40-widget .ga40-arrow:disabled { opacity:.2; cursor:default; }',
+      '#ga40-widget .ga40-arrow:not(:disabled):active { background:rgba(0,166,81,0.6); }',
+      '#ga40-widget .ga40-arrow-prev { left:0; border-radius:0 8px 8px 0; }',
+      '#ga40-widget .ga40-arrow-next { right:0; border-radius:8px 0 0 8px; }',
+      /* Indicatore pagine */
+      '#ga40-widget .ga40-indicator { text-align:center; font-size:11px; color:rgba(255,255,255,0.5); margin-top:8px; }',
+      /* Box codice */
+      '#ga40-widget .ga40-code-box { margin-top:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; }',
+      '#ga40-widget .ga40-code-box .ga40-code-label { font-size:11px; color:#bbb; margin-bottom:8px; }',
+      '#ga40-widget .ga40-code-row { display:flex; gap:6px; }',
+      '#ga40-widget .ga40-code-input { flex:1; padding:8px 10px; font-size:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(0,0,0,0.4); color:#fff; outline:none; }',
+      '#ga40-widget .ga40-code-input::placeholder { color:#666; }',
+      '#ga40-widget .ga40-code-input:focus { border-color:rgba(0,166,81,0.5); }',
+      '#ga40-widget .ga40-unlock-btn { padding:8px 14px; border-radius:8px; border:none; background:#00a651; color:#fff; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; transition:filter .2s; }',
+      '#ga40-widget .ga40-unlock-btn:hover { filter:brightness(1.1); }',
+      '#ga40-widget .ga40-code-msg { margin-top:6px; font-size:11px; color:#ffb4b4; display:none; }',
+      '#ga40-widget .ga40-code-ok { margin-top:6px; font-size:11px; color:#8fffc1; display:none; }',
+      /* Overlay acquisto */
+      '#ga40-widget .ga40-buy-overlay { position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; color:#fff; background:radial-gradient(circle at center,rgba(0,0,0,0.1),rgba(0,0,0,0.88)); }',
+      '#ga40-widget .ga40-buy-overlay .ga40-buy-title { font-size:14px; font-weight:700; margin-bottom:8px; }',
+      '#ga40-widget .ga40-buy-overlay .ga40-buy-text { font-size:11px; color:rgba(255,255,255,0.75); margin-bottom:14px; line-height:1.5; }',
+      '#ga40-widget .ga40-buy-btn { display:inline-block; padding:10px 20px; border-radius:999px; border:none; cursor:pointer; font-size:13px; font-weight:700; background:#00a651; color:#fff; box-shadow:0 5px 14px rgba(0,166,81,0.4); text-decoration:none; transition:filter .2s; }',
+      '#ga40-widget .ga40-buy-btn:hover { filter:brightness(1.1); }',
+      (isSidebar ? '' : '#ga40-lightbox-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:999999; display:flex; flex-direction:column; align-items:center; overflow-y:auto; padding:0; }'),
+    ].join('\n    ');
+
+    var jsCommon = [
+      'var UNLOCK_CODE = "' + code + '";',
+      'var PREMIUM_CODE = "' + PREMIUM + '";',
+      'var buyUrl = "' + buy + '";',
+      'var pages = [\n' + pagesStr + '\n  ];',
+      'var FREE_PAGES = 2;',
+      'var cur = 0; var unlocked = false;',
+      'var imgEl = document.getElementById("ga40-img");',
+      'var prevBtn = document.getElementById("ga40-prev");',
+      'var nextBtn = document.getElementById("ga40-next");',
+      'var indicEl = document.getElementById("ga40-indic");',
+      'var buyOverlay = document.getElementById("ga40-buy-overlay");',
+      'var codeInput = document.getElementById("ga40-code-input");',
+      'var unlockBtn = document.getElementById("ga40-unlock-btn");',
+      'var codeMsg = document.getElementById("ga40-code-msg");',
+      'var codeOk = document.getElementById("ga40-code-ok");',
+      'function checkCode(v) { return v === UNLOCK_CODE || v === PREMIUM_CODE; }',
+      'function doUnlock() {',
+      '  var v = (codeInput.value || "").trim();',
+      '  if (!v) { codeMsg.textContent = "Inserisci un codice."; codeMsg.style.display = "block"; return; }',
+      '  if (checkCode(v)) {',
+      '    unlocked = true;',
+      '    codeMsg.style.display = "none";',
+      '    codeOk.textContent = v === PREMIUM_CODE ? "\u2713 Accesso PREMIUM attivato!" : "\u2713 Numero sbloccato!";',
+      '    codeOk.style.display = "block";',
+      '    render(cur);',
+      '  } else {',
+      '    codeMsg.textContent = "Codice non valido.";',
+      '    codeMsg.style.display = "block";',
+      '  }',
+      '}',
+      'function render(idx) {',
+      '  cur = idx;',
+      '  var blocked = !unlocked && idx >= FREE_PAGES;',
+      '  imgEl.src = pages[idx];',
+      '  imgEl.style.filter = blocked ? "blur(7px) brightness(0.7)" : "none";',
+      '  buyOverlay.style.display = blocked ? "flex" : "none";',
+      '  prevBtn.disabled = (idx === 0);',
+      '  nextBtn.disabled = (idx === pages.length - 1);',
+      '  indicEl.textContent = "Pagina " + (idx+1) + " di " + pages.length;',
+      '}',
+      'prevBtn.addEventListener("click", function(){ if(cur > 0) render(cur-1); });',
+      'nextBtn.addEventListener("click", function(){ if(cur < pages.length-1) render(cur+1); });',
+      'unlockBtn.addEventListener("click", doUnlock);',
+      'codeInput.addEventListener("keydown", function(e){ if(e.key==="Enter") doUnlock(); });',
+      'document.getElementById("ga40-buy-btn").addEventListener("click", function(){',
+      '  try { window.open(buyUrl,"_blank","noopener"); } catch(e){ window.location.href=buyUrl; }',
+      '});',
+      'render(0);'
+    ].join('\n  ');
+
+    var jsLightbox = isSidebar ? '' : [
+      'imgEl.style.cursor = "pointer";',
+      'imgEl.addEventListener("click", function(){',
+      '  if (!unlocked && cur >= FREE_PAGES) return;',
+      '  openLightbox(cur);',
+      '});',
+      'function openLightbox(startIdx) {',
+      '  var li = startIdx;',
+      '  var ov = document.createElement("div");',
+      '  ov.id = "ga40-lightbox-overlay";',
+      '  ov.innerHTML = \'<div style="width:100%;max-width:900px;margin:0 auto;padding:12px 12px 40px;color:#fff;font-family:system-ui,sans-serif"><div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button id="ga40-lb-close" style="border:none;background:rgba(255,255,255,0.1);color:#fff;font-size:24px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center">&times;</button></div><div style="position:relative;border-radius:10px;overflow:hidden;background:#000"><img id="ga40-lb-img" style="width:100%;height:auto;display:block;cursor:zoom-in;transition:width .25s,filter .25s"><button id="ga40-lb-prev" style="position:absolute;left:0;top:50%;transform:translateY(-50%);border:none;background:rgba(0,0,0,0.55);color:#fff;width:52px;height:72px;border-radius:0 10px 10px 0;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;-webkit-tap-highlight-color:transparent">&lsaquo;</button><button id="ga40-lb-next" style="position:absolute;right:0;top:50%;transform:translateY(-50%);border:none;background:rgba(0,0,0,0.55);color:#fff;width:52px;height:72px;border-radius:10px 0 0 10px;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;-webkit-tap-highlight-color:transparent">&rsaquo;</button><div id="ga40-lb-buy" style="position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.88);color:#fff;text-align:center;padding:20px"><div style="font-size:15px;font-weight:700;margin-bottom:8px">Continua a sfogliare</div><div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:16px">Acquista il numero completo per leggere tutte le pagine.</div><button id="ga40-lb-buy-btn" style="padding:10px 22px;border-radius:999px;border:none;background:#00a651;color:#fff;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(0,166,81,0.4)">Acquista ora</button></div></div><div style="text-align:center;font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)" id="ga40-lb-indic"></div></div>\';',
+      '  document.body.appendChild(ov);',
+      '  var prevOv = document.body.style.overflow; document.body.style.overflow = "hidden";',
+      '  var lbImg = document.getElementById("ga40-lb-img");',
+      '  var lbPrev = document.getElementById("ga40-lb-prev");',
+      '  var lbNext = document.getElementById("ga40-lb-next");',
+      '  var lbBuy = document.getElementById("ga40-lb-buy");',
+      '  var lbBuyBtn = document.getElementById("ga40-lb-buy-btn");',
+      '  var lbIndic = document.getElementById("ga40-lb-indic");',
+      '  var lbClose = document.getElementById("ga40-lb-close");',
+      '  var zoom = 1;',
+      '  function closeLb() { document.body.style.overflow = prevOv; if(document.body.contains(ov)) document.body.removeChild(ov); }',
+      '  function renderLb() {',
+      '    lbImg.src = pages[li];',
+      '    var blocked = !unlocked && li >= FREE_PAGES;',
+      '    lbImg.style.filter = blocked ? "blur(7px) brightness(0.7)" : "none";',
+      '    lbBuy.style.display = blocked ? "flex" : "none";',
+      '    lbPrev.disabled = (li===0); lbNext.disabled = (li===pages.length-1);',
+      '    lbIndic.textContent = "Pagina "+(li+1)+" di "+pages.length;',
+      '    zoom=1; lbImg.style.width="100%"; lbImg.style.cursor="zoom-in";',
+      '  }',
+      '  lbImg.addEventListener("click", function(e){',
+      '    e.stopPropagation();',
+      '    if(zoom===1){zoom=2;lbImg.style.width="200%";lbImg.style.cursor="zoom-out";}',
+      '    else{zoom=1;lbImg.style.width="100%";lbImg.style.cursor="zoom-in";}',
+      '  });',
+      '  lbPrev.addEventListener("click", function(e){e.stopPropagation();if(li>0){li--;renderLb();}});',
+      '  lbNext.addEventListener("click", function(e){e.stopPropagation();if(li<pages.length-1){li++;renderLb();}});',
+      '  lbClose.addEventListener("click", closeLb);',
+      '  ov.addEventListener("click", function(e){if(e.target===ov)closeLb();});',
+      '  lbBuyBtn.addEventListener("click", function(){try{window.open(buyUrl,"_blank","noopener");}catch(e){window.location.href=buyUrl;}});',
+      '  renderLb();',
+      '}',
+    ].join('\n  ');
+
+    var html = [
+      '<!DOCTYPE html>',
+      '<html lang="it">',
+      '<head>',
+      '  <meta charset="UTF-8">',
+      '  <title>Grandangolo Settimanale ' + numero + ' \u2013 Widget</title>',
+      '  <meta name="viewport" content="width=device-width, initial-scale=1">',
+      (isSidebar ? '' : '  <style>html,body{margin:0;padding:0;background:transparent;font-family:system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;}</style>'),
+      '  <style>',
+      '    ' + css,
+      '  </style>',
+      '</head>',
+      '<body>',
+      '<div id="ga40-widget">',
+      '  <div class="ga40-card">',
+      '    <div class="ga40-header">',
+      '      <div class="ga40-logo-wrap">',
+      '        <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo" class="ga40-logo">',
+      '        <div class="ga40-title"><strong>Grandangolo Settimanale</strong> ' + numero + ' \u00b7 Edizione digitale</div>',
+      '      </div>',
+      '      <div class="ga40-badge">' + badge + '</div>',
+      '    </div>',
+      '    <a href="https://grandangolosettimanale.it" target="_blank" rel="noopener noreferrer" class="ga40-edicola-link"><span>Vai all&#39;edicola digitale</span> <span>\u2197</span></a>',
+      '    <div class="ga40-flipbook">',
+      '      <img id="ga40-img" src="' + cover + '" alt="' + numero + '">',
+      '      <button id="ga40-prev" class="ga40-arrow ga40-arrow-prev" type="button">\u2039</button>',
+      '      <button id="ga40-next" class="ga40-arrow ga40-arrow-next" type="button">\u203a</button>',
+      '      <div id="ga40-buy-overlay" class="ga40-buy-overlay">',
+      '        <div class="ga40-buy-title">Continua a sfogliare \ud83d\udcd6</div>',
+      '        <div class="ga40-buy-text">Puoi sfogliare le prime ' + 2 + ' pagine gratuitamente.<br>Acquista per leggere tutto il numero.</div>',
+      '        <button id="ga40-buy-btn" class="ga40-buy-btn">Acquista il numero completo</button>',
+      '      </div>',
+      '    </div>',
+      '    <div class="ga40-indicator" id="ga40-indic">Pagina 1 di ' + pages.length + '</div>',
+      '    <div class="ga40-code-box">',
+      '      <div class="ga40-code-label">Hai gi\xe0 acquistato? Inserisci il codice di sblocco:</div>',
+      '      <div class="ga40-code-row">',
+      '        <input id="ga40-code-input" class="ga40-code-input" type="text" placeholder="Es. GR22-XXXXX" autocomplete="off">',
+      '        <button id="ga40-unlock-btn" class="ga40-unlock-btn" type="button">Sblocca</button>',
+      '      </div>',
+      '      <div id="ga40-code-msg" class="ga40-code-msg"></div>',
+      '      <div id="ga40-code-ok" class="ga40-code-ok"></div>',
+      '    </div>',
+      '  </div>',
+      '</div>',
+      '<script>',
+      '(function(){',
+      '  ' + jsCommon,
+      (isSidebar ? '' : '  ' + jsLightbox),
+      '})();',
+      '<\/script>',
+      '</body>',
+      '</html>'
+    ];
+
+    return html.filter(function(l){ return l !== ''; }).join('\n');
+  }
 
 }); // end DOMContentLoaded
 </script>
