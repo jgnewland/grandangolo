@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Grandangolo Settimanale N.13/2026 – Widget</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>html,body{margin:0;padding:0;background:transparent;font-family:system-ui,sans-serif;display:flex;justify-content:center;align-items:flex-start;}</style>
+  <style>
+    #ga40-widget { max-width:360px; width:100%; margin:8px auto 16px; color:#f5f5f5; box-sizing:border-box; font-family:system-ui,-apple-system,sans-serif; }
+    #ga40-widget *, #ga40-widget *::before, #ga40-widget *::after { box-sizing:border-box; }
+    #ga40-widget .ga40-card { background:radial-gradient(circle at top,#19192b 0,#050509 55%); border-radius:16px; padding:16px 14px 14px; box-shadow:0 10px 26px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.08); }
+    #ga40-widget .ga40-header { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+    #ga40-widget .ga40-logo-wrap { display:flex; align-items:center; gap:8px; }
+    #ga40-widget .ga40-logo { height:30px; width:auto; display:block; }
+    #ga40-widget .ga40-title { font-size:12px; line-height:1.3; }
+    #ga40-widget .ga40-title strong { display:block; font-size:13px; }
+    #ga40-widget .ga40-badge { padding:4px 9px; border-radius:999px; background:rgba(0,166,81,0.18); color:#8fffc1; font-size:10px; text-transform:uppercase; letter-spacing:.4px; border:1px solid rgba(0,166,81,0.55); white-space:nowrap; }
+    #ga40-widget .ga40-edicola-link { display:inline-flex; align-items:center; gap:6px; margin-bottom:10px; font-size:11px; color:#b0ffcf; text-decoration:none; padding:5px 12px; border-radius:999px; border:1px solid rgba(0,166,81,0.4); background:rgba(0,166,81,0.12); transition:background .2s,transform .15s; }
+    #ga40-widget .ga40-edicola-link:hover { background:rgba(0,166,81,0.22); transform:translateY(-1px); }
+    #ga40-widget .ga40-flipbook { position:relative; width:100%; padding-top:133.333%; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.5); background:#000; }
+    #ga40-widget .ga40-flipbook img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity .3s ease; }
+    #ga40-widget .ga40-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:10; border:none; background:rgba(0,0,0,0.55); color:#fff; width:44px; height:60px; border-radius:8px; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; transition:background .2s,opacity .2s; -webkit-tap-highlight-color:transparent; }
+    #ga40-widget .ga40-arrow:disabled { opacity:.2; cursor:default; }
+    #ga40-widget .ga40-arrow:not(:disabled):active { background:rgba(0,166,81,0.6); }
+    #ga40-widget .ga40-arrow-prev { left:0; border-radius:0 8px 8px 0; }
+    #ga40-widget .ga40-arrow-next { right:0; border-radius:8px 0 0 8px; }
+    #ga40-widget .ga40-indicator { text-align:center; font-size:11px; color:rgba(255,255,255,0.5); margin-top:8px; }
+    #ga40-widget .ga40-code-box { margin-top:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; }
+    #ga40-widget .ga40-code-box .ga40-code-label { font-size:11px; color:#bbb; margin-bottom:8px; }
+    #ga40-widget .ga40-code-row { display:flex; gap:6px; }
+    #ga40-widget .ga40-code-input { flex:1; padding:8px 10px; font-size:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(0,0,0,0.4); color:#fff; outline:none; }
+    #ga40-widget .ga40-code-input::placeholder { color:#666; }
+    #ga40-widget .ga40-code-input:focus { border-color:rgba(0,166,81,0.5); }
+    #ga40-widget .ga40-unlock-btn { padding:8px 14px; border-radius:8px; border:none; background:#00a651; color:#fff; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; transition:filter .2s; }
+    #ga40-widget .ga40-unlock-btn:hover { filter:brightness(1.1); }
+    #ga40-widget .ga40-code-msg { margin-top:6px; font-size:11px; color:#ffb4b4; display:none; }
+    #ga40-widget .ga40-code-ok { margin-top:6px; font-size:11px; color:#8fffc1; display:none; }
+    #ga40-widget .ga40-buy-overlay { position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; color:#fff; background:radial-gradient(circle at center,rgba(0,0,0,0.1),rgba(0,0,0,0.88)); }
+    #ga40-widget .ga40-buy-overlay .ga40-buy-title { font-size:14px; font-weight:700; margin-bottom:8px; }
+    #ga40-widget .ga40-buy-overlay .ga40-buy-text { font-size:11px; color:rgba(255,255,255,0.75); margin-bottom:14px; line-height:1.5; }
+    #ga40-widget .ga40-buy-btn { display:inline-block; padding:10px 20px; border-radius:999px; border:none; cursor:pointer; font-size:13px; font-weight:700; background:#00a651; color:#fff; box-shadow:0 5px 14px rgba(0,166,81,0.4); text-decoration:none; transition:filter .2s; }
+    #ga40-widget .ga40-buy-btn:hover { filter:brightness(1.1); }
+    #ga40-lightbox-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:999999; display:flex; flex-direction:column; align-items:center; overflow-y:auto; padding:0; }
+  </style>
+</head>
+<body>
+<div id="ga40-widget">
+  <div class="ga40-card">
+    <div class="ga40-header">
+      <div class="ga40-logo-wrap">
+        <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" alt="Grandangolo" class="ga40-logo">
+        <div class="ga40-title"><strong>Grandangolo Settimanale</strong> N.13/2026 · Edizione digitale</div>
+      </div>
+      <div class="ga40-badge">Ultima uscita</div>
+    </div>
+    <a href="https://grandangolosettimanale.it" target="_blank" rel="noopener noreferrer" class="ga40-edicola-link"><span>Vai all&#39;edicola digitale</span> <span>↗</span></a>
+    <div class="ga40-flipbook">
+      <img id="ga40-img" src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/1.jpg" alt="N.13/2026">
+      <button id="ga40-prev" class="ga40-arrow ga40-arrow-prev" type="button">‹</button>
+      <button id="ga40-next" class="ga40-arrow ga40-arrow-next" type="button">›</button>
+      <div id="ga40-buy-overlay" class="ga40-buy-overlay">
+        <div class="ga40-buy-title">Continua a sfogliare 📖</div>
+        <div class="ga40-buy-text">Puoi sfogliare le prime 2 pagine gratuitamente.<br>Acquista per leggere tutto il numero.</div>
+        <button id="ga40-buy-btn" class="ga40-buy-btn">Acquista il numero completo</button>
+      </div>
+    </div>
+    <div class="ga40-indicator" id="ga40-indic">Pagina 1 di 20</div>
+    <div class="ga40-code-box">
+      <div class="ga40-code-label">Hai già acquistato? Inserisci il codice di sblocco:</div>
+      <div class="ga40-code-row">
+        <input id="ga40-code-input" class="ga40-code-input" type="text" placeholder="Es. GR22-XXXXX" autocomplete="off">
+        <button id="ga40-unlock-btn" class="ga40-unlock-btn" type="button">Sblocca</button>
+      </div>
+      <div id="ga40-code-msg" class="ga40-code-msg"></div>
+      <div id="ga40-code-ok" class="ga40-code-ok"></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var UNLOCK_CODE = "GR22-xKeD%a3ATAwR";
+  var PREMIUM_CODE = "GR22-PREMIUM(SJjA?$£-AaX";
+  var buyUrl = "https://buy.stripe.com/dRm3cx3W8eUN8df4gM9MY0p";
+  var pages = [
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/1.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/2.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/3.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/4.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/5.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/6.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/7.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/8.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/9.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/10.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/11.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/12_1ae77e.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/13.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/14.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/15.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/16.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/17.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/18.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/19.jpg",
+    "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/04/20.jpg"
+  ];
+  var FREE_PAGES = 2;
+  var cur = 0; var unlocked = false;
+  var imgEl = document.getElementById("ga40-img");
+  var prevBtn = document.getElementById("ga40-prev");
+  var nextBtn = document.getElementById("ga40-next");
+  var indicEl = document.getElementById("ga40-indic");
+  var buyOverlay = document.getElementById("ga40-buy-overlay");
+  var codeInput = document.getElementById("ga40-code-input");
+  var unlockBtn = document.getElementById("ga40-unlock-btn");
+  var codeMsg = document.getElementById("ga40-code-msg");
+  var codeOk = document.getElementById("ga40-code-ok");
+  function checkCode(v) { return v === UNLOCK_CODE || v === PREMIUM_CODE; }
+  function doUnlock() {
+    var v = (codeInput.value || "").trim();
+    if (!v) { codeMsg.textContent = "Inserisci un codice."; codeMsg.style.display = "block"; return; }
+    if (checkCode(v)) {
+      unlocked = true;
+      codeMsg.style.display = "none";
+      codeOk.textContent = v === PREMIUM_CODE ? "✓ Accesso PREMIUM attivato!" : "✓ Numero sbloccato!";
+      codeOk.style.display = "block";
+      render(cur);
+    } else {
+      codeMsg.textContent = "Codice non valido.";
+      codeMsg.style.display = "block";
+    }
+  }
+  function render(idx) {
+    cur = idx;
+    var blocked = !unlocked && idx >= FREE_PAGES;
+    imgEl.src = pages[idx];
+    imgEl.style.filter = blocked ? "blur(7px) brightness(0.7)" : "none";
+    buyOverlay.style.display = blocked ? "flex" : "none";
+    prevBtn.disabled = (idx === 0);
+    nextBtn.disabled = (idx === pages.length - 1);
+    indicEl.textContent = "Pagina " + (idx+1) + " di " + pages.length;
+  }
+  prevBtn.addEventListener("click", function(){ if(cur > 0) render(cur-1); });
+  nextBtn.addEventListener("click", function(){ if(cur < pages.length-1) render(cur+1); });
+  unlockBtn.addEventListener("click", doUnlock);
+  codeInput.addEventListener("keydown", function(e){ if(e.key==="Enter") doUnlock(); });
+  document.getElementById("ga40-buy-btn").addEventListener("click", function(){
+    try { window.open(buyUrl,"_blank","noopener"); } catch(e){ window.location.href=buyUrl; }
+  });
+  render(0);
+  imgEl.style.cursor = "pointer";
+  imgEl.addEventListener("click", function(){
+    if (!unlocked && cur >= FREE_PAGES) return;
+    openLightbox(cur);
+  });
+  function openLightbox(startIdx) {
+    var li = startIdx;
+    var ov = document.createElement("div");
+    ov.id = "ga40-lightbox-overlay";
+    ov.innerHTML = '<div style="width:100%;max-width:900px;margin:0 auto;padding:12px 12px 40px;color:#fff;font-family:system-ui,sans-serif"><div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button id="ga40-lb-close" style="border:none;background:rgba(255,255,255,0.1);color:#fff;font-size:24px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center">&times;</button></div><div style="position:relative;border-radius:10px;overflow:hidden;background:#000"><img id="ga40-lb-img" style="width:100%;height:auto;display:block;cursor:zoom-in;transition:width .25s,filter .25s"><button id="ga40-lb-prev" style="position:absolute;left:0;top:50%;transform:translateY(-50%);border:none;background:rgba(0,0,0,0.55);color:#fff;width:52px;height:72px;border-radius:0 10px 10px 0;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;-webkit-tap-highlight-color:transparent">&lsaquo;</button><button id="ga40-lb-next" style="position:absolute;right:0;top:50%;transform:translateY(-50%);border:none;background:rgba(0,0,0,0.55);color:#fff;width:52px;height:72px;border-radius:10px 0 0 10px;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;-webkit-tap-highlight-color:transparent">&rsaquo;</button><div id="ga40-lb-buy" style="position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.88);color:#fff;text-align:center;padding:20px"><div style="font-size:15px;font-weight:700;margin-bottom:8px">Continua a sfogliare</div><div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:16px">Acquista il numero completo per leggere tutte le pagine.</div><button id="ga40-lb-buy-btn" style="padding:10px 22px;border-radius:999px;border:none;background:#00a651;color:#fff;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(0,166,81,0.4)">Acquista ora</button></div></div><div style="text-align:center;font-size:12px;margin-top:10px;color:rgba(255,255,255,0.5)" id="ga40-lb-indic"></div></div>';
+    document.body.appendChild(ov);
+    var prevOv = document.body.style.overflow; document.body.style.overflow = "hidden";
+    var lbImg = document.getElementById("ga40-lb-img");
+    var lbPrev = document.getElementById("ga40-lb-prev");
+    var lbNext = document.getElementById("ga40-lb-next");
+    var lbBuy = document.getElementById("ga40-lb-buy");
+    var lbBuyBtn = document.getElementById("ga40-lb-buy-btn");
+    var lbIndic = document.getElementById("ga40-lb-indic");
+    var lbClose = document.getElementById("ga40-lb-close");
+    var zoom = 1;
+    function closeLb() { document.body.style.overflow = prevOv; if(document.body.contains(ov)) document.body.removeChild(ov); }
+    function renderLb() {
+      lbImg.src = pages[li];
+      var blocked = !unlocked && li >= FREE_PAGES;
+      lbImg.style.filter = blocked ? "blur(7px) brightness(0.7)" : "none";
+      lbBuy.style.display = blocked ? "flex" : "none";
+      lbPrev.disabled = (li===0); lbNext.disabled = (li===pages.length-1);
+      lbIndic.textContent = "Pagina "+(li+1)+" di "+pages.length;
+      zoom=1; lbImg.style.width="100%"; lbImg.style.cursor="zoom-in";
+    }
+    lbImg.addEventListener("click", function(e){
+      e.stopPropagation();
+      if(zoom===1){zoom=2;lbImg.style.width="200%";lbImg.style.cursor="zoom-out";}
+      else{zoom=1;lbImg.style.width="100%";lbImg.style.cursor="zoom-in";}
+    });
+    lbPrev.addEventListener("click", function(e){e.stopPropagation();if(li>0){li--;renderLb();}});
+    lbNext.addEventListener("click", function(e){e.stopPropagation();if(li<pages.length-1){li++;renderLb();}});
+    lbClose.addEventListener("click", closeLb);
+    ov.addEventListener("click", function(e){if(e.target===ov)closeLb();});
+    lbBuyBtn.addEventListener("click", function(){try{window.open(buyUrl,"_blank","noopener");}catch(e){window.location.href=buyUrl;}});
+    renderLb();
+  }
+})();
+</script>
+</body>
+</html>
