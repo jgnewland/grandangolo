@@ -1111,7 +1111,7 @@ l.parentNode.insertBefore(s, l);
 
         // Se ci sono nuovi numeri, aggiunge le card in testa alla griglia
         if (aggiunti > 0) {
-          nuovi.filter(function(n){ return n.unlockCode; }).forEach(function(issue) {
+          nuovi.filter(function(n){ return n.unlockCode; }).reverse().forEach(function(issue) {
             const card = document.createElement('article');
             card.className = 'edicola-card';
             card.setAttribute('data-search', (issue.title+' '+(issue.subtitle||'')).toLowerCase());
