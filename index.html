@@ -1059,12 +1059,13 @@ l.parentNode.insertBefore(s, l);
         // Aggiorna ultima uscita: quella da Supabase sovrascrive tutto
         const latest = nuovi.find(function(n){ return n.isLatest; });
         if (latest) {
-          // 1. Rimuovi isLatest da tutti i numeri nell'array
+         if (latest) {
+          // Rimuovi isLatest da tutti
           window.issues.forEach(function(i){ i.isLatest = false; });
-          // 2. Imposta isLatest sul numero corretto
+          // Imposta isLatest sul numero corretto
           var found = window.issues.find(function(i){ return i.unlockCode === latest.unlockCode; });
           if (found) found.isLatest = true;
-          // 3. Aggiorna hero card (copertina ultima uscita)
+          // Aggiorna hero card
           var heroImg = document.getElementById('hero-cover-img');
           var heroTitle = document.getElementById('hero-cover-title');
           var heroDate = document.getElementById('hero-cover-date');
@@ -1073,6 +1074,21 @@ l.parentNode.insertBefore(s, l);
           if (heroDate && latest.subtitle) {
             heroDate.textContent = latest.subtitle + " · LA COPERTINA DELL'ULTIMA USCITA";
           }
+          // Rimuovi TUTTI i badge esistenti
+          document.querySelectorAll('.issue-label-latest').forEach(function(b){ b.remove(); });
+          // Aggiungi badge SOLO alla card con unlockCode corrispondente
+          allCards.forEach(function(item){
+            if(item.issue && item.issue.unlockCode === latest.unlockCode){
+              var wrap = item.card.querySelector('.edicola-cover-wrap');
+              if(wrap && !wrap.querySelector('.issue-label-latest')){
+                var badge = document.createElement('div');
+                badge.className = 'issue-label-latest';
+                badge.textContent = 'ULTIMA USCITA · €1,50';
+                wrap.appendChild(badge);
+              }
+            }
+          });
+        }
           // 4. Rimuovi tutti i badge "ULTIMA USCITA" dal carosello
           document.querySelectorAll('.issue-label-latest').forEach(function(b){ b.remove(); });
           // 5. Aggiungi badge solo alla card del nuovo numero
