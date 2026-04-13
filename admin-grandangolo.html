@@ -165,6 +165,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="nav-i" data-pg="grazie">&#127881; Pagina ringraziamento</div>
     <div class="nav-i" data-pg="widget">&#128248; Widget settimanale</div>
     <div class="nav-i" data-pg="avvisi">&#128226; Bacheca avvisi</div>
+    <div class="nav-i" data-pg="offerta">&#127873; Offerta speciale</div>
     <div class="nav-i" data-pg="analytics">&#128200; Visite sito</div>
     <div class="nav-i" data-pg="stripe">&#128179; Storico vendite</div>
     <div style="margin-top:auto;padding:14px 18px;border-top:1px solid rgba(255,255,255,0.08)">
@@ -183,6 +184,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="nav-i" data-pg="grazie">&#127881; Pagina ringraziamento</div>
     <div class="nav-i" data-pg="widget">&#128248; Widget settimanale</div>
     <div class="nav-i" data-pg="avvisi">&#128226; Bacheca avvisi</div>
+    <div class="nav-i" data-pg="offerta">&#127873; Offerta speciale</div>
     <div class="nav-i" data-pg="analytics">&#128200; Visite sito</div>
     <div class="nav-i" data-pg="stripe">&#128179; Storico vendite</div>
     <div class="sb-ft"><button id="logout-btn">&#8592; Esci</button></div>
@@ -548,6 +550,82 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
       </div>
     </div>
 
+    <!-- OFFERTA SPECIALE -->
+    <div class="pg" id="pg-offerta">
+      <div class="pg-title">Offerta speciale</div>
+      <div class="pg-sub">Gestisci il banner offerta che appare sul sito (es. Offerta di Pasqua, bundle estivo, ecc.).</div>
+
+      <div class="card">
+        <div class="card-t" style="margin-bottom:16px">Contenuto offerta</div>
+        <div class="row2">
+          <div class="f"><label>Titolo offerta (es. Offerta di Pasqua)</label><input type="text" id="of-titolo" placeholder="Offerta di Pasqua"></div>
+          <div class="f"><label>Emoji titolo</label><input type="text" id="of-emoji" placeholder="🐣" style="max-width:80px"></div>
+        </div>
+        <div class="row2">
+          <div class="f"><label>Prezzo (es. 7,50)</label><input type="text" id="of-prezzo" placeholder="7,50"></div>
+          <div class="f"><label>Descrizione numero numeri (es. 6 numeri)</label><input type="text" id="of-desc" placeholder="6 numeri"></div>
+        </div>
+        <div class="f"><label>Testo descrizione sotto il titolo</label><textarea id="of-body" style="min-height:70px" placeholder="Con un solo acquisto leggi i 6 numeri più recenti direttamente online..."></textarea></div>
+        <div class="f"><label>Link Stripe acquisto</label><input type="url" id="of-stripe" placeholder="https://buy.stripe.com/..."></div>
+        <div class="f"><label>Testo bottone (es. Acquista ora)</label><input type="text" id="of-btntext" placeholder="Acquista ora →"></div>
+      </div>
+
+      <div class="card" style="border-color:rgba(255,200,50,0.25);background:rgba(255,200,50,0.03)">
+        <div class="card-t" style="margin-bottom:4px">🔑 Codice bundle offerta</div>
+        <div class="card-s" style="margin-bottom:14px">Questo codice sblocca automaticamente tutti i numeri selezionati. Viene salvato su Supabase come bundle e consegnato ai clienti dopo il pagamento.</div>
+        <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
+          <div class="f" style="flex:1;min-width:200px;margin:0">
+            <label>Codice bundle</label>
+            <input type="text" id="of-codice" placeholder="GR22-XXXXX" style="font-family:monospace">
+          </div>
+          <button class="ghost" id="of-gen-codice-btn" style="padding:11px 14px;white-space:nowrap;flex-shrink:0">🔑 Genera automatico</button>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-sm" id="of-salva-bundle-btn">Salva bundle su Supabase</button>
+          <div class="res" id="of-bundle-res" style="margin:0"></div>
+        </div>
+        <div id="of-bundle-info" style="display:none;margin-top:10px;padding:10px 12px;background:rgba(0,166,81,0.08);border:1px solid rgba(0,166,81,0.25);border-radius:8px;font-size:12px;color:#8fffc1;line-height:1.6">
+          ✓ Bundle salvato! I clienti che inseriscono questo codice sbloccano tutti i numeri selezionati.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-t" style="margin-bottom:4px">Numeri inclusi nell'offerta</div>
+        <div class="card-s" style="margin-bottom:14px">Seleziona i numeri che appaiono nel carosello dell'offerta sul sito.</div>
+        <div id="of-numeri-list" style="max-height:300px;overflow-y:auto;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px;background:rgba(0,0,0,0.2);margin-bottom:14px">
+          <div style="font-size:12px;color:#888;padding:8px">Carica prima i numeri dalla sezione "Numeri &amp; Codici"...</div>
+        </div>
+        <button class="ghost btn-sm" id="of-load-numeri-btn">&#8635; Carica lista numeri</button>
+      </div>
+
+      <div class="card" style="border-color:rgba(0,166,81,0.3);background:rgba(0,166,81,0.04)">
+        <div class="card-t" style="margin-bottom:10px">Anteprima codice da incollare nell'index.html</div>
+        <div style="background:rgba(0,166,81,0.08);border:1px solid rgba(0,166,81,0.25);border-radius:8px;padding:12px 14px;font-size:12px;color:#8fffc1;margin-bottom:14px;line-height:1.6">
+          ℹ️ <strong>Come usarlo:</strong> clicca "Genera codice offerta", poi nell'index.html cerca <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px">id="offerta"</code> e sostituisci l'intera sezione con il codice generato.
+        </div>
+        <button class="btn" id="of-genera-btn">⚡ Genera codice offerta</button>
+        <div class="res" id="of-res"></div>
+        <div id="of-output-wrap" style="display:none;margin-top:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div style="font-size:13px;font-weight:600;color:#fff">Codice HTML generato</div>
+            <button class="btn btn-sm" id="of-copy-btn">📋 Copia tutto</button>
+          </div>
+          <textarea id="of-output" readonly style="width:100%;min-height:180px;font-family:monospace;font-size:11px;line-height:1.5;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#8fffc1;padding:12px;resize:vertical"></textarea>
+        </div>
+      </div>
+
+      <!-- SALVA SU SUPABASE -->
+      <div class="card" style="border-color:rgba(255,200,50,0.25);background:rgba(255,200,50,0.03)">
+        <div class="card-t" style="margin-bottom:4px">💾 Salva configurazione offerta</div>
+        <div class="card-s" style="margin-bottom:14px">Salva i dati su Supabase così li ritrovi la prossima volta che apri l'admin.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="of-salva-btn">💾 Salva configurazione</button>
+          <button class="ghost" id="of-carica-btn">📂 Carica configurazione salvata</button>
+        </div>
+        <div class="res" id="of-save-res"></div>
+      </div>
+    </div>
+
     <!-- ANALYTICS -->
     <div class="pg" id="pg-analytics">
       <div class="pg-title">Visite al sito</div>
@@ -793,7 +871,7 @@ document.getElementById("nu-pubblica-btn").onclick = async function(){
     if(latest) await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
     var maxR=await sbGet("/rest/v1/issues?select=sort_order&order=sort_order.desc&limit=1");
     var ord=(maxR&&maxR.length?(maxR[0].sort_order||0):0)+1;
-    // sort_order altissimo = va sempre in cima. Usiamo timestamp unix per unicità
+    // sort_order altissimo = va sempre in cima. Usiamo timestamp unix per unicita
     var topOrder = Math.floor(Date.now()/1000);
     var r=await sbPost("/rest/v1/issues",{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno,sort_order:topOrder});
     if(r.ok){ showRes("nu-res","\u2713 Numero pubblicato! Appare in cima all'edicola come ultima uscita.","ok"); ["nu-title","nu-sub","nu-cover","nu-buy","nu-code","nu-pages"].forEach(function(id){ document.getElementById(id).value=""; }); document.getElementById("nu-latest").checked=false; document.getElementById("nu-prev").style.display="none"; setTimeout(function(){ loadNumeri(); },500); }
@@ -1199,6 +1277,245 @@ async function loadCustomBundles(){
   } catch(e){ el.innerHTML='<div class="empty">Errore caricamento.</div>'; }
 }
 
+// ── OFFERTA SPECIALE ─────────────────────────────────────────────
+
+document.getElementById("of-load-numeri-btn").onclick = caricaNumeriOfferta;
+document.getElementById("of-genera-btn").onclick = generaOfferta;
+document.getElementById("of-copy-btn").onclick = function(){
+  var ta = document.getElementById("of-output");
+  navigator.clipboard.writeText(ta.value).then(function(){ showToastW("Codice copiato!"); });
+};
+document.getElementById("of-salva-btn").onclick = salvaOfferta;
+document.getElementById("of-carica-btn").onclick = caricaOffertaSalvata;
+
+// Carica all'apertura della pagina offerta
+document.querySelectorAll('.nav-i[data-pg="offerta"]').forEach(function(el){
+  var orig = el.onclick;
+  el.addEventListener('click', function(){
+    caricaNumeriOfferta();
+    caricaOffertaSalvata();
+  });
+});
+
+async function caricaNumeriOfferta(){
+  var list = document.getElementById("of-numeri-list");
+  list.innerHTML = '<div style="font-size:12px;color:#888;padding:8px">Caricamento...</div>';
+
+  // Usa window._numeri se gia caricato, altrimenti carica
+  var issues = [];
+  if(window._numeri && window._numeri.length){
+    issues = window._numeri;
+  } else {
+    try {
+      var r = await sbGet("/rest/v1/issues?select=title,subtitle,unlock_code,cover_url&order=sort_order.desc,created_at.desc");
+      if(r && r.length) issues = r.map(function(x){ return { title:x.title, subtitle:x.subtitle||"", unlockCode:x.unlock_code, cover:x.cover_url||"" }; });
+    } catch(e){}
+    // Aggiungi statici
+    STATIC_ISSUES.forEach(function(si){
+      var already = issues.find(function(i){ return i.unlockCode === si.unlockCode; });
+      if(!already) issues.push(si);
+    });
+  }
+
+  if(!issues.length){ list.innerHTML = '<div style="font-size:12px;color:#888;padding:8px">Nessun numero trovato. Vai prima su "Numeri &amp; Codici".</div>'; return; }
+
+  list.innerHTML = "";
+  // Recupera selezione salvata
+  var savedSel = [];
+  try { savedSel = JSON.parse(sessionStorage.getItem("of-selected")||"[]"); } catch(e){}
+
+  var seen = {};
+  issues.forEach(function(issue){
+    var code = issue.unlockCode || issue.unlock_code;
+    if(!code || seen[code]) return;
+    seen[code] = 1;
+    var row = document.createElement("label");
+    row.style.cssText = "display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04);transition:background .15s";
+    row.onmouseover = function(){ row.style.background="rgba(255,255,255,0.03)"; };
+    row.onmouseout = function(){ row.style.background=""; };
+    var checked = savedSel.indexOf(code) !== -1 ? "checked" : "";
+    row.innerHTML = '<input type="checkbox" class="of-check" value="'+code+'" '+checked+' style="width:15px;height:15px;accent-color:#00a651;cursor:pointer;flex-shrink:0">'
+      + (issue.cover ? '<img src="'+issue.cover+'" style="width:28px;height:40px;border-radius:4px;object-fit:cover;flex-shrink:0">' : '')
+      + '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:#fff">'+issue.title+'</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">'+(issue.subtitle||"")+'</div></div>';
+    list.appendChild(row);
+  });
+}
+
+function getSelectedCodes(){
+  return Array.from(document.querySelectorAll(".of-check:checked")).map(function(c){ return c.value; });
+}
+
+function generaOfferta(){
+  var titolo = document.getElementById("of-titolo").value.trim() || "Offerta speciale";
+  var emoji  = document.getElementById("of-emoji").value.trim()  || "";
+  var prezzo = document.getElementById("of-prezzo").value.trim() || "7,50";
+  var desc   = document.getElementById("of-desc").value.trim()   || "numeri";
+  var body   = document.getElementById("of-body").value.trim()   || "Con un solo acquisto leggi i numeri selezionati direttamente online.";
+  var stripe = document.getElementById("of-stripe").value.trim() || "#";
+  var btnTxt = document.getElementById("of-btntext").value.trim()|| "Acquista ora";
+  var codes  = getSelectedCodes();
+
+  if(!codes.length){ showRes("of-res","Seleziona almeno un numero.","err"); return; }
+
+  var allIss = window._numeri || STATIC_ISSUES;
+  var selIssues = [];
+  codes.forEach(function(code){
+    var found = allIss.find(function(i){ return (i.unlockCode||i.unlock_code) === code; });
+    if(found) selIssues.push(found);
+  });
+
+  // Build carousel slides
+  var slidesHtml = '';
+  selIssues.forEach(function(issue, idx){
+    var isFirst = idx === 0;
+    var cover = issue.cover || issue.cover_url || "";
+    var title = issue.title || "";
+    var sub   = issue.subtitle || "";
+    var cod   = (issue.unlockCode || issue.unlock_code || "").replace(/[^a-z0-9]/gi,"");
+    var numMatch = title.match(/N\.\s*(\d+)/);
+    var numLabel = numMatch ? "N.\u2009" + numMatch[1] + " / 2026" : title;
+
+    slidesHtml += '              <div class="promo-carousel-slide">\n';
+    slidesHtml += '                <div class="promo-cover-card" data-promo-id="promo-' + cod + '" style="cursor:pointer;text-align:center;">\n';
+    slidesHtml += '                  <div style="position:relative;border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,166,81,0.35);box-shadow:0 8px 20px rgba(0,0,0,0.55);aspect-ratio:3/4;background:#0a0a12;">\n';
+    slidesHtml += '                    <img src="' + cover + '" alt="' + numLabel + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">\n';
+    if(isFirst) slidesHtml += '                    <div style="position:absolute;top:6px;left:6px;background:#e60000;color:#fff;padding:3px 7px;border-radius:5px;font-size:8px;font-weight:700;text-transform:uppercase;">ULTIMA</div>\n';
+    slidesHtml += '                    <div class="promo-play-icon" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.38);opacity:0;transition:opacity .2s;"><div style="width:42px;height:42px;border-radius:50%;background:#00a651;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 16 16" fill="white"><polygon points="4,2 14,8 4,14"/></svg></div></div>\n';
+    slidesHtml += '                  </div>\n';
+    slidesHtml += '                  <div style="margin-top:6px;font-size:11px;font-weight:700;color:#e8e8e8;">' + numLabel + '</div>\n';
+    slidesHtml += '                  <div style="font-size:9px;color:rgba(255,255,255,0.38);">' + sub + '</div>\n';
+    slidesHtml += '                </div>\n';
+    slidesHtml += '              </div>\n';
+  });
+
+  var titoloDisplay = (emoji ? emoji + ' ' : '') + titolo;
+
+  var html = '';
+  html += '<section id="offerta" style="margin-bottom:32px;">\n';
+  html += '      <div style="position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(135deg,#081a0d 0%,#061210 55%,#091a0f 100%);border:1px solid rgba(0,166,81,0.38);box-shadow:0 24px 60px rgba(0,0,0,0.60);padding:32px 28px;">\n';
+  html += '        <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 70% at 5% 50%,rgba(0,166,81,0.16) 0%,transparent 60%);"></div>\n';
+  html += '        <div style="position:relative;">\n';
+  html += '          <div style="text-align:center;margin-bottom:26px;">\n';
+  html += '            <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;margin-bottom:14px;background:rgba(0,166,81,0.18);border:1px solid rgba(0,166,81,0.50);">\n';
+  html += '              <span style="width:8px;height:8px;border-radius:50%;background:#00a651;display:inline-block;animation:offerPulse 1.6s ease-in-out infinite;"></span>\n';
+  html += '              <span style="font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8fffc1;">' + titoloDisplay + '</span>\n';
+  html += '            </div>\n';
+  html += '            <h2 style="margin:0 0 10px;font-size:clamp(22px,4vw,30px);line-height:1.15;color:#f5f5f5;font-weight:800;">' + titoloDisplay + '<br><span style="color:#00a651;">' + selIssues.length + ' numeri a soli &euro;&nbsp;' + prezzo + '</span></h2>\n';
+  html += '            <p style="margin:0 auto;max-width:480px;font-size:14px;color:#b0b0b0;line-height:1.55;">' + body + '</p>\n';
+  html += '          </div>\n';
+  html += '          <div id="promo-carousel-wrap" style="margin-bottom:28px;">\n';
+  html += '            <div id="promo-carousel-track">\n';
+  html += slidesHtml;
+  html += '            <div class="promo-carousel-dots" id="promo-dots"></div>\n';
+  html += '            </div>\n';
+  html += '          </div>\n';
+  html += '          <p style="text-align:center;font-size:12px;color:rgba(143,255,193,0.55);margin:4px 0 22px;">\u25b2 Clicca su una copertina per sfogliare l\'anteprima</p>\n';
+  html += '          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px;">\n';
+  html += '            <div style="text-align:center;line-height:1;">\n';
+  html += '              <div style="font-size:50px;font-weight:900;color:#00a651;">&euro;&nbsp;' + prezzo + '</div>\n';
+  html += '              <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px;">' + desc + '</div>\n';
+  html += '            </div>\n';
+  html += '            <a href="' + stripe + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:16px 36px;border-radius:16px;background:#00a651;color:#fff;font-size:17px;font-weight:800;text-decoration:none;box-shadow:0 10px 32px rgba(0,166,81,0.50);">' + btnTxt + '</a>\n';
+  html += '          </div>\n';
+  html += '          <p style="text-align:center;margin:14px 0 0;font-size:11px;color:rgba(255,255,255,0.25);">Pagamento sicuro &middot; Il codice di sblocco ti verr\u00e0 fornito dopo il pagamento</p>\n';
+  html += '        </div>\n';
+  html += '      </div>\n';
+  html += '      <style>@keyframes offerPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,166,81,0.45)}50%{box-shadow:0 0 0 8px rgba(0,166,81,0)}}.promo-cover-card:hover>div:first-child{transform:translateY(-4px)!important;}.promo-cover-card:hover .promo-play-icon{opacity:1!important;}</style>\n';
+  html += '    </section>';
+
+  document.getElementById("of-output").value = html;
+  document.getElementById("of-output-wrap").style.display = "block";
+  showRes("of-res","\u2713 Codice generato! Copialo e sostituisci la sezione <section id=\"offerta\"> nell'index.html.","ok");
+  sessionStorage.setItem("of-selected", JSON.stringify(codes));
+}
+// Genera codice bundle automatico
+document.getElementById("of-gen-codice-btn").onclick = function(){
+  genCod();
+  document.getElementById("of-codice").value = document.getElementById("cod-val").textContent;
+};
+
+// Salva bundle su Supabase (usa tabella custom_bundles che gia esiste)
+document.getElementById("of-salva-bundle-btn").onclick = async function(){
+  var nome   = (document.getElementById("of-titolo").value.trim() || "Offerta speciale") + " - Bundle";
+  var codice = document.getElementById("of-codice").value.trim();
+  var codes  = getSelectedCodes();
+  var btn    = document.getElementById("of-salva-bundle-btn");
+  if(!codice){ showRes("of-bundle-res","Genera o inserisci un codice bundle.","err"); return; }
+  if(!codes.length){ showRes("of-bundle-res","Seleziona almeno un numero.","err"); return; }
+  btn.disabled=true; btn.textContent="Salvataggio...";
+  try {
+    var existing = await sbGet("/rest/v1/custom_bundles?nome=eq."+encodeURIComponent(nome)+"&select=id");
+    var r;
+    if(existing && existing.length){
+      r = await sbPatch("/rest/v1/custom_bundles?id=eq."+existing[0].id, {codice:codice, issue_codes:codes});
+    } else {
+      r = await sbPost("/rest/v1/custom_bundles", {nome:nome, codice:codice, issue_codes:codes});
+    }
+    if(r && (r.ok || r.status===200 || r.status===201)){
+      showRes("of-bundle-res","✓ Bundle salvato! Codice: "+codice,"ok");
+      document.getElementById("of-bundle-info").style.display="block";
+      loadCustomBundles();
+    } else {
+      var d=await r.json().catch(function(){return{};});
+      showRes("of-bundle-res","Errore: "+(d.message||JSON.stringify(d)),"err");
+    }
+  } catch(e){ showRes("of-bundle-res","Errore: "+e.message,"err"); }
+  btn.disabled=false; btn.textContent="Salva bundle su Supabase";
+};
+
+async function salvaOfferta(){
+  var codes = getSelectedCodes();
+  var btn = document.getElementById("of-salva-btn");
+  btn.disabled=true; btn.textContent="Salvataggio...";
+  try {
+    var payload = {
+      titolo:        document.getElementById("of-titolo").value.trim(),
+      emoji:         document.getElementById("of-emoji").value.trim(),
+      prezzo:        document.getElementById("of-prezzo").value.trim(),
+      descrizione:   document.getElementById("of-desc").value.trim(),
+      body:          document.getElementById("of-body").value.trim(),
+      stripe_url:    document.getElementById("of-stripe").value.trim(),
+      btn_testo:     document.getElementById("of-btntext").value.trim(),
+      codice_bundle: document.getElementById("of-codice").value.trim(),
+      issue_codes:   codes,
+      attiva:        true,
+      updated_at:    new Date().toISOString()
+    };
+    // PATCH sulla riga id=1 (sempre la stessa)
+    var r = await fetch(SB+"/rest/v1/offerta_config?id=eq.1", {
+      method: "PATCH",
+      headers: {"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json","Prefer":"return=representation"},
+      body: JSON.stringify(payload)
+    });
+    if(r.ok){
+      showRes("of-save-res","✓ Offerta aggiornata sul sito in tempo reale!","ok");
+    } else {
+      var d=await r.json().catch(function(){return{};});
+      showRes("of-save-res","Errore: "+(d.message||JSON.stringify(d)),"err");
+    }
+  } catch(e){ showRes("of-save-res","Errore: "+e.message,"err"); }
+  btn.disabled=false; btn.textContent="Salva configurazione";
+}
+
+async function caricaOffertaSalvata(){
+  try {
+    var r = await sbGet("/rest/v1/offerta_config?id=eq.1");
+    if(!r||!r.length){ showRes("of-save-res","Nessuna configurazione salvata ancora.","err"); return; }
+    var data = r[0];
+    if(data.titolo)        document.getElementById("of-titolo").value  = data.titolo;
+    if(data.emoji)         document.getElementById("of-emoji").value   = data.emoji;
+    if(data.prezzo)        document.getElementById("of-prezzo").value  = data.prezzo;
+    if(data.descrizione)   document.getElementById("of-desc").value    = data.descrizione;
+    if(data.body)          document.getElementById("of-body").value    = data.body;
+    if(data.stripe_url)    document.getElementById("of-stripe").value  = data.stripe_url;
+    if(data.btn_testo)     document.getElementById("of-btntext").value = data.btn_testo;
+    if(data.codice_bundle) document.getElementById("of-codice").value  = data.codice_bundle;
+    if(data.issue_codes)   sessionStorage.setItem("of-selected", JSON.stringify(data.issue_codes));
+    await caricaNumeriOfferta();
+    showRes("of-save-res","✓ Configurazione caricata da Supabase!","ok");
+  } catch(e){ showRes("of-save-res","Errore: "+e.message,"err"); }
+}
+
 // ── STRIPE ────────────────────────────────────────────────────────
 document.getElementById("stripe-refresh-btn").onclick = loadStripe;
 async function loadDashStripe(){
@@ -1462,7 +1779,7 @@ function buildSidebarSnippet(numero, badge, cover, code, buy, pages){
 '  </div>',
 '</div>',
 '',
-'<script>',
+'<scr'+'ipt>',
 '(function(){',
 '  var buyUrl     = "'+buy+'";',
 '  var unlockCode = "'+code+'";',
@@ -1678,7 +1995,7 @@ function buildPageSnippet(numero, badge, cover, code, buy, pages){
 '    </div>',
 '  </div>',
 '</div>',
-'<script>',
+'<scr'+'ipt>',
 '(function(){',
 '  var UNLOCK_CODE = "'+code+'";',
 '  var PREMIUM_CODE = "'+PREMIUM+'";',
