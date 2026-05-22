@@ -1,9 +1,9 @@
 {
   "comune": "Agrigento",
   "titolo": "Affluenza Elezioni Amministrative 2026",
-  "ore12": 0,
-  "ore19": 0,
-  "ore23": 0,
+  "ore12": 5,
+  "ore19": 10,
+  "ore23": 15,
   "precedente": 52.30,
   "ultimoAggiornamento": "In attesa"
 }
