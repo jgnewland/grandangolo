@@ -71,76 +71,91 @@ const FILE_PATH = 'elezioni2026/data/affluenza.json';
 
 async function salvaDati(){
 
-  const data = {
+  try{
 
-    comune: 'Agrigento',
+    const data = {
 
-    titolo: 'Affluenza Elezioni Amministrative 2026',
+      comune:'Agrigento',
 
-    ore12: parseFloat(document.getElementById('ore12').value) || 0,
+      titolo:'Affluenza Elezioni Amministrative 2026',
 
-    ore19: parseFloat(document.getElementById('ore19').value) || 0,
+      ore12:parseFloat(document.getElementById('ore12').value)||0,
 
-    ore23: parseFloat(document.getElementById('ore23').value) || 0,
+      ore19:parseFloat(document.getElementById('ore19').value)||0,
 
-    precedente: parseFloat(document.getElementById('precedente').value) || 0,
+      ore23:parseFloat(document.getElementById('ore23').value)||0,
 
-    ultimoAggiornamento: new Date().toLocaleString('it-IT')
+      precedente:parseFloat(document.getElementById('precedente').value)||0,
 
-  };
+      ultimoAggiornamento:new Date().toLocaleString('it-IT')
 
-  const apiUrl =
+    };
+
+    const apiUrl =
 `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
 
-  const getFile = await fetch(apiUrl, {
+    const response = await fetch(apiUrl, {
 
-    headers: {
+      headers:{
 
-      Authorization: `token ${GITHUB_TOKEN}`
+        Authorization:`token ${GITHUB_TOKEN}`
+
+      }
+
+    });
+
+    const fileData = await response.json();
+
+    console.log(fileData);
+
+    const update = await fetch(apiUrl, {
+
+      method:'PUT',
+
+      headers:{
+
+        Authorization:`token ${GITHUB_TOKEN}`,
+
+        'Content-Type':'application/json'
+
+      },
+
+      body:JSON.stringify({
+
+        message:'Aggiornamento affluenza',
+
+        content:btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2)))),
+
+        sha:fileData.sha
+
+      })
+
+    });
+
+    const result = await update.json();
+
+    console.log(result);
+
+    if(update.ok){
+
+      alert('Dati aggiornati correttamente');
+
+      location.reload();
+
+    }else{
+
+      alert('ERRORE:\\n' + JSON.stringify(result));
 
     }
 
-  });
+  }catch(err){
 
-  const fileData = await getFile.json();
-
-  const update = await fetch(apiUrl, {
-
-    method:'PUT',
-
-    headers: {
-
-      Authorization:`token ${GITHUB_TOKEN}`,
-
-      'Content-Type':'application/json'
-
-    },
-
-    body: JSON.stringify({
-
-      message:'Aggiornamento affluenza',
-
-      content:btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2)))),
-
-      sha:fileData.sha
-
-    })
-
-  });
-
-  if(update.ok){
-
-    alert('Dati aggiornati correttamente');
-
-  } else {
-
-    alert('Errore aggiornamento');
+    alert(err);
 
   }
 
 }
 
 </script>
-
 </body>
 </html>
