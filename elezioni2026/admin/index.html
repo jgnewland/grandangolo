@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Affluenza</title>
+
+<style>
+
+body{
+  font-family:Arial,sans-serif;
+  max-width:700px;
+  margin:40px auto;
+  padding:20px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin-bottom:20px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:20px;
+  box-sizing:border-box;
+}
+
+button{
+  width:100%;
+  padding:16px;
+  background:#d50000;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  font-size:20px;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Affluenza Agrigento 2026</h1>
+
+<input type="number" step="0.01" id="ore12" placeholder="Ore 12">
+
+<input type="number" step="0.01" id="ore19" placeholder="Ore 19">
+
+<input type="number" step="0.01" id="ore23" placeholder="Ore 23">
+
+<input type="number" step="0.01" id="precedente" placeholder="Affluenza precedente">
+
+<button onclick="salvaDati()">
+SALVA DATI
+</button>
+
+<script>
+
+const GITHUB_TOKEN = 'INSERISCI_TOKEN';
+
+const REPO_OWNER = 'jgnewland';
+
+const REPO_NAME = 'GRANDANGOLO';
+
+const FILE_PATH = 'elezioni2026/data/affluenza.json';
+
+async function salvaDati(){
+
+  const data = {
+
+    comune: 'Agrigento',
+
+    titolo: 'Affluenza Elezioni Amministrative 2026',
+
+    ore12: parseFloat(document.getElementById('ore12').value) || 0,
+
+    ore19: parseFloat(document.getElementById('ore19').value) || 0,
+
+    ore23: parseFloat(document.getElementById('ore23').value) || 0,
+
+    precedente: parseFloat(document.getElementById('precedente').value) || 0,
+
+    ultimoAggiornamento: new Date().toLocaleString('it-IT')
+
+  };
+
+  const apiUrl =
+`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+
+  const getFile = await fetch(apiUrl, {
+
+    headers: {
+
+      Authorization: `token ${GITHUB_TOKEN}`
+
+    }
+
+  });
+
+  const fileData = await getFile.json();
+
+  const update = await fetch(apiUrl, {
+
+    method:'PUT',
+
+    headers: {
+
+      Authorization:`token ${GITHUB_TOKEN}`,
+
+      'Content-Type':'application/json'
+
+    },
+
+    body: JSON.stringify({
+
+      message:'Aggiornamento affluenza',
+
+      content:btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2)))),
+
+      sha:fileData.sha
+
+    })
+
+  });
+
+  if(update.ok){
+
+    alert('Dati aggiornati correttamente');
+
+  } else {
+
+    alert('Errore aggiornamento');
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
