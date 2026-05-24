@@ -1,131 +1,148 @@
-<div id="agrigento-affluenza-widget"></div>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-#agrigento-affluenza-widget{
-  width:100%;
-  background:#fff;
-  border-radius:14px;
-  padding:18px;
+
+*{
+  margin:0;
+  padding:0;
   box-sizing:border-box;
-  font-family:Arial,sans-serif;
-  box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
-#agrigento-affluenza-widget *{
-  box-sizing:border-box;
+body{
+  font-family:Arial,sans-serif;
+  background:transparent;
+  overflow:hidden;
+}
+
+.affluenza-container{
+  width:100%;
+  max-width:760px;
+  height:110px;
+  background:#ffffff;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 25px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.aff-left{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:240px;
+}
+
+.aff-live{
+  color:#d50000;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:4px;
 }
 
 .aff-title{
-  font-size:22px;
+  font-size:20px;
   font-weight:700;
-  margin-bottom:5px;
+  color:#111;
+  line-height:1.1;
 }
 
 .aff-city{
+  font-size:13px;
   color:#666;
-  margin-bottom:20px;
+  margin-top:4px;
 }
 
-.aff-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
+.aff-right{
+  display:flex;
+  align-items:center;
+  gap:40px;
 }
 
-.aff-card{
-  background:#f7f7f7;
-  border-radius:12px;
-  padding:14px;
+.aff-box{
+  text-align:center;
+  min-width:80px;
 }
 
 .aff-time{
-  color:#666;
-  font-size:14px;
+  font-size:12px;
+  color:#777;
+  margin-bottom:4px;
 }
 
 .aff-value{
   font-size:32px;
-  font-weight:bold;
-  margin-top:8px;
+  font-weight:700;
+  color:#111;
+  line-height:1;
 }
 
-.aff-bar{
-  width:100%;
-  height:8px;
-  background:#ddd;
-  border-radius:999px;
-  margin-top:12px;
-  overflow:hidden;
-}
-
-.aff-fill{
-  height:100%;
-  background:#d50000;
-}
-
-.aff-footer{
-  margin-top:20px;
-  color:#555;
-  font-size:14px;
-}
-
-@media(max-width:768px){
-
-  .aff-grid{
-    grid-template-columns:1fr;
-  }
-
-}
 </style>
+</head>
+
+<body>
+
+<div id="widget"></div>
 
 <script>
-fetch('https://raw.githubusercontent.com/JGNEWLAND/GRANDANGOLO/main/elezioni2026/data/affluenza.json?' + new Date().getTime())
+
+fetch('https://raw.githubusercontent.com/jgnewland/GRANDANGOLO/main/elezioni2026/data/affluenza.json?' + new Date().getTime())
+
 .then(response => response.json())
+
 .then(data => {
 
-  document.getElementById('agrigento-affluenza-widget').innerHTML = `
+document.getElementById('widget').innerHTML = `
+
+<div class="affluenza-container">
+
+  <div class="aff-left">
+
+    <div class="aff-live">
+      ● LIVE
+    </div>
 
     <div class="aff-title">
-      🔴 ${data.titolo}
+      Affluenza Elezioni 2026
     </div>
 
     <div class="aff-city">
       Comune di ${data.comune}
     </div>
 
-    <div class="aff-grid">
+  </div>
 
-      <div class="aff-card">
-        <div class="aff-time">Ore 12:00</div>
-        <div class="aff-value">${data.ore12}%</div>
-        <div class="aff-bar">
-          <div class="aff-fill" style="width:${data.ore12}%"></div>
-        </div>
-      </div>
+  <div class="aff-right">
 
-      <div class="aff-card">
-        <div class="aff-time">Ore 19:00</div>
-        <div class="aff-value">${data.ore19}%</div>
-        <div class="aff-bar">
-          <div class="aff-fill" style="width:${data.ore19}%"></div>
-        </div>
-      </div>
-
-      <div class="aff-card">
-        <div class="aff-time">Ore 23:00</div>
-        <div class="aff-value">${data.ore23}%</div>
-        <div class="aff-bar">
-          <div class="aff-fill" style="width:${data.ore23}%"></div>
-        </div>
-      </div>
-
+    <div class="aff-box">
+      <div class="aff-time">ORE 12</div>
+      <div class="aff-value">${data.ore12}%</div>
     </div>
 
-    <div class="aff-footer">
-      Affluenza precedente: <strong>${data.precedente}%</strong><br>
-      Ultimo aggiornamento: ${data.ultimoAggiornamento}
+    <div class="aff-box">
+      <div class="aff-time">ORE 19</div>
+      <div class="aff-value">${data.ore19}%</div>
     </div>
 
-  `;
+    <div class="aff-box">
+      <div class="aff-time">ORE 23</div>
+      <div class="aff-value">${data.ore23}%</div>
+    </div>
+
+  </div>
+
+</div>
+
+`;
+
 });
+
 </script>
+
+</body>
+</html>
