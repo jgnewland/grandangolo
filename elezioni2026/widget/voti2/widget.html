@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Risultati Sindaco Agrigento</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:transparent;
+font-family:Arial, Helvetica, sans-serif;
+overflow:hidden;
+}
+
+.widget{
+
+width:100%;
+max-width:760px;
+
+margin:0 auto;
+
+overflow:hidden;
+border-radius:10px;
+
+background:
+linear-gradient(
+135deg,
+#06152f 0%,
+#0b3d91 50%,
+#1e63d6 100%
+);
+
+box-shadow:0 8px 24px rgba(0,0,0,0.18);
+
+color:#fff;
+
+}
+
+/* HEADER */
+
+.header{
+
+padding:16px 18px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+border-bottom:
+1px solid rgba(255,255,255,0.12);
+
+}
+
+.small{
+font-size:11px;
+text-transform:uppercase;
+letter-spacing:2px;
+opacity:0.7;
+margin-bottom:5px;
+}
+
+.title{
+font-size:28px;
+font-weight:800;
+line-height:1;
+}
+
+.live{
+
+background:#e02020;
+
+padding:6px 10px;
+
+border-radius:30px;
+
+font-size:13px;
+font-weight:700;
+letter-spacing:1px;
+
+}
+
+/* CANDIDATI */
+
+.row{
+
+display:flex;
+align-items:center;
+
+padding:14px 18px;
+
+border-bottom:
+1px solid rgba(255,255,255,0.08);
+
+}
+
+.name{
+width:36%;
+font-size:18px;
+font-weight:700;
+}
+
+.barwrap{
+
+width:49%;
+height:14px;
+
+background:
+rgba(255,255,255,0.12);
+
+border-radius:30px;
+
+overflow:hidden;
+
+margin:0 14px;
+
+}
+
+.bar{
+
+height:100%;
+
+background:#ffffff;
+
+border-radius:30px;
+
+transition:all .5s ease;
+
+}
+
+.percent{
+
+width:15%;
+
+text-align:right;
+
+font-size:30px;
+font-weight:800;
+
+}
+
+/* FOOTER */
+
+.footer{
+
+padding:10px;
+
+text-align:center;
+
+font-size:12px;
+
+background:
+rgba(0,0,0,0.15);
+
+opacity:0.85;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="widget">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div>
+
+<div class="small">
+ELEZIONI AMMINISTRATIVE AGRIGENTO 2026
+</div>
+
+<div class="title">
+SCRUTINIO IN TEMPO REALE
+</div>
+
+</div>
+
+<div class="live">
+● LIVE
+</div>
+
+</div>
+
+<!-- ALONGE -->
+
+<div class="row">
+
+<div class="name">
+DINO ALONGE
+</div>
+
+<div class="barwrap">
+<div class="bar" id="bar-alonge" style="width:0%"></div>
+</div>
+
+<div class="percent" id="alonge">
+0%
+</div>
+
+</div>
+
+<!-- SODANO -->
+
+<div class="row">
+
+<div class="name">
+MICHELE SODANO
+</div>
+
+<div class="barwrap">
+<div class="bar" id="bar-sodano" style="width:0%"></div>
+</div>
+
+<div class="percent" id="sodano">
+0%
+</div>
+
+</div>
+
+<!-- DI ROSA -->
+
+<div class="row">
+
+<div class="name">
+GIUSEPPE DI ROSA
+</div>
+
+<div class="barwrap">
+<div class="bar" id="bar-dirosa" style="width:0%"></div>
+</div>
+
+<div class="percent" id="dirosa">
+0%
+</div>
+
+</div>
+
+<!-- GENTILE -->
+
+<div class="row" style="border-bottom:0;">
+
+<div class="name">
+LUIGI GENTILE
+</div>
+
+<div class="barwrap">
+<div class="bar" id="bar-gentile" style="width:0%"></div>
+</div>
+
+<div class="percent" id="gentile">
+0%
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer" id="sezioni">
+Sezioni scrutinate: 0 / 55
+</div>
+
+</div>
+
+<script>
+
+async function aggiornaDati() {
+
+try {
+
+const response = await fetch(
+'dati.json?t=' + Date.now(),
+{
+cache:'no-store'
+}
+);
+
+const data = await response.json();
+
+/* TESTI */
+
+document.getElementById('alonge').innerText =
+data.alonge + '%';
+
+document.getElementById('sodano').innerText =
+data.sodano + '%';
+
+document.getElementById('dirosa').innerText =
+data.dirosa + '%';
+
+document.getElementById('gentile').innerText =
+data.gentile + '%';
+
+/* BARRE */
+
+document.getElementById('bar-alonge').style.width =
+data.alonge + '%';
+
+document.getElementById('bar-sodano').style.width =
+data.sodano + '%';
+
+document.getElementById('bar-dirosa').style.width =
+data.dirosa + '%';
+
+document.getElementById('bar-gentile').style.width =
+data.gentile + '%';
+
+/* SEZIONI */
+
+document.getElementById('sezioni').innerText =
+'Sezioni scrutinate: ' + data.sezioni;
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+aggiornaDati();
+
+setInterval(aggiornaDati,10000);
+
+</script>
+
+</body>
+</html>
