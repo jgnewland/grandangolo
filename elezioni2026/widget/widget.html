@@ -33,7 +33,7 @@ margin:0 auto;
 
 border-radius:16px;
 
-overflow:hidden;
+overflow:visible;
 
 background:
 linear-gradient(
@@ -163,12 +163,6 @@ opacity:0.8;
 
 .accordion{
 
-width:100%;
-
-border:0;
-
-outline:none;
-
 padding:18px 20px;
 
 background:
@@ -189,7 +183,7 @@ align-items:center;
 border-top:
 1px solid rgba(255,255,255,0.08);
 
-color:#fff;
+user-select:none;
 
 }
 
@@ -208,6 +202,8 @@ transform:rotate(180deg);
 .content{
 
 display:none;
+
+overflow:visible;
 
 background:
 rgba(255,255,255,0.03);
@@ -407,17 +403,17 @@ Prec. <span id="agrigento23prev">47,20%</span>
 
 <!-- ACCORDION -->
 
-<button class="accordion" id="accordionButton">
+<div class="accordion" onclick="toggleAccordion()">
 
-<span>
+<div>
 ▼ Altri comuni
-</span>
+</div>
 
-<span class="arrow" id="arrow">
+<div class="arrow" id="arrow">
 ⌄
-</span>
+</div>
 
-</button>
+</div>
 
 <!-- CONTENT -->
 
@@ -431,18 +427,13 @@ Prec. <span id="agrigento23prev">47,20%</span>
 
 <script>
 
-/* ACCORDION */
-
-const accordion =
-document.getElementById('accordionButton');
+function toggleAccordion(){
 
 const content =
 document.getElementById('content');
 
 const arrow =
 document.getElementById('arrow');
-
-accordion.addEventListener('click', function(){
 
 if(content.style.display === 'block'){
 
@@ -459,9 +450,7 @@ arrow.classList.add('open');
 
 }
 
-});
-
-/* DATI */
+}
 
 async function aggiornaDati(){
 
