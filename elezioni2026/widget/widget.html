@@ -4,12 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 
 <title>Affluenza Agrigento</title>
 
@@ -24,13 +19,17 @@ box-sizing:border-box;
 body{
 background:transparent;
 font-family:Arial, Helvetica, sans-serif;
+overflow:hidden;
 }
 
 .widget{
+
 width:100%;
 max-width:760px;
 height:140px;
+
 margin:0 auto;
+
 overflow:hidden;
 border-radius:10px;
 
@@ -49,11 +48,13 @@ align-items:center;
 justify-content:space-between;
 
 color:#fff;
+
 }
 
 /* SINISTRA */
 
 .left{
+
 width:32%;
 height:100%;
 
@@ -64,6 +65,7 @@ flex-direction:column;
 justify-content:center;
 
 border-right:1px solid rgba(255,255,255,0.12);
+
 }
 
 .small{
@@ -90,6 +92,7 @@ opacity:0.92;
 /* DESTRA */
 
 .right{
+
 width:68%;
 height:100%;
 
@@ -98,6 +101,7 @@ align-items:center;
 justify-content:space-around;
 
 text-align:center;
+
 }
 
 .box{
@@ -120,8 +124,6 @@ line-height:1;
 
 text-shadow:
 0 3px 10px rgba(0,0,0,0.25);
-
-transition:all .3s ease;
 }
 
 .percent{
@@ -134,34 +136,6 @@ opacity:0.7;
 width:1px;
 height:60%;
 background:rgba(255,255,255,0.15);
-}
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-.widget{
-height:auto;
-flex-direction:column;
-}
-
-.left{
-width:100%;
-border-right:0;
-border-bottom:1px solid rgba(255,255,255,0.12);
-text-align:center;
-padding:16px;
-}
-
-.right{
-width:100%;
-padding:12px 0;
-}
-
-.value{
-font-size:34px;
-}
-
 }
 
 </style>
@@ -256,41 +230,20 @@ Ore 23
 
 </div>
 
+<!-- DATI -->
+
+<script src="dati.js?v=2"></script>
+
 <script>
 
-async function aggiornaWidget() {
+document.getElementById('ore12').innerText =
+window.AFFLUENZA.ore12;
 
-try {
+document.getElementById('ore19').innerText =
+window.AFFLUENZA.ore19;
 
-const response = await fetch(
-'dati.json?v=' + Date.now(),
-{
-cache: 'no-store'
-}
-);
-
-const data = await response.json();
-
-document.getElementById('ore12').innerText = data.ore12;
-document.getElementById('ore19').innerText = data.ore19;
-document.getElementById('ore23').innerText = data.ore23;
-
-}
-catch(error){
-
-console.log('Errore caricamento dati');
-
-}
-
-}
-
-/* primo caricamento */
-
-aggiornaWidget();
-
-/* refresh automatico ogni 15 secondi */
-
-setInterval(aggiornaWidget, 15000);
+document.getElementById('ore23').innerText =
+window.AFFLUENZA.ore23;
 
 </script>
 
