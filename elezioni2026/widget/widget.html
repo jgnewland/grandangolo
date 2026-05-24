@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
 
 <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Affluenza Agrigento</title>
 
 <style>
 
-body{
+*{
 margin:0;
 padding:0;
+box-sizing:border-box;
+}
+
+body{
 background:transparent;
 font-family:Arial, Helvetica, sans-serif;
 }
@@ -26,24 +31,38 @@ width:100%;
 max-width:760px;
 height:140px;
 margin:0 auto;
-border-radius:10px;
 overflow:hidden;
-background:linear-gradient(135deg,#06152f 0%,#0b3d91 50%,#1e63d6 100%);
+border-radius:10px;
+
+background:
+linear-gradient(
+135deg,
+#06152f 0%,
+#0b3d91 50%,
+#1e63d6 100%
+);
+
 box-shadow:0 8px 24px rgba(0,0,0,0.18);
+
 display:flex;
 align-items:center;
 justify-content:space-between;
+
 color:#fff;
 }
+
+/* SINISTRA */
 
 .left{
 width:32%;
 height:100%;
+
 padding:18px 20px;
-box-sizing:border-box;
+
 display:flex;
 flex-direction:column;
 justify-content:center;
+
 border-right:1px solid rgba(255,255,255,0.12);
 }
 
@@ -68,17 +87,22 @@ font-weight:600;
 opacity:0.92;
 }
 
+/* DESTRA */
+
 .right{
 width:68%;
 height:100%;
+
 display:flex;
 align-items:center;
 justify-content:space-around;
+
 text-align:center;
 }
 
 .box{
 flex:1;
+padding:0 8px;
 }
 
 .hour{
@@ -93,7 +117,11 @@ margin-bottom:10px;
 font-size:44px;
 font-weight:800;
 line-height:1;
-text-shadow:0 3px 10px rgba(0,0,0,0.25);
+
+text-shadow:
+0 3px 10px rgba(0,0,0,0.25);
+
+transition:all .3s ease;
 }
 
 .percent{
@@ -108,6 +136,34 @@ height:60%;
 background:rgba(255,255,255,0.15);
 }
 
+/* MOBILE */
+
+@media(max-width:700px){
+
+.widget{
+height:auto;
+flex-direction:column;
+}
+
+.left{
+width:100%;
+border-right:0;
+border-bottom:1px solid rgba(255,255,255,0.12);
+text-align:center;
+padding:16px;
+}
+
+.right{
+width:100%;
+padding:12px 0;
+}
+
+.value{
+font-size:34px;
+}
+
+}
+
 </style>
 
 </head>
@@ -116,10 +172,12 @@ background:rgba(255,255,255,0.15);
 
 <div class="widget">
 
+<!-- SINISTRA -->
+
 <div class="left">
 
 <div class="small">
-Elezioni Comunali
+ELEZIONI COMUNALI
 </div>
 
 <div class="title">
@@ -132,7 +190,11 @@ Agrigento
 
 </div>
 
+<!-- DESTRA -->
+
 <div class="right">
+
+<!-- ORE 12 -->
 
 <div class="box">
 
@@ -152,6 +214,8 @@ Ore 12
 
 <div class="divider"></div>
 
+<!-- ORE 19 -->
+
 <div class="box">
 
 <div class="hour">
@@ -169,6 +233,8 @@ Ore 19
 </div>
 
 <div class="divider"></div>
+
+<!-- ORE 23 -->
 
 <div class="box">
 
@@ -192,17 +258,39 @@ Ore 23
 
 <script>
 
-fetch('dati.json?t=' + new Date().getTime())
+async function aggiornaWidget() {
 
-.then(response => response.json())
+try {
 
-.then(data => {
+const response = await fetch(
+'dati.json?v=' + Date.now(),
+{
+cache: 'no-store'
+}
+);
+
+const data = await response.json();
 
 document.getElementById('ore12').innerText = data.ore12;
 document.getElementById('ore19').innerText = data.ore19;
 document.getElementById('ore23').innerText = data.ore23;
 
-});
+}
+catch(error){
+
+console.log('Errore caricamento dati');
+
+}
+
+}
+
+/* primo caricamento */
+
+aggiornaWidget();
+
+/* refresh automatico ogni 15 secondi */
+
+setInterval(aggiornaWidget, 15000);
 
 </script>
 
