@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Affluenza Agrigento</title>
@@ -22,15 +23,18 @@ font-family:Arial, Helvetica, sans-serif;
 overflow:hidden;
 }
 
+/* WIDGET */
+
 .widget{
 
 width:100%;
 max-width:760px;
-height:140px;
+min-height:140px;
 
 margin:0 auto;
 
 overflow:hidden;
+
 border-radius:10px;
 
 background:
@@ -41,7 +45,8 @@ linear-gradient(
 #1e63d6 100%
 );
 
-box-shadow:0 8px 24px rgba(0,0,0,0.18);
+box-shadow:
+0 8px 24px rgba(0,0,0,0.18);
 
 display:flex;
 align-items:center;
@@ -50,6 +55,8 @@ justify-content:space-between;
 color:#fff;
 
 }
+
+/* SINISTRA */
 
 .left{
 
@@ -62,7 +69,8 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 
-border-right:1px solid rgba(255,255,255,0.12);
+border-right:
+1px solid rgba(255,255,255,0.12);
 
 }
 
@@ -86,6 +94,8 @@ font-size:18px;
 font-weight:600;
 opacity:0.92;
 }
+
+/* DESTRA */
 
 .right{
 
@@ -117,6 +127,11 @@ margin-bottom:10px;
 font-size:44px;
 font-weight:800;
 line-height:1;
+
+text-shadow:
+0 3px 10px rgba(0,0,0,0.25);
+
+transition:all .3s ease;
 }
 
 .percent{
@@ -131,6 +146,79 @@ height:60%;
 background:rgba(255,255,255,0.15);
 }
 
+/* MOBILE */
+
+@media(max-width:700px){
+
+.widget{
+
+flex-direction:column;
+
+min-height:auto;
+
+}
+
+.left{
+
+width:100%;
+
+border-right:0;
+
+border-bottom:
+1px solid rgba(255,255,255,0.12);
+
+text-align:center;
+
+padding:18px 12px;
+
+}
+
+.right{
+
+width:100%;
+
+padding:12px 0;
+
+}
+
+.box{
+
+padding:10px 4px;
+
+}
+
+.value{
+
+font-size:28px;
+
+}
+
+.title{
+
+font-size:24px;
+
+}
+
+.city{
+
+font-size:16px;
+
+}
+
+.hour{
+
+font-size:11px;
+
+}
+
+.divider{
+
+height:45px;
+
+}
+
+}
+
 </style>
 
 </head>
@@ -138,6 +226,8 @@ background:rgba(255,255,255,0.15);
 <body>
 
 <div class="widget">
+
+<!-- SINISTRA -->
 
 <div class="left">
 
@@ -155,7 +245,11 @@ Agrigento
 
 </div>
 
+<!-- DESTRA -->
+
 <div class="right">
+
+<!-- ORE 12 -->
 
 <div class="box">
 
@@ -164,7 +258,7 @@ Ore 12
 </div>
 
 <div class="value" id="ore12">
---,5
+--,-
 </div>
 
 <div class="percent">
@@ -174,6 +268,8 @@ Ore 12
 </div>
 
 <div class="divider"></div>
+
+<!-- ORE 19 -->
 
 <div class="box">
 
@@ -192,6 +288,8 @@ Ore 19
 </div>
 
 <div class="divider"></div>
+
+<!-- ORE 23 -->
 
 <div class="box">
 
