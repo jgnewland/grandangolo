@@ -1,36 +1,583 @@
-<iframe 
-src="https://grandangolosettimanale.it/elezioni2026/widget/widget.html"
-style="
-width:100%;
-max-width:760px;
-height:1400px;
-border:0;
-display:block;
-margin:20px auto;
-overflow:auto;
-border-radius:16px;
-background:transparent;
-"
-loading="lazy"
-scrolling="yes">
-</iframe>
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Affluenza Elezioni</title>
 
 <style>
 
-@media(min-width:701px){
-
-iframe{
-height:350px !important;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
+body{
+background:transparent;
+font-family:Arial, Helvetica, sans-serif;
+overflow:auto;
 }
+
+/* WIDGET */
+
+.widget{
+
+width:100%;
+max-width:760px;
+
+margin:0 auto;
+
+border-radius:16px;
+
+overflow:visible;
+
+background:
+linear-gradient(
+135deg,
+#04132b 0%,
+#0b3d91 55%,
+#1f63d6 100%
+);
+
+box-shadow:
+0 10px 35px rgba(0,0,0,0.28);
+
+color:#fff;
+
+}
+
+/* HEADER */
+
+.top{
+
+padding:24px 20px;
+
+text-align:center;
+
+border-bottom:
+1px solid rgba(255,255,255,0.10);
+
+}
+
+.small{
+
+font-size:11px;
+
+letter-spacing:2px;
+
+opacity:0.7;
+
+text-transform:uppercase;
+
+margin-bottom:10px;
+
+}
+
+.title{
+
+font-size:42px;
+
+font-weight:800;
+
+line-height:1;
+
+margin-bottom:8px;
+
+}
+
+.city{
+
+font-size:26px;
+
+font-weight:700;
+
+margin-bottom:22px;
+
+}
+
+/* GRID */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr 1fr;
+
+gap:12px;
+
+}
+
+.card{
+
+background:
+rgba(255,255,255,0.08);
+
+padding:14px;
+
+border-radius:12px;
+
+}
+
+.card small{
+
+display:block;
+
+font-size:11px;
+
+letter-spacing:1px;
+
+opacity:0.7;
+
+margin-bottom:8px;
+
+text-transform:uppercase;
+
+}
+
+.big{
+
+font-size:40px;
+
+font-weight:900;
+
+line-height:1;
+
+margin-bottom:6px;
+
+}
+
+.prev{
+
+font-size:13px;
+
+opacity:0.8;
+
+}
+
+/* ACCORDION */
+
+.accordion{
+
+padding:18px 20px;
+
+background:
+rgba(0,0,0,0.15);
+
+cursor:pointer;
+
+font-weight:700;
+
+font-size:16px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+border-top:
+1px solid rgba(255,255,255,0.08);
+
+user-select:none;
+
+}
+
+.arrow{
+
+transition:transform .3s ease;
+
+}
+
+.arrow.open{
+transform:rotate(180deg);
+}
+
+/* CONTENT */
+
+.content{
+
+display:none;
+
+overflow:visible;
+
+background:
+rgba(255,255,255,0.03);
+
+}
+
+/* ROW */
+
+.row{
+
+padding:18px 20px;
+
+border-top:
+1px solid rgba(255,255,255,0.06);
+
+}
+
+.row-name{
+
+font-size:20px;
+
+font-weight:700;
+
+margin-bottom:14px;
+
+}
+
+/* MINI GRID */
+
+.mini-grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr 1fr;
+
+gap:10px;
+
+}
+
+.mini{
+
+background:
+rgba(255,255,255,0.07);
+
+padding:12px;
+
+border-radius:10px;
+
+text-align:center;
+
+}
+
+.mini small{
+
+display:block;
+
+font-size:10px;
+
+letter-spacing:1px;
+
+opacity:0.7;
+
+margin-bottom:6px;
+
+text-transform:uppercase;
+
+}
+
+.mini strong{
+
+display:block;
+
+font-size:24px;
+
+font-weight:900;
+
+line-height:1;
+
+margin-bottom:5px;
+
+}
+
+.mini span{
+
+font-size:12px;
+
+opacity:0.75;
+
+}
+
+/* MOBILE */
 
 @media(max-width:700px){
 
-iframe{
-height:1400px !important;
+.title{
+font-size:30px;
+}
+
+.city{
+font-size:20px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.big{
+font-size:34px;
+}
+
+.row-name{
+font-size:17px;
+}
+
+.mini-grid{
+grid-template-columns:1fr;
+}
+
+.mini strong{
+font-size:22px;
 }
 
 }
 
 </style>
+
+</head>
+
+<body>
+
+<div class="widget">
+
+<!-- HEADER -->
+
+<div class="top">
+
+<div class="small">
+ELEZIONI AMMINISTRATIVE 2026
+</div>
+
+<div class="title">
+Affluenza
+</div>
+
+<div class="city">
+Agrigento
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<small>Ore 12</small>
+
+<div class="big" id="agrigento12">
+13,85%
+</div>
+
+<div class="prev">
+Prec. <span id="agrigento12prev">13,13%</span>
+</div>
+
+</div>
+
+<div class="card">
+
+<small>Ore 19</small>
+
+<div class="big" id="agrigento19">
+31,42%
+</div>
+
+<div class="prev">
+Prec. <span id="agrigento19prev">30,88%</span>
+</div>
+
+</div>
+
+<div class="card">
+
+<small>Ore 23</small>
+
+<div class="big" id="agrigento23">
+48,91%
+</div>
+
+<div class="prev">
+Prec. <span id="agrigento23prev">47,20%</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ACCORDION -->
+
+<div class="accordion" onclick="toggleAccordion()">
+
+<div>
+▼ Altri comuni
+</div>
+
+<div class="arrow" id="arrow">
+⌄
+</div>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="content" id="content">
+
+<div id="rows"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function toggleAccordion(){
+
+const content =
+document.getElementById('content');
+
+const arrow =
+document.getElementById('arrow');
+
+if(content.style.display === 'block'){
+
+content.style.display = 'none';
+
+arrow.classList.remove('open');
+
+}
+else{
+
+content.style.display = 'block';
+
+arrow.classList.add('open');
+
+}
+
+}
+
+async function aggiornaDati(){
+
+try{
+
+const response = await fetch(
+'dati.json?t=' + Date.now(),
+{
+cache:'no-store'
+}
+);
+
+const data = await response.json();
+
+/* AGRIGENTO */
+
+document.getElementById('agrigento12')
+.innerText =
+data.agrigento["12"] + '%';
+
+document.getElementById('agrigento19')
+.innerText =
+data.agrigento["19"] + '%';
+
+document.getElementById('agrigento23')
+.innerText =
+data.agrigento["23"] + '%';
+
+document.getElementById('agrigento12prev')
+.innerText =
+data.agrigento["12prev"] + '%';
+
+document.getElementById('agrigento19prev')
+.innerText =
+data.agrigento["19prev"] + '%';
+
+document.getElementById('agrigento23prev')
+.innerText =
+data.agrigento["23prev"] + '%';
+
+/* COMUNI */
+
+const rows =
+document.getElementById('rows');
+
+rows.innerHTML = '';
+
+const comuni =
+Object.entries(data)
+.filter(([key]) => key !== 'agrigento');
+
+comuni.forEach(([nome,dati]) => {
+
+rows.innerHTML += `
+
+<div class="row">
+
+<div class="row-name">
+${nome.charAt(0).toUpperCase() + nome.slice(1)}
+</div>
+
+<div class="mini-grid">
+
+<div class="mini">
+
+<small>Ore 12</small>
+
+<strong>
+${dati["12"]}%
+</strong>
+
+<span>
+Prec. ${dati["12prev"]}%
+</span>
+
+</div>
+
+<div class="mini">
+
+<small>Ore 19</small>
+
+<strong>
+${dati["19"]}%
+</strong>
+
+<span>
+Prec. ${dati["19prev"]}%
+</span>
+
+</div>
+
+<div class="mini">
+
+<small>Ore 23</small>
+
+<strong>
+${dati["23"]}%
+</strong>
+
+<span>
+Prec. ${dati["23prev"]}%
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+aggiornaDati();
+
+setInterval(aggiornaDati,10000);
+
+</script>
+
+</body>
+</html>
