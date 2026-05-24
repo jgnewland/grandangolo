@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Live Elezioni</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+margin:0;
+
+font-family:
+Arial, Helvetica, sans-serif;
+
+background:transparent;
+
+overflow:hidden;
+
+}
+
+/* TOPBAR */
+
+.topbar{
+
+position:relative;
+
+width:100%;
+
+min-height:115px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+padding:12px 24px;
+
+background:
+linear-gradient(
+90deg,
+#020b18 0%,
+#0b2f6a 40%,
+#1752b9 70%,
+#1e63d6 100%
+);
+
+color:#fff;
+
+overflow:hidden;
+
+border-top:
+4px solid #19ff91;
+
+box-shadow:
+0 10px 35px rgba(0,0,0,0.20);
+
+}
+
+/* GLOW */
+
+.topbar::before{
+
+content:'';
+
+position:absolute;
+
+top:-80px;
+left:25%;
+
+width:300px;
+height:300px;
+
+background:
+radial-gradient(
+circle,
+rgba(24,255,145,0.18) 0%,
+transparent 70%
+);
+
+filter:blur(20px);
+
+}
+
+/* FIRST ROW */
+
+.row-top{
+
+position:relative;
+
+z-index:2;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:20px;
+
+}
+
+/* LIVE */
+
+.live{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:10px 16px;
+
+border-radius:40px;
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:blur(8px);
+
+font-size:12px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+white-space:nowrap;
+
+}
+
+.dot{
+
+width:11px;
+height:11px;
+
+border-radius:50%;
+
+background:#ff2a2a;
+
+animation:pulse 1s infinite;
+
+box-shadow:
+0 0 14px rgba(255,0,0,0.9);
+
+}
+
+@keyframes pulse{
+
+0%{
+opacity:1;
+transform:scale(1);
+}
+
+50%{
+opacity:0.35;
+transform:scale(1.5);
+}
+
+100%{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+/* CENTER */
+
+.center{
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+flex:1;
+
+}
+
+.texts{
+
+display:flex;
+
+flex-direction:column;
+
+gap:4px;
+
+}
+
+.title{
+
+font-size:12px;
+
+font-weight:800;
+
+letter-spacing:1px;
+
+opacity:0.75;
+
+text-transform:uppercase;
+
+}
+
+.subtitle{
+
+font-size:15px;
+
+font-weight:700;
+
+}
+
+.big{
+
+font-size:56px;
+
+font-weight:900;
+
+line-height:1;
+
+text-shadow:
+0 5px 18px rgba(0,0,0,0.28);
+
+}
+
+/* HOURS */
+
+.hours{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.hour{
+
+background:
+rgba(255,255,255,0.08);
+
+padding:10px 14px;
+
+border-radius:14px;
+
+text-align:center;
+
+min-width:95px;
+
+backdrop-filter:blur(6px);
+
+}
+
+.hour small{
+
+display:block;
+
+font-size:10px;
+
+opacity:0.7;
+
+margin-bottom:4px;
+
+text-transform:uppercase;
+
+letter-spacing:1px;
+
+}
+
+.hour strong{
+
+font-size:20px;
+
+font-weight:900;
+
+line-height:1;
+
+}
+
+/* MENU */
+
+.menu{
+
+position:relative;
+
+}
+
+.menu-btn{
+
+border:0;
+
+background:
+rgba(255,255,255,0.08);
+
+color:#fff;
+
+padding:12px 16px;
+
+border-radius:14px;
+
+font-weight:700;
+
+cursor:pointer;
+
+font-size:13px;
+
+backdrop-filter:blur(8px);
+
+}
+
+.dropdown{
+
+display:none;
+
+position:absolute;
+
+right:0;
+
+top:58px;
+
+width:360px;
+
+max-height:420px;
+
+overflow:auto;
+
+background:#071b3b;
+
+border-radius:14px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,0.35);
+
+z-index:9999;
+
+}
+
+.dropdown.open{
+display:block;
+}
+
+.comune{
+
+padding:14px 16px;
+
+border-bottom:
+1px solid rgba(255,255,255,0.06);
+
+}
+
+.comune:last-child{
+border-bottom:0;
+}
+
+.comune-name{
+
+font-size:15px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+}
+
+.comune-grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr 1fr;
+
+gap:8px;
+
+}
+
+.mini{
+
+background:
+rgba(255,255,255,0.06);
+
+padding:8px;
+
+border-radius:8px;
+
+text-align:center;
+
+}
+
+.mini small{
+
+display:block;
+
+font-size:9px;
+
+opacity:0.7;
+
+margin-bottom:4px;
+
+text-transform:uppercase;
+
+}
+
+.mini strong{
+
+font-size:15px;
+
+font-weight:900;
+
+}
+
+/* TICKER */
+
+.ticker{
+
+position:relative;
+
+z-index:2;
+
+margin-top:12px;
+
+height:26px;
+
+overflow:hidden;
+
+border-top:
+1px solid rgba(255,255,255,0.08);
+
+padding-top:8px;
+
+}
+
+.ticker-track{
+
+display:flex;
+
+gap:40px;
+
+white-space:nowrap;
+
+animation:scroll 30s linear infinite;
+
+font-size:13px;
+
+font-weight:700;
+
+opacity:0.92;
+
+}
+
+@keyframes scroll{
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-50%);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:1200px){
+
+.row-top{
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
+.center{
+
+width:100%;
+
+justify-content:center;
+
+}
+
+.hours{
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.topbar{
+padding:14px;
+}
+
+.center{
+
+flex-direction:column;
+
+text-align:center;
+
+gap:8px;
+
+}
+
+.big{
+font-size:38px;
+}
+
+.hour{
+
+min-width:75px;
+
+padding:8px 10px;
+
+}
+
+.hour strong{
+font-size:16px;
+}
+
+.dropdown{
+width:95vw;
+}
+
+.subtitle{
+font-size:13px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+
+<!-- TOP -->
+
+<div class="row-top">
+
+<!-- LIVE -->
+
+<div class="live">
+
+<div class="dot"></div>
+
+<div>
+LIVE • ELEZIONI 2026
+</div>
+
+</div>
+
+<!-- CENTER -->
+
+<div class="center">
+
+<div class="texts">
+
+<div class="title">
+ELEZIONI AMMINISTRATIVE AGRIGENTO 2026
+</div>
+
+<div class="subtitle">
+Affluenza alle urne aggiornata in tempo reale
+</div>
+
+</div>
+
+<div class="big" id="agrigento">
+13,85%
+</div>
+
+</div>
+
+<!-- HOURS -->
+
+<div class="hours">
+
+<div class="hour">
+
+<small>
+Ore 12
+</small>
+
+<strong id="ore12">
+13,85%
+</strong>
+
+</div>
+
+<div class="hour">
+
+<small>
+Ore 19
+</small>
+
+<strong id="ore19">
+00,00%
+</strong>
+
+</div>
+
+<div class="hour">
+
+<small>
+Ore 23
+</small>
+
+<strong id="ore23">
+00,00%
+</strong>
+
+</div>
+
+</div>
+
+<!-- MENU -->
+
+<div class="menu">
+
+<button class="menu-btn" onclick="toggleMenu()">
+
+Comuni ▼
+
+</button>
+
+<div class="dropdown" id="dropdown">
+
+<div id="comuni"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TICKER -->
+
+<div class="ticker">
+
+<div class="ticker-track" id="ticker">
+
+● AGRIGENTO LIVE
+● AFFLUENZA IN AGGIORNAMENTO
+● ELEZIONI AMMINISTRATIVE 2026
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function toggleMenu(){
+
+document
+.getElementById('dropdown')
+.classList
+.toggle('open');
+
+}
+
+async function aggiornaDati(){
+
+try{
+
+const response = await fetch(
+'dati.json?t=' + Date.now(),
+{
+cache:'no-store'
+}
+);
+
+const data = await response.json();
+
+/* AGRIGENTO */
+
+document.getElementById('agrigento')
+.innerText =
+data.agrigento["12"] + '%';
+
+document.getElementById('ore12')
+.innerText =
+data.agrigento["12"] + '%';
+
+document.getElementById('ore19')
+.innerText =
+data.agrigento["19"] + '%';
+
+document.getElementById('ore23')
+.innerText =
+data.agrigento["23"] + '%';
+
+/* COMUNI */
+
+const container =
+document.getElementById('comuni');
+
+container.innerHTML = '';
+
+const comuni =
+Object.entries(data)
+.filter(([key]) => key !== 'agrigento');
+
+let tickerText = '';
+
+comuni.forEach(([nome,dati]) => {
+
+tickerText += `● ${nome.toUpperCase()} ${dati["12"]}% `;
+
+container.innerHTML += `
+
+<div class="comune">
+
+<div class="comune-name">
+
+${nome.charAt(0).toUpperCase() + nome.slice(1)}
+
+</div>
+
+<div class="comune-grid">
+
+<div class="mini">
+
+<small>Ore 12</small>
+
+<strong>
+${dati["12"]}%
+</strong>
+
+</div>
+
+<div class="mini">
+
+<small>Ore 19</small>
+
+<strong>
+${dati["19"]}%
+</strong>
+
+</div>
+
+<div class="mini">
+
+<small>Ore 23</small>
+
+<strong>
+${dati["23"]}%
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById('ticker')
+.innerHTML =
+tickerText + tickerText;
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+aggiornaDati();
+
+setInterval(aggiornaDati,10000);
+
+</script>
+
+</body>
+</html>
