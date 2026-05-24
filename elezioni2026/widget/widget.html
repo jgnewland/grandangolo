@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Affluenza Agrigento</title>
@@ -23,19 +22,16 @@ font-family:Arial, Helvetica, sans-serif;
 overflow:hidden;
 }
 
-/* WIDGET */
-
 .widget{
 
 width:100%;
 max-width:760px;
-min-height:140px;
 
 margin:0 auto;
 
 overflow:hidden;
 
-border-radius:10px;
+border-radius:12px;
 
 background:
 linear-gradient(
@@ -48,172 +44,174 @@ linear-gradient(
 box-shadow:
 0 8px 24px rgba(0,0,0,0.18);
 
-display:flex;
-align-items:center;
-justify-content:space-between;
-
 color:#fff;
 
 }
 
-/* SINISTRA */
+/* HEADER */
 
 .left{
-
-width:32%;
-height:100%;
 
 padding:18px 20px;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-
-border-right:
-1px solid rgba(255,255,255,0.12);
-
-}
-
-.small{
-font-size:11px;
-text-transform:uppercase;
-letter-spacing:2px;
-opacity:0.7;
-margin-bottom:8px;
-}
-
-.title{
-font-size:28px;
-font-weight:800;
-line-height:1;
-margin-bottom:8px;
-}
-
-.city{
-font-size:18px;
-font-weight:600;
-opacity:0.92;
-}
-
-/* DESTRA */
-
-.right{
-
-width:68%;
-height:100%;
-
-display:flex;
-align-items:center;
-justify-content:space-around;
-
-text-align:center;
-
-}
-
-.box{
-flex:1;
-padding:0 8px;
-}
-
-.hour{
-font-size:13px;
-text-transform:uppercase;
-letter-spacing:1px;
-opacity:0.75;
-margin-bottom:10px;
-}
-
-.value{
-font-size:44px;
-font-weight:800;
-line-height:1;
-
-text-shadow:
-0 3px 10px rgba(0,0,0,0.25);
-
-transition:all .3s ease;
-}
-
-.percent{
-margin-top:6px;
-font-size:12px;
-opacity:0.7;
-}
-
-.divider{
-width:1px;
-height:60%;
-background:rgba(255,255,255,0.15);
-}
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-.widget{
-
-flex-direction:column;
-
-min-height:auto;
-
-}
-
-.left{
-
-width:100%;
-
-border-right:0;
 
 border-bottom:
 1px solid rgba(255,255,255,0.12);
 
 text-align:center;
 
-padding:18px 12px;
-
 }
 
-.right{
+.small{
 
-width:100%;
+font-size:11px;
 
-padding:12px 0;
+text-transform:uppercase;
 
-}
+letter-spacing:2px;
 
-.box{
+opacity:0.7;
 
-padding:10px 4px;
-
-}
-
-.value{
-
-font-size:28px;
+margin-bottom:8px;
 
 }
 
 .title{
 
-font-size:24px;
+font-size:30px;
+
+font-weight:800;
+
+line-height:1;
+
+margin-bottom:8px;
+
+}
+
+.city{
+
+font-size:18px;
+
+font-weight:600;
+
+opacity:0.92;
+
+}
+
+/* CONTENUTO */
+
+.right{
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+text-align:center;
+
+padding:14px 0;
+
+}
+
+.box{
+
+flex:1;
+
+padding:0 10px;
+
+}
+
+.hour{
+
+font-size:13px;
+
+text-transform:uppercase;
+
+letter-spacing:1px;
+
+opacity:0.75;
+
+margin-bottom:10px;
+
+}
+
+.value{
+
+font-size:52px;
+
+font-weight:800;
+
+line-height:1;
+
+text-shadow:
+0 3px 10px rgba(0,0,0,0.25);
+
+}
+
+.percent{
+
+margin-top:6px;
+
+font-size:12px;
+
+opacity:0.7;
+
+}
+
+.divider{
+
+width:1px;
+
+height:70px;
+
+background:
+rgba(255,255,255,0.15);
+
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.right{
+
+flex-direction:column;
+
+padding:0;
+
+}
+
+.box{
+
+width:100%;
+
+padding:20px;
+
+}
+
+.divider{
+
+width:100%;
+
+height:1px;
+
+}
+
+.value{
+
+font-size:44px;
+
+}
+
+.title{
+
+font-size:26px;
 
 }
 
 .city{
 
 font-size:16px;
-
-}
-
-.hour{
-
-font-size:11px;
-
-}
-
-.divider{
-
-height:45px;
 
 }
 
@@ -227,7 +225,7 @@ height:45px;
 
 <div class="widget">
 
-<!-- SINISTRA -->
+<!-- HEADER -->
 
 <div class="left">
 
@@ -245,7 +243,7 @@ Agrigento
 
 </div>
 
-<!-- DESTRA -->
+<!-- DATI -->
 
 <div class="right">
 
@@ -320,7 +318,7 @@ try {
 const response = await fetch(
 'dati.json?t=' + Date.now(),
 {
-cache: 'no-store'
+cache:'no-store'
 }
 );
 
@@ -346,9 +344,7 @@ console.log(error);
 
 aggiornaDati();
 
-/* refresh automatico */
-
-setInterval(aggiornaDati, 10000);
+setInterval(aggiornaDati,10000);
 
 </script>
 
