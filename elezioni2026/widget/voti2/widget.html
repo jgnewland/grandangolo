@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Risultati Sindaco Agrigento</title>
@@ -21,6 +22,8 @@ background:transparent;
 font-family:Arial, Helvetica, sans-serif;
 overflow:hidden;
 }
+
+/* WIDGET */
 
 .widget{
 
@@ -89,7 +92,7 @@ letter-spacing:1px;
 
 }
 
-/* CANDIDATI */
+/* RIGHE */
 
 .row{
 
@@ -104,14 +107,14 @@ border-bottom:
 }
 
 .name{
-width:36%;
+width:34%;
 font-size:18px;
 font-weight:700;
 }
 
 .barwrap{
 
-width:49%;
+width:46%;
 height:14px;
 
 background:
@@ -137,15 +140,21 @@ transition:all .5s ease;
 
 }
 
-.percent{
-
-width:15%;
-
+.right{
+width:20%;
 text-align:right;
+}
 
-font-size:30px;
+.percent{
+font-size:28px;
 font-weight:800;
+line-height:1;
+}
 
+.voti{
+font-size:12px;
+opacity:0.8;
+margin-top:4px;
 }
 
 /* FOOTER */
@@ -165,6 +174,32 @@ opacity:0.85;
 
 }
 
+/* MOBILE */
+
+@media(max-width:700px){
+
+.row{
+flex-wrap:wrap;
+}
+
+.name{
+width:100%;
+margin-bottom:10px;
+}
+
+.barwrap{
+width:100%;
+margin:0;
+}
+
+.right{
+width:100%;
+margin-top:10px;
+text-align:left;
+}
+
+}
+
 </style>
 
 </head>
@@ -180,11 +215,11 @@ opacity:0.85;
 <div>
 
 <div class="small">
-ELEZIONI AMMINISTRATIVE AGRIGENTO 2026
+ELEZIONI COMUNALI
 </div>
 
 <div class="title">
-SCRUTINIO IN TEMPO REALE
+Corsa a Sindaco
 </div>
 
 </div>
@@ -207,8 +242,16 @@ DINO ALONGE
 <div class="bar" id="bar-alonge" style="width:0%"></div>
 </div>
 
+<div class="right">
+
 <div class="percent" id="alonge">
 0%
+</div>
+
+<div class="voti" id="voti-alonge">
+0 voti
+</div>
+
 </div>
 
 </div>
@@ -225,8 +268,16 @@ MICHELE SODANO
 <div class="bar" id="bar-sodano" style="width:0%"></div>
 </div>
 
+<div class="right">
+
 <div class="percent" id="sodano">
 0%
+</div>
+
+<div class="voti" id="voti-sodano">
+0 voti
+</div>
+
 </div>
 
 </div>
@@ -243,8 +294,16 @@ GIUSEPPE DI ROSA
 <div class="bar" id="bar-dirosa" style="width:0%"></div>
 </div>
 
+<div class="right">
+
 <div class="percent" id="dirosa">
 0%
+</div>
+
+<div class="voti" id="voti-dirosa">
+0 voti
+</div>
+
 </div>
 
 </div>
@@ -261,8 +320,16 @@ LUIGI GENTILE
 <div class="bar" id="bar-gentile" style="width:0%"></div>
 </div>
 
+<div class="right">
+
 <div class="percent" id="gentile">
 0%
+</div>
+
+<div class="voti" id="voti-gentile">
+0 voti
+</div>
+
 </div>
 
 </div>
@@ -290,33 +357,77 @@ cache:'no-store'
 
 const data = await response.json();
 
+/* TOTALE VOTI */
+
+const totale =
+data.alonge +
+data.sodano +
+data.dirosa +
+data.gentile;
+
+/* PERCENTUALI */
+
+const percAlonge =
+totale > 0
+? ((data.alonge / totale) * 100).toFixed(1)
+: 0;
+
+const percSodano =
+totale > 0
+? ((data.sodano / totale) * 100).toFixed(1)
+: 0;
+
+const percDirosa =
+totale > 0
+? ((data.dirosa / totale) * 100).toFixed(1)
+: 0;
+
+const percGentile =
+totale > 0
+? ((data.gentile / totale) * 100).toFixed(1)
+: 0;
+
 /* TESTI */
 
 document.getElementById('alonge').innerText =
-data.alonge + '%';
+percAlonge + '%';
 
 document.getElementById('sodano').innerText =
-data.sodano + '%';
+percSodano + '%';
 
 document.getElementById('dirosa').innerText =
-data.dirosa + '%';
+percDirosa + '%';
 
 document.getElementById('gentile').innerText =
-data.gentile + '%';
+percGentile + '%';
 
 /* BARRE */
 
 document.getElementById('bar-alonge').style.width =
-data.alonge + '%';
+percAlonge + '%';
 
 document.getElementById('bar-sodano').style.width =
-data.sodano + '%';
+percSodano + '%';
 
 document.getElementById('bar-dirosa').style.width =
-data.dirosa + '%';
+percDirosa + '%';
 
 document.getElementById('bar-gentile').style.width =
-data.gentile + '%';
+percGentile + '%';
+
+/* VOTI */
+
+document.getElementById('voti-alonge').innerText =
+data.alonge.toLocaleString('it-IT') + ' voti';
+
+document.getElementById('voti-sodano').innerText =
+data.sodano.toLocaleString('it-IT') + ' voti';
+
+document.getElementById('voti-dirosa').innerText =
+data.dirosa.toLocaleString('it-IT') + ' voti';
+
+document.getElementById('voti-gentile').innerText =
+data.gentile.toLocaleString('it-IT') + ' voti';
 
 /* SEZIONI */
 
