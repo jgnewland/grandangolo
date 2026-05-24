@@ -292,9 +292,7 @@ transform:translateX(-50%);
 
 }
 
-/* ========================= */
 /* MOBILE */
-/* ========================= */
 
 @media(max-width:768px){
 
@@ -303,8 +301,6 @@ transform:translateX(-50%);
 padding:14px 10px;
 
 }
-
-/* ROW */
 
 .row{
 
@@ -320,8 +316,6 @@ text-align:center;
 
 }
 
-/* CENTER */
-
 .center{
 
 width:100%;
@@ -335,8 +329,6 @@ align-items:center;
 gap:8px;
 
 }
-
-/* TEXT */
 
 .title{
 
@@ -354,15 +346,11 @@ text-align:center;
 
 }
 
-/* BIG */
-
 .big{
 
 font-size:44px;
 
 }
-
-/* HOURS */
 
 .hours{
 
@@ -398,8 +386,6 @@ font-size:15px;
 
 }
 
-/* LIVE */
-
 .live{
 
 font-size:10px;
@@ -407,8 +393,6 @@ font-size:10px;
 padding:7px 10px;
 
 }
-
-/* TICKER */
 
 .ticker{
 
@@ -495,7 +479,7 @@ ORE 19
 </small>
 
 <strong id="ore19">
-00,00%
+36,53%
 </strong>
 
 </div>
@@ -522,14 +506,10 @@ ORE 23
 
 <div class="ticker-track" id="ticker">
 
-● AGRIGENTO 13,85%
-● CAMASTRA 10,12%
-● CAMMARATA 16,79%
-● CASTELTERMINI 7,59%
-● RAFFADALI 8,16%
-● RIBERA 11,95%
-● SAMBUCA 13,99%
-● SICULIANA 9,56%
+● AGRIGENTO 36,53%
+● CAMASTRA 31,83%
+● CAMMARATA 43,41%
+● CASTELTERMINI 23,44%
 
 </div>
 
@@ -539,26 +519,58 @@ ORE 23
 
 <script>
 
+let oraAttuale = "12";
+
+function determinaOra(){
+
+const h = new Date().getHours();
+
+if(h >= 19 && h < 23){
+
+oraAttuale = "19";
+
+}
+else if(h >= 23){
+
+oraAttuale = "23";
+
+}
+else{
+
+oraAttuale = "12";
+
+}
+
+}
+
 async function aggiornaDati(){
 
 try{
 
-const response =
-await fetch(
-'dati.json?t=' + Date.now(),
+determinaOra();
+
+const response = await fetch(
+
+'dati.json?v=' + new Date().getTime(),
+
 {
-cache:'no-store'
+method:'GET',
+
+headers:{
+'Cache-Control':'no-cache'
 }
+
+}
+
 );
 
-const data =
-await response.json();
+const data = await response.json();
 
 /* AGRIGENTO */
 
 document.getElementById('agrigento')
 .innerText =
-data.agrigento["12"] + '%';
+data.agrigento[oraAttuale] + '%';
 
 document.getElementById('ore12')
 .innerText =
@@ -579,7 +591,7 @@ let tickerText = '';
 Object.entries(data).forEach(([nome,dati]) => {
 
 tickerText +=
-`● ${nome.toUpperCase()} ${dati["12"]}% `;
+`● ${nome.toUpperCase()} ${dati[oraAttuale]}% `;
 
 });
 
@@ -598,7 +610,7 @@ console.log(error);
 
 aggiornaDati();
 
-setInterval(aggiornaDati,10000);
+setInterval(aggiornaDati,3000);
 
 </script>
 
