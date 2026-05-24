@@ -31,13 +31,11 @@ width:100%;
 
 display:flex;
 
-align-items:center;
+flex-direction:column;
 
-justify-content:space-between;
+justify-content:center;
 
-gap:18px;
-
-padding:14px 20px;
+padding:10px 18px;
 
 background:
 linear-gradient(
@@ -53,6 +51,20 @@ border-top:
 3px solid #16ff90;
 
 overflow:hidden;
+
+}
+
+/* MAIN ROW */
+
+.main-row{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:18px;
 
 }
 
@@ -126,7 +138,7 @@ display:flex;
 
 align-items:center;
 
-gap:18px;
+gap:16px;
 
 flex:1;
 
@@ -234,19 +246,62 @@ font-weight:900;
 
 }
 
+/* TICKER */
+
+.ticker{
+
+margin-top:8px;
+
+height:24px;
+
+overflow:hidden;
+
+border-top:
+1px solid rgba(255,255,255,0.08);
+
+padding-top:6px;
+
+}
+
+.ticker-track{
+
+display:flex;
+
+gap:40px;
+
+white-space:nowrap;
+
+animation:scroll 28s linear infinite;
+
+font-size:12px;
+
+font-weight:700;
+
+opacity:0.92;
+
+}
+
+@keyframes scroll{
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-50%);
+}
+
+}
+
 /* MOBILE */
 
-@media(max-width:900px){
+@media(max-width:950px){
 
-.topbar{
+.main-row{
 
 flex-wrap:wrap;
 
 justify-content:center;
-
-padding:12px;
-
-gap:12px;
 
 }
 
@@ -308,6 +363,8 @@ padding:7px 10px;
 <body>
 
 <div class="topbar">
+
+<div class="main-row">
 
 <!-- LIVE -->
 
@@ -387,6 +444,27 @@ ORE 23
 
 </div>
 
+<!-- TICKER -->
+
+<div class="ticker">
+
+<div class="ticker-track" id="ticker">
+
+● AGRIGENTO 13,85%
+● CAMASTRA 10,12%
+● CAMMARATA 16,79%
+● CASTELTERMINI 7,59%
+● RAFFADALI 8,16%
+● RIBERA 11,95%
+● SAMBUCA 13,99%
+● SICULIANA 9,56%
+
+</div>
+
+</div>
+
+</div>
+
 <script>
 
 async function aggiornaDati(){
@@ -417,6 +495,21 @@ data.agrigento["19"] + '%';
 document.getElementById('ore23')
 .innerText =
 data.agrigento["23"] + '%';
+
+/* TICKER */
+
+let tickerText = '';
+
+Object.entries(data).forEach(([nome,dati]) => {
+
+tickerText +=
+`● ${nome.toUpperCase()} ${dati["12"]}% `;
+
+});
+
+document.getElementById('ticker')
+.innerHTML =
+tickerText + tickerText;
 
 }
 catch(error){
