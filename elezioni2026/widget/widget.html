@@ -51,8 +51,6 @@ color:#fff;
 
 }
 
-/* SINISTRA */
-
 .left{
 
 width:32%;
@@ -89,8 +87,6 @@ font-weight:600;
 opacity:0.92;
 }
 
-/* DESTRA */
-
 .right{
 
 width:68%;
@@ -121,9 +117,6 @@ margin-bottom:10px;
 font-size:44px;
 font-weight:800;
 line-height:1;
-
-text-shadow:
-0 3px 10px rgba(0,0,0,0.25);
 }
 
 .percent{
@@ -146,8 +139,6 @@ background:rgba(255,255,255,0.15);
 
 <div class="widget">
 
-<!-- SINISTRA -->
-
 <div class="left">
 
 <div class="small">
@@ -164,11 +155,7 @@ Agrigento
 
 </div>
 
-<!-- DESTRA -->
-
 <div class="right">
-
-<!-- ORE 12 -->
 
 <div class="box">
 
@@ -188,8 +175,6 @@ Ore 12
 
 <div class="divider"></div>
 
-<!-- ORE 19 -->
-
 <div class="box">
 
 <div class="hour">
@@ -207,8 +192,6 @@ Ore 19
 </div>
 
 <div class="divider"></div>
-
-<!-- ORE 23 -->
 
 <div class="box">
 
@@ -230,20 +213,44 @@ Ore 23
 
 </div>
 
-<!-- DATI -->
-
-<script src="dati.js?v=2"></script>
-
 <script>
 
+async function aggiornaDati() {
+
+try {
+
+const response = await fetch(
+'dati.json?t=' + Date.now(),
+{
+cache: 'no-store'
+}
+);
+
+const data = await response.json();
+
 document.getElementById('ore12').innerText =
-window.AFFLUENZA.ore12;
+data.ore12;
 
 document.getElementById('ore19').innerText =
-window.AFFLUENZA.ore19;
+data.ore19;
 
 document.getElementById('ore23').innerText =
-window.AFFLUENZA.ore23;
+data.ore23;
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+aggiornaDati();
+
+/* refresh automatico */
+
+setInterval(aggiornaDati, 10000);
 
 </script>
 
