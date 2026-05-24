@@ -1,0 +1,31 @@
+{
+  "totale_voti": 10000,
+
+  "candidati": [
+
+    {
+      "nome": "DINO ALONGE",
+      "voti": 3200,
+      "foto": "https://placehold.co/100x100"
+    },
+
+    {
+      "nome": "GIUSEPPE DI ROSA",
+      "voti": 2700,
+      "foto": "https://placehold.co/100x100"
+    },
+
+    {
+      "nome": "MICHELE SODANO",
+      "voti": 2100,
+      "foto": "https://placehold.co/100x100"
+    },
+
+    {
+      "nome": "LUIGI GENTILE",
+      "voti": 2000,
+      "foto": "https://placehold.co/100x100"
+    }
+
+  ]
+}
