@@ -187,6 +187,16 @@ line-height:1.2;
 
 /* BIG */
 
+.big-wrap{
+
+display:flex;
+
+flex-direction:column;
+
+gap:4px;
+
+}
+
 .big{
 
 font-size:54px;
@@ -199,6 +209,18 @@ white-space:nowrap;
 
 text-shadow:
 0 4px 14px rgba(0,0,0,.25);
+
+}
+
+.big-label{
+
+font-size:11px;
+
+font-weight:700;
+
+opacity:.75;
+
+text-transform:uppercase;
 
 }
 
@@ -217,11 +239,11 @@ gap:10px;
 background:
 rgba(255,255,255,.08);
 
-padding:10px 14px;
+padding:10px 12px;
 
 border-radius:14px;
 
-min-width:90px;
+min-width:82px;
 
 text-align:center;
 
@@ -260,34 +282,42 @@ border-top:
 
 overflow:hidden;
 
-white-space:nowrap;
+position:relative;
+
+width:100%;
 
 }
 
 .ticker-track{
 
-display:flex;
+display:inline-flex;
+
+align-items:center;
 
 gap:35px;
 
-width:max-content;
+white-space:nowrap;
 
-animation:scroll 30s linear infinite;
+padding-left:100%;
+
+animation:tickerScroll 18s linear infinite;
 
 font-size:13px;
 
 font-weight:700;
 
+min-width:max-content;
+
 }
 
-@keyframes scroll{
+@keyframes tickerScroll{
 
 0%{
 transform:translateX(0);
 }
 
 100%{
-transform:translateX(-50%);
+transform:translateX(-100%);
 }
 
 }
@@ -298,7 +328,7 @@ transform:translateX(-50%);
 
 .topbar{
 
-padding:14px 10px;
+padding:12px 10px;
 
 }
 
@@ -348,7 +378,7 @@ text-align:center;
 
 .big{
 
-font-size:44px;
+font-size:42px;
 
 }
 
@@ -356,17 +386,16 @@ font-size:44px;
 
 width:100%;
 
-display:flex;
+display:grid;
 
-justify-content:center;
+grid-template-columns:
+1fr 1fr;
 
 gap:8px;
 
 }
 
 .hour{
-
-flex:1;
 
 min-width:auto;
 
@@ -391,14 +420,6 @@ font-size:15px;
 font-size:10px;
 
 padding:7px 10px;
-
-}
-
-.ticker{
-
-margin-top:12px;
-
-padding-top:8px;
 
 }
 
@@ -450,8 +471,16 @@ Affluenza Comune di Agrigento
 
 </div>
 
+<div class="big-wrap">
+
 <div class="big" id="agrigento">
-13,85%
+47,20%
+</div>
+
+<div class="big-label" id="bigLabel">
+ULTIMO DATO • ORE 23
+</div>
+
 </div>
 
 </div>
@@ -491,6 +520,18 @@ ORE 23
 </small>
 
 <strong id="ore23">
+47,20%
+</strong>
+
+</div>
+
+<div class="hour">
+
+<small>
+ORE 15 OGGI
+</small>
+
+<strong id="ore15">
 00,00%
 </strong>
 
@@ -506,10 +547,8 @@ ORE 23
 
 <div class="ticker-track" id="ticker">
 
-● AGRIGENTO 36,53%
-● CAMASTRA 31,83%
-● CAMMARATA 43,41%
-● CASTELTERMINI 23,44%
+● AGRIGENTO 47,20%
+● CAMASTRA 42,70%
 
 </div>
 
@@ -519,35 +558,9 @@ ORE 23
 
 <script>
 
-let oraAttuale = "12";
-
-function determinaOra(){
-
-const h = new Date().getHours();
-
-if(h >= 19 && h < 23){
-
-oraAttuale = "19";
-
-}
-else if(h >= 23){
-
-oraAttuale = "23";
-
-}
-else{
-
-oraAttuale = "12";
-
-}
-
-}
-
 async function aggiornaDati(){
 
 try{
-
-determinaOra();
 
 const response = await fetch(
 
@@ -566,11 +579,62 @@ headers:{
 
 const data = await response.json();
 
-/* AGRIGENTO */
+/* PRIORITÀ */
+
+let ultimoDato =
+data.agrigento["12"];
+
+let ultimaOra =
+"ORE 12";
+
+if(
+data.agrigento["15oggi"] &&
+data.agrigento["15oggi"] !== "00,00"
+){
+
+ultimoDato =
+data.agrigento["15oggi"];
+
+ultimaOra =
+"ORE 15";
+
+}
+else if(
+data.agrigento["23"] &&
+data.agrigento["23"] !== "00,00"
+){
+
+ultimoDato =
+data.agrigento["23"];
+
+ultimaOra =
+"ORE 23";
+
+}
+else if(
+data.agrigento["19"] &&
+data.agrigento["19"] !== "00,00"
+){
+
+ultimoDato =
+data.agrigento["19"];
+
+ultimaOra =
+"ORE 19";
+
+}
+
+/* BIG */
 
 document.getElementById('agrigento')
 .innerText =
-data.agrigento[oraAttuale] + '%';
+ultimoDato + '%';
+
+document.getElementById('bigLabel')
+.innerText =
+'ULTIMO DATO • ' + ultimaOra;
+
+/* HOURS */
 
 document.getElementById('ore12')
 .innerText =
@@ -584,14 +648,61 @@ document.getElementById('ore23')
 .innerText =
 data.agrigento["23"] + '%';
 
+document.getElementById('ore15')
+.innerText =
+data.agrigento["15oggi"] + '%';
+
 /* TICKER */
 
 let tickerText = '';
 
 Object.entries(data).forEach(([nome,dati]) => {
 
+let valore =
+dati["12"];
+
+let ora =
+"12";
+
+if(
+dati["15oggi"] &&
+dati["15oggi"] !== "00,00"
+){
+
+valore =
+dati["15oggi"];
+
+ora =
+"15";
+
+}
+else if(
+dati["23"] &&
+dati["23"] !== "00,00"
+){
+
+valore =
+dati["23"];
+
+ora =
+"23";
+
+}
+else if(
+dati["19"] &&
+dati["19"] !== "00,00"
+){
+
+valore =
+dati["19"];
+
+ora =
+"19";
+
+}
+
 tickerText +=
-`● ${nome.toUpperCase()} ${dati[oraAttuale]}% `;
+`● ${nome.toUpperCase()} ${valore}% (ORE ${ora}) `;
 
 });
 
