@@ -1,27 +1,27 @@
 {
   "Agrigento": {
     "sezioni_totali": 57,
-    "sezioni_scrutinate": 33,
+    "sezioni_scrutinate": 36,
 
     "candidati": [
       {
         "nome": "DINO ALONGE",
-        "voti": 2370,
+        "voti": 2578,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/1_0265e8.jpg"
       },
       {
         "nome": "GIUSEPPE DI ROSA",
-        "voti": 680,
+        "voti": 826,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/2_5d90d6.jpg"
       },
       {
         "nome": "MICHELE SODANO",
-        "voti": 2634,
+        "voti": 2904,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/3_97e7b3.jpg"
       },
       {
         "nome": "LUIGI GENTILE",
-        "voti": 928,
+        "voti": 930,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/4_8c5552.jpg"
       }
     ]
