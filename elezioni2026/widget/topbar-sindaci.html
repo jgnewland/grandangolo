@@ -20,7 +20,7 @@ padding:0;
 box-sizing:border-box;
 }
 
-body{
+html,body{
 
 margin:0;
 
@@ -28,7 +28,7 @@ font-family:'Inter',sans-serif;
 
 background:transparent;
 
-overflow:hidden;
+overflow:auto;
 
 }
 
@@ -52,49 +52,6 @@ linear-gradient(
 #0d3f8f 65%,
 #1d63d8 100%
 );
-
-}
-
-/* GLOW */
-
-.widget::before{
-
-content:'';
-
-position:absolute;
-
-top:-120px;
-right:-120px;
-
-width:320px;
-height:320px;
-
-background:
-radial-gradient(
-circle,
-rgba(0,255,170,.18),
-transparent 70%
-);
-
-filter:blur(20px);
-
-animation:float 6s infinite ease-in-out;
-
-}
-
-@keyframes float{
-
-0%{
-transform:translateY(0px);
-}
-
-50%{
-transform:translateY(20px);
-}
-
-100%{
-transform:translateY(0px);
-}
 
 }
 
@@ -157,26 +114,20 @@ background:#ff3131;
 
 animation:pulse 1s infinite;
 
-box-shadow:
-0 0 12px rgba(255,49,49,.9);
-
 }
 
 @keyframes pulse{
 
 0%{
 transform:scale(1);
-opacity:1;
 }
 
 50%{
-transform:scale(1.5);
-opacity:.4;
+transform:scale(1.4);
 }
 
 100%{
 transform:scale(1);
-opacity:1;
 }
 
 }
@@ -219,10 +170,6 @@ gap:16px;
 
 margin-bottom:20px;
 
-position:relative;
-
-z-index:2;
-
 }
 
 /* CARD */
@@ -250,6 +197,8 @@ padding:18px;
 
 box-shadow:
 0 10px 25px rgba(0,0,0,.18);
+
+color:#fff;
 
 }
 
@@ -289,8 +238,6 @@ font-weight:900;
 
 line-height:1.2;
 
-color:#fff;
-
 }
 
 .voti{
@@ -303,8 +250,6 @@ opacity:.7;
 
 margin-top:5px;
 
-color:#fff;
-
 }
 
 .percentuale{
@@ -316,8 +261,6 @@ font-weight:900;
 line-height:1;
 
 margin-bottom:14px;
-
-color:#fff;
 
 }
 
@@ -332,7 +275,7 @@ rgba(255,255,255,.08);
 
 border-radius:40px;
 
-overflow:auto;
+overflow:hidden;
 
 }
 
@@ -367,8 +310,6 @@ text-transform:uppercase;
 
 opacity:.65;
 
-color:#fff;
-
 }
 
 /* MENU */
@@ -384,10 +325,6 @@ overflow-x:auto;
 padding-bottom:10px;
 
 margin-bottom:10px;
-
-position:relative;
-
-z-index:2;
 
 scrollbar-width:none;
 
@@ -418,22 +355,13 @@ rgba(255,255,255,.08);
 
 color:#fff;
 
-transition:.2s;
-
-}
-
-.menu button:hover{
-
-background:
-rgba(255,255,255,.16);
-
 }
 
 /* MODAL */
 
 .modal{
 
-position:absolute;
+position:fixed;
 
 top:0;
 left:0;
@@ -442,7 +370,7 @@ width:100%;
 height:100%;
 
 background:
-rgba(2,8,23,.82);
+rgba(2,8,23,.88);
 
 backdrop-filter:blur(12px);
 
@@ -454,7 +382,7 @@ justify-content:center;
 
 padding:20px;
 
-z-index:999;
+z-index:999999;
 
 }
 
@@ -484,12 +412,6 @@ linear-gradient(
 #071d46 0%,
 #0d3f8f 100%
 );
-
-border:
-1px solid rgba(255,255,255,.08);
-
-box-shadow:
-0 20px 60px rgba(0,0,0,.45);
 
 }
 
@@ -563,12 +485,6 @@ grid-template-columns:
 
 @media(max-width:700px){
 
-body{
-
-overflow:auto;
-
-}
-
 .widget{
 
 padding:16px;
@@ -632,17 +548,13 @@ font-size:24px;
 
 <div class="widget">
 
-<!-- HEADER -->
-
 <div class="header">
 
 <div class="live">
 
 <div class="dot"></div>
 
-<div>
 SCRUTINIO LIVE
-</div>
 
 </div>
 
@@ -660,51 +572,22 @@ Aggiornamento in tempo reale
 
 </div>
 
-<!-- AGRIGENTO -->
-
-<div class="grid" id="agrigento-grid">
-
-</div>
-
-<!-- MENU -->
+<div class="grid" id="agrigento-grid"></div>
 
 <div class="menu">
 
-<button onclick="openModal('Ribera')">
-Ribera
-</button>
-
-<button onclick="openModal('Camastra')">
-Camastra
-</button>
-
-<button onclick="openModal('Cammarata')">
-Cammarata
-</button>
-
-<button onclick="openModal('Casteltermini')">
-Casteltermini
-</button>
-
-<button onclick="openModal('Raffadali')">
-Raffadali
-</button>
-
-<button onclick="openModal('Sambuca di Sicilia')">
-Sambuca
-</button>
-
-<button onclick="openModal('Siculiana')">
-Siculiana
-</button>
-
-<button onclick="openModal('Villafranca Sicula')">
-Villafranca
-</button>
+<button onclick="openModal('Ribera')">Ribera</button>
+<button onclick="openModal('Camastra')">Camastra</button>
+<button onclick="openModal('Cammarata')">Cammarata</button>
+<button onclick="openModal('Casteltermini')">Casteltermini</button>
+<button onclick="openModal('Raffadali')">Raffadali</button>
+<button onclick="openModal('Sambuca di Sicilia')">Sambuca</button>
+<button onclick="openModal('Siculiana')">Siculiana</button>
+<button onclick="openModal('Villafranca Sicula')">Villafranca</button>
 
 </div>
 
-<!-- MODAL -->
+</div>
 
 <div class="modal" id="modal">
 
@@ -722,12 +605,7 @@ Comune
 
 </div>
 
-<div
-class="modal-grid"
-id="modal-grid">
-</div>
-
-</div>
+<div class="modal-grid" id="modal-grid"></div>
 
 </div>
 
@@ -739,22 +617,15 @@ window.comuniData = {};
 
 async function aggiorna(){
 
-try{
-
-const response = await fetch(
-'sindaci.json?v=' + new Date().getTime(),
-{
-cache:'no-store'
-}
+const response =
+await fetch(
+'sindaci.json?v=' + new Date().getTime()
 );
 
 const data =
 await response.json();
 
-window.comuniData =
-data;
-
-/* AGRIGENTO */
+window.comuniData = data;
 
 const agrigento =
 data["Agrigento"];
@@ -825,21 +696,18 @@ document
 .innerHTML =
 html;
 
-document.getElementById('update')
+document
+.getElementById('update')
 .innerText =
 'Aggiornato alle ' +
 new Date().toLocaleTimeString('it-IT');
 
 }
-catch(error){
-
-console.log(error);
-
-}
-
-}
 
 function openModal(nomeComune){
+
+const comune =
+window.comuniData[nomeComune];
 
 const modal =
 document.getElementById('modal');
@@ -852,9 +720,6 @@ document.getElementById('modal-grid');
 
 modalTitle.innerText =
 nomeComune;
-
-const comune =
-window.comuniData[nomeComune];
 
 let html = '';
 
