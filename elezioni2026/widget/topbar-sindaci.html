@@ -152,6 +152,105 @@ rgba(255,255,255,.7);
 
 }
 
+/* SEZIONI */
+
+.sezioni-wrapper{
+
+margin-bottom:22px;
+
+}
+
+.sezioni-box{
+
+background:
+rgba(255,255,255,.08);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-radius:22px;
+
+padding:18px;
+
+backdrop-filter:blur(10px);
+
+}
+
+.sezioni-label{
+
+font-size:12px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+margin-bottom:16px;
+
+color:
+rgba(255,255,255,.7);
+
+}
+
+.sezioni-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(130px,1fr));
+
+gap:12px;
+
+}
+
+.sezione-item{
+
+padding:12px;
+
+border-radius:16px;
+
+background:
+rgba(255,255,255,.05);
+
+text-align:center;
+
+color:#fff;
+
+}
+
+.sezione-comune{
+
+font-size:12px;
+
+font-weight:800;
+
+margin-bottom:8px;
+
+opacity:.8;
+
+}
+
+.sezione-numero{
+
+font-size:24px;
+
+font-weight:900;
+
+line-height:1;
+
+}
+
+.sezione-small{
+
+font-size:11px;
+
+font-weight:700;
+
+opacity:.6;
+
+margin-top:6px;
+
+}
+
 /* GRID */
 
 .grid{
@@ -237,6 +336,33 @@ font-weight:700;
 opacity:.7;
 
 margin-top:5px;
+
+}
+
+.scrutinate{
+
+margin-top:10px;
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:8px 12px;
+
+border-radius:999px;
+
+background:
+rgba(255,255,255,.08);
+
+font-size:11px;
+
+font-weight:800;
+
+letter-spacing:1px;
+
+color:#fff;
 
 }
 
@@ -559,6 +685,24 @@ Aggiornamento in tempo reale
 
 </div>
 
+<!-- SEZIONI -->
+
+<div class="sezioni-wrapper">
+
+<div class="sezioni-box">
+
+<div class="sezioni-label">
+SEZIONI SCRUTINATE
+</div>
+
+<div class="sezioni-grid" id="sezioni-grid">
+
+</div>
+
+</div>
+
+</div>
+
 <!-- AGRIGENTO -->
 
 <div class="grid" id="agrigento-grid"></div>
@@ -621,6 +765,52 @@ await response.json();
 window.comuniData =
 data;
 
+/* SEZIONI */
+
+let sezioniHtml = '';
+
+Object.keys(data).forEach(nomeComune=>{
+
+const comune =
+data[nomeComune];
+
+const percentuale =
+comune.sezioni_totali > 0
+?
+(
+(comune.sezioni_scrutinate / comune.sezioni_totali)
+* 100
+).toFixed(0)
+:
+0;
+
+sezioniHtml += `
+
+<div class="sezione-item">
+
+<div class="sezione-comune">
+${nomeComune}
+</div>
+
+<div class="sezione-numero">
+${comune.sezioni_scrutinate}/${comune.sezioni_totali}
+</div>
+
+<div class="sezione-small">
+${percentuale}% SCRUTINATE
+</div>
+
+</div>
+
+`;
+
+});
+
+document
+.getElementById('sezioni-grid')
+.innerHTML =
+sezioniHtml;
+
 /* AGRIGENTO */
 
 const agrigento =
@@ -666,6 +856,16 @@ ${c.nome}
 
 <div class="voti">
 ${c.voti.toLocaleString()} voti
+</div>
+
+<div class="scrutinate">
+
+${agrigento.sezioni_scrutinate}
+/
+${agrigento.sezioni_totali}
+
+SEZIONI
+
 </div>
 
 </div>
@@ -715,8 +915,6 @@ function openPopup(nomeComune){
 const comune =
 window.comuniData[nomeComune];
 
-/* TOTALE AUTOMATICO */
-
 comune.totale_voti =
 comune.candidati.reduce(
 (sum,c)=>sum + c.voti,
@@ -758,6 +956,16 @@ ${c.nome}
 
 <div class="voti">
 ${c.voti.toLocaleString()} voti
+</div>
+
+<div class="scrutinate">
+
+${comune.sezioni_scrutinate}
+/
+${comune.sezioni_totali}
+
+SEZIONI
+
 </div>
 
 <div class="percentuale">
