@@ -1,5 +1,8 @@
 {
   "Agrigento": {
+    "sezioni_totali": 55,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "DINO ALONGE",
@@ -25,6 +28,9 @@
   },
 
   "Ribera": {
+    "sezioni_totali": 21,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "EUNICE PALMINTERI",
@@ -46,6 +52,9 @@
   },
 
   "Camastra": {
+    "sezioni_totali": 3,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "GERA BELLOMO",
@@ -59,6 +68,9 @@
   },
 
   "Cammarata": {
+    "sezioni_totali": 6,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "GIUSEPPE MANGIAPANE",
@@ -72,6 +84,9 @@
   },
 
   "Casteltermini": {
+    "sezioni_totali": 12,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "GIOACCHINO NICASTRO",
@@ -89,6 +104,9 @@
   },
 
   "Raffadali": {
+    "sezioni_totali": 12,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "IDA CUFFARO",
@@ -106,6 +124,9 @@
   },
 
   "Sambuca di Sicilia": {
+    "sezioni_totali": 7,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "GIOVANNA CASA'",
@@ -119,6 +140,9 @@
   },
 
   "Siculiana": {
+    "sezioni_totali": 7,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "PEPPE ZAMBITO",
@@ -132,6 +156,9 @@
   },
 
   "Villafranca Sicula": {
+    "sezioni_totali": 2,
+    "sezioni_scrutinate": 0,
+
     "candidati": [
       {
         "nome": "DOMENICO BALSAMO",
