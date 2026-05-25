@@ -68,17 +68,17 @@
   },
 
   "Cammarata": {
-    "sezioni_totali": 6,
-    "sezioni_scrutinate": 5,
+    "sezioni_totali": 12,
+    "sezioni_scrutinate": 10,
 
     "candidati": [
       {
         "nome": "GIUSEPPE MANGIAPANE",
-        "voti": 1123
+        "voti": 1218
       },
       {
         "nome": "GIULIANO TRAINA",
-        "voti": 741
+        "voti": 836
       }
     ]
   },
