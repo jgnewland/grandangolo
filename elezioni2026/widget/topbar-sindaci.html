@@ -339,33 +339,6 @@ margin-top:5px;
 
 }
 
-.scrutinate{
-
-margin-top:10px;
-
-display:inline-flex;
-
-align-items:center;
-
-justify-content:center;
-
-padding:8px 12px;
-
-border-radius:999px;
-
-background:
-rgba(255,255,255,.08);
-
-font-size:11px;
-
-font-weight:800;
-
-letter-spacing:1px;
-
-color:#fff;
-
-}
-
 .percentuale{
 
 font-size:46px;
@@ -661,6 +634,8 @@ grid-template-columns:
 
 <div class="widget">
 
+<!-- HEADER -->
+
 <div class="header">
 
 <div class="live">
@@ -816,8 +791,6 @@ sezioniHtml;
 const agrigento =
 data["Agrigento"];
 
-/* TOTALE AUTOMATICO */
-
 agrigento.totale_voti =
 agrigento.candidati.reduce(
 (sum,c)=>sum + c.voti,
@@ -856,16 +829,6 @@ ${c.nome}
 
 <div class="voti">
 ${c.voti.toLocaleString()} voti
-</div>
-
-<div class="scrutinate">
-
-${agrigento.sezioni_scrutinate}
-/
-${agrigento.sezioni_totali}
-
-SEZIONI
-
 </div>
 
 </div>
@@ -956,16 +919,6 @@ ${c.nome}
 
 <div class="voti">
 ${c.voti.toLocaleString()} voti
-</div>
-
-<div class="scrutinate">
-
-${comune.sezioni_scrutinate}
-/
-${comune.sezioni_totali}
-
-SEZIONI
-
 </div>
 
 <div class="percentuale">
