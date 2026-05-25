@@ -28,11 +28,11 @@ font-family:'Inter',sans-serif;
 
 background:transparent;
 
-overflow:hidden;
+overflow-x:hidden;
 
 }
 
-/* BACKGROUND */
+/* TOPBAR */
 
 .topbar{
 
@@ -208,8 +208,6 @@ text-shadow:
 
 }
 
-/* UPDATE */
-
 .update{
 
 font-size:12px;
@@ -235,6 +233,8 @@ gap:16px;
 position:relative;
 
 z-index:2;
+
+margin-bottom:24px;
 
 }
 
@@ -265,18 +265,6 @@ box-shadow:
 
 }
 
-.card:hover{
-
-transform:
-translateY(-5px);
-
-box-shadow:
-0 18px 35px rgba(0,0,0,.28);
-
-}
-
-/* WINNER */
-
 .card::before{
 
 content:'';
@@ -298,8 +286,6 @@ linear-gradient(
 
 }
 
-/* TOP */
-
 .top{
 
 display:flex;
@@ -311,8 +297,6 @@ gap:14px;
 margin-bottom:16px;
 
 }
-
-/* FOTO */
 
 .foto{
 
@@ -328,12 +312,7 @@ border:
 
 background:#fff;
 
-box-shadow:
-0 5px 14px rgba(0,0,0,.2);
-
 }
-
-/* NOME */
 
 .nome{
 
@@ -361,11 +340,9 @@ color:#fff;
 
 }
 
-/* PERCENTUALE */
-
 .percentuale{
 
-font-size:46px;
+font-size:42px;
 
 font-weight:900;
 
@@ -375,12 +352,7 @@ margin-bottom:14px;
 
 color:#fff;
 
-text-shadow:
-0 4px 14px rgba(0,0,0,.25);
-
 }
-
-/* BAR */
 
 .bar{
 
@@ -395,11 +367,7 @@ border-radius:40px;
 
 overflow:hidden;
 
-position:relative;
-
 }
-
-/* FILL */
 
 .fill{
 
@@ -414,14 +382,9 @@ linear-gradient(
 #42d3ff
 );
 
-box-shadow:
-0 0 20px rgba(66,211,255,.45);
-
 transition:width .8s ease;
 
 }
-
-/* LABEL */
 
 .label{
 
@@ -441,13 +404,91 @@ color:#fff;
 
 }
 
-/* MOBILE */
+/* SUBMENU COMUNI */
+
+.menu{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:10px;
+
+margin-bottom:20px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.menu button{
+
+border:none;
+
+cursor:pointer;
+
+padding:10px 16px;
+
+border-radius:14px;
+
+font-size:12px;
+
+font-weight:800;
+
+background:
+rgba(255,255,255,.08);
+
+color:#fff;
+
+transition:.2s;
+
+}
+
+.menu button:hover{
+
+background:
+rgba(255,255,255,.16);
+
+}
+
+.menu button.active{
+
+background:
+linear-gradient(
+90deg,
+#16ff90,
+#42d3ff
+);
+
+color:#02111f;
+
+}
+
+/* COMUNI */
+
+.comune{
+
+display:none;
+
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+
+gap:16px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.comune.active{
+
+display:grid;
+
+}
 
 @media(max-width:1100px){
-
-body{
-overflow:auto;
-}
 
 .grid{
 
@@ -456,15 +497,12 @@ grid-template-columns:
 
 }
 
-.title{
-font-size:28px;
 }
 
-}
+@media(max-width:700px){
 
-@media(max-width:650px){
-
-.grid{
+.grid,
+.comune{
 
 grid-template-columns:
 1fr;
@@ -477,19 +515,11 @@ flex-direction:column;
 
 align-items:flex-start;
 
-gap:10px;
-
 }
 
 .title{
 
-font-size:22px;
-
-}
-
-.percentuale{
-
-font-size:40px;
+font-size:24px;
 
 }
 
@@ -531,11 +561,60 @@ Aggiornamento in tempo reale
 
 </div>
 
-<!-- GRID -->
+<!-- AGRIGENTO -->
 
 <div class="grid" id="grid">
 
 </div>
+
+<!-- MENU COMUNI -->
+
+<div class="menu">
+
+<button class="active" onclick="apriComune(event,'ribera')">
+Ribera
+</button>
+
+<button onclick="apriComune(event,'camastra')">
+Camastra
+</button>
+
+<button onclick="apriComune(event,'cammarata')">
+Cammarata
+</button>
+
+<button onclick="apriComune(event,'casteltermini')">
+Casteltermini
+</button>
+
+<button onclick="apriComune(event,'raffadali')">
+Raffadali
+</button>
+
+<button onclick="apriComune(event,'sambuca')">
+Sambuca
+</button>
+
+<button onclick="apriComune(event,'siculiana')">
+Siculiana
+</button>
+
+<button onclick="apriComune(event,'villafranca')">
+Villafranca
+</button>
+
+</div>
+
+<!-- COMUNI -->
+
+<div class="comune active" id="ribera"></div>
+<div class="comune" id="camastra"></div>
+<div class="comune" id="cammarata"></div>
+<div class="comune" id="casteltermini"></div>
+<div class="comune" id="raffadali"></div>
+<div class="comune" id="sambuca"></div>
+<div class="comune" id="siculiana"></div>
+<div class="comune" id="villafranca"></div>
 
 </div>
 
@@ -546,33 +625,33 @@ async function aggiorna(){
 try{
 
 const response = await fetch(
-
 'sindaci.json?v=' + new Date().getTime(),
-
 {
 cache:'no-store'
 }
-
 );
 
 const data = await response.json();
 
-const totale =
-data.totale_voti;
+/* AGRIGENTO */
+
+const agrigento =
+data["Agrigento"];
 
 let html = '';
 
-/* ORDINA */
-
-data.candidati.sort(
+agrigento.candidati.sort(
 (a,b) => b.voti - a.voti
 );
 
-data.candidati.forEach(c => {
+agrigento.candidati.forEach(c => {
 
 const percentuale =
-((c.voti / totale) * 100)
-.toFixed(2);
+agrigento.totale_voti > 0
+?
+((c.voti / agrigento.totale_voti) * 100).toFixed(2)
+:
+0;
 
 html += `
 
@@ -626,6 +705,77 @@ document.getElementById('grid')
 .innerHTML =
 html;
 
+/* COMUNI */
+
+const mapping = {
+
+"ribera":"Ribera",
+"camastra":"Camastra",
+"cammarata":"Cammarata",
+"casteltermini":"Casteltermini",
+"raffadali":"Raffadali",
+"sambuca":"Sambuca di Sicilia",
+"siculiana":"Siculiana",
+"villafranca":"Villafranca Sicula"
+
+};
+
+for(const id in mapping){
+
+const comune =
+data[mapping[id]];
+
+let comuneHtml = '';
+
+comune.candidati
+.sort((a,b)=>b.voti-a.voti)
+.forEach(c=>{
+
+const percentuale =
+comune.totale_voti > 0
+?
+((c.voti/comune.totale_voti)*100).toFixed(2)
+:
+0;
+
+comuneHtml += `
+
+<div class="card">
+
+<div class="nome">
+${c.nome}
+</div>
+
+<div class="voti">
+${c.voti.toLocaleString()} voti
+</div>
+
+<div class="percentuale">
+${percentuale}%
+</div>
+
+<div class="bar">
+
+<div
+class="fill"
+style="width:${percentuale}%">
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document
+.getElementById(id)
+.innerHTML =
+comuneHtml;
+
+}
+
 document.getElementById('update')
 .innerText =
 'Aggiornato alle ' +
@@ -637,6 +787,31 @@ catch(error){
 console.log(error);
 
 }
+
+}
+
+function apriComune(evt,id){
+
+const comuni =
+document.querySelectorAll('.comune');
+
+const buttons =
+document.querySelectorAll('.menu button');
+
+comuni.forEach(c =>
+c.classList.remove('active')
+);
+
+buttons.forEach(b =>
+b.classList.remove('active')
+);
+
+document
+.getElementById(id)
+.classList.add('active');
+
+evt.currentTarget
+.classList.add('active');
 
 }
 
