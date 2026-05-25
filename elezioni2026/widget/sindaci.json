@@ -105,20 +105,20 @@
 
   "Raffadali": {
     "sezioni_totali": 12,
-    "sezioni_scrutinate": 9,
+    "sezioni_scrutinate": 10,
 
     "candidati": [
       {
         "nome": "IDA CUFFARO",
-        "voti": 870
+        "voti": 959
       },
       {
         "nome": "SABRINA MANGIONE",
-        "voti": 209
+        "voti": 238
       },
       {
         "nome": "FRANCESCO MILISENDA",
-        "voti": 6
+        "voti": 7
       }
     ]
   },
