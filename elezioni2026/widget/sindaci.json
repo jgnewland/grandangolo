@@ -85,20 +85,20 @@
 
   "Casteltermini": {
     "sezioni_totali": 12,
-    "sezioni_scrutinate": 0,
+    "sezioni_scrutinate": 10,
 
     "candidati": [
       {
         "nome": "GIOACCHINO NICASTRO",
-        "voti": 0
+        "voti": 945
       },
       {
         "nome": "COSTANTINO RIPEPE",
-        "voti": 0
+        "voti": 727
       },
       {
         "nome": "PASQUALE MANCUSO",
-        "voti": 0
+        "voti": 757
       }
     ]
   },
