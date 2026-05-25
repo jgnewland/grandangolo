@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Election Night Live</title>
+<title>Elezioni Agrigento 2026</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -28,7 +28,7 @@ font-family:'Inter',sans-serif;
 
 background:transparent;
 
-overflow-x:hidden;
+overflow:hidden;
 
 }
 
@@ -36,9 +36,13 @@ overflow-x:hidden;
 
 .widget{
 
+position:relative;
+
 width:100%;
 
 padding:20px;
+
+overflow:hidden;
 
 background:
 linear-gradient(
@@ -48,10 +52,6 @@ linear-gradient(
 #0d3f8f 65%,
 #1d63d8 100%
 );
-
-overflow:hidden;
-
-position:relative;
 
 }
 
@@ -104,9 +104,9 @@ transform:translateY(0px);
 
 display:flex;
 
-justify-content:space-between;
-
 align-items:flex-start;
+
+justify-content:space-between;
 
 gap:20px;
 
@@ -157,6 +157,9 @@ background:#ff3131;
 
 animation:pulse 1s infinite;
 
+box-shadow:
+0 0 12px rgba(255,49,49,.9);
+
 }
 
 @keyframes pulse{
@@ -196,10 +199,10 @@ font-size:12px;
 
 font-weight:700;
 
+margin-top:8px;
+
 color:
 rgba(255,255,255,.7);
-
-margin-top:8px;
 
 }
 
@@ -374,19 +377,29 @@ color:#fff;
 
 display:flex;
 
-flex-wrap:wrap;
-
 gap:10px;
 
-margin-bottom:20px;
+overflow-x:auto;
+
+padding-bottom:10px;
+
+margin-bottom:10px;
 
 position:relative;
 
 z-index:2;
 
+scrollbar-width:none;
+
+}
+
+.menu::-webkit-scrollbar{
+display:none;
 }
 
 .menu button{
+
+flex:none;
 
 border:none;
 
@@ -409,55 +422,129 @@ transition:.2s;
 
 }
 
-.menu button.active{
+.menu button:hover{
 
 background:
-linear-gradient(
-90deg,
-#16ff90,
-#42d3ff
-);
-
-color:#02111f;
+rgba(255,255,255,.16);
 
 }
 
-/* COMUNI */
+/* MODAL */
 
-.comune{
+.modal{
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:
+rgba(2,8,23,.82);
+
+backdrop-filter:blur(12px);
 
 display:none;
 
-grid-template-columns:
-repeat(4,1fr);
+align-items:center;
 
-gap:16px;
+justify-content:center;
 
-position:relative;
+padding:20px;
 
-z-index:2;
-
-animation:fade .25s ease;
+z-index:999;
 
 }
 
-.comune.active{
+.modal.active{
+
+display:flex;
+
+}
+
+.modal-box{
+
+width:100%;
+
+max-width:1200px;
+
+max-height:90vh;
+
+overflow:auto;
+
+border-radius:28px;
+
+padding:24px;
+
+background:
+linear-gradient(
+135deg,
+#071d46 0%,
+#0d3f8f 100%
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.45);
+
+}
+
+.modal-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:24px;
+
+}
+
+.modal-header h2{
+
+font-size:34px;
+
+font-weight:900;
+
+color:#fff;
+
+}
+
+.modal-header button{
+
+border:none;
+
+width:42px;
+height:42px;
+
+cursor:pointer;
+
+border-radius:50%;
+
+font-size:18px;
+
+font-weight:900;
+
+background:
+rgba(255,255,255,.08);
+
+color:#fff;
+
+}
+
+.modal-grid{
 
 display:grid;
 
-}
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
 
-@keyframes fade{
-
-from{
-opacity:0;
-transform:translateY(10px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
+gap:18px;
 
 }
 
@@ -465,8 +552,7 @@ transform:translateY(0);
 
 @media(max-width:1100px){
 
-.grid,
-.comune{
+.grid{
 
 grid-template-columns:
 1fr 1fr;
@@ -476,6 +562,12 @@ grid-template-columns:
 }
 
 @media(max-width:700px){
+
+body{
+
+overflow:auto;
+
+}
 
 .widget{
 
@@ -497,8 +589,7 @@ font-size:28px;
 
 }
 
-.grid,
-.comune{
+.grid{
 
 grid-template-columns:
 1fr;
@@ -508,6 +599,26 @@ grid-template-columns:
 .percentuale{
 
 font-size:38px;
+
+}
+
+.modal{
+
+padding:10px;
+
+}
+
+.modal-box{
+
+padding:18px;
+
+max-height:95vh;
+
+}
+
+.modal-header h2{
+
+font-size:24px;
 
 }
 
@@ -559,54 +670,72 @@ Aggiornamento in tempo reale
 
 <div class="menu">
 
-<button onclick="openComune(event,'ribera')">
+<button onclick="openModal('Ribera')">
 Ribera
 </button>
 
-<button onclick="openComune(event,'camastra')">
+<button onclick="openModal('Camastra')">
 Camastra
 </button>
 
-<button onclick="openComune(event,'cammarata')">
+<button onclick="openModal('Cammarata')">
 Cammarata
 </button>
 
-<button onclick="openComune(event,'casteltermini')">
+<button onclick="openModal('Casteltermini')">
 Casteltermini
 </button>
 
-<button onclick="openComune(event,'raffadali')">
+<button onclick="openModal('Raffadali')">
 Raffadali
 </button>
 
-<button onclick="openComune(event,'sambuca')">
+<button onclick="openModal('Sambuca di Sicilia')">
 Sambuca
 </button>
 
-<button onclick="openComune(event,'siculiana')">
+<button onclick="openModal('Siculiana')">
 Siculiana
 </button>
 
-<button onclick="openComune(event,'villafranca')">
+<button onclick="openModal('Villafranca Sicula')">
 Villafranca
 </button>
 
 </div>
 
-<!-- COMUNI -->
+<!-- MODAL -->
 
-<div class="comune" id="ribera"></div>
-<div class="comune" id="camastra"></div>
-<div class="comune" id="cammarata"></div>
-<div class="comune" id="casteltermini"></div>
-<div class="comune" id="raffadali"></div>
-<div class="comune" id="sambuca"></div>
-<div class="comune" id="siculiana"></div>
-<div class="comune" id="villafranca"></div>
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h2 id="modal-title">
+Comune
+</h2>
+
+<button onclick="closeModal()">
+✕
+</button>
+
+</div>
+
+<div
+class="modal-grid"
+id="modal-grid">
+</div>
+
+</div>
+
+</div>
 
 </div>
 
 <script>
+
+window.comuniData = {};
 
 async function aggiorna(){
 
@@ -621,6 +750,9 @@ cache:'no-store'
 
 const data =
 await response.json();
+
+window.comuniData =
+data;
 
 /* AGRIGENTO */
 
@@ -693,27 +825,38 @@ document
 .innerHTML =
 html;
 
-/* COMUNI */
+document.getElementById('update')
+.innerText =
+'Aggiornato alle ' +
+new Date().toLocaleTimeString('it-IT');
 
-const mapping = {
+}
+catch(error){
 
-ribera:"Ribera",
-camastra:"Camastra",
-cammarata:"Cammarata",
-casteltermini:"Casteltermini",
-raffadali:"Raffadali",
-sambuca:"Sambuca di Sicilia",
-siculiana:"Siculiana",
-villafranca:"Villafranca Sicula"
+console.log(error);
 
-};
+}
 
-for(const id in mapping){
+}
+
+function openModal(nomeComune){
+
+const modal =
+document.getElementById('modal');
+
+const modalTitle =
+document.getElementById('modal-title');
+
+const modalGrid =
+document.getElementById('modal-grid');
+
+modalTitle.innerText =
+nomeComune;
 
 const comune =
-data[mapping[id]];
+window.comuniData[nomeComune];
 
-let comuneHtml = '';
+let html = '';
 
 comune.candidati
 .sort((a,b)=>b.voti-a.voti)
@@ -726,7 +869,7 @@ comune.totale_voti > 0
 :
 0;
 
-comuneHtml += `
+html += `
 
 <div class="card">
 
@@ -751,61 +894,28 @@ style="width:${percentuale}%">
 
 </div>
 
+<div class="label">
+PROIEZIONE LIVE
+</div>
+
 </div>
 
 `;
 
 });
 
-document
-.getElementById(id)
-.innerHTML =
-comuneHtml;
+modalGrid.innerHTML =
+html;
+
+modal.classList.add('active');
 
 }
 
-document.getElementById('update')
-.innerText =
-'Aggiornato alle ' +
-new Date().toLocaleTimeString('it-IT');
-
-}
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-function openComune(evt,id){
-
-const target =
-document.getElementById(id);
-
-const isActive =
-target.classList.contains('active');
+function closeModal(){
 
 document
-.querySelectorAll('.comune')
-.forEach(c=>
-c.classList.remove('active')
-);
-
-document
-.querySelectorAll('.menu button')
-.forEach(b=>
-b.classList.remove('active')
-);
-
-if(!isActive){
-
-target.classList.add('active');
-
-evt.currentTarget
-.classList.add('active');
-
-}
+.getElementById('modal')
+.classList.remove('active');
 
 }
 
