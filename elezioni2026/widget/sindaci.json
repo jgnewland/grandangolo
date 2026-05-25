@@ -1,6 +1,5 @@
 {
   "Agrigento": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "DINO ALONGE",
@@ -14,7 +13,7 @@
       },
       {
         "nome": "MICHELE SODANO",
-        "voti":20,
+        "voti": 20,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/3_97e7b3.jpg"
       },
       {
@@ -26,15 +25,14 @@
   },
 
   "Ribera": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "EUNICE PALMINTERI",
-        "voti": 2
+        "voti": 0
       },
       {
         "nome": "RICCARDO ROMANO",
-        "voti": 2
+        "voti": 0
       },
       {
         "nome": "CARMELO PACE",
@@ -48,11 +46,10 @@
   },
 
   "Camastra": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "GERA BELLOMO",
-        "voti": 2
+        "voti": 0
       },
       {
         "nome": "DARIO GAGLIO",
@@ -62,21 +59,19 @@
   },
 
   "Cammarata": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "GIUSEPPE MANGIAPANE",
-        "voti": 2
+        "voti": 0
       },
       {
         "nome": "GIULIANO TRAINA",
-        "voti": 2
+        "voti": 0
       }
     ]
   },
 
   "Casteltermini": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "GIOACCHINO NICASTRO",
@@ -94,7 +89,6 @@
   },
 
   "Raffadali": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "IDA CUFFARO",
@@ -112,7 +106,6 @@
   },
 
   "Sambuca di Sicilia": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "GIOVANNA CASA'",
@@ -126,7 +119,6 @@
   },
 
   "Siculiana": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "PEPPE ZAMBITO",
@@ -140,7 +132,6 @@
   },
 
   "Villafranca Sicula": {
-    "totale_voti": 0,
     "candidati": [
       {
         "nome": "DOMENICO BALSAMO",
