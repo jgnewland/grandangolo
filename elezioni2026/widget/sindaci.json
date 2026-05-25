@@ -141,16 +141,16 @@
 
   "Siculiana": {
     "sezioni_totali": 7,
-    "sezioni_scrutinate": 0,
+    "sezioni_scrutinate": 6,
 
     "candidati": [
       {
         "nome": "PEPPE ZAMBITO",
-        "voti": 0
+        "voti": 1436
       },
       {
         "nome": "SANTO LUCIA",
-        "voti": 0
+        "voti": 596
       }
     ]
   },
