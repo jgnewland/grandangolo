@@ -106,7 +106,7 @@ margin-bottom:22px;
 display:grid;
 
 grid-template-columns:
-1fr 1fr 1fr;
+1fr 1fr 1fr 1fr;
 
 gap:12px;
 
@@ -238,7 +238,7 @@ margin-bottom:14px;
 display:grid;
 
 grid-template-columns:
-1fr 1fr 1fr;
+1fr 1fr 1fr 1fr;
 
 gap:10px;
 
@@ -308,7 +308,7 @@ font-size:20px;
 }
 
 .grid{
-grid-template-columns:1fr;
+grid-template-columns:1fr 1fr;
 }
 
 .big{
@@ -320,7 +320,7 @@ font-size:17px;
 }
 
 .mini-grid{
-grid-template-columns:1fr;
+grid-template-columns:1fr 1fr;
 }
 
 .mini strong{
@@ -364,7 +364,7 @@ Agrigento
 </div>
 
 <div class="prev">
-Prec. <span id="agrigento12prev">13,13%</span>
+Prima rilevazione
 </div>
 
 </div>
@@ -374,11 +374,11 @@ Prec. <span id="agrigento12prev">13,13%</span>
 <small>Ore 19</small>
 
 <div class="big" id="agrigento19">
-31,42%
+36,53%
 </div>
 
 <div class="prev">
-Prec. <span id="agrigento19prev">30,88%</span>
+Aggiornamento serale
 </div>
 
 </div>
@@ -388,20 +388,21 @@ Prec. <span id="agrigento19prev">30,88%</span>
 <small>Ore 23</small>
 
 <div class="big" id="agrigento23">
-48,91%
+47,20%
 </div>
 
 <div class="prev">
-Prec. <span id="agrigento23prev">47,20%</span>
+Dato definitivo ieri
 </div>
 
 </div>
+
 <div class="card">
 
 <small>Ore 15 OGGI</small>
 
 <div class="big" id="agrigento15">
-18,44%
+00,00%
 </div>
 
 <div class="prev">
@@ -492,17 +493,9 @@ document.getElementById('agrigento23')
 .innerText =
 data.agrigento["23"] + '%';
 
-document.getElementById('agrigento12prev')
+document.getElementById('agrigento15')
 .innerText =
-data.agrigento["12prev"] + '%';
-
-document.getElementById('agrigento19prev')
-.innerText =
-data.agrigento["19prev"] + '%';
-
-document.getElementById('agrigento23prev')
-.innerText =
-data.agrigento["23prev"] + '%';
+data.agrigento["15oggi"] + '%';
 
 /* COMUNI */
 
@@ -536,7 +529,7 @@ ${dati["12"]}%
 </strong>
 
 <span>
-Prec. ${dati["12prev"]}%
+Prima rilevazione
 </span>
 
 </div>
@@ -550,7 +543,7 @@ ${dati["19"]}%
 </strong>
 
 <span>
-Prec. ${dati["19prev"]}%
+Aggiornamento serale
 </span>
 
 </div>
@@ -564,7 +557,21 @@ ${dati["23"]}%
 </strong>
 
 <span>
-Prec. ${dati["23prev"]}%
+Dato definitivo ieri
+</span>
+
+</div>
+
+<div class="mini">
+
+<small>Ore 15 OGGI</small>
+
+<strong>
+${dati["15oggi"]}%
+</strong>
+
+<span>
+Ultimo aggiornamento
 </span>
 
 </div>
