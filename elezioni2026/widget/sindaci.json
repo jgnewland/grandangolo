@@ -3,22 +3,22 @@
     "candidati": [
       {
         "nome": "DINO ALONGE",
-        "voti": 2,
+        "voti": 0,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/1_0265e8.jpg"
       },
       {
         "nome": "GIUSEPPE DI ROSA",
-        "voti": 2,
+        "voti": 0,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/2_5d90d6.jpg"
       },
       {
         "nome": "MICHELE SODANO",
-        "voti": 20,
+        "voti": 0,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/3_97e7b3.jpg"
       },
       {
         "nome": "LUIGI GENTILE",
-        "voti": 2,
+        "voti": 0,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/4_8c5552.jpg"
       }
     ]
@@ -28,19 +28,19 @@
     "candidati": [
       {
         "nome": "EUNICE PALMINTERI",
-        "voti": 5
+        "voti": 0
       },
       {
         "nome": "RICCARDO ROMANO",
-        "voti": 2
+        "voti": 0
       },
       {
         "nome": "CARMELO PACE",
-        "voti": 2
+        "voti": 0
       },
       {
         "nome": "MARIA ROSARIA PROVENZANO",
-        "voti": 3
+        "voti": 0
       }
     ]
   },
