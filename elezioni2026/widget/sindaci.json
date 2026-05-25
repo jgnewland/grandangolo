@@ -53,7 +53,7 @@
 
   "Camastra": {
     "sezioni_totali": 3,
-    "sezioni_scrutinate": 2,
+    "sezioni_scrutinate": 3,
 
     "candidati": [
       {
@@ -62,7 +62,7 @@
       },
       {
         "nome": "DARIO GAGLIO",
-        "voti": 367
+        "voti": 283
       }
     ]
   },
