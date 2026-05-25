@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Topbar Elezioni</title>
@@ -199,7 +198,7 @@ gap:4px;
 
 .big{
 
-font-size:54px;
+font-size:46px;
 
 font-weight:900;
 
@@ -228,9 +227,16 @@ text-transform:uppercase;
 
 .hours{
 
-display:flex;
+display:grid;
 
-gap:10px;
+grid-template-columns:
+repeat(4,minmax(0,1fr));
+
+gap:8px;
+
+width:100%;
+
+max-width:420px;
 
 }
 
@@ -239,13 +245,15 @@ gap:10px;
 background:
 rgba(255,255,255,.08);
 
-padding:10px 12px;
+padding:8px 6px;
 
-border-radius:14px;
+border-radius:12px;
 
-min-width:82px;
+min-width:0;
 
 text-align:center;
+
+overflow:hidden;
 
 }
 
@@ -263,7 +271,7 @@ margin-bottom:4px;
 
 .hour strong{
 
-font-size:18px;
+font-size:15px;
 
 font-weight:900;
 
@@ -288,27 +296,41 @@ width:100%;
 
 }
 
+/* TRACK */
+
 .ticker-track{
 
-display:inline-flex;
+display:flex;
 
 align-items:center;
 
-gap:35px;
-
 white-space:nowrap;
+
+width:max-content;
 
 padding-left:100%;
 
-animation:tickerScroll 14s linear infinite;
+animation:tickerScroll 22s linear infinite;
 
 font-size:13px;
 
 font-weight:700;
 
-min-width:max-content;
+will-change:transform;
 
 }
+
+/* ITEM */
+
+.ticker-track span{
+
+display:inline-block;
+
+padding-right:60px;
+
+}
+
+/* ANIMATION */
 
 @keyframes tickerScroll{
 
@@ -386,20 +408,33 @@ font-size:42px;
 
 width:100%;
 
-display:grid;
-
-grid-template-columns:
-1fr 1fr;
+display:flex;
 
 gap:8px;
 
+overflow-x:auto;
+
+overflow-y:hidden;
+
+padding-bottom:4px;
+
+scrollbar-width:none;
+
+-webkit-overflow-scrolling:touch;
+
+max-width:none;
+
+}
+
+.hours::-webkit-scrollbar{
+display:none;
 }
 
 .hour{
 
-min-width:auto;
+flex:0 0 auto;
 
-padding:8px 6px;
+min-width:88px;
 
 }
 
@@ -427,7 +462,7 @@ padding:7px 10px;
 
 font-size:11px;
 
-gap:20px;
+animation:tickerScroll 18s linear infinite;
 
 }
 
@@ -547,8 +582,7 @@ ORE 15 OGGI
 
 <div class="ticker-track" id="ticker">
 
-● AGRIGENTO 47,20%
-● CAMASTRA 42,70%
+<span>● AGRIGENTO 47,20% (ORE 23)</span>
 
 </div>
 
@@ -557,6 +591,8 @@ ORE 15 OGGI
 </div>
 
 <script>
+
+let lastTicker = '';
 
 async function aggiornaDati(){
 
@@ -567,12 +603,7 @@ const response = await fetch(
 'dati.json?v=' + new Date().getTime(),
 
 {
-method:'GET',
-
-headers:{
-'Cache-Control':'no-cache'
-}
-
+cache:'no-store'
 }
 
 );
@@ -706,9 +737,9 @@ tickerText +=
 
 });
 
-/* TICKER FLUIDO */
+/* CREA TICKER SOLO SE CAMBIA */
 
-if(tickerText !== window.lastTicker){
+if(tickerText !== lastTicker){
 
 document.getElementById('ticker')
 .innerHTML = `
@@ -717,10 +748,14 @@ document.getElementById('ticker')
 <span>${tickerText}</span>
 <span>${tickerText}</span>
 <span>${tickerText}</span>
+<span>${tickerText}</span>
+<span>${tickerText}</span>
+<span>${tickerText}</span>
+<span>${tickerText}</span>
 
 `;
 
-window.lastTicker = tickerText;
+lastTicker = tickerText;
 
 }
 
@@ -735,9 +770,12 @@ console.log(error);
 
 aggiornaDati();
 
-/* NON ogni 3 secondi */
+/* UPDATE */
 
-setInterval(aggiornaDati,30000);
+setInterval(
+aggiornaDati,
+60000
+);
 
 </script>
 
