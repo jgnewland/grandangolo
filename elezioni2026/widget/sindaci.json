@@ -1,31 +1,155 @@
 {
-  "totale_voti": 0,
+  "Agrigento": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "DINO ALONGE",
+        "voti": 0,
+        "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/1_0265e8.jpg"
+      },
+      {
+        "nome": "GIUSEPPE DI ROSA",
+        "voti": 0,
+        "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/2_5d90d6.jpg"
+      },
+      {
+        "nome": "MICHELE SODANO",
+        "voti": 0,
+        "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/3_97e7b3.jpg"
+      },
+      {
+        "nome": "LUIGI GENTILE",
+        "voti": 0,
+        "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/4_8c5552.jpg"
+      }
+    ]
+  },
 
-  "candidati": [
+  "Ribera": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "EUNICE PALMINTERI",
+        "voti": 0
+      },
+      {
+        "nome": "RICCARDO ROMANO",
+        "voti": 0
+      },
+      {
+        "nome": "CARMELO PACE",
+        "voti": 0
+      },
+      {
+        "nome": "MARIA ROSARIA PROVENZANO",
+        "voti": 0
+      }
+    ]
+  },
 
-    {
-      "nome": "DINO ALONGE",
-      "voti": 0,
-      "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/1_0265e8.jpg"
-    },
+  "Camastra": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "GERA BELLOMO",
+        "voti": 0
+      },
+      {
+        "nome": "DARIO GAGLIO",
+        "voti": 0
+      }
+    ]
+  },
 
-    {
-      "nome": "GIUSEPPE DI ROSA",
-      "voti": 0,
-      "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/2_5d90d6.jpg"
-    },
+  "Cammarata": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "GIUSEPPE MANGIAPANE",
+        "voti": 0
+      },
+      {
+        "nome": "GIULIANO TRAINA",
+        "voti": 0
+      }
+    ]
+  },
 
-    {
-      "nome": "MICHELE SODANO",
-      "voti": 0,
-      "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/3_97e7b3.jpg"
-    },
+  "Casteltermini": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "GIOACCHINO NICASTRO",
+        "voti": 0
+      },
+      {
+        "nome": "COSTANTINO RIPEPE",
+        "voti": 0
+      },
+      {
+        "nome": "PASQUALE MANCUSO",
+        "voti": 0
+      }
+    ]
+  },
 
-    {
-      "nome": "LUIGI GENTILE",
-      "voti": 0,
-      "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/4_8c5552.jpg"
-    }
+  "Raffadali": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "IDA CUFFARO",
+        "voti": 0
+      },
+      {
+        "nome": "SABRINA MANGIONE",
+        "voti": 0
+      },
+      {
+        "nome": "FRANCESCO MILISENDA",
+        "voti": 0
+      }
+    ]
+  },
 
-  ]
+  "Sambuca di Sicilia": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "GIOVANNA CASA'",
+        "voti": 0
+      },
+      {
+        "nome": "SARIO ARBISI",
+        "voti": 0
+      }
+    ]
+  },
+
+  "Siculiana": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "PEPPE ZAMBITO",
+        "voti": 0
+      },
+      {
+        "nome": "SANTO LUCIA",
+        "voti": 0
+      }
+    ]
+  },
+
+  "Villafranca Sicula": {
+    "totale_voti": 0,
+    "candidati": [
+      {
+        "nome": "DOMENICO BALSAMO",
+        "voti": 0
+      },
+      {
+        "nome": "ROSARIO SORTINO",
+        "voti": 0
+      }
+    ]
+  }
 }
