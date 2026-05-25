@@ -53,16 +53,16 @@
 
   "Camastra": {
     "sezioni_totali": 3,
-    "sezioni_scrutinate": 0,
+    "sezioni_scrutinate": 1,
 
     "candidati": [
       {
         "nome": "GERA BELLOMO",
-        "voti": 0
+        "voti": 24
       },
       {
         "nome": "DARIO GAGLIO",
-        "voti": 0
+        "voti": 39
       }
     ]
   },
