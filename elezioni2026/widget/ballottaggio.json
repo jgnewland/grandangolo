@@ -1,0 +1,18 @@
+{
+  "Agrigento": {
+    "sezioni_scrutinate": 0,
+    "sezioni_totali": 57,
+    "candidati": [
+      {
+        "nome": "MICHELE SODANO",
+        "voti": 0,
+        "foto": "sodano.jpg"
+      },
+      {
+        "nome": "DINO ALONGE",
+        "voti": 0,
+        "foto": "alonge.jpg"
+      }
+    ]
+  }
+}
