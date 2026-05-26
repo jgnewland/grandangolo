@@ -6,13 +6,13 @@
     "candidati": [
       {
         "nome": "MICHELE SODANO",
-        "voti": 0,
+        "voti": 20000,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/1.png",
-        "stato": "ballottaggio"
+        "stato": "eletto"
       },
       {
         "nome": "DINO ALONGE",
-        "voti": 0,
+        "voti": 18000,
         "foto": "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/2.png",
         "stato": "ballottaggio"
       }
