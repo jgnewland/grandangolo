@@ -289,6 +289,34 @@ pointer-events:none;
 
 }
 
+/* PERCENTUALE */
+
+.percentuale{
+
+position:absolute;
+
+right:18px;
+
+top:110px;
+
+font-size:140px;
+
+font-weight:900;
+
+line-height:.9;
+
+letter-spacing:-6px;
+
+opacity:.10;
+
+pointer-events:none;
+
+z-index:2;
+
+white-space:nowrap;
+
+}
+
 /* BADGE */
 
 .badge-row{
@@ -389,6 +417,8 @@ flex:1;
 
 position:relative;
 
+z-index:10;
+
 }
 
 .nome{
@@ -416,32 +446,6 @@ font-size:18px;
 font-weight:700;
 
 opacity:.75;
-
-}
-
-/* PERCENTUALE */
-
-.percentuale{
-
-position:absolute;
-
-right:-10px;
-
-bottom:-10px;
-
-font-size:150px;
-
-font-weight:900;
-
-line-height:1;
-
-letter-spacing:-6px;
-
-opacity:.08;
-
-pointer-events:none;
-
-z-index:1;
 
 }
 
@@ -523,6 +527,8 @@ font-size:32px;
 
 font-size:120px;
 
+top:120px;
+
 }
 
 }
@@ -558,6 +564,10 @@ font-size:30px;
 .percentuale{
 
 font-size:100px;
+
+top:100px;
+
+right:10px;
 
 }
 
@@ -604,15 +614,19 @@ align-items:flex-start;
 
 font-size:24px;
 
+max-width:100%;
+
 }
 
 .percentuale{
 
-font-size:82px;
+font-size:76px;
 
-right:-4px;
+top:110px;
 
-bottom:0;
+right:8px;
+
+letter-spacing:-3px;
 
 }
 
@@ -742,6 +756,10 @@ html += `
 
 <div class="card">
 
+<div class="percentuale">
+${percentuale}%
+</div>
+
 <div class="badge-row">
 
 <div class="ballottaggio-badge ${
@@ -777,10 +795,6 @@ ${c.nome}
 
 <div class="voti">
 ${c.voti.toLocaleString()} voti
-</div>
-
-<div class="percentuale">
-${percentuale}%
 </div>
 
 </div>
