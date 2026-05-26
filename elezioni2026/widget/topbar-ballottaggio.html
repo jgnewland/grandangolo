@@ -260,11 +260,11 @@ display:flex;
 
 flex-direction:column;
 
-min-height:560px;
+min-height:430px;
 
 }
 
-/* LIGHT */
+/* GOLD LIGHT */
 
 .card::before{
 
@@ -301,6 +301,8 @@ position:relative;
 
 z-index:20;
 
+margin-bottom:10px;
+
 }
 
 .ballottaggio-badge{
@@ -334,71 +336,19 @@ color:#001b0d;
 
 }
 
-/* NOME */
+/* TOP */
 
-.nome{
+.top{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
 
 position:relative;
 
 z-index:10;
-
-margin-top:18px;
-
-font-size:44px;
-
-font-weight:900;
-
-line-height:.92;
-
-letter-spacing:-2px;
-
-text-transform:uppercase;
-
-}
-
-/* HERO */
-
-.hero{
-
-position:relative;
-
-flex:1;
-
-display:flex;
-
-align-items:flex-end;
-
-justify-content:center;
-
-margin-top:10px;
-
-}
-
-/* PERCENTUALE */
-
-.percentuale{
-
-position:absolute;
-
-top:50%;
-
-left:50%;
-
-transform:translate(-50%,-50%);
-
-font-size:160px;
-
-font-weight:900;
-
-line-height:1;
-
-opacity:.08;
-
-letter-spacing:-6px;
-
-z-index:1;
-
-pointer-events:none;
 
 }
 
@@ -408,52 +358,104 @@ pointer-events:none;
 
 position:relative;
 
-z-index:5;
-
-height:300px;
-
-display:flex;
-
-align-items:flex-end;
-
-justify-content:center;
+flex:none;
 
 }
 
 .foto{
 
-max-width:100%;
+width:120px;
+height:120px;
 
-max-height:340px;
+border-radius:50%;
 
-object-fit:contain;
+object-fit:cover;
 
-filter:
-drop-shadow(0 14px 24px rgba(0,0,0,.40));
+border:
+5px solid rgba(255,255,255,.14);
+
+box-shadow:
+0 10px 24px rgba(0,0,0,.30);
+
+background:#fff;
 
 }
 
-/* DATI */
+/* INFO */
 
-.bottom{
+.info{
+
+flex:1;
 
 position:relative;
 
-z-index:10;
+}
 
-margin-top:10px;
+.nome{
+
+font-size:38px;
+
+font-weight:900;
+
+line-height:.95;
+
+letter-spacing:-2px;
+
+text-transform:uppercase;
+
+max-width:90%;
 
 }
 
 .voti{
 
+margin-top:10px;
+
 font-size:18px;
 
 font-weight:700;
 
-opacity:.78;
+opacity:.75;
 
-margin-bottom:14px;
+}
+
+/* PERCENTUALE */
+
+.percentuale{
+
+position:absolute;
+
+right:-10px;
+
+bottom:-10px;
+
+font-size:150px;
+
+font-weight:900;
+
+line-height:1;
+
+letter-spacing:-6px;
+
+opacity:.08;
+
+pointer-events:none;
+
+z-index:1;
+
+}
+
+/* BOTTOM */
+
+.bottom{
+
+margin-top:auto;
+
+position:relative;
+
+z-index:10;
+
+padding-top:26px;
 
 }
 
@@ -513,19 +515,13 @@ opacity:.75;
 
 .nome{
 
-font-size:36px;
+font-size:32px;
 
 }
 
 .percentuale{
 
 font-size:120px;
-
-}
-
-.card{
-
-min-height:500px;
 
 }
 
@@ -555,25 +551,20 @@ min-height:auto;
 
 .nome{
 
-font-size:32px;
+font-size:30px;
 
 }
 
 .percentuale{
 
-font-size:110px;
-
-}
-
-.foto-wrap{
-
-height:240px;
+font-size:100px;
 
 }
 
 .foto{
 
-max-height:260px;
+width:100px;
+height:100px;
 
 }
 
@@ -603,15 +594,25 @@ font-size:48px;
 
 }
 
+.top{
+
+align-items:flex-start;
+
+}
+
 .nome{
 
-font-size:26px;
+font-size:24px;
 
 }
 
 .percentuale{
 
-font-size:90px;
+font-size:82px;
+
+right:-4px;
+
+bottom:0;
 
 }
 
@@ -626,6 +627,13 @@ font-size:15px;
 padding:22px;
 
 border-radius:24px;
+
+}
+
+.foto{
+
+width:88px;
+height:88px;
 
 }
 
@@ -750,15 +758,7 @@ ${c.stato === 'eletto'
 
 </div>
 
-<div class="nome">
-${c.nome}
-</div>
-
-<div class="hero">
-
-<div class="percentuale">
-${percentuale}%
-</div>
+<div class="top">
 
 <div class="foto-wrap">
 
@@ -769,13 +769,25 @@ src="${c.foto}"
 
 </div>
 
-</div>
+<div class="info">
 
-<div class="bottom">
+<div class="nome">
+${c.nome}
+</div>
 
 <div class="voti">
 ${c.voti.toLocaleString()} voti
 </div>
+
+<div class="percentuale">
+${percentuale}%
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
 
 <div class="bar">
 
