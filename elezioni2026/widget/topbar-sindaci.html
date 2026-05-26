@@ -152,7 +152,7 @@ rgba(255,255,255,.7);
 
 }
 
-/* SEZIONI COMPATTE */
+/* SEZIONI */
 
 .sezioni-wrapper{
 
@@ -295,7 +295,7 @@ color:#fff;
 
 }
 
-/* CARD BALLOTTAGGIO */
+/* CARD GOLD */
 
 .gold-card{
 
@@ -304,7 +304,7 @@ border-top:4px solid #ffd700;
 background:
 linear-gradient(
 135deg,
-rgba(255,215,0,.20),
+rgba(255,215,0,.18),
 rgba(255,180,0,.08)
 );
 
@@ -320,18 +320,31 @@ linear-gradient(
 90deg,
 #ffd700,
 #ffb700
-);
+) !important;
+
+}
+
+/* BADGE */
+
+.badge-row{
+
+display:flex;
+
+justify-content:flex-end;
+
+margin-bottom:10px;
 
 }
 
 .ballottaggio-badge{
 
-position:absolute;
+display:inline-flex;
 
-top:12px;
-right:12px;
+align-items:center;
 
-padding:6px 10px;
+justify-content:center;
+
+padding:6px 12px;
 
 border-radius:999px;
 
@@ -349,6 +362,8 @@ box-shadow:
 0 0 12px rgba(255,215,0,.45);
 
 }
+
+/* TOP */
 
 .top{
 
@@ -735,9 +750,7 @@ Aggiornamento in tempo reale
 SEZIONI SCRUTINATE
 </div>
 
-<div class="sezioni-grid" id="sezioni-grid">
-
-</div>
+<div class="sezioni-grid" id="sezioni-grid"></div>
 
 </div>
 
@@ -882,8 +895,10 @@ html += `
 <div class="card ${isBallottaggio ? 'gold-card' : ''}">
 
 ${isBallottaggio ? `
+<div class="badge-row">
 <div class="ballottaggio-badge">
 BALLOTTAGGIO
+</div>
 </div>
 ` : ''}
 
