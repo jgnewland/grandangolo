@@ -274,6 +274,8 @@ margin-bottom:16px;
 
 .card{
 
+position:relative;
+
 background:
 rgba(255,255,255,.08);
 
@@ -290,6 +292,61 @@ padding:16px;
 backdrop-filter:blur(10px);
 
 color:#fff;
+
+}
+
+/* CARD BALLOTTAGGIO */
+
+.gold-card{
+
+border-top:4px solid #ffd700;
+
+background:
+linear-gradient(
+135deg,
+rgba(255,215,0,.20),
+rgba(255,180,0,.08)
+);
+
+box-shadow:
+0 0 25px rgba(255,215,0,.18);
+
+}
+
+.gold-fill{
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ffb700
+);
+
+}
+
+.ballottaggio-badge{
+
+position:absolute;
+
+top:12px;
+right:12px;
+
+padding:6px 10px;
+
+border-radius:999px;
+
+font-size:10px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+background:#ffd700;
+
+color:#1b1400;
+
+box-shadow:
+0 0 12px rgba(255,215,0,.45);
 
 }
 
@@ -809,7 +866,7 @@ let html = '';
 
 agrigento.candidati
 .sort((a,b)=>b.voti-a.voti)
-.forEach(c=>{
+.forEach((c,index)=>{
 
 const percentuale =
 agrigento.totale_voti > 0
@@ -818,9 +875,17 @@ agrigento.totale_voti > 0
 :
 0;
 
+const isBallottaggio = index < 2;
+
 html += `
 
-<div class="card">
+<div class="card ${isBallottaggio ? 'gold-card' : ''}">
+
+${isBallottaggio ? `
+<div class="ballottaggio-badge">
+BALLOTTAGGIO
+</div>
+` : ''}
 
 <div class="top">
 
@@ -850,7 +915,7 @@ ${percentuale}%
 <div class="bar">
 
 <div
-class="fill"
+class="fill ${isBallottaggio ? 'gold-fill' : ''}"
 style="width:${percentuale}%">
 </div>
 
