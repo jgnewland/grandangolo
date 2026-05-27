@@ -9,7 +9,6 @@
 <title>Speciale Amministrative 2026 | Grandangolo Agrigento</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
@@ -24,17 +23,15 @@ body{
 
 font-family:'Inter',sans-serif;
 
-background:#edf2f7;
-
-overflow-x:hidden;
+background:#eef3fb;
 
 color:#fff;
 
+overflow-x:hidden;
+
 }
 
-/* =========================
-TOP ADV FULL WIDTH
-========================= */
+/* TOP ADV */
 
 .top-adv{
 
@@ -46,11 +43,7 @@ display:flex;
 
 justify-content:center;
 
-align-items:center;
-
 padding:10px 0;
-
-overflow:hidden;
 
 border-bottom:1px solid #ddd;
 
@@ -62,16 +55,11 @@ width:100%;
 
 max-width:1600px;
 
-height:auto;
-
 display:block;
 
 }
 
-/* =========================
-SITE WRAPPER
-CENTRATO
-========================= */
+/* SITE */
 
 .site-wrapper{
 
@@ -85,10 +73,7 @@ padding:20px;
 
 }
 
-/* =========================
-3 COLONNE
-ADV / CONTENT / ADV
-========================= */
+/* LAYOUT */
 
 .layout{
 
@@ -97,17 +82,15 @@ display:grid;
 grid-template-columns:
 220px minmax(0,1200px) 220px;
 
-justify-content:center;
-
 gap:20px;
 
 align-items:start;
 
+justify-content:center;
+
 }
 
-/* =========================
-LATERAL ADV
-========================= */
+/* SIDE ADV */
 
 .side-adv{
 
@@ -131,9 +114,7 @@ display:block;
 
 }
 
-/* =========================
-CENTRAL SITE
-========================= */
+/* MAIN */
 
 .main-site{
 
@@ -146,45 +127,69 @@ linear-gradient(
 #1d63d8 100%
 );
 
-padding:34px;
+padding:24px;
 
 }
 
 /* =========================
-HEADER
+TOPBAR
 ========================= */
 
-.site-header{
+.topbar{
 
-display:flex;
+display:grid;
 
-justify-content:space-between;
-
-align-items:center;
-
-gap:20px;
-
-margin-bottom:30px;
-
-flex-wrap:wrap;
-
-}
-
-/* BRAND */
-
-.brand{
-
-display:flex;
+grid-template-columns:
+auto 1fr auto;
 
 align-items:center;
 
-gap:24px;
+gap:22px;
+
+padding:18px 22px;
+
+margin-bottom:24px;
+
+background:
+linear-gradient(
+135deg,
+#00122e 0%,
+#03245c 45%,
+#0b4db3 100%
+);
+
+border:
+1px solid rgba(255,255,255,.08);
 
 }
 
-.brand-logo{
+/* LEFT */
 
-height:85px;
+.topbar-left{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+min-width:max-content;
+
+}
+
+.logo-link{
+
+display:flex;
+
+align-items:center;
+
+text-decoration:none;
+
+}
+
+.top-logo{
+
+height:46px;
 
 width:auto;
 
@@ -192,30 +197,116 @@ display:block;
 
 object-fit:contain;
 
-/* NESSUN BG */
-background:transparent;
+}
+
+.topbar-divider{
+
+width:1px;
+
+height:42px;
+
+background:
+rgba(255,255,255,.12);
 
 }
 
-.brand-text{
+/* TITLE */
+
+.topbar-title{
 
 display:flex;
 
 flex-direction:column;
 
-gap:10px;
+gap:4px;
 
 }
 
-.brand-speciale{
+.speciale{
 
-display:inline-flex;
+font-size:10px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+opacity:.7;
+
+}
+
+.topbar-title h1{
+
+font-size:28px;
+
+font-weight:900;
+
+line-height:1;
+
+letter-spacing:-1px;
+
+}
+
+/* SEARCH */
+
+.topbar-center{
+
+width:100%;
+
+}
+
+.topbar-center input{
+
+width:100%;
+
+height:50px;
+
+padding:0 18px;
+
+border:none;
+
+outline:none;
+
+background:#fff;
+
+font-size:14px;
+
+font-weight:700;
+
+color:#00122e;
+
+}
+
+.topbar-center input::placeholder{
+
+color:#748295;
+
+}
+
+/* RIGHT */
+
+.topbar-right{
+
+display:flex;
 
 align-items:center;
 
-width:max-content;
+gap:14px;
 
-padding:8px 14px;
+min-width:max-content;
+
+}
+
+/* LIVE */
+
+.live-box{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+padding:10px 16px;
 
 background:
 rgba(255,255,255,.08);
@@ -231,51 +322,10 @@ letter-spacing:1px;
 
 }
 
-.brand-title{
-
-font-size:54px;
-
-font-weight:900;
-
-line-height:1;
-
-}
-
-.update{
-
-font-size:13px;
-
-opacity:.7;
-
-}
-
-/* LIVE */
-
-.live{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-padding:10px 18px;
-
-background:
-rgba(255,255,255,.08);
-
-font-size:12px;
-
-font-weight:900;
-
-letter-spacing:1px;
-
-}
-
 .dot{
 
-width:10px;
-height:10px;
+width:9px;
+height:9px;
 
 border-radius:50%;
 
@@ -301,9 +351,17 @@ transform:scale(1);
 
 }
 
-/* =========================
-TICKER
-========================= */
+.update{
+
+font-size:12px;
+
+opacity:.72;
+
+white-space:nowrap;
+
+}
+
+/* TICKER */
 
 .ticker-wrapper{
 
@@ -311,18 +369,18 @@ width:100%;
 
 overflow:hidden;
 
+background:
+rgba(255,255,255,.05);
+
+padding:12px 0;
+
+margin-bottom:28px;
+
 border-top:
 1px solid rgba(255,255,255,.08);
 
 border-bottom:
 1px solid rgba(255,255,255,.08);
-
-background:
-rgba(255,255,255,.05);
-
-padding:14px 0;
-
-margin-bottom:34px;
 
 }
 
@@ -344,7 +402,7 @@ align-items:center;
 
 gap:10px;
 
-padding:0 45px;
+padding:0 40px;
 
 font-size:13px;
 
@@ -352,15 +410,13 @@ font-weight:700;
 
 white-space:nowrap;
 
-opacity:.9;
-
 }
 
 .ticker-time{
 
-font-weight:900;
-
 color:#42d3ff;
+
+font-weight:900;
 
 }
 
@@ -376,16 +432,14 @@ transform:translateX(-50%);
 
 }
 
-/* =========================
-SEZIONI
-========================= */
+/* SEZIONI */
 
 .sezioni{
 
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(180px,1fr));
+repeat(auto-fit,minmax(170px,1fr));
 
 gap:14px;
 
@@ -395,7 +449,7 @@ margin-bottom:40px;
 
 .sezione-card{
 
-padding:18px;
+padding:16px;
 
 background:
 rgba(255,255,255,.08);
@@ -407,11 +461,11 @@ border:
 
 .sezione-comune{
 
-font-size:14px;
+font-size:13px;
 
 font-weight:900;
 
-margin-bottom:10px;
+margin-bottom:8px;
 
 }
 
@@ -425,31 +479,29 @@ font-weight:900;
 
 .sezione-percentuale{
 
-margin-top:8px;
+margin-top:6px;
 
-font-size:12px;
+font-size:11px;
 
 opacity:.7;
 
 }
 
-/* =========================
-COMUNI
-========================= */
+/* COMUNI */
 
 .comune{
 
-margin-bottom:60px;
+margin-bottom:50px;
 
 }
 
 .comune-title{
 
-font-size:40px;
+font-size:34px;
 
 font-weight:900;
 
-margin-bottom:24px;
+margin-bottom:20px;
 
 }
 
@@ -460,9 +512,22 @@ margin-bottom:24px;
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(280px,1fr));
+repeat(auto-fit,minmax(260px,1fr));
 
-gap:20px;
+gap:18px;
+
+}
+
+/* AGRIGENTO */
+
+.grid-agrigento{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:18px;
 
 }
 
@@ -476,7 +541,7 @@ rgba(255,255,255,.08);
 border:
 1px solid rgba(255,255,255,.08);
 
-padding:22px;
+padding:18px;
 
 position:relative;
 
@@ -484,9 +549,11 @@ overflow:hidden;
 
 }
 
+/* GOLD */
+
 .gold{
 
-border-top:5px solid #ffd700;
+border-top:4px solid #ffd700;
 
 background:
 linear-gradient(
@@ -497,26 +564,32 @@ rgba(255,180,0,.08)
 
 }
 
+/* BADGE */
+
 .badge{
 
 position:absolute;
 
-top:18px;
-right:18px;
+top:12px;
+right:12px;
 
-padding:8px 14px;
+padding:6px 10px;
 
 background:#ffd700;
 
 color:#1a1300;
 
-font-size:10px;
+font-size:9px;
 
 font-weight:900;
 
-letter-spacing:1px;
+letter-spacing:.5px;
+
+z-index:5;
 
 }
+
+/* TOP */
 
 .top{
 
@@ -524,23 +597,25 @@ display:flex;
 
 align-items:center;
 
-gap:14px;
+gap:10px;
 
-margin-bottom:18px;
+margin-bottom:14px;
+
+padding-right:90px;
 
 }
 
 .foto{
 
-width:72px;
-height:72px;
+width:54px;
+height:54px;
 
 border-radius:50%;
 
 object-fit:cover;
 
 border:
-3px solid rgba(255,255,255,.15);
+2px solid rgba(255,255,255,.15);
 
 background:#fff;
 
@@ -548,19 +623,21 @@ background:#fff;
 
 .nome{
 
-font-size:18px;
+font-size:15px;
 
 font-weight:900;
 
 line-height:1.2;
 
+word-break:break-word;
+
 }
 
 .voti{
 
-margin-top:6px;
+margin-top:4px;
 
-font-size:13px;
+font-size:11px;
 
 opacity:.7;
 
@@ -568,17 +645,17 @@ opacity:.7;
 
 .percentuale{
 
-font-size:54px;
+font-size:38px;
 
 font-weight:900;
 
-margin-bottom:14px;
+margin-bottom:10px;
 
 }
 
 .bar{
 
-height:14px;
+height:10px;
 
 overflow:hidden;
 
@@ -613,9 +690,9 @@ linear-gradient(
 
 .label{
 
-margin-top:10px;
+margin-top:8px;
 
-font-size:11px;
+font-size:10px;
 
 letter-spacing:1px;
 
@@ -623,9 +700,7 @@ opacity:.6;
 
 }
 
-/* =========================
-MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:1400px){
 
@@ -644,6 +719,32 @@ display:none;
 
 }
 
+@media(max-width:1200px){
+
+.topbar{
+
+grid-template-columns:
+1fr;
+
+gap:18px;
+
+}
+
+.topbar-right{
+
+justify-content:flex-start;
+
+}
+
+.grid-agrigento{
+
+grid-template-columns:
+1fr 1fr;
+
+}
+
+}
+
 @media(max-width:700px){
 
 .site-wrapper{
@@ -654,45 +755,75 @@ padding:0;
 
 .main-site{
 
-padding:18px;
+padding:14px;
 
 }
 
-.brand{
+.topbar{
 
-align-items:flex-start;
-
-}
-
-.brand-logo{
-
-height:58px;
+padding:16px;
 
 }
 
-.brand-title{
+.topbar-left{
 
-font-size:30px;
+flex-wrap:wrap;
+
+gap:12px;
+
+}
+
+.top-logo{
+
+height:38px;
+
+}
+
+.topbar-title h1{
+
+font-size:20px;
 
 line-height:1.1;
 
 }
 
-.comune-title{
+.topbar-center input{
 
-font-size:28px;
+height:48px;
+
+font-size:14px;
+
+}
+
+.grid-agrigento{
+
+grid-template-columns:
+1fr;
 
 }
 
 .percentuale{
 
-font-size:42px;
+font-size:34px;
 
 }
 
-.site-header{
+.top{
 
-align-items:flex-start;
+padding-right:0;
+
+}
+
+.badge{
+
+position:relative;
+
+top:auto;
+right:auto;
+
+margin-bottom:10px;
+
+width:max-content;
 
 }
 
@@ -704,7 +835,7 @@ align-items:flex-start;
 
 <body>
 
-<!-- TOP FULL ADV -->
+<!-- TOP ADV -->
 
 <div class="top-adv">
 
@@ -715,7 +846,7 @@ alt="Pubblicità"
 
 </div>
 
-<!-- WRAPPER -->
+<!-- SITE -->
 
 <div class="site-wrapper">
 
@@ -737,30 +868,71 @@ alt="Pubblicità"
 
 </aside>
 
-<!-- MAIN SITE -->
+<!-- MAIN -->
 
 <main class="main-site">
 
-<!-- HEADER -->
+<!-- TOPBAR -->
 
-<div class="site-header">
+<header class="topbar">
 
-<div class="brand">
+<!-- LEFT -->
+
+<div class="topbar-left">
+
+<a
+href="https://www.grandangoloagrigento.it/"
+target="_blank"
+class="logo-link"
+>
 
 <img
-class="brand-logo"
+class="top-logo"
 src="https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png"
 alt="Grandangolo Agrigento"
 >
 
-<div class="brand-text">
+</a>
 
-<div class="brand-speciale">
+<div class="topbar-divider"></div>
+
+<div class="topbar-title">
+
+<div class="speciale">
 SPECIALE AMMINISTRATIVE 2026
 </div>
 
-<div class="brand-title">
-Elezioni Comunali Agrigento
+<h1>
+ELEZIONI COMUNALI AGRIGENTO
+</h1>
+
+</div>
+
+</div>
+
+<!-- CENTER -->
+
+<div class="topbar-center">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Cerca comune o candidato..."
+onkeyup="filtraElementi()"
+>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="topbar-right">
+
+<div class="live-box">
+
+<div class="dot"></div>
+
+LIVE
+
 </div>
 
 <div class="update" id="update">
@@ -769,17 +941,7 @@ Aggiornamento live...
 
 </div>
 
-</div>
-
-<div class="live">
-
-<div class="dot"></div>
-
-LIVE
-
-</div>
-
-</div>
+</header>
 
 <!-- TICKER -->
 
@@ -820,6 +982,62 @@ alt="Pubblicità"
 </div>
 
 <script>
+
+/* SEARCH */
+
+function filtraElementi(){
+
+const input =
+document.getElementById('searchInput')
+.value
+.toLowerCase();
+
+const comuni =
+document.querySelectorAll('.comune');
+
+comuni.forEach(comune=>{
+
+const nomeComune =
+comune.querySelector('.comune-title')
+.innerText
+.toLowerCase();
+
+const candidati =
+comune.querySelectorAll('.nome');
+
+let matchCandidato = false;
+
+candidati.forEach(candidato=>{
+
+if(
+candidato.innerText
+.toLowerCase()
+.includes(input)
+){
+
+matchCandidato = true;
+
+}
+
+});
+
+if(
+nomeComune.includes(input)
+||
+matchCandidato
+){
+
+comune.style.display = 'block';
+
+}else{
+
+comune.style.display = 'none';
+
+}
+
+});
+
+}
 
 /* RSS */
 
@@ -971,25 +1189,53 @@ comune.totale_voti > 0
 :
 0;
 
-const top2 = index < 2;
+const isAgrigento =
+comuneNome === 'Agrigento';
 
-cards += `
+const isBallottaggio =
+isAgrigento &&
+(
+c.nome.includes('Sodano')
+||
+c.nome.includes('Alonge')
+);
 
-<div class="card ${top2 ? 'gold' : ''}">
+const isWinner =
+!isAgrigento &&
+index === 0;
 
-${top2 ? `
-<div class="badge">
-BALLOTTAGGIO
-</div>
-` : ''}
-
-<div class="top">
-
+const fotoHTML =
+isAgrigento
+?
+`
 <img
 class="foto"
 src="${c.foto}"
 alt="${c.nome}"
 >
+`
+:
+'';
+
+cards += `
+
+<div class="card ${isBallottaggio || isWinner ? 'gold' : ''}">
+
+${isBallottaggio ? `
+<div class="badge">
+BALLOTTAGGIO
+</div>
+` : ''}
+
+${isWinner ? `
+<div class="badge">
+SINDACO ELETTO
+</div>
+` : ''}
+
+<div class="top">
+
+${fotoHTML}
 
 <div>
 
@@ -1028,6 +1274,13 @@ PROIEZIONE LIVE
 
 });
 
+const gridClass =
+comuneNome === 'Agrigento'
+?
+'grid-agrigento'
+:
+'grid';
+
 comuniHTML += `
 
 <section class="comune">
@@ -1036,7 +1289,7 @@ comuniHTML += `
 ${comuneNome}
 </div>
 
-<div class="grid">
+<div class="${gridClass}">
 ${cards}
 </div>
 
