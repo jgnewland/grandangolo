@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Quotidiano</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ececec;
+    }
+
+    .title-font {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .news-shadow {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    }
+
+    .ticker {
+      animation: ticker 35s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- LEFT SKIN -->
+<div class="hidden 2xl:block fixed left-0 top-0 w-[220px] h-screen bg-[#edf1f0] overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=900&auto=format&fit=crop" class="w-full h-full object-cover opacity-90">
+</div>
+
+<!-- RIGHT SKIN -->
+<div class="hidden 2xl:block fixed right-0 top-0 w-[220px] h-screen bg-[#edf1f0] overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=900&auto=format&fit=crop" class="w-full h-full object-cover opacity-90">
+</div>
+
+<!-- WRAPPER -->
+<div class="max-w-[1240px] mx-auto bg-white min-h-screen shadow-2xl relative z-10 border-x border-zinc-200">
+
+  <!-- TOPBAR -->
+  <div class="bg-black text-white text-[12px] uppercase tracking-wide px-8 py-3 flex justify-between items-center">
+    <div class="flex gap-6 font-semibold">
+      <span>Edizione digitale</span>
+      <span>Podcast</span>
+      <span>Video</span>
+      <span>Live</span>
+      <span>Newsletter</span>
+    </div>
+
+    <div class="flex gap-6 font-semibold">
+      <span>Abbonati</span>
+      <span>Accedi</span>
+      <span>🔍 Cerca</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="border-b border-zinc-200 bg-white">
+
+    <div class="px-6 py-5 flex justify-between items-center">
+
+      <div class="flex gap-4 items-center text-sm">
+        <div class="text-yellow-500 text-4xl">☀</div>
+        <div>
+          <div class="font-bold">Roma</div>
+          <div class="text-zinc-500">23°C<br>Sereno</div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <h1 class="title-font text-[72px] leading-none font-black tracking-[-4px] uppercase">
+          IL QUOTIDIANO
+        </h1>
+
+        <div class="text-sm text-zinc-500 mt-2">
+          Lunedì, 12 Maggio 2025 · Aggiornato alle 12:45
+        </div>
+      </div>
+
+      <div class="text-right">
+        <button class="bg-red-700 text-white rounded-full px-8 py-3 uppercase font-bold text-sm">
+          Diretta Live
+        </button>
+
+        <div class="text-sm text-zinc-500 mt-3">
+          Tutti i canali
+        </div>
+      </div>
+
+    </div>
+
+    <!-- NAV -->
+    <nav class="border-t border-b border-zinc-200 overflow-x-auto whitespace-nowrap bg-white">
+      <div class="px-6 py-4 flex gap-5 uppercase text-[14px] font-bold">
+        <span>Cronaca</span>
+        <span>Politica</span>
+        <span>Mafia</span>
+        <span>Economia</span>
+        <span>Sport</span>
+        <span>Italia</span>
+        <span>Mondo</span>
+        <span>Cultura</span>
+        <span>Spettacoli</span>
+        <span>Tecnologia</span>
+        <span>Salute</span>
+        <span>Motori</span>
+        <span>Viaggi</span>
+        <span>Speciali</span>
+      </div>
+    </nav>
+
+  </header>
+
+  <!-- BREAKING -->
+  <div class="border-b border-zinc-200 flex items-center overflow-hidden">
+
+    <div class="bg-red-700 text-white uppercase font-black px-6 py-3 text-sm">
+      Ultim'ora
+    </div>
+
+    <div class="ticker px-6 py-3 text-sm font-semibold text-zinc-700 flex gap-12">
+      <span>12:42 Borsa: Milano in rialzo (+0,34%)</span>
+      <span>12:35 Maltempo in Emilia: evacuate 200 persone</span>
+      <span>12:28 Serie A: Napoli campione d'Italia 2025</span>
+      <span>12:10 Blitz antimafia all'alba a Palermo</span>
+    </div>
+
+  </div>
+
+  <!-- TOP ADV -->
+  <section class="px-6 py-5 border-b border-zinc-200">
+    <div class="h-[95px] bg-black rounded overflow-hidden relative">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-70">
+
+      <div class="relative z-10 h-full flex justify-between items-center px-6 text-white">
+        <div>
+          <div class="text-[28px] font-black">Audi Q5</div>
+          <div class="text-lg text-zinc-200">Spinta da dentro. Pronta per tutto ciò che conta.</div>
+        </div>
+
+        <button class="bg-white text-black rounded px-5 py-3 uppercase font-black text-sm">
+          Scopri di più
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="grid grid-cols-12 gap-5 px-6 py-5">
+
+    <!-- LEFT CONTENT -->
+    <section class="col-span-12 lg:col-span-9 space-y-8">
+
+      <!-- HERO -->
+      <section class="grid grid-cols-12 gap-4 border-b border-zinc-200 pb-8">
+
+        <div class="col-span-12 md:col-span-4">
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop" class="w-full h-[195px] object-cover news-shadow">
+        </div>
+
+        <div class="col-span-12 md:col-span-5">
+          <div class="uppercase text-red-700 text-xs font-black">Politica</div>
+
+          <h2 class="title-font text-[28px] leading-[1.05] font-black mt-3">
+            Governo, via libera al decreto lavoro Meloni: “Più tutele e opportunità”
+          </h2>
+
+          <p class="text-zinc-600 text-[15px] leading-7 mt-5">
+            Il Consiglio dei ministri ha approvato il decreto: incentivi alle assunzioni, misure per i giovani e semplificazioni per le imprese.
+          </p>
+
+          <div class="mt-6 text-sm text-zinc-500">
+            di Marco Galluzzo
+          </div>
+
+          <div class="text-xs text-zinc-400 mt-2">
+            12 minuti fa
+          </div>
+        </div>
+
+        <div class="col-span-12 md:col-span-3 border-l pl-6">
+
+          <div class="uppercase text-xs font-black mb-5">
+            In evidenza
+          </div>
+
+          <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop" class="w-full h-[145px] object-cover">
+
+          <h3 class="title-font text-[28px] leading-tight font-black mt-4">
+            Ucraina, nuovi raid russi su Kiev
+          </h3>
+
+          <div class="text-sm text-zinc-500 mt-3">
+            25 minuti fa
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- MINI NEWS -->
+      <section class="grid md:grid-cols-3 gap-6 border-b border-zinc-200 pb-8">
+
+        <article class="flex gap-4">
+          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop" class="w-24 h-20 object-cover">
+
+          <div>
+            <div class="uppercase text-red-700 text-xs font-black">Cronaca</div>
+
+            <h3 class="font-black text-[16px] leading-tight mt-2">
+              Milano, accoltellato in strada un ragazzo di 19 anni
+            </h3>
+
+            <p class="text-zinc-500 text-sm mt-3">
+              45 minuti fa
+            </p>
+          </div>
+        </article>
+
+        <article class="flex gap-4">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop" class="w-24 h-20 object-cover">
+
+          <div>
+            <div class="uppercase text-red-700 text-xs font-black">Economia</div>
+
+            <h3 class="font-black text-[16px] leading-tight mt-2">
+              Inflazione, ad aprile scende all’1,6%
+            </h3>
+
+            <p class="text-zinc-500 text-sm mt-3">
+              1 ora fa
+            </p>
+          </div>
+        </article>
+
+        <article class="flex gap-4">
+          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=800&auto=format&fit=crop" class="w-24 h-20 object-cover">
+
+          <div>
+            <div class="uppercase text-green-700 text-xs font-black">Sport</div>
+
+            <h3 class="font-black text-[16px] leading-tight mt-2">
+              Conte: “Napoli, impresa straordinaria”
+            </h3>
+
+            <p class="text-zinc-500 text-sm mt-3">
+              28 minuti fa
+            </p>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- VIDEO + PODCAST -->
+      <section class="grid md:grid-cols-2 gap-5 border-b border-zinc-200 pb-8">
+
+        <!-- VIDEO -->
+        <div>
+          <div class="flex justify-between items-center mb-5">
+            <h2 class="uppercase text-[20px] font-black">Video</h2>
+            <span class="text-xs uppercase font-black text-zinc-500">Tutti i video</span>
+          </div>
+
+          <div class="grid grid-cols-4 gap-4">
+
+            <div>
+              <div class="h-24 bg-zinc-300"></div>
+              <p class="text-sm font-bold mt-2">Mareggiate in Liguria</p>
+            </div>
+
+            <div>
+              <div class="h-24 bg-zinc-300"></div>
+              <p class="text-sm font-bold mt-2">Papa Leone XIV</p>
+            </div>
+
+            <div>
+              <div class="h-24 bg-zinc-300"></div>
+              <p class="text-sm font-bold mt-2">Tifosi in festa</p>
+            </div>
+
+            <div>
+              <div class="h-24 bg-zinc-300"></div>
+              <p class="text-sm font-bold mt-2">Parata Napoli</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PODCAST -->
+        <div>
+          <div class="flex justify-between items-center mb-5">
+            <h2 class="uppercase text-[20px] font-black">Podcast</h2>
+            <span class="text-xs uppercase font-black text-zinc-500">Tutti i podcast</span>
+          </div>
+
+          <div class="space-y-5">
+
+            <div class="flex justify-between border-b pb-3">
+              <div>
+                <h3 class="font-black">Dentro l’inchiesta</h3>
+                <p class="text-sm text-zinc-500">Le verità che nessuno racconta</p>
+              </div>
+
+              <div class="text-sm text-zinc-400">24:35</div>
+            </div>
+
+            <div class="flex justify-between border-b pb-3">
+              <div>
+                <h3 class="font-black">Giustizia & Impunità</h3>
+                <p class="text-sm text-zinc-500">Podcast di approfondimento</p>
+              </div>
+
+              <div class="text-sm text-zinc-400">31:12</div>
+            </div>
+
+            <div class="flex justify-between">
+              <div>
+                <h3 class="font-black">Notebook</h3>
+                <p class="text-sm text-zinc-500">Storie, fatti e persone</p>
+              </div>
+
+              <div class="text-sm text-zinc-400">18:40</div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- EXTRA NEWS FLOW -->
+      <section class="grid md:grid-cols-3 gap-5 border-t border-zinc-200 pt-6">
+
+        <article>
+          <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="uppercase text-red-700 text-[11px] font-black mt-4">Cronaca</div>
+          <h3 class="title-font text-[24px] leading-tight font-black mt-2">
+            Blitz antimafia all’alba: 23 arresti
+          </h3>
+          <p class="text-zinc-600 text-[14px] mt-3 leading-relaxed">
+            Operazione coordinata dalla Direzione distrettuale antimafia.
+          </p>
+        </article>
+
+        <article>
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="uppercase text-red-700 text-[11px] font-black mt-4">Economia</div>
+          <h3 class="title-font text-[24px] leading-tight font-black mt-2">
+            Borsa, Milano chiude positiva
+          </h3>
+          <p class="text-zinc-600 text-[14px] mt-3 leading-relaxed">
+            Bene banche e Stellantis dopo il rally europeo.
+          </p>
+        </article>
+
+        <article>
+          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="uppercase text-green-700 text-[11px] font-black mt-4">Sport</div>
+          <h3 class="title-font text-[24px] leading-tight font-black mt-2">
+            Festa Napoli, città blindata
+          </h3>
+          <p class="text-zinc-600 text-[14px] mt-3 leading-relaxed">
+            Oltre centomila tifosi in strada fino a notte fonda.
+          </p>
+        </article>
+
+      </section>
+
+      <!-- INFINITE FLOW -->
+      <section class="space-y-10 border-t border-zinc-200 pt-8">
+
+        <article class="grid md:grid-cols-4 gap-5 items-start">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover md:col-span-1">
+          <div class="md:col-span-3">
+            <div class="uppercase text-red-700 text-[11px] font-black">Approfondimento</div>
+            <h3 class="title-font text-[30px] leading-tight font-black mt-2">
+              Il sistema degli appalti pubblici sotto indagine
+            </h3>
+            <p class="text-zinc-600 text-[15px] leading-7 mt-4">
+              Le carte dell’inchiesta descrivono un sistema diffuso tra imprese, politica e criminalità.
+            </p>
+          </div>
+        </article>
+
+        <article class="grid md:grid-cols-4 gap-5 items-start">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover md:col-span-1">
+          <div class="md:col-span-3">
+            <div class="uppercase text-blue-700 text-[11px] font-black">Tecnologia</div>
+            <h3 class="title-font text-[30px] leading-tight font-black mt-2">
+              AI e informazione: come cambiano le newsroom
+            </h3>
+            <p class="text-zinc-600 text-[15px] leading-7 mt-4">
+              L’intelligenza artificiale sta rivoluzionando il lavoro delle redazioni.
+            </p>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- BOTTOM ADV -->
+      <section class="h-[110px] bg-zinc-100 rounded overflow-hidden relative">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-70">
+
+        <div class="relative z-10 h-full flex justify-between items-center px-6 text-white">
+          <div>
+            <div class="text-[28px] font-black">Enel Fibra</div>
+            <div class="text-lg text-zinc-100 mt-2">Naviga veloce, senza pensieri.</div>
+          </div>
+
+          <button class="bg-white text-black rounded-full px-6 py-3 uppercase font-black text-sm">
+            Scopri offerta
+          </button>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <aside class="col-span-12 lg:col-span-3 space-y-5 pt-24">
+
+      <!-- CORRELATI LARGE -->
+      <section class="border-l pl-5">
+        <div class="uppercase text-[11px] font-black tracking-wide text-zinc-500 mb-4">
+          Correlati
+        </div>
+
+        <div class="space-y-6">
+
+          <article>
+            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+            <h3 class="title-font text-[24px] leading-tight font-black mt-4">
+              Ucraina, raid nella notte: esplosioni a Kiev
+            </h3>
+            <p class="text-[13px] text-zinc-500 mt-2">25 minuti fa</p>
+          </article>
+
+          <article>
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+            <h3 class="title-font text-[24px] leading-tight font-black mt-4">
+              Referendum, affluenza in forte calo
+            </h3>
+            <p class="text-[13px] text-zinc-500 mt-2">1 ora fa</p>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- SPECIAL -->
+      <section class="bg-red-700 text-white p-5">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="uppercase font-black text-[13px]">Speciale</h2>
+          <span class="text-[11px] uppercase">Tutti gli speciali</span>
+        </div>
+
+        <h3 class="text-[20px] font-black leading-tight">
+          Elezioni Europee 2024
+        </h3>
+
+        <p class="text-red-100 mt-3 text-[14px] leading-relaxed">
+          Risultati, analisi e scenari.
+        </p>
+      </section>
+
+      <!-- DATA -->
+      <section class="bg-[#082244] text-white p-5">
+        <h2 class="uppercase font-black text-[13px]">
+          Dati e numeri
+        </h2>
+
+        <h3 class="text-[22px] font-black mt-4 leading-tight">
+          L’Italia in cifre
+        </h3>
+
+        <p class="text-blue-100 mt-4 text-[14px] leading-relaxed">
+          Esplora i dati su economia, popolazione e lavoro.
+        </p>
+      </section>
+
+    </aside>
+
+  </main>
+
+</div>
+
+</body>
+</html>
