@@ -26,6 +26,8 @@ font-family:'Inter',sans-serif;
 
 background:#020817;
 
+/* WALLPAPER */
+
 background-image:
 url('https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/7616792b-b325-44fb-a86e-a4b62e6f9235.png');
 
@@ -55,15 +57,11 @@ TOP ADV
 
 width:100%;
 
-background:#fff;
-
 display:flex;
 
 justify-content:center;
 
-padding:10px 0;
-
-border-bottom:1px solid #ddd;
+padding:12px 0;
 
 }
 
@@ -71,25 +69,25 @@ border-bottom:1px solid #ddd;
 
 width:100%;
 
-max-width:1600px;
+max-width:1400px;
 
 display:block;
 
 }
 
 /* =========================
-SITE
+SITE WRAPPER
 ========================= */
 
 .site-wrapper{
 
 width:100%;
 
-max-width:1800px;
+max-width:1820px;
 
 margin:0 auto;
 
-padding:20px;
+padding:0 20px;
 
 }
 
@@ -102,7 +100,7 @@ LAYOUT
 display:grid;
 
 grid-template-columns:
-220px minmax(0,1200px) 220px;
+300px minmax(0,1200px) 300px;
 
 gap:20px;
 
@@ -136,6 +134,9 @@ width:100%;
 
 display:block;
 
+border:
+1px solid rgba(255,255,255,.08);
+
 }
 
 /* =========================
@@ -144,15 +145,13 @@ MAIN SITE
 
 .main-site{
 
-.main-site{
-
 background:
-rgba(2,8,23,.92);
+rgba(2,8,23,.97);
 
-backdrop-filter:
-blur(2px);
+padding:22px;
 
-padding:24px;
+border:
+1px solid rgba(255,255,255,.06);
 
 }
 
@@ -171,17 +170,12 @@ align-items:center;
 
 gap:22px;
 
-padding:18px 22px;
+padding:16px 20px;
 
 margin-bottom:24px;
 
 background:
-linear-gradient(
-135deg,
-#00122e 0%,
-#03245c 45%,
-#0b4db3 100%
-);
+rgba(2,15,40,.96);
 
 border:
 1px solid rgba(255,255,255,.08);
@@ -196,7 +190,7 @@ display:flex;
 
 align-items:center;
 
-gap:18px;
+gap:16px;
 
 min-width:max-content;
 
@@ -214,7 +208,7 @@ text-decoration:none;
 
 .top-logo{
 
-height:46px;
+height:42px;
 
 width:auto;
 
@@ -228,14 +222,12 @@ object-fit:contain;
 
 width:1px;
 
-height:42px;
+height:38px;
 
 background:
 rgba(255,255,255,.12);
 
 }
-
-/* TITLE */
 
 .topbar-title{
 
@@ -243,13 +235,13 @@ display:flex;
 
 flex-direction:column;
 
-gap:4px;
+gap:3px;
 
 }
 
 .speciale{
 
-font-size:10px;
+font-size:9px;
 
 font-weight:900;
 
@@ -261,7 +253,7 @@ opacity:.7;
 
 .topbar-title h1{
 
-font-size:28px;
+font-size:24px;
 
 font-weight:900;
 
@@ -283,7 +275,7 @@ width:100%;
 
 width:100%;
 
-height:50px;
+height:48px;
 
 padding:0 18px;
 
@@ -331,7 +323,7 @@ align-items:center;
 
 gap:8px;
 
-padding:10px 16px;
+padding:10px 14px;
 
 background:
 rgba(255,255,255,.08);
@@ -349,8 +341,8 @@ letter-spacing:1px;
 
 .dot{
 
-width:9px;
-height:9px;
+width:8px;
+height:8px;
 
 border-radius:50%;
 
@@ -397,17 +389,17 @@ width:100%;
 overflow:hidden;
 
 background:
-rgba(255,255,255,.05);
+rgba(255,255,255,.04);
 
 padding:12px 0;
 
-margin-bottom:28px;
+margin-bottom:26px;
 
 border-top:
-1px solid rgba(255,255,255,.08);
+1px solid rgba(255,255,255,.06);
 
 border-bottom:
-1px solid rgba(255,255,255,.08);
+1px solid rgba(255,255,255,.06);
 
 }
 
@@ -481,7 +473,7 @@ margin-bottom:40px;
 padding:16px;
 
 background:
-rgba(255,255,255,.08);
+rgba(5,15,35,.92);
 
 border:
 1px solid rgba(255,255,255,.08);
@@ -532,7 +524,7 @@ font-size:34px;
 
 font-weight:900;
 
-margin-bottom:20px;
+margin-bottom:18px;
 
 }
 
@@ -567,7 +559,7 @@ gap:18px;
 .card{
 
 background:
-rgba(255,255,255,.08);
+rgba(5,15,35,.92);
 
 border:
 1px solid rgba(255,255,255,.08);
@@ -737,11 +729,7 @@ INLINE ADV
 
 .inline-adv{
 
-margin:50px 0;
-
-background:#fff;
-
-padding:10px;
+margin:45px 0;
 
 display:flex;
 
@@ -759,9 +747,11 @@ display:block;
 
 }
 
-/* MOBILE */
+/* =========================
+RESPONSIVE
+========================= */
 
-@media(max-width:1400px){
+@media(max-width:1600px){
 
 .layout{
 
@@ -808,19 +798,19 @@ grid-template-columns:
 
 .site-wrapper{
 
-width:100%;
+padding:0;
 
-max-width:1800px;
+}
 
-margin:0 auto;
+.main-site{
 
-padding:0 20px;
+padding:14px;
 
 }
 
 .topbar{
 
-padding:16px;
+padding:14px;
 
 }
 
@@ -834,13 +824,13 @@ gap:12px;
 
 .top-logo{
 
-height:38px;
+height:36px;
 
 }
 
 .topbar-title h1{
 
-font-size:20px;
+font-size:19px;
 
 line-height:1.1;
 
@@ -848,7 +838,7 @@ line-height:1.1;
 
 .topbar-center input{
 
-height:48px;
+height:46px;
 
 font-size:14px;
 
@@ -895,13 +885,11 @@ width:max-content;
 <body>
 
 <!-- TOP ADV -->
-<!-- MISURA CONSIGLIATA:
-970x250 oppure 1400x180 -->
 
 <div class="top-adv">
 
 <img
-src="https://via.placeholder.com/1600x180?text=PUBBLICITA+TOP"
+src="https://via.placeholder.com/1400x180?text=TOP+ADV"
 alt="Pubblicità"
 >
 
@@ -912,18 +900,16 @@ alt="Pubblicità"
 <div class="layout">
 
 <!-- LEFT ADV -->
-<!-- MISURA CONSIGLIATA:
-300x600 -->
 
 <aside class="side-adv">
 
 <img
-src="https://via.placeholder.com/220x600?text=ADV"
+src="https://via.placeholder.com/300x600?text=ADV+300x600"
 alt="Pubblicità"
 >
 
 <img
-src="https://via.placeholder.com/220x300?text=ADV"
+src="https://via.placeholder.com/300x250?text=ADV+300x250"
 alt="Pubblicità"
 >
 
@@ -991,7 +977,7 @@ LIVE
 </div>
 
 <div class="update" id="update">
-Aggiornamento live...
+Aggiornato...
 </div>
 
 </div>
@@ -1015,8 +1001,6 @@ Aggiornamento live...
 <div id="comuni-container"></div>
 
 <!-- INLINE ADV -->
-<!-- MISURA CONSIGLIATA:
-970x250 -->
 
 <div class="inline-adv">
 
@@ -1034,12 +1018,12 @@ alt="Pubblicità"
 <aside class="side-adv">
 
 <img
-src="https://via.placeholder.com/220x600?text=ADV"
+src="https://via.placeholder.com/300x600?text=ADV+300x600"
 alt="Pubblicità"
 >
 
 <img
-src="https://via.placeholder.com/220x300?text=ADV"
+src="https://via.placeholder.com/300x250?text=ADV+300x250"
 alt="Pubblicità"
 >
 
