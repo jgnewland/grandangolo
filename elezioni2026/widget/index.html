@@ -9,6 +9,7 @@
 <title>Speciale Amministrative 2026 | Grandangolo Agrigento</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
@@ -31,7 +32,9 @@ overflow-x:hidden;
 
 }
 
-/* TOP ADV */
+/* =========================
+TOP ADV
+========================= */
 
 .top-adv{
 
@@ -59,7 +62,9 @@ display:block;
 
 }
 
-/* SITE */
+/* =========================
+SITE
+========================= */
 
 .site-wrapper{
 
@@ -73,7 +78,9 @@ padding:20px;
 
 }
 
-/* LAYOUT */
+/* =========================
+LAYOUT
+========================= */
 
 .layout{
 
@@ -90,7 +97,9 @@ justify-content:center;
 
 }
 
-/* SIDE ADV */
+/* =========================
+SIDE ADV
+========================= */
 
 .side-adv{
 
@@ -114,7 +123,9 @@ display:block;
 
 }
 
-/* MAIN */
+/* =========================
+MAIN SITE
+========================= */
 
 .main-site{
 
@@ -361,7 +372,9 @@ white-space:nowrap;
 
 }
 
-/* TICKER */
+/* =========================
+TICKER
+========================= */
 
 .ticker-wrapper{
 
@@ -432,7 +445,9 @@ transform:translateX(-50%);
 
 }
 
-/* SEZIONI */
+/* =========================
+SEZIONI
+========================= */
 
 .sezioni{
 
@@ -487,7 +502,9 @@ opacity:.7;
 
 }
 
-/* COMUNI */
+/* =========================
+COMUNI
+========================= */
 
 .comune{
 
@@ -700,6 +717,34 @@ opacity:.6;
 
 }
 
+/* =========================
+INLINE ADV
+========================= */
+
+.inline-adv{
+
+margin:50px 0;
+
+background:#fff;
+
+padding:10px;
+
+display:flex;
+
+justify-content:center;
+
+}
+
+.inline-adv img{
+
+width:100%;
+
+max-width:970px;
+
+display:block;
+
+}
+
 /* MOBILE */
 
 @media(max-width:1400px){
@@ -836,6 +881,8 @@ width:max-content;
 <body>
 
 <!-- TOP ADV -->
+<!-- MISURA CONSIGLIATA:
+970x250 oppure 1400x180 -->
 
 <div class="top-adv">
 
@@ -846,13 +893,13 @@ alt="Pubblicità"
 
 </div>
 
-<!-- SITE -->
-
 <div class="site-wrapper">
 
 <div class="layout">
 
 <!-- LEFT ADV -->
+<!-- MISURA CONSIGLIATA:
+300x600 -->
 
 <aside class="side-adv">
 
@@ -875,8 +922,6 @@ alt="Pubblicità"
 <!-- TOPBAR -->
 
 <header class="topbar">
-
-<!-- LEFT -->
 
 <div class="topbar-left">
 
@@ -910,8 +955,6 @@ ELEZIONI COMUNALI AGRIGENTO
 
 </div>
 
-<!-- CENTER -->
-
 <div class="topbar-center">
 
 <input
@@ -922,8 +965,6 @@ onkeyup="filtraElementi()"
 >
 
 </div>
-
-<!-- RIGHT -->
 
 <div class="topbar-right">
 
@@ -958,6 +999,19 @@ Aggiornamento live...
 <!-- COMUNI -->
 
 <div id="comuni-container"></div>
+
+<!-- INLINE ADV -->
+<!-- MISURA CONSIGLIATA:
+970x250 -->
+
+<div class="inline-adv">
+
+<img
+src="https://via.placeholder.com/970x250?text=ADV+970x250"
+alt="Pubblicità"
+>
+
+</div>
 
 </main>
 
@@ -1195,9 +1249,9 @@ comuneNome === 'Agrigento';
 const isBallottaggio =
 isAgrigento &&
 (
-c.nome.includes('Sodano')
+c.nome.toLowerCase().includes('sodano')
 ||
-c.nome.includes('Alonge')
+c.nome.toLowerCase().includes('alonge')
 );
 
 const isWinner =
