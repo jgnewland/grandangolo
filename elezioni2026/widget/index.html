@@ -425,26 +425,23 @@ transition:.2s;
 
 overflow:hidden;
 
-max-height:900px;
+max-height:0;
+
+opacity:0;
 
 transition:
 max-height .35s ease,
 opacity .25s ease;
 
+}
+
+.live-panel.open{
+
+max-height:900px;
+
 opacity:1;
 
 }
-
-.live-panel.closed{
-
-max-height:0;
-
-opacity:0;
-
-margin-bottom:0;
-
-}
-
 /* =========================
 TICKER
 ========================= */
