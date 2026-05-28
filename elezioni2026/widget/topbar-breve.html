@@ -29,7 +29,7 @@ background:transparent;
 
 font-family:'Inter',sans-serif;
 
-overflow:hidden;
+overflow-x:hidden;
 
 }
 
@@ -99,6 +99,8 @@ align-items:center;
 
 gap:14px;
 
+min-width:max-content;
+
 }
 
 .live{
@@ -126,6 +128,8 @@ font-weight:900;
 letter-spacing:1px;
 
 color:#fff;
+
+white-space:nowrap;
 
 }
 
@@ -170,6 +174,8 @@ line-height:1.1;
 
 color:#fff;
 
+white-space:nowrap;
+
 }
 
 /* =========================
@@ -182,9 +188,15 @@ display:flex;
 
 align-items:center;
 
+justify-content:center;
+
 gap:12px;
 
 flex-wrap:wrap;
+
+flex:1;
+
+min-width:0;
 
 }
 
@@ -212,7 +224,11 @@ border:
 
 backdrop-filter:blur(10px);
 
-min-width:290px;
+min-width:280px;
+
+max-width:320px;
+
+flex:1;
 
 overflow:hidden;
 
@@ -265,6 +281,8 @@ flex-direction:column;
 
 width:100%;
 
+min-width:0;
+
 }
 
 /* TOP ROW */
@@ -277,7 +295,7 @@ align-items:center;
 
 justify-content:space-between;
 
-gap:10px;
+gap:8px;
 
 margin-bottom:6px;
 
@@ -295,7 +313,11 @@ line-height:1.1;
 
 color:#fff;
 
-max-width:150px;
+word-break:keep-all;
+
+overflow-wrap:break-word;
+
+max-width:140px;
 
 }
 
@@ -417,7 +439,7 @@ align-items:center;
 
 justify-content:center;
 
-padding:14px 20px;
+padding:14px 18px;
 
 border-radius:16px;
 
@@ -430,7 +452,7 @@ linear-gradient(
 
 color:#00122e;
 
-font-size:13px;
+font-size:12px;
 
 font-weight:900;
 
@@ -448,6 +470,8 @@ box-shadow:
 0 0 18px rgba(22,255,144,.35);
 
 transition:.2s;
+
+min-width:max-content;
 
 }
 
@@ -474,20 +498,28 @@ transform:translateY(-1px);
 }
 
 /* =========================
-RESPONSIVE
+TABLET
 ========================= */
 
-@media(max-width:1200px){
-
-html,body{
-
-overflow:auto;
-
-}
+@media(max-width:1100px){
 
 .compact-header{
 
-align-items:flex-start;
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+.header-left{
+
+justify-content:center;
+
+}
+
+.header-center{
+
+width:100%;
 
 }
 
@@ -498,6 +530,10 @@ width:100%;
 }
 
 }
+
+/* =========================
+MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -509,22 +545,45 @@ border-radius:16px;
 
 }
 
+/* HEADER */
+
+.compact-header{
+
+gap:12px;
+
+}
+
+.header-left{
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+gap:10px;
+
+min-width:0;
+
+}
+
 .compact-title{
 
 font-size:13px;
 
+text-align:center;
+
 }
+
+/* CARDS */
 
 .header-center{
 
-width:100%;
+display:flex;
 
-display:grid;
-
-grid-template-columns:
-1fr;
+flex-direction:column;
 
 gap:10px;
+
+width:100%;
 
 }
 
@@ -532,9 +591,13 @@ gap:10px;
 
 width:100%;
 
-min-width:auto;
+max-width:100%;
+
+min-width:0;
 
 padding:10px;
+
+gap:10px;
 
 }
 
@@ -545,11 +608,31 @@ height:52px;
 
 }
 
+.top-row{
+
+align-items:flex-start;
+
+gap:6px;
+
+}
+
 .mini-name{
 
 font-size:12px;
 
 max-width:100%;
+
+line-height:1.15;
+
+}
+
+.ballottaggio-pill{
+
+font-size:6px;
+
+padding:4px 6px;
+
+letter-spacing:.3px;
 
 }
 
@@ -559,15 +642,33 @@ font-size:24px;
 
 }
 
+.bar{
+
+height:8px;
+
+}
+
+.live-label{
+
+font-size:8px;
+
+}
+
+/* LINK */
+
 .special-link{
 
 width:100%;
 
-font-size:11px;
+font-size:10px;
 
 padding:12px;
 
 text-align:center;
+
+white-space:normal;
+
+line-height:1.2;
 
 }
 
