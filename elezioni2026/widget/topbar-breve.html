@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Widget Elezioni 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,body{
+
+margin:0;
+padding:0;
+
+background:transparent;
+
+font-family:'Inter',sans-serif;
+
+overflow:hidden;
+
+}
+
+/* =========================
+WIDGET
+========================= */
+
+.widget{
+
+position:relative;
+
+width:100%;
+
+padding:14px 18px;
+
+overflow:hidden;
+
+background:
+linear-gradient(
+135deg,
+#021126 0%,
+#06204a 35%,
+#0a3d89 70%,
+#1556c7 100%
+);
+
+border-radius:22px;
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-top:
+4px solid #16ff90;
+
+box-shadow:
+0 0 25px rgba(22,255,144,.15);
+
+}
+
+/* =========================
+HEADER
+========================= */
+
+.compact-header{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:18px;
+
+flex-wrap:wrap;
+
+}
+
+/* =========================
+LEFT
+========================= */
+
+.header-left{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+}
+
+.live{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+padding:6px 12px;
+
+border-radius:999px;
+
+background:
+rgba(255,255,255,.08);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+font-size:10px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+color:#fff;
+
+}
+
+.dot{
+
+width:8px;
+height:8px;
+
+border-radius:50%;
+
+background:#ff3131;
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.5);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+.compact-title{
+
+font-size:15px;
+
+font-weight:900;
+
+letter-spacing:.5px;
+
+line-height:1.1;
+
+color:#fff;
+
+}
+
+/* =========================
+CENTER
+========================= */
+
+.header-center{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+}
+
+/* =========================
+CARD
+========================= */
+
+.mini-candidate{
+
+position:relative;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:12px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.06);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+
+min-width:260px;
+
+overflow:hidden;
+
+}
+
+.gold-mini{
+
+background:
+linear-gradient(
+135deg,
+rgba(255,215,0,.16),
+rgba(255,180,0,.06)
+);
+
+border:
+1px solid rgba(255,215,0,.18);
+
+box-shadow:
+0 0 16px rgba(255,215,0,.15);
+
+}
+
+/* BADGE */
+
+.ballottaggio{
+
+position:absolute;
+
+top:10px;
+right:10px;
+
+padding:5px 8px;
+
+border-radius:999px;
+
+background:#ffd700;
+
+color:#1a1300;
+
+font-size:8px;
+
+font-weight:900;
+
+letter-spacing:.7px;
+
+}
+
+/* FOTO */
+
+.avatar{
+
+width:58px;
+height:58px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:
+3px solid rgba(255,255,255,.16);
+
+background:#fff;
+
+flex:none;
+
+}
+
+/* INFO */
+
+.candidate-data{
+
+display:flex;
+
+flex-direction:column;
+
+width:100%;
+
+}
+
+.mini-name{
+
+font-size:13px;
+
+font-weight:900;
+
+line-height:1.1;
+
+color:#fff;
+
+margin-bottom:6px;
+
+max-width:140px;
+
+}
+
+.mini-percent{
+
+font-size:30px;
+
+font-weight:900;
+
+line-height:1;
+
+margin-bottom:8px;
+
+color:#fff;
+
+}
+
+/* BAR */
+
+.bar{
+
+width:100%;
+
+height:10px;
+
+border-radius:999px;
+
+overflow:hidden;
+
+background:
+rgba(255,255,255,.08);
+
+}
+
+.fill{
+
+height:100%;
+
+border-radius:999px;
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ffb700
+);
+
+transition:width .5s ease;
+
+}
+
+/* LABEL */
+
+.live-label{
+
+margin-top:6px;
+
+font-size:9px;
+
+font-weight:800;
+
+letter-spacing:1px;
+
+opacity:.7;
+
+color:#fff;
+
+}
+
+/* =========================
+LINK
+========================= */
+
+.special-link{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:14px 20px;
+
+border-radius:16px;
+
+background:
+linear-gradient(
+90deg,
+#16ff90,
+#42d3ff
+);
+
+color:#00122e;
+
+font-size:14px;
+
+font-weight:900;
+
+font-family:'Orbitron',sans-serif;
+
+text-decoration:none;
+
+white-space:nowrap;
+
+letter-spacing:.5px;
+
+animation:blink 1.2s infinite;
+
+box-shadow:
+0 0 18px rgba(22,255,144,.35);
+
+transition:.2s;
+
+}
+
+@keyframes blink{
+
+0%{
+opacity:1;
+}
+
+50%{
+opacity:.7;
+}
+
+100%{
+opacity:1;
+}
+
+}
+
+.special-link:hover{
+
+transform:translateY(-1px);
+
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+html,body{
+
+overflow:auto;
+
+}
+
+.compact-header{
+
+align-items:flex-start;
+
+}
+
+.special-link{
+
+width:100%;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.widget{
+
+padding:12px;
+
+border-radius:16px;
+
+}
+
+.compact-title{
+
+font-size:13px;
+
+}
+
+.header-center{
+
+width:100%;
+
+display:grid;
+
+grid-template-columns:
+1fr;
+
+gap:10px;
+
+}
+
+.mini-candidate{
+
+width:100%;
+
+min-width:auto;
+
+padding:10px;
+
+}
+
+.avatar{
+
+width:52px;
+height:52px;
+
+}
+
+.mini-name{
+
+font-size:12px;
+
+max-width:100%;
+
+}
+
+.mini-percent{
+
+font-size:24px;
+
+}
+
+.special-link{
+
+width:100%;
+
+font-size:11px;
+
+padding:12px;
+
+text-align:center;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="widget">
+
+<div class="compact-header">
+
+<!-- LEFT -->
+
+<div class="header-left">
+
+<div class="live">
+
+<div class="dot"></div>
+
+LIVE
+
+</div>
+
+<div class="compact-title">
+
+SPECIALE ELEZIONI 2026
+
+</div>
+
+</div>
+
+<!-- CENTER -->
+
+<div class="header-center" id="candidate-boxes"></div>
+
+<!-- RIGHT -->
+
+<a
+href="https://grandangolosettimanale.it/elezioni2026/widget/index"
+target="_blank"
+class="special-link"
+>
+
+ENTRA NELLO SPECIALE ELEZIONI →
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+async function aggiorna(){
+
+try{
+
+const response =
+await fetch(
+'sindaci.json?v=' + new Date().getTime()
+);
+
+const data =
+await response.json();
+
+const agrigento =
+data["Agrigento"];
+
+agrigento.candidati.sort(
+(a,b)=>b.voti-a.voti
+);
+
+agrigento.totale_voti =
+agrigento.candidati.reduce(
+(sum,c)=>sum + c.voti,
+0
+);
+
+/* SOLO SODANO E ALONGE */
+
+const candidati =
+agrigento.candidati.filter(c=>
+
+c.nome.toLowerCase().includes('sodano')
+||
+c.nome.toLowerCase().includes('alonge')
+
+);
+
+let html = '';
+
+candidati.forEach(c=>{
+
+const percentuale =
+(
+(c.voti / agrigento.totale_voti)
+* 100
+).toFixed(2);
+
+html += `
+
+<div class="mini-candidate gold-mini">
+
+<div class="ballottaggio">
+BALLOTTAGGIO
+</div>
+
+<img
+class="avatar"
+src="${c.foto}"
+alt="${c.nome}"
+>
+
+<div class="candidate-data">
+
+<div class="mini-name">
+${c.nome.toUpperCase()}
+</div>
+
+<div class="mini-percent">
+${percentuale}%
+</div>
+
+<div class="bar">
+
+<div
+class="fill"
+style="width:${percentuale}%">
+</div>
+
+</div>
+
+<div class="live-label">
+PROIEZIONE LIVE
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+'candidate-boxes'
+).innerHTML = html;
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+aggiorna();
+
+setInterval(aggiorna,3000);
+
+</script>
+
+</body>
+</html>
