@@ -194,8 +194,6 @@ CARD
 
 .mini-candidate{
 
-position:relative;
-
 display:flex;
 
 align-items:center;
@@ -214,7 +212,7 @@ border:
 
 backdrop-filter:blur(10px);
 
-min-width:260px;
+min-width:290px;
 
 overflow:hidden;
 
@@ -234,31 +232,6 @@ border:
 
 box-shadow:
 0 0 16px rgba(255,215,0,.15);
-
-}
-
-/* BADGE */
-
-.ballottaggio{
-
-position:absolute;
-
-top:10px;
-right:10px;
-
-padding:5px 8px;
-
-border-radius:999px;
-
-background:#ffd700;
-
-color:#1a1300;
-
-font-size:8px;
-
-font-weight:900;
-
-letter-spacing:.7px;
 
 }
 
@@ -294,6 +267,24 @@ width:100%;
 
 }
 
+/* TOP ROW */
+
+.top-row{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:10px;
+
+margin-bottom:6px;
+
+}
+
+/* NOME */
+
 .mini-name{
 
 font-size:13px;
@@ -304,11 +295,49 @@ line-height:1.1;
 
 color:#fff;
 
-margin-bottom:6px;
-
-max-width:140px;
+max-width:150px;
 
 }
+
+/* BALLOTTAGGIO */
+
+.ballottaggio-pill{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:4px 8px;
+
+border-radius:999px;
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ffb700
+);
+
+color:#1a1300;
+
+font-size:7px;
+
+font-weight:900;
+
+letter-spacing:.5px;
+
+white-space:nowrap;
+
+flex:none;
+
+box-shadow:
+0 0 10px rgba(255,215,0,.25);
+
+}
+
+/* PERCENTUALE */
 
 .mini-percent{
 
@@ -401,7 +430,7 @@ linear-gradient(
 
 color:#00122e;
 
-font-size:14px;
+font-size:13px;
 
 font-weight:900;
 
@@ -586,7 +615,7 @@ target="_blank"
 class="special-link"
 >
 
-ENTRA NELLO SPECIALE ELEZIONI →
+ENTRA NELLO SPECIALE →
 
 </a>
 
@@ -646,10 +675,6 @@ html += `
 
 <div class="mini-candidate gold-mini">
 
-<div class="ballottaggio">
-BALLOTTAGGIO
-</div>
-
 <img
 class="avatar"
 src="${c.foto}"
@@ -658,8 +683,16 @@ alt="${c.nome}"
 
 <div class="candidate-data">
 
+<div class="top-row">
+
 <div class="mini-name">
 ${c.nome.toUpperCase()}
+</div>
+
+<div class="ballottaggio-pill">
+BALLOTTAGGIO
+</div>
+
 </div>
 
 <div class="mini-percent">
