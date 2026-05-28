@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Widget Verticale Elezioni 2026
+</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Orbitron:wght@600;700;800&display=swap"
+rel="stylesheet"
+>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,
+body{
+
+background:transparent;
+
+font-family:'Inter',sans-serif;
+
+overflow:hidden;
+
+}
+
+/* =========================
+WIDGET
+========================= */
+
+.widget{
+
+width:100%;
+
+padding:14px;
+
+border-radius:20px;
+
+overflow:hidden;
+
+background:
+linear-gradient(
+180deg,
+#021126 0%,
+#06204a 45%,
+#1556c7 100%
+);
+
+border-top:
+4px solid #16ff90;
+
+box-shadow:
+0 0 25px rgba(22,255,144,.18);
+
+color:#fff;
+
+}
+
+/* =========================
+TOP
+========================= */
+
+.top{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:10px;
+
+margin-bottom:16px;
+
+}
+
+.live{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+padding:7px 12px;
+
+border-radius:999px;
+
+background:
+rgba(255,255,255,.08);
+
+font-size:10px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+}
+
+.dot{
+
+width:8px;
+height:8px;
+
+border-radius:50%;
+
+background:#ff3131;
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.5);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+.title{
+
+font-size:14px;
+
+font-weight:900;
+
+letter-spacing:.5px;
+
+}
+
+/* =========================
+CARDS
+========================= */
+
+.cards{
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+margin-bottom:14px;
+
+}
+
+.card{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:12px;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+135deg,
+rgba(255,215,0,.16),
+rgba(255,180,0,.05)
+);
+
+border:
+1px solid rgba(255,215,0,.2);
+
+}
+
+.avatar{
+
+width:58px;
+height:58px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:
+3px solid rgba(255,255,255,.15);
+
+background:#fff;
+
+flex:none;
+
+}
+
+.info{
+
+flex:1;
+
+min-width:0;
+
+}
+
+.row{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:10px;
+
+margin-bottom:6px;
+
+}
+
+.nome{
+
+font-size:14px;
+
+font-weight:900;
+
+line-height:1.1;
+
+}
+
+.badge{
+
+padding:4px 7px;
+
+border-radius:999px;
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ffb700
+);
+
+color:#1a1300;
+
+font-size:7px;
+
+font-weight:900;
+
+letter-spacing:.5px;
+
+white-space:nowrap;
+
+}
+
+.percent{
+
+font-size:32px;
+
+font-weight:900;
+
+line-height:1;
+
+margin-bottom:8px;
+
+}
+
+.bar{
+
+height:8px;
+
+border-radius:999px;
+
+overflow:hidden;
+
+background:
+rgba(255,255,255,.08);
+
+}
+
+.fill{
+
+height:100%;
+
+border-radius:999px;
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ffb700
+);
+
+}
+
+.label{
+
+margin-top:6px;
+
+font-size:9px;
+
+font-weight:800;
+
+letter-spacing:1px;
+
+opacity:.7;
+
+}
+
+/* =========================
+BUTTON
+========================= */
+
+.special-link{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+height:52px;
+
+border-radius:16px;
+
+background:
+linear-gradient(
+90deg,
+#16ff90,
+#42d3ff
+);
+
+color:#00122e;
+
+font-size:12px;
+
+font-weight:900;
+
+font-family:'Orbitron',sans-serif;
+
+text-decoration:none;
+
+letter-spacing:.5px;
+
+animation:blink 1.2s infinite;
+
+}
+
+@keyframes blink{
+
+0%{
+opacity:1;
+}
+
+50%{
+opacity:.7;
+}
+
+100%{
+opacity:1;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="widget">
+
+<div class="top">
+
+<div class="live">
+
+<div class="dot"></div>
+
+LIVE
+
+</div>
+
+<div class="title">
+
+SPECIALE ELEZIONI 2026
+
+</div>
+
+</div>
+
+<div class="cards" id="cards"></div>
+
+<a
+href="https://regionale.grandangolosettimanale.it/"
+target="_blank"
+class="special-link"
+>
+
+ENTRA NELLO SPECIALE →
+
+</a>
+
+</div>
+
+<script>
+
+async function aggiorna(){
+
+try{
+
+const response =
+await fetch(
+'sindaci.json?v=' + new Date().getTime()
+);
+
+const data =
+await response.json();
+
+const agrigento =
+data["Agrigento"];
+
+agrigento.candidati.sort(
+(a,b)=>b.voti-a.voti
+);
+
+agrigento.totale_voti =
+agrigento.candidati.reduce(
+(sum,c)=>sum + c.voti,
+0
+);
+
+const candidati =
+agrigento.candidati.filter(c=>
+
+c.nome.toLowerCase().includes('sodano')
+||
+c.nome.toLowerCase().includes('alonge')
+
+);
+
+let html = '';
+
+candidati.forEach(c=>{
+
+const percentuale =
+(
+(c.voti / agrigento.totale_voti)
+* 100
+).toFixed(2);
+
+html += `
+
+<div class="card">
+
+<img
+class="avatar"
+src="${c.foto}"
+alt="${c.nome}"
+>
+
+<div class="info">
+
+<div class="row">
+
+<div class="nome">
+${c.nome.toUpperCase()}
+</div>
+
+<div class="badge">
+BALLOTTAGGIO
+</div>
+
+</div>
+
+<div class="percent">
+${percentuale}%
+</div>
+
+<div class="bar">
+
+<div
+class="fill"
+style="width:${percentuale}%">
+</div>
+
+</div>
+
+<div class="label">
+PROIEZIONE LIVE
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById('cards').innerHTML =
+html;
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+aggiorna();
+
+setInterval(aggiorna,3000);
+
+</script>
+
+</body>
+</html>
