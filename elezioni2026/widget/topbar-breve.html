@@ -4,13 +4,20 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
 <title>Widget Elezioni 2026</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Orbitron:wght@600;700;800&display=swap"
+rel="stylesheet"
+>
 
 <style>
 
@@ -20,7 +27,8 @@ padding:0;
 box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
 
 margin:0;
 padding:0;
@@ -29,7 +37,7 @@ background:transparent;
 
 font-family:'Inter',sans-serif;
 
-overflow-x:hidden;
+overflow:hidden;
 
 }
 
@@ -39,11 +47,9 @@ WIDGET
 
 .widget{
 
-position:relative;
-
 width:100%;
 
-padding:14px 18px;
+padding:10px 18px;
 
 overflow:hidden;
 
@@ -56,7 +62,7 @@ linear-gradient(
 #1556c7 100%
 );
 
-border-radius:22px;
+border-radius:18px;
 
 border:
 1px solid rgba(255,255,255,.08);
@@ -81,9 +87,11 @@ align-items:center;
 
 justify-content:space-between;
 
-gap:18px;
+gap:16px;
 
-flex-wrap:wrap;
+height:72px;
+
+overflow:hidden;
 
 }
 
@@ -97,9 +105,11 @@ display:flex;
 
 align-items:center;
 
-gap:14px;
+gap:12px;
 
 min-width:max-content;
+
+white-space:nowrap;
 
 }
 
@@ -170,7 +180,7 @@ font-weight:900;
 
 letter-spacing:.5px;
 
-line-height:1.1;
+line-height:1;
 
 color:#fff;
 
@@ -190,13 +200,15 @@ align-items:center;
 
 justify-content:center;
 
-gap:12px;
+gap:10px;
 
-flex-wrap:wrap;
+flex-wrap:nowrap !important;
+
+white-space:nowrap;
+
+overflow:hidden;
 
 flex:1;
-
-min-width:0;
 
 }
 
@@ -210,11 +222,11 @@ display:flex;
 
 align-items:center;
 
-gap:12px;
+gap:10px;
 
-padding:12px;
+padding:8px 10px;
 
-border-radius:18px;
+border-radius:14px;
 
 background:
 rgba(255,255,255,.06);
@@ -224,11 +236,13 @@ border:
 
 backdrop-filter:blur(10px);
 
-min-width:280px;
+width:260px;
 
-max-width:320px;
+min-width:260px;
 
-flex:1;
+max-width:260px;
+
+height:58px;
 
 overflow:hidden;
 
@@ -255,15 +269,17 @@ box-shadow:
 
 .avatar{
 
-width:58px;
-height:58px;
+width:40px;
+height:40px;
+
+min-width:40px;
 
 border-radius:50%;
 
 object-fit:cover;
 
 border:
-3px solid rgba(255,255,255,.16);
+2px solid rgba(255,255,255,.16);
 
 background:#fff;
 
@@ -279,13 +295,15 @@ display:flex;
 
 flex-direction:column;
 
+justify-content:center;
+
 width:100%;
 
 min-width:0;
 
 }
 
-/* TOP ROW */
+/* TOP */
 
 .top-row{
 
@@ -295,9 +313,9 @@ align-items:center;
 
 justify-content:space-between;
 
-gap:8px;
+gap:6px;
 
-margin-bottom:6px;
+margin-bottom:3px;
 
 }
 
@@ -305,23 +323,23 @@ margin-bottom:6px;
 
 .mini-name{
 
-font-size:13px;
+font-size:11px;
 
 font-weight:900;
 
-line-height:1.1;
+line-height:1;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
 
 color:#fff;
 
-word-break:keep-all;
-
-overflow-wrap:break-word;
-
-max-width:140px;
-
 }
 
-/* BALLOTTAGGIO */
+/* BADGE */
 
 .ballottaggio-pill{
 
@@ -331,7 +349,7 @@ align-items:center;
 
 justify-content:center;
 
-padding:4px 8px;
+padding:3px 6px;
 
 border-radius:999px;
 
@@ -344,18 +362,15 @@ linear-gradient(
 
 color:#1a1300;
 
-font-size:7px;
+font-size:6px;
 
 font-weight:900;
 
-letter-spacing:.5px;
+letter-spacing:.3px;
 
 white-space:nowrap;
 
 flex:none;
-
-box-shadow:
-0 0 10px rgba(255,215,0,.25);
 
 }
 
@@ -363,13 +378,13 @@ box-shadow:
 
 .mini-percent{
 
-font-size:30px;
+font-size:16px;
 
 font-weight:900;
 
 line-height:1;
 
-margin-bottom:8px;
+margin-bottom:4px;
 
 color:#fff;
 
@@ -381,7 +396,7 @@ color:#fff;
 
 width:100%;
 
-height:10px;
+height:6px;
 
 border-radius:999px;
 
@@ -413,9 +428,9 @@ transition:width .5s ease;
 
 .live-label{
 
-margin-top:6px;
+margin-top:4px;
 
-font-size:9px;
+font-size:7px;
 
 font-weight:800;
 
@@ -439,9 +454,11 @@ align-items:center;
 
 justify-content:center;
 
-padding:14px 18px;
+height:46px;
 
-border-radius:16px;
+padding:0 18px;
+
+border-radius:14px;
 
 background:
 linear-gradient(
@@ -452,7 +469,7 @@ linear-gradient(
 
 color:#00122e;
 
-font-size:12px;
+font-size:11px;
 
 font-weight:900;
 
@@ -503,29 +520,33 @@ TABLET
 
 @media(max-width:1100px){
 
+.widget{
+
+padding:12px;
+
+}
+
 .compact-header{
 
-flex-direction:column;
-
-align-items:stretch;
+gap:10px;
 
 }
 
-.header-left{
+.mini-candidate{
 
-justify-content:center;
+width:240px;
 
-}
+min-width:240px;
 
-.header-center{
-
-width:100%;
+max-width:240px;
 
 }
 
 .special-link{
 
-width:100%;
+padding:0 14px;
+
+font-size:10px;
 
 }
 
@@ -535,140 +556,86 @@ width:100%;
 MOBILE
 ========================= */
 
-@media(max-width:700px){
+@media(max-width:900px){
 
 .widget{
 
-padding:12px;
-
-border-radius:16px;
+padding:10px;
 
 }
 
-/* HEADER */
-
 .compact-header{
 
-gap:12px;
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+overflow-x:auto;
+
+overflow-y:hidden;
+
+height:auto;
+
+padding-bottom:4px;
 
 }
 
 .header-left{
 
-justify-content:center;
-
-flex-wrap:wrap;
-
-gap:10px;
-
-min-width:0;
+min-width:max-content;
 
 }
-
-.compact-title{
-
-font-size:13px;
-
-text-align:center;
-
-}
-
-/* CARDS */
 
 .header-center{
 
-display:flex;
+min-width:max-content;
 
-flex-direction:column;
+}
 
-gap:10px;
+.special-link{
 
-width:100%;
+min-width:max-content;
+
+height:42px;
+
+font-size:10px;
+
+padding:0 14px;
 
 }
 
 .mini-candidate{
 
-width:100%;
+width:220px;
 
-max-width:100%;
+min-width:220px;
 
-min-width:0;
+max-width:220px;
 
-padding:10px;
-
-gap:10px;
+height:54px;
 
 }
 
 .avatar{
 
-width:52px;
-height:52px;
+width:36px;
+height:36px;
 
-}
-
-.top-row{
-
-align-items:flex-start;
-
-gap:6px;
+min-width:36px;
 
 }
 
 .mini-name{
 
-font-size:12px;
-
-max-width:100%;
-
-line-height:1.15;
-
-}
-
-.ballottaggio-pill{
-
-font-size:6px;
-
-padding:4px 6px;
-
-letter-spacing:.3px;
+font-size:10px;
 
 }
 
 .mini-percent{
 
-font-size:24px;
-
-}
-
-.bar{
-
-height:8px;
-
-}
-
-.live-label{
-
-font-size:8px;
-
-}
-
-/* LINK */
-
-.special-link{
-
-width:100%;
-
-font-size:10px;
-
-padding:12px;
-
-text-align:center;
-
-white-space:normal;
-
-line-height:1.2;
+font-size:14px;
 
 }
 
@@ -750,8 +717,6 @@ agrigento.candidati.reduce(
 (sum,c)=>sum + c.voti,
 0
 );
-
-/* SOLO SODANO E ALONGE */
 
 const candidati =
 agrigento.candidati.filter(c=>
