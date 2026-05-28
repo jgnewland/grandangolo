@@ -162,8 +162,6 @@ border:
 
 }
 
-/* LEFT */
-
 .topbar-left{
 
 display:flex;
@@ -353,6 +351,79 @@ white-space:nowrap;
 }
 
 /* =========================
+TICKER
+========================= */
+
+.ticker-wrapper{
+
+width:100%;
+
+overflow:hidden;
+
+background:
+rgba(255,255,255,.04);
+
+padding:12px 0;
+
+margin-bottom:18px;
+
+border-top:
+1px solid rgba(255,255,255,.06);
+
+border-bottom:
+1px solid rgba(255,255,255,.06);
+
+}
+
+.ticker{
+
+display:flex;
+
+width:max-content;
+
+animation:ticker 70s linear infinite;
+
+}
+
+.ticker-item{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:0 40px;
+
+font-size:13px;
+
+font-weight:700;
+
+white-space:nowrap;
+
+}
+
+.ticker-time{
+
+color:#42d3ff;
+
+font-weight:900;
+
+}
+
+@keyframes ticker{
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-50%);
+}
+
+}
+
+/* =========================
 LIVE TOGGLE
 ========================= */
 
@@ -430,88 +501,21 @@ max-height:0;
 opacity:0;
 
 transition:
-max-height .35s ease,
-opacity .25s ease;
+max-height .4s ease,
+opacity .25s ease,
+margin .25s ease;
+
+margin-bottom:0;
 
 }
 
 .live-panel.open{
 
-max-height:900px;
+max-height:2000px;
 
 opacity:1;
 
-}
-/* =========================
-TICKER
-========================= */
-
-.ticker-wrapper{
-
-width:100%;
-
-overflow:hidden;
-
-background:
-rgba(255,255,255,.04);
-
-padding:12px 0;
-
-margin-bottom:26px;
-
-border-top:
-1px solid rgba(255,255,255,.06);
-
-border-bottom:
-1px solid rgba(255,255,255,.06);
-
-}
-
-.ticker{
-
-display:flex;
-
-width:max-content;
-
-animation:ticker 70s linear infinite;
-
-}
-
-.ticker-item{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-padding:0 40px;
-
-font-size:13px;
-
-font-weight:700;
-
-white-space:nowrap;
-
-}
-
-.ticker-time{
-
-color:#42d3ff;
-
-font-weight:900;
-
-}
-
-@keyframes ticker{
-
-0%{
-transform:translateX(0);
-}
-
-100%{
-transform:translateX(-50%);
-}
+margin-bottom:30px;
 
 }
 
@@ -528,7 +532,7 @@ repeat(auto-fit,minmax(170px,1fr));
 
 gap:14px;
 
-margin-bottom:40px;
+margin-bottom:20px;
 
 }
 
@@ -591,8 +595,6 @@ font-weight:900;
 margin-bottom:18px;
 
 }
-
-/* GRID */
 
 .grid{
 
@@ -896,30 +898,15 @@ font-size:30px;
 
 @media(max-width:700px){
 
-html,
-body{
-
-overflow-x:hidden;
-
-}
-
 .site-wrapper{
 
 padding:0;
-
-width:100%;
 
 }
 
 .main-site{
 
 padding:12px;
-
-border-left:none;
-
-border-right:none;
-
-overflow:hidden;
 
 }
 
@@ -929,8 +916,6 @@ display:flex;
 
 flex-direction:column;
 
-align-items:stretch;
-
 gap:14px;
 
 padding:14px;
@@ -939,17 +924,15 @@ padding:14px;
 
 .topbar-left{
 
-display:flex;
-
 flex-direction:column;
-
-align-items:center;
 
 justify-content:center;
 
-gap:10px;
+align-items:center;
 
 text-align:center;
+
+gap:10px;
 
 }
 
@@ -965,14 +948,6 @@ height:34px;
 
 }
 
-.topbar-title{
-
-width:100%;
-
-text-align:center;
-
-}
-
 .topbar-title h1{
 
 font-size:18px;
@@ -981,94 +956,11 @@ line-height:1.1;
 
 }
 
-.speciale{
-
-font-size:8px;
-
-}
-
-.topbar-center{
-
-width:100%;
-
-}
-
 .topbar-center input{
-
-width:100%;
 
 height:44px;
 
 font-size:14px;
-
-padding:0 14px;
-
-}
-
-.topbar-right{
-
-width:100%;
-
-justify-content:center;
-
-}
-
-.ticker-wrapper{
-
-padding:10px 0;
-
-}
-
-.ticker-item{
-
-font-size:11px;
-
-padding:0 16px;
-
-gap:8px;
-
-}
-
-.sezioni{
-
-grid-template-columns:
-1fr 1fr;
-
-gap:10px;
-
-margin-bottom:26px;
-
-}
-
-.sezione-card{
-
-padding:12px;
-
-}
-
-.sezione-comune{
-
-font-size:11px;
-
-}
-
-.sezione-numeri{
-
-font-size:20px;
-
-}
-
-.comune{
-
-margin-bottom:34px;
-
-}
-
-.comune-title{
-
-font-size:24px;
-
-margin-bottom:14px;
 
 }
 
@@ -1082,6 +974,12 @@ gap:12px;
 
 }
 
+.comune-title{
+
+font-size:24px;
+
+}
+
 .card{
 
 padding:14px;
@@ -1090,15 +988,11 @@ padding:14px;
 
 .top{
 
-display:flex;
-
-align-items:flex-start;
-
-gap:10px;
-
 padding-right:0;
 
 min-height:auto;
+
+align-items:flex-start;
 
 }
 
@@ -1107,43 +1001,11 @@ min-height:auto;
 width:48px;
 height:48px;
 
-min-width:48px;
-
-}
-
-.nome{
-
-font-size:14px;
-
-line-height:1.15;
-
-max-width:100%;
-
-word-break:normal;
-
-overflow-wrap:break-word;
-
-}
-
-.voti{
-
-font-size:10px;
-
-margin-top:3px;
-
 }
 
 .percentuale{
 
 font-size:30px;
-
-margin-bottom:8px;
-
-}
-
-.bar{
-
-height:8px;
 
 }
 
@@ -1157,80 +1019,6 @@ right:auto;
 margin-bottom:10px;
 
 width:max-content;
-
-font-size:7px;
-
-padding:4px 6px;
-
-letter-spacing:0;
-
-line-height:1;
-
-}
-
-.label{
-
-font-size:9px;
-
-}
-
-.inline-adv{
-
-margin:24px 0;
-
-}
-
-.inline-adv img{
-
-width:100%;
-
-height:auto;
-
-}
-
-.live-toggle{
-
-padding:12px 14px;
-
-}
-
-.live-toggle-left{
-
-font-size:12px;
-
-}
-
-}
-
-@media(max-width:420px){
-
-.topbar-title h1{
-
-font-size:16px;
-
-}
-
-.comune-title{
-
-font-size:21px;
-
-}
-
-.percentuale{
-
-font-size:24px;
-
-}
-
-.nome{
-
-font-size:13px;
-
-}
-
-.topbar-center input{
-
-font-size:13px;
 
 }
 
@@ -1324,6 +1112,14 @@ Aggiornato...
 
 </header>
 
+<!-- TICKER -->
+
+<div class="ticker-wrapper">
+
+<div class="ticker" id="ticker"></div>
+
+</div>
+
 <!-- LIVE TOGGLE -->
 
 <div class="live-toggle" onclick="toggleLivePanel()">
@@ -1344,17 +1140,9 @@ DATI LIVE E SEZIONI
 
 </div>
 
+<!-- LIVE PANEL -->
+
 <div class="live-panel" id="livePanel">
-
-<!-- TICKER -->
-
-<div class="ticker-wrapper">
-
-<div class="ticker" id="ticker"></div>
-
-</div>
-
-<!-- SEZIONI -->
 
 <div class="sezioni" id="sezioni"></div>
 
@@ -1404,17 +1192,19 @@ document.getElementById('livePanel');
 const arrow =
 document.getElementById('toggleArrow');
 
-panel.classList.toggle('closed');
-
 if(
-panel.classList.contains('closed')
+panel.classList.contains('open')
 ){
 
-arrow.innerHTML = '▲';
+panel.classList.remove('open');
+
+arrow.innerHTML = '▼';
 
 }else{
 
-arrow.innerHTML = '▼';
+panel.classList.add('open');
+
+arrow.innerHTML = '▲';
 
 }
 
