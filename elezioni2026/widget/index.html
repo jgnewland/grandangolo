@@ -26,8 +26,6 @@ font-family:'Inter',sans-serif;
 
 background:#020817;
 
-/* WALLPAPER */
-
 background-image:
 url('https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/05/20dc8cae-a14d-4e99-a6ff-7277e617fd70.png');
 
@@ -596,19 +594,23 @@ position:absolute;
 top:12px;
 right:12px;
 
-padding:6px 10px;
+padding:5px 8px;
 
 background:#ffd700;
 
 color:#1a1300;
 
-font-size:9px;
+font-size:8px;
 
 font-weight:900;
 
-letter-spacing:.5px;
+letter-spacing:.4px;
 
 z-index:5;
+
+white-space:nowrap;
+
+line-height:1;
 
 }
 
@@ -618,15 +620,15 @@ z-index:5;
 
 display:flex;
 
-align-items:flex-start;
+align-items:center;
 
-gap:12px;
+gap:10px;
 
 margin-bottom:14px;
 
-padding-right:95px;
+padding-right:88px;
 
-min-height:62px;
+min-height:58px;
 
 }
 
@@ -648,7 +650,7 @@ background:#fff;
 
 .nome{
 
-font-size:15px;
+font-size:14px;
 
 font-weight:900;
 
@@ -656,11 +658,11 @@ line-height:1.15;
 
 white-space:normal;
 
-word-break:normal;
+word-break:keep-all;
 
-overflow-wrap:normal;
+overflow-wrap:break-word;
 
-max-width:150px;
+max-width:135px;
 
 }
 
@@ -798,6 +800,36 @@ justify-content:flex-start;
 grid-template-columns:
 1fr 1fr;
 
+gap:14px;
+
+}
+
+.nome{
+
+font-size:13px;
+
+max-width:120px;
+
+}
+
+.percentuale{
+
+font-size:30px;
+
+}
+
+.badge{
+
+font-size:7px;
+
+padding:4px 7px;
+
+}
+
+.top{
+
+padding-right:72px;
+
 }
 
 }
@@ -867,7 +899,13 @@ font-size:34px;
 
 .top{
 
+align-items:center;
+
+gap:10px;
+
 padding-right:0;
+
+min-height:auto;
 
 }
 
@@ -882,11 +920,21 @@ margin-bottom:10px;
 
 width:max-content;
 
+font-size:7px;
+
+padding:4px 6px;
+
+letter-spacing:0;
+
 }
 
 .nome{
 
+font-size:14px;
+
 max-width:100%;
+
+line-height:1.2;
 
 }
 
@@ -932,8 +980,6 @@ alt=""
 <!-- MAIN -->
 
 <main class="main-site">
-
-<!-- TOPBAR -->
 
 <header class="topbar">
 
