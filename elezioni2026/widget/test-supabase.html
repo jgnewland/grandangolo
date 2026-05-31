@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Test Supabase</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+padding:30px;
+background:#0b1220;
+color:white;
+}
+pre{
+background:#111827;
+padding:20px;
+border-radius:10px;
+overflow:auto;
+}
+</style>
+</head>
+<body>
+
+<h1>Test Supabase</h1>
+
+<pre id="output">
+Caricamento...
+</pre>
+
+<script>
+
+const supabase =
+window.supabase.createClient(
+'https://xpfmzutnptmznadzemlh.supabase.co',
+'sb_publishable_Tmn1caezI5nut_GJpMDr7Q_Qu7m7rzP'
+);
+
+async function carica(){
+
+const candidati =
+await supabase
+.from('ballottaggio')
+.select('*')
+.order('id');
+
+const config =
+await supabase
+.from('config')
+.select('*')
+.single();
+
+document.getElementById('output').textContent =
+JSON.stringify(
+{
+candidati:candidati.data,
+config:config.data
+},
+null,
+2
+);
+
+}
+
+carica();
+
+</script>
+
+</body>
+</html>
