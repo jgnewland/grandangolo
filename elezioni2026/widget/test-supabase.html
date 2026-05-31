@@ -1,51 +1,71 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
+
 <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Test Supabase</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
+
 body{
 font-family:Arial,sans-serif;
+background:#081225;
+color:#fff;
 padding:30px;
-background:#0b1220;
-color:white;
 }
+
+h1{
+margin-bottom:20px;
+}
+
 pre{
 background:#111827;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
 overflow:auto;
+white-space:pre-wrap;
 }
+
+.error{
+color:#ff5f5f;
+font-weight:bold;
+}
+
 </style>
+
 </head>
+
 <body>
 
 <h1>Test Supabase</h1>
 
-<pre id="output">
-Caricamento...
-</pre>
+<pre id="output">Caricamento...</pre>
 
-<script>
+<script type="module">
 
-const supabase =
-window.supabase.createClient(
+import { createClient }
+from 'https://esm.sh/@supabase/supabase-js@2';
+
+const supabase = createClient(
 'https://xpfmzutnptmznadzemlh.supabase.co',
 'sb_publishable_Tmn1caezI5nut_GJpMDr7Q_Qu7m7rzP'
 );
 
 async function carica(){
 
-const candidati =
+try{
+
+const { data:candidati, error:errorCandidati } =
 await supabase
 .from('ballottaggio')
 .select('*')
 .order('id');
 
-const config =
+const { data:config, error:errorConfig } =
 await supabase
 .from('config')
 .select('*')
@@ -54,12 +74,23 @@ await supabase
 document.getElementById('output').textContent =
 JSON.stringify(
 {
-candidati:candidati.data,
-config:config.data
+candidati,
+config,
+errorCandidati,
+errorConfig
 },
 null,
 2
 );
+
+}catch(error){
+
+document.getElementById('output').innerHTML =
+'<span class="error">'+error+'</span>';
+
+console.error(error);
+
+}
 
 }
 
@@ -68,4 +99,5 @@ carica();
 </script>
 
 </body>
+
 </html>
