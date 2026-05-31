@@ -1,103 +1,121 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Test Supabase</title>
-
-<style>
-
-body{
-font-family:Arial,sans-serif;
-background:#081225;
-color:#fff;
-padding:30px;
-}
-
-h1{
-margin-bottom:20px;
-}
-
-pre{
-background:#111827;
-padding:20px;
-border-radius:12px;
-overflow:auto;
-white-space:pre-wrap;
-}
-
-.error{
-color:#ff5f5f;
-font-weight:bold;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>Test Supabase</h1>
-
-<pre id="output">Caricamento...</pre>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Ballottaggio</title>
 
 <script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-import { createClient }
-from 'https://esm.sh/@supabase/supabase-js@2';
-
-const supabase = createClient(
-'https://xpfmzutnptmznadzemlh.supabase.co',
-'sb_publishable_Tmn1caezI5nut_GJpMDr7Q_Qu7m7rzP'
+window.supabaseClient = createClient(
+  'https://xpfmzutnptmznadzemlh.supabase.co',
+  'LA_TUA_PUBLISHABLE_KEY'
 );
-
-async function carica(){
-
-try{
-
-const { data:candidati, error:errorCandidati } =
-await supabase
-.from('ballottaggio')
-.select('*')
-.order('id');
-
-const { data:config, error:errorConfig } =
-await supabase
-.from('config')
-.select('*')
-.single();
-
-document.getElementById('output').textContent =
-JSON.stringify(
-{
-candidati,
-config,
-errorCandidati,
-errorConfig
-},
-null,
-2
-);
-
-}catch(error){
-
-document.getElementById('output').innerHTML =
-'<span class="error">'+error+'</span>';
-
-console.error(error);
-
-}
-
-}
-
-carica();
-
 </script>
 
-</body>
+<style>
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:#07152d;
+  color:#fff;
+}
+.wrapper{
+  display:grid;
+  grid-template-columns:420px 1fr;
+  gap:20px;
+  padding:20px;
+  min-height:100vh;
+}
+.panel{
+  background:#0c1e3d;
+  border-radius:18px;
+  padding:20px;
+}
+input[type=number]{
+  width:100%;
+  padding:14px;
+  font-size:28px;
+  font-weight:900;
+  border:none;
+  border-radius:12px;
+}
+label{
+  display:block;
+  margin:12px 0 6px;
+  font-weight:700;
+}
+.percentuale{
+  margin-top:10px;
+  font-size:22px;
+  font-weight:900;
+  color:#ffd700;
+}
+button{
+  width:100%;
+  padding:18px;
+  margin-top:20px;
+  border:none;
+  border-radius:12px;
+  font-weight:900;
+  cursor:pointer;
+  background:#ffd700;
+}
+iframe{
+  width:100%;
+  height:100%;
+  min-height:900px;
+  border:none;
+  border-radius:18px;
+  background:#fff;
+}
+@media(max-width:1200px){
+  .wrapper{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+<body>
 
+<div class="wrapper">
+
+  <div class="panel">
+
+    <h2>Admin Ballottaggio</h2>
+
+    <label>MICHELE SODANO</label>
+    <input id="sodano" type="number">
+
+    <div class="percentuale" id="percSodano">0%</div>
+
+    <label>DINO ALONGE</label>
+    <input id="alonge" type="number">
+
+    <div class="percentuale" id="percAlonge">0%</div>
+
+    <label>Sezioni scrutinate</label>
+    <input id="sezioni" type="number">
+
+    <button id="salva">
+      SALVA SU SUPABASE
+    </button>
+
+    <div id="stato" style="margin-top:15px;"></div>
+
+  </div>
+
+  <div class="panel">
+
+    <iframe
+      src="https://grandangolosettimanale.it/elezioni2026/widget/balltopbar.html"
+      id="preview">
+    </iframe>
+
+  </div>
+
+</div>
+
+</body>
 </html>
