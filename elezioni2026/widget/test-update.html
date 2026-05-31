@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test Update</title>
+</head>
+<body>
+
+<button onclick="testa()">
+TEST UPDATE
+</button>
+
+<pre id="out"></pre>
+
+<script type="module">
+
+import { createClient }
+from 'https://esm.sh/@supabase/supabase-js@2';
+
+const supabase = createClient(
+'https://xpfmzutnptmznadzemlh.supabase.co',
+'sb_publishable_Tmn1caezI5nut_GJpMDr7Q_Qu7m7rzP'
+);
+
+window.testa = async function(){
+
+const { data, error } =
+await supabase
+.from('config')
+.update({
+ultimo_aggiornamento:
+'TEST ' + new Date().toLocaleTimeString()
+})
+.eq('id',1)
+.select();
+
+document.getElementById('out').textContent =
+JSON.stringify(
+{
+data,
+error
+},
+null,
+2
+);
+
+};
+
+</script>
+
+</body>
+</html>
