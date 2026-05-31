@@ -720,46 +720,63 @@ SEZIONI SCRUTINATE
 
 </div>
 
-<script>
+<script type="module">
+
+import { createClient }
+from 'https://esm.sh/@supabase/supabase-js@2';
+
+const supabase =
+createClient(
+'https://xpfmzutnptmznadzemlh.supabase.co',
+'sb_publishable_Tmn1caezI5nut_GJpMDr7Q_Qu7m7rzP'
+);
 
 async function aggiorna(){
 
-const response =
-await fetch(
-'ballottaggio.json?v=' + new Date().getTime()
-);
+const { data:candidati,error:e1 } =
+await supabase
+.from('ballottaggio')
+.select('*')
+.eq('attivo',true)
+.order('ordine');
 
-const data =
-await response.json();
+const { data:config,error:e2 } =
+await supabase
+.from('config')
+.select('*')
+.single();
 
-const agrigento =
-data["Agrigento"];
+if(e1 || e2){
+console.error(e1 || e2);
+return;
+}
 
 document
 .getElementById('sezioni')
 .innerText =
-agrigento.sezioni_scrutinate +
+config.sezioni_scrutinate +
 '/' +
-agrigento.sezioni_totali;
+config.sezioni_totali;
 
 const totaleVoti =
-agrigento.candidati.reduce(
-(sum,c)=>sum + c.voti,
+candidati.reduce(
+(sum,c)=>sum + Number(c.voti),
 0
 );
 
-let html = '';
+let html='';
 
-agrigento.candidati
-.sort((a,b)=>b.voti-a.voti)
-.forEach(c=>{
+candidati.forEach(c=>{
 
 const percentuale =
 totaleVoti > 0
 ?
-((c.voti / totaleVoti)*100).toFixed(2)
+(
+(c.voti / totaleVoti)
+* 100
+).toFixed(2)
 :
-0;
+'0.00';
 
 html += `
 
@@ -771,16 +788,8 @@ ${percentuale}%
 
 <div class="badge-row">
 
-<div class="ballottaggio-badge ${
-c.stato === 'eletto'
-? 'eletto-badge'
-: ''
-}">
-
-${c.stato === 'eletto'
-? 'SINDACO ELETTO'
-: 'BALLOTTAGGIO'}
-
+<div class="ballottaggio-badge">
+BALLOTTAGGIO
 </div>
 
 </div>
@@ -792,6 +801,7 @@ ${c.stato === 'eletto'
 <img
 class="foto"
 src="${c.foto}"
+alt="${c.nome}"
 >
 
 </div>
@@ -803,7 +813,7 @@ ${c.nome}
 </div>
 
 <div class="voti">
-${c.voti.toLocaleString()} voti
+${Number(c.voti).toLocaleString('it-IT')} voti
 </div>
 
 </div>
@@ -841,14 +851,21 @@ html;
 document
 .getElementById('update')
 .innerText =
-'Aggiornato alle ' +
-new Date().toLocaleTimeString('it-IT');
+config.ultimo_aggiornamento
+?
+'Ultimo aggiornamento: ' +
+config.ultimo_aggiornamento
+:
+'Aggiornamento in tempo reale';
 
 }
 
 aggiorna();
 
-setInterval(aggiorna,3000);
+setInterval(
+aggiorna,
+3000
+);
 
 </script>
 
