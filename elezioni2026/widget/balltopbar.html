@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ballottaggio Agrigento 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,body{
+
+margin:0;
+padding:0;
+
+font-family:'Inter',sans-serif;
+
+background:#07152d;
+
+color:#fff;
+
+overflow-x:hidden;
+
+}
+
+/* WRAPPER */
+
+.widget{
+
+width:100%;
+
+padding:22px;
+
+background:
+linear-gradient(
+135deg,
+#061327 0%,
+#0a2d67 55%,
+#1d63d8 100%
+);
+
+border-radius:28px;
+
+}
+
+/* HEADER */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+margin-bottom:22px;
+
+}
+
+.live{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:9px 16px;
+
+border-radius:999px;
+
+background:
+rgba(255,255,255,.08);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+font-size:11px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+backdrop-filter:blur(10px);
+
+}
+
+.dot{
+
+width:9px;
+height:9px;
+
+border-radius:50%;
+
+background:#ff3131;
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.4);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+.title{
+
+font-size:46px;
+
+font-weight:900;
+
+line-height:.95;
+
+letter-spacing:-2px;
+
+text-transform:uppercase;
+
+}
+
+.update{
+
+margin-top:8px;
+
+font-size:12px;
+
+font-weight:700;
+
+opacity:.72;
+
+}
+
+/* SEZIONI */
+
+.sezioni{
+
+margin-bottom:24px;
+
+padding:20px;
+
+border-radius:22px;
+
+background:
+rgba(255,255,255,.06);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.sezioni-label{
+
+font-size:11px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+opacity:.7;
+
+margin-bottom:10px;
+
+}
+
+.sezioni-numero{
+
+font-size:64px;
+
+font-weight:900;
+
+line-height:1;
+
+letter-spacing:-3px;
+
+}
+
+.sezioni-small{
+
+margin-top:6px;
+
+font-size:12px;
+
+font-weight:700;
+
+opacity:.7;
+
+}
+
+/* GRID */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:22px;
+
+}
+
+/* CARD */
+
+.card{
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:30px;
+
+padding:28px;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,.10),
+rgba(255,255,255,.05)
+);
+
+border:
+1px solid rgba(255,255,255,.10);
+
+backdrop-filter:blur(14px);
+
+display:flex;
+
+flex-direction:column;
+
+min-height:360px;
+
+}
+
+/* GOLD LIGHT */
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:
+radial-gradient(
+circle at top left,
+rgba(255,215,0,.10),
+transparent 35%
+);
+
+pointer-events:none;
+
+}
+
+/* PERCENTUALE */
+
+.percentuale{
+
+position:absolute;
+
+right:20px;
+
+top:135px;
+
+font-size:110px;
+
+font-weight:900;
+
+line-height:.88;
+
+letter-spacing:-5px;
+
+opacity:.14;
+
+pointer-events:none;
+
+z-index:1;
+
+white-space:nowrap;
+
+color:
+rgba(255,255,255,.28);
+
+text-shadow:
+0 0 18px rgba(255,255,255,.08);
+
+}
+
+/* BADGE */
+
+.badge-row{
+
+display:flex;
+
+justify-content:flex-end;
+
+position:relative;
+
+z-index:20;
+
+margin-bottom:10px;
+
+}
+
+.ballottaggio-badge{
+
+padding:8px 16px;
+
+border-radius:999px;
+
+font-size:11px;
+
+font-weight:900;
+
+letter-spacing:1px;
+
+background:#ffd700;
+
+color:#1b1400;
+
+}
+
+.eletto-badge{
+
+background:
+linear-gradient(
+90deg,
+#19ff96,
+#00ca6d
+);
+
+color:#001b0d;
+
+}
+
+/* TOP */
+
+.top{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+position:relative;
+
+z-index:10;
+
+}
+
+/* FOTO */
+
+.foto-wrap{
+
+position:relative;
+
+flex:none;
+
+}
+
+.foto{
+
+width:120px;
+height:120px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:
+5px solid rgba(255,255,255,.14);
+
+box-shadow:
+0 10px 24px rgba(0,0,0,.30);
+
+background:#fff;
+
+}
+
+/* INFO */
+
+.info{
+
+flex:1;
+
+position:relative;
+
+z-index:10;
+
+}
+
+.nome{
+
+font-size:36px;
+
+font-weight:900;
+
+line-height:1;
+
+letter-spacing:-2px;
+
+text-transform:uppercase;
+
+max-width:65%;
+
+position:relative;
+
+z-index:10;
+
+}
+
+.voti{
+
+margin-top:10px;
+
+font-size:18px;
+
+font-weight:700;
+
+opacity:.75;
+
+position:relative;
+
+z-index:10;
+
+}
+
+/* BOTTOM */
+
+.bottom{
+
+margin-top:auto;
+
+position:relative;
+
+z-index:10;
+
+padding-top:26px;
+
+}
+
+/* BAR */
+
+.bar{
+
+width:100%;
+
+height:18px;
+
+border-radius:999px;
+
+overflow:hidden;
+
+background:
+rgba(255,255,255,.08);
+
+}
+
+.fill{
+
+height:100%;
+
+border-radius:999px;
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ffb700
+);
+
+transition:width .4s ease;
+
+}
+
+/* LABEL */
+
+.label{
+
+margin-top:12px;
+
+font-size:12px;
+
+font-weight:800;
+
+letter-spacing:1px;
+
+opacity:.75;
+
+}
+
+/* TABLET */
+
+@media(max-width:1200px){
+
+.nome{
+
+font-size:30px;
+
+}
+
+.percentuale{
+
+font-size:82px;
+
+top:92px;
+
+right:8px;
+
+letter-spacing:-3px;
+
+opacity:.18;
+
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+.title{
+
+font-size:34px;
+
+}
+
+.card{
+
+min-height:auto;
+
+}
+
+.nome{
+
+font-size:28px;
+
+}
+
+.percentuale{
+
+font-size:72px;
+
+top:120px;
+
+right:12px;
+
+opacity:.12;
+
+}
+
+.foto{
+
+width:100px;
+height:100px;
+
+}
+
+}
+
+/* SMALL */
+
+@media(max-width:600px){
+
+.widget{
+
+padding:16px;
+
+border-radius:0;
+
+}
+
+.title{
+
+font-size:26px;
+
+}
+
+.sezioni-numero{
+
+font-size:48px;
+
+}
+
+.top{
+
+align-items:flex-start;
+
+}
+
+.nome{
+
+font-size:22px;
+
+max-width:100%;
+
+}
+
+.percentuale{
+
+position:relative;
+
+top:auto;
+
+right:auto;
+
+font-size:54px;
+
+line-height:1;
+
+letter-spacing:-2px;
+
+opacity:.35;
+
+margin-top:14px;
+
+margin-bottom:12px;
+
+text-align:right;
+
+}
+
+.voti{
+
+font-size:15px;
+
+}
+
+.card{
+
+padding:22px;
+
+border-radius:24px;
+
+}
+
+.foto{
+
+width:88px;
+height:88px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="widget">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="live">
+
+<div class="dot"></div>
+
+BALLOTTAGGIO LIVE
+
+</div>
+
+<div>
+
+<div class="title">
+BALLOTTAGGIO AGRIGENTO 2026
+</div>
+
+<div class="update" id="update">
+Aggiornamento in tempo reale
+</div>
+
+</div>
+
+</div>
+
+<!-- SEZIONI -->
+
+<div class="sezioni">
+
+<div class="sezioni-label">
+SEZIONI SCRUTINATE
+</div>
+
+<div class="sezioni-numero" id="sezioni">
+0/57
+</div>
+
+<div class="sezioni-small">
+SEZIONI SCRUTINATE
+</div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid" id="grid"></div>
+
+</div>
+
+<script>
+
+async function aggiorna(){
+
+const response =
+await fetch(
+'ballottaggio.json?v=' + new Date().getTime()
+);
+
+const data =
+await response.json();
+
+const agrigento =
+data["Agrigento"];
+
+document
+.getElementById('sezioni')
+.innerText =
+agrigento.sezioni_scrutinate +
+'/' +
+agrigento.sezioni_totali;
+
+const totaleVoti =
+agrigento.candidati.reduce(
+(sum,c)=>sum + c.voti,
+0
+);
+
+let html = '';
+
+agrigento.candidati
+.sort((a,b)=>b.voti-a.voti)
+.forEach(c=>{
+
+const percentuale =
+totaleVoti > 0
+?
+((c.voti / totaleVoti)*100).toFixed(2)
+:
+0;
+
+html += `
+
+<div class="card">
+
+<div class="percentuale">
+${percentuale}%
+</div>
+
+<div class="badge-row">
+
+<div class="ballottaggio-badge ${
+c.stato === 'eletto'
+? 'eletto-badge'
+: ''
+}">
+
+${c.stato === 'eletto'
+? 'SINDACO ELETTO'
+: 'BALLOTTAGGIO'}
+
+</div>
+
+</div>
+
+<div class="top">
+
+<div class="foto-wrap">
+
+<img
+class="foto"
+src="${c.foto}"
+>
+
+</div>
+
+<div class="info">
+
+<div class="nome">
+${c.nome}
+</div>
+
+<div class="voti">
+${c.voti.toLocaleString()} voti
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom">
+
+<div class="bar">
+
+<div
+class="fill"
+style="width:${percentuale}%">
+</div>
+
+</div>
+
+<div class="label">
+PROIEZIONE LIVE
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document
+.getElementById('grid')
+.innerHTML =
+html;
+
+document
+.getElementById('update')
+.innerText =
+'Aggiornato alle ' +
+new Date().toLocaleTimeString('it-IT');
+
+}
+
+aggiorna();
+
+setInterval(aggiorna,3000);
+
+</script>
+
+</body>
+
+</html>
