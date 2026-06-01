@@ -134,7 +134,78 @@ min-height:700px;
 </style>
 </head>
 <body>
+<div id="loginScreen" style="
+position:fixed;
+inset:0;
+background:#07152d;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+">
 
+<div style="
+background:#0c1e3d;
+padding:30px;
+border-radius:20px;
+width:350px;
+">
+
+<h2 style="margin-bottom:20px">
+Accesso Admin
+</h2>
+
+<input
+id="user"
+type="text"
+placeholder="Nome utente"
+style="
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:none;
+border-radius:10px;
+">
+
+<input
+id="pass"
+type="password"
+placeholder="Password"
+style="
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border:none;
+border-radius:10px;
+">
+
+<button
+id="loginBtn"
+style="
+width:100%;
+padding:14px;
+background:#16c784;
+color:white;
+border:none;
+border-radius:10px;
+font-weight:700;
+cursor:pointer;
+">
+ENTRA
+</button>
+
+<div
+id="loginError"
+style="
+margin-top:10px;
+color:#ff6b6b;
+font-size:14px;
+">
+</div>
+
+</div>
+
+</div>
 <div class="wrapper">
 
 <div class="panel">
@@ -451,7 +522,53 @@ Date.now();
 
 }
 );
+const USERNAME = "admin";
+const PASSWORD = "AG2026ELE";
 
+document.getElementById("loginBtn")
+.addEventListener("click", ()=>{
+
+const u =
+document.getElementById("user").value;
+
+const p =
+document.getElementById("pass").value;
+
+if(
+u === USERNAME &&
+p === PASSWORD
+){
+
+sessionStorage.setItem(
+"admin_logged",
+"1"
+);
+
+document.getElementById(
+"loginScreen"
+).style.display = "none";
+
+}else{
+
+document.getElementById(
+"loginError"
+).textContent =
+"Credenziali non valide";
+
+}
+
+});
+
+if(
+sessionStorage.getItem("admin_logged")
+==="1"
+){
+
+document.getElementById(
+"loginScreen"
+).style.display="none";
+
+}
 carica();
 
 </script>
