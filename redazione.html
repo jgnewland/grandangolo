@@ -1,0 +1,428 @@
+<style>
+
+/* ==========================
+   GRANDANGOLO IOS DASHBOARD
+   ========================== */
+
+html,
+body,
+.site,
+.site-content,
+.content-area,
+.entry-content,
+.page,
+.page-content,
+#page,
+#content,
+main{
+    background:#08111f !important;
+}
+
+.entry-content,
+.page-content{
+    background:transparent !important;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+:root{
+    --glass:rgba(255,255,255,.08);
+    --glass-border:rgba(255,255,255,.12);
+    --text:#ffffff;
+    --muted:#b8c0cc;
+    --red:#ff3b30;
+}
+
+.gs-app{
+
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top,#172b46 0%,#08111f 60%);
+
+    color:white;
+
+    padding:20px;
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "Segoe UI",
+    sans-serif;
+}
+
+/* HEADER */
+
+.gs-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.gs-logo{
+    width:180px;
+    max-width:80%;
+}
+
+.gs-subtitle{
+    color:#9fb0c8;
+    font-size:12px;
+    margin-top:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+/* CLOCK */
+
+.clock-card{
+
+    backdrop-filter:blur(20px);
+
+    background:var(--glass);
+
+    border:1px solid var(--glass-border);
+
+    border-radius:28px;
+
+    padding:25px;
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
+}
+
+.clock-date{
+
+    color:#bfc9d8;
+
+    font-size:14px;
+
+    margin-bottom:10px;
+
+    text-transform:capitalize;
+}
+
+@keyframes pulseClock{
+
+    0%{opacity:1;}
+    50%{opacity:.55;}
+    100%{opacity:1;}
+
+}
+
+.clock-time{
+
+    color:var(--red);
+
+    font-size:58px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    animation:pulseClock 1s infinite;
+}
+
+/* TITOLI */
+
+.section-title{
+
+    margin:20px 0 15px;
+
+    color:#cbd5e1;
+
+    font-size:13px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+/* APPS GRID */
+
+.apps-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(140px,1fr));
+
+    gap:16px;
+}
+
+.app-card{
+
+    text-decoration:none;
+
+    color:white;
+
+    backdrop-filter:blur(20px);
+
+    background:var(--glass);
+
+    border:1px solid var(--glass-border);
+
+    border-radius:28px;
+
+    padding:20px;
+
+    min-height:145px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.25s;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.2);
+}
+
+.app-card:hover{
+
+    transform:translateY(-4px);
+
+    background:rgba(255,255,255,.12);
+}
+
+.app-icon{
+
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+.app-title{
+
+    font-size:15px;
+
+    font-weight:700;
+
+    text-align:center;
+}
+
+.app-desc{
+
+    margin-top:5px;
+
+    font-size:11px;
+
+    color:#b8c0cc;
+
+    text-align:center;
+}
+
+/* SPECIAL */
+
+.special{
+
+    border:2px solid rgba(255,59,48,.5);
+
+    box-shadow:
+    0 0 25px rgba(255,59,48,.25);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .gs-app{
+        padding:15px;
+    }
+
+    .gs-logo{
+        width:150px;
+    }
+
+    .clock-time{
+        font-size:44px;
+    }
+
+    .apps-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .app-card{
+        min-height:125px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .clock-time{
+        font-size:38px;
+    }
+
+    .app-icon{
+        font-size:36px;
+    }
+
+    .app-title{
+        font-size:14px;
+    }
+
+}
+
+</style>
+
+<div class="gs-app">
+
+```
+<div class="gs-header">
+
+    <img
+    src="https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png"
+    class="gs-logo"
+    alt="Grandangolo">
+
+    <div class="gs-subtitle">
+        Dashboard Operativa
+    </div>
+
+</div>
+
+<!-- OROLOGIO -->
+
+<div class="clock-card">
+
+    <div id="clockDate" class="clock-date"></div>
+
+    <div id="clockTime" class="clock-time"></div>
+
+</div>
+
+<!-- APPS -->
+
+<div class="section-title">
+    Applicazioni
+</div>
+
+<div class="apps-grid">
+
+    <a class="app-card"
+       href="https://www.grandangoloagrigento.it/wp-admin/"
+       target="_blank">
+
+        <div class="app-icon">✍️</div>
+
+        <div class="app-title">
+            WordPress
+        </div>
+
+        <div class="app-desc">
+            Articoli e contenuti
+        </div>
+
+    </a>
+
+    <a class="app-card"
+       href="https://grandangolosettimanale.it/admin-grandangolo"
+       target="_blank">
+
+        <div class="app-icon">⚙️</div>
+
+        <div class="app-title">
+            Admin
+        </div>
+
+        <div class="app-desc">
+            Gestione sistema
+        </div>
+
+    </a>
+
+    <a class="app-card"
+       href="https://grandangolosettimanale.it/"
+       target="_blank">
+
+        <div class="app-icon">📰</div>
+
+        <div class="app-title">
+            Edicola
+        </div>
+
+        <div class="app-desc">
+            Pubblicazioni
+        </div>
+
+    </a>
+
+    <a class="app-card"
+       href="https://regionale.grandangolosettimanale.it/"
+       target="_blank">
+
+        <div class="app-icon">🌍</div>
+
+        <div class="app-title">
+            Regionale
+        </div>
+
+        <div class="app-desc">
+            Portale regionale
+        </div>
+
+    </a>
+
+</div>
+
+<div class="section-title">
+    Speciale
+</div>
+
+<div class="apps-grid">
+
+    <a class="app-card special"
+       href="https://grandangolosettimanale.it/elezioni2026/widget/inserimento"
+       target="_blank">
+
+        <div class="app-icon">🗳️</div>
+
+        <div class="app-title">
+            Elezioni 2026
+        </div>
+
+        <div class="app-desc">
+            Inserimento dati
+        </div>
+
+    </a>
+
+</div>
+```
+
+</div>
+
+<script>
+
+function aggiornaOrologio(){
+
+    const now = new Date();
+
+    document.getElementById("clockDate").innerHTML =
+    now.toLocaleDateString('it-IT',{
+        weekday:'long',
+        day:'numeric',
+        month:'long',
+        year:'numeric'
+    });
+
+    document.getElementById("clockTime").innerHTML =
+    now.toLocaleTimeString('it-IT');
+
+}
+
+aggiornaOrologio();
+
+setInterval(aggiornaOrologio,1000);
+
+</script>
