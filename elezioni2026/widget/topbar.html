@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,329 +15,175 @@ box-sizing:border-box;
 }
 
 body{
-
 margin:0;
-
-font-family:
-Arial, Helvetica, sans-serif;
-
+font-family:Arial, Helvetica, sans-serif;
 background:transparent;
-
 overflow:hidden;
-
 }
 
-/* TOPBAR */
-
 .topbar{
-
 width:100%;
-
-background:
-linear-gradient(
+background:linear-gradient(
 90deg,
 #031226 0%,
 #0d3f8f 55%,
 #1d63d8 100%
 );
-
 color:#fff;
-
-border-top:
-3px solid #16ff90;
-
-padding:14px 18px 10px 18px;
-
-overflow:hidden;
-
+border-top:3px solid #16ff90;
+padding:12px 18px;
 }
 
-/* ROW */
-
 .row{
-
 display:flex;
-
 align-items:center;
-
-justify-content:space-between;
-
-gap:18px;
-
+gap:20px;
 }
 
 /* LIVE */
 
 .live{
-
 display:flex;
-
 align-items:center;
-
 gap:8px;
-
 padding:8px 14px;
-
 border-radius:40px;
-
-background:
-rgba(255,255,255,.08);
-
+background:rgba(255,255,255,.08);
 font-size:12px;
-
 font-weight:900;
-
 letter-spacing:1px;
-
 white-space:nowrap;
-
 }
 
 .dot{
-
 width:10px;
 height:10px;
-
 border-radius:50%;
-
 background:#ff2a2a;
-
 animation:pulse 1s infinite;
-
-box-shadow:
-0 0 10px rgba(255,0,0,.8);
-
+box-shadow:0 0 10px rgba(255,0,0,.8);
 }
 
 @keyframes pulse{
-
 0%{
 transform:scale(1);
 opacity:1;
 }
-
 50%{
-transform:scale(1.5);
-opacity:.35;
+transform:scale(1.4);
+opacity:.4;
 }
-
 100%{
 transform:scale(1);
 opacity:1;
 }
-
 }
 
-/* CENTER */
+/* CENTRO */
 
 .center{
-
 display:flex;
-
 align-items:center;
-
-gap:18px;
-
+gap:20px;
 flex:1;
-
-overflow:hidden;
-
+min-width:0;
 }
 
-/* TEXT */
-
 .info{
-
-display:flex;
-
-flex-direction:column;
-
-gap:4px;
-
+min-width:240px;
 }
 
 .title{
-
 font-size:11px;
-
 font-weight:800;
-
 letter-spacing:1px;
-
 opacity:.7;
-
 text-transform:uppercase;
-
-line-height:1.2;
-
+margin-bottom:4px;
 }
 
 .subtitle{
-
 font-size:16px;
-
 font-weight:700;
-
-line-height:1.2;
-
 }
 
-/* BIG */
-
 .big-wrap{
-
-display:flex;
-
-flex-direction:column;
-
-gap:4px;
-
+min-width:170px;
 }
 
 .big{
-
-font-size:46px;
-
+font-size:48px;
 font-weight:900;
-
 line-height:1;
-
-white-space:nowrap;
-
-text-shadow:
-0 4px 14px rgba(0,0,0,.25);
-
+text-shadow:0 4px 14px rgba(0,0,0,.25);
 }
 
 .big-label{
-
 font-size:11px;
-
 font-weight:700;
-
 opacity:.75;
-
+margin-top:4px;
 text-transform:uppercase;
-
 }
 
-/* HOURS */
+/* BARRE */
 
-.hours{
-
-display:grid;
-
-grid-template-columns:
-repeat(4,minmax(0,1fr));
-
-gap:8px;
-
-width:100%;
-
-max-width:420px;
-
-}
-
-.hour{
-
-background:
-rgba(255,255,255,.08);
-
-padding:8px 6px;
-
-border-radius:12px;
-
-min-width:0;
-
-text-align:center;
-
-overflow:hidden;
-
-}
-
-.hour small{
-
-display:block;
-
-font-size:10px;
-
-opacity:.7;
-
-margin-bottom:4px;
-
-}
-
-.hour strong{
-
-font-size:15px;
-
-font-weight:900;
-
-}
-
-/* TICKER */
-
-.ticker{
-
-margin-top:10px;
-
-padding-top:8px;
-
-border-top:
-1px solid rgba(255,255,255,.08);
-
-overflow:hidden;
-
-position:relative;
-
-width:100%;
-
-}
-
-/* TRACK */
-
-.ticker-track{
-
+.bars{
+flex:1;
 display:flex;
+flex-direction:column;
+gap:8px;
+min-width:260px;
+}
 
+.bar-row{
+display:flex;
 align-items:center;
+gap:10px;
+}
 
-white-space:nowrap;
+.bar-label{
+width:70px;
+font-size:11px;
+font-weight:800;
+opacity:.9;
+text-transform:uppercase;
+}
 
-width:max-content;
+.bar-track{
+flex:1;
+height:12px;
+background:rgba(255,255,255,.15);
+border-radius:999px;
+overflow:hidden;
+}
 
+.bar-fill{
+height:100%;
+width:0%;
+border-radius:999px;
+transition:width .6s ease;
+background:linear-gradient(
+90deg,
+#4ea3ff,
+#87c4ff
+);
+}
+
+.bar-fill.current{
+background:linear-gradient(
+90deg,
+#16ff90,
+#5effb8
+);
+box-shadow:0 0 12px rgba(22,255,144,.5);
+}
+
+.bar-value{
+width:62px;
+text-align:right;
 font-size:13px;
-
-font-weight:700;
-
-will-change:transform;
-
-animation:tickerScroll 55s linear infinite;
-
-}
-
-/* ITEM */
-
-.ticker-track span{
-
-display:inline-block;
-
-padding-right:60px;
-
-}
-
-/* ANIMATION */
-
-@keyframes tickerScroll{
-
-0%{
-transform:translateX(0);
-}
-
-100%{
-transform:translateX(-100%);
-}
-
+font-weight:900;
 }
 
 /* MOBILE */
@@ -347,127 +191,47 @@ transform:translateX(-100%);
 @media(max-width:768px){
 
 .topbar{
-
-padding:12px 10px;
-
+padding:10px;
 }
 
 .row{
-
 flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-gap:12px;
-
-text-align:center;
-
+align-items:stretch;
+gap:10px;
 }
 
 .center{
-
-width:100%;
-
 flex-direction:column;
-
-justify-content:center;
-
 align-items:center;
-
-gap:8px;
-
+text-align:center;
 }
 
-.title{
-
-font-size:10px;
-
-text-align:center;
-
-}
-
-.subtitle{
-
-font-size:14px;
-
-text-align:center;
-
+.info{
+min-width:auto;
 }
 
 .big{
-
 font-size:42px;
-
 }
 
-.hours{
-
+.bars{
 width:100%;
-
-display:flex;
-
-gap:8px;
-
-overflow-x:auto;
-
-overflow-y:hidden;
-
-padding-bottom:4px;
-
-scrollbar-width:none;
-
--webkit-overflow-scrolling:touch;
-
-max-width:none;
-
+min-width:auto;
 }
 
-.hours::-webkit-scrollbar{
-display:none;
-}
-
-.hour{
-
-flex:0 0 auto;
-
-min-width:88px;
-
-}
-
-.hour small{
-
-font-size:9px;
-
-}
-
-.hour strong{
-
-font-size:15px;
-
-}
-
-.live{
-
+.bar-label{
+width:60px;
 font-size:10px;
-
-padding:7px 10px;
-
 }
 
-.ticker-track{
-
-font-size:11px;
-
-animation:tickerScroll 18s linear infinite;
-
+.bar-value{
+width:55px;
+font-size:12px;
 }
 
 }
 
 </style>
-
 </head>
 
 <body>
@@ -476,24 +240,14 @@ animation:tickerScroll 18s linear infinite;
 
 <div class="row">
 
-<!-- LIVE -->
-
 <div class="live">
-
 <div class="dot"></div>
-
-<div>
-LIVE 2026
+<div>LIVE 2026</div>
 </div>
-
-</div>
-
-<!-- CENTER -->
 
 <div class="center">
 
 <div class="info">
-
 <div class="title">
 ELEZIONI AMMINISTRATIVE AGRIGENTO
 </div>
@@ -501,11 +255,9 @@ ELEZIONI AMMINISTRATIVE AGRIGENTO
 <div class="subtitle">
 Affluenza Comune di Agrigento
 </div>
-
 </div>
 
 <div class="big-wrap">
-
 <div class="big" id="agrigento">
 47,20%
 </div>
@@ -513,74 +265,59 @@ Affluenza Comune di Agrigento
 <div class="big-label" id="bigLabel">
 ULTIMO DATO • ORE 23
 </div>
-
 </div>
 
+<div class="bars">
+
+<div class="bar-row">
+<div class="bar-label">ORE 12</div>
+
+<div class="bar-track">
+<div class="bar-fill" id="bar12"></div>
 </div>
 
-<!-- HOURS -->
-
-<div class="hours">
-
-<div class="hour">
-
-<small>
-ORE 12
-</small>
-
-<strong id="ore12">
+<div class="bar-value" id="ore12">
 13,85%
-</strong>
-
+</div>
 </div>
 
-<div class="hour">
+<div class="bar-row">
+<div class="bar-label">ORE 19</div>
 
-<small>
-ORE 19
-</small>
+<div class="bar-track">
+<div class="bar-fill" id="bar19"></div>
+</div>
 
-<strong id="ore19">
+<div class="bar-value" id="ore19">
 36,53%
-</strong>
-
+</div>
 </div>
 
-<div class="hour">
+<div class="bar-row">
+<div class="bar-label">ORE 23</div>
 
-<small>
-ORE 23
-</small>
+<div class="bar-track">
+<div class="bar-fill" id="bar23"></div>
+</div>
 
-<strong id="ore23">
+<div class="bar-value" id="ore23">
 47,20%
-</strong>
-
+</div>
 </div>
 
-<div class="hour">
+<div class="bar-row">
+<div class="bar-label">8 GIU 15</div>
 
-<small>
-ORE 15 OGGI
-</small>
-
-<strong id="ore15">
-00,00%
-</strong>
-
+<div class="bar-track">
+<div class="bar-fill current" id="bar15"></div>
 </div>
 
+<div class="bar-value" id="ore15">
+0,00%
+</div>
 </div>
 
 </div>
-
-<!-- TICKER -->
-
-<div class="ticker">
-
-<div class="ticker-track" id="ticker">
-
-<span>● AGRIGENTO 47,20% (ORE 23)</span>
 
 </div>
 
@@ -590,25 +327,28 @@ ORE 15 OGGI
 
 <script>
 
-let lastTicker = '';
+function percentToWidth(value){
+
+if(!value) return "0%";
+
+return parseFloat(
+String(value).replace(",", ".")
+) + "%";
+
+}
 
 async function aggiornaDati(){
 
 try{
 
 const response = await fetch(
-
-'dati.json?v=' + new Date().getTime(),
-
+'dati.json?v=' + Date.now(),
 {
 cache:'no-store'
 }
-
 );
 
 const data = await response.json();
-
-/* PRIORITÀ */
 
 let ultimoDato =
 data.agrigento["12"];
@@ -625,7 +365,7 @@ ultimoDato =
 data.agrigento["15oggi"];
 
 ultimaOra =
-"ORE 15";
+"ORE 15 • 8 GIUGNO 2026";
 
 }
 else if(
@@ -653,109 +393,39 @@ ultimaOra =
 
 }
 
-/* BIG */
+document.getElementById("agrigento").innerText =
+ultimoDato + "%";
 
-document.getElementById('agrigento')
-.innerText =
-ultimoDato + '%';
+document.getElementById("bigLabel").innerText =
+"ULTIMO DATO • " + ultimaOra;
 
-document.getElementById('bigLabel')
-.innerText =
-'ULTIMO DATO • ' + ultimaOra;
+/* TESTI */
 
-/* HOURS */
+document.getElementById("ore12").innerText =
+data.agrigento["12"] + "%";
 
-document.getElementById('ore12')
-.innerText =
-data.agrigento["12"] + '%';
+document.getElementById("ore19").innerText =
+data.agrigento["19"] + "%";
 
-document.getElementById('ore19')
-.innerText =
-data.agrigento["19"] + '%';
+document.getElementById("ore23").innerText =
+data.agrigento["23"] + "%";
 
-document.getElementById('ore23')
-.innerText =
-data.agrigento["23"] + '%';
+document.getElementById("ore15").innerText =
+data.agrigento["15oggi"] + "%";
 
-document.getElementById('ore15')
-.innerText =
-data.agrigento["15oggi"] + '%';
+/* BARRE */
 
-/* TICKER */
+document.getElementById("bar12").style.width =
+percentToWidth(data.agrigento["12"]);
 
-let tickerText = '';
+document.getElementById("bar19").style.width =
+percentToWidth(data.agrigento["19"]);
 
-Object.entries(data).forEach(([nome,dati]) => {
+document.getElementById("bar23").style.width =
+percentToWidth(data.agrigento["23"]);
 
-let valore =
-dati["12"];
-
-let ora =
-"12";
-
-if(
-dati["15oggi"] &&
-dati["15oggi"] !== "00,00"
-){
-
-valore =
-dati["15oggi"];
-
-ora =
-"15";
-
-}
-else if(
-dati["23"] &&
-dati["23"] !== "00,00"
-){
-
-valore =
-dati["23"];
-
-ora =
-"23";
-
-}
-else if(
-dati["19"] &&
-dati["19"] !== "00,00"
-){
-
-valore =
-dati["19"];
-
-ora =
-"19";
-
-}
-
-tickerText +=
-`● ${nome.toUpperCase()} ${valore}% (ORE ${ora}) `;
-
-});
-
-/* CREA TICKER SOLO SE CAMBIA */
-
-if(tickerText !== lastTicker){
-
-document.getElementById('ticker')
-.innerHTML = `
-
-<span>${tickerText}</span>
-<span>${tickerText}</span>
-<span>${tickerText}</span>
-<span>${tickerText}</span>
-<span>${tickerText}</span>
-<span>${tickerText}</span>
-<span>${tickerText}</span>
-<span>${tickerText}</span>
-
-`;
-
-lastTicker = tickerText;
-
-}
+document.getElementById("bar15").style.width =
+percentToWidth(data.agrigento["15oggi"]);
 
 }
 catch(error){
@@ -767,8 +437,6 @@ console.log(error);
 }
 
 aggiornaDati();
-
-/* UPDATE */
 
 setInterval(
 aggiornaDati,
