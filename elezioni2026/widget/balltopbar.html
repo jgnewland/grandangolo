@@ -677,7 +677,7 @@ height:88px;
 
 <div class="dot"></div>
 
-BALLOTTAGGIO LIVE
+SCRUTINIO CONCLUSO
 
 </div>
 
@@ -787,9 +787,19 @@ ${percentuale}%
 
 <div class="badge-row">
 
+${
+c.nome.toLowerCase() === 'michele sodano'
+? `
+<div class="ballottaggio-badge eletto-badge">
+SINDACO ELETTO
+</div>
+`
+: `
 <div class="ballottaggio-badge">
 BALLOTTAGGIO
 </div>
+`
+}
 
 </div>
 
