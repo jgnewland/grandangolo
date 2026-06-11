@@ -1,0 +1,147 @@
+<style>
+
+.ga-google-premium{
+    background:linear-gradient(90deg,#f8fff9 0%,#ffffff 50%,#f8fff9 100%);
+    border-top:1px solid #e5e5e5;
+    border-bottom:1px solid #e5e5e5;
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+
+.ga-google-premium-inner{
+    max-width:1050px;
+    margin:auto;
+    height:56px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.ga-google-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.ga-google-logo{
+    width:26px;
+    height:26px;
+    flex-shrink:0;
+}
+
+.ga-google-text{
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:14px;
+    color:#333;
+    line-height:1;
+}
+
+.ga-google-text strong{
+    color:#111;
+    font-weight:700;
+}
+
+.ga-google-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-right:8px;
+    color:#2e9d5b;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
+.ga-star{
+    animation:gaGlow 2s infinite;
+}
+
+@keyframes gaGlow{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.25);
+        filter:
+        drop-shadow(0 0 6px gold)
+        drop-shadow(0 0 12px gold);
+    }
+}
+
+.ga-google-btn{
+    text-decoration:none;
+    background:#fff;
+    color:#2e9d5b;
+    border:2px solid #2e9d5b;
+    border-radius:30px;
+    padding:8px 18px;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    transition:.2s;
+}
+
+.ga-google-btn:hover{
+    background:#2e9d5b;
+    color:#fff;
+}
+
+@media(max-width:768px){
+
+    .ga-google-premium-inner{
+        height:auto;
+        padding:10px;
+    }
+
+    .ga-google-text{
+        font-size:12px;
+    }
+
+    .ga-google-btn{
+        padding:6px 10px;
+        font-size:11px;
+    }
+}
+
+</style>
+
+<div class="ga-google-premium">
+
+<div class="ga-google-premium-inner">
+
+<div class="ga-google-left">
+
+<svg class="ga-google-logo" viewBox="0 0 48 48">
+<path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12S17.4 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/>
+<path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.1 29.3 4 24 4c-7.7 0-14.3 4.3-17.7 10.7z"/>
+<path fill="#4CAF50" d="M24 44c5.2 0 10-2 13.5-5.2l-6.2-5.2c-2.1 1.5-4.6 2.4-7.3 2.4-5.3 0-9.8-3.3-11.5-8H6.2C9.5 36.2 16.1 44 24 44z"/>
+<path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3-3.2 5.3-6 6.8l6.2 5.2C39.1 36.8 44 31 44 24c0-1.3-.1-2.4-.4-3.5z"/>
+</svg>
+
+<div class="ga-google-text">
+
+<span class="ga-google-badge">
+<span class="ga-star">⭐</span>
+FONTI PREFERITE GOOGLE
+</span>
+
+<strong>GrandangoloAgrigento</strong> è selezionabile tra le fonti preferite di Google.
+
+</div>
+
+</div>
+
+<a
+class="ga-google-btn"
+href="https://google.com/preferences/source?q=https://www.grandangoloagrigento.it"
+target="_blank">
+Aggiungi
+</a>
+
+</div>
+
+</div>
