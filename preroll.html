@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* ---- PALETTE BRAND (verde) ---- */
   :root{--bg:#0f1512;--panel:#16201b;--panel-2:#1d2a23;--line:#294035;--ink:#eef4f0;--muted:#8aa89a;--green:#1fb069;--green-ink:#03220f;--mint:#76e3aa;--radius:14px;}
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -19,6 +18,7 @@
   .lede{color:var(--muted);margin:12px 0 0;max-width:62ch;font-size:14.5px;line-height:1.55}
 
   .stage{position:relative;margin-top:30px;border-radius:var(--radius);overflow:hidden;background:#000;aspect-ratio:16/9;border:1px solid var(--line);box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+  .stage:fullscreen,.stage:-webkit-full-screen{width:100vw;height:100vh;border-radius:0;border:0;aspect-ratio:auto}
   #yt,#yt iframe,#video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
   #video{display:none;object-fit:contain}
   .stage.use-file #video{display:block}.stage.use-file #yt{display:none}.stage.use-yt #video{display:none}
@@ -26,17 +26,24 @@
   .stage.ad .gate{pointer-events:auto;cursor:pointer}
   .logo{position:absolute;top:14px;right:14px;z-index:3;height:34px;max-width:42%;width:auto;opacity:.92;filter:drop-shadow(0 1px 4px rgba(0,0,0,.7));pointer-events:none}
   .logo[hidden]{display:none}
-
-  .lower3{position:absolute;left:0;bottom:11%;z-index:6;display:flex;align-items:stretch;max-width:82%;
+  .fsbtn{position:absolute;top:13px;right:58px;z-index:5;all:unset;cursor:pointer;width:32px;height:32px;display:grid;place-items:center;border-radius:7px;background:rgba(10,18,14,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.3)}
+  .fsbtn:hover{background:rgba(31,176,105,.9)}
+  .fsbtn svg{width:17px;height:17px;fill:#fff}
+  .topbug{position:absolute;top:14px;left:14px;z-index:4;display:flex;align-items:center;max-width:68%;
+    background:linear-gradient(90deg,rgba(7,17,12,.92),rgba(7,17,12,.55));border-left:4px solid var(--green);
+    padding:6px 13px 6px 11px;font-family:"Archivo",sans-serif;font-weight:600;font-size:clamp(10px,1.7vw,15px);color:#fff;
+    letter-spacing:.05em;text-transform:uppercase;backdrop-filter:blur(4px);line-height:1.15;
+    opacity:0;transform:translateY(-6px);transition:opacity .45s,transform .45s;pointer-events:none}
+  .topbug.show{opacity:1;transform:none}
+  .lower3{--l3scale:1;position:absolute;left:0;bottom:11%;z-index:6;display:flex;align-items:stretch;max-width:92%;
     transform:translateX(-103%);opacity:0;pointer-events:none;
     transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s}
   .lower3.show{transform:none;opacity:1}
   .lower3 .accent{width:6px;background:var(--green);flex:none}
-  .lower3 .body{background:linear-gradient(90deg,rgba(7,17,12,.94),rgba(7,17,12,.72));padding:9px 24px 10px 16px;backdrop-filter:blur(6px);min-width:0;font-family:"Archivo",sans-serif}
-  .lower3 .l1{display:block;font-weight:700;font-size:clamp(15px,2.7vw,26px);color:#fff;line-height:1.12}
-  .lower3 .l2{display:block;font-weight:600;font-size:clamp(10px,1.7vw,15px);color:var(--mint);margin-top:4px;text-transform:uppercase;letter-spacing:.09em}
+  .lower3 .body{background:linear-gradient(90deg,rgba(7,17,12,.94),rgba(7,17,12,.72));padding:9px 26px 10px 16px;backdrop-filter:blur(6px);min-width:0;font-family:"Archivo",sans-serif}
+  .lower3 .l1{display:block;font-weight:700;font-size:calc(clamp(15px,2.7vw,26px) * var(--l3scale));color:#fff;line-height:1.12}
+  .lower3 .l2{display:block;font-weight:600;font-size:calc(clamp(10px,1.7vw,15px) * var(--l3scale));color:var(--mint);margin-top:4px;text-transform:uppercase;letter-spacing:.09em}
   .lower3 .l2[hidden]{display:none}
-
   .ad-tag{position:absolute;top:14px;left:14px;z-index:3;font-family:"Archivo",sans-serif;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.4);border-radius:6px;padding:5px 9px;opacity:0;transition:opacity .25s;pointer-events:none}
   .stage.ad .ad-tag{opacity:1}
   .skip-pill{position:absolute;right:16px;bottom:16px;z-index:4;display:flex;align-items:center;background:rgba(10,18,14,.85);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-family:"Archivo",sans-serif;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
@@ -72,7 +79,7 @@
   .stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden}
   .stepper button{all:unset;cursor:pointer;width:34px;height:40px;display:grid;place-items:center;font-size:18px;color:var(--muted)}
   .stepper button:hover{background:var(--panel-2);color:var(--ink)}
-  .stepper .val{min-width:54px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+  .stepper .val{min-width:58px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
   .stepper .val small{color:var(--muted);font-weight:400;margin-left:2px}
   .checkrow{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13.5px}
   .checkrow input{accent-color:var(--green);width:16px;height:16px}
@@ -98,13 +105,17 @@
 <div class="wrap">
   <p class="eyebrow">Generatore</p>
   <h1>Imposta, guarda l'anteprima, copia l'iframe.</h1>
-  <p class="lede">Pre-roll → video principale (con lower third) → outro automatico senza comandi. Incolla link YouTube o URL di file video del tuo sito. In fondo trovi il codice iframe per WordPress.</p>
+  <p class="lede">Pre-roll → principale (con voce in alto + lower third) → outro automatico. Il pulsante a tutto schermo mostra anche logo e sovrimpressioni. In fondo trovi il codice iframe per WordPress.</p>
 
   <div class="stage idle" id="stage">
     <div id="yt"></div>
-    <video id="video" playsinline></video>
+    <video id="video" playsinline controlsList="nodownload nofullscreen" disablePictureInPicture></video>
     <div class="gate" id="gate"></div>
     <img class="logo" id="logo" alt="" hidden>
+    <button class="fsbtn" id="fsbtn" aria-label="Schermo intero">
+      <svg viewBox="0 0 24 24" id="fsIcon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+    </button>
+    <div class="topbug" id="topbug"><span id="topTxt"></span></div>
     <div class="lower3" id="lower3">
       <span class="accent"></span>
       <span class="body"><span class="l1" id="l1"></span><span class="l2" id="l2" hidden></span></span>
@@ -145,6 +156,12 @@
       <label class="checkrow"><input type="checkbox" id="muteChk"> Pre-roll muto</label>
     </div>
 
+    <div class="subhead">Voce in alto (servizio / luogo)</div>
+    <div class="field">
+      <label>Testo in alto<span class="desc">es. Servizio di… / luogo</span></label>
+      <input type="text" id="inTop" placeholder="Es. Servizio di Mario Rossi — Agrigento">
+    </div>
+
     <div class="subhead">Lower third (solo sul video principale)</div>
     <div class="field">
       <label>Riga 1<span class="desc">titolo / nome</span></label>
@@ -153,6 +170,14 @@
     <div class="field">
       <label>Riga 2<span class="desc">sottotitolo, facoltativo</span></label>
       <input type="text" id="inT2" placeholder="Es. Sindaco di Agrigento">
+    </div>
+    <div class="field">
+      <label>Dimensione testo<span class="desc">più piccolo = va a capo dopo</span></label>
+      <div class="stepper">
+        <button id="tsMinus" aria-label="Riduci">−</button>
+        <span class="val"><span id="tsVal">100</span><small>%</small></span>
+        <button id="tsPlus" aria-label="Aumenta">+</button>
+      </div>
     </div>
     <div class="field">
       <label>Resta a schermo</label>
@@ -201,12 +226,14 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
   const logoEl=document.getElementById('logo');
   const video=document.getElementById('video');
   const lower3=document.getElementById('lower3'), l1=document.getElementById('l1'), l2=document.getElementById('l2');
+  const topbug=document.getElementById('topbug'), topTxt=document.getElementById('topTxt');
+  const fsbtn=document.getElementById('fsbtn'), fsIcon=document.getElementById('fsIcon');
 
   const inPre=document.getElementById('inPre'), inMain=document.getElementById('inMain'), inOutro=document.getElementById('inOutro');
-  const inT1=document.getElementById('inT1'), inT2=document.getElementById('inT2');
+  const inTop=document.getElementById('inTop'), inT1=document.getElementById('inT1'), inT2=document.getElementById('inT2');
   const inLogo=document.getElementById('inLogo'), inBase=document.getElementById('inBase');
   const muteChk=document.getElementById('muteChk');
-  const delayVal=document.getElementById('delayVal'), ldVal=document.getElementById('ldVal');
+  const delayVal=document.getElementById('delayVal'), ldVal=document.getElementById('ldVal'), tsVal=document.getElementById('tsVal');
   const codeOut=document.getElementById('codeOut');
   const copyBtn=document.getElementById('copyBtn');
   const warn=document.getElementById('warn');
@@ -214,7 +241,7 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
   let ytPlayer=null, ytReady=false;
   let active='none', phase='idle';
   let srcPre=null, srcMain=null, srcOutro=null;
-  let skipAfter=5, ldDur=6, skipTimer=null, l3in=null, l3out=null, ytEndWatch=null;
+  let skipAfter=5, ldDur=6, tsScale=100, skipTimer=null, l3in=null, l3out=null, ytEndWatch=null;
 
   inLogo.value=DEFAULT_LOGO;
   inBase.value=DEFAULT_BASE;
@@ -240,7 +267,7 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
   window.onYouTubeIframeAPIReady=function(){
     ytPlayer=new YT.Player('yt',{
       width:'100%',height:'100%',
-      playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:1,iv_load_policy:3,origin:location.origin},
+      playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:0,iv_load_policy:3,origin:location.origin},
       events:{onReady:()=>{ytReady=true;refresh();},onStateChange:onYtState}
     });
   };
@@ -255,9 +282,11 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     const u=inLogo.value.trim();
     if(u){ logoEl.src=u; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; } else logoEl.hidden=true;
   }
-  function applyLower3Text(){
+  function applyOverlayText(){
     l1.textContent=inT1.value.trim();
     if(inT2.value.trim()){ l2.textContent=inT2.value.trim(); l2.hidden=false; } else l2.hidden=true;
+    lower3.style.setProperty('--l3scale', tsScale/100);
+    topTxt.textContent=inTop.value.trim();
   }
 
   function refresh(){
@@ -279,8 +308,12 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
       }
     }
     applyLogo();
-    applyLower3Text();
-    if(phase==='idle') lower3.classList.toggle('show', !!inT1.value.trim());
+    applyOverlayText();
+    // anteprima dal vivo mentre scrivi
+    if(phase==='idle'){
+      lower3.classList.toggle('show', !!inT1.value.trim());
+      topbug.classList.toggle('show', !!inTop.value.trim());
+    }
     generate();
   }
 
@@ -301,6 +334,17 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
       if(ldDur>0) l3out=setTimeout(()=>lower3.classList.remove('show'), ldDur*1000);
     },800);
   }
+  function startYtEndWatch(){
+    clearInterval(ytEndWatch);
+    ytEndWatch=setInterval(()=>{
+      if(phase!=='main'||active!=='yt'){ clearInterval(ytEndWatch); return; }
+      try{
+        const st=ytPlayer.getPlayerState();
+        const d=ytPlayer.getDuration()||0, t=ytPlayer.getCurrentTime()||0;
+        if(st===YT.PlayerState.ENDED || (d>0 && t>=d-0.6)){ clearInterval(ytEndWatch); onEnded(); }
+      }catch(_){}
+    },500);
+  }
 
   function canStart(){
     const needsYT=[srcPre,srcMain,srcOutro].some(s=>s&&s.type==='yt');
@@ -313,7 +357,7 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     phase='ad';
     stage.classList.remove('idle'); stage.classList.add('ad');
     pill.classList.remove('ready');
-    lower3.classList.remove('show');
+    lower3.classList.remove('show'); topbug.classList.remove('show');
     playSrc(srcPre,false);
     if(muteChk.checked){ if(active==='yt') ytPlayer.mute(); else video.muted=true; }
     startCountdown();
@@ -328,17 +372,6 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     };
     tick(); skipTimer=setInterval(tick,250);
   }
-  function startYtEndWatch(){
-    clearInterval(ytEndWatch);
-    ytEndWatch=setInterval(()=>{
-      if(phase!=='main'||active!=='yt'){ clearInterval(ytEndWatch); return; }
-      try{
-        const st=ytPlayer.getPlayerState();
-        const d=ytPlayer.getDuration()||0, t=ytPlayer.getCurrentTime()||0;
-        if(st===YT.PlayerState.ENDED || (d>0 && t>=d-0.6)){ clearInterval(ytEndWatch); onEnded(); }
-      }catch(_){}
-    },500);
-  }
   function playMain(){
     phase='main';
     stage.classList.remove('ad');
@@ -346,11 +379,12 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     clearInterval(skipTimer);
     playSrc(srcMain,true);
     showLower3();
+    if(inTop.value.trim()) topbug.classList.add('show');
     if(active==='yt') startYtEndWatch();
   }
   function playOutro(){
     clearTimeout(l3in); clearTimeout(l3out);
-    lower3.classList.remove('show');
+    lower3.classList.remove('show'); topbug.classList.remove('show');
     if(!srcOutro){ phase='end'; return; }
     phase='outro';
     stage.classList.remove('ad');
@@ -358,7 +392,7 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
   }
   function resetPreview(){
     phase='idle';
-    clearInterval(skipTimer); clearTimeout(l3in); clearTimeout(l3out);
+    clearInterval(skipTimer); clearTimeout(l3in); clearTimeout(l3out); clearInterval(ytEndWatch);
     stage.classList.remove('ad','use-yt','use-file'); stage.classList.add('idle');
     pill.classList.remove('ready');
     try{ytPlayer.stopVideo();}catch(_){}
@@ -375,6 +409,18 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
   });
   document.getElementById('reset').addEventListener('click',resetPreview);
 
+  /* fullscreen anteprima */
+  const ICON_EXPAND='M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z';
+  const ICON_SHRINK='M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z';
+  function fsActive(){ return document.fullscreenElement||document.webkitFullscreenElement; }
+  fsbtn.addEventListener('click',()=>{
+    if(fsActive()){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+    else { const r=stage.requestFullscreen||stage.webkitRequestFullscreen; if(r) r.call(stage); }
+  });
+  function onFsChange(){ fsIcon.setAttribute('d', fsActive()?ICON_SHRINK:ICON_EXPAND); }
+  document.addEventListener('fullscreenchange',onFsChange);
+  document.addEventListener('webkitfullscreenchange',onFsChange);
+
   function param(name,src){
     if(!src) return null;
     return (src.type==='yt') ? name+'='+src.id : name+'='+encodeURIComponent(src.url);
@@ -384,15 +430,17 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     const params=[];
     const pp=param('pre',srcPre); if(pp) params.push(pp);
     const pm=param('main',srcMain); if(pm) params.push(pm);
-    // outro: ometti se uguale al predefinito; se diverso (anche vuoto) includilo
     const outroVal=inOutro.value.trim();
     if(outroVal!==DEFAULT_OUTRO) params.push('outro='+encodeURIComponent(outroVal));
     params.push('skip='+skipAfter);
     if(muteChk.checked) params.push('mute=1');
+    const top=inTop.value.trim();
+    if(top) params.push('tt='+encodeURIComponent(top));
     const t1=inT1.value.trim(), t2=inT2.value.trim();
     if(t1){
       params.push('t1='+encodeURIComponent(t1));
       if(t2) params.push('t2='+encodeURIComponent(t2));
+      if(tsScale!==100) params.push('ts='+tsScale);
       if(ldDur!==6) params.push('ld='+ldDur);
     }
     const logoU=inLogo.value.trim();
@@ -409,12 +457,14 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     warn.hidden = !!inBase.value.trim();
   }
 
-  [inPre,inMain,inOutro,inT1,inT2,inLogo,inBase].forEach(el=>el.addEventListener('input',refresh));
+  [inPre,inMain,inOutro,inTop,inT1,inT2,inLogo,inBase].forEach(el=>el.addEventListener('input',refresh));
   muteChk.addEventListener('change',refresh);
   document.getElementById('plus').addEventListener('click',()=>{skipAfter=Math.min(skipAfter+1,300);delayVal.textContent=skipAfter;generate();});
   document.getElementById('minus').addEventListener('click',()=>{skipAfter=Math.max(skipAfter-1,0);delayVal.textContent=skipAfter;generate();});
   document.getElementById('ldPlus').addEventListener('click',()=>{ldDur=Math.min(ldDur+1,120);ldVal.textContent=ldDur;generate();});
   document.getElementById('ldMinus').addEventListener('click',()=>{ldDur=Math.max(ldDur-1,0);ldVal.textContent=ldDur;generate();});
+  document.getElementById('tsPlus').addEventListener('click',()=>{tsScale=Math.min(tsScale+10,180);tsVal.textContent=tsScale;applyOverlayText();generate();});
+  document.getElementById('tsMinus').addEventListener('click',()=>{tsScale=Math.max(tsScale-10,50);tsVal.textContent=tsScale;applyOverlayText();generate();});
   copyBtn.addEventListener('click',async()=>{
     try{ await navigator.clipboard.writeText(codeOut.value); }
     catch(_){ codeOut.select(); document.execCommand('copy'); }
