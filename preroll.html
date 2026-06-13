@@ -8,27 +8,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#13161c; --panel:#1b1f28; --panel-2:#222734; --line:#2c3340;
-    --ink:#eef1f6; --muted:#8b93a3; --amber:#f0a93b; --amber-ink:#16120a; --teal:#4fd0c4; --radius:14px;
-  }
+  :root{--bg:#13161c;--panel:#1b1f28;--panel-2:#222734;--line:#2c3340;--ink:#eef1f6;--muted:#8b93a3;--amber:#f0a93b;--amber-ink:#16120a;--teal:#4fd0c4;--radius:14px;}
   *{box-sizing:border-box}
   html,body{margin:0}
-  body{
-    background:
-      radial-gradient(1100px 600px at 80% -10%, rgba(79,208,196,.07), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, rgba(240,169,59,.08), transparent 55%),
-      var(--bg);
-    color:var(--ink); font-family:"Inter",system-ui,sans-serif; min-height:100vh; -webkit-font-smoothing:antialiased;
-  }
+  body{background:radial-gradient(1100px 600px at 80% -10%,rgba(79,208,196,.07),transparent 60%),radial-gradient(900px 500px at -10% 110%,rgba(240,169,59,.08),transparent 55%),var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
   .wrap{max-width:900px;margin:0 auto;padding:44px 20px 80px}
   .eyebrow{font-family:"Archivo",sans-serif;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--teal);margin:0 0 10px}
   h1{font-family:"Archivo",sans-serif;font-weight:700;font-size:clamp(26px,5vw,36px);line-height:1.06;margin:0;letter-spacing:-.01em}
   .lede{color:var(--muted);margin:12px 0 0;max-width:60ch;font-size:14.5px;line-height:1.55}
 
-  /* ---- anteprima player ---- */
   .stage{position:relative;margin-top:30px;border-radius:var(--radius);overflow:hidden;background:#000;aspect-ratio:16/9;border:1px solid var(--line);box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
-  #yt,#yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  #yt,#yt iframe,#video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+  #video{display:none;object-fit:contain}
+  .stage.use-file #video{display:block}.stage.use-file #yt{display:none}.stage.use-yt #video{display:none}
   .gate{position:absolute;inset:0;z-index:2;pointer-events:none}
   .stage.ad .gate{pointer-events:auto;cursor:pointer}
   .logo{position:absolute;top:14px;right:14px;z-index:3;height:34px;max-width:42%;width:auto;opacity:.92;filter:drop-shadow(0 1px 4px rgba(0,0,0,.7));pointer-events:none}
@@ -42,20 +34,17 @@
   .skip-pill .go:hover,.skip-pill .go:focus-visible{background:var(--amber);color:var(--amber-ink)}
   .skip-pill .go::after{content:"";border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;display:inline-block}
   .skip-pill .go .bar{width:3px;height:14px;background:currentColor;display:inline-block;margin-right:-4px}
-  .skip-pill.ready .count{display:none}
-  .skip-pill.ready .go{display:flex}
-  .poster{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background-size:cover;background-position:center;cursor:pointer;text-align:center;padding:24px;color:#fff}
-  .poster::before{content:"";position:absolute;inset:0;background:rgba(10,12,16,.5)}
+  .skip-pill.ready .count{display:none}.skip-pill.ready .go{display:flex}
+  .poster{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background-size:cover;background-position:center;cursor:pointer;text-align:center;color:#fff}
+  .poster::before{content:"";position:absolute;inset:0;background:rgba(10,12,16,.45)}
   .poster .pbtn{position:relative;width:68px;height:68px;border-radius:50%;background:var(--amber);display:grid;place-items:center;transition:transform .2s}
   .poster:hover .pbtn{transform:scale(1.06)}
   .poster .pbtn::after{content:"";border-left:20px solid var(--amber-ink);border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:6px}
-  .poster .ptext{position:relative;font-family:"Archivo",sans-serif;font-weight:600;font-size:15px}
-  .poster .psub{position:relative;font-size:13px;color:#cfd4dd}
+  .poster .ptext{position:relative;font-family:"Archivo",sans-serif;font-weight:600;font-size:14px}
   .poster.hidden{display:none}
-  .poster.loading .pbtn{opacity:.4}.poster.loading{cursor:progress}
   .poster.msg .pbtn{display:none}
+  .poster .ptext[hidden]{display:none}
 
-  /* ---- pannello ---- */
   .panel{margin-top:24px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
   .phead{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
   .phead .step{font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--teal);color:#06201d;flex:none}
@@ -63,9 +52,9 @@
   .phead .reset{margin-left:auto;all:unset;cursor:pointer;font-size:13px;color:var(--muted)}
   .phead .reset:hover{color:var(--ink)}
   .field{display:flex;align-items:center;gap:14px;padding:13px 18px;flex-wrap:wrap}
-  .field + .field{border-top:1px solid rgba(44,51,64,.5)}
-  .field label{font-family:"Archivo",sans-serif;font-weight:600;font-size:13.5px;width:160px;flex:none}
-  .field .desc{font-size:12px;color:var(--muted);width:160px;flex:none;margin-top:-8px}
+  .field+.field{border-top:1px solid rgba(44,51,64,.5)}
+  .field label{font-family:"Archivo",sans-serif;font-weight:600;font-size:13.5px;width:160px;flex:none;display:flex;flex-direction:column;gap:3px}
+  .field label .desc{font-weight:400;font-size:11.5px;color:var(--muted);font-family:"Inter",sans-serif}
   .field input[type=text]{flex:1;min-width:220px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:11px 13px;font-size:14px;font-family:inherit}
   .field input[type=text]:focus{outline:none;border-color:var(--teal)}
   .field input.bad{border-color:#a8484c}
@@ -77,35 +66,31 @@
   .checkrow{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13.5px}
   .checkrow input{accent-color:var(--amber);width:16px;height:16px}
 
-  /* ---- output codice ---- */
   .out{margin-top:24px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
   .out .ohead{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
   .out .ohead .step{font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--amber);color:var(--amber-ink);flex:none}
   .out .ohead .t{font-family:"Archivo",sans-serif;font-weight:600;font-size:14px}
   .out .ohead .copy{margin-left:auto;all:unset;cursor:pointer;font-family:"Archivo",sans-serif;font-weight:600;font-size:13px;background:var(--amber);color:var(--amber-ink);padding:8px 16px;border-radius:9px}
-  .out .ohead .copy:hover{filter:brightness(1.05)}
-  .out .ohead .copy.done{background:var(--teal);color:#06201d}
-  textarea{width:100%;border:0;background:#0f1218;color:#cfe3df;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.6;padding:16px 18px;resize:vertical;min-height:140px;outline:none}
-  .warn{padding:0 18px 14px;font-size:12.5px;color:var(--amber)}
-  .warn[hidden]{display:none}
+  .out .ohead .copy:hover{filter:brightness(1.05)}.out .ohead .copy.done{background:var(--teal);color:#06201d}
+  textarea{width:100%;border:0;background:#0f1218;color:#cfe3df;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.6;padding:16px 18px;resize:vertical;min-height:150px;outline:none}
+  .warn{padding:0 18px 14px;font-size:12.5px;color:var(--amber)}.warn[hidden]{display:none}
 
   .tip{margin-top:18px;font-size:12.5px;color:var(--muted);line-height:1.6}
   .tip b{color:var(--ink);font-weight:600}
   .tip code{background:var(--panel);padding:2px 6px;border-radius:5px;color:var(--teal);font-family:"JetBrains Mono",monospace}
-
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-  @media (max-width:620px){.field label,.field .desc{width:100%}}
+  @media (max-width:620px){.field label{width:100%}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <p class="eyebrow">Generatore</p>
   <h1>Imposta, guarda l'anteprima, copia l'iframe.</h1>
-  <p class="lede">Compila i campi qui sotto: vedi subito il risultato nell'anteprima e, in fondo, trovi il codice iframe pronto da incollare in WordPress. Il logo di Grandangolo Agrigento compare in alto a destra sul video.</p>
+  <p class="lede">Nei campi puoi incollare un link YouTube oppure l'URL diretto di un video caricato sul tuo sito (es. un file .mp4). Vedi subito l'anteprima e, in fondo, il codice iframe pronto per WordPress. Il logo compare in alto a destra sul video.</p>
 
-  <!-- ANTEPRIMA -->
   <div class="stage idle" id="stage">
     <div id="yt"></div>
+    <video id="video" playsinline></video>
     <div class="gate" id="gate"></div>
     <img class="logo" id="logo" alt="" hidden>
     <div class="ad-tag">Annuncio</div>
@@ -113,26 +98,22 @@
       <span class="count" id="skipCount">Puoi saltare tra 5s</span>
       <button class="go" id="skipBtn"><span class="bar"></span>Salta annuncio</button>
     </div>
-    <div class="poster loading" id="poster">
+    <div class="poster msg" id="poster">
       <div class="pbtn"></div>
-      <div class="ptext" id="ptext">Caricamento…</div>
-      <div class="psub" id="psub"></div>
+      <div class="ptext" id="ptext">Inserisci i link qui sotto</div>
     </div>
   </div>
 
-  <!-- PANNELLO -->
   <div class="panel">
-    <div class="phead">
-      <span class="step">1</span><span class="t">Imposta i video</span>
-      <button class="reset" id="reset">↻ Riavvia anteprima</button>
+    <div class="phead"><span class="step">1</span><span class="t">Imposta i video</span>
+      <button class="reset" id="reset">↻ Riavvia anteprima</button></div>
+    <div class="field">
+      <label>Link pre-roll<span class="desc">YouTube o file .mp4</span></label>
+      <input type="text" id="inPre" placeholder="https://… (YouTube o file video)">
     </div>
     <div class="field">
-      <label>Link pre-roll</label>
-      <input type="text" id="inPre" placeholder="https://www.youtube.com/watch?v=…">
-    </div>
-    <div class="field">
-      <label>Link principale</label>
-      <input type="text" id="inMain" placeholder="https://youtu.be/…">
+      <label>Link principale<span class="desc">YouTube o file .mp4</span></label>
+      <input type="text" id="inMain" placeholder="https://… (YouTube o file video)">
     </div>
     <div class="field">
       <label>Salta dopo</label>
@@ -144,40 +125,39 @@
       <label class="checkrow"><input type="checkbox" id="muteChk"> Pre-roll muto</label>
     </div>
     <div class="field">
-      <label>Logo (facoltativo)</label>
+      <label>Logo<span class="desc">facoltativo</span></label>
       <input type="text" id="inLogo" placeholder="URL del logo">
     </div>
     <div class="field">
-      <label>Indirizzo del player<span class="desc">il file player.html su GitHub Pages</span></label>
-      <input type="text" id="inBase" placeholder="https://grandangolosettimanale.it/player.html">
+      <label>Indirizzo del player<span class="desc">il file player.html</span></label>
+      <input type="text" id="inBase" placeholder="https://tuonome.github.io/repo/player.html">
     </div>
   </div>
 
-  <!-- CODICE -->
   <div class="out">
-    <div class="ohead">
-      <span class="step">2</span><span class="t">Codice da incollare</span>
-      <button class="copy" id="copyBtn">Copia codice</button>
-    </div>
+    <div class="ohead"><span class="step">2</span><span class="t">Codice da incollare</span>
+      <button class="copy" id="copyBtn">Copia codice</button></div>
     <textarea id="codeOut" readonly spellcheck="false"></textarea>
-    <div class="warn" id="warn">Compila "Indirizzo del player" con l'URL del tuo file su GitHub Pages, altrimenti l'iframe non funzionerà sul sito.</div>
+    <div class="warn" id="warn" hidden>Controlla "Indirizzo del player": serve l'URL del file player.html, altrimenti l'iframe non funzionerà.</div>
   </div>
 
-  <p class="tip"><b>Su WordPress:</b> aggiungi un blocco <code>HTML personalizzato</code> nella pagina o nell'articolo e incolla lì il codice. Evita di incollarlo nel blocco "Paragrafo", perché WordPress rimuove gli iframe dal testo normale.</p>
+  <p class="tip"><b>Su WordPress:</b> usa un blocco <code>HTML personalizzato</code> e incolla lì il codice. Nel blocco "Paragrafo" normale WordPress rimuove gli iframe.</p>
 </div>
 
 <script>
 const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png";
+const DEFAULT_BASE = "https://grandangolosettimanale.it/player.html";
 
 (function(){
   const stage=document.getElementById('stage');
   const gate=document.getElementById('gate');
   const poster=document.getElementById('poster');
-  const ptext=document.getElementById('ptext'), psub=document.getElementById('psub');
+  const ptext=document.getElementById('ptext');
   const pill=document.getElementById('skipPill');
   const skipCount=document.getElementById('skipCount');
   const skipBtn=document.getElementById('skipBtn');
   const logoEl=document.getElementById('logo');
+  const video=document.getElementById('video');
 
   const inPre=document.getElementById('inPre'), inMain=document.getElementById('inMain');
   const inLogo=document.getElementById('inLogo'), inBase=document.getElementById('inBase');
@@ -187,11 +167,13 @@ const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/gran
   const copyBtn=document.getElementById('copyBtn');
   const warn=document.getElementById('warn');
 
-  let player=null, ready=false, phase='idle';
-  let ids={preroll:'',main:''};
+  let ytPlayer=null, ytReady=false;
+  let active='none', phase='idle';
+  let srcPre=null, srcMain=null;
   let skipAfter=5, skipTimer=null;
 
   inLogo.value=DEFAULT_LOGO;
+  inBase.value=DEFAULT_BASE;
 
   function ytId(s){
     if(!s) return "";
@@ -200,49 +182,50 @@ const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/gran
     const m=s.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/);
     return m?m[1]:"";
   }
+  function classify(u){
+    const id=ytId(u); if(id) return {type:'yt',id:id};
+    u=(u||'').trim();
+    if(/^https?:\/\//i.test(u)) return {type:'file',url:u};
+    return null;
+  }
 
-  /* ---- YouTube API (anteprima) ---- */
+  // YouTube API
   const tag=document.createElement('script');
   tag.src="https://www.youtube.com/iframe_api";
   document.head.appendChild(tag);
-
   window.onYouTubeIframeAPIReady=function(){
-    player=new YT.Player('yt',{
+    ytPlayer=new YT.Player('yt',{
       width:'100%',height:'100%',
       playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:1,iv_load_policy:3},
-      events:{onReady:function(){ready=true;refresh();},onStateChange:onStateChange}
+      events:{onReady:()=>{ytReady=true;refresh();},onStateChange:onYtState}
     });
   };
+  function onYtState(e){ if(e.data===YT.PlayerState.ENDED && phase==='ad') playMain(); }
+  video.addEventListener('ended',()=>{ if(phase==='ad') playMain(); });
 
-  function onStateChange(e){
-    if(e.data===YT.PlayerState.ENDED && phase==='ad') playMain();
-  }
+  function setActive(kind){ active=kind; stage.classList.toggle('use-yt',kind==='yt'); stage.classList.toggle('use-file',kind==='file'); }
+  function curTime(){ if(active==='yt'){try{return ytPlayer.getCurrentTime()||0;}catch(_){return 0;}} return video.currentTime||0; }
 
-  /* ---- logo ---- */
   function applyLogo(){
     const u=inLogo.value.trim();
-    if(u){ logoEl.src=u; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; }
-    else logoEl.hidden=true;
+    if(u){ logoEl.src=u; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; } else logoEl.hidden=true;
   }
 
-  /* ---- stato anteprima ---- */
   function refresh(){
-    ids.preroll=ytId(inPre.value);
-    ids.main=ytId(inMain.value);
-    inPre.classList.toggle('bad', inPre.value.trim()!=='' && !ids.preroll);
-    inMain.classList.toggle('bad', inMain.value.trim()!=='' && !ids.main);
+    srcPre=classify(inPre.value);
+    srcMain=classify(inMain.value);
+    inPre.classList.toggle('bad', inPre.value.trim()!=='' && !srcPre);
+    inMain.classList.toggle('bad', inMain.value.trim()!=='' && !srcMain);
 
-    if(ready && phase==='idle'){
-      poster.classList.remove('loading');
-      if(ids.preroll && ids.main){
+    if(phase==='idle'){
+      if(srcPre && srcMain){
         poster.classList.remove('msg');
-        ptext.textContent='Anteprima — premi play';
-        psub.textContent='Parte il pre-roll, poi il video principale';
-        poster.style.backgroundImage='url(https://i.ytimg.com/vi/'+ids.main+'/maxresdefault.jpg)';
+        ptext.hidden=true;
+        poster.style.backgroundImage = (srcMain.type==='yt') ? 'url(https://i.ytimg.com/vi/'+srcMain.id+'/maxresdefault.jpg)' : '';
       }else{
         poster.classList.add('msg');
-        ptext.textContent='Inserisci i due link YouTube';
-        psub.textContent='Pre-roll e video principale qui sotto';
+        ptext.hidden=false;
+        ptext.textContent='Inserisci i due link qui sotto';
         poster.style.backgroundImage='';
       }
     }
@@ -250,24 +233,39 @@ const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/gran
     generate();
   }
 
-  /* ---- riproduzione anteprima ---- */
-  poster.addEventListener('click',()=>{ if(ready && ids.preroll && ids.main) start(); });
+  function playSrc(src,isAd){
+    if(src.type==='yt'){
+      setActive('yt');
+      ytPlayer.loadVideoById(src.id);
+      if(isAd && muteChk.checked) ytPlayer.mute(); else ytPlayer.unMute();
+    }else{
+      setActive('file');
+      video.src=src.url;
+      video.controls=!isAd;
+      video.muted=(isAd && muteChk.checked);
+      const p=video.play(); if(p&&p.catch) p.catch(()=>{});
+    }
+  }
 
-  function start(){
+  function canStart(){
+    const needsYT=(srcPre&&srcPre.type==='yt')||(srcMain&&srcMain.type==='yt');
+    return srcPre && srcMain && (!needsYT || ytReady);
+  }
+  poster.addEventListener('click',()=>{ if(canStart()) startAd(); });
+
+  function startAd(){
     poster.classList.add('hidden');
     phase='ad';
     stage.classList.remove('idle'); stage.classList.add('ad');
     pill.classList.remove('ready');
-    if(muteChk.checked) player.mute(); else player.unMute();
-    player.loadVideoById(ids.preroll);
+    playSrc(srcPre,true);
     startCountdown();
   }
   function startCountdown(){
     clearInterval(skipTimer);
     const tick=()=>{
       if(phase!=='ad') return;
-      let t=0; try{t=player.getCurrentTime()||0;}catch(_){}
-      const remaining=Math.max(0,skipAfter-Math.floor(t));
+      const remaining=Math.max(0,skipAfter-Math.floor(curTime()));
       if(remaining<=0){ pill.classList.add('ready'); clearInterval(skipTimer); }
       else skipCount.textContent='Puoi saltare tra '+remaining+'s';
     };
@@ -278,41 +276,42 @@ const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/gran
     stage.classList.remove('ad');
     pill.classList.remove('ready');
     clearInterval(skipTimer);
-    player.unMute();
-    player.loadVideoById(ids.main);
+    playSrc(srcMain,false);
   }
   function resetPreview(){
     phase='idle';
     clearInterval(skipTimer);
-    stage.classList.remove('ad'); stage.classList.add('idle');
+    stage.classList.remove('ad','use-yt','use-file'); stage.classList.add('idle');
     pill.classList.remove('ready');
-    try{player.stopVideo();}catch(_){}
+    try{ytPlayer.stopVideo();}catch(_){}
+    try{video.pause();video.removeAttribute('src');video.load();}catch(_){}
     poster.classList.remove('hidden');
     refresh();
   }
 
   skipBtn.addEventListener('click',e=>{ e.stopPropagation(); if(phase==='ad') playMain(); });
   gate.addEventListener('click',()=>{
-    if(phase!=='ad'||!player) return;
-    const st=player.getPlayerState();
-    if(st===YT.PlayerState.PLAYING) player.pauseVideo(); else player.playVideo();
+    if(phase!=='ad') return;
+    if(active==='yt'){ const st=ytPlayer.getPlayerState(); if(st===YT.PlayerState.PLAYING) ytPlayer.pauseVideo(); else ytPlayer.playVideo(); }
+    else { video.paused?video.play():video.pause(); }
   });
   document.getElementById('reset').addEventListener('click',resetPreview);
 
-  /* ---- generazione codice iframe ---- */
+  function param(name,src){
+    if(!src) return null;
+    return (src.type==='yt') ? name+'='+src.id : name+'='+encodeURIComponent(src.url);
+  }
   function generate(){
-    const pre=ytId(inPre.value), main=ytId(inMain.value);
     const base=(inBase.value.trim())||'INCOLLA_QUI_URL_DEL_PLAYER';
     const params=[];
-    if(pre)  params.push('pre='+pre);
-    if(main) params.push('main='+main);
+    const pp=param('pre',srcPre); if(pp) params.push(pp);
+    const pm=param('main',srcMain); if(pm) params.push(pm);
     params.push('skip='+skipAfter);
     if(muteChk.checked) params.push('mute=1');
     const logoU=inLogo.value.trim();
     if(logoU && logoU!==DEFAULT_LOGO) params.push('logo='+encodeURIComponent(logoU));
     const url=base+'?'+params.join('&');
-
-    codeOut.value =
+    codeOut.value=
 '<div style="position:relative;width:100%;max-width:900px;aspect-ratio:16/9;margin:0 auto">\n'+
 '  <iframe\n'+
 '    src="'+url+'"\n'+
@@ -320,16 +319,13 @@ const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/gran
 '    allow="autoplay; fullscreen; encrypted-media"\n'+
 '    allowfullscreen loading="lazy"></iframe>\n'+
 '</div>';
-
     warn.hidden = !!inBase.value.trim();
   }
 
-  /* ---- listeners ---- */
   [inPre,inMain,inLogo,inBase].forEach(el=>el.addEventListener('input',refresh));
   muteChk.addEventListener('change',refresh);
   document.getElementById('plus').addEventListener('click',()=>{skipAfter=Math.min(skipAfter+1,300);delayVal.textContent=skipAfter;generate();});
   document.getElementById('minus').addEventListener('click',()=>{skipAfter=Math.max(skipAfter-1,0);delayVal.textContent=skipAfter;generate();});
-
   copyBtn.addEventListener('click',async()=>{
     try{ await navigator.clipboard.writeText(codeOut.value); }
     catch(_){ codeOut.select(); document.execCommand('copy'); }
@@ -337,7 +333,7 @@ const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/gran
     setTimeout(()=>{copyBtn.textContent='Copia codice';copyBtn.classList.remove('done');},1600);
   });
 
-  generate();
+  refresh();
 })();
 </script>
 </body>
