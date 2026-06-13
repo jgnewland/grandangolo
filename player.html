@@ -8,12 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ---- PALETTE BRAND (verde) ---- */
   :root{--line:#294035;--green:#1fb069;--green-ink:#03220f;--mint:#76e3aa;--muted:#8aa89a;}
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;background:#000;overflow:hidden}
 
   .stage{position:fixed;inset:0;background:#000;overflow:hidden;font-family:"Archivo",system-ui,sans-serif}
+  .stage:fullscreen,.stage:-webkit-full-screen{width:100vw;height:100vh;border-radius:0;border:0;aspect-ratio:auto}
   #yt,#yt iframe,#video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
   #video{display:none;object-fit:contain}
   .stage.use-file #video{display:block}.stage.use-file #yt{display:none}.stage.use-yt #video{display:none}
@@ -24,15 +24,28 @@
   .logo{position:absolute;top:14px;right:14px;z-index:3;height:34px;max-width:42%;width:auto;opacity:.92;filter:drop-shadow(0 1px 4px rgba(0,0,0,.7));pointer-events:none}
   .logo[hidden]{display:none}
 
+  /* pulsante schermo intero (manda a tutto schermo l'intero player, sovrimpressioni incluse) */
+  .fsbtn{position:absolute;top:13px;right:58px;z-index:5;all:unset;cursor:pointer;width:32px;height:32px;display:grid;place-items:center;border-radius:7px;background:rgba(10,18,14,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.3)}
+  .fsbtn:hover{background:rgba(31,176,105,.9)}
+  .fsbtn svg{width:17px;height:17px;fill:#fff}
+
+  /* voce in alto: "Servizio di…" / luogo */
+  .topbug{position:absolute;top:14px;left:14px;z-index:4;display:flex;align-items:center;max-width:68%;
+    background:linear-gradient(90deg,rgba(7,17,12,.92),rgba(7,17,12,.55));border-left:4px solid var(--green);
+    padding:6px 13px 6px 11px;font-weight:600;font-size:clamp(10px,1.7vw,15px);color:#fff;
+    letter-spacing:.05em;text-transform:uppercase;backdrop-filter:blur(4px);line-height:1.15;
+    opacity:0;transform:translateY(-6px);transition:opacity .45s,transform .45s;pointer-events:none}
+  .topbug.show{opacity:1;transform:none}
+
   /* ---- LOWER THIRD ---- */
-  .lower3{position:absolute;left:0;bottom:11%;z-index:6;display:flex;align-items:stretch;max-width:82%;
+  .lower3{--l3scale:1;position:absolute;left:0;bottom:11%;z-index:6;display:flex;align-items:stretch;max-width:92%;
     transform:translateX(-103%);opacity:0;pointer-events:none;
     transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s}
   .lower3.show{transform:none;opacity:1}
   .lower3 .accent{width:6px;background:var(--green);flex:none}
-  .lower3 .body{background:linear-gradient(90deg,rgba(7,17,12,.94),rgba(7,17,12,.72));padding:9px 24px 10px 16px;backdrop-filter:blur(6px);min-width:0}
-  .lower3 .l1{display:block;font-weight:700;font-size:clamp(15px,2.7vw,26px);color:#fff;line-height:1.12;letter-spacing:.005em}
-  .lower3 .l2{display:block;font-weight:600;font-size:clamp(10px,1.7vw,15px);color:var(--mint);margin-top:4px;text-transform:uppercase;letter-spacing:.09em}
+  .lower3 .body{background:linear-gradient(90deg,rgba(7,17,12,.94),rgba(7,17,12,.72));padding:9px 26px 10px 16px;backdrop-filter:blur(6px);min-width:0}
+  .lower3 .l1{display:block;font-weight:700;font-size:calc(clamp(15px,2.7vw,26px) * var(--l3scale));color:#fff;line-height:1.12;letter-spacing:.005em}
+  .lower3 .l2{display:block;font-weight:600;font-size:calc(clamp(10px,1.7vw,15px) * var(--l3scale));color:var(--mint);margin-top:4px;text-transform:uppercase;letter-spacing:.09em}
   .lower3 .l2[hidden]{display:none}
 
   .ad-tag{position:absolute;top:14px;left:14px;z-index:3;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.4);border-radius:6px;padding:5px 9px;opacity:0;transition:opacity .25s;pointer-events:none}
@@ -60,9 +73,13 @@
 <body>
   <div class="stage idle" id="stage">
     <div id="yt"></div>
-    <video id="video" playsinline></video>
+    <video id="video" playsinline controlsList="nodownload nofullscreen" disablePictureInPicture></video>
     <div class="gate" id="gate"></div>
     <img class="logo" id="logo" alt="" hidden>
+    <button class="fsbtn" id="fsbtn" aria-label="Schermo intero">
+      <svg viewBox="0 0 24 24" id="fsIcon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+    </button>
+    <div class="topbug" id="topbug"><span id="topTxt"></span></div>
     <div class="lower3" id="lower3">
       <span class="accent"></span>
       <span class="body"><span class="l1" id="l1"></span><span class="l2" id="l2" hidden></span></span>
@@ -78,11 +95,11 @@
 <script>
 /* =========================================================
    CONFIG — parametri nell'URL:
-   player.html?pre=...&main=...&outro=...&skip=5&mute=0&t1=...&t2=...&ld=6
-   pre/main/outro: link YouTube/ID o URL diretto di un file video.
-   - outro: si avvia da solo alla fine del principale, SENZA comandi.
-     Se assente usa quello predefinito; "outro=" (vuoto) lo disattiva.
-   - t1/t2 = lower third (solo sul video principale), ld = secondi a schermo.
+   player.html?pre=...&main=...&outro=...&skip=5&mute=0
+              &t1=...&t2=...&ld=6&ts=100&tt=...&logo=...
+   pre/main/outro : link YouTube/ID o URL diretto di un file video.
+   t1/t2 = lower third, ld = secondi a schermo (0=sempre), ts = dimensione testo % (100=normale)
+   tt = voce in alto (es. "Servizio di…" o il luogo)
    ========================================================= */
 const DEFAULT_LOGO  = "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png";
 const DEFAULT_OUTRO = "https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4";
@@ -96,7 +113,9 @@ const CONFIG = {
   logo:      qs.get('logo') || DEFAULT_LOGO,
   t1:        qs.get('t1') || "",
   t2:        qs.get('t2') || "",
-  ldDur:     qs.has('ld') ? (parseInt(qs.get('ld'),10)||0) : 6
+  ldDur:     qs.has('ld') ? (parseInt(qs.get('ld'),10)||0) : 6,
+  l3scale:   qs.has('ts') ? ((parseInt(qs.get('ts'),10)||100)/100) : 1,
+  topText:   qs.get('tt') || ""
 };
 /* ========================================================= */
 
@@ -110,11 +129,13 @@ const CONFIG = {
   const logoEl=document.getElementById('logo');
   const video=document.getElementById('video');
   const lower3=document.getElementById('lower3'), l1=document.getElementById('l1'), l2=document.getElementById('l2');
+  const topbug=document.getElementById('topbug'), topTxt=document.getElementById('topTxt');
+  const fsbtn=document.getElementById('fsbtn'), fsIcon=document.getElementById('fsIcon');
 
   let ytPlayer=null, ytReady=false;
   let active='none', phase='idle';
   let srcPre=null, srcMain=null, srcOutro=null;
-  let skipAfter=CONFIG.skipAfter||5, skipTimer=null, l3in=null, l3out=null;
+  let skipAfter=CONFIG.skipAfter||5, skipTimer=null, l3in=null, l3out=null, ytEndWatch=null;
 
   function ytId(s){
     if(!s) return "";
@@ -138,8 +159,11 @@ const CONFIG = {
   if(CONFIG.logo){ logoEl.src=CONFIG.logo; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; }
   if(srcMain&&srcMain.type==='yt') poster.style.backgroundImage='url(https://i.ytimg.com/vi/'+srcMain.id+'/maxresdefault.jpg)';
 
+  // lower third + voce in alto
+  lower3.style.setProperty('--l3scale', CONFIG.l3scale);
   l1.textContent=CONFIG.t1||'';
   if(CONFIG.t2){ l2.textContent=CONFIG.t2; l2.hidden=false; } else l2.hidden=true;
+  topTxt.textContent=CONFIG.topText||'';
 
   if(needsYT){
     const tag=document.createElement('script');
@@ -150,21 +174,17 @@ const CONFIG = {
   window.onYouTubeIframeAPIReady=function(){
     ytPlayer=new YT.Player('yt',{
       width:'100%',height:'100%',
-      playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:1,iv_load_policy:3},
+      playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:0,iv_load_policy:3,origin:location.origin},
       events:{onReady:()=>{ytReady=true;},onStateChange:onYtState}
     });
   };
   function onYtState(e){ if(e.data===YT.PlayerState.ENDED) onEnded(); }
   video.addEventListener('ended',onEnded);
-  function onEnded(){
-    if(phase==='ad') playMain();
-    else if(phase==='main') playOutro();
-  }
+  function onEnded(){ if(phase==='ad') playMain(); else if(phase==='main') playOutro(); }
 
   function setActive(kind){ active=kind; stage.classList.toggle('use-yt',kind==='yt'); stage.classList.toggle('use-file',kind==='file'); }
   function curTime(){ if(active==='yt'){try{return ytPlayer.getCurrentTime()||0;}catch(_){return 0;}} return video.currentTime||0; }
 
-  // showControls vale solo per i file; per YouTube i comandi sono gestiti dall'iframe
   function playSrc(src,showControls){
     if(src.type==='yt'){
       setActive('yt');
@@ -174,7 +194,7 @@ const CONFIG = {
       video.src=src.url;
       video.controls=showControls;
       video.muted=false;
-      const p=video.play(); if(p&&p.catch) p.catch(()=>{});
+      video.play().catch(()=>{ video.muted=true; video.play().catch(()=>{}); });
     }
   }
 
@@ -188,6 +208,18 @@ const CONFIG = {
     },800);
   }
 
+  function startYtEndWatch(){
+    clearInterval(ytEndWatch);
+    ytEndWatch=setInterval(()=>{
+      if(phase!=='main'||active!=='yt'){ clearInterval(ytEndWatch); return; }
+      try{
+        const st=ytPlayer.getPlayerState();
+        const d=ytPlayer.getDuration()||0, t=ytPlayer.getCurrentTime()||0;
+        if(st===YT.PlayerState.ENDED || (d>0 && t>=d-0.6)){ clearInterval(ytEndWatch); onEnded(); }
+      }catch(_){}
+    },500);
+  }
+
   function canStart(){ return srcPre && srcMain && (!needsYT || ytReady); }
   poster.addEventListener('click',()=>{ if(canStart()) startAd(); });
 
@@ -196,7 +228,8 @@ const CONFIG = {
     phase='ad';
     stage.classList.remove('idle'); stage.classList.add('ad');
     pill.classList.remove('ready');
-    playSrc(srcPre,false);                 // pre-roll senza comandi
+    topbug.classList.remove('show');
+    playSrc(srcPre,false);
     if(CONFIG.muteAd){ if(active==='yt') ytPlayer.mute(); else video.muted=true; }
     startCountdown();
   }
@@ -215,24 +248,39 @@ const CONFIG = {
     stage.classList.remove('ad');
     pill.classList.remove('ready');
     clearInterval(skipTimer);
-    playSrc(srcMain,true);                 // video principale CON comandi
+    playSrc(srcMain,true);
     showLower3();
+    if(CONFIG.topText) topbug.classList.add('show');   // voce in alto per tutto il principale
+    if(active==='yt') startYtEndWatch();
   }
   function playOutro(){
     clearTimeout(l3in); clearTimeout(l3out);
     lower3.classList.remove('show');
-    if(!srcOutro){ phase='end'; return; }  // nessun outro: resta l'ultimo fotogramma
+    topbug.classList.remove('show');
+    if(!srcOutro){ phase='end'; return; }
     phase='outro';
     stage.classList.remove('ad');
-    playSrc(srcOutro,false);               // outro SENZA comandi
+    playSrc(srcOutro,false);
   }
 
   skipBtn.addEventListener('click',e=>{ e.stopPropagation(); if(phase==='ad') playMain(); });
   gate.addEventListener('click',()=>{
-    if(phase!=='ad') return;               // pausa/play consentiti solo durante il pre-roll
+    if(phase!=='ad') return;
     if(active==='yt'){ const st=ytPlayer.getPlayerState(); if(st===YT.PlayerState.PLAYING) ytPlayer.pauseVideo(); else ytPlayer.playVideo(); }
     else { video.paused?video.play():video.pause(); }
   });
+
+  /* ---- schermo intero su tutto il player (sovrimpressioni incluse) ---- */
+  const ICON_EXPAND='M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z';
+  const ICON_SHRINK='M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z';
+  function fsActive(){ return document.fullscreenElement||document.webkitFullscreenElement; }
+  fsbtn.addEventListener('click',()=>{
+    if(fsActive()){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+    else { const r=stage.requestFullscreen||stage.webkitRequestFullscreen; if(r) r.call(stage); }
+  });
+  function onFsChange(){ fsIcon.setAttribute('d', fsActive()?ICON_SHRINK:ICON_EXPAND); }
+  document.addEventListener('fullscreenchange',onFsChange);
+  document.addEventListener('webkitfullscreenchange',onFsChange);
 })();
 </script>
 </body>
