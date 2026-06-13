@@ -6,18 +6,17 @@
 <title>Player</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--line:#2c3340;--amber:#f0a93b;--amber-ink:#16120a;--muted:#8b93a3;}
+  /* ---- PALETTE BRAND (verde) ---- */
+  :root{--line:#294035;--green:#1fb069;--green-ink:#03220f;--mint:#76e3aa;--muted:#8aa89a;}
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;background:#000;overflow:hidden}
 
   .stage{position:fixed;inset:0;background:#000;overflow:hidden;font-family:"Archivo",system-ui,sans-serif}
   #yt,#yt iframe,#video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
   #video{display:none;object-fit:contain}
-  .stage.use-file #video{display:block}
-  .stage.use-file #yt{display:none}
-  .stage.use-yt #video{display:none}
+  .stage.use-file #video{display:block}.stage.use-file #yt{display:none}.stage.use-yt #video{display:none}
 
   .gate{position:absolute;inset:0;z-index:2;pointer-events:none}
   .stage.ad .gate{pointer-events:auto;cursor:pointer}
@@ -25,24 +24,34 @@
   .logo{position:absolute;top:14px;right:14px;z-index:3;height:34px;max-width:42%;width:auto;opacity:.92;filter:drop-shadow(0 1px 4px rgba(0,0,0,.7));pointer-events:none}
   .logo[hidden]{display:none}
 
-  .ad-tag{position:absolute;top:14px;left:14px;z-index:3;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:1px solid rgba(240,169,59,.4);border-radius:6px;padding:5px 9px;opacity:0;transition:opacity .25s;pointer-events:none}
+  /* ---- LOWER THIRD ---- */
+  .lower3{position:absolute;left:0;bottom:11%;z-index:6;display:flex;align-items:stretch;max-width:82%;
+    transform:translateX(-103%);opacity:0;pointer-events:none;
+    transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s}
+  .lower3.show{transform:none;opacity:1}
+  .lower3 .accent{width:6px;background:var(--green);flex:none}
+  .lower3 .body{background:linear-gradient(90deg,rgba(7,17,12,.94),rgba(7,17,12,.72));padding:9px 24px 10px 16px;backdrop-filter:blur(6px);min-width:0}
+  .lower3 .l1{display:block;font-weight:700;font-size:clamp(15px,2.7vw,26px);color:#fff;line-height:1.12;letter-spacing:.005em}
+  .lower3 .l2{display:block;font-weight:600;font-size:clamp(10px,1.7vw,15px);color:var(--mint);margin-top:4px;text-transform:uppercase;letter-spacing:.09em}
+  .lower3 .l2[hidden]{display:none}
+
+  .ad-tag{position:absolute;top:14px;left:14px;z-index:3;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.4);border-radius:6px;padding:5px 9px;opacity:0;transition:opacity .25s;pointer-events:none}
   .stage.ad .ad-tag{opacity:1}
 
-  .skip-pill{position:absolute;right:16px;bottom:64px;z-index:4;display:flex;align-items:center;background:rgba(15,17,22,.85);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+  .skip-pill{position:absolute;right:16px;bottom:64px;z-index:4;display:flex;align-items:center;background:rgba(10,18,14,.85);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
   .stage.ad .skip-pill{opacity:1;transform:none}
   .skip-pill .count{padding:11px 16px;color:var(--muted);font-size:14px;white-space:nowrap}
-  .skip-pill .go{all:unset;cursor:pointer;display:none;align-items:center;gap:9px;padding:11px 18px;color:var(--amber);font-size:14px;white-space:nowrap;pointer-events:auto}
-  .skip-pill .go:hover,.skip-pill .go:focus-visible{background:var(--amber);color:var(--amber-ink)}
+  .skip-pill .go{all:unset;cursor:pointer;display:none;align-items:center;gap:9px;padding:11px 18px;color:var(--mint);font-size:14px;white-space:nowrap;pointer-events:auto}
+  .skip-pill .go:hover,.skip-pill .go:focus-visible{background:var(--green);color:var(--green-ink)}
   .skip-pill .go::after{content:"";border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;display:inline-block}
   .skip-pill .go .bar{width:3px;height:14px;background:currentColor;display:inline-block;margin-right:-4px}
-  .skip-pill.ready .count{display:none}
-  .skip-pill.ready .go{display:flex}
+  .skip-pill.ready .count{display:none}.skip-pill.ready .go{display:flex}
 
-  .poster{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;cursor:pointer}
-  .poster::before{content:"";position:absolute;inset:0;background:rgba(10,12,16,.45)}
-  .poster .pbtn{position:relative;width:74px;height:74px;border-radius:50%;background:var(--amber);display:grid;place-items:center;transition:transform .2s}
+  .poster{position:absolute;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;cursor:pointer}
+  .poster::before{content:"";position:absolute;inset:0;background:rgba(8,14,11,.45)}
+  .poster .pbtn{position:relative;width:74px;height:74px;border-radius:50%;background:var(--green);display:grid;place-items:center;transition:transform .2s}
   .poster:hover .pbtn{transform:scale(1.06)}
-  .poster .pbtn::after{content:"";border-left:22px solid var(--amber-ink);border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:6px}
+  .poster .pbtn::after{content:"";border-left:22px solid var(--green-ink);border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:6px}
   .poster.hidden{display:none}
 
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -54,6 +63,10 @@
     <video id="video" playsinline></video>
     <div class="gate" id="gate"></div>
     <img class="logo" id="logo" alt="" hidden>
+    <div class="lower3" id="lower3">
+      <span class="accent"></span>
+      <span class="body"><span class="l1" id="l1"></span><span class="l2" id="l2" hidden></span></span>
+    </div>
     <div class="ad-tag">Annuncio</div>
     <div class="skip-pill" id="skipPill">
       <span class="count" id="skipCount">Puoi saltare tra 5s</span>
@@ -64,20 +77,26 @@
 
 <script>
 /* =========================================================
-   CONFIG — valori fissi OPPURE parametri nell'URL:
-   player.html?pre=...&main=...&skip=5&mute=0
-   "pre" e "main" accettano un link YouTube/ID oppure l'URL
-   diretto di un file video (.mp4, .webm…) caricato sul sito.
-   I parametri nell'URL hanno la precedenza.
+   CONFIG — parametri nell'URL:
+   player.html?pre=...&main=...&outro=...&skip=5&mute=0&t1=...&t2=...&ld=6
+   pre/main/outro: link YouTube/ID o URL diretto di un file video.
+   - outro: si avvia da solo alla fine del principale, SENZA comandi.
+     Se assente usa quello predefinito; "outro=" (vuoto) lo disattiva.
+   - t1/t2 = lower third (solo sul video principale), ld = secondi a schermo.
    ========================================================= */
-const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png";
+const DEFAULT_LOGO  = "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png";
+const DEFAULT_OUTRO = "https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4";
 const qs = new URLSearchParams(location.search);
 const CONFIG = {
   preroll:   qs.get('pre')  || "",
   main:      qs.get('main') || "",
+  outro:     qs.has('outro') ? qs.get('outro') : DEFAULT_OUTRO,
   skipAfter: parseInt(qs.get('skip'),10) || 5,
   muteAd:    qs.get('mute') === '1',
-  logo:      qs.get('logo') || DEFAULT_LOGO
+  logo:      qs.get('logo') || DEFAULT_LOGO,
+  t1:        qs.get('t1') || "",
+  t2:        qs.get('t2') || "",
+  ldDur:     qs.has('ld') ? (parseInt(qs.get('ld'),10)||0) : 6
 };
 /* ========================================================= */
 
@@ -90,12 +109,12 @@ const CONFIG = {
   const skipBtn=document.getElementById('skipBtn');
   const logoEl=document.getElementById('logo');
   const video=document.getElementById('video');
+  const lower3=document.getElementById('lower3'), l1=document.getElementById('l1'), l2=document.getElementById('l2');
 
   let ytPlayer=null, ytReady=false;
-  let active='none';      // yt | file
-  let phase='idle';       // idle | ad | main
-  let srcPre=null, srcMain=null;
-  let skipAfter=CONFIG.skipAfter||5, skipTimer=null;
+  let active='none', phase='idle';
+  let srcPre=null, srcMain=null, srcOutro=null;
+  let skipAfter=CONFIG.skipAfter||5, skipTimer=null, l3in=null, l3out=null;
 
   function ytId(s){
     if(!s) return "";
@@ -113,12 +132,15 @@ const CONFIG = {
 
   srcPre=classify(CONFIG.preroll);
   srcMain=classify(CONFIG.main);
-  const needsYT = (srcPre&&srcPre.type==='yt')||(srcMain&&srcMain.type==='yt');
+  srcOutro=classify(CONFIG.outro);
+  const needsYT=[srcPre,srcMain,srcOutro].some(s=>s&&s.type==='yt');
 
   if(CONFIG.logo){ logoEl.src=CONFIG.logo; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; }
   if(srcMain&&srcMain.type==='yt') poster.style.backgroundImage='url(https://i.ytimg.com/vi/'+srcMain.id+'/maxresdefault.jpg)';
 
-  // YouTube API (caricata solo se serve)
+  l1.textContent=CONFIG.t1||'';
+  if(CONFIG.t2){ l2.textContent=CONFIG.t2; l2.hidden=false; } else l2.hidden=true;
+
   if(needsYT){
     const tag=document.createElement('script');
     tag.src="https://www.youtube.com/iframe_api";
@@ -132,30 +154,38 @@ const CONFIG = {
       events:{onReady:()=>{ytReady=true;},onStateChange:onYtState}
     });
   };
-  function onYtState(e){ if(e.data===YT.PlayerState.ENDED && phase==='ad') playMain(); }
-  video.addEventListener('ended',()=>{ if(phase==='ad') playMain(); });
+  function onYtState(e){ if(e.data===YT.PlayerState.ENDED) onEnded(); }
+  video.addEventListener('ended',onEnded);
+  function onEnded(){
+    if(phase==='ad') playMain();
+    else if(phase==='main') playOutro();
+  }
 
-  function setActive(kind){
-    active=kind;
-    stage.classList.toggle('use-yt', kind==='yt');
-    stage.classList.toggle('use-file', kind==='file');
-  }
-  function curTime(){
-    if(active==='yt'){ try{return ytPlayer.getCurrentTime()||0;}catch(_){return 0;} }
-    return video.currentTime||0;
-  }
-  function playSrc(src,isAd){
+  function setActive(kind){ active=kind; stage.classList.toggle('use-yt',kind==='yt'); stage.classList.toggle('use-file',kind==='file'); }
+  function curTime(){ if(active==='yt'){try{return ytPlayer.getCurrentTime()||0;}catch(_){return 0;}} return video.currentTime||0; }
+
+  // showControls vale solo per i file; per YouTube i comandi sono gestiti dall'iframe
+  function playSrc(src,showControls){
     if(src.type==='yt'){
       setActive('yt');
       ytPlayer.loadVideoById(src.id);
-      if(isAd && CONFIG.muteAd) ytPlayer.mute(); else ytPlayer.unMute();
     }else{
       setActive('file');
       video.src=src.url;
-      video.controls=!isAd;            // niente controlli durante l'annuncio
-      video.muted=(isAd && CONFIG.muteAd);
+      video.controls=showControls;
+      video.muted=false;
       const p=video.play(); if(p&&p.catch) p.catch(()=>{});
     }
+  }
+
+  function showLower3(){
+    if(!CONFIG.t1) return;
+    clearTimeout(l3in); clearTimeout(l3out);
+    lower3.classList.remove('show');
+    l3in=setTimeout(()=>{
+      lower3.classList.add('show');
+      if(CONFIG.ldDur>0) l3out=setTimeout(()=>lower3.classList.remove('show'), CONFIG.ldDur*1000);
+    },800);
   }
 
   function canStart(){ return srcPre && srcMain && (!needsYT || ytReady); }
@@ -166,7 +196,8 @@ const CONFIG = {
     phase='ad';
     stage.classList.remove('idle'); stage.classList.add('ad');
     pill.classList.remove('ready');
-    playSrc(srcPre,true);
+    playSrc(srcPre,false);                 // pre-roll senza comandi
+    if(CONFIG.muteAd){ if(active==='yt') ytPlayer.mute(); else video.muted=true; }
     startCountdown();
   }
   function startCountdown(){
@@ -184,18 +215,23 @@ const CONFIG = {
     stage.classList.remove('ad');
     pill.classList.remove('ready');
     clearInterval(skipTimer);
-    playSrc(srcMain,false);
+    playSrc(srcMain,true);                 // video principale CON comandi
+    showLower3();
+  }
+  function playOutro(){
+    clearTimeout(l3in); clearTimeout(l3out);
+    lower3.classList.remove('show');
+    if(!srcOutro){ phase='end'; return; }  // nessun outro: resta l'ultimo fotogramma
+    phase='outro';
+    stage.classList.remove('ad');
+    playSrc(srcOutro,false);               // outro SENZA comandi
   }
 
   skipBtn.addEventListener('click',e=>{ e.stopPropagation(); if(phase==='ad') playMain(); });
   gate.addEventListener('click',()=>{
-    if(phase!=='ad') return;
-    if(active==='yt'){
-      const st=ytPlayer.getPlayerState();
-      if(st===YT.PlayerState.PLAYING) ytPlayer.pauseVideo(); else ytPlayer.playVideo();
-    }else{
-      video.paused?video.play():video.pause();
-    }
+    if(phase!=='ad') return;               // pausa/play consentiti solo durante il pre-roll
+    if(active==='yt'){ const st=ytPlayer.getPlayerState(); if(st===YT.PlayerState.PLAYING) ytPlayer.pauseVideo(); else ytPlayer.playVideo(); }
+    else { video.paused?video.play():video.pause(); }
   });
 })();
 </script>
