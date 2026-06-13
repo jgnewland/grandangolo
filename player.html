@@ -13,12 +13,15 @@
   html,body{margin:0;height:100%;background:#000;overflow:hidden}
 
   .stage{position:fixed;inset:0;background:#000;overflow:hidden;font-family:"Archivo",system-ui,sans-serif}
-  #yt,#yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  #yt,#yt iframe,#video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+  #video{display:none;object-fit:contain}
+  .stage.use-file #video{display:block}
+  .stage.use-file #yt{display:none}
+  .stage.use-yt #video{display:none}
 
   .gate{position:absolute;inset:0;z-index:2;pointer-events:none}
   .stage.ad .gate{pointer-events:auto;cursor:pointer}
 
-  /* LOGO in alto a destra */
   .logo{position:absolute;top:14px;right:14px;z-index:3;height:34px;max-width:42%;width:auto;opacity:.92;filter:drop-shadow(0 1px 4px rgba(0,0,0,.7));pointer-events:none}
   .logo[hidden]{display:none}
 
@@ -35,17 +38,12 @@
   .skip-pill.ready .count{display:none}
   .skip-pill.ready .go{display:flex}
 
-  .poster{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background-size:cover;background-position:center;cursor:pointer;text-align:center;padding:24px;color:#fff}
-  .poster::before{content:"";position:absolute;inset:0;background:rgba(10,12,16,.5)}
+  .poster{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;cursor:pointer}
+  .poster::before{content:"";position:absolute;inset:0;background:rgba(10,12,16,.45)}
   .poster .pbtn{position:relative;width:74px;height:74px;border-radius:50%;background:var(--amber);display:grid;place-items:center;transition:transform .2s}
   .poster:hover .pbtn{transform:scale(1.06)}
   .poster .pbtn::after{content:"";border-left:22px solid var(--amber-ink);border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:6px}
-  .poster .ptext{position:relative;font-weight:600;font-size:15px}
-  .poster .psub{position:relative;font-size:13px;color:#cfd4dd;font-family:system-ui,sans-serif}
   .poster.hidden{display:none}
-  .poster.loading .pbtn{opacity:.4}
-  .poster.loading{cursor:progress}
-  .poster.msg .pbtn{display:none}
 
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -53,6 +51,7 @@
 <body>
   <div class="stage idle" id="stage">
     <div id="yt"></div>
+    <video id="video" playsinline></video>
     <div class="gate" id="gate"></div>
     <img class="logo" id="logo" alt="" hidden>
     <div class="ad-tag">Annuncio</div>
@@ -60,18 +59,15 @@
       <span class="count" id="skipCount">Puoi saltare tra 5s</span>
       <button class="go" id="skipBtn"><span class="bar"></span>Salta annuncio</button>
     </div>
-    <div class="poster loading" id="poster">
-      <div class="pbtn"></div>
-      <div class="ptext" id="ptext">Caricamento…</div>
-      <div class="psub" id="psub"></div>
-    </div>
+    <div class="poster" id="poster"><div class="pbtn"></div></div>
   </div>
 
 <script>
 /* =========================================================
-   CONFIG
-   Imposta qui i valori fissi, OPPURE passali nell'URL dell'iframe:
-   player.html?pre=ID_PREROLL&main=ID_VIDEO&skip=5&mute=0
+   CONFIG — valori fissi OPPURE parametri nell'URL:
+   player.html?pre=...&main=...&skip=5&mute=0
+   "pre" e "main" accettano un link YouTube/ID oppure l'URL
+   diretto di un file video (.mp4, .webm…) caricato sul sito.
    I parametri nell'URL hanno la precedenza.
    ========================================================= */
 const DEFAULT_LOGO = "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png";
@@ -89,14 +85,16 @@ const CONFIG = {
   const stage=document.getElementById('stage');
   const gate=document.getElementById('gate');
   const poster=document.getElementById('poster');
-  const ptext=document.getElementById('ptext'), psub=document.getElementById('psub');
   const pill=document.getElementById('skipPill');
   const skipCount=document.getElementById('skipCount');
   const skipBtn=document.getElementById('skipBtn');
   const logoEl=document.getElementById('logo');
+  const video=document.getElementById('video');
 
-  let player=null, ready=false, phase='idle';
-  let ids={preroll:'',main:''};
+  let ytPlayer=null, ytReady=false;
+  let active='none';      // yt | file
+  let phase='idle';       // idle | ad | main
+  let srcPre=null, srcMain=null;
   let skipAfter=CONFIG.skipAfter||5, skipTimer=null;
 
   function ytId(s){
@@ -106,83 +104,98 @@ const CONFIG = {
     const m=s.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/);
     return m?m[1]:"";
   }
+  function classify(u){
+    const id=ytId(u); if(id) return {type:'yt',id:id};
+    u=(u||'').trim();
+    if(/^https?:\/\//i.test(u)) return {type:'file',url:u};
+    return null;
+  }
 
-  ids.preroll=ytId(CONFIG.preroll);
-  ids.main=ytId(CONFIG.main);
+  srcPre=classify(CONFIG.preroll);
+  srcMain=classify(CONFIG.main);
+  const needsYT = (srcPre&&srcPre.type==='yt')||(srcMain&&srcMain.type==='yt');
 
-  // logo
   if(CONFIG.logo){ logoEl.src=CONFIG.logo; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; }
+  if(srcMain&&srcMain.type==='yt') poster.style.backgroundImage='url(https://i.ytimg.com/vi/'+srcMain.id+'/maxresdefault.jpg)';
 
-  const tag=document.createElement('script');
-  tag.src="https://www.youtube.com/iframe_api";
-  document.head.appendChild(tag);
+  // YouTube API (caricata solo se serve)
+  if(needsYT){
+    const tag=document.createElement('script');
+    tag.src="https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  }else{ ytReady=true; }
 
   window.onYouTubeIframeAPIReady=function(){
-    player=new YT.Player('yt',{
+    ytPlayer=new YT.Player('yt',{
       width:'100%',height:'100%',
       playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:1,iv_load_policy:3},
-      events:{onReady:onReady,onStateChange:onStateChange}
+      events:{onReady:()=>{ytReady=true;},onStateChange:onYtState}
     });
   };
+  function onYtState(e){ if(e.data===YT.PlayerState.ENDED && phase==='ad') playMain(); }
+  video.addEventListener('ended',()=>{ if(phase==='ad') playMain(); });
 
-  function onReady(){
-    ready=true;
-    poster.classList.remove('loading');
-    if(!ids.preroll||!ids.main){
-      poster.classList.add('msg');
-      ptext.textContent='Player non configurato';
-      psub.textContent='Imposta i video in CONFIG o nei parametri dell\u2019URL';
-      return;
+  function setActive(kind){
+    active=kind;
+    stage.classList.toggle('use-yt', kind==='yt');
+    stage.classList.toggle('use-file', kind==='file');
+  }
+  function curTime(){
+    if(active==='yt'){ try{return ytPlayer.getCurrentTime()||0;}catch(_){return 0;} }
+    return video.currentTime||0;
+  }
+  function playSrc(src,isAd){
+    if(src.type==='yt'){
+      setActive('yt');
+      ytPlayer.loadVideoById(src.id);
+      if(isAd && CONFIG.muteAd) ytPlayer.mute(); else ytPlayer.unMute();
+    }else{
+      setActive('file');
+      video.src=src.url;
+      video.controls=!isAd;            // niente controlli durante l'annuncio
+      video.muted=(isAd && CONFIG.muteAd);
+      const p=video.play(); if(p&&p.catch) p.catch(()=>{});
     }
-    ptext.textContent='Guarda il video';
-    psub.textContent='Premi play — parte un breve pre-roll';
-    poster.style.backgroundImage='url(https://i.ytimg.com/vi/'+ids.main+'/maxresdefault.jpg)';
   }
 
-  function onStateChange(e){
-    if(e.data===YT.PlayerState.ENDED && phase==='ad') playMain();
-  }
+  function canStart(){ return srcPre && srcMain && (!needsYT || ytReady); }
+  poster.addEventListener('click',()=>{ if(canStart()) startAd(); });
 
-  poster.addEventListener('click',()=>{ if(ready && ids.preroll && ids.main) start(); });
-
-  function start(){
+  function startAd(){
     poster.classList.add('hidden');
     phase='ad';
     stage.classList.remove('idle'); stage.classList.add('ad');
     pill.classList.remove('ready');
-    if(CONFIG.muteAd) player.mute();
-    player.loadVideoById(ids.preroll);
+    playSrc(srcPre,true);
     startCountdown();
   }
-
   function startCountdown(){
     clearInterval(skipTimer);
     const tick=()=>{
       if(phase!=='ad') return;
-      let t=0; try{t=player.getCurrentTime()||0;}catch(_){}
-      const remaining=Math.max(0,skipAfter-Math.floor(t));
+      const remaining=Math.max(0,skipAfter-Math.floor(curTime()));
       if(remaining<=0){ pill.classList.add('ready'); clearInterval(skipTimer); }
       else skipCount.textContent='Puoi saltare tra '+remaining+'s';
     };
-    tick();
-    skipTimer=setInterval(tick,250);
+    tick(); skipTimer=setInterval(tick,250);
   }
-
   function playMain(){
     phase='main';
     stage.classList.remove('ad');
     pill.classList.remove('ready');
     clearInterval(skipTimer);
-    player.unMute();
-    player.loadVideoById(ids.main);
+    playSrc(srcMain,false);
   }
 
   skipBtn.addEventListener('click',e=>{ e.stopPropagation(); if(phase==='ad') playMain(); });
-
   gate.addEventListener('click',()=>{
-    if(phase!=='ad'||!player) return;
-    const st=player.getPlayerState();
-    if(st===YT.PlayerState.PLAYING) player.pauseVideo(); else player.playVideo();
+    if(phase!=='ad') return;
+    if(active==='yt'){
+      const st=ytPlayer.getPlayerState();
+      if(st===YT.PlayerState.PLAYING) ytPlayer.pauseVideo(); else ytPlayer.playVideo();
+    }else{
+      video.paused?video.play():video.pause();
+    }
   });
 })();
 </script>
