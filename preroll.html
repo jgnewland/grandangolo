@@ -3,43 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generatore iframe — Player con pre-roll</title>
+<title>Player</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ---- PALETTE BRAND (verde) ---- */
-  :root{--bg:#0f1512;--panel:#16201b;--panel-2:#1d2a23;--line:#294035;--ink:#eef4f0;--muted:#8aa89a;--green:#1fb069;--green-ink:#03220f;--mint:#76e3aa;--radius:14px;}
+  :root{--line:#294035;--green:#1fb069;--green-ink:#03220f;--mint:#76e3aa;--muted:#8aa89a;}
   *{box-sizing:border-box}
-  html,body{margin:0}
-  body{background:radial-gradient(1100px 600px at 80% -10%,rgba(118,227,170,.08),transparent 60%),radial-gradient(900px 500px at -10% 110%,rgba(31,176,105,.10),transparent 55%),var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:900px;margin:0 auto;padding:44px 20px 80px}
-  .eyebrow{font-family:"Archivo",sans-serif;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--mint);margin:0 0 10px}
-  h1{font-family:"Archivo",sans-serif;font-weight:700;font-size:clamp(26px,5vw,36px);line-height:1.06;margin:0;letter-spacing:-.01em}
-  .lede{color:var(--muted);margin:12px 0 0;max-width:62ch;font-size:14.5px;line-height:1.55}
+  html,body{margin:0;height:100%;background:#000;overflow:hidden}
 
-  .stage{position:relative;margin-top:30px;border-radius:var(--radius);overflow:hidden;background:#000;aspect-ratio:16/9;border:1px solid var(--line);box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+  .stage{position:fixed;inset:0;background:#000;overflow:hidden;font-family:"Archivo",system-ui,sans-serif}
   #yt,#yt iframe,#video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
   #video{display:none;object-fit:contain}
   .stage.use-file #video{display:block}.stage.use-file #yt{display:none}.stage.use-yt #video{display:none}
+
   .gate{position:absolute;inset:0;z-index:2;pointer-events:none}
   .stage.ad .gate{pointer-events:auto;cursor:pointer}
+
   .logo{position:absolute;top:14px;right:14px;z-index:3;height:34px;max-width:42%;width:auto;opacity:.92;filter:drop-shadow(0 1px 4px rgba(0,0,0,.7));pointer-events:none}
   .logo[hidden]{display:none}
 
+  /* ---- LOWER THIRD ---- */
   .lower3{position:absolute;left:0;bottom:11%;z-index:6;display:flex;align-items:stretch;max-width:82%;
     transform:translateX(-103%);opacity:0;pointer-events:none;
     transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s}
   .lower3.show{transform:none;opacity:1}
   .lower3 .accent{width:6px;background:var(--green);flex:none}
-  .lower3 .body{background:linear-gradient(90deg,rgba(7,17,12,.94),rgba(7,17,12,.72));padding:9px 24px 10px 16px;backdrop-filter:blur(6px);min-width:0;font-family:"Archivo",sans-serif}
-  .lower3 .l1{display:block;font-weight:700;font-size:clamp(15px,2.7vw,26px);color:#fff;line-height:1.12}
+  .lower3 .body{background:linear-gradient(90deg,rgba(7,17,12,.94),rgba(7,17,12,.72));padding:9px 24px 10px 16px;backdrop-filter:blur(6px);min-width:0}
+  .lower3 .l1{display:block;font-weight:700;font-size:clamp(15px,2.7vw,26px);color:#fff;line-height:1.12;letter-spacing:.005em}
   .lower3 .l2{display:block;font-weight:600;font-size:clamp(10px,1.7vw,15px);color:var(--mint);margin-top:4px;text-transform:uppercase;letter-spacing:.09em}
   .lower3 .l2[hidden]{display:none}
 
-  .ad-tag{position:absolute;top:14px;left:14px;z-index:3;font-family:"Archivo",sans-serif;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.4);border-radius:6px;padding:5px 9px;opacity:0;transition:opacity .25s;pointer-events:none}
+  .ad-tag{position:absolute;top:14px;left:14px;z-index:3;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.4);border-radius:6px;padding:5px 9px;opacity:0;transition:opacity .25s;pointer-events:none}
   .stage.ad .ad-tag{opacity:1}
-  .skip-pill{position:absolute;right:16px;bottom:16px;z-index:4;display:flex;align-items:center;background:rgba(10,18,14,.85);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-family:"Archivo",sans-serif;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+
+  .skip-pill{position:absolute;right:16px;bottom:64px;z-index:4;display:flex;align-items:center;background:rgba(10,18,14,.85);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
   .stage.ad .skip-pill{opacity:1;transform:none}
   .skip-pill .count{padding:11px 16px;color:var(--muted);font-size:14px;white-space:nowrap}
   .skip-pill .go{all:unset;cursor:pointer;display:none;align-items:center;gap:9px;padding:11px 18px;color:var(--mint);font-size:14px;white-space:nowrap;pointer-events:auto}
@@ -47,59 +46,18 @@
   .skip-pill .go::after{content:"";border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;display:inline-block}
   .skip-pill .go .bar{width:3px;height:14px;background:currentColor;display:inline-block;margin-right:-4px}
   .skip-pill.ready .count{display:none}.skip-pill.ready .go{display:flex}
-  .poster{position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background-size:cover;background-position:center;cursor:pointer;text-align:center;color:#fff}
+
+  .poster{position:absolute;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;cursor:pointer}
   .poster::before{content:"";position:absolute;inset:0;background:rgba(8,14,11,.45)}
-  .poster .pbtn{position:relative;width:68px;height:68px;border-radius:50%;background:var(--green);display:grid;place-items:center;transition:transform .2s}
+  .poster .pbtn{position:relative;width:74px;height:74px;border-radius:50%;background:var(--green);display:grid;place-items:center;transition:transform .2s}
   .poster:hover .pbtn{transform:scale(1.06)}
-  .poster .pbtn::after{content:"";border-left:20px solid var(--green-ink);border-top:13px solid transparent;border-bottom:13px solid transparent;margin-left:6px}
-  .poster .ptext{position:relative;font-family:"Archivo",sans-serif;font-weight:600;font-size:14px}
-  .poster.hidden{display:none}.poster.msg .pbtn{display:none}.poster .ptext[hidden]{display:none}
+  .poster .pbtn::after{content:"";border-left:22px solid var(--green-ink);border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:6px}
+  .poster.hidden{display:none}
 
-  .panel{margin-top:24px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
-  .phead{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
-  .phead .step{font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--mint);color:#06241a;flex:none}
-  .phead .t{font-family:"Archivo",sans-serif;font-weight:600;font-size:14px;letter-spacing:.03em}
-  .phead .reset{margin-left:auto;all:unset;cursor:pointer;font-size:13px;color:var(--muted)}
-  .phead .reset:hover{color:var(--ink)}
-  .field{display:flex;align-items:center;gap:14px;padding:13px 18px;flex-wrap:wrap}
-  .field+.field{border-top:1px solid rgba(41,64,53,.5)}
-  .field label{font-family:"Archivo",sans-serif;font-weight:600;font-size:13.5px;width:160px;flex:none;display:flex;flex-direction:column;gap:3px}
-  .field label .desc{font-weight:400;font-size:11.5px;color:var(--muted);font-family:"Inter",sans-serif}
-  .field input[type=text]{flex:1;min-width:220px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:11px 13px;font-size:14px;font-family:inherit}
-  .field input[type=text]:focus{outline:none;border-color:var(--mint)}
-  .field input.bad{border-color:#b5564f}
-  .subhead{padding:14px 18px 4px;font-family:"Archivo",sans-serif;font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mint);border-top:1px solid var(--line)}
-  .stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden}
-  .stepper button{all:unset;cursor:pointer;width:34px;height:40px;display:grid;place-items:center;font-size:18px;color:var(--muted)}
-  .stepper button:hover{background:var(--panel-2);color:var(--ink)}
-  .stepper .val{min-width:54px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
-  .stepper .val small{color:var(--muted);font-weight:400;margin-left:2px}
-  .checkrow{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13.5px}
-  .checkrow input{accent-color:var(--green);width:16px;height:16px}
-  .hintline{font-size:12px;color:var(--muted);flex:1;min-width:160px}
-
-  .out{margin-top:24px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-  .out .ohead{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
-  .out .ohead .step{font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--green);color:var(--green-ink);flex:none}
-  .out .ohead .t{font-family:"Archivo",sans-serif;font-weight:600;font-size:14px}
-  .out .ohead .copy{margin-left:auto;all:unset;cursor:pointer;font-family:"Archivo",sans-serif;font-weight:600;font-size:13px;background:var(--green);color:var(--green-ink);padding:8px 16px;border-radius:9px}
-  .out .ohead .copy:hover{filter:brightness(1.08)}.out .ohead .copy.done{background:var(--mint);color:#06241a}
-  textarea{width:100%;border:0;background:#0a120d;color:#cde8d8;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.6;padding:16px 18px;resize:vertical;min-height:150px;outline:none}
-  .warn{padding:0 18px 14px;font-size:12.5px;color:var(--mint)}.warn[hidden]{display:none}
-
-  .tip{margin-top:18px;font-size:12.5px;color:var(--muted);line-height:1.6}
-  .tip b{color:var(--ink);font-weight:600}
-  .tip code{background:var(--panel);padding:2px 6px;border-radius:5px;color:var(--mint);font-family:"JetBrains Mono",monospace}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-  @media (max-width:620px){.field label{width:100%}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <p class="eyebrow">Generatore</p>
-  <h1>Imposta, guarda l'anteprima, copia l'iframe.</h1>
-  <p class="lede">Pre-roll → video principale (con lower third) → outro automatico senza comandi. Incolla link YouTube o URL di file video del tuo sito. In fondo trovi il codice iframe per WordPress.</p>
-
   <div class="stage idle" id="stage">
     <div id="yt"></div>
     <video id="video" playsinline></video>
@@ -114,87 +72,38 @@
       <span class="count" id="skipCount">Puoi saltare tra 5s</span>
       <button class="go" id="skipBtn"><span class="bar"></span>Salta annuncio</button>
     </div>
-    <div class="poster msg" id="poster">
-      <div class="pbtn"></div>
-      <div class="ptext" id="ptext">Inserisci i link qui sotto</div>
-    </div>
+    <div class="poster" id="poster"><div class="pbtn"></div></div>
   </div>
-
-  <div class="panel">
-    <div class="phead"><span class="step">1</span><span class="t">Video</span>
-      <button class="reset" id="reset">↻ Riavvia anteprima</button></div>
-    <div class="field">
-      <label>Link pre-roll<span class="desc">YouTube o file .mp4</span></label>
-      <input type="text" id="inPre" placeholder="https://… (YouTube o file video)">
-    </div>
-    <div class="field">
-      <label>Link principale<span class="desc">YouTube o file .mp4</span></label>
-      <input type="text" id="inMain" placeholder="https://… (YouTube o file video)">
-    </div>
-    <div class="field">
-      <label>Outro (fine)<span class="desc">parte da solo, senza comandi</span></label>
-      <input type="text" id="inOutro" placeholder="URL del video di chiusura — vuoto = nessun outro">
-    </div>
-    <div class="field">
-      <label>Salta dopo</label>
-      <div class="stepper">
-        <button id="minus" aria-label="Riduci">−</button>
-        <span class="val"><span id="delayVal">5</span><small>s</small></span>
-        <button id="plus" aria-label="Aumenta">+</button>
-      </div>
-      <label class="checkrow"><input type="checkbox" id="muteChk"> Pre-roll muto</label>
-    </div>
-
-    <div class="subhead">Lower third (solo sul video principale)</div>
-    <div class="field">
-      <label>Riga 1<span class="desc">titolo / nome</span></label>
-      <input type="text" id="inT1" placeholder="Es. Mario Rossi">
-    </div>
-    <div class="field">
-      <label>Riga 2<span class="desc">sottotitolo, facoltativo</span></label>
-      <input type="text" id="inT2" placeholder="Es. Sindaco di Agrigento">
-    </div>
-    <div class="field">
-      <label>Resta a schermo</label>
-      <div class="stepper">
-        <button id="ldMinus" aria-label="Riduci">−</button>
-        <span class="val"><span id="ldVal">6</span><small>s</small></span>
-        <button id="ldPlus" aria-label="Aumenta">+</button>
-      </div>
-      <span class="hintline">0 = sempre visibile per tutto il video</span>
-    </div>
-
-    <div class="subhead">Logo e indirizzo</div>
-    <div class="field">
-      <label>Logo<span class="desc">facoltativo</span></label>
-      <input type="text" id="inLogo" placeholder="URL del logo">
-    </div>
-    <div class="field">
-      <label>Indirizzo del player<span class="desc">il file player.html</span></label>
-      <input type="text" id="inBase" placeholder="https://tuonome.github.io/repo/player.html">
-    </div>
-  </div>
-
-  <div class="out">
-    <div class="ohead"><span class="step">2</span><span class="t">Codice da incollare</span>
-      <button class="copy" id="copyBtn">Copia codice</button></div>
-    <textarea id="codeOut" readonly spellcheck="false"></textarea>
-    <div class="warn" id="warn" hidden>Controlla "Indirizzo del player": serve l'URL del file player.html, altrimenti l'iframe non funzionerà.</div>
-  </div>
-
-  <p class="tip"><b>Su WordPress:</b> usa un blocco <code>HTML personalizzato</code> e incolla lì il codice. Nel blocco "Paragrafo" normale WordPress rimuove gli iframe.</p>
-</div>
 
 <script>
+/* =========================================================
+   CONFIG — parametri nell'URL:
+   player.html?pre=...&main=...&outro=...&skip=5&mute=0&t1=...&t2=...&ld=6
+   pre/main/outro: link YouTube/ID o URL diretto di un file video.
+   - outro: si avvia da solo alla fine del principale, SENZA comandi.
+     Se assente usa quello predefinito; "outro=" (vuoto) lo disattiva.
+   - t1/t2 = lower third (solo sul video principale), ld = secondi a schermo.
+   ========================================================= */
 const DEFAULT_LOGO  = "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png";
 const DEFAULT_OUTRO = "https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4";
-const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
+const qs = new URLSearchParams(location.search);
+const CONFIG = {
+  preroll:   qs.get('pre')  || "",
+  main:      qs.get('main') || "",
+  outro:     qs.has('outro') ? qs.get('outro') : DEFAULT_OUTRO,
+  skipAfter: parseInt(qs.get('skip'),10) || 5,
+  muteAd:    qs.get('mute') === '1',
+  logo:      qs.get('logo') || DEFAULT_LOGO,
+  t1:        qs.get('t1') || "",
+  t2:        qs.get('t2') || "",
+  ldDur:     qs.has('ld') ? (parseInt(qs.get('ld'),10)||0) : 6
+};
+/* ========================================================= */
 
 (function(){
   const stage=document.getElementById('stage');
   const gate=document.getElementById('gate');
   const poster=document.getElementById('poster');
-  const ptext=document.getElementById('ptext');
   const pill=document.getElementById('skipPill');
   const skipCount=document.getElementById('skipCount');
   const skipBtn=document.getElementById('skipBtn');
@@ -202,23 +111,10 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
   const video=document.getElementById('video');
   const lower3=document.getElementById('lower3'), l1=document.getElementById('l1'), l2=document.getElementById('l2');
 
-  const inPre=document.getElementById('inPre'), inMain=document.getElementById('inMain'), inOutro=document.getElementById('inOutro');
-  const inT1=document.getElementById('inT1'), inT2=document.getElementById('inT2');
-  const inLogo=document.getElementById('inLogo'), inBase=document.getElementById('inBase');
-  const muteChk=document.getElementById('muteChk');
-  const delayVal=document.getElementById('delayVal'), ldVal=document.getElementById('ldVal');
-  const codeOut=document.getElementById('codeOut');
-  const copyBtn=document.getElementById('copyBtn');
-  const warn=document.getElementById('warn');
-
   let ytPlayer=null, ytReady=false;
   let active='none', phase='idle';
   let srcPre=null, srcMain=null, srcOutro=null;
-  let skipAfter=5, ldDur=6, skipTimer=null, l3in=null, l3out=null;
-
-  inLogo.value=DEFAULT_LOGO;
-  inBase.value=DEFAULT_BASE;
-  inOutro.value=DEFAULT_OUTRO;
+  let skipAfter=CONFIG.skipAfter||5, skipTimer=null, l3in=null, l3out=null;
 
   function ytId(s){
     if(!s) return "";
@@ -234,78 +130,65 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     return null;
   }
 
-  const tag=document.createElement('script');
-  tag.src="https://www.youtube.com/iframe_api";
-  document.head.appendChild(tag);
+  srcPre=classify(CONFIG.preroll);
+  srcMain=classify(CONFIG.main);
+  srcOutro=classify(CONFIG.outro);
+  const needsYT=[srcPre,srcMain,srcOutro].some(s=>s&&s.type==='yt');
+
+  if(CONFIG.logo){ logoEl.src=CONFIG.logo; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; }
+  if(srcMain&&srcMain.type==='yt') poster.style.backgroundImage='url(https://i.ytimg.com/vi/'+srcMain.id+'/maxresdefault.jpg)';
+
+  l1.textContent=CONFIG.t1||'';
+  if(CONFIG.t2){ l2.textContent=CONFIG.t2; l2.hidden=false; } else l2.hidden=true;
+
+  if(needsYT){
+    const tag=document.createElement('script');
+    tag.src="https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  }else{ ytReady=true; }
+
   window.onYouTubeIframeAPIReady=function(){
     ytPlayer=new YT.Player('yt',{
       width:'100%',height:'100%',
       playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:1,iv_load_policy:3},
-      events:{onReady:()=>{ytReady=true;refresh();},onStateChange:onYtState}
+      events:{onReady:()=>{ytReady=true;},onStateChange:onYtState}
     });
   };
   function onYtState(e){ if(e.data===YT.PlayerState.ENDED) onEnded(); }
   video.addEventListener('ended',onEnded);
-  function onEnded(){ if(phase==='ad') playMain(); else if(phase==='main') playOutro(); }
+  function onEnded(){
+    if(phase==='ad') playMain();
+    else if(phase==='main') playOutro();
+  }
 
   function setActive(kind){ active=kind; stage.classList.toggle('use-yt',kind==='yt'); stage.classList.toggle('use-file',kind==='file'); }
   function curTime(){ if(active==='yt'){try{return ytPlayer.getCurrentTime()||0;}catch(_){return 0;}} return video.currentTime||0; }
 
-  function applyLogo(){
-    const u=inLogo.value.trim();
-    if(u){ logoEl.src=u; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; } else logoEl.hidden=true;
-  }
-  function applyLower3Text(){
-    l1.textContent=inT1.value.trim();
-    if(inT2.value.trim()){ l2.textContent=inT2.value.trim(); l2.hidden=false; } else l2.hidden=true;
-  }
-
-  function refresh(){
-    srcPre=classify(inPre.value);
-    srcMain=classify(inMain.value);
-    srcOutro=classify(inOutro.value);
-    inPre.classList.toggle('bad', inPre.value.trim()!=='' && !srcPre);
-    inMain.classList.toggle('bad', inMain.value.trim()!=='' && !srcMain);
-    inOutro.classList.toggle('bad', inOutro.value.trim()!=='' && !srcOutro);
-
-    if(phase==='idle'){
-      if(srcPre && srcMain){
-        poster.classList.remove('msg'); ptext.hidden=true;
-        poster.style.backgroundImage=(srcMain.type==='yt')?'url(https://i.ytimg.com/vi/'+srcMain.id+'/maxresdefault.jpg)':'';
-      }else{
-        poster.classList.add('msg'); ptext.hidden=false;
-        ptext.textContent='Inserisci i due link qui sotto';
-        poster.style.backgroundImage='';
-      }
-    }
-    applyLogo();
-    applyLower3Text();
-    if(phase==='idle') lower3.classList.toggle('show', !!inT1.value.trim());
-    generate();
-  }
-
+  // showControls vale solo per i file; per YouTube i comandi sono gestiti dall'iframe
   function playSrc(src,showControls){
-    if(src.type==='yt'){ setActive('yt'); ytPlayer.loadVideoById(src.id); }
-    else{
+    if(src.type==='yt'){
+      setActive('yt');
+      ytPlayer.loadVideoById(src.id);
+    }else{
       setActive('file');
-      video.src=src.url; video.controls=showControls; video.muted=false;
+      video.src=src.url;
+      video.controls=showControls;
+      video.muted=false;
       const p=video.play(); if(p&&p.catch) p.catch(()=>{});
     }
   }
+
   function showLower3(){
-    if(!inT1.value.trim()) return;
+    if(!CONFIG.t1) return;
     clearTimeout(l3in); clearTimeout(l3out);
     lower3.classList.remove('show');
     l3in=setTimeout(()=>{
       lower3.classList.add('show');
-      if(ldDur>0) l3out=setTimeout(()=>lower3.classList.remove('show'), ldDur*1000);
+      if(CONFIG.ldDur>0) l3out=setTimeout(()=>lower3.classList.remove('show'), CONFIG.ldDur*1000);
     },800);
   }
 
-  function canStart(){
-    const needsYT=[srcPre,srcMain,srcOutro].some(s=>s&&s.type==='yt');
-    return srcPre && srcMain && (!needsYT || ytReady);
-  }
+  function canStart(){ return srcPre && srcMain && (!needsYT || ytReady); }
   poster.addEventListener('click',()=>{ if(canStart()) startAd(); });
 
   function startAd(){
@@ -313,9 +196,8 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     phase='ad';
     stage.classList.remove('idle'); stage.classList.add('ad');
     pill.classList.remove('ready');
-    lower3.classList.remove('show');
-    playSrc(srcPre,false);
-    if(muteChk.checked){ if(active==='yt') ytPlayer.mute(); else video.muted=true; }
+    playSrc(srcPre,false);                 // pre-roll senza comandi
+    if(CONFIG.muteAd){ if(active==='yt') ytPlayer.mute(); else video.muted=true; }
     startCountdown();
   }
   function startCountdown(){
@@ -333,84 +215,24 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     stage.classList.remove('ad');
     pill.classList.remove('ready');
     clearInterval(skipTimer);
-    playSrc(srcMain,true);
+    playSrc(srcMain,true);                 // video principale CON comandi
     showLower3();
   }
   function playOutro(){
     clearTimeout(l3in); clearTimeout(l3out);
     lower3.classList.remove('show');
-    if(!srcOutro){ phase='end'; return; }
+    if(!srcOutro){ phase='end'; return; }  // nessun outro: resta l'ultimo fotogramma
     phase='outro';
     stage.classList.remove('ad');
-    playSrc(srcOutro,false);
-  }
-  function resetPreview(){
-    phase='idle';
-    clearInterval(skipTimer); clearTimeout(l3in); clearTimeout(l3out);
-    stage.classList.remove('ad','use-yt','use-file'); stage.classList.add('idle');
-    pill.classList.remove('ready');
-    try{ytPlayer.stopVideo();}catch(_){}
-    try{video.pause();video.removeAttribute('src');video.load();}catch(_){}
-    poster.classList.remove('hidden');
-    refresh();
+    playSrc(srcOutro,false);               // outro SENZA comandi
   }
 
   skipBtn.addEventListener('click',e=>{ e.stopPropagation(); if(phase==='ad') playMain(); });
   gate.addEventListener('click',()=>{
-    if(phase!=='ad') return;
+    if(phase!=='ad') return;               // pausa/play consentiti solo durante il pre-roll
     if(active==='yt'){ const st=ytPlayer.getPlayerState(); if(st===YT.PlayerState.PLAYING) ytPlayer.pauseVideo(); else ytPlayer.playVideo(); }
     else { video.paused?video.play():video.pause(); }
   });
-  document.getElementById('reset').addEventListener('click',resetPreview);
-
-  function param(name,src){
-    if(!src) return null;
-    return (src.type==='yt') ? name+'='+src.id : name+'='+encodeURIComponent(src.url);
-  }
-  function generate(){
-    const base=(inBase.value.trim())||'INCOLLA_QUI_URL_DEL_PLAYER';
-    const params=[];
-    const pp=param('pre',srcPre); if(pp) params.push(pp);
-    const pm=param('main',srcMain); if(pm) params.push(pm);
-    // outro: ometti se uguale al predefinito; se diverso (anche vuoto) includilo
-    const outroVal=inOutro.value.trim();
-    if(outroVal!==DEFAULT_OUTRO) params.push('outro='+encodeURIComponent(outroVal));
-    params.push('skip='+skipAfter);
-    if(muteChk.checked) params.push('mute=1');
-    const t1=inT1.value.trim(), t2=inT2.value.trim();
-    if(t1){
-      params.push('t1='+encodeURIComponent(t1));
-      if(t2) params.push('t2='+encodeURIComponent(t2));
-      if(ldDur!==6) params.push('ld='+ldDur);
-    }
-    const logoU=inLogo.value.trim();
-    if(logoU && logoU!==DEFAULT_LOGO) params.push('logo='+encodeURIComponent(logoU));
-    const url=base+'?'+params.join('&');
-    codeOut.value=
-'<div style="position:relative;width:100%;max-width:900px;aspect-ratio:16/9;margin:0 auto">\n'+
-'  <iframe\n'+
-'    src="'+url+'"\n'+
-'    style="position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px"\n'+
-'    allow="autoplay; fullscreen; encrypted-media"\n'+
-'    allowfullscreen loading="lazy"></iframe>\n'+
-'</div>';
-    warn.hidden = !!inBase.value.trim();
-  }
-
-  [inPre,inMain,inOutro,inT1,inT2,inLogo,inBase].forEach(el=>el.addEventListener('input',refresh));
-  muteChk.addEventListener('change',refresh);
-  document.getElementById('plus').addEventListener('click',()=>{skipAfter=Math.min(skipAfter+1,300);delayVal.textContent=skipAfter;generate();});
-  document.getElementById('minus').addEventListener('click',()=>{skipAfter=Math.max(skipAfter-1,0);delayVal.textContent=skipAfter;generate();});
-  document.getElementById('ldPlus').addEventListener('click',()=>{ldDur=Math.min(ldDur+1,120);ldVal.textContent=ldDur;generate();});
-  document.getElementById('ldMinus').addEventListener('click',()=>{ldDur=Math.max(ldDur-1,0);ldVal.textContent=ldDur;generate();});
-  copyBtn.addEventListener('click',async()=>{
-    try{ await navigator.clipboard.writeText(codeOut.value); }
-    catch(_){ codeOut.select(); document.execCommand('copy'); }
-    copyBtn.textContent='Copiato ✓'; copyBtn.classList.add('done');
-    setTimeout(()=>{copyBtn.textContent='Copia codice';copyBtn.classList.remove('done');},1600);
-  });
-
-  refresh();
 })();
 </script>
 </body>
