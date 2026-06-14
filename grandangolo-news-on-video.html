@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grandangolo News on Video</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0f1512;--panel:#16201b;--line:#294035;--ink:#eef4f0;--muted:#8aa89a;--green:#1fb069;--green-ink:#03220f;--mint:#76e3aa;}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+  .app{display:flex;flex-direction:column;height:100%;padding:16px 18px 14px;gap:14px}
+  .head{display:flex;align-items:center;gap:12px;flex:none}
+  .head img.brand{height:34px;width:auto}
+  .head .name{display:flex;flex-direction:column;line-height:1.05}
+  .head .name .k{font-family:"Archivo",sans-serif;font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint)}
+  .head .name .t{font-family:"Archivo",sans-serif;font-weight:700;font-size:18px;letter-spacing:-.01em}
+
+  /* ---- riquadro in evidenza (motore player) ---- */
+  .featured{flex:none;position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:16/9;border:1px solid var(--line);container-type:size}
+  .featured:fullscreen,.featured:-webkit-full-screen{width:100vw;height:100vh;border-radius:0;border:0;aspect-ratio:auto}
+  #yt,#yt iframe,#video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+  #video{display:none;object-fit:contain}
+  .featured.use-file #video{display:block}.featured.use-file #yt{display:none}.featured.use-yt #video{display:none}
+  .gate{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .featured.ad .gate{pointer-events:auto;cursor:pointer}
+  .topright{position:absolute;top:3cqh;right:3cqw;z-index:5;display:flex;align-items:center;gap:2.2cqw}
+  .logo{height:clamp(20px,7cqh,40px);width:auto;max-width:40cqw;opacity:.92;filter:drop-shadow(0 1px 4px rgba(0,0,0,.7));pointer-events:none;transition:opacity .35s}
+  .logo[hidden]{display:none}
+  .featured.outro .logo{opacity:0}
+  .fsbtn{all:unset;cursor:pointer;width:clamp(26px,8cqh,36px);height:clamp(26px,8cqh,36px);display:grid;place-items:center;border-radius:7px;background:rgba(10,18,14,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.3)}
+  .fsbtn:hover{background:rgba(31,176,105,.9)}
+  .fsbtn svg{width:55%;height:55%;fill:#fff}
+  .ad-tag{position:absolute;top:3cqh;left:3cqw;z-index:3;font-family:"Archivo",sans-serif;font-weight:600;font-size:clamp(9px,2.4cqw,12px);letter-spacing:.14em;text-transform:uppercase;color:var(--mint);background:rgba(0,0,0,.55);backdrop-filter:blur(4px);border:1px solid rgba(118,227,170,.4);border-radius:6px;padding:.6cqh 1.6cqw;opacity:0;transition:opacity .25s;pointer-events:none}
+  .featured.ad .ad-tag{opacity:1}
+  .l3group{--l3scale:1;position:absolute;left:0;bottom:11%;z-index:6;display:flex;flex-direction:column;align-items:flex-start;max-width:94%;transform:translateX(-103%);opacity:0;pointer-events:none;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s}
+  .l3group.show{transform:none;opacity:1}
+  .kicker{background:linear-gradient(90deg,rgba(7,17,12,.95),rgba(7,17,12,.55));color:var(--mint);font-family:"Archivo",sans-serif;font-weight:600;font-size:calc(clamp(8px,2.3cqw,14px) * var(--l3scale));letter-spacing:.09em;text-transform:uppercase;padding:.5cqh 2.4cqw .5cqh 2cqw;line-height:1.15;border-left:6px solid var(--green);margin-bottom:.5cqh}
+  .kicker[hidden]{display:none}
+  .l3bar{display:flex;align-items:stretch}.l3bar[hidden]{display:none}
+  .l3bar .accent{width:6px;background:var(--green);flex:none}
+  .l3bar .body{background:linear-gradient(90deg,rgba(7,17,12,.94),rgba(7,17,12,.72));padding:1cqh 3cqw 1.1cqh 2cqw;backdrop-filter:blur(6px);min-width:0;font-family:"Archivo",sans-serif}
+  .l3bar .l1{display:block;font-weight:700;font-size:calc(clamp(14px,4.4cqw,30px) * var(--l3scale));color:#fff;line-height:1.12}
+  .l3bar .l2{display:block;font-weight:600;font-size:calc(clamp(9px,2.7cqw,16px) * var(--l3scale));color:var(--mint);margin-top:.4cqh;text-transform:uppercase;letter-spacing:.09em}
+  .l3bar .l2[hidden]{display:none}
+  .skip-pill{position:absolute;right:3cqw;bottom:10%;z-index:4;display:flex;align-items:center;background:rgba(10,18,14,.85);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-family:"Archivo",sans-serif;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+  .featured.ad .skip-pill{opacity:1;transform:none}
+  .skip-pill .count{padding:1.6cqh 2.6cqw;color:var(--muted);font-size:clamp(11px,3cqw,14px);white-space:nowrap}
+  .skip-pill .go{all:unset;cursor:pointer;display:none;align-items:center;gap:1.4cqw;padding:1.6cqh 3cqw;color:var(--mint);font-size:clamp(11px,3cqw,14px);white-space:nowrap;pointer-events:auto}
+  .skip-pill .go:hover{background:var(--green);color:var(--green-ink)}
+  .skip-pill .go::after{content:"";border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;display:inline-block}
+  .skip-pill .go .bar{width:3px;height:14px;background:currentColor;display:inline-block;margin-right:-4px}
+  .skip-pill.ready .count{display:none}.skip-pill.ready .go{display:flex}
+  .poster{position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background-size:cover;background-position:center;cursor:pointer;text-align:center;padding:20px}
+  .poster::before{content:"";position:absolute;inset:0;background:rgba(8,14,11,.45)}
+  .poster .pbtn{position:relative;width:clamp(50px,16cqw,72px);height:clamp(50px,16cqw,72px);font-size:clamp(50px,16cqw,72px);border-radius:50%;background:var(--green);display:grid;place-items:center;transition:transform .2s}
+  .poster:hover .pbtn{transform:scale(1.06)}
+  .poster .pbtn::after{content:"";border-left:.3em solid var(--green-ink);border-top:.19em solid transparent;border-bottom:.19em solid transparent;margin-left:.08em}
+  .poster .pmsg{position:relative;color:#dfe7e2;font-size:14px;max-width:40ch}
+  .poster.hidden{display:none}.poster.msg .pbtn{display:none}.poster .pmsg[hidden]{display:none}
+  .replay{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;gap:2cqh;align-items:center;justify-content:center;background:rgba(8,14,11,.62);backdrop-filter:blur(2px);cursor:pointer}
+  .replay[hidden]{display:none}
+  .replay .rbtn{all:unset;cursor:pointer;width:clamp(50px,16cqw,72px);height:clamp(50px,16cqw,72px);border-radius:50%;background:var(--green);display:grid;place-items:center;transition:transform .2s}
+  .replay:hover .rbtn{transform:scale(1.06)}
+  .replay .rbtn svg{width:50%;height:50%;fill:var(--green-ink)}
+  .replay .rlabel{font-family:"Archivo",sans-serif;font-weight:600;font-size:clamp(11px,3cqw,15px);letter-spacing:.06em;text-transform:uppercase;color:#fff}
+
+  /* ---- elenco miniature ---- */
+  .others{flex:none;display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+  .others .lab{font-family:"Archivo",sans-serif;font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint)}
+  .thumbs-wrap{flex:1;min-height:0;overflow:auto;padding:2px 2px 6px}
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+  .thumb{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:7px;border-radius:11px}
+  .thumb .img{position:relative;aspect-ratio:16/9;border-radius:10px;background:#13211a center/cover no-repeat;border:1px solid var(--line);overflow:hidden}
+  .thumb .img::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-42%,-50%);border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;opacity:.92;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6));transition:opacity .2s}
+  .thumb:hover .img::after{opacity:1}
+  .thumb .img .badge{position:absolute;left:8px;top:8px;font-family:"Archivo",sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mint);background:rgba(0,0,0,.55);border:1px solid rgba(118,227,170,.35);border-radius:5px;padding:3px 7px;max-width:80%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .thumb .meta .tt{font-family:"Archivo",sans-serif;font-weight:600;font-size:13.5px;line-height:1.25;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .thumb .meta .ts{font-size:12px;color:var(--muted);margin-top:2px}
+  .thumb.active .img{border-color:var(--green);box-shadow:0 0 0 2px var(--green)}
+  .thumb.active .meta .tt{color:var(--mint)}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="head">
+    <img class="brand" id="brand" alt="Grandangolo">
+    <div class="name"><span class="k">Grandangolo</span><span class="t">News on Video</span></div>
+  </div>
+
+  <div class="featured idle" id="featured">
+    <div id="yt"></div>
+    <video id="video" playsinline controlsList="nodownload nofullscreen" disablePictureInPicture></video>
+    <div class="gate" id="gate"></div>
+    <div class="topright">
+      <button class="fsbtn" id="fsbtn" aria-label="Schermo intero">
+        <svg viewBox="0 0 24 24" id="fsIcon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+      </button>
+      <img class="logo" id="logo" alt="" hidden>
+    </div>
+    <div class="ad-tag">Annuncio</div>
+    <div class="l3group" id="l3group">
+      <div class="kicker" id="kicker" hidden><span id="topTxt"></span></div>
+      <div class="l3bar" id="l3bar">
+        <span class="accent"></span>
+        <span class="body"><span class="l1" id="l1"></span><span class="l2" id="l2" hidden></span></span>
+      </div>
+    </div>
+    <div class="skip-pill" id="skipPill">
+      <span class="count" id="skipCount">Puoi saltare tra 5s</span>
+      <button class="go" id="skipBtn"><span class="bar"></span>Salta annuncio</button>
+    </div>
+    <div class="replay" id="replay" hidden>
+      <button class="rbtn" aria-label="Rivedi"><svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg></button>
+      <span class="rlabel">Rivedi</span>
+    </div>
+    <div class="poster" id="poster"><div class="pbtn"></div><div class="pmsg" id="pmsg" hidden></div></div>
+  </div>
+
+  <div class="others"><span class="lab">Altri video</span></div>
+  <div class="thumbs-wrap"><div class="thumbs" id="thumbs"></div></div>
+</div>
+
+<script>
+/* ===========================================================================
+   GRANDANGOLO NEWS ON VIDEO — configurazione
+   Per cambiare i video: sostituisci tutto il blocco tra
+   "INIZIO CONFIGURAZIONE" e "FINE CONFIGURAZIONE" con quello generato.
+   =========================================================================== */
+/* === INIZIO CONFIGURAZIONE === */
+const GLOBAL = {
+  logo:    "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png",
+  preroll: "",     // pre-roll comune a tutti i video (vuoto = nessun pre-roll). Es: "https://youtu.be/XXXX"
+  outro:   "https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4",
+  skip:    5,      // secondi prima di "Salta"
+  defaultLd: 6,    // secondi di permanenza del lower third (0 = sempre)
+  mute:    false   // pre-roll muto
+};
+
+const VIDEOS = [
+  // Esempi: sostituisci "main" con i tuoi link. "preroll"/"outro" sono facoltativi (se mancano usa quelli di GLOBAL).
+  { main:"",  title:"Titolo del primo servizio", kicker:"Servizio di… / luogo", sub:"Sottotitolo", thumb:"", ts:100, ld:6 },
+  { main:"",  title:"Titolo del secondo servizio", kicker:"", sub:"", thumb:"", ts:100, ld:6 },
+  { main:"",  title:"Titolo del terzo servizio", kicker:"", sub:"", thumb:"", ts:100, ld:6 },
+  { main:"",  title:"Titolo del quarto servizio", kicker:"", sub:"", thumb:"", ts:100, ld:6 }
+];
+/* === FINE CONFIGURAZIONE === */
+
+(function(){
+  const featured=document.getElementById('featured');
+  const gate=document.getElementById('gate');
+  const poster=document.getElementById('poster'), pmsg=document.getElementById('pmsg');
+  const pill=document.getElementById('skipPill'), skipCount=document.getElementById('skipCount'), skipBtn=document.getElementById('skipBtn');
+  const logoEl=document.getElementById('logo'), brandEl=document.getElementById('brand');
+  const video=document.getElementById('video');
+  const l3group=document.getElementById('l3group'), l3bar=document.getElementById('l3bar');
+  const l1=document.getElementById('l1'), l2=document.getElementById('l2');
+  const kicker=document.getElementById('kicker'), topTxt=document.getElementById('topTxt');
+  const fsbtn=document.getElementById('fsbtn'), fsIcon=document.getElementById('fsIcon');
+  const replay=document.getElementById('replay');
+  const thumbs=document.getElementById('thumbs');
+
+  let ytPlayer=null, ytReady=false, needsYT=false;
+  let active='none', phase='idle', current=-1;
+  let srcPre=null, srcMain=null, srcOutro=null;
+  let curT1='', curT2='', curTop='', curLd=6;
+  let skipTimer=null, l3in=null, l3out=null, ytEndWatch=null;
+
+  function ytId(s){
+    if(!s) return "";
+    s=String(s).trim();
+    if(/^[\w-]{11}$/.test(s)) return s;
+    const m=s.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/);
+    return m?m[1]:"";
+  }
+  function classify(u){
+    const id=ytId(u); if(id) return {type:'yt',id:id};
+    u=(u||'').trim();
+    if(/^https?:\/\//i.test(u)) return {type:'file',url:u};
+    return null;
+  }
+  function esc(s){ return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function thumbCss(it){
+    if(it.thumb) return 'background-image:url('+it.thumb+')';
+    const c=classify(it.main);
+    if(c&&c.type==='yt') return 'background-image:url(https://i.ytimg.com/vi/'+c.id+'/hqdefault.jpg)';
+    return '';
+  }
+
+  // logo brand
+  if(GLOBAL.logo){ brandEl.src=GLOBAL.logo; logoEl.src=GLOBAL.logo; logoEl.hidden=false; logoEl.onerror=()=>{logoEl.hidden=true;}; }
+
+  const playable = VIDEOS.map((v,i)=>({v,i})).filter(o=>classify(o.v.main));
+  if(needsYTany()){
+    const tag=document.createElement('script'); tag.src="https://www.youtube.com/iframe_api"; document.head.appendChild(tag);
+  }else{ ytReady=true; }
+  function needsYTany(){ return VIDEOS.some(v=>{const c=classify(v.main),p=classify(v.preroll||GLOBAL.preroll),o=classify(v.outro!==undefined?v.outro:GLOBAL.outro);return [c,p,o].some(x=>x&&x.type==='yt');}); }
+
+  window.onYouTubeIframeAPIReady=function(){
+    ytPlayer=new YT.Player('yt',{
+      width:'100%',height:'100%',
+      playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:0,iv_load_policy:3,origin:location.origin},
+      events:{onReady:()=>{ytReady=true;},onStateChange:onYtState}
+    });
+  };
+  function onYtState(e){ if(e.data===YT.PlayerState.ENDED) onEnded(); }
+  video.addEventListener('ended',onEnded);
+  function onEnded(){ if(phase==='ad') playMain(); else if(phase==='main') playOutro(); else if(phase==='outro') showReplay(); }
+
+  function setActive(kind){ active=kind; featured.classList.toggle('use-yt',kind==='yt'); featured.classList.toggle('use-file',kind==='file'); }
+  function curTime(){ if(active==='yt'){try{return ytPlayer.getCurrentTime()||0;}catch(_){return 0;}} return video.currentTime||0; }
+
+  function renderThumbs(){
+    thumbs.innerHTML='';
+    VIDEOS.forEach((it,i)=>{
+      if(!classify(it.main)) return;
+      const card=document.createElement('button');
+      card.className='thumb'+(i===current?' active':'');
+      card.innerHTML=
+        '<span class="img" style="'+thumbCss(it)+'">'+(it.kicker?'<span class="badge">'+esc(it.kicker)+'</span>':'')+'</span>'+
+        '<span class="meta"><span class="tt">'+esc(it.title||('Video '+(i+1)))+'</span>'+(it.sub?'<span class="ts">'+esc(it.sub)+'</span>':'')+'</span>';
+      card.addEventListener('click',()=>{ loadVideo(i,true); });
+      thumbs.appendChild(card);
+    });
+  }
+
+  function loadVideo(i,autoplay){
+    current=i;
+    const it=VIDEOS[i];
+    srcPre  = classify(it.preroll||GLOBAL.preroll);
+    srcMain = classify(it.main);
+    srcOutro= classify(it.outro!==undefined?it.outro:GLOBAL.outro);
+    needsYT = [srcPre,srcMain,srcOutro].some(s=>s&&s.type==='yt');
+    curT1=it.title||''; curT2=it.sub||''; curTop=it.kicker||'';
+    curLd = (it.ld!==undefined?it.ld:GLOBAL.defaultLd);
+    l3group.style.setProperty('--l3scale', (it.ts||100)/100);
+    l1.textContent=curT1; l3bar.hidden=!curT1;
+    if(curT2){ l2.textContent=curT2; l2.hidden=false; } else l2.hidden=true;
+    topTxt.textContent=curTop; kicker.hidden=!curTop;
+    poster.style.backgroundImage = (function(){const s=thumbCss(it);return s?s.replace('background-image:',''):'';})();
+
+    // reset stato
+    phase='idle';
+    clearInterval(skipTimer); clearTimeout(l3in); clearTimeout(l3out); clearInterval(ytEndWatch);
+    featured.classList.remove('ad','outro','use-yt','use-file'); featured.classList.add('idle');
+    pill.classList.remove('ready'); l3group.classList.remove('show'); replay.hidden=true;
+    try{ytPlayer&&ytPlayer.stopVideo();}catch(_){}
+    try{video.pause();video.removeAttribute('src');video.load();}catch(_){}
+    poster.classList.remove('hidden','msg'); pmsg.hidden=true;
+    renderThumbs();
+
+    if(autoplay){ if(canStart()) startAd(); }
+  }
+
+  function playSrc(src,showControls){
+    if(src.type==='yt'){ setActive('yt'); ytPlayer.loadVideoById(src.id); }
+    else{
+      setActive('file');
+      video.src=src.url; video.controls=showControls; video.muted=false;
+      video.play().catch(()=>{ video.muted=true; video.play().catch(()=>{}); });
+    }
+  }
+  function showLowerGroup(){
+    if(!curT1 && !curTop) return;
+    clearTimeout(l3in); clearTimeout(l3out);
+    l3group.classList.remove('show');
+    l3in=setTimeout(()=>{ l3group.classList.add('show'); if(curLd>0) l3out=setTimeout(()=>l3group.classList.remove('show'), curLd*1000); },800);
+  }
+  function startYtEndWatch(){
+    clearInterval(ytEndWatch);
+    ytEndWatch=setInterval(()=>{
+      if(phase!=='main'||active!=='yt'){ clearInterval(ytEndWatch); return; }
+      try{ const st=ytPlayer.getPlayerState(); const d=ytPlayer.getDuration()||0,t=ytPlayer.getCurrentTime()||0;
+        if(st===YT.PlayerState.ENDED || (d>0 && t>=d-0.6)){ clearInterval(ytEndWatch); onEnded(); } }catch(_){}
+    },500);
+  }
+
+  function canStart(){ return srcMain && (!needsYT || ytReady); }
+
+  function startAd(){
+    poster.classList.add('hidden'); replay.hidden=true;
+    pill.classList.remove('ready'); l3group.classList.remove('show');
+    featured.classList.remove('idle','outro');
+    if(srcPre){
+      phase='ad'; featured.classList.add('ad');
+      playSrc(srcPre,false);
+      if(GLOBAL.mute){ if(active==='yt') ytPlayer.mute(); else video.muted=true; }
+      startCountdown();
+    }else{
+      playMain();   // nessun pre-roll: vai diretto al video
+    }
+  }
+  function startCountdown(){
+    clearInterval(skipTimer);
+    const tick=()=>{ if(phase!=='ad') return;
+      const r=Math.max(0,GLOBAL.skip-Math.floor(curTime()));
+      if(r<=0){ pill.classList.add('ready'); clearInterval(skipTimer); } else skipCount.textContent='Puoi saltare tra '+r+'s'; };
+    tick(); skipTimer=setInterval(tick,250);
+  }
+  function playMain(){
+    phase='main';
+    featured.classList.remove('ad','outro'); pill.classList.remove('ready'); clearInterval(skipTimer);
+    playSrc(srcMain,true);
+    showLowerGroup();
+    if(active==='yt') startYtEndWatch();
+  }
+  function playOutro(){
+    clearTimeout(l3in); clearTimeout(l3out); l3group.classList.remove('show');
+    if(!srcOutro){ showReplay(); return; }
+    phase='outro'; featured.classList.remove('ad'); featured.classList.add('outro');
+    playSrc(srcOutro,false);
+  }
+  function showReplay(){ phase='end'; replay.hidden=false; }
+
+  skipBtn.addEventListener('click',e=>{ e.stopPropagation(); if(phase==='ad') playMain(); });
+  gate.addEventListener('click',()=>{
+    if(phase!=='ad') return;
+    if(active==='yt'){ const st=ytPlayer.getPlayerState(); if(st===YT.PlayerState.PLAYING) ytPlayer.pauseVideo(); else ytPlayer.playVideo(); }
+    else { video.paused?video.play():video.pause(); }
+  });
+  poster.addEventListener('click',()=>{ if(current>=0 && canStart()) startAd(); });
+  replay.addEventListener('click',()=>{ replay.hidden=true; startAd(); });
+
+  /* schermo intero su tutto il riquadro */
+  const ICON_EXPAND='M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z';
+  const ICON_SHRINK='M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z';
+  function fsActive(){ return document.fullscreenElement||document.webkitFullscreenElement; }
+  fsbtn.addEventListener('click',()=>{
+    if(fsActive()){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+    else { const r=featured.requestFullscreen||featured.webkitRequestFullscreen; if(r) r.call(featured); }
+  });
+  function onFsChange(){ fsIcon.setAttribute('d', fsActive()?ICON_SHRINK:ICON_EXPAND); }
+  document.addEventListener('fullscreenchange',onFsChange);
+  document.addEventListener('webkitfullscreenchange',onFsChange);
+
+  /* avvio */
+  renderThumbs();
+  if(playable.length){ loadVideo(playable[0].i,false); }
+  else{
+    poster.classList.add('msg'); pmsg.hidden=false;
+    pmsg.textContent='Aggiungi i tuoi video nell\u2019elenco VIDEOS in cima al file.';
+  }
+})();
+</script>
+</body>
+</html>
