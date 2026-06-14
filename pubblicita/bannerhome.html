@@ -1,93 +1,83 @@
-<!-- ============================================================
-     BANNER WIDGET RANDOM (INLINE)  —  per WordPress
-     ------------------------------------------------------------
-     COME SI USA:
-     1. Crea un blocco "HTML personalizzato" nel punto del sito
-        dove vuoi che appaia (sidebar, sotto al contenuto,
-        dentro un'area widget, ecc.).
-     2. Incolla TUTTO questo codice.
-     3. Il banner comparira' SEMPRE in quel punto fisso e a ogni
-        apertura mostrera' UNA delle due immagini scelta a caso.
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banner</title>
+<style>
+  html,body{ margin:0; padding:0; background:transparent; }
 
-     DOVE MODIFICARE (cerca i commenti "<<< MODIFICA"):
-     - Le immagini e i loro link
-     - La larghezza massima del banner
-     - Mostrare ENTRAMBE le immagini invece di una a caso
-     ============================================================ -->
+  .gw-banner{
+    width:100%;
+    height:100vh;              /* riempie l'altezza dell'iframe */
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+
+  /* IL "FRAME" attorno all'immagine.
+     padding = spessore frame (metti 0 per banner a filo). */
+  .gw-frame{
+    background:#ffffff;
+    padding:0;                 /* <<< MODIFICA: es. 8px per un bordo bianco */
+    border-radius:0;           /* <<< MODIFICA: es. 10px per angoli tondi */
+    line-height:0;
+    max-width:100%;
+    max-height:100%;
+  }
+
+  .gw-imglink{ display:block; line-height:0; }
+  .gw-img{
+    display:block;
+    width:100%;
+    height:auto;
+    max-height:100%;
+    object-fit:contain;
+  }
+</style>
+</head>
+<body>
 
 <div class="gw-banner">
   <div class="gw-frame">
-    <a id="gw-link" class="gw-imglink" href="#" target="_blank" rel="noopener">
+    <a id="gw-link" class="gw-imglink" href="#" target="_top" rel="noopener">
       <img id="gw-img" class="gw-img" src="" alt="" />
     </a>
   </div>
 </div>
 
-<style>
-  .gw-banner{
-    width: 100%;
-    display: flex;
-    justify-content: center;   /* <<< MODIFICA: center | flex-start | flex-end */
-    margin: 16px 0;            /* spazio sopra/sotto il banner */
-    box-sizing: border-box;
-  }
-
-  /* IL "FRAME" attorno all'immagine */
-  .gw-frame{
-    background: #ffffff;
-    padding: 10px;                       /* spessore del frame */
-    border-radius: 14px;
-    border: 1px solid rgba(0,0,0,.06);
-    box-shadow: 0 10px 30px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.10);
-    max-width: min(100%, 480px);         /* <<< MODIFICA: larghezza max banner */
-    line-height: 0;
-  }
-
-  .gw-imglink{ display:block; line-height:0; border-radius:8px; overflow:hidden; }
-  .gw-img{
-    display:block;
-    width:100%;
-    height:auto;
-    border-radius:8px;
-  }
-</style>
-
 <script>
 (function(){
   // ============================================================
-  // <<< MODIFICA QUI: le tue immagini
-  // "link" e' facoltativo: se lo lasci "" l'immagine non e' cliccabile.
+  // <<< MODIFICA QUI: le tue immagini ("link" facoltativo)
   // ============================================================
   var IMAGES = [
     {
       src:  "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/06/AHgEkzkU.jpeg",
       alt:  "Banner 1",
-      link: ""   // es: "https://www.grandangoloagrigento.it/articolo-1"
+      link: ""
     },
     {
       src:  "https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/06/r.png",
       alt:  "Banner 2",
-      link: ""   // es: "https://www.grandangoloagrigento.it/articolo-2"
+      link: ""
     }
   ];
 
-  // ------------------------------------------------------------
-  // (Logica — di norma non serve toccare nulla sotto)
-  // ------------------------------------------------------------
   var imgEl  = document.getElementById("gw-img");
   var linkEl = document.getElementById("gw-link");
-  if (!imgEl) return;
+  if(!imgEl) return;
 
-  // Scelta RANDOM di una delle immagini
-  var pick = IMAGES[Math.floor(Math.random() * IMAGES.length)];
+  var pick = IMAGES[Math.floor(Math.random()*IMAGES.length)];
   imgEl.src = pick.src;
   imgEl.alt = pick.alt || "";
 
-  if (pick.link){
-    linkEl.href = pick.link;
-  } else {
-    linkEl.removeAttribute("href");
-    linkEl.style.cursor = "default";
-  }
+  if(pick.link){ linkEl.href = pick.link; }
+  else { linkEl.removeAttribute("href"); linkEl.style.cursor="default"; }
 })();
 </script>
+
+</body>
+</html>
