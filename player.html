@@ -72,6 +72,9 @@
   .replay:hover .rbtn{transform:scale(1.06)}
   .replay .rbtn svg{width:50%;height:50%;fill:var(--green-ink)}
   .replay .rlabel{font-family:"Archivo",sans-serif;font-weight:600;font-size:clamp(11px,3cqw,15px);letter-spacing:.06em;text-transform:uppercase;color:#fff}
+  .unmute{position:absolute;left:3cqw;bottom:10%;z-index:6;display:none;align-items:center;gap:1.6cqw;background:var(--green);color:var(--green-ink);font-family:"Archivo",sans-serif;font-weight:700;font-size:clamp(11px,2.8cqw,14px);padding:1.4cqh 2.8cqw;border:0;border-radius:9px;cursor:pointer;box-shadow:0 3px 14px rgba(0,0,0,.45)}
+  .unmute.show{display:flex}
+  .unmute svg{width:1.15em;height:1.15em;fill:currentColor}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -98,6 +101,7 @@
       <span class="count" id="skipCount">Puoi saltare tra 5s</span>
       <button class="go" id="skipBtn"><span class="bar"></span>Salta annuncio</button>
     </div>
+    <button class="unmute" id="unmute" aria-label="Attiva audio"><svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>Attiva audio</button>
     <div class="poster" id="poster"><div class="pbtn"></div></div>
     <div class="replay" id="replay" hidden>
       <button class="rbtn" id="rbtn" aria-label="Rivedi dall'inizio">
@@ -130,7 +134,8 @@ const CONFIG = {
   t2:        qs.get('t2') || "",
   ldDur:     qs.has('ld') ? (parseInt(qs.get('ld'),10)||0) : 6,
   l3scale:   qs.has('ts') ? ((parseInt(qs.get('ts'),10)||100)/100) : 1,
-  topText:   qs.get('tt') || ""
+  topText:   qs.get('tt') || "",
+  autoplay:  qs.get('autoplay') === '1'
 };
 /* ========================================================= */
 
@@ -148,11 +153,13 @@ const CONFIG = {
   const l1=document.getElementById('l1'), l2=document.getElementById('l2');
   const kicker=document.getElementById('kicker'), topTxt=document.getElementById('topTxt');
   const fsbtn=document.getElementById('fsbtn'), fsIcon=document.getElementById('fsIcon');
+  const unmute=document.getElementById('unmute');
 
   let ytPlayer=null, ytReady=false;
   let active='none', phase='idle';
   let srcPre=null, srcMain=null, srcOutro=null;
   let skipAfter=CONFIG.skipAfter||5, skipTimer=null, l3in=null, l3out=null, ytEndWatch=null;
+  let soundOn=true;
 
   function ytId(s){
     if(!s) return "";
@@ -194,30 +201,40 @@ const CONFIG = {
     ytPlayer=new YT.Player('yt',{
       width:'100%',height:'100%',
       playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,fs:0,iv_load_policy:3,origin:location.origin},
-      events:{onReady:()=>{ytReady=true;},onStateChange:onYtState}
+      events:{onReady:()=>{ytReady=true; maybeAutostart();},onStateChange:onYtState}
     });
   };
   function onYtState(e){ if(e.data===YT.PlayerState.ENDED) onEnded(); }
   video.addEventListener('ended',onEnded);
   function onEnded(){ if(phase==='ad') playMain(); else if(phase==='main') playOutro(); else if(phase==='outro') showReplay(); }
   function showReplay(){ phase='end'; if(replay) replay.hidden=false; }
-  if(replay) replay.addEventListener('click',()=>{ replay.hidden=true; startAd(); });
+  if(replay) replay.addEventListener('click',()=>{ soundOn=true; replay.hidden=true; startAd(); });
 
   function setActive(kind){ active=kind; stage.classList.toggle('use-yt',kind==='yt'); stage.classList.toggle('use-file',kind==='file'); }
   function curTime(){ if(active==='yt'){try{return ytPlayer.getCurrentTime()||0;}catch(_){return 0;}} return video.currentTime||0; }
 
-  function playSrc(src,showControls){
+  function applyMute(forceMute){
+    const m = forceMute || !soundOn;
+    if(active==='yt'){ try{ m?ytPlayer.mute():ytPlayer.unMute(); }catch(_){} }
+    else video.muted=m;
+  }
+  function playSrc(src,showControls,forceMute){
     if(src.type==='yt'){
       setActive('yt');
       ytPlayer.loadVideoById(src.id);
+      applyMute(forceMute);
     }else{
       setActive('file');
       video.src=src.url;
       video.controls=showControls;
-      video.muted=false;
+      video.muted=(forceMute || !soundOn);
       video.play().catch(()=>{ video.muted=true; video.play().catch(()=>{}); });
     }
+    updateUnmute();
   }
+  function updateUnmute(){ unmute.classList.toggle('show', CONFIG.autoplay && !soundOn && (phase==='ad'||phase==='main'||phase==='outro')); }
+  function enableSound(){ if(soundOn) return; soundOn=true; applyMute(false); updateUnmute(); }
+  function maybeAutostart(){ if(CONFIG.autoplay && phase==='idle' && canStart()){ soundOn=false; startAd(); } }
 
   function showLowerGroup(){
     if(!CONFIG.t1 && !CONFIG.topText) return;
@@ -242,7 +259,7 @@ const CONFIG = {
   }
 
   function canStart(){ return srcPre && srcMain && (!needsYT || ytReady); }
-  poster.addEventListener('click',()=>{ if(canStart()) startAd(); });
+  poster.addEventListener('click',()=>{ soundOn=true; if(canStart()) startAd(); });
 
   function startAd(){
     poster.classList.add('hidden');
@@ -251,8 +268,7 @@ const CONFIG = {
     stage.classList.remove('idle','outro'); stage.classList.add('ad');
     pill.classList.remove('ready');
     l3group.classList.remove('show');
-    playSrc(srcPre,false);
-    if(CONFIG.muteAd){ if(active==='yt') ytPlayer.mute(); else video.muted=true; }
+    playSrc(srcPre,false,CONFIG.muteAd);
     startCountdown();
   }
   function startCountdown(){
@@ -270,7 +286,7 @@ const CONFIG = {
     stage.classList.remove('ad','outro');
     pill.classList.remove('ready');
     clearInterval(skipTimer);
-    playSrc(srcMain,true);
+    playSrc(srcMain,true,false);
     showLowerGroup();
     if(active==='yt') startYtEndWatch();
   }
@@ -280,10 +296,11 @@ const CONFIG = {
     if(!srcOutro){ showReplay(); return; }
     phase='outro';
     stage.classList.remove('ad'); stage.classList.add('outro');   // nasconde il logo
-    playSrc(srcOutro,false);
+    playSrc(srcOutro,false,false);
   }
 
-  skipBtn.addEventListener('click',e=>{ e.stopPropagation(); if(phase==='ad') playMain(); });
+  unmute.addEventListener('click',e=>{ e.stopPropagation(); enableSound(); });
+  skipBtn.addEventListener('click',e=>{ e.stopPropagation(); enableSound(); if(phase==='ad') playMain(); });
   gate.addEventListener('click',()=>{
     if(phase!=='ad') return;
     if(active==='yt'){ const st=ytPlayer.getPlayerState(); if(st===YT.PlayerState.PLAYING) ytPlayer.pauseVideo(); else ytPlayer.playVideo(); }
@@ -301,6 +318,8 @@ const CONFIG = {
   function onFsChange(){ fsIcon.setAttribute('d', fsActive()?ICON_SHRINK:ICON_EXPAND); }
   document.addEventListener('fullscreenchange',onFsChange);
   document.addEventListener('webkitfullscreenchange',onFsChange);
+
+  maybeAutostart();
 })();
 </script>
 </body>
