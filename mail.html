@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generatore Mail Grandangolo</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f5f5;
+}
+
+.header{
+    background:#fff;
+    padding:20px;
+    text-align:center;
+    border-bottom:4px solid #009966;
+}
+
+.header img{
+    max-width:450px;
+}
+
+.container{
+    max-width:1200px;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+input, textarea{
+    width:100%;
+    box-sizing:border-box;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+textarea{
+    min-height:300px;
+}
+
+button{
+    background:#009966;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#007a52;
+}
+
+#preview{
+    border:1px solid #ddd;
+    min-height:500px;
+    background:white;
+}
+
+.codebox{
+    width:100%;
+    height:250px;
+    font-family:monospace;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+
+<img src="https://via.placeholder.com/700x120?text=GRANDANGOLO+REGIONALE">
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Editor Mail</h2>
+
+<label>Oggetto</label>
+<input type="text" id="subject"
+value="Comunicazione Grandangolo Regionale">
+
+<label>Corpo Mail</label>
+<textarea id="body">
+Gentile Cliente,
+
+La presente per comunicarLe la corretta riattivazione del banner pubblicitario sulla homepage e nelle pagine degli articoli di grandangoloagrigento.it.
+
+L'occasione è gradita anche per presentarLe il nostro nuovo portale regionale grandangoloregionale.it, all'interno del quale è stato inserito il banner pubblicitario della Vostra Azienda come ulteriore omaggio.
+
+RingraziandoLa per la collaborazione e per la fiducia accordataci, porgiamo i nostri più cordiali saluti.
+</textarea>
+
+<button onclick="generateMail()">
+Genera Mail
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Anteprima</h2>
+
+<div id="preview"></div>
+
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card" style="grid-column:1 / -1;">
+
+<h2>HTML da copiare su Aruba</h2>
+
+<textarea id="htmlOutput" class="codebox"></textarea>
+
+<button onclick="copyHtml()">
+Copia HTML
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function generateMail(){
+
+const text =
+document.getElementById("body").value
+.replace(/\n/g,"<br><br>");
+
+const html = `
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:30px;">
+<tr>
+<td align="center">
+
+<table width="650" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;font-family:Arial;overflow:hidden;">
+
+<tr>
+<td style="padding:30px;text-align:center;border-bottom:4px solid #009966;">
+<img src="https://www.grandangoloregionale.it/wp-content/uploads/2026/06/grand-reg-hor.png"
+style="max-width:420px;width:100%;">
+</td>
+</tr>
+
+<tr>
+<td style="padding:40px;color:#333;font-size:16px;line-height:1.8;">
+${text}
+<br><br>
+
+<strong>La Redazione</strong><br>
+<span style="color:#009966;">
+Grandangolo Agrigento
+</span>
+
+</td>
+</tr>
+
+<tr>
+<td style="background:#222;color:white;text-align:center;padding:20px;">
+Grandangolo Regionale
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+`;
+
+document.getElementById("preview").innerHTML = html;
+document.getElementById("htmlOutput").value = html;
+}
+
+function copyHtml(){
+
+const box =
+document.getElementById("htmlOutput");
+
+box.select();
+
+document.execCommand("copy");
+
+alert("HTML copiato!");
+}
+
+generateMail();
+
+</script>
+
+</body>
+</html>
