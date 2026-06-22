@@ -170,6 +170,7 @@
         <button id="plus" aria-label="Aumenta">+</button>
       </div>
       <label class="checkrow"><input type="checkbox" id="muteChk"> Pre-roll muto</label>
+      <label class="checkrow"><input type="checkbox" id="autoChk"> Avvio automatico (muto)</label>
     </div>
 
     <div class="subhead">Lower third (solo sul video principale)</div>
@@ -249,6 +250,7 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
   const inTop=document.getElementById('inTop'), inT1=document.getElementById('inT1'), inT2=document.getElementById('inT2');
   const inLogo=document.getElementById('inLogo'), inBase=document.getElementById('inBase');
   const muteChk=document.getElementById('muteChk');
+  const autoChk=document.getElementById('autoChk');
   const delayVal=document.getElementById('delayVal'), ldVal=document.getElementById('ldVal'), tsVal=document.getElementById('tsVal');
   const codeOut=document.getElementById('codeOut');
   const copyBtn=document.getElementById('copyBtn');
@@ -448,6 +450,7 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     if(outroVal!==DEFAULT_OUTRO) params.push('outro='+encodeURIComponent(outroVal));
     params.push('skip='+skipAfter);
     if(muteChk.checked) params.push('mute=1');
+    if(autoChk.checked) params.push('autoplay=1');
     const top=inTop.value.trim();
     if(top) params.push('tt='+encodeURIComponent(top));
     const t1=inT1.value.trim(), t2=inT2.value.trim();
@@ -473,6 +476,7 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
 
   [inPre,inMain,inOutro,inTop,inT1,inT2,inLogo,inBase].forEach(el=>el.addEventListener('input',refresh));
   muteChk.addEventListener('change',refresh);
+  autoChk.addEventListener('change',generate);
   document.getElementById('plus').addEventListener('click',()=>{skipAfter=Math.min(skipAfter+1,300);delayVal.textContent=skipAfter;generate();});
   document.getElementById('minus').addEventListener('click',()=>{skipAfter=Math.max(skipAfter-1,0);delayVal.textContent=skipAfter;generate();});
   document.getElementById('ldPlus').addEventListener('click',()=>{ldDur=Math.min(ldDur+1,120);ldVal.textContent=ldDur;generate();});
