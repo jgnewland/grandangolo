@@ -248,6 +248,12 @@ body.cattura .btn-jpg, body.cattura .riempi-vuoto, body.cattura .avviso-troppo{d
   body{background:#fff}
   #sidebar,#resizer,#zoombar,.riempi-vuoto,.avviso-troppo,.btn-jpg{display:none}
   #pages{zoom:1 !important}
+  /* IMPORTANTE: #pages è "flex" per l'anteprima a schermo, ma il layout
+     flessibile impedisce a Chrome di andare correttamente a pagina nuova
+     in stampa (stampava solo la prima pagina): in stampa deve tornare
+     a un layout normale, a blocchi, uno sotto l'altro */
+  #pages{display:block !important}
+  .page{margin:0 auto}
   #preview-wrap{overflow:visible;padding:0;background:#fff}
   #pages{gap:0}
   .page{box-shadow:none;page-break-after:always;break-after:page}
