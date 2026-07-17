@@ -210,6 +210,35 @@ button.mini{padding:4px 8px;font-size:11px}
 /* durante la cattura JPG nascondi gli aiuti a video */
 body.cattura .btn-jpg, body.cattura .riempi-vuoto, body.cattura .avviso-troppo{display:none !important}
 
+/* ============ EDITOR FOTO AVANZATO (ritaglio, pan, zoom) ============ */
+#ie-overlay{position:fixed;inset:0;background:rgba(10,10,9,.86);z-index:200;display:flex;align-items:center;justify-content:center}
+#ie-box{background:var(--ui-panel);border-radius:12px;padding:18px 20px;box-shadow:0 20px 60px rgba(0,0,0,.6);width:min(720px,94vw)}
+#ie-box h3{font-family:var(--font-title);font-size:15px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+#ie-box p.ie-hint{font-size:12px;color:var(--ui-dim);margin-bottom:12px}
+#ie-stage{position:relative;width:100%;height:420px;background:repeating-conic-gradient(#2a2a27 0% 25%,#232320 0% 50%) 0 0/22px 22px;border-radius:6px;overflow:hidden;touch-action:none;cursor:grab}
+#ie-stage.trascina{cursor:grabbing}
+#ie-shade{position:absolute;inset:0;background:rgba(0,0,0,.62);pointer-events:none}
+#ie-window{position:absolute;overflow:hidden;box-shadow:0 0 0 2000px rgba(0,0,0,.62);cursor:grab}
+#ie-window.trascina{cursor:grabbing}
+#ie-window img{position:absolute;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.ie-handle{position:absolute;width:18px;height:18px;background:var(--giallo);border:2px solid #000;border-radius:50%;z-index:6}
+.ie-handle.nw{left:-9px;top:-9px;cursor:nwse-resize}
+.ie-handle.ne{right:-9px;top:-9px;cursor:nesw-resize}
+.ie-handle.sw{left:-9px;bottom:-9px;cursor:nesw-resize}
+.ie-handle.se{right:-9px;bottom:-9px;cursor:nwse-resize}
+#ie-controls{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+#ie-controls .grp{display:flex;align-items:center;gap:8px;flex:1;min-width:220px}
+#ie-controls input[type=range]{flex:1}
+#ie-preset{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+#ie-preset button{padding:5px 10px;font-size:11px}
+#ie-preset button.attivo{background:var(--giallo);color:#000}
+#ie-box .btnrow{margin-top:14px}
+.btn-modifica{width:100%;margin-top:6px;background:#2a3a52;color:#dce8ff}
+.ie-bloccato #ie-preset, .ie-bloccato .ie-handle{display:none}
+
+/* wrapper per il ritaglio della copertina (forma fissa = pagina) */
+.cover-crop{position:absolute;inset:0;overflow:hidden}
+
 /* misuratore invisibile */
 #misuratore{position:absolute;left:-9999px;top:0;visibility:hidden;pointer-events:none}
 
@@ -222,6 +251,7 @@ body.cattura .btn-jpg, body.cattura .riempi-vuoto, body.cattura .avviso-troppo{d
   #preview-wrap{overflow:visible;padding:0;background:#fff}
   #pages{gap:0}
   .page{box-shadow:none;page-break-after:always;break-after:page}
+  .page:last-child{page-break-after:auto;break-after:auto}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
@@ -300,6 +330,43 @@ body.cattura .btn-jpg, body.cattura .riempi-vuoto, body.cattura .avviso-troppo{d
 </div>
 
 <div id="misuratore"></div>
+
+<div id="ie-overlay" class="nascosto">
+  <div id="ie-box">
+    <h3>Modifica foto</h3>
+    <p class="ie-hint">Trascina dentro il riquadro per spostare la foto. Trascina i cerchietti gialli agli angoli per allargare o restringere il riquadro. Usa il cursore o la rotellina del mouse per zoomare.</p>
+    <div id="ie-stage">
+      <div id="ie-window">
+        <img id="ie-img" src="">
+        <div class="ie-handle nw" data-h="nw"></div>
+        <div class="ie-handle ne" data-h="ne"></div>
+        <div class="ie-handle sw" data-h="sw"></div>
+        <div class="ie-handle se" data-h="se"></div>
+      </div>
+    </div>
+    <div id="ie-preset">
+      <button data-r="" onclick="ieImpostaPreset(this,null)">Libero</button>
+      <button data-r="1.7778" onclick="ieImpostaPreset(this,1.7778)">16:9</button>
+      <button data-r="1.5" onclick="ieImpostaPreset(this,1.5)">3:2</button>
+      <button data-r="1.3333" onclick="ieImpostaPreset(this,1.3333)">4:3</button>
+      <button data-r="1" onclick="ieImpostaPreset(this,1)">1:1</button>
+      <button data-r="0.75" onclick="ieImpostaPreset(this,0.75)">3:4</button>
+      <button data-r="0.6667" onclick="ieImpostaPreset(this,0.6667)">2:3</button>
+    </div>
+    <div id="ie-controls">
+      <div class="grp">
+        <span style="font-size:12px;color:var(--ui-dim)">Zoom</span>
+        <input type="range" id="ie-zoom" min="100" max="400" step="1" value="100">
+        <span id="ie-zoom-v" style="font-size:12px;min-width:38px">100%</span>
+      </div>
+      <button class="mini" onclick="ieReset()">Azzera</button>
+    </div>
+    <div class="btnrow">
+      <button class="primario" onclick="ieChiudi(true)">Applica</button>
+      <button onclick="ieChiudi(false)">Annulla</button>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ==================== STATO ==================== */
@@ -453,12 +520,8 @@ function apriEditor(i){
       <label>Immagine</label>
       <input type="file" accept="image/*" onchange="caricaFotoSingola(this)">
       ${p.foto[0]?`<p class="hint">✔ Immagine caricata. Ricaricane un\'altra per sostituirla.</p>
-      <label>Inquadratura orizzontale (◀ sinistra … destra ▶)</label>
-      <input type="range" min="0" max="100" step="1" value="${p.foto[0].px??50}"
-        oninput="progetto.pezzi[${i}].foto[0].px=parseFloat(this.value);spostaCover(${i})" onchange="render()">
-      <label>Inquadratura verticale (▲ alto … basso ▼)</label>
-      <input type="range" min="0" max="100" step="1" value="${p.foto[0].py??50}"
-        oninput="progetto.pezzi[${i}].foto[0].py=parseFloat(this.value);spostaCover(${i})" onchange="render()">`:''}
+      <button class="mini btn-modifica" onclick="apriModificaFoto(progetto.pezzi[${i}].foto[0], ()=>apriEditor(${i}), 210/297)">✎ Modifica foto (sposta e zooma nella pagina)</button>
+      <p class="hint">La forma resta quella della pagina: puoi solo spostare e ingrandire la foto dentro, utile per centrare un soggetto verticale.</p>`:''}
       <div id="cover-campi" class="${p.pronta?'nascosto':''}">
         <label>Titolone</label>
         <input type="text" id="e-titolo" value="${esc(p.titolo)}" placeholder="MOSELLA">
@@ -517,7 +580,8 @@ function apriEditor(i){
       <label>Testo della recensione (**doppi asterischi** per il grassetto)</label>
       <textarea id="e-testo" rows="10">${esc(p.testo||'')}</textarea>
       <label>Foto (es. copertina del libro)</label>
-      <input type="file" accept="image/*" multiple onchange="caricaFotoArticolo(this,'colonna')">
+      <input type="file" accept="image/*" multiple onchange="caricaFotoArticolo(this,'larga')">
+      <p class="hint">Appena caricata la copertina del libro è "Larga sotto il titolo" (grande, sopra il testo): regola la grandezza col cursore fino al 100% della pagina. Se preferisci una foto piccola dentro il testo, cambia il menu in "Dentro le colonne".</p>
       <div id="foto-lista">${p.foto.map((f,fi)=>fotoCardHTML(f,fi)).join('')}</div>
       <h3 style="margin-top:14px">Gerenza (in basso, fissa)</h3>
       <label>Colonna sinistra — riquadro scuro (**grassetto** con doppi asterischi, riga vuota = nuovo paragrafo)</label>
@@ -641,7 +705,6 @@ function apriEditor(i){
 
 function fotoCardHTML(f,fi){
   const larg = f.larg||100;
-  const c=stiliCrop(f);
   const pi=pezzoAttivo;
   return `<div class="foto-card">
     <img src="${f.src}">
@@ -650,32 +713,11 @@ function fotoCardHTML(f,fi){
         <option value="larga" ${f.pos==='larga'?'selected':''}>Larga sotto il titolo</option>
         <option value="colonna" ${f.pos==='colonna'?'selected':''}>Dentro le colonne</option>
       </select>
-      <label>Grandezza: <b><span id="lv-${fi}">${larg}</span>%</b> ${f.pos==='larga'?'della pagina':'della colonna'}</label>
+      <button class="mini btn-modifica" onclick="apriModificaFoto(progetto.pezzi[${pi}].foto[${fi}], ()=>apriEditor(${pi}))">✎ Modifica foto (ritaglio, pan, zoom)</button>
+      <label>Grandezza sulla pagina: <b><span id="lv-${fi}">${larg}</span>%</b> ${f.pos==='larga'?'della pagina':'della colonna'}</label>
       <input type="range" min="30" max="100" step="5" value="${larg}"
         oninput="document.getElementById('lv-${fi}').textContent=this.value"
         onchange="progetto.pezzi[${pi}].foto[${fi}].larg=parseInt(this.value);render()">
-      <label>Inquadratura (forma del riquadro)</label>
-      <select onchange="aggiornaCrop(${pi},${fi},'ratio',this.value)">
-        <option value="" ${!f.ratio?'selected':''}>Originale (foto intera)</option>
-        <option value="1.7778" ${f.ratio==1.7778?'selected':''}>Orizzontale larga (16:9)</option>
-        <option value="1.5" ${f.ratio==1.5?'selected':''}>Orizzontale (3:2)</option>
-        <option value="1.3333" ${f.ratio==1.3333?'selected':''}>Orizzontale (4:3)</option>
-        <option value="1" ${f.ratio==1?'selected':''}>Quadrata (1:1)</option>
-        <option value="0.75" ${f.ratio==0.75?'selected':''}>Verticale (3:4)</option>
-        <option value="0.6667" ${f.ratio==0.6667?'selected':''}>Verticale alta (2:3)</option>
-      </select>
-      ${c?`
-      <label>Zoom dentro il riquadro: <b><span id="zc-${fi}">${Math.max(parseFloat(f.zoom)||100,c.minZ)}</span>%</b></label>
-      <input type="range" min="${c.minZ}" max="300" step="2" value="${Math.max(parseFloat(f.zoom)||100,c.minZ)}"
-        oninput="document.getElementById('zc-${fi}').textContent=this.value;aggiornaCrop(${pi},${fi},'zoom',this.value)"
-        onchange="render()">
-      <label>Sposta orizzontale (◀ sinistra … destra ▶)</label>
-      <input type="range" min="0" max="100" step="1" value="${f.px??50}"
-        oninput="aggiornaCrop(${pi},${fi},'px',this.value)" onchange="render()">
-      <label>Sposta verticale (▲ alto … basso ▼)</label>
-      <input type="range" min="0" max="100" step="1" value="${f.py??50}"
-        oninput="aggiornaCrop(${pi},${fi},'py',this.value)" onchange="render()">
-      <p class="hint">Utile per le foto verticali: scegli un riquadro orizzontale e sposta il soggetto al centro. L'anteprima si aggiorna mentre muovi i cursori.</p>`:''}
       ${f.pos==='larga'?`
       <label>Posizione</label>
       <select onchange="progetto.pezzi[${pi}].foto[${fi}].align=this.value;render()">
@@ -786,6 +828,180 @@ function assicuraDimensioni(){
     im.src=f.src;
   });
 }
+/* ==================== EDITOR FOTO AVANZATO ==================== */
+let ieTarget=null, ieRefresh=null, ieOrig=null, ieLocked=false;
+let ieStageW=0, ieStageH=0, ieWin={x:0,y:0,w:0,h:0}, ieImgNat={w:1,h:1};
+
+function apriModificaFoto(f, onRefresh, ratioFisso){
+  if(!f || !f.src) return;
+  ieTarget=f; ieRefresh=onRefresh; ieLocked=!!ratioFisso;
+  ieOrig={ratio:f.ratio, zoom:f.zoom, px:f.px, py:f.py};
+  ieImgNat={w:f.w||4, h:f.h||3};
+  if(ieLocked) f.ratio=ratioFisso;
+
+  document.getElementById('ie-box').classList.toggle('ie-bloccato', ieLocked);
+  const overlay=document.getElementById('ie-overlay');
+  overlay.classList.remove('nascosto');
+  const stage=document.getElementById('ie-stage');
+  ieStageW=stage.clientWidth; ieStageH=stage.clientHeight;
+
+  const r = f.ratio || (ieImgNat.w/ieImgNat.h);
+  const margine=28;
+  let w=ieStageW-margine*2, h=w/r;
+  if(h>ieStageH-margine*2){ h=ieStageH-margine*2; w=h*r; }
+  ieWin={x:(ieStageW-w)/2, y:(ieStageH-h)/2, w, h};
+
+  document.getElementById('ie-img').src=f.src;
+  document.getElementById('ie-zoom').value=Math.round(f.zoom||100);
+  document.getElementById('ie-zoom-v').textContent=Math.round(f.zoom||100)+'%';
+  document.querySelectorAll('#ie-preset button').forEach(b=>{
+    b.classList.toggle('attivo', f.ratio ? Math.abs(parseFloat(b.dataset.r)-f.ratio)<0.01 : b.dataset.r==='');
+  });
+  ieDisegna();
+}
+function ieMinZoom(){
+  const r=ieWin.w/ieWin.h, ir=ieImgNat.w/ieImgNat.h;
+  return Math.max(100, 100*ir/r); // % minimo perché l'immagine copra sempre il riquadro
+}
+function ieDisegna(){
+  const win=document.getElementById('ie-window');
+  win.style.left=ieWin.x+'px'; win.style.top=ieWin.y+'px';
+  win.style.width=ieWin.w+'px'; win.style.height=ieWin.h+'px';
+
+  const minZ=ieMinZoom();
+  let Z=Math.max(parseFloat(document.getElementById('ie-zoom').value)||100, minZ);
+  if(Z<minZ){ document.getElementById('ie-zoom').value=Math.round(minZ); Z=minZ; }
+  document.getElementById('ie-zoom').min=Math.ceil(minZ);
+  document.getElementById('ie-zoom-v').textContent=Math.round(Z)+'%';
+
+  const r=ieWin.w/ieWin.h, ir=ieImgNat.w/ieImgNat.h;
+  let imgW, imgH;
+  if(ir>r){ imgH=ieWin.h*(Z/100); imgW=imgH*ir; } else { imgW=ieWin.w*(Z/100); imgH=imgW/ir; }
+  const px=ieTarget.px??50, py=ieTarget.py??50;
+  const left=-(imgW-ieWin.w)*(px/100);
+  const top=-(imgH-ieWin.h)*(py/100);
+
+  const im=document.getElementById('ie-img');
+  im.style.width=imgW+'px'; im.style.height=imgH+'px';
+  im.style.left=left+'px'; im.style.top=top+'px';
+}
+function ieImpostaPreset(btn,r){
+  const cx=ieWin.x+ieWin.w/2, cy=ieWin.y+ieWin.h/2;
+  const margine=28;
+  let w,h;
+  if(r){ w=Math.min(ieStageW-margine*2, (ieStageH-margine*2)*r); h=w/r; }
+  else { r=ieImgNat.w/ieImgNat.h; w=Math.min(ieStageW-margine*2,(ieStageH-margine*2)*r); h=w/r; }
+  ieWin={x:cx-w/2,y:cy-h/2,w,h};
+  ieVincola();
+  ieTarget.ratio = btn.dataset.r ? parseFloat(btn.dataset.r) : null;
+  document.querySelectorAll('#ie-preset button').forEach(b=>b.classList.toggle('attivo', b===btn));
+  ieDisegna();
+}
+function ieVincola(){
+  if(ieWin.x<0) ieWin.x=0;
+  if(ieWin.y<0) ieWin.y=0;
+  if(ieWin.x+ieWin.w>ieStageW) ieWin.x=ieStageW-ieWin.w;
+  if(ieWin.y+ieWin.h>ieStageH) ieWin.y=ieStageH-ieWin.h;
+}
+function ieReset(){
+  ieTarget.zoom=100; ieTarget.px=50; ieTarget.py=50;
+  document.getElementById('ie-zoom').value=100;
+  ieDisegna();
+}
+function ieChiudi(applica){
+  if(!applica){
+    ieTarget.ratio=ieOrig.ratio; ieTarget.zoom=ieOrig.zoom; ieTarget.px=ieOrig.px; ieTarget.py=ieOrig.py;
+  } else {
+    ieTarget.ratio = ieLocked ? ieTarget.ratio : ieWin.w/ieWin.h;
+    // se corrisponde a un preset noto, arrotonda per pulizia
+    if(!ieLocked) [1.7778,1.5,1.3333,1,0.75,0.6667].forEach(pr=>{ if(Math.abs(pr-ieTarget.ratio)<0.02) ieTarget.ratio=pr; });
+    ieTarget.zoom=parseFloat(document.getElementById('ie-zoom').value)||100;
+  }
+  document.getElementById('ie-overlay').classList.add('nascosto');
+  ieTarget=null;
+  if(ieRefresh) ieRefresh();
+  render();
+}
+
+/* interazione: trascina dentro la finestra = pan; trascina i cerchietti = ridimensiona
+   (l'angolo opposto a quello trascinato resta fermo, come in un vero editor foto) */
+(function(){
+  let modo=null, ancora=null, px0=0, py0=0;
+  const stage=()=>document.getElementById('ie-stage');
+  const win=()=>document.getElementById('ie-window');
+
+  function puntatore(e){
+    const r=stage().getBoundingClientRect();
+    const t=e.touches?e.touches[0]:e;
+    return {x:t.clientX-r.left, y:t.clientY-r.top};
+  }
+  function onDown(e){
+    if(!ieTarget) return;
+    const h=!ieLocked && e.target.closest('.ie-handle');
+    if(h){
+      modo='resize';
+      const opp={nw:'se',ne:'sw',sw:'ne',se:'nw'}[h.dataset.h];
+      ancora = {
+        se:{x:ieWin.x,y:ieWin.y}, nw:{x:ieWin.x+ieWin.w,y:ieWin.y+ieWin.h},
+        sw:{x:ieWin.x+ieWin.w,y:ieWin.y}, ne:{x:ieWin.x,y:ieWin.y+ieWin.h}
+      }[opp];
+    } else if(e.target.closest('#ie-window')){
+      modo='pan'; px0=ieTarget.px??50; py0=ieTarget.py??50;
+      window.__ieStart=puntatore(e);
+    } else return;
+    win().classList.add('trascina'); stage().classList.add('trascina');
+    e.preventDefault();
+  }
+  function onMove(e){
+    if(!modo || !ieTarget) return;
+    const pt=puntatore(e);
+    if(modo==='pan'){
+      const dx=pt.x-window.__ieStart.x, dy=pt.y-window.__ieStart.y;
+      const minZ=ieMinZoom();
+      const Z=Math.max(parseFloat(document.getElementById('ie-zoom').value)||100, minZ);
+      const r=ieWin.w/ieWin.h, ir=ieImgNat.w/ieImgNat.h;
+      let imgW,imgH;
+      if(ir>r){ imgH=ieWin.h*(Z/100); imgW=imgH*ir; } else { imgW=ieWin.w*(Z/100); imgH=imgW/ir; }
+      const rangeX=Math.max(1,imgW-ieWin.w), rangeY=Math.max(1,imgH-ieWin.h);
+      ieTarget.px=Math.min(100,Math.max(0, px0 - (dx/rangeX)*100));
+      ieTarget.py=Math.min(100,Math.max(0, py0 - (dy/rangeY)*100));
+      ieDisegna();
+    } else if(modo==='resize'){
+      const cx=Math.min(Math.max(pt.x,0),ieStageW), cy=Math.min(Math.max(pt.y,0),ieStageH);
+      let w=Math.abs(cx-ancora.x), h=Math.abs(cy-ancora.y);
+      w=Math.max(60,w); h=Math.max(60,h);
+      ieWin={x:Math.min(cx,ancora.x), y:Math.min(cy,ancora.y), w, h};
+      ieVincola();
+      ieDisegna();
+    }
+  }
+  function onUp(){
+    if(modo==='resize' && ieTarget){
+      ieTarget.ratio = ieWin.w/ieWin.h;
+      document.querySelectorAll('#ie-preset button').forEach(b=>{
+        b.classList.toggle('attivo', b.dataset.r && Math.abs(parseFloat(b.dataset.r)-ieTarget.ratio)<0.03);
+      });
+    }
+    modo=null;
+    win().classList.remove('trascina'); stage().classList.remove('trascina');
+  }
+  document.addEventListener('mousedown', onDown);
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+  document.addEventListener('touchstart', onDown, {passive:false});
+  document.addEventListener('touchmove', onMove, {passive:false});
+  document.addEventListener('touchend', onUp);
+
+  document.getElementById('ie-stage').addEventListener('wheel', e=>{
+    if(!ieTarget) return;
+    e.preventDefault();
+    const z=document.getElementById('ie-zoom');
+    z.value=Math.min(400, Math.max(parseFloat(z.min)||100, (parseFloat(z.value)||100) - e.deltaY*0.15));
+    ieDisegna();
+  }, {passive:false});
+  document.getElementById('ie-zoom').addEventListener('input', ieDisegna);
+})();
+
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 
 /* ==================== INQUADRATURA FOTO (pan & zoom) ==================== */
@@ -1075,13 +1291,7 @@ function renderArticolo(p, pgCondivisa){
   return {pg:ultimaPg, condivisibile: !bannerUltima};
 }
 
-/* pan immediato per copertine e riempitivi (immagini a ritaglio pieno) */
-function spostaCover(pi){
-  const f=progetto.pezzi[pi].foto[0]; if(!f) return;
-  document.querySelectorAll(`img[data-cover="${progetto.pezzi[pi].id}"]`).forEach(im=>{
-    im.style.objectPosition=`${f.px??50}% ${f.py??50}%`;
-  });
-}
+/* pan immediato per i riempitivi (immagini a ritaglio pieno) */
 function spostaRiempitivo(pi){
   const r=progetto.pezzi[pi].riempitivo; if(!r) return;
   document.querySelectorAll(`img[data-riemp="${progetto.pezzi[pi].id}"]`).forEach(im=>{
@@ -1114,16 +1324,25 @@ function renderCopertina(p){
   const righe=(p.sottotitolo||'').split('\n').map(r=>r.trim()).filter(Boolean)
     .map(r=>`<span class="sotto">${esc(r)}</span>`).join('');
 
+  /* la copertina occupa sempre l'intera pagina A4: l'inquadratura resta
+     bloccata a quella forma, l'utente può solo spostare e zoomare */
+  const RAPP_PAGINA = 210/297;
+  const fotoCover = f=>{
+    if(!f) return '';
+    f._fid=p.id+'_cover'; f.ratio=RAPP_PAGINA;
+    return `<div class="cover-crop"><img src="${f.src}" style="${(stiliCrop(f)||{}).img||''}"></div>`;
+  };
+
   if(p.pronta){
     pg.innerHTML = p.foto[0]
-      ? `<img class="cover-img" data-cover="${p.id}" src="${p.foto[0].src}" style="object-fit:cover;object-position:${p.foto[0].px??50}% ${p.foto[0].py??50}%">`
+      ? fotoCover(p.foto[0])
       : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#999;font-family:var(--font-title)">CARICA LA TUA IMMAGINE DI COPERTINA (JPG o PNG)</div>`;
     if(p.interna) pg.innerHTML += `<div style="position:absolute;top:0;left:0;right:0">${testatinaHTML(nPag)}</div>`;
     return;
   }
   if(p.interna){
     pg.innerHTML=`
-      ${p.foto[0]?`<img class="cover-img" data-cover="${p.id}" src="${p.foto[0].src}" style="object-position:${p.foto[0].px??50}% ${p.foto[0].py??50}%">`:''}
+      ${fotoCover(p.foto[0])}
       <div class="cover-shade"></div>
       <div style="position:absolute;top:0;left:0;right:0">${testatinaHTML(nPag)}</div>
       <div class="cover-title">
@@ -1133,7 +1352,7 @@ function renderCopertina(p){
     return;
   }
   pg.innerHTML=`
-    ${p.foto[0]?`<img class="cover-img" data-cover="${p.id}" src="${p.foto[0].src}" style="object-position:${p.foto[0].px??50}% ${p.foto[0].py??50}%">`:''}
+    ${fotoCover(p.foto[0])}
     <div class="cover-shade"></div>
     <div class="cover-top">
       <div class="cover-meta">ANNO ${esc(m.anno)} · NUMERO ${esc(m.numero)} · ${esc(m.data)} — ${esc(m.sito)}</div>
@@ -1164,6 +1383,14 @@ function renderUltimaPagina(p){
   (p.foto||[]).forEach((f,i)=>f._fid=p.id+'_'+i);
   const pg=paginaNumerata();
   aggiungiTitolo(pg,{...p, tstile:p.tstile||'banda', tsize:p.tsize||'media'});
+
+  /* foto "larga" (es. copertina del libro grande) va sotto il titolo,
+     prima delle colonne — prima era ignorata, ora viene mostrata */
+  (p.foto||[]).filter(f=>f.pos==='larga').forEach(f=>{
+    const cont=document.createElement('div');
+    cont.innerHTML=figuraHTML(f,'foto-larga');
+    pg.appendChild(cont.firstElementChild);
+  });
 
   const corpo=document.createElement('div');
   corpo.className='corpo-colonne';
