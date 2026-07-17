@@ -6,6 +6,7 @@
 <title>Impaginatore — Grandangolo Settimanale</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -199,6 +200,12 @@ button.mini{padding:4px 8px;font-size:11px}
 #zoombar button{padding:2px 11px;font-size:16px}
 #zoombar span{font-size:12px;color:var(--ui-dim);min-width:42px;text-align:center}
 
+/* pulsante JPG su ogni pagina (solo a video, non in stampa né nei JPG) */
+.btn-jpg{position:absolute;top:2mm;right:2mm;z-index:9;background:#000;color:var(--giallo);font-size:10px;padding:4px 8px;border-radius:5px;opacity:.85}
+.btn-jpg:hover{opacity:1}
+/* durante la cattura JPG nascondi gli aiuti a video */
+body.cattura .btn-jpg, body.cattura .riempi-vuoto, body.cattura .avviso-troppo{display:none !important}
+
 /* misuratore invisibile */
 #misuratore{position:absolute;left:-9999px;top:0;visibility:hidden;pointer-events:none}
 
@@ -206,7 +213,7 @@ button.mini{padding:4px 8px;font-size:11px}
 @media print{
   @page{size:A4;margin:0}
   body{background:#fff}
-  #sidebar,#resizer,#zoombar,.riempi-vuoto,.avviso-troppo{display:none}
+  #sidebar,#resizer,#zoombar,.riempi-vuoto,.avviso-troppo,.btn-jpg{display:none}
   #pages{zoom:1 !important}
   #preview-wrap{overflow:visible;padding:0;background:#fff}
   #pages{gap:0}
@@ -262,13 +269,14 @@ button.mini{padding:4px 8px;font-size:11px}
         <h2>Esporta e salva</h2>
         <div class="btnrow">
           <button class="primario" onclick="stampaPDF()">🖨 Esporta PDF</button>
+          <button onclick="scaricaTutteJPG()">🖼 Tutte le pagine in JPG</button>
         </div>
         <div class="btnrow">
           <button onclick="salvaProgetto()">💾 Salva progetto</button>
           <button onclick="document.getElementById('apri-file').click()">📂 Apri progetto</button>
           <input type="file" id="apri-file" accept=".json" class="nascosto" onchange="apriProgetto(this)">
         </div>
-        <p class="hint">«Salva progetto» scarica un file .json con tutto il numero (foto comprese): riaprilo la settimana dopo e riparti da lì. Per il PDF: nella finestra di stampa scegli «Salva come PDF», margini «Nessuno», e attiva «Grafica di sfondo».</p>
+        <p class="hint">«Salva progetto» scarica un file .json con tutto il numero (foto comprese): riaprilo la settimana dopo e riparti da lì. Per il PDF: nella finestra di stampa scegli «Salva come PDF», margini «Nessuno», e attiva «Grafica di sfondo». Per i JPG: il pulsante qui sopra scarica tutte le pagine in alta risoluzione, oppure passa col mouse su una pagina e premi «⬇ JPG» per scaricare solo quella (il browser potrebbe chiedere il permesso di scaricare più file).</p>
       </div>
 
     </div>
@@ -372,7 +380,9 @@ function disegnaLista(){
       <span class="frecce">
         <button title="Sposta su" onclick="event.stopPropagation();sposta(${i},-1)">▲</button>
         <button title="Sposta giù" onclick="event.stopPropagation();sposta(${i},1)">▼</button>
-      </span>`;
+      </span>
+      <button class="mini pericolo" title="Elimina questo pezzo" style="padding:2px 8px"
+        onclick="event.stopPropagation();eliminaRapido(${i})">✕</button>`;
     div.onclick = ()=> apriEditor(i);
     box.appendChild(div);
   });
@@ -392,6 +402,14 @@ function nuovoPezzo(tipo){
   progetto.pezzi.push(base);
   apriEditor(progetto.pezzi.length-1);
   render();
+}
+function eliminaRapido(i){
+  const p=progetto.pezzi[i];
+  if(!confirm(`Eliminare "${(p.titolo||'(senza titolo)').replace(/\*/g,'')}"?`)) return;
+  progetto.pezzi.splice(i,1);
+  if(pezzoAttivo===i){ pezzoAttivo=-1; document.getElementById('editor-pezzo-wrap').innerHTML=''; }
+  else if(pezzoAttivo>i) pezzoAttivo--;
+  disegnaLista(); render();
 }
 function eliminaPezzo(){
   if(pezzoAttivo<0) return;
@@ -820,9 +838,12 @@ function quantiEntrano(toks, hPx, fs){
   const mis=document.getElementById('misuratore');
   mis.innerHTML=`<div class="page" style="height:auto"><div class="corpo-colonne" style="height:${hPx}px;flex:none;font-size:${fs||9.8}pt"></div></div>`;
   const box=mis.querySelector('.corpo-colonne');
+  /* quando il testo non entra in un contenitore a colonne, il browser crea
+     colonne in più DI LATO (overflow orizzontale), non verso il basso:
+     bisogna controllare anche scrollWidth, non solo scrollHeight */
   const fits=n=>{
     box.innerHTML=htmlDaTokens(toks.slice(0,n));
-    return box.scrollHeight<=box.clientHeight+1;
+    return box.scrollWidth<=box.clientWidth+1 && box.scrollHeight<=box.clientHeight+1;
   };
   if(fits(toks.length)) { mis.innerHTML=''; return toks.length; }
   let lo=1, hi=toks.length, best=1;
@@ -839,6 +860,17 @@ function creaPagina(classe){
   document.getElementById('pages').appendChild(pg);
   return pg;
 }
+function aggiungiBottoniJPG(){
+  document.querySelectorAll('#pages .page').forEach(pg=>{
+    if(pg.querySelector('.btn-jpg')) return;
+    const b=document.createElement('button');
+    b.className='btn-jpg';
+    b.textContent='⬇ JPG';
+    b.title='Scarica questa pagina come immagine JPG';
+    b.onclick=()=>scaricaPaginaJPG(pg);
+    pg.appendChild(b);
+  });
+}
 function spazioResiduo(pg){
   const probe=document.createElement('div');
   probe.style.flex='1'; probe.style.minHeight='0';
@@ -846,6 +878,15 @@ function spazioResiduo(pg){
   const h=probe.getBoundingClientRect().height/zoomLiv;
   probe.remove();
   return h;
+}
+/* rete di sicurezza: se sulla pagina vera le colonne sbordano comunque
+   (arrotondamenti, font), toglie parole finché non rientrano */
+function rifinisci(corpo, toksTutti, n){
+  while(n>1 && (corpo.scrollWidth>corpo.clientWidth+1 || corpo.scrollHeight>corpo.clientHeight+1)){
+    n--;
+    corpo.innerHTML=htmlDaTokens(toksTutti.slice(0,n));
+  }
+  return n;
 }
 
 let nPag=0;
@@ -913,8 +954,9 @@ function renderArticolo(p, pgCondivisa){
 
     const h=corpo.getBoundingClientRect().height/zoomLiv;
     if(toks.length>0 && h>20){
-      const n=quantiEntrano(toks,h,fs);
+      let n=quantiEntrano(toks,h,fs);
       corpo.innerHTML=htmlDaTokens(toks.slice(0,n));
+      n=rifinisci(corpo,toks,n);
       ultimiToks=toks.slice(0,n);
       toks=toks.slice(n);
     } else { ultimiToks=[]; }
@@ -933,11 +975,10 @@ function renderArticolo(p, pgCondivisa){
     let resto=[];
     if(ultimiToks.length && corpo){
       const h=corpo.getBoundingClientRect().height/zoomLiv;
-      const n=quantiEntrano(ultimiToks,h,fs);
-      if(n<ultimiToks.length){
-        corpo.innerHTML=htmlDaTokens(ultimiToks.slice(0,n));
-        resto=ultimiToks.slice(n);
-      }
+      let n=quantiEntrano(ultimiToks,h,fs);
+      corpo.innerHTML=htmlDaTokens(ultimiToks.slice(0,n));
+      n=rifinisci(corpo,ultimiToks,n);
+      if(n<ultimiToks.length) resto=ultimiToks.slice(n);
     }
     while(resto.length>0){
       const pg=paginaNumerata();
@@ -946,8 +987,9 @@ function renderArticolo(p, pgCondivisa){
       c2.style.fontSize=fs+'pt';
       pg.appendChild(c2);
       const h2=c2.getBoundingClientRect().height/zoomLiv;
-      const n2=quantiEntrano(resto,h2,fs);
+      let n2=quantiEntrano(resto,h2,fs);
       c2.innerHTML=htmlDaTokens(resto.slice(0,n2));
+      n2=rifinisci(c2,resto,n2);
       resto=resto.slice(n2);
       ultimaPg=pg;
     }
@@ -1049,8 +1091,9 @@ function renderUltimaPagina(p){
   let toks=tokensDaNodi(nodiArticolo({...p, cap:p.cap!==false, firma:''}));
   const h=corpo.getBoundingClientRect().height/zoomLiv;
   if(toks.length>0 && h>20){
-    const n=quantiEntrano(toks,h,fs);
+    let n=quantiEntrano(toks,h,fs);
     corpo.innerHTML=htmlDaTokens(toks.slice(0,n));
+    n=rifinisci(corpo,toks,n);
     if(n<toks.length){
       const av=document.createElement('div');
       av.className='avviso-troppo';
@@ -1100,6 +1143,7 @@ function render(){
   }
   const tot=document.getElementById('tot-pagine');
   if(tot) tot.innerHTML='Pagine totali del numero: <b style="color:var(--giallo)">'+nPag+'</b> (numerate in automatico)';
+  aggiungiBottoniJPG();
 }
 
 /* ==================== SALVA / APRI / PDF / ZOOM ==================== */
@@ -1130,6 +1174,41 @@ function apriProgetto(input){
 function stampaPDF(){
   render();
   setTimeout(()=>window.print(),300);
+}
+
+/* ---- esportazione pagine in JPG ---- */
+async function catturaPagina(pg, scala){
+  document.body.classList.add('cattura');
+  try{
+    const canvas=await html2canvas(pg,{scale:scala||3,useCORS:true,backgroundColor:'#ffffff',logging:false});
+    return canvas;
+  } finally {
+    document.body.classList.remove('cattura');
+  }
+}
+function numeroDi(pg){
+  return [...document.querySelectorAll('#pages .page')].indexOf(pg)+1;
+}
+async function scaricaPaginaJPG(pg){
+  if(typeof html2canvas==='undefined'){ alert('Per salvare i JPG serve la connessione a internet (libreria di cattura non caricata). Ricarica la pagina e riprova.'); return; }
+  const canvas=await catturaPagina(pg);
+  const a=document.createElement('a');
+  a.href=canvas.toDataURL('image/jpeg',0.92);
+  a.download=`grandangolo_n${progetto.meta.numero||'x'}_pagina_${String(numeroDi(pg)).padStart(2,'0')}.jpg`;
+  a.click();
+}
+async function scaricaTutteJPG(){
+  if(typeof html2canvas==='undefined'){ alert('Per salvare i JPG serve la connessione a internet (libreria di cattura non caricata). Ricarica la pagina e riprova.'); return; }
+  render();
+  const pagine=[...document.querySelectorAll('#pages .page')];
+  for(let i=0;i<pagine.length;i++){
+    const canvas=await catturaPagina(pagine[i]);
+    const a=document.createElement('a');
+    a.href=canvas.toDataURL('image/jpeg',0.92);
+    a.download=`grandangolo_n${progetto.meta.numero||'x'}_pagina_${String(i+1).padStart(2,'0')}.jpg`;
+    a.click();
+    await new Promise(r=>setTimeout(r,400));
+  }
 }
 function zoomA(d){
   zoomLiv=Math.min(1.5,Math.max(0.4,Math.round((zoomLiv+d)*10)/10));
