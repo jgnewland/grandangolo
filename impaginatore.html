@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impaginatore — Grandangolo Settimanale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --giallo:#e8f000;          /* barra testata */
+  --giallo-hl:#f5f50a;       /* evidenziazione titoli */
+  --nero:#0d0d0d;
+  --grigio:#f0f0ee;
+  --ui-bg:#1c1c1a;
+  --ui-panel:#262624;
+  --ui-line:#3a3a37;
+  --ui-text:#e9e9e4;
+  --ui-dim:#9a9a92;
+  --font-title:'Oswald', sans-serif;
+  --font-body:'Archivo Narrow', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-body);background:var(--ui-bg);color:var(--ui-text)}
+
+/* ============ APP LAYOUT ============ */
+#app{display:flex;height:100vh;overflow:hidden}
+#sidebar{width:500px;min-width:340px;max-width:860px;background:var(--ui-panel);border-right:1px solid var(--ui-line);display:flex;flex-direction:column;overflow:hidden}
+#resizer{width:6px;cursor:col-resize;background:var(--ui-line);flex-shrink:0}
+#resizer:hover{background:var(--giallo)}
+#sidebar header{padding:14px 16px;border-bottom:1px solid var(--ui-line)}
+#sidebar header h1{font-family:var(--font-title);font-weight:700;font-size:18px;letter-spacing:.5px;text-transform:uppercase}
+#sidebar header h1 span{background:var(--giallo);color:#000;padding:0 5px}
+#sidebar header p{font-size:12.5px;color:var(--ui-dim);margin-top:3px}
+#side-scroll{flex:1;overflow-y:auto;padding:14px 16px 40px}
+#preview-wrap{flex:1;overflow:auto;background:#111;padding:30px 0}
+#pages{display:flex;flex-direction:column;align-items:center;gap:26px}
+
+.sez{margin-bottom:20px}
+.sez>h2{font-family:var(--font-title);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ui-dim);margin-bottom:8px;border-bottom:1px solid var(--ui-line);padding-bottom:5px}
+label{display:block;font-size:12px;color:var(--ui-dim);margin:8px 0 3px}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:#161614;border:1px solid var(--ui-line);color:var(--ui-text);border-radius:6px;padding:9px 11px;font-family:var(--font-body);font-size:15.5px}
+textarea{resize:vertical;line-height:1.5}
+#e-testo{font-size:16px;min-height:340px}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--giallo);outline-offset:-1px}
+.row2{display:flex;gap:8px}.row2>div{flex:1}
+.row3{display:flex;gap:8px}.row3>div{flex:1}
+
+button{font-family:var(--font-title);font-weight:600;font-size:13px;letter-spacing:.6px;text-transform:uppercase;border:none;border-radius:6px;padding:9px 12px;cursor:pointer;background:#3a3a37;color:var(--ui-text)}
+button:hover{filter:brightness(1.15)}
+button.primario{background:var(--giallo);color:#000}
+button.pericolo{background:#5b1f1f;color:#f3c9c9}
+button.mini{padding:4px 8px;font-size:11px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btnrow button{flex:1}
+
+/* elenco pezzi */
+#lista-pezzi{display:flex;flex-direction:column;gap:6px}
+.pezzo-item{background:#161614;border:1px solid var(--ui-line);border-radius:8px;padding:9px 10px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.pezzo-item:hover{border-color:var(--giallo)}
+.pezzo-item.attivo{border-color:var(--giallo);box-shadow:0 0 0 1px var(--giallo)}
+.pezzo-item .tipo{font-family:var(--font-title);font-size:10px;letter-spacing:1px;background:#333;border-radius:4px;padding:2px 6px;text-transform:uppercase;white-space:nowrap}
+.pezzo-item .tipo.copertina{background:var(--giallo);color:#000}
+.pezzo-item .tipo.pubblicita{background:#2e4b2e;color:#cfe8cf}
+.pezzo-item .titolo-mini{flex:1;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pezzo-item .frecce{display:flex;flex-direction:column;gap:2px}
+.pezzo-item .frecce button{padding:0 6px;font-size:10px;line-height:16px}
+
+/* editor pezzo */
+#editor-pezzo{background:#161614;border:1px solid var(--giallo);border-radius:10px;padding:12px;margin-top:10px}
+#editor-pezzo h3{font-family:var(--font-title);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.hint{font-size:11.5px;color:var(--ui-dim);margin-top:3px;line-height:1.35}
+.foto-card{background:#1f1f1d;border:1px solid var(--ui-line);border-radius:8px;padding:8px;margin-top:8px;display:flex;gap:10px;align-items:flex-start}
+.foto-card img{width:74px;height:56px;object-fit:cover;border-radius:4px;flex-shrink:0}
+.foto-card .campi{flex:1}
+.nascosto{display:none !important}
+
+/* ============ PAGINA A4 ============ */
+.page{
+  width:210mm;height:297mm;background:#fff;color:var(--nero);
+  position:relative;overflow:hidden;flex-shrink:0;
+  box-shadow:0 6px 30px rgba(0,0,0,.55);
+  font-family:var(--font-body);
+  padding:8mm 9mm 9mm 9mm;
+  display:flex;flex-direction:column;
+}
+.page.piena{padding:0}
+
+/* testatina */
+.testatina{
+  background:var(--giallo);display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--font-title);font-size:8.5pt;font-weight:500;letter-spacing:.4px;
+  padding:1.6mm 3mm;margin-bottom:4mm;text-transform:uppercase;flex-shrink:0;
+}
+.testatina b{font-weight:700}
+
+/* titolo articolo a bandiera nera */
+.banda-titolo{
+  background:#000;color:#fff;text-align:center;
+  font-family:var(--font-title);font-weight:700;text-transform:uppercase;
+  line-height:1.02;letter-spacing:.2px;
+  padding:2.2mm 4mm 2.6mm;margin-bottom:4mm;flex-shrink:0;
+}
+.banda-titolo.t-grande{font-size:27pt}
+.banda-titolo.t-media{font-size:21pt}
+.banda-titolo.t-piccola{font-size:16.5pt}
+.banda-titolo .hl{color:var(--giallo-hl)}
+
+/* titolo aperto, senza sfondo: nero d'impatto su bianco */
+.titolo-aperto{
+  color:#000;text-align:center;
+  font-family:var(--font-title);font-weight:700;text-transform:uppercase;
+  line-height:.99;letter-spacing:-.2px;
+  padding:0 1mm 3.2mm;margin-bottom:2.5mm;flex-shrink:0;
+  border-bottom:1.1mm solid #000;
+}
+.titolo-aperto.t-grande{font-size:31pt}
+.titolo-aperto.t-media{font-size:24pt}
+.titolo-aperto.t-piccola{font-size:18pt}
+.titolo-aperto .hl{background:var(--giallo-hl);padding:0 1.2mm;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* firma sotto il titolo (es. DI LETIZIA BILELLA) */
+.byline-band{flex-shrink:0;margin:-1mm 0 3.5mm}
+.byline-band span{display:inline-block;background:#000;color:#fff;font-family:var(--font-title);font-weight:600;font-size:8.5pt;letter-spacing:1px;text-transform:uppercase;padding:.8mm 2.5mm}
+
+/* avviso testo che non entra (solo a video) */
+.avviso-troppo{flex-shrink:0;margin-top:2mm;background:#7a1d1d;color:#ffd9d9;font-family:var(--font-title);font-size:9pt;letter-spacing:.5px;text-transform:uppercase;text-align:center;padding:2mm;border-radius:2px}
+
+/* ============ GERENZA (ultima pagina) ============ */
+.gerenza{flex-shrink:0;display:flex;gap:4mm;margin-top:3.5mm}
+.gerenza .ger-sx{flex:1.1;background:#101826;color:#fff;padding:4mm;font-size:7.6pt;line-height:1.42;text-align:justify}
+.gerenza .ger-sx p{margin-bottom:2mm}
+.gerenza .ger-sx b{color:#fff}
+.gerenza .ger-dx{flex:1;display:flex;flex-direction:column;gap:2.5mm}
+.gerenza .ger-promo{width:100%;display:block}
+.gerenza .ger-txt{font-size:7.3pt;line-height:1.38;text-align:left}
+.gerenza .ger-txt p{margin-bottom:1.6mm}
+
+/* capolettera da giornale */
+.corpo-colonne p.primo::first-letter{
+  float:left;font-family:var(--font-title);font-weight:700;
+  font-size:30pt;line-height:.8;padding:.6mm 1.6mm 0 0;
+}
+
+/* firma autore */
+.corpo-colonne p.firma{text-align:right;font-weight:700;font-style:italic}
+
+/* banner pubblicitario in pagina */
+.banner-pub{flex-shrink:0;margin-top:3mm;position:relative}
+.banner-pub img{width:100%;object-fit:contain;display:block}
+.banner-pub .tag{position:absolute;top:-2.6mm;right:0;font-family:var(--font-title);font-size:6pt;letter-spacing:1px;color:#888;text-transform:uppercase}
+
+/* corpo a colonne */
+.corpo-colonne{
+  flex:1;min-height:0;overflow:hidden;
+  column-count:3;column-gap:5.5mm;column-fill:auto;
+  font-size:9.8pt;line-height:1.42;text-align:justify;hyphens:auto;
+}
+.corpo-colonne p{margin-bottom:2.6mm}
+.corpo-colonne p.lead{font-weight:700}
+.corpo-colonne figure{margin:0 0 2.8mm 0;break-inside:avoid-column}
+.corpo-colonne figure img{width:100%;display:block}
+.corpo-colonne figcaption{font-size:7.8pt;color:#444;font-style:italic;margin-top:1mm}
+/* ultima pagina del pezzo: colonne bilanciate, niente colonna vuota a destra */
+.corpo-colonne.ultima{flex:none;height:auto;column-fill:balance}
+
+/* foto riempitiva: occupa esattamente lo spazio che avanza in fondo */
+.riempitivo{flex:1;min-height:0;margin-top:3mm;position:relative;overflow:hidden}
+.riempitivo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.riempitivo figcaption{position:absolute;left:0;right:0;bottom:0;background:rgba(255,255,255,.85);font-size:7.8pt;color:#333;font-style:italic;padding:1mm 2mm}
+.riempi-vuoto{flex:1;margin-top:3mm;border:2px dashed #c9c9c9;border-radius:3px;display:flex;align-items:center;justify-content:center;text-align:center;color:#aaa;font-family:var(--font-title);font-size:9pt;letter-spacing:1px;text-transform:uppercase;padding:4mm}
+
+/* foto larga sotto il titolo */
+.foto-larga{margin-bottom:4mm;flex-shrink:0}
+.foto-larga img{width:100%;max-height:95mm;object-fit:cover;display:block}
+.foto-larga figcaption{font-size:8pt;color:#444;font-style:italic;margin-top:1.2mm}
+
+/* copertina */
+.cover{padding:0;background:#000}
+.cover .cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover .cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}
+.cover .cover-top{position:absolute;top:9mm;left:0;right:0;text-align:center;color:#fff}
+.cover .cover-meta{font-family:var(--font-title);font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.cover .cover-logo{font-family:var(--font-title);font-weight:700;font-size:44pt;letter-spacing:1px;text-transform:uppercase;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.cover .cover-logo small{display:inline-block;background:#c00;color:#fff;font-size:11pt;padding:.5mm 2mm;vertical-align:super;letter-spacing:2px}
+.cover .cover-title{position:absolute;left:4mm;right:4mm;bottom:18mm;text-align:center;color:#fff;font-family:var(--font-title);font-weight:700;text-transform:uppercase;line-height:.98;text-shadow:0 3px 14px rgba(0,0,0,.75)}
+.cover .cover-title .principale{font-size:64pt;display:block}
+.cover .cover-title .sotto{font-size:26pt;display:block;margin-top:2mm}
+.cover .cover-prezzo{position:absolute;right:6mm;bottom:6mm;background:#000;color:#fff;font-family:var(--font-title);font-size:9pt;padding:1.2mm 3mm;letter-spacing:1px}
+
+/* pagina pubblicità / immagine piena */
+.pub-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
+.pub-label{position:absolute;top:0;left:0;right:0}
+
+/* zoom anteprima */
+#zoombar{position:fixed;top:14px;right:20px;z-index:50;display:flex;align-items:center;gap:8px;background:rgba(30,30,28,.92);border:1px solid var(--ui-line);border-radius:8px;padding:5px 8px}
+#zoombar button{padding:2px 11px;font-size:16px}
+#zoombar span{font-size:12px;color:var(--ui-dim);min-width:42px;text-align:center}
+
+/* misuratore invisibile */
+#misuratore{position:absolute;left:-9999px;top:0;visibility:hidden;pointer-events:none}
+
+/* ============ STAMPA ============ */
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff}
+  #sidebar,#resizer,#zoombar,.riempi-vuoto,.avviso-troppo{display:none}
+  #pages{zoom:1 !important}
+  #preview-wrap{overflow:visible;padding:0;background:#fff}
+  #pages{gap:0}
+  .page{box-shadow:none;page-break-after:always;break-after:page}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ================= SIDEBAR ================= -->
+  <div id="sidebar">
+    <header>
+      <h1>Impaginatore <span>Settimanale</span></h1>
+      <p>Scrivi titolo e testo: le colonne e le pagine si fanno da sole.</p>
+    </header>
+
+    <div id="side-scroll">
+
+      <div class="sez">
+        <h2>Testata</h2>
+        <div class="row3">
+          <div><label>Anno</label><input type="text" id="m-anno" value="XXII"></div>
+          <div><label>Numero</label><input type="text" id="m-numero" value="25"></div>
+          <div><label>Prezzo</label><input type="text" id="m-prezzo" value="1.50€"></div>
+        </div>
+        <label>Data di uscita (si scrive da sola in italiano)</label>
+        <input type="date" id="m-datapick">
+        <label>Data come apparirà (puoi correggerla a mano)</label>
+        <input type="text" id="m-data" value="SABATO 11 LUGLIO 2026">
+        <label>Sito</label>
+        <input type="text" id="m-sito" value="grandangolosettimanale.it">
+        <p class="hint" id="tot-pagine" style="margin-top:8px">Pagine totali: —</p>
+      </div>
+
+      <div class="sez">
+        <h2>Pezzi del numero</h2>
+        <div id="lista-pezzi"></div>
+        <div class="btnrow">
+          <button class="primario" onclick="nuovoPezzo('articolo')">+ Articolo</button>
+          <button onclick="nuovoPezzo('copertina')">+ Copertina</button>
+        </div>
+        <div class="btnrow">
+          <button onclick="nuovoPezzo('pubblicita')">+ Pagina intera</button>
+          <button onclick="nuovoPezzo('ultima')">+ Ultima pagina</button>
+        </div>
+      </div>
+
+      <div class="sez" id="editor-pezzo-wrap"></div>
+
+      <div class="sez">
+        <h2>Esporta e salva</h2>
+        <div class="btnrow">
+          <button class="primario" onclick="stampaPDF()">🖨 Esporta PDF</button>
+        </div>
+        <div class="btnrow">
+          <button onclick="salvaProgetto()">💾 Salva progetto</button>
+          <button onclick="document.getElementById('apri-file').click()">📂 Apri progetto</button>
+          <input type="file" id="apri-file" accept=".json" class="nascosto" onchange="apriProgetto(this)">
+        </div>
+        <p class="hint">«Salva progetto» scarica un file .json con tutto il numero (foto comprese): riaprilo la settimana dopo e riparti da lì. Per il PDF: nella finestra di stampa scegli «Salva come PDF», margini «Nessuno», e attiva «Grafica di sfondo».</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="resizer" title="Trascina per allargare l'editor"></div>
+
+  <!-- ================= ANTEPRIMA ================= -->
+  <div id="preview-wrap">
+    <div id="zoombar">
+      <button onclick="zoomA(-0.1)">−</button>
+      <span id="zoom-val">100%</span>
+      <button onclick="zoomA(0.1)">+</button>
+    </div>
+    <div id="pages"></div>
+  </div>
+</div>
+
+<div id="misuratore"></div>
+
+<script>
+/* ==================== STATO ==================== */
+let progetto = {
+  meta:{anno:'XXII', numero:'25', data:'SABATO 11 LUGLIO 2026', sito:'grandangolosettimanale.it', prezzo:'1.50€'},
+  gerenza:null,
+  pezzi:[]
+};
+let pezzoAttivo = -1;
+let uid = 1;
+const nuovoId = ()=> 'p'+(uid++)+'_'+Date.now();
+
+const GERENZA_DEFAULT = ()=>({
+  sx:"**DICHIARAZIONE DI PROPRIETÀ INTELLETTUALE AI SENSI DELLA LEGGE 22 APRILE 1941, N. 633 (LEGGE SUL DIRITTO D'AUTORE)**\n\nTutte le immagini, i contenuti visivi, le illustrazioni e i materiali iconografici pubblicati sui siti web grandangoloagrigento.it, grandangolosettimanale.it e in tutti i prodotti editoriali realizzati da **Edizioni Grandangolo** - ivi compresi, a titolo esemplificativo e non esaustivo, riviste, giornali, supplementi, pubblicazioni digitali e stampate - sono opere dell'ingegno ai sensi dell'**art. 2 della Legge 22 aprile 1941, n. 633**, e sono di **esclusiva proprietà** di Edizioni Grandangolo e/o dei rispettivi autori, fotografi e collaboratori che ne hanno espressamente ceduto i diritti d'uso alla medesima casa editrice.\n\n**DIVIETO DI UTILIZZO NON AUTORIZZATO** È espressamente vietato, senza il preventivo consenso scritto di Edizioni Grandangolo: scaricare, copiare, riprodurre o archiviare le immagini con qualsiasi mezzo; pubblicare o condividere le immagini su piattaforme digitali, social network o siti web di terzi; utilizzare le immagini a scopo commerciale, promozionale, editoriale o di qualsiasi altra natura; cedere, licenziare o sublicenziare i diritti sulle immagini a soggetti terzi; utilizzare le immagini come dataset per l'addestramento di sistemi di intelligenza artificiale.\n\n**SANZIONI E RESPONSABILITÀ** Qualsiasi utilizzo non autorizzato delle immagini costituisce violazione del diritto d'autore ai sensi della L. 633/1941 e successive modificazioni.",
+  dx:"**Copyright © anno 2026 TUTTI I DIRITTI RISERVATI**\nEdizioni Grandangolo Via Mazzini, 187 92100 Agrigento — Tel 0922822788 · Cell 351 533 9611\nCodice ISSN: 2499-8907 | Iscrizione R.O.C.: 22361\nRegistrazione al Tribunale di Agrigento n. 264/04\n\n**Grandangolo il giornale di Agrigento**\n**Direttore responsabile Franco Castaldo**\nEditoriale: Gabriele Terranova\n\n**Redazione:** Irene Milisenda, Giuseppe Castaldo, Gabriele Terranova, Leonardo Pitruzzella, Luigi Milano, Angelo Gelo, Rogero Fiorentino, Maristella Panepinto, Letizia Bilella, Alessandro La Rosa, Sandro Catanese, Gioacchino Schicchi\n\n**Distribuzione:** L'invio del materiale alla redazione rappresenta automatica ed esplicita autorizzazione alla pubblicazione e al trattamento dei dati dell'autore. Lettere ed articoli esprimono esclusivamente il pensiero degli autori e ne impegnano la loro sola responsabilità. Le proposte pubblicitarie impegnano la sola responsabilità degli inserzionisti.\n\n**ABBONAMENTI:** ORDINARIO: EURO 50,00 (48 NUMERI) SOSTENITORE: EURO 200,00 (48 NUMERI) BENEMERITO IMPORTO LIBERO EURO 300,00 (48 NUMERI)",
+  img:null
+});
+
+/* pezzi di esempio al primo avvio */
+progetto.pezzi.push({
+  id:nuovoId(), tipo:'copertina',
+  titolo:'MOSELLA', sottotitolo:"L'indagine ad un bivio.\nChiesti quattro arresti",
+  foto:[]
+});
+progetto.pezzi.push({
+  id:nuovoId(), tipo:'articolo',
+  titolo:'L\'appalto *"truccato"* della Mosella, imprenditori e direttore dei lavori rischiano l\'arresto',
+  lead:'La Procura di Agrigento chiede il carcere per due imprenditori ed il direttore dei lavori. Il 14 luglio gli interrogatori preventivi.',
+  testo:'Questo è un testo di esempio: sostituiscilo con il tuo articolo. Ogni paragrafo va separato da una riga vuota.\n\nIl programma distribuisce il testo su tre colonne giustificate e, quando la pagina è piena, continua da solo sulla pagina dopo. Per il **grassetto** dentro il testo usa i **doppi asterischi**, per le parole gialle nel titolo gli *asterischi singoli*.\n\nSe un articolo finisce a metà pagina, il pezzo successivo parte automaticamente sulla stessa pagina, come nei giornali veri.',
+  foto:[]
+});
+
+/* ==================== UI: META ==================== */
+function leggiMeta(){
+  progetto.meta.anno   = document.getElementById('m-anno').value.trim();
+  progetto.meta.numero = document.getElementById('m-numero').value.trim();
+  progetto.meta.data   = document.getElementById('m-data').value.trim();
+  progetto.meta.sito   = document.getElementById('m-sito').value.trim();
+  progetto.meta.prezzo = document.getElementById('m-prezzo').value.trim();
+}
+function scriviMeta(){
+  document.getElementById('m-anno').value   = progetto.meta.anno;
+  document.getElementById('m-numero').value = progetto.meta.numero;
+  document.getElementById('m-data').value   = progetto.meta.data;
+  document.getElementById('m-sito').value   = progetto.meta.sito;
+  document.getElementById('m-prezzo').value = progetto.meta.prezzo || '1.50€';
+}
+['m-anno','m-numero','m-data','m-sito','m-prezzo'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', ()=>{ leggiMeta(); render(); });
+});
+
+/* data italiana automatica dal selettore */
+const GIORNI=['DOMENICA','LUNEDÌ','MARTEDÌ','MERCOLEDÌ','GIOVEDÌ','VENERDÌ','SABATO'];
+const MESI=['GENNAIO','FEBBRAIO','MARZO','APRILE','MAGGIO','GIUGNO','LUGLIO','AGOSTO','SETTEMBRE','OTTOBRE','NOVEMBRE','DICEMBRE'];
+document.getElementById('m-datapick').addEventListener('change', function(){
+  if(!this.value) return;
+  const d=new Date(this.value+'T12:00:00');
+  document.getElementById('m-data').value=`${GIORNI[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()}`;
+  leggiMeta(); render();
+});
+
+/* barra trascinabile per allargare l'editor */
+(function(){
+  const rz=document.getElementById('resizer'), sb=document.getElementById('sidebar');
+  let drag=false;
+  rz.addEventListener('mousedown', e=>{ drag=true; e.preventDefault(); document.body.style.userSelect='none'; });
+  window.addEventListener('mousemove', e=>{ if(drag) sb.style.width=Math.min(860,Math.max(340,e.clientX))+'px'; });
+  window.addEventListener('mouseup', ()=>{ drag=false; document.body.style.userSelect=''; });
+})();
+
+/* ==================== UI: LISTA PEZZI ==================== */
+function disegnaLista(){
+  const box = document.getElementById('lista-pezzi');
+  box.innerHTML='';
+  progetto.pezzi.forEach((p,i)=>{
+    const div = document.createElement('div');
+    div.className = 'pezzo-item'+(i===pezzoAttivo?' attivo':'');
+    const etichette = {articolo:'Articolo', copertina:'Copertina', pubblicita:'Pag. intera', ultima:'Ultima pag.'};
+    div.innerHTML = `
+      <span class="tipo ${p.tipo}">${etichette[p.tipo]||p.tipo}</span>
+      <span class="titolo-mini">${(p.titolo||'(senza titolo)').replace(/\*/g,'')}</span>
+      <span class="frecce">
+        <button title="Sposta su" onclick="event.stopPropagation();sposta(${i},-1)">▲</button>
+        <button title="Sposta giù" onclick="event.stopPropagation();sposta(${i},1)">▼</button>
+      </span>`;
+    div.onclick = ()=> apriEditor(i);
+    box.appendChild(div);
+  });
+}
+function sposta(i,dir){
+  const j = i+dir;
+  if(j<0 || j>=progetto.pezzi.length) return;
+  [progetto.pezzi[i],progetto.pezzi[j]]=[progetto.pezzi[j],progetto.pezzi[i]];
+  if(pezzoAttivo===i) pezzoAttivo=j; else if(pezzoAttivo===j) pezzoAttivo=i;
+  disegnaLista(); render();
+}
+function nuovoPezzo(tipo){
+  const base = {id:nuovoId(), tipo, titolo:'', foto:[]};
+  if(tipo==='articolo'){ base.lead=''; base.testo=''; }
+  if(tipo==='copertina'){ base.sottotitolo=''; }
+  if(tipo==='ultima'){ base.testo=''; base.byline=''; base.tstile='banda'; base.tsize='media'; }
+  progetto.pezzi.push(base);
+  apriEditor(progetto.pezzi.length-1);
+  render();
+}
+function eliminaPezzo(){
+  if(pezzoAttivo<0) return;
+  if(!confirm('Eliminare questo pezzo?')) return;
+  progetto.pezzi.splice(pezzoAttivo,1);
+  pezzoAttivo=-1;
+  document.getElementById('editor-pezzo-wrap').innerHTML='';
+  disegnaLista(); render();
+}
+function duplicaPezzo(){
+  if(pezzoAttivo<0) return;
+  const copia=JSON.parse(JSON.stringify(progetto.pezzi[pezzoAttivo]));
+  copia.id=nuovoId();
+  progetto.pezzi.splice(pezzoAttivo+1,0,copia);
+  apriEditor(pezzoAttivo+1); render();
+}
+
+/* ==================== UI: EDITOR PEZZO ==================== */
+function apriEditor(i){
+  pezzoAttivo=i;
+  disegnaLista();
+  const p = progetto.pezzi[i];
+  const w = document.getElementById('editor-pezzo-wrap');
+  let html = `<div id="editor-pezzo"><h3>Modifica pezzo</h3>`;
+
+  if(p.tipo==='copertina'){
+    html += `
+      <label>Dove va questa copertina?</label>
+      <select id="e-interna">
+        <option value="prima" ${!p.interna?'selected':''}>Prima pagina del giornale</option>
+        <option value="interna" ${p.interna?'selected':''}>Pagina interna in stile copertina</option>
+      </select>
+      <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ui-text);margin-top:10px">
+        <input type="checkbox" id="e-pronta" style="width:auto" ${p.pronta?'checked':''}>
+        Ho già l'immagine pronta (JPG/PNG a pagina intera, senza scritte aggiunte)
+      </label>
+      <label>Immagine</label>
+      <input type="file" accept="image/*" onchange="caricaFotoSingola(this)">
+      ${p.foto[0]?'<p class="hint">✔ Immagine caricata. Ricaricane un\'altra per sostituirla.</p>':''}
+      <div id="cover-campi" class="${p.pronta?'nascosto':''}">
+        <label>Titolone</label>
+        <input type="text" id="e-titolo" value="${esc(p.titolo)}" placeholder="MOSELLA">
+        <label>Righe sotto il titolone (una per riga)</label>
+        <textarea id="e-sottotitolo" rows="2" placeholder="Una riga per ogni riga del sottotitolo">${esc(p.sottotitolo||'')}</textarea>
+      </div>`;
+  }
+  else if(p.tipo==='pubblicita'){
+    html += `
+      <label>Nota interna (solo per te, non stampata)</label>
+      <input type="text" id="e-titolo" value="${esc(p.titolo)}" placeholder="Es. pubblicità Celauro">
+      <label>Etichetta in testatina</label>
+      <select id="e-etichetta">
+        <option value="PUBBLICITÀ" ${p.etichetta!=='AUTOPROMOZIONE'?'selected':''}>PUBBLICITÀ</option>
+        <option value="AUTOPROMOZIONE" ${p.etichetta==='AUTOPROMOZIONE'?'selected':''}>AUTOPROMOZIONE</option>
+      </select>
+      <label>Immagine a pagina intera</label>
+      <input type="file" accept="image/*" onchange="caricaFotoSingola(this)">
+      ${p.foto[0]?'<p class="hint">✔ Immagine caricata.</p>':''}`;
+  }
+  else if(p.tipo==='ultima'){
+    if(!progetto.gerenza) progetto.gerenza=GERENZA_DEFAULT();
+    const g=progetto.gerenza;
+    html += `
+      <p class="hint">Ultima pagina in stile Grandangolo: recensione del libro sopra, gerenza fissa in basso. La gerenza resta uguale ogni settimana.</p>
+      <label>Titolo (es. UNA QUESTIONE DI SOLDI DI GABRIELLA GENISI)</label>
+      <textarea id="e-titolo" rows="2">${esc(p.titolo)}</textarea>
+      <div class="row3">
+        <div>
+          <label>Stile titolo</label>
+          <select id="e-tstile">
+            <option value="banda" ${(p.tstile||'banda')==='banda'?'selected':''}>Banda nera</option>
+            <option value="aperto" ${p.tstile==='aperto'?'selected':''}>Aperto (senza sfondo)</option>
+          </select>
+        </div>
+        <div>
+          <label>Grandezza titolo</label>
+          <select id="e-tsize">
+            <option value="grande" ${p.tsize==='grande'?'selected':''}>Grande</option>
+            <option value="media" ${(p.tsize||'media')==='media'?'selected':''}>Media</option>
+            <option value="piccola" ${p.tsize==='piccola'?'selected':''}>Piccola</option>
+          </select>
+        </div>
+        <div>
+          <label>Grandezza testo</label>
+          <select id="e-fsize">
+            <option value="9" ${p.fsize==='9'?'selected':''}>Piccolo</option>
+            <option value="9.8" ${(!p.fsize||p.fsize==='9.8')?'selected':''}>Normale</option>
+            <option value="10.6" ${p.fsize==='10.6'?'selected':''}>Grande</option>
+            <option value="11.4" ${p.fsize==='11.4'?'selected':''}>Molto grande</option>
+          </select>
+        </div>
+      </div>
+      <label>Firma sotto il titolo (es. DI LETIZIA BILELLA)</label>
+      <input type="text" id="e-byline" value="${esc(p.byline||'')}">
+      <label>Testo della recensione (**doppi asterischi** per il grassetto)</label>
+      <textarea id="e-testo" rows="10">${esc(p.testo||'')}</textarea>
+      <label>Foto (es. copertina del libro)</label>
+      <input type="file" accept="image/*" multiple onchange="caricaFotoArticolo(this,'colonna')">
+      <div id="foto-lista">${p.foto.map((f,fi)=>fotoCardHTML(f,fi)).join('')}</div>
+      <h3 style="margin-top:14px">Gerenza (in basso, fissa)</h3>
+      <label>Colonna sinistra — riquadro scuro (**grassetto** con doppi asterischi, riga vuota = nuovo paragrafo)</label>
+      <textarea id="g-sx" rows="8">${esc(g.sx)}</textarea>
+      <label>Colonna destra — copyright, redazione, abbonamenti</label>
+      <textarea id="g-dx" rows="8">${esc(g.dx)}</textarea>
+      <label>Immagine promo sopra la colonna destra (facoltativa, es. "Il nuovo Grandangolo è online")</label>
+      <input type="file" accept="image/*" onchange="caricaGerenzaImg(this)">
+      ${g.img?`<div class="btnrow"><button class="mini pericolo" onclick="progetto.gerenza.img=null;apriEditor(pezzoAttivo);render()">Rimuovi immagine promo</button></div>`:''}`;
+  }
+  else{
+    html += `
+      <label>Titolo</label>
+      <textarea id="e-titolo" rows="2" placeholder='Le parole tra *asterischi* diventano gialle'>${esc(p.titolo)}</textarea>
+      <p class="hint">Racchiudi tra *asterischi* le parole da evidenziare in giallo, es. L'appalto *"truccato"* della Mosella.</p>
+      <div class="row3">
+        <div>
+          <label>Stile titolo</label>
+          <select id="e-tstile">
+            <option value="aperto" ${(p.tstile||'aperto')==='aperto'?'selected':''}>Aperto (senza sfondo)</option>
+            <option value="banda" ${p.tstile==='banda'?'selected':''}>Banda nera</option>
+          </select>
+        </div>
+        <div>
+          <label>Grandezza titolo</label>
+          <select id="e-tsize">
+            <option value="grande" ${(p.tsize||'grande')==='grande'?'selected':''}>Grande</option>
+            <option value="media" ${p.tsize==='media'?'selected':''}>Media</option>
+            <option value="piccola" ${p.tsize==='piccola'?'selected':''}>Piccola</option>
+          </select>
+        </div>
+        <div>
+          <label>Grandezza testo</label>
+          <select id="e-fsize">
+            <option value="9" ${p.fsize==='9'?'selected':''}>Piccolo</option>
+            <option value="9.8" ${(!p.fsize||p.fsize==='9.8')?'selected':''}>Normale</option>
+            <option value="10.6" ${p.fsize==='10.6'?'selected':''}>Grande</option>
+            <option value="11.4" ${p.fsize==='11.4'?'selected':''}>Molto grande</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2" style="margin-top:8px">
+        <div>
+          <label>Capolettera</label>
+          <select id="e-cap">
+            <option value="si" ${p.cap!==false?'selected':''}>Sì, prima lettera grande</option>
+            <option value="no" ${p.cap===false?'selected':''}>No</option>
+          </select>
+        </div>
+        <div>
+          <label>Firma a fine pezzo (facoltativa)</label>
+          <input type="text" id="e-firma" value="${esc(p.firma||'')}" placeholder="Es. Franco Castaldo">
+        </div>
+      </div>
+      <label>Sommario / attacco in grassetto (facoltativo)</label>
+      <textarea id="e-lead" rows="3">${esc(p.lead||'')}</textarea>
+      <label>Testo dell'articolo</label>
+      <textarea id="e-testo" rows="12" placeholder="Incolla qui il pezzo. Separa i paragrafi con una riga vuota.">${esc(p.testo||'')}</textarea>
+      <p class="hint">Per mettere in <b>grassetto</b> una parte del testo racchiudila tra **doppi asterischi**. Le colonne restano sempre giustificate e vanno a capo da sole; se il testo non entra, prosegue in automatico sulla pagina successiva.</p>
+      <label>Foto</label>
+      <input type="file" accept="image/*" multiple onchange="caricaFotoArticolo(this)">
+      <p class="hint">Per ogni foto scegli se metterla larga sotto il titolo o dentro le colonne, spostala con ◀ ▶ tra i paragrafi, regola la grandezza col cursore e scrivi la didascalia.</p>
+      <div id="foto-lista">${p.foto.map((f,fi)=>fotoCardHTML(f,fi)).join('')}</div>
+      <label style="margin-top:12px">Foto riempitiva (occupa lo spazio bianco a fine pezzo)</label>
+      <input type="file" accept="image/*" onchange="caricaRiempitivo(this)">
+      ${p.riempitivo?`
+      <div class="foto-card">
+        <img src="${p.riempitivo.src}">
+        <div class="campi">
+          <p class="hint">Riempie esattamente lo spazio che resta in fondo all'ultima pagina del pezzo, se ne resta. Se il pezzo dopo parte sulla stessa pagina, la foto non serve e non viene stampata.</p>
+          <label>Didascalia (facoltativa)</label>
+          <input type="text" value="${esc(p.riempitivo.did||'')}" onchange="progetto.pezzi[pezzoAttivo].riempitivo.did=this.value;render()">
+          <div class="btnrow"><button class="mini pericolo" onclick="delete progetto.pezzi[pezzoAttivo].riempitivo;apriEditor(pezzoAttivo);render()">Rimuovi</button></div>
+        </div>
+      </div>`:''}
+      <label style="margin-top:12px">Banner pubblicitario nel pezzo (JPG o PNG rettangolare)</label>
+      <input type="file" accept="image/*" onchange="caricaBanner(this)">
+      ${p.banner?`
+      <div class="foto-card">
+        <img src="${p.banner.src}" style="width:110px;height:40px;object-fit:contain;background:#fff">
+        <div class="campi">
+          <label>Dove</label>
+          <select onchange="progetto.pezzi[pezzoAttivo].banner.pos=this.value;render()">
+            <option value="prima" ${p.banner.pos!=='ultima'?'selected':''}>Fondo della prima pagina</option>
+            <option value="ultima" ${p.banner.pos==='ultima'?'selected':''}>Fondo dell'ultima pagina</option>
+          </select>
+          <label>Altezza: <b><span id="bh-v">${p.banner.h||45}</span> mm</b></label>
+          <input type="range" min="20" max="80" step="5" value="${p.banner.h||45}"
+            oninput="document.getElementById('bh-v').textContent=this.value"
+            onchange="progetto.pezzi[pezzoAttivo].banner.h=parseInt(this.value);render()">
+          <div class="btnrow"><button class="mini pericolo" onclick="delete progetto.pezzi[pezzoAttivo].banner;apriEditor(pezzoAttivo);render()">Rimuovi banner</button></div>
+        </div>
+      </div>`:''}`;
+  }
+
+  html += `<div class="btnrow">
+      <button class="primario" onclick="applicaEditor()">Applica</button>
+      <button onclick="duplicaPezzo()">Duplica</button>
+      <button class="pericolo" onclick="eliminaPezzo()">Elimina</button>
+    </div></div>`;
+  w.innerHTML = html;
+
+  ['e-titolo','e-lead','e-testo','e-sottotitolo','e-etichetta','e-tstile','e-tsize','e-fsize','e-cap','e-firma','e-byline','e-interna','g-sx','g-dx'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.addEventListener('input', applicaEditor);
+    if(el.tagName==='SELECT') el.addEventListener('change', applicaEditor);
+  });
+  const chk=document.getElementById('e-pronta');
+  if(chk) chk.addEventListener('change', ()=>{
+    progetto.pezzi[pezzoAttivo].pronta = chk.checked;
+    apriEditor(pezzoAttivo); render();
+  });
+}
+
+function fotoCardHTML(f,fi){
+  const larg = f.larg||100;
+  return `<div class="foto-card">
+    <img src="${f.src}">
+    <div class="campi">
+      <select onchange="progetto.pezzi[pezzoAttivo].foto[${fi}].pos=this.value;apriEditor(pezzoAttivo);render()">
+        <option value="larga" ${f.pos==='larga'?'selected':''}>Larga sotto il titolo</option>
+        <option value="colonna" ${f.pos==='colonna'?'selected':''}>Dentro le colonne</option>
+      </select>
+      <label>Grandezza: <b><span id="lv-${fi}">${larg}</span>%</b> ${f.pos==='larga'?'della pagina':'della colonna'}</label>
+      <input type="range" min="30" max="100" step="5" value="${larg}"
+        oninput="document.getElementById('lv-${fi}').textContent=this.value"
+        onchange="progetto.pezzi[pezzoAttivo].foto[${fi}].larg=parseInt(this.value);render()">
+      ${f.pos==='larga'?`
+      <label>Posizione</label>
+      <select onchange="progetto.pezzi[pezzoAttivo].foto[${fi}].align=this.value;render()">
+        <option value="centro" ${(f.align||'centro')==='centro'?'selected':''}>Centrata</option>
+        <option value="sx" ${f.align==='sx'?'selected':''}>A sinistra</option>
+        <option value="dx" ${f.align==='dx'?'selected':''}>A destra</option>
+      </select>`:`
+      <label>Posizione nel testo: dopo il paragrafo n° <b>${f.dopo||0}</b> (0 = all'inizio)</label>
+      <div class="btnrow" style="margin-top:4px">
+        <button class="mini" onclick="spostaFoto(${fi},-1)">◀ Su di un paragrafo</button>
+        <button class="mini" onclick="spostaFoto(${fi},1)">Giù di un paragrafo ▶</button>
+      </div>`}
+      <label>Didascalia (facoltativa)</label>
+      <input type="text" value="${esc(f.did||'')}" onchange="progetto.pezzi[pezzoAttivo].foto[${fi}].did=this.value;render()">
+      <div class="btnrow"><button class="mini pericolo" onclick="progetto.pezzi[pezzoAttivo].foto.splice(${fi},1);apriEditor(pezzoAttivo);render()">Rimuovi foto</button></div>
+    </div>
+  </div>`;
+}
+
+function applicaEditor(){
+  if(pezzoAttivo<0) return;
+  const p = progetto.pezzi[pezzoAttivo];
+  const g = id=>document.getElementById(id);
+  if(g('e-titolo')) p.titolo = g('e-titolo').value;
+  if(g('e-lead')) p.lead = g('e-lead').value;
+  if(g('e-testo')) p.testo = g('e-testo').value;
+  if(g('e-sottotitolo')) p.sottotitolo = g('e-sottotitolo').value;
+  if(g('e-etichetta')) p.etichetta = g('e-etichetta').value;
+  if(g('e-tstile')) p.tstile = g('e-tstile').value;
+  if(g('e-tsize')) p.tsize = g('e-tsize').value;
+  if(g('e-fsize')) p.fsize = g('e-fsize').value;
+  if(g('e-cap')) p.cap = g('e-cap').value!=='no';
+  if(g('e-firma')) p.firma = g('e-firma').value;
+  if(g('e-byline')) p.byline = g('e-byline').value;
+  if(g('e-interna')) p.interna = g('e-interna').value==='interna';
+  if(g('g-sx')){ if(!progetto.gerenza) progetto.gerenza=GERENZA_DEFAULT(); progetto.gerenza.sx=g('g-sx').value; }
+  if(g('g-dx')){ if(!progetto.gerenza) progetto.gerenza=GERENZA_DEFAULT(); progetto.gerenza.dx=g('g-dx').value; }
+  disegnaLista(); render();
+}
+function spostaFoto(fi,dir){
+  const f=progetto.pezzi[pezzoAttivo].foto[fi];
+  f.dopo=Math.max(0,(f.dopo||0)+dir);
+  apriEditor(pezzoAttivo); render();
+}
+
+/* ==================== CARICAMENTO IMMAGINI ==================== */
+function leggiImg(file, cb){
+  const r=new FileReader();
+  r.onload=e=>{
+    const im=new Image();
+    im.onload=()=>cb({src:e.target.result, w:im.naturalWidth||1, h:im.naturalHeight||1});
+    im.onerror=()=>cb({src:e.target.result, w:4, h:3});
+    im.src=e.target.result;
+  };
+  r.readAsDataURL(file);
+}
+function caricaFotoSingola(input){
+  const file = input.files[0]; if(!file) return;
+  leggiImg(file, d=>{
+    progetto.pezzi[pezzoAttivo].foto = [{...d,pos:'larga',dopo:0,did:''}];
+    apriEditor(pezzoAttivo); render();
+  });
+}
+function caricaFotoArticolo(input, posDefault){
+  const files=[...input.files]; if(!files.length) return;
+  let rimasti=files.length;
+  files.forEach(f=>{
+    leggiImg(f, d=>{
+      progetto.pezzi[pezzoAttivo].foto.push({...d,pos:posDefault||'larga',dopo:0,did:''});
+      if(--rimasti===0){ apriEditor(pezzoAttivo); render(); }
+    });
+  });
+}
+function caricaRiempitivo(input){
+  const file=input.files[0]; if(!file) return;
+  leggiImg(file, d=>{
+    progetto.pezzi[pezzoAttivo].riempitivo={...d,did:''};
+    apriEditor(pezzoAttivo); render();
+  });
+}
+function caricaBanner(input){
+  const file=input.files[0]; if(!file) return;
+  leggiImg(file, d=>{
+    progetto.pezzi[pezzoAttivo].banner={src:d.src,pos:'prima',h:45};
+    apriEditor(pezzoAttivo); render();
+  });
+}
+function caricaGerenzaImg(input){
+  const file=input.files[0]; if(!file) return;
+  leggiImg(file, d=>{
+    if(!progetto.gerenza) progetto.gerenza=GERENZA_DEFAULT();
+    progetto.gerenza.img={src:d.src,w:d.w,h:d.h};
+    apriEditor(pezzoAttivo); render();
+  });
+}
+function assicuraDimensioni(){
+  const mancanti=[];
+  progetto.pezzi.forEach(p=>{
+    (p.foto||[]).forEach(f=>{ if(!f.w||!f.h) mancanti.push(f); });
+    if(p.riempitivo && (!p.riempitivo.w||!p.riempitivo.h)) mancanti.push(p.riempitivo);
+  });
+  if(!mancanti.length) return;
+  let n=mancanti.length;
+  mancanti.forEach(f=>{
+    const im=new Image();
+    im.onload=()=>{ f.w=im.naturalWidth||4; f.h=im.naturalHeight||3; if(--n===0) render(); };
+    im.onerror=()=>{ f.w=4; f.h=3; if(--n===0) render(); };
+    im.src=f.src;
+  });
+}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+
+/* ==================== TESTO: PARSING ==================== */
+/* parole con eventuale grassetto (**così**) */
+function paroleConStile(str){
+  const out=[];
+  String(str).split(/(\*\*[^*]+\*\*)/).forEach(seg=>{
+    if(!seg) return;
+    const b=seg.startsWith('**')&&seg.endsWith('**')&&seg.length>4;
+    const t=b?seg.slice(2,-2):seg;
+    t.split(/\s+/).filter(Boolean).forEach(w=>out.push({w,b}));
+  });
+  return out;
+}
+/* html per blocchi tipo gerenza: riga vuota = paragrafo, ** = grassetto */
+function paraHTML(str){
+  return String(str||'').split(/\n\s*\n/).map(par=>{
+    const inner=esc(par).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
+    return `<p>${inner}</p>`;
+  }).join('');
+}
+function titoloHTML(t){
+  return esc(t).replace(/\*(.+?)\*/g,'<span class="hl">$1</span>');
+}
+function testatinaHTML(nPag, etichetta){
+  const m=progetto.meta;
+  const centro = etichetta ? `<span><b>${esc(etichetta)}</b></span>` : '';
+  return `<div class="testatina">
+    <span>ANNO <b>${esc(m.anno)}</b> · NUMERO <b>${esc(m.numero)}</b> · <b>${esc(m.data)}</b></span>
+    ${centro}
+    <span>PAGINA <b>${nPag}</b></span>
+  </div>`;
+}
+
+/* ==================== MOTORE DI IMPAGINAZIONE ==================== */
+const MM = ()=>{
+  const d=document.createElement('div'); d.style.width='100mm'; d.style.position='absolute'; d.style.left='-9999px';
+  document.body.appendChild(d); const px=d.getBoundingClientRect().width/100; d.remove(); return px;
+};
+let pxmm = 3.78;
+let zoomLiv=1;
+const SOGLIA_CONDIVISIONE_MM = 55;   // spazio minimo per far partire un altro pezzo sulla stessa pagina
+
+function nodiArticolo(p){
+  const nodi=[];
+  if(p.lead && p.lead.trim()) nodi.push({tipo:'p', lead:true, parole:paroleConStile(p.lead.trim())});
+  const paragrafi=(p.testo||'').split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
+  const fotoColonna=(p.foto||[]).filter(f=>f.pos==='colonna');
+  paragrafi.forEach((par,idx)=>{
+    nodi.push({tipo:'p', parole:paroleConStile(par), primo:(idx===0 && p.cap!==false)});
+    fotoColonna.filter(f=>(f.dopo||0)===idx+1).forEach(f=>nodi.push({tipo:'img',f}));
+  });
+  fotoColonna.filter(f=>(f.dopo||0)===0).forEach(f=>nodi.splice(p.lead?1:0,0,{tipo:'img',f}));
+  if(p.firma && p.firma.trim()) nodi.push({tipo:'p', firma:true, parole:paroleConStile(p.firma.trim())});
+  return nodi;
+}
+function tokensDaNodi(nodi){
+  const tok=[];
+  nodi.forEach((n,ni)=>{
+    if(n.tipo==='img'){ tok.push({t:'img',f:n.f}); }
+    else n.parole.forEach((pw,wi)=>tok.push({t:'w',w:pw.w,b:pw.b,ni,lead:!!n.lead,firma:!!n.firma,dropcap:(!!n.primo && wi===0)}));
+  });
+  return tok;
+}
+function htmlDaTokens(toks){
+  let html='', pAperto=null;
+  toks.forEach(tk=>{
+    if(tk.t==='img'){
+      if(pAperto!==null){ html+='</p>'; pAperto=null; }
+      const w=tk.f.larg||100;
+      const ar=(tk.f.w&&tk.f.h)?`aspect-ratio:${tk.f.w}/${tk.f.h};`:'';
+      html+=`<figure style="width:${w}%;margin-left:auto;margin-right:auto"><img src="${tk.f.src}" style="${ar}">${tk.f.did?`<figcaption>${esc(tk.f.did)}</figcaption>`:''}</figure>`;
+    }else{
+      if(pAperto!==tk.ni){
+        if(pAperto!==null) html+='</p>';
+        const classi=[];
+        if(tk.lead) classi.push('lead');
+        if(tk.firma) classi.push('firma');
+        if(tk.dropcap) classi.push('primo');
+        html+=`<p${classi.length?` class="${classi.join(' ')}"`:''}>`;
+        pAperto=tk.ni;
+      } else html+=' ';
+      html+= tk.b ? `<b>${esc(tk.w)}</b>` : esc(tk.w);
+    }
+  });
+  if(pAperto!==null) html+='</p>';
+  return html;
+}
+function quantiEntrano(toks, hPx, fs){
+  const mis=document.getElementById('misuratore');
+  mis.innerHTML=`<div class="page" style="height:auto"><div class="corpo-colonne" style="height:${hPx}px;flex:none;font-size:${fs||9.8}pt"></div></div>`;
+  const box=mis.querySelector('.corpo-colonne');
+  const fits=n=>{
+    box.innerHTML=htmlDaTokens(toks.slice(0,n));
+    return box.scrollHeight<=box.clientHeight+1;
+  };
+  if(fits(toks.length)) { mis.innerHTML=''; return toks.length; }
+  let lo=1, hi=toks.length, best=1;
+  while(lo<=hi){
+    const mid=(lo+hi)>>1;
+    if(fits(mid)){ best=mid; lo=mid+1; } else hi=mid-1;
+  }
+  mis.innerHTML='';
+  return Math.max(best,1);
+}
+function creaPagina(classe){
+  const pg=document.createElement('div');
+  pg.className='page'+(classe?' '+classe:'');
+  document.getElementById('pages').appendChild(pg);
+  return pg;
+}
+function spazioResiduo(pg){
+  const probe=document.createElement('div');
+  probe.style.flex='1'; probe.style.minHeight='0';
+  pg.appendChild(probe);
+  const h=probe.getBoundingClientRect().height/zoomLiv;
+  probe.remove();
+  return h;
+}
+
+let nPag=0;
+function paginaNumerata(etichetta){
+  nPag++;
+  const pg=creaPagina();
+  pg.innerHTML=testatinaHTML(nPag, etichetta);
+  return pg;
+}
+
+/* titolo per articoli e ultima pagina */
+function aggiungiTitolo(pg,p){
+  if(!(p.titolo && p.titolo.trim())) return;
+  const bt=document.createElement('div');
+  const stile=p.tstile||'aperto';
+  bt.className=(stile==='banda'?'banda-titolo':'titolo-aperto')+' t-'+(p.tsize||'grande');
+  bt.innerHTML=titoloHTML(p.titolo);
+  pg.appendChild(bt);
+  if(p.byline && p.byline.trim()){
+    const bl=document.createElement('div');
+    bl.className='byline-band';
+    bl.innerHTML=`<span>${esc(p.byline)}</span>`;
+    pg.appendChild(bl);
+  }
+}
+
+/* ---- articolo: flusso su una o più pagine; può partire su una pagina già aperta ---- */
+function renderArticolo(p, pgCondivisa){
+  const fs=parseFloat(p.fsize)||9.8;
+  let toks=tokensDaNodi(nodiArticolo(p));
+  const fotoLarghe=(p.foto||[]).filter(f=>f.pos==='larga');
+  const bannerUltima = p.banner && p.banner.pos==='ultima';
+  let prima=true, ultimaPg=null, ultimiToks=[], finita=(toks.length===0);
+
+  if(toks.length===0 && !p.titolo && fotoLarghe.length===0 && !p.banner) return null;
+
+  const mettiBanner=(pg)=>{
+    const b=document.createElement('div');
+    b.className='banner-pub';
+    b.innerHTML=`<span class="tag">Pubblicità</span><img src="${p.banner.src}" style="height:${(p.banner.h||45)}mm;object-fit:contain">`;
+    pg.appendChild(b);
+  };
+
+  while(prima || toks.length>0){
+    const pg = (prima && pgCondivisa) ? pgCondivisa : paginaNumerata();
+    if(prima){
+      aggiungiTitolo(pg,p);
+      fotoLarghe.forEach(f=>{
+        const fig=document.createElement('figure');
+        fig.className='foto-larga';
+        fig.style.width=(f.larg||100)+'%';
+        fig.style.marginLeft=(f.align==='sx')?'0':'auto';
+        fig.style.marginRight=(f.align==='dx')?'0':'auto';
+        const ar=(f.w&&f.h)?`aspect-ratio:${f.w}/${f.h};`:'';
+        fig.innerHTML=`<img src="${f.src}" style="${ar}">${f.did?`<figcaption>${esc(f.did)}</figcaption>`:''}`;
+        pg.appendChild(fig);
+      });
+    }
+    const corpo=document.createElement('div');
+    corpo.className='corpo-colonne';
+    corpo.style.fontSize=fs+'pt';
+    pg.appendChild(corpo);
+
+    if(p.banner && !bannerUltima && prima) mettiBanner(pg);
+
+    const h=corpo.getBoundingClientRect().height/zoomLiv;
+    if(toks.length>0 && h>20){
+      const n=quantiEntrano(toks,h,fs);
+      corpo.innerHTML=htmlDaTokens(toks.slice(0,n));
+      ultimiToks=toks.slice(0,n);
+      toks=toks.slice(n);
+    } else { ultimiToks=[]; }
+    finita=(toks.length===0);
+    if(finita && !bannerUltima) corpo.classList.add('ultima');
+    ultimaPg=pg;
+    prima=false;
+    if(finita) break;
+  }
+
+  /* banner a fondo dell'ultima pagina: se il testo non entra più,
+     l'eccedenza passa a una pagina nuova */
+  if(bannerUltima && ultimaPg){
+    mettiBanner(ultimaPg);
+    const corpo=ultimaPg.querySelector('.corpo-colonne:last-of-type') || ultimaPg.querySelector('.corpo-colonne');
+    let resto=[];
+    if(ultimiToks.length && corpo){
+      const h=corpo.getBoundingClientRect().height/zoomLiv;
+      const n=quantiEntrano(ultimiToks,h,fs);
+      if(n<ultimiToks.length){
+        corpo.innerHTML=htmlDaTokens(ultimiToks.slice(0,n));
+        resto=ultimiToks.slice(n);
+      }
+    }
+    while(resto.length>0){
+      const pg=paginaNumerata();
+      const c2=document.createElement('div');
+      c2.className='corpo-colonne';
+      c2.style.fontSize=fs+'pt';
+      pg.appendChild(c2);
+      const h2=c2.getBoundingClientRect().height/zoomLiv;
+      const n2=quantiEntrano(resto,h2,fs);
+      c2.innerHTML=htmlDaTokens(resto.slice(0,n2));
+      resto=resto.slice(n2);
+      ultimaPg=pg;
+    }
+  }
+
+  return {pg:ultimaPg, condivisibile: !bannerUltima};
+}
+
+/* riempie lo spazio residuo della pagina di un pezzo concluso */
+function applicaFiller(pg, p){
+  if(!pg) return;
+  const resto=spazioResiduo(pg);
+  if(p && p.riempitivo && resto>30){
+    const fig=document.createElement('figure');
+    fig.className='riempitivo';
+    fig.innerHTML=`<img src="${p.riempitivo.src}">${p.riempitivo.did?`<figcaption>${esc(p.riempitivo.did)}</figcaption>`:''}`;
+    pg.appendChild(fig);
+  }else if(resto>60){
+    const ph=document.createElement('div');
+    ph.className='riempi-vuoto';
+    ph.textContent='Spazio libero — carica una «foto riempitiva» in questo pezzo per occuparlo, o sposta qui sotto un altro articolo';
+    pg.appendChild(ph);
+  }
+}
+
+/* ---- copertina (prima pagina o interna) ---- */
+function renderCopertina(p){
+  const m=progetto.meta;
+  nPag++;
+  const pg=creaPagina('piena cover');
+  const righe=(p.sottotitolo||'').split('\n').map(r=>r.trim()).filter(Boolean)
+    .map(r=>`<span class="sotto">${esc(r)}</span>`).join('');
+
+  if(p.pronta){
+    pg.innerHTML = p.foto[0]
+      ? `<img class="cover-img" src="${p.foto[0].src}" style="object-fit:cover">`
+      : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#999;font-family:var(--font-title)">CARICA LA TUA IMMAGINE DI COPERTINA (JPG o PNG)</div>`;
+    if(p.interna) pg.innerHTML += `<div style="position:absolute;top:0;left:0;right:0">${testatinaHTML(nPag)}</div>`;
+    return;
+  }
+  if(p.interna){
+    pg.innerHTML=`
+      ${p.foto[0]?`<img class="cover-img" src="${p.foto[0].src}">`:''}
+      <div class="cover-shade"></div>
+      <div style="position:absolute;top:0;left:0;right:0">${testatinaHTML(nPag)}</div>
+      <div class="cover-title">
+        <span class="principale" style="font-size:40pt">${esc(p.titolo)}</span>
+        ${righe}
+      </div>`;
+    return;
+  }
+  pg.innerHTML=`
+    ${p.foto[0]?`<img class="cover-img" src="${p.foto[0].src}">`:''}
+    <div class="cover-shade"></div>
+    <div class="cover-top">
+      <div class="cover-meta">ANNO ${esc(m.anno)} · NUMERO ${esc(m.numero)} · ${esc(m.data)} — ${esc(m.sito)}</div>
+      <div class="cover-logo">Grandangolo <small>settimanale</small></div>
+    </div>
+    <div class="cover-title">
+      <span class="principale">${esc(p.titolo)}</span>
+      ${righe}
+    </div>
+    <div class="cover-prezzo">SETTIMANALE — ${esc(m.prezzo)}</div>`;
+}
+
+/* ---- pagina pubblicitaria intera ---- */
+function renderPub(p){
+  const pg=paginaNumerata(p.etichetta||'PUBBLICITÀ');
+  pg.classList.add('piena');
+  const testatina=pg.innerHTML;
+  pg.innerHTML=`
+    ${p.foto[0]?`<img class="pub-img" src="${p.foto[0].src}">`:'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#999;font-family:var(--font-title)">CARICA UN\'IMMAGINE A PAGINA INTERA</div>'}
+    <div class="pub-label">${testatina}</div>`;
+}
+
+/* ---- ultima pagina: recensione libro + gerenza fissa ---- */
+function renderUltimaPagina(p){
+  if(!progetto.gerenza) progetto.gerenza=GERENZA_DEFAULT();
+  const g=progetto.gerenza;
+  const fs=parseFloat(p.fsize)||9.8;
+  const pg=paginaNumerata();
+  aggiungiTitolo(pg,{...p, tstile:p.tstile||'banda', tsize:p.tsize||'media'});
+
+  const corpo=document.createElement('div');
+  corpo.className='corpo-colonne';
+  corpo.style.fontSize=fs+'pt';
+  pg.appendChild(corpo);
+
+  const ger=document.createElement('div');
+  ger.className='gerenza';
+  ger.innerHTML=`
+    <div class="ger-sx">${paraHTML(g.sx)}</div>
+    <div class="ger-dx">
+      ${g.img?`<img class="ger-promo" src="${g.img.src}" style="${(g.img.w&&g.img.h)?`aspect-ratio:${g.img.w}/${g.img.h};`:''}">`:''}
+      <div class="ger-txt">${paraHTML(g.dx)}</div>
+    </div>`;
+  pg.appendChild(ger);
+
+  let toks=tokensDaNodi(nodiArticolo({...p, cap:p.cap!==false, firma:''}));
+  const h=corpo.getBoundingClientRect().height/zoomLiv;
+  if(toks.length>0 && h>20){
+    const n=quantiEntrano(toks,h,fs);
+    corpo.innerHTML=htmlDaTokens(toks.slice(0,n));
+    if(n<toks.length){
+      const av=document.createElement('div');
+      av.className='avviso-troppo';
+      av.textContent=`Attenzione: ${toks.length-n} parole non entrano in questa pagina — accorcia il testo o riduci la grandezza`;
+      pg.insertBefore(av, ger);
+    } else {
+      corpo.classList.add('ultima');
+      const spacer=document.createElement('div');
+      spacer.style.flex='1';
+      pg.insertBefore(spacer, ger);
+    }
+  }
+}
+
+/* ==================== RENDER GENERALE ==================== */
+function render(){
+  leggiMeta && leggiMeta();
+  pxmm = MM();
+  document.getElementById('pages').innerHTML='';
+  nPag=0;
+  let pgAperta=null, proprietario=null;
+  const chiudi=()=>{ if(pgAperta){ applicaFiller(pgAperta, proprietario); } pgAperta=null; proprietario=null; };
+
+  progetto.pezzi.forEach(p=>{
+    if(p.tipo==='copertina'){ chiudi(); renderCopertina(p); return; }
+    if(p.tipo==='pubblicita'){ chiudi(); renderPub(p); return; }
+    if(p.tipo==='ultima'){ chiudi(); renderUltimaPagina(p); return; }
+
+    /* articolo: se c'è una pagina aperta con abbastanza spazio,
+       il pezzo parte lì; altrimenti pagina nuova */
+    let pgStart=null;
+    if(pgAperta){
+      if(proprietario && proprietario.riempitivo){ chiudi(); }
+      else if(spazioResiduo(pgAperta) >= SOGLIA_CONDIVISIONE_MM*pxmm){
+        pgStart=pgAperta; pgAperta=null; proprietario=null;
+      } else chiudi();
+    }
+    const r=renderArticolo(p, pgStart);
+    if(r && r.condivisibile){ pgAperta=r.pg; proprietario=p; }
+    else if(r){ applicaFiller(r.pg, p); }
+  });
+  chiudi();
+
+  if(nPag===0){
+    const pg=paginaNumerata();
+    pg.innerHTML+='<div style="margin:auto;color:#999;font-family:var(--font-title);text-transform:uppercase;text-align:center">Aggiungi un pezzo dal pannello a sinistra</div>';
+  }
+  const tot=document.getElementById('tot-pagine');
+  if(tot) tot.innerHTML='Pagine totali del numero: <b style="color:var(--giallo)">'+nPag+'</b> (numerate in automatico)';
+}
+
+/* ==================== SALVA / APRI / PDF / ZOOM ==================== */
+function salvaProgetto(){
+  leggiMeta();
+  const blob=new Blob([JSON.stringify(progetto)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`grandangolo_settimanale_n${progetto.meta.numero||'x'}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function apriProgetto(input){
+  const f=input.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      progetto=JSON.parse(e.target.result);
+      if(!progetto.meta) progetto.meta={anno:'',numero:'',data:'',sito:'',prezzo:'1.50€'};
+      if(!progetto.pezzi) progetto.pezzi=[];
+      pezzoAttivo=-1;
+      document.getElementById('editor-pezzo-wrap').innerHTML='';
+      scriviMeta(); disegnaLista(); render(); assicuraDimensioni();
+    }catch(err){ alert('File non valido: '+err.message); }
+  };
+  r.readAsText(f);
+}
+function stampaPDF(){
+  render();
+  setTimeout(()=>window.print(),300);
+}
+function zoomA(d){
+  zoomLiv=Math.min(1.5,Math.max(0.4,Math.round((zoomLiv+d)*10)/10));
+  document.getElementById('pages').style.zoom=zoomLiv;
+  document.getElementById('zoom-val').textContent=Math.round(zoomLiv*100)+'%';
+}
+
+/* ==================== AVVIO ==================== */
+window.addEventListener('load', ()=>{ scriviMeta(); disegnaLista(); render(); });
+document.fonts && document.fonts.ready.then(()=>render());
+
+</script>
+</body>
+</html>
