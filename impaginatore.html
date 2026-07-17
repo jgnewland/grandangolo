@@ -175,8 +175,12 @@ button.mini{padding:4px 8px;font-size:11px}
 
 /* foto larga sotto il titolo */
 .foto-larga{margin-bottom:4mm;flex-shrink:0}
-.foto-larga img{width:100%;max-height:95mm;object-fit:cover;display:block}
+.foto-larga > img{width:100%;max-height:95mm;object-fit:cover;display:block}
 .foto-larga figcaption{font-size:8pt;color:#444;font-style:italic;margin-top:1.2mm}
+
+/* riquadro con inquadratura regolabile (pan & zoom dentro la cornice) */
+.fig-crop{position:relative;overflow:hidden;width:100%}
+.fig-crop img{display:block}
 
 /* copertina */
 .cover{padding:0;background:#000}
@@ -448,7 +452,13 @@ function apriEditor(i){
       </label>
       <label>Immagine</label>
       <input type="file" accept="image/*" onchange="caricaFotoSingola(this)">
-      ${p.foto[0]?'<p class="hint">✔ Immagine caricata. Ricaricane un\'altra per sostituirla.</p>':''}
+      ${p.foto[0]?`<p class="hint">✔ Immagine caricata. Ricaricane un\'altra per sostituirla.</p>
+      <label>Inquadratura orizzontale (◀ sinistra … destra ▶)</label>
+      <input type="range" min="0" max="100" step="1" value="${p.foto[0].px??50}"
+        oninput="progetto.pezzi[${i}].foto[0].px=parseFloat(this.value);spostaCover(${i})" onchange="render()">
+      <label>Inquadratura verticale (▲ alto … basso ▼)</label>
+      <input type="range" min="0" max="100" step="1" value="${p.foto[0].py??50}"
+        oninput="progetto.pezzi[${i}].foto[0].py=parseFloat(this.value);spostaCover(${i})" onchange="render()">`:''}
       <div id="cover-campi" class="${p.pronta?'nascosto':''}">
         <label>Titolone</label>
         <input type="text" id="e-titolo" value="${esc(p.titolo)}" placeholder="MOSELLA">
@@ -578,6 +588,12 @@ function apriEditor(i){
         <img src="${p.riempitivo.src}">
         <div class="campi">
           <p class="hint">Riempie esattamente lo spazio che resta in fondo all'ultima pagina del pezzo, se ne resta. Se il pezzo dopo parte sulla stessa pagina, la foto non serve e non viene stampata.</p>
+          <label>Inquadratura orizzontale (◀ … ▶)</label>
+          <input type="range" min="0" max="100" step="1" value="${p.riempitivo.px??50}"
+            oninput="progetto.pezzi[${i}].riempitivo.px=parseFloat(this.value);spostaRiempitivo(${i})" onchange="render()">
+          <label>Inquadratura verticale (▲ … ▼)</label>
+          <input type="range" min="0" max="100" step="1" value="${p.riempitivo.py??50}"
+            oninput="progetto.pezzi[${i}].riempitivo.py=parseFloat(this.value);spostaRiempitivo(${i})" onchange="render()">
           <label>Didascalia (facoltativa)</label>
           <input type="text" value="${esc(p.riempitivo.did||'')}" onchange="progetto.pezzi[pezzoAttivo].riempitivo.did=this.value;render()">
           <div class="btnrow"><button class="mini pericolo" onclick="delete progetto.pezzi[pezzoAttivo].riempitivo;apriEditor(pezzoAttivo);render()">Rimuovi</button></div>
@@ -625,20 +641,44 @@ function apriEditor(i){
 
 function fotoCardHTML(f,fi){
   const larg = f.larg||100;
+  const c=stiliCrop(f);
+  const pi=pezzoAttivo;
   return `<div class="foto-card">
     <img src="${f.src}">
     <div class="campi">
-      <select onchange="progetto.pezzi[pezzoAttivo].foto[${fi}].pos=this.value;apriEditor(pezzoAttivo);render()">
+      <select onchange="progetto.pezzi[${pi}].foto[${fi}].pos=this.value;apriEditor(${pi});render()">
         <option value="larga" ${f.pos==='larga'?'selected':''}>Larga sotto il titolo</option>
         <option value="colonna" ${f.pos==='colonna'?'selected':''}>Dentro le colonne</option>
       </select>
       <label>Grandezza: <b><span id="lv-${fi}">${larg}</span>%</b> ${f.pos==='larga'?'della pagina':'della colonna'}</label>
       <input type="range" min="30" max="100" step="5" value="${larg}"
         oninput="document.getElementById('lv-${fi}').textContent=this.value"
-        onchange="progetto.pezzi[pezzoAttivo].foto[${fi}].larg=parseInt(this.value);render()">
+        onchange="progetto.pezzi[${pi}].foto[${fi}].larg=parseInt(this.value);render()">
+      <label>Inquadratura (forma del riquadro)</label>
+      <select onchange="aggiornaCrop(${pi},${fi},'ratio',this.value)">
+        <option value="" ${!f.ratio?'selected':''}>Originale (foto intera)</option>
+        <option value="1.7778" ${f.ratio==1.7778?'selected':''}>Orizzontale larga (16:9)</option>
+        <option value="1.5" ${f.ratio==1.5?'selected':''}>Orizzontale (3:2)</option>
+        <option value="1.3333" ${f.ratio==1.3333?'selected':''}>Orizzontale (4:3)</option>
+        <option value="1" ${f.ratio==1?'selected':''}>Quadrata (1:1)</option>
+        <option value="0.75" ${f.ratio==0.75?'selected':''}>Verticale (3:4)</option>
+        <option value="0.6667" ${f.ratio==0.6667?'selected':''}>Verticale alta (2:3)</option>
+      </select>
+      ${c?`
+      <label>Zoom dentro il riquadro: <b><span id="zc-${fi}">${Math.max(parseFloat(f.zoom)||100,c.minZ)}</span>%</b></label>
+      <input type="range" min="${c.minZ}" max="300" step="2" value="${Math.max(parseFloat(f.zoom)||100,c.minZ)}"
+        oninput="document.getElementById('zc-${fi}').textContent=this.value;aggiornaCrop(${pi},${fi},'zoom',this.value)"
+        onchange="render()">
+      <label>Sposta orizzontale (◀ sinistra … destra ▶)</label>
+      <input type="range" min="0" max="100" step="1" value="${f.px??50}"
+        oninput="aggiornaCrop(${pi},${fi},'px',this.value)" onchange="render()">
+      <label>Sposta verticale (▲ alto … basso ▼)</label>
+      <input type="range" min="0" max="100" step="1" value="${f.py??50}"
+        oninput="aggiornaCrop(${pi},${fi},'py',this.value)" onchange="render()">
+      <p class="hint">Utile per le foto verticali: scegli un riquadro orizzontale e sposta il soggetto al centro. L'anteprima si aggiorna mentre muovi i cursori.</p>`:''}
       ${f.pos==='larga'?`
       <label>Posizione</label>
-      <select onchange="progetto.pezzi[pezzoAttivo].foto[${fi}].align=this.value;render()">
+      <select onchange="progetto.pezzi[${pi}].foto[${fi}].align=this.value;render()">
         <option value="centro" ${(f.align||'centro')==='centro'?'selected':''}>Centrata</option>
         <option value="sx" ${f.align==='sx'?'selected':''}>A sinistra</option>
         <option value="dx" ${f.align==='dx'?'selected':''}>A destra</option>
@@ -649,8 +689,8 @@ function fotoCardHTML(f,fi){
         <button class="mini" onclick="spostaFoto(${fi},1)">Giù di un paragrafo ▶</button>
       </div>`}
       <label>Didascalia (facoltativa)</label>
-      <input type="text" value="${esc(f.did||'')}" onchange="progetto.pezzi[pezzoAttivo].foto[${fi}].did=this.value;render()">
-      <div class="btnrow"><button class="mini pericolo" onclick="progetto.pezzi[pezzoAttivo].foto.splice(${fi},1);apriEditor(pezzoAttivo);render()">Rimuovi foto</button></div>
+      <input type="text" value="${esc(f.did||'')}" onchange="progetto.pezzi[${pi}].foto[${fi}].did=this.value;render()">
+      <div class="btnrow"><button class="mini pericolo" onclick="progetto.pezzi[${pi}].foto.splice(${fi},1);apriEditor(${pi});render()">Rimuovi foto</button></div>
     </div>
   </div>`;
 }
@@ -748,6 +788,49 @@ function assicuraDimensioni(){
 }
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 
+/* ==================== INQUADRATURA FOTO (pan & zoom) ==================== */
+/* calcola gli stili per una foto ritagliata in una cornice di proporzione f.ratio,
+   con zoom (%) e posizione px/py (0-100). Tutto deterministico: niente sorprese in misura */
+function stiliCrop(f){
+  const R=parseFloat(f.ratio);
+  if(!R||!isFinite(R)) return null;
+  const r=(f.w&&f.h)?f.w/f.h:1.5;
+  const minZ=Math.max(100, 100*r/R);
+  const Z=Math.max(parseFloat(f.zoom)||100, minZ);
+  const wPct=Z;
+  const hPct=Z*R/r;
+  const L=-(wPct-100)*(((f.px??50))/100);
+  const T=-(hPct-100)*(((f.py??50))/100);
+  return {
+    minZ:Math.ceil(minZ),
+    frame:`aspect-ratio:${R};`,
+    img:`position:absolute;width:${wPct}%;aspect-ratio:${f.w||3}/${f.h||2};left:${L}%;top:${T}%;`
+  };
+}
+function figuraHTML(f, classe){
+  const wPct=f.larg||100;
+  const cap=f.did?`<figcaption>${esc(f.did)}</figcaption>`:'';
+  const c=stiliCrop(f);
+  const margini = classe==='foto-larga'
+    ? `margin-left:${f.align==='sx'?'0':'auto'};margin-right:${f.align==='dx'?'0':'auto'};`
+    : 'margin-left:auto;margin-right:auto;';
+  if(c){
+    return `<figure class="${classe||''}" style="width:${wPct}%;${margini}"><div class="fig-crop" data-fid="${f._fid||''}" style="${c.frame}"><img src="${f.src}" style="${c.img}"></div>${cap}</figure>`;
+  }
+  const ar=(f.w&&f.h)?`aspect-ratio:${f.w}/${f.h};`:'';
+  return `<figure class="${classe||''}" style="width:${wPct}%;${margini}"><img src="${f.src}" style="${ar}">${cap}</figure>`;
+}
+/* aggiornamento immediato mentre muovi i cursori (senza reimpaginare) */
+function aggiornaCrop(pi,fi,campo,val){
+  const f=progetto.pezzi[pi].foto[fi]; if(!f) return;
+  if(campo==='ratio'){ f.ratio = val?parseFloat(val):null; apriEditor(pi); render(); return; }
+  f[campo]=parseFloat(val);
+  const c=stiliCrop(f);
+  if(c && f._fid){
+    document.querySelectorAll(`.fig-crop[data-fid="${f._fid}"] img`).forEach(im=>{ im.style.cssText=c.img; });
+  }
+}
+
 /* ==================== TESTO: PARSING ==================== */
 /* parole con eventuale grassetto (**così**) */
 function paroleConStile(str){
@@ -815,9 +898,7 @@ function htmlDaTokens(toks){
   toks.forEach(tk=>{
     if(tk.t==='img'){
       if(pAperto!==null){ html+='</p>'; pAperto=null; }
-      const w=tk.f.larg||100;
-      const ar=(tk.f.w&&tk.f.h)?`aspect-ratio:${tk.f.w}/${tk.f.h};`:'';
-      html+=`<figure style="width:${w}%;margin-left:auto;margin-right:auto"><img src="${tk.f.src}" style="${ar}">${tk.f.did?`<figcaption>${esc(tk.f.did)}</figcaption>`:''}</figure>`;
+      html+=figuraHTML(tk.f,'');
     }else{
       if(pAperto!==tk.ni){
         if(pAperto!==null) html+='</p>';
@@ -916,6 +997,7 @@ function aggiungiTitolo(pg,p){
 /* ---- articolo: flusso su una o più pagine; può partire su una pagina già aperta ---- */
 function renderArticolo(p, pgCondivisa){
   const fs=parseFloat(p.fsize)||9.8;
+  (p.foto||[]).forEach((f,i)=>f._fid=p.id+'_'+i);
   let toks=tokensDaNodi(nodiArticolo(p));
   const fotoLarghe=(p.foto||[]).filter(f=>f.pos==='larga');
   const bannerUltima = p.banner && p.banner.pos==='ultima';
@@ -935,14 +1017,9 @@ function renderArticolo(p, pgCondivisa){
     if(prima){
       aggiungiTitolo(pg,p);
       fotoLarghe.forEach(f=>{
-        const fig=document.createElement('figure');
-        fig.className='foto-larga';
-        fig.style.width=(f.larg||100)+'%';
-        fig.style.marginLeft=(f.align==='sx')?'0':'auto';
-        fig.style.marginRight=(f.align==='dx')?'0':'auto';
-        const ar=(f.w&&f.h)?`aspect-ratio:${f.w}/${f.h};`:'';
-        fig.innerHTML=`<img src="${f.src}" style="${ar}">${f.did?`<figcaption>${esc(f.did)}</figcaption>`:''}`;
-        pg.appendChild(fig);
+        const cont=document.createElement('div');
+        cont.innerHTML=figuraHTML(f,'foto-larga');
+        pg.appendChild(cont.firstElementChild);
       });
     }
     const corpo=document.createElement('div');
@@ -998,6 +1075,20 @@ function renderArticolo(p, pgCondivisa){
   return {pg:ultimaPg, condivisibile: !bannerUltima};
 }
 
+/* pan immediato per copertine e riempitivi (immagini a ritaglio pieno) */
+function spostaCover(pi){
+  const f=progetto.pezzi[pi].foto[0]; if(!f) return;
+  document.querySelectorAll(`img[data-cover="${progetto.pezzi[pi].id}"]`).forEach(im=>{
+    im.style.objectPosition=`${f.px??50}% ${f.py??50}%`;
+  });
+}
+function spostaRiempitivo(pi){
+  const r=progetto.pezzi[pi].riempitivo; if(!r) return;
+  document.querySelectorAll(`img[data-riemp="${progetto.pezzi[pi].id}"]`).forEach(im=>{
+    im.style.objectPosition=`${r.px??50}% ${r.py??50}%`;
+  });
+}
+
 /* riempie lo spazio residuo della pagina di un pezzo concluso */
 function applicaFiller(pg, p){
   if(!pg) return;
@@ -1005,7 +1096,7 @@ function applicaFiller(pg, p){
   if(p && p.riempitivo && resto>30){
     const fig=document.createElement('figure');
     fig.className='riempitivo';
-    fig.innerHTML=`<img src="${p.riempitivo.src}">${p.riempitivo.did?`<figcaption>${esc(p.riempitivo.did)}</figcaption>`:''}`;
+    fig.innerHTML=`<img src="${p.riempitivo.src}" data-riemp="${p.id}" style="object-position:${p.riempitivo.px??50}% ${p.riempitivo.py??50}%">${p.riempitivo.did?`<figcaption>${esc(p.riempitivo.did)}</figcaption>`:''}`;
     pg.appendChild(fig);
   }else if(resto>60){
     const ph=document.createElement('div');
@@ -1025,14 +1116,14 @@ function renderCopertina(p){
 
   if(p.pronta){
     pg.innerHTML = p.foto[0]
-      ? `<img class="cover-img" src="${p.foto[0].src}" style="object-fit:cover">`
+      ? `<img class="cover-img" data-cover="${p.id}" src="${p.foto[0].src}" style="object-fit:cover;object-position:${p.foto[0].px??50}% ${p.foto[0].py??50}%">`
       : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#999;font-family:var(--font-title)">CARICA LA TUA IMMAGINE DI COPERTINA (JPG o PNG)</div>`;
     if(p.interna) pg.innerHTML += `<div style="position:absolute;top:0;left:0;right:0">${testatinaHTML(nPag)}</div>`;
     return;
   }
   if(p.interna){
     pg.innerHTML=`
-      ${p.foto[0]?`<img class="cover-img" src="${p.foto[0].src}">`:''}
+      ${p.foto[0]?`<img class="cover-img" data-cover="${p.id}" src="${p.foto[0].src}" style="object-position:${p.foto[0].px??50}% ${p.foto[0].py??50}%">`:''}
       <div class="cover-shade"></div>
       <div style="position:absolute;top:0;left:0;right:0">${testatinaHTML(nPag)}</div>
       <div class="cover-title">
@@ -1042,7 +1133,7 @@ function renderCopertina(p){
     return;
   }
   pg.innerHTML=`
-    ${p.foto[0]?`<img class="cover-img" src="${p.foto[0].src}">`:''}
+    ${p.foto[0]?`<img class="cover-img" data-cover="${p.id}" src="${p.foto[0].src}" style="object-position:${p.foto[0].px??50}% ${p.foto[0].py??50}%">`:''}
     <div class="cover-shade"></div>
     <div class="cover-top">
       <div class="cover-meta">ANNO ${esc(m.anno)} · NUMERO ${esc(m.numero)} · ${esc(m.data)} — ${esc(m.sito)}</div>
@@ -1070,6 +1161,7 @@ function renderUltimaPagina(p){
   if(!progetto.gerenza) progetto.gerenza=GERENZA_DEFAULT();
   const g=progetto.gerenza;
   const fs=parseFloat(p.fsize)||9.8;
+  (p.foto||[]).forEach((f,i)=>f._fid=p.id+'_'+i);
   const pg=paginaNumerata();
   aggiungiTitolo(pg,{...p, tstile:p.tstile||'banda', tsize:p.tsize||'media'});
 
