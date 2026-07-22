@@ -135,7 +135,7 @@ button.mini{padding:4px 8px;font-size:11px}
 .gerenza .ger-sx p{margin-bottom:2mm}
 .gerenza .ger-sx b{color:#fff}
 .gerenza .ger-dx{flex:1;display:flex;flex-direction:column;gap:2.5mm}
-.gerenza .ger-promo{width:100%;display:block}
+.gerenza .ger-promo{width:100%;display:block;object-fit:cover;max-height:60mm}
 .gerenza .ger-txt{font-size:7.3pt;line-height:1.38;text-align:left}
 .gerenza .ger-txt p{margin-bottom:1.6mm}
 
@@ -162,15 +162,14 @@ button.mini{padding:4px 8px;font-size:11px}
 .corpo-colonne p{margin-bottom:2.6mm}
 .corpo-colonne p.lead{font-weight:700}
 .corpo-colonne figure{margin:0 0 2.8mm 0;break-inside:avoid-column}
-.corpo-colonne figure img{width:100%;display:block}
+.corpo-colonne figure img{width:100%;display:block;object-fit:cover;max-height:130mm}
 .corpo-colonne figcaption{font-size:7.8pt;color:#444;font-style:italic;margin-top:1mm}
 /* ultima pagina del pezzo: colonne bilanciate, niente colonna vuota a destra */
 .corpo-colonne.ultima{flex:none;height:auto;column-fill:balance}
 
 /* foto riempitiva: occupa esattamente lo spazio che avanza in fondo */
 .riempitivo{flex:1;min-height:0;margin-top:3mm;position:relative;overflow:hidden}
-.riempitivo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.riempitivo figcaption{position:absolute;left:0;right:0;bottom:0;background:rgba(255,255,255,.85);font-size:7.8pt;color:#333;font-style:italic;padding:1mm 2mm}
+.riempitivo figcaption{position:absolute;left:0;right:0;bottom:0;background:rgba(255,255,255,.85);font-size:7.8pt;color:#333;font-style:italic;padding:1mm 2mm;z-index:2}
 .riempi-vuoto{flex:1;margin-top:3mm;border:2px dashed #c9c9c9;border-radius:3px;display:flex;align-items:center;justify-content:center;text-align:center;color:#aaa;font-family:var(--font-title);font-size:9pt;letter-spacing:1px;text-transform:uppercase;padding:4mm}
 
 /* foto larga sotto il titolo */
@@ -235,6 +234,11 @@ body.cattura .btn-jpg, body.cattura .riempi-vuoto, body.cattura .avviso-troppo{d
 #ie-box .btnrow{margin-top:14px}
 .btn-modifica{width:100%;margin-top:6px;background:#2a3a52;color:#dce8ff}
 .ie-bloccato #ie-preset, .ie-bloccato .ie-handle{display:none}
+
+/* barra di formattazione grassetto/corsivo sopra le textarea */
+.ie-toolbar{display:flex;align-items:center;gap:6px;margin:4px 0 -2px}
+.ie-toolbar button{padding:3px 11px;font-size:13px;min-width:26px}
+.ie-toolbar .hint{margin:0;flex:1}
 
 /* wrapper per il ritaglio della copertina (forma fissa = pagina) */
 .cover-crop{position:absolute;inset:0;overflow:hidden}
@@ -376,6 +380,17 @@ body.cattura .btn-jpg, body.cattura .riempi-vuoto, body.cattura .avviso-troppo{d
 
 <script>
 /* ==================== STATO ==================== */
+window.addEventListener('error', function(e){
+  let banda=document.getElementById('errore-globale');
+  if(!banda){
+    banda=document.createElement('div');
+    banda.id='errore-globale';
+    banda.style.cssText='position:fixed;top:0;left:0;right:0;z-index:999;background:#c00;color:#fff;font-family:sans-serif;font-size:13px;padding:8px 14px;box-shadow:0 2px 10px rgba(0,0,0,.4)';
+    document.body.appendChild(banda);
+  }
+  banda.textContent='⚠ Errore nel programma: '+(e.message||'')+' — riga '+(e.lineno||'?')+'. Fai uno screenshot di questo messaggio e mandalo per farlo correggere.';
+});
+
 let progetto = {
   meta:{anno:'XXII', numero:'25', data:'SABATO 11 LUGLIO 2026', sito:'grandangolosettimanale.it', prezzo:'1.50€'},
   gerenza:null,
@@ -583,16 +598,19 @@ function apriEditor(i){
       </div>
       <label>Firma sotto il titolo (es. DI LETIZIA BILELLA)</label>
       <input type="text" id="e-byline" value="${esc(p.byline||'')}">
-      <label>Testo della recensione (**doppi asterischi** per il grassetto)</label>
+      <label>Testo della recensione</label>
+      ${barraFormattazione('e-testo')}
       <textarea id="e-testo" rows="10">${esc(p.testo||'')}</textarea>
       <label>Foto (es. copertina del libro)</label>
       <input type="file" accept="image/*" multiple onchange="caricaFotoArticolo(this,'larga')">
       <p class="hint">Appena caricata la copertina del libro è "Larga sotto il titolo" (grande, sopra il testo): regola la grandezza col cursore fino al 100% della pagina. Se preferisci una foto piccola dentro il testo, cambia il menu in "Dentro le colonne".</p>
       <div id="foto-lista">${p.foto.map((f,fi)=>fotoCardHTML(f,fi)).join('')}</div>
       <h3 style="margin-top:14px">Gerenza (in basso, fissa)</h3>
-      <label>Colonna sinistra — riquadro scuro (**grassetto** con doppi asterischi, riga vuota = nuovo paragrafo)</label>
+      <label>Colonna sinistra — riquadro scuro</label>
+      ${barraFormattazione('g-sx')}
       <textarea id="g-sx" rows="8">${esc(g.sx)}</textarea>
       <label>Colonna destra — copyright, redazione, abbonamenti</label>
+      ${barraFormattazione('g-dx')}
       <textarea id="g-dx" rows="8">${esc(g.dx)}</textarea>
       <label>Immagine promo sopra la colonna destra (facoltativa, es. "Il nuovo Grandangolo è online")</label>
       <input type="file" accept="image/*" onchange="caricaGerenzaImg(this)">
@@ -643,10 +661,12 @@ function apriEditor(i){
         </div>
       </div>
       <label>Sommario / attacco in grassetto (facoltativo)</label>
+      ${barraFormattazione('e-lead')}
       <textarea id="e-lead" rows="3">${esc(p.lead||'')}</textarea>
       <label>Testo dell'articolo</label>
+      ${barraFormattazione('e-testo')}
       <textarea id="e-testo" rows="12" placeholder="Incolla qui il pezzo. Separa i paragrafi con una riga vuota.">${esc(p.testo||'')}</textarea>
-      <p class="hint">Per mettere in <b>grassetto</b> una parte del testo racchiudila tra **doppi asterischi**. Le colonne restano sempre giustificate e vanno a capo da sole; se il testo non entra, prosegue in automatico sulla pagina successiva.</p>
+      <p class="hint">Per mettere in <b>grassetto</b> o <i>corsivo</i> una parte del testo, selezionala e premi B o I qui sopra. Le colonne restano sempre giustificate e vanno a capo da sole; se il testo non entra, prosegue in automatico sulla pagina successiva.</p>
       <label>Foto</label>
       <input type="file" accept="image/*" multiple onchange="caricaFotoArticolo(this)">
       <p class="hint">Per ogni foto scegli se metterla larga sotto il titolo o dentro le colonne, spostala con ◀ ▶ tra i paragrafi, regola la grandezza col cursore e scrivi la didascalia.</p>
@@ -658,12 +678,7 @@ function apriEditor(i){
         <img src="${p.riempitivo.src}">
         <div class="campi">
           <p class="hint">Riempie esattamente lo spazio che resta in fondo all'ultima pagina del pezzo, se ne resta. Se il pezzo dopo parte sulla stessa pagina, la foto non serve e non viene stampata.</p>
-          <label>Inquadratura orizzontale (◀ … ▶)</label>
-          <input type="range" min="0" max="100" step="1" value="${p.riempitivo.px??50}"
-            oninput="progetto.pezzi[${i}].riempitivo.px=parseFloat(this.value);spostaRiempitivo(${i})" onchange="render()">
-          <label>Inquadratura verticale (▲ … ▼)</label>
-          <input type="range" min="0" max="100" step="1" value="${p.riempitivo.py??50}"
-            oninput="progetto.pezzi[${i}].riempitivo.py=parseFloat(this.value);spostaRiempitivo(${i})" onchange="render()">
+          <button class="mini btn-modifica" onclick="apriModificaFotoRiempitivo(${i})">✎ Modifica foto (sposta e zooma)</button>
           <label>Didascalia (facoltativa)</label>
           <input type="text" value="${esc(p.riempitivo.did||'')}" onchange="progetto.pezzi[pezzoAttivo].riempitivo.did=this.value;render()">
           <div class="btnrow"><button class="mini pericolo" onclick="delete progetto.pezzi[pezzoAttivo].riempitivo;apriEditor(pezzoAttivo);render()">Rimuovi</button></div>
@@ -1026,7 +1041,7 @@ function stiliCrop(f){
   return {
     minZ:Math.ceil(minZ),
     frame:`aspect-ratio:${R};`,
-    img:`position:absolute;width:${wPct}%;aspect-ratio:${f.w||3}/${f.h||2};left:${L}%;top:${T}%;`
+    img:`position:absolute;width:${wPct}%;aspect-ratio:${f.w||3}/${f.h||2};left:${L}%;top:${T}%;object-fit:cover;`
   };
 }
 function figuraHTML(f, classe){
@@ -1042,33 +1057,45 @@ function figuraHTML(f, classe){
   const ar=(f.w&&f.h)?`aspect-ratio:${f.w}/${f.h};`:'';
   return `<figure class="${classe||''}" style="width:${wPct}%;${margini}"><img src="${f.src}" style="${ar}">${cap}</figure>`;
 }
-/* aggiornamento immediato mentre muovi i cursori (senza reimpaginare) */
-function aggiornaCrop(pi,fi,campo,val){
-  const f=progetto.pezzi[pi].foto[fi]; if(!f) return;
-  if(campo==='ratio'){ f.ratio = val?parseFloat(val):null; apriEditor(pi); render(); return; }
-  f[campo]=parseFloat(val);
-  const c=stiliCrop(f);
-  if(c && f._fid){
-    document.querySelectorAll(`.fig-crop[data-fid="${f._fid}"] img`).forEach(im=>{ im.style.cssText=c.img; });
-  }
+
+/* barra di formattazione: avvolge il testo selezionato nella textarea */
+function formatta(idTextarea, marcatore){
+  const ta=document.getElementById(idTextarea); if(!ta) return;
+  const s=ta.selectionStart, e=ta.selectionEnd;
+  if(s===e){ ta.focus(); return; } // niente di selezionato: non fare nulla
+  const sel=ta.value.slice(s,e);
+  const gia = sel.startsWith(marcatore) && sel.endsWith(marcatore) && sel.length>marcatore.length*2;
+  const nuovo = gia ? sel.slice(marcatore.length, -marcatore.length) : marcatore+sel+marcatore;
+  ta.value = ta.value.slice(0,s) + nuovo + ta.value.slice(e);
+  ta.focus();
+  ta.setSelectionRange(s, s+nuovo.length);
+  ta.dispatchEvent(new Event('input'));
+}
+function barraFormattazione(idTextarea){
+  return `<div class="ie-toolbar">
+    <button type="button" class="mini" title="Grassetto sul testo selezionato" onmousedown="event.preventDefault()" onclick="formatta('${idTextarea}','**')"><b>B</b></button>
+    <button type="button" class="mini" title="Corsivo sul testo selezionato" onmousedown="event.preventDefault()" onclick="formatta('${idTextarea}','_')"><i>I</i></button>
+    <span class="hint" style="margin:0">seleziona una parte di testo e premi un pulsante</span>
+  </div>`;
 }
 
 /* ==================== TESTO: PARSING ==================== */
-/* parole con eventuale grassetto (**così**) */
+/* parole con eventuale stile: **grassetto** e _corsivo_ */
 function paroleConStile(str){
   const out=[];
-  String(str).split(/(\*\*[^*]+\*\*)/).forEach(seg=>{
+  String(str).split(/(\*\*[^*]+\*\*|_[^_]+_)/).forEach(seg=>{
     if(!seg) return;
     const b=seg.startsWith('**')&&seg.endsWith('**')&&seg.length>4;
-    const t=b?seg.slice(2,-2):seg;
-    t.split(/\s+/).filter(Boolean).forEach(w=>out.push({w,b}));
+    const i=!b && seg.startsWith('_')&&seg.endsWith('_')&&seg.length>2;
+    const t=b?seg.slice(2,-2):(i?seg.slice(1,-1):seg);
+    t.split(/\s+/).filter(Boolean).forEach(w=>out.push({w,b,i}));
   });
   return out;
 }
-/* html per blocchi tipo gerenza: riga vuota = paragrafo, ** = grassetto */
+/* html per blocchi tipo gerenza: riga vuota = paragrafo, ** = grassetto, _ = corsivo */
 function paraHTML(str){
   return String(str||'').split(/\n\s*\n/).map(par=>{
-    const inner=esc(par).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
+    let inner=esc(par).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/_([^_]+)_/g,'<i>$1</i>').replace(/\n/g,'<br>');
     return `<p>${inner}</p>`;
   }).join('');
 }
@@ -1111,7 +1138,7 @@ function tokensDaNodi(nodi){
   const tok=[];
   nodi.forEach((n,ni)=>{
     if(n.tipo==='img'){ tok.push({t:'img',f:n.f}); }
-    else n.parole.forEach((pw,wi)=>tok.push({t:'w',w:pw.w,b:pw.b,ni,lead:!!n.lead,firma:!!n.firma,dropcap:(!!n.primo && wi===0)}));
+    else n.parole.forEach((pw,wi)=>tok.push({t:'w',w:pw.w,b:pw.b,i:pw.i,ni,lead:!!n.lead,firma:!!n.firma,dropcap:(!!n.primo && wi===0)}));
   });
   return tok;
 }
@@ -1131,7 +1158,10 @@ function htmlDaTokens(toks){
         html+=`<p${classi.length?` class="${classi.join(' ')}"`:''}>`;
         pAperto=tk.ni;
       } else html+=' ';
-      html+= tk.b ? `<b>${esc(tk.w)}</b>` : esc(tk.w);
+      let parola=esc(tk.w);
+      if(tk.b) parola=`<b>${parola}</b>`;
+      if(tk.i) parola=`<i>${parola}</i>`;
+      html+=parola;
     }
   });
   if(pAperto!==null) html+='</p>';
@@ -1297,12 +1327,14 @@ function renderArticolo(p, pgCondivisa){
   return {pg:ultimaPg, condivisibile: !bannerUltima};
 }
 
-/* pan immediato per i riempitivi (immagini a ritaglio pieno) */
-function spostaRiempitivo(pi){
+/* apre l'editor avanzato per la foto riempitiva: la forma è bloccata a
+   quella reale che lo spazio residuo ha in questo momento in anteprima */
+function apriModificaFotoRiempitivo(pi){
   const r=progetto.pezzi[pi].riempitivo; if(!r) return;
-  document.querySelectorAll(`img[data-riemp="${progetto.pezzi[pi].id}"]`).forEach(im=>{
-    im.style.objectPosition=`${r.px??50}% ${r.py??50}%`;
-  });
+  const fig=document.querySelector(`.riempitivo[data-piece="${progetto.pezzi[pi].id}"]`);
+  let ratio=1.6;
+  if(fig){ const rect=fig.getBoundingClientRect(); if(rect.height>2) ratio=rect.width/rect.height; }
+  apriModificaFoto(r, ()=>apriEditor(pi), ratio);
 }
 
 /* riempie lo spazio residuo della pagina di un pezzo concluso */
@@ -1312,8 +1344,21 @@ function applicaFiller(pg, p){
   if(p && p.riempitivo && resto>30){
     const fig=document.createElement('figure');
     fig.className='riempitivo';
-    fig.innerHTML=`<img src="${p.riempitivo.src}" data-riemp="${p.id}" style="object-position:${p.riempitivo.px??50}% ${p.riempitivo.py??50}%">${p.riempitivo.did?`<figcaption>${esc(p.riempitivo.did)}</figcaption>`:''}`;
+    fig.dataset.piece=p.id;
+    fig.innerHTML=`<img src="${p.riempitivo.src}">${p.riempitivo.did?`<figcaption>${esc(p.riempitivo.did)}</figcaption>`:''}`;
     pg.appendChild(fig);
+    /* la foto riempitiva prende sempre la forma dello spazio che le resta:
+       ricalcolo il ritaglio (pan/zoom restano quelli scelti dall'utente)
+       sulla base della forma reale, appena disponibile nel DOM */
+    const rect=fig.getBoundingClientRect();
+    const img=fig.querySelector('img');
+    if(rect.height>2){
+      p.riempitivo.ratio = rect.width/rect.height;
+      const c=stiliCrop(p.riempitivo);
+      img.style.cssText = c ? c.img : 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+    } else {
+      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+    }
   }else if(resto>60){
     const ph=document.createElement('div');
     ph.className='riempi-vuoto';
@@ -1442,23 +1487,36 @@ function render(){
   let pgAperta=null, proprietario=null;
   const chiudi=()=>{ if(pgAperta){ applicaFiller(pgAperta, proprietario); } pgAperta=null; proprietario=null; };
 
-  progetto.pezzi.forEach(p=>{
-    if(p.tipo==='copertina'){ chiudi(); renderCopertina(p); return; }
-    if(p.tipo==='pubblicita'){ chiudi(); renderPub(p); return; }
-    if(p.tipo==='ultima'){ chiudi(); renderUltimaPagina(p); return; }
+  progetto.pezzi.forEach((p,idx)=>{
+    try{
+      if(p.tipo==='copertina'){ chiudi(); renderCopertina(p); return; }
+      if(p.tipo==='pubblicita'){ chiudi(); renderPub(p); return; }
+      if(p.tipo==='ultima'){ chiudi(); renderUltimaPagina(p); return; }
 
-    /* articolo: se c'è una pagina aperta con abbastanza spazio,
-       il pezzo parte lì; altrimenti pagina nuova */
-    let pgStart=null;
-    if(pgAperta){
-      if(proprietario && proprietario.riempitivo){ chiudi(); }
-      else if(spazioResiduo(pgAperta) >= SOGLIA_CONDIVISIONE_MM*pxmm){
-        pgStart=pgAperta; pgAperta=null; proprietario=null;
-      } else chiudi();
+      /* articolo: se c'è una pagina aperta con abbastanza spazio,
+         il pezzo parte lì; altrimenti pagina nuova */
+      let pgStart=null;
+      if(pgAperta){
+        if(proprietario && proprietario.riempitivo){ chiudi(); }
+        else if(spazioResiduo(pgAperta) >= SOGLIA_CONDIVISIONE_MM*pxmm){
+          pgStart=pgAperta; pgAperta=null; proprietario=null;
+        } else chiudi();
+      }
+      const r=renderArticolo(p, pgStart);
+      if(r && r.condivisibile){ pgAperta=r.pg; proprietario=p; }
+      else if(r){ applicaFiller(r.pg, p); }
+    } catch(err){
+      /* un pezzo rotto non deve bloccare tutto il resto del giornale:
+         lo segnalo chiaramente invece di far sparire le pagine successive */
+      chiudi();
+      console.error('Errore nel pezzo', idx, p, err);
+      const pg=paginaNumerata();
+      pg.style.background='#fff3f3';
+      pg.innerHTML+=`<div style="margin:6mm;padding:6mm;border:2px solid #c00;border-radius:2mm;font-family:var(--font-body)">
+        <div style="font-family:var(--font-title);color:#c00;font-size:13pt;margin-bottom:3mm">⚠ Errore in questo pezzo (${idx+1}° nella lista): "${esc((p.titolo||'senza titolo').replace(/\*/g,''))}"</div>
+        <div style="font-size:10pt;color:#333">Le altre pagine del numero si sono generate correttamente. Segnala questo messaggio: <b>${esc(err.message||String(err))}</b></div>
+      </div>`;
     }
-    const r=renderArticolo(p, pgStart);
-    if(r && r.condivisibile){ pgAperta=r.pg; proprietario=p; }
-    else if(r){ applicaFiller(r.pg, p); }
   });
   chiudi();
 
