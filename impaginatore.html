@@ -1073,13 +1073,25 @@ function riempiRigaColonne(pg, toks, fsPT, altezzaRiservataPX){
     return {resto:restanti};
   };
 
+  /* CRUCIALE: appena una riga di colonne è definitiva, la "blocco" alla sua
+     altezza naturale (flex:none) invece di lasciarla flex:1 per sempre.
+     Senza questo, se sulla STESSA pagina arriva un pezzo successivo con
+     una sua riga di colonne (anche lei flex:1), le due si contendono lo
+     spazio e quella già scritta si restringe, facendo sembrare che il
+     titolo del pezzo nuovo "invada" le colonne di quello precedente. */
+  const blocca=()=>{ riga.style.flex='none'; riga.style.minHeight='0'; };
+
   if(altezzaRiservataPX>0){
     const conRiserva=prova(hTotalePX-altezzaRiservataPX);
-    if(conRiserva.resto.length===0) return {resto:conRiserva.resto, riga, riservato:true};
+    if(conRiserva.resto.length===0){ blocca(); return {resto:conRiserva.resto, riga, riservato:true}; }
     // non era davvero l'ultima riga: rifaccio senza riservare spazio
-    return {...prova(hTotalePX), riga, riservato:false};
+    const r=prova(hTotalePX);
+    if(r.resto.length===0) blocca();
+    return {...r, riga, riservato:false};
   }
-  return {...prova(hTotalePX), riga, riservato:false};
+  const r=prova(hTotalePX);
+  if(r.resto.length===0) blocca();
+  return {...r, riga, riservato:false};
 }
 
 /* ---- articolo: flusso su una o più pagine; può partire su una pagina già aperta ---- */
