@@ -651,7 +651,7 @@ function apriEditor(i){
       <p class="hint">Grassetto/corsivo: seleziona il testo e premi B o I qui sopra. Le colonne restano sempre allineate; se il testo non entra, prosegue da solo sulla pagina dopo.</p>
       <label>Foto</label>
       <input type="file" accept="image/*" multiple onchange="caricaFotoArticolo(this)">
-      <p class="hint">Scegli se metterla larga sotto il titolo o dentro le colonne, spostala con ◀ ▶ tra i paragrafi, regola la grandezza, scrivi la didascalia.</p>
+      <p class="hint">Carica quante foto vuoi: scegli per ognuna se dev'essere grande (a tutta larghezza) o piccola (dentro una colonna), e in che punto del testo comparire — anche a metà di un articolo lungo, su una pagina successiva alla prima.</p>
       <div id="foto-lista">${p.foto.map((f,fi)=>fotoCardHTML(f,fi)).join('')}</div>
       <label style="margin-top:12px">Foto riempitiva (occupa lo spazio bianco a fine pezzo)</label>
       <input type="file" accept="image/*" onchange="caricaRiempitivo(this)">
@@ -713,26 +713,32 @@ function fotoCardHTML(f,fi){
     <img src="${f.src}">
     <div class="campi">
       <select onchange="progetto.pezzi[${pi}].foto[${fi}].pos=this.value;apriEditor(${pi});render()">
-        <option value="larga" ${f.pos==='larga'?'selected':''}>Larga sotto il titolo</option>
-        <option value="colonna" ${f.pos==='colonna'?'selected':''}>Dentro le colonne</option>
+        <option value="larga" ${f.pos==='larga'?'selected':''}>Grande, a tutta larghezza</option>
+        <option value="colonna" ${f.pos==='colonna'?'selected':''}>Dentro una colonna</option>
       </select>
       <button class="mini btn-modifica" onclick="apriModificaFoto(progetto.pezzi[${pi}].foto[${fi}], ()=>apriEditor(${pi}))">✎ Modifica foto (ritaglio, pan, zoom)</button>
-      <label>Grandezza sulla pagina: <b><span id="lv-${fi}">${larg}</span>%</b> ${f.pos==='larga'?'della pagina':'della colonna'}</label>
-      <input type="range" min="30" max="100" step="5" value="${larg}"
+      <label>Grandezza: <b><span id="lv-${fi}">${larg}</span>%</b> ${f.pos==='larga'?'della pagina':'della colonna'}</label>
+      <div class="btnrow" style="margin-top:2px">
+        <button class="mini" onclick="impostaGrandezzaFoto(${fi},${f.pos==='larga'?35:50})">Piccola</button>
+        <button class="mini" onclick="impostaGrandezzaFoto(${fi},${f.pos==='larga'?65:80})">Media</button>
+        <button class="mini" onclick="impostaGrandezzaFoto(${fi},100)">Grande</button>
+      </div>
+      <input type="range" min="20" max="100" step="5" value="${larg}"
         oninput="document.getElementById('lv-${fi}').textContent=this.value"
-        onchange="progetto.pezzi[${pi}].foto[${fi}].larg=parseInt(this.value);render()">
+        onchange="progetto.pezzi[${pi}].foto[${fi}].larg=parseInt(this.value);render()" style="margin-top:6px">
       ${f.pos==='larga'?`
-      <label>Posizione</label>
+      <label>Allineamento (se più piccola del 100%)</label>
       <select onchange="progetto.pezzi[${pi}].foto[${fi}].align=this.value;render()">
         <option value="centro" ${(f.align||'centro')==='centro'?'selected':''}>Centrata</option>
         <option value="sx" ${f.align==='sx'?'selected':''}>A sinistra</option>
         <option value="dx" ${f.align==='dx'?'selected':''}>A destra</option>
-      </select>`:`
-      <label>Posizione nel testo: dopo il paragrafo n° <b>${f.dopo||0}</b></label>
+      </select>`:''}
+      <label>Posizione nel testo: dopo il paragrafo n° <b>${f.dopo||0}</b> (0 = subito dopo il titolo)</label>
       <div class="btnrow" style="margin-top:4px">
-        <button class="mini" onclick="spostaFoto(${fi},-1)">◀ Su</button>
-        <button class="mini" onclick="spostaFoto(${fi},1)">Giù ▶</button>
-      </div>`}
+        <button class="mini" onclick="spostaFoto(${fi},-1)">◀ Su di un paragrafo</button>
+        <button class="mini" onclick="spostaFoto(${fi},1)">Giù di un paragrafo ▶</button>
+      </div>
+      <p class="hint">Con un articolo lungo, una foto grande posizionata a metà testo comparirà esattamente lì nel flusso — anche su una pagina successiva alla prima.</p>
       <label>Didascalia (facoltativa)</label>
       <input type="text" value="${esc(f.did||'')}" onchange="progetto.pezzi[${pi}].foto[${fi}].did=this.value;render()">
       <div class="btnrow"><button class="mini pericolo" onclick="progetto.pezzi[${pi}].foto.splice(${fi},1);apriEditor(${pi});render()">Rimuovi foto</button></div>
@@ -763,6 +769,10 @@ function applicaEditor(){
 function spostaFoto(fi,dir){
   const f=progetto.pezzi[pezzoAttivo].foto[fi];
   f.dopo=Math.max(0,(f.dopo||0)+dir);
+  apriEditor(pezzoAttivo); render();
+}
+function impostaGrandezzaFoto(fi,val){
+  progetto.pezzi[pezzoAttivo].foto[fi].larg=val;
   apriEditor(pezzoAttivo); render();
 }
 
@@ -938,6 +948,43 @@ function tokensDaNodi(nodi){
   });
   return tok;
 }
+/* spezza l'articolo in segmenti alternati: blocchi di testo (che scorrono
+   nelle 3 colonne) e foto "larghe" (che interrompono le colonne e occupano
+   tutta la larghezza) — così una foto grande può comparire ovunque nel
+   flusso, anche a metà della seconda o terza pagina, non solo all'inizio. */
+function segmentaArticolo(p){
+  const segmenti=[];
+  const fotoLarghe=(p.foto||[]).filter(f=>f.pos==='larga').sort((a,b)=>(a.dopo||0)-(b.dopo||0));
+  let cursore=0; // indice nel nodi[] fino a cui abbiamo già consumato
+  const nodi=nodiArticolo(p);
+
+  // trovo, per ogni nodo di paragrafo, il suo indice "dopo" (0=prima di tutto,
+  // altrimenti il numero di paragrafo di testo che lo precede)
+  let idxParagrafo=0;
+  const posizioniNodo=nodi.map(n=>{
+    if(n.tipo==='p' && !n.lead && !n.firma){ idxParagrafo++; return idxParagrafo; }
+    return n.lead ? 0 : (n.firma ? Infinity : idxParagrafo);
+  });
+
+  const chiudiFinoA=(fine)=>{
+    const fetta=nodi.slice(cursore, fine);
+    cursore=fine;
+    if(fetta.length){
+      const toks=tokensDaNodi(fetta);
+      if(toks.length) segmenti.push({tipo:'testo', toks});
+    }
+  };
+
+  fotoLarghe.forEach(f=>{
+    const dopo=f.dopo||0;
+    let taglio=nodi.length;
+    for(let i=cursore;i<nodi.length;i++){ if(posizioniNodo[i]>dopo){ taglio=i; break; } }
+    chiudiFinoA(taglio);
+    segmenti.push({tipo:'foto', f});
+  });
+  chiudiFinoA(nodi.length);
+  return segmenti;
+}
 function htmlDaTokens(toks, colWMM){
   let html='', pAperto=null;
   toks.forEach(tk=>{
@@ -1050,11 +1097,55 @@ function aggiungiFotoLarghe(pg, fotoLarghe){
     pg.appendChild(fig);
   });
 }
+/* piazza UNA foto larga a metà articolo, ma solo se c'è davvero spazio
+   sulla pagina corrente; altrimenti non la tocca e segnala "non ci sta",
+   così chi chiama la sposta sulla pagina successiva */
+function piazzaFotoLarga(pg, f, primaVoceDellaPagina){
+  const disponPX=spazioResiduo(pg);
+  const wMM = LARGH_UTILE_MM*((f.larg||100)/100);
+  const d=calcolaFigura(f, wMM);
+  const margineMM = 3 + (f.did?4:0);
+  const necessarioPX = (d.frameH + margineMM) * pxmm;
+  if(!primaVoceDellaPagina && disponPX < necessarioPX - 2) return false;
+  const wrap=document.createElement('div');
+  wrap.innerHTML=figuraHTML(f, wMM);
+  const fig=wrap.firstElementChild;
+  fig.classList.add('foto-larga');
+  fig.style.marginTop='3mm';
+  if(f.align==='sx') fig.style.marginRight='auto';
+  else if(f.align==='dx') fig.style.marginLeft='auto';
+  else { fig.style.marginLeft='auto'; fig.style.marginRight='auto'; }
+  pg.appendChild(fig);
+  return true;
+}
 
 /* riempie UNA riga di 3 colonne su una pagina già preparata. Se altezzaRiservataPX
    è indicata, prova PRIMA a riempire lasciando quello spazio libero in fondo
    (serve per il banner dell'ultima pagina, il cui spazio va riservato SOLO
    se questa risulta essere davvero l'ultima riga dell'articolo). */
+/* quando un blocco di testo finisce dentro una riga (non la riempie tutta),
+   invece di ammucchiare tutto nella prima colonna e lasciare le altre due
+   vuote, lo distribuisco sulle tre in modo bilanciato — cerco la minima
+   altezza alla quale tutto il testo entra comunque, riempiendo le colonne
+   in ordine a quell'altezza (esattamente come un giornale vero quando un
+   articolo finisce a metà pagina). */
+function riempiBilanciato(toks, colWMM, hMaxPX, fsPT){
+  const distribuisciA=(h)=>{
+    let rest=toks;
+    const n1=quantiEntranoInColonna(rest,colWMM,h,fsPT); rest=rest.slice(n1);
+    const n2=quantiEntranoInColonna(rest,colWMM,h,fsPT); rest=rest.slice(n2);
+    const n3=quantiEntranoInColonna(rest,colWMM,h,fsPT); rest=rest.slice(n3);
+    return {n1,n2,n3,tutto:rest.length===0};
+  };
+  let lo=15, hi=hMaxPX, migliore=hMaxPX;
+  for(let iter=0; iter<14 && lo<=hi; iter++){
+    const mid=(lo+hi)/2;
+    if(distribuisciA(mid).tutto){ migliore=mid; hi=mid-6; } else { lo=mid+6; }
+  }
+  const fin=distribuisciA(migliore);
+  return {h:migliore, n1:fin.n1, n2:fin.n2, n3:fin.n3};
+}
+
 function riempiRigaColonne(pg, toks, fsPT, altezzaRiservataPX){
   const riga=document.createElement('div');
   riga.className='riga-colonne';
@@ -1074,6 +1165,15 @@ function riempiRigaColonne(pg, toks, fsPT, altezzaRiservataPX){
       col.innerHTML=htmlDaTokens(restanti.slice(0,n), COL_W_MM);
       restanti=restanti.slice(n);
     });
+    if(restanti.length===0){
+      // il testo finisce dentro questa riga: ribilancio invece di lasciarlo
+      // ammucchiato nella prima colonna con le altre due vuote
+      const b=riempiBilanciato(toks, COL_W_MM, hDisponPX, fsPT);
+      let r2=toks;
+      col1.innerHTML=htmlDaTokens(r2.slice(0,b.n1), COL_W_MM); r2=r2.slice(b.n1);
+      col2.innerHTML=htmlDaTokens(r2.slice(0,b.n2), COL_W_MM); r2=r2.slice(b.n2);
+      col3.innerHTML=htmlDaTokens(r2.slice(0,b.n3), COL_W_MM); r2=r2.slice(b.n3);
+    }
     return {resto:restanti};
   };
 
@@ -1098,15 +1198,17 @@ function riempiRigaColonne(pg, toks, fsPT, altezzaRiservataPX){
   return {...r, riga, riservato:false};
 }
 
-/* ---- articolo: flusso su una o più pagine; può partire su una pagina già aperta ---- */
+/* ---- articolo: flusso su una o più pagine; può partire su una pagina già aperta.
+   L'articolo è una sequenza di segmenti (testo / foto larga) che si susseguono:
+   ogni pagina viene riempita alternandoli finché c'è spazio, poi si passa
+   alla pagina successiva — così una foto grande può comparire a metà articolo,
+   anche su pagine successive alla prima. ---- */
 function renderArticolo(p, pgCondivisa){
   const fs=parseFloat(p.fsize)||9.8;
-  let toks=tokensDaNodi(nodiArticolo(p));
-  const fotoLarghe=(p.foto||[]).filter(f=>f.pos==='larga');
+  const segmenti=segmentaArticolo(p);
   const bannerUltima = p.banner && p.banner.pos==='ultima';
-  let prima=true, ultimaPg=null, finita=(toks.length===0);
 
-  if(toks.length===0 && !p.titolo && fotoLarghe.length===0 && !p.banner) return null;
+  if(segmenti.length===0 && !p.titolo && !p.banner) return null;
 
   const mettiBanner=(pg)=>{
     const b=document.createElement('div');
@@ -1115,24 +1217,48 @@ function renderArticolo(p, pgCondivisa){
     pg.appendChild(b);
   };
 
-  let guardia=0;
-  while((prima || toks.length>0) && guardia<60){
+  let segIdx=0, tokCorrenti=null, bannerPiazzato=false;
+  const tuttoFinito=()=> segIdx>=segmenti.length && (!tokCorrenti || tokCorrenti.length===0);
+
+  let prima=true, ultimaPg=null, guardia=0;
+  while((prima || !tuttoFinito()) && guardia<80){
     guardia++;
     const pg = (prima && pgCondivisa) ? pgCondivisa : paginaNumerata();
-    if(prima){
-      aggiungiTitolo(pg,p);
-      aggiungiFotoLarghe(pg, fotoLarghe);
-    }
+    let primaVoceDellaPagina=true;
+    if(prima){ aggiungiTitolo(pg,p); primaVoceDellaPagina=false; /* il titolo conta già come contenuto */ }
     if(p.banner && !bannerUltima && prima) mettiBanner(pg);
 
-    const riservaPX = bannerUltima ? (p.banner.h||45)*pxmm + 3*pxmm : 0;
-    const {resto, riga, riservato} = riempiRigaColonne(pg, toks, fs, riservaPX);
-    toks=resto;
-    finita=(toks.length===0);
-    if(bannerUltima && finita) mettiBanner(pg);
+    let continuaSullaPagina=true;
+    while(continuaSullaPagina && !tuttoFinito()){
+      if(tokCorrenti===null){
+        const seg=segmenti[segIdx];
+        if(seg.tipo==='foto'){
+          const ok=piazzaFotoLarga(pg, seg.f, primaVoceDellaPagina);
+          if(ok){ segIdx++; primaVoceDellaPagina=false; continue; }
+          else { continuaSullaPagina=false; continue; }
+        } else {
+          tokCorrenti=seg.toks;
+        }
+      }
+      const ultimoSegmento = segIdx===segmenti.length-1;
+      const riservaPX = (bannerUltima && ultimoSegmento && !bannerPiazzato) ? (p.banner.h||45)*pxmm + 3*pxmm : 0;
+      const {resto, riservato}=riempiRigaColonne(pg, tokCorrenti, fs, riservaPX);
+      const consumati = tokCorrenti.length - resto.length;
+      tokCorrenti=resto;
+      primaVoceDellaPagina=false;
+      if(tokCorrenti.length===0){
+        tokCorrenti=null; segIdx++;
+        if(bannerUltima && ultimoSegmento && riservato && !bannerPiazzato){ mettiBanner(pg); bannerPiazzato=true; }
+      }
+      /* la riga che ha appena riempito le colonne è stata misurata con TUTTO
+         lo spazio rimasto sulla pagina: se non ha esaurito il segmento,
+         significa che la pagina è piena — mai provare un'altra riga sulla
+         STESSA pagina, altrimenti le due si contenderebbero lo spazio */
+      if(tokCorrenti && tokCorrenti.length>0){ continuaSullaPagina=false; }
+    }
+    if(bannerUltima && tuttoFinito() && !bannerPiazzato){ mettiBanner(pg); bannerPiazzato=true; }
     ultimaPg=pg;
     prima=false;
-    if(finita) break;
   }
 
   return {pg:ultimaPg, condivisibile: !bannerUltima};
