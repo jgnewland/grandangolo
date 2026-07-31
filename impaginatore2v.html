@@ -448,7 +448,7 @@ function scriviMeta(){
   document.getElementById('m-prezzo').value = progetto.meta.prezzo || '1.50€';
 }
 ['m-anno','m-numero','m-data','m-sito','m-prezzo'].forEach(id=>{
-  document.getElementById(id).addEventListener('input', ()=>{ leggiMeta(); render(); });
+  document.getElementById(id).addEventListener('input', ()=>{ leggiMeta(); renderDebounced(); });
 });
 const GIORNI=['DOMENICA','LUNEDÌ','MARTEDÌ','MERCOLEDÌ','GIOVEDÌ','VENERDÌ','SABATO'];
 const MESI=['GENNAIO','FEBBRAIO','MARZO','APRILE','MAGGIO','GIUGNO','LUGLIO','AGOSTO','SETTEMBRE','OTTOBRE','NOVEMBRE','DICEMBRE'];
@@ -763,6 +763,15 @@ function fotoCardHTML(f,fi){
   </div>`;
 }
 
+/* la digitazione nei campi di testo scatena applicaEditor() ad ogni tasto:
+   il ricalcolo dell'impaginazione (soprattutto il bilanciamento delle
+   colonne) è costoso, quindi lo rimando di poco e lo rifaccio solo dopo
+   una breve pausa nella digitazione, invece che ad ogni carattere */
+let renderTimer=null;
+function renderDebounced(ritardo){
+  clearTimeout(renderTimer);
+  renderTimer=setTimeout(render, ritardo||350);
+}
 function applicaEditor(){
   if(pezzoAttivo<0) return;
   const p = progetto.pezzi[pezzoAttivo];
@@ -782,7 +791,7 @@ function applicaEditor(){
   if(g('e-interna')) p.interna = g('e-interna').value==='interna';
   if(g('g-sx')){ if(!progetto.gerenza) progetto.gerenza=GERENZA_DEFAULT(); progetto.gerenza.sx=g('g-sx').value; }
   if(g('g-dx')){ if(!progetto.gerenza) progetto.gerenza=GERENZA_DEFAULT(); progetto.gerenza.dx=g('g-dx').value; }
-  disegnaLista(); render();
+  disegnaLista(); renderDebounced();
 }
 function spostaFoto(fi,dir){
   const f=progetto.pezzi[pezzoAttivo].foto[fi];
