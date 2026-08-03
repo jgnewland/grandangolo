@@ -179,10 +179,11 @@
             </select>
             <button class="btn btn-green btn-sm" id="impLoad">Carica notizie</button>
           </div>
+          <div id="impStatus" class="hint" style="margin-top:8px"></div>
           <select id="impList" style="margin-top:10px;display:none"></select>
           <button class="btn btn-lime btn-sm" id="impApply" style="margin-top:10px;display:none">Usa questa notizia</button>
           <p class="warn" id="impWarn"></p>
-          <p class="hint">Legge gli ultimi articoli via API pubblica del sito e precompila titolo, sommario e foto.</p>
+          <p class="hint">Legge il feed RSS del sito (<code>/feed/</code>), senza installare nulla. La foto arriva se il feed la include; altrimenti importa il testo e la aggiungi a mano.</p>
         </div>
       </details>
 
@@ -661,40 +662,92 @@ function renderSlides(){
 }
 
 function stripHtml(h){const d=document.createElement('div');d.innerHTML=h||'';return (d.textContent||'').replace(/\s+/g,' ').trim();}
+function setImpStatus(txt,color){const el=$('impStatus');el.textContent=txt||'';el.style.color=color||'var(--txt-dim)';}
+function firstImg(html){if(!html)return null;const m=html.match(/<img[^>]+src=["']([^"']+)["']/i);return m?m[1]:null;}
+function absUrl(u,site){if(!u)return null;if(u.startsWith('//'))return 'https:'+u;if(u.startsWith('/'))return 'https://'+site+u;return u;}
+// carica un'immagine passando da un proxy che aggiunge i permessi CORS: canvas pulito, export valido
+function loadProxImg(url,onok,onerr){
+  const prox='https://wsrv.nl/?url='+encodeURIComponent(url.replace(/^https?:\/\//,''))+'&w=1600&output=jpg&q=88';
+  const im=new Image();im.crossOrigin='anonymous';
+  im.onload=()=>onok(im);im.onerror=()=>onerr&&onerr();
+  im.src=prox;
+}
+// estrae gli item da un feed RSS/Atom grezzo
+function parseFeed(xmlText,site){
+  const doc=new DOMParser().parseFromString(xmlText,'text/xml');
+  if(doc.querySelector('parsererror'))return [];
+  const nodes=[...doc.getElementsByTagName('item')];
+  const items= nodes.length?nodes:[...doc.getElementsByTagName('entry')];
+  return items.slice(0,12).map(it=>{
+    const g=t=>{const n=it.getElementsByTagName(t)[0];return n?n.textContent:'';};
+    const title=stripHtml(g('title'));
+    const content=g('content:encoded')||g('content')||g('description')||g('summary');
+    const desc=g('description')||g('summary')||content;
+    let img=null;
+    const media=it.getElementsByTagName('media:content')[0]||it.getElementsByTagName('media:thumbnail')[0];
+    if(media&&media.getAttribute('url'))img=media.getAttribute('url');
+    if(!img){const enc=[...it.getElementsByTagName('enclosure')].find(e=>(e.getAttribute('type')||'').indexOf('image')===0);if(enc)img=enc.getAttribute('url');}
+    if(!img)img=firstImg(content)||firstImg(desc);
+    return {title,summary:stripHtml(desc).slice(0,180),img:absUrl(img,site)};
+  }).filter(x=>x.title);
+}
 async function loadPosts(){
   const site=$('impSite').value;$('impWarn').classList.remove('show');
-  $('impLoad').textContent='Carico…';
+  $('impLoad').textContent='Carico…';setImpStatus('Leggo il feed RSS di '+site+'…');
+  const sel=$('impList');sel.innerHTML='';sel._site=site;
+  const feed='https://'+site+'/feed/';
+  let items=null;
+  // 1) RSS -> JSON (gestisce CORS e parsing)
   try{
-    const res=await fetch('https://'+site+'/wp-json/wp/v2/posts?per_page=10&_embed',{mode:'cors'});
-    if(!res.ok)throw new Error('HTTP '+res.status);
-    const posts=await res.json();
-    const sel=$('impList');sel.innerHTML='';
-    posts.forEach((p,i)=>{const o=document.createElement('option');o.value=i;o.textContent=stripHtml(p.title.rendered).slice(0,70);sel.appendChild(o);});
-    sel._posts=posts;sel.style.display='block';$('impApply').style.display='block';
-  }catch(e){
-    $('impWarn').textContent='Non riesco a leggere le notizie da '+site+' (probabile blocco CORS quando il file è aperto in locale). Inserisci i dati a mano — posso aiutarti a sbloccare l\u2019API lato WordPress.';
-    $('impWarn').classList.add('show');$('impList').style.display='none';$('impApply').style.display='none';
+    const r=await fetch('https://api.rss2json.com/v1/api.json?count=12&rss_url='+encodeURIComponent(feed));
+    const j=await r.json();
+    if(j&&j.status==='ok'&&Array.isArray(j.items)&&j.items.length){
+      items=j.items.map(it=>{
+        let img=it.thumbnail||(it.enclosure&&it.enclosure.link)||firstImg(it.content)||firstImg(it.description);
+        return {title:stripHtml(it.title),summary:stripHtml(it.description||it.content||'').slice(0,180),img:absUrl(img,site)};
+      }).filter(x=>x.title);
+    }
+  }catch(e){}
+  // 2) fallback: feed grezzo via proxy CORS, parse locale (immagini più affidabili)
+  if(!items||!items.length){
+    try{
+      const r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(feed));
+      const txt=await r.text();const parsed=parseFeed(txt,site);
+      if(parsed.length)items=parsed;
+    }catch(e){}
+  }
+  if(items&&items.length){
+    items.forEach((it,i)=>{const o=document.createElement('option');o.value=i;o.textContent=it.title.slice(0,70);sel.appendChild(o);});
+    sel._items=items;sel.style.display='block';$('impApply').style.display='block';
+    const withImg=items.filter(x=>x.img).length;
+    setImpStatus('✓ '+items.length+' notizie dal feed di '+site+' ('+withImg+' con foto).',withImg?'var(--lime-soft)':'#ffd27a');
+  }else{
+    sel.style.display='none';$('impApply').style.display='none';setImpStatus('');
+    $('impWarn').textContent='Non riesco a leggere il feed di '+site+'. Verifica che '+feed+' sia raggiungibile, oppure inserisci i dati a mano. (I servizi di conversione RSS potrebbero essere momentaneamente non disponibili.)';
+    $('impWarn').classList.add('show');
   }
   $('impLoad').textContent='Carica notizie';
 }
-function applyPost(){
-  const sel=$('impList');const posts=sel._posts;if(!posts)return;
-  const p=posts[+sel.value];if(!p)return;
+async function applyPost(){
+  const sel=$('impList');const items=sel._items;if(!items)return;
+  const it=items[+sel.value];if(!it)return;
+  const site=sel._site||$('impSite').value;
   state.template='news';selectSeg('tpl','data-t','news');applyTemplateUI();
-  state.title=stripHtml(p.title.rendered);state.summary=stripHtml(p.excerpt&&p.excerpt.rendered||'').slice(0,180);
+  state.title=(it.title||'').slice(0,90);state.summary=(it.summary||'').slice(0,180);
   $('title').value=state.title;$('summary').value=state.summary;
   $('cT').textContent=state.title.length+'/90';$('cS').textContent=state.summary.length+'/180';
-  state.site=$('impSite').value;selectSeg('site','data-s',state.site);
-  capTouched=altTouched=false;
-  const media=p._embedded&&p._embedded['wp:featuredmedia']&&p._embedded['wp:featuredmedia'][0];
-  const url=media&&media.source_url;
-  if(url){const im=new Image();im.crossOrigin='anonymous';
-    im.onload=()=>{state.photo=im;state.posx=.5;state.posy=.5;state.zoom=1;$('ptools').classList.add('show');
-      $('drop').querySelector('div').innerHTML='<b>Foto importata</b> · clicca per sostituirla';update();};
-    im.onerror=()=>{$('impWarn').textContent='Testo importato. La foto non è caricabile automaticamente (CORS): aggiungila a mano.';$('impWarn').classList.add('show');update();};
-    im.src=url;}
-  else update();
-  toast('Notizia importata');
+  state.site=site;selectSeg('site','data-s',site);
+  capTouched=altTouched=false;update();toast('Notizia importata');
+  if(it.img){
+    setImpStatus('Scarico la foto…');
+    loadProxImg(it.img,
+      im=>{state.photo=im;state.posx=.5;state.posy=.5;state.zoom=1;$('ptools').classList.add('show');
+        $('drop').querySelector('div').innerHTML='<b>Foto importata</b> · clicca per sostituirla';update();
+        setImpStatus('✓ Foto importata: pronta per l\u2019esportazione.','var(--lime-soft)');},
+      ()=>setImpStatus('Testo importato. La foto dal feed non è caricabile: aggiungila a mano.','#ffd27a'));
+  }else{
+    setImpStatus('Testo importato. Il feed non include una foto per questa notizia: aggiungila a mano.','#ffd27a');
+  }
 }
 
 let toastT;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1900);}
