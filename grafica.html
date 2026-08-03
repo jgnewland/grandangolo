@@ -703,7 +703,7 @@ function feedCandidates(){
 }
 async function tryRss2json(feed){
   try{
-    const r=await fetch('https://api.rss2json.com/v1/api.json?count=12&rss_url='+encodeURIComponent(feed));
+    const r=await fetchT('https://api.rss2json.com/v1/api.json?count=12&rss_url='+encodeURIComponent(feed));
     const j=await r.json();
     if(j&&j.status==='ok'&&Array.isArray(j.items)&&j.items.length){
       const host=hostOf(feed);
@@ -722,10 +722,20 @@ async function tryRaw(feed){
     'https://corsproxy.io/?url='+encodeURIComponent(feed)
   ];
   for(const u of proxies){
-    try{const r=await fetch(u);if(!r.ok)continue;const txt=await r.text();const items=parseFeed(txt,host);if(items.length)return items;}
+    try{const r=await fetchT(u);if(!r.ok)continue;const txt=await r.text();const items=parseFeed(txt,host);if(items.length)return items;}
     catch(e){}
   }
   return null;
+}
+// tentativo diretto: funziona quando la pagina è ospitata sullo stesso dominio del feed (nessun proxy)
+async function tryDirect(feed){
+  try{const r=await fetchT(feed);if(!r.ok)return null;const txt=await r.text();const items=parseFeed(txt,hostOf(feed));return items.length?items:null;}
+  catch(e){return null;}
+}
+// fetch con timeout per non lasciare il telefono a girare all'infinito
+function fetchT(url,opts,ms){
+  ms=ms||12000;const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);
+  return fetch(url,Object.assign({signal:c.signal},opts||{})).finally(()=>clearTimeout(t));
 }
 async function loadPosts(){
   $('impWarn').classList.remove('show');
@@ -734,7 +744,7 @@ async function loadPosts(){
   let items=null,used=null;
   for(const feed of feedCandidates()){
     setImpStatus('Provo '+feed+' …');
-    items=await tryRss2json(feed)|| await tryRaw(feed);
+    items=await tryDirect(feed)|| await tryRss2json(feed)|| await tryRaw(feed);
     if(items&&items.length){used=feed;break;}
   }
   sel._site=$('impSite').value;
