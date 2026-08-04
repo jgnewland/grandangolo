@@ -1,0 +1,157 @@
+name: Aggiorna notizie
+
+# Legge il feed di Grandangolo, scarica le foto e crea news.json nel repository.
+# Il sito (statico) poi legge news.json dal proprio indirizzo: sempre aggiornato,
+# niente proxy esterni, foto che si esportano pulite.
+#
+# Gira: ogni 15 minuti (circa), a comando dal tab "Actions", e a ogni modifica di questo file.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+  push:
+    paths:
+      - ".github/workflows/update-news.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aggiorna-notizie
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+
+      - name: Genera news.json e scarica le foto
+        env:
+          FEED_URL: "https://www.grandangoloagrigento.it/feed"
+          MAX_ITEMS: "20"
+        run: |
+          python3 - <<'PY'
+          import os, re, json, hashlib, shutil, datetime, urllib.request
+          import xml.etree.ElementTree as ET
+          from email.utils import parsedate_to_datetime
+
+          FEED = os.environ.get("FEED_URL", "https://www.grandangoloagrigento.it/feed")
+          MAX_ITEMS = int(os.environ.get("MAX_ITEMS", "20"))
+          IMG_DIR = "feed-images"
+          NS = {
+              "content": "http://purl.org/rss/1.0/modules/content/",
+              "media":   "http://search.yahoo.com/mrss/",
+              "dc":      "http://purl.org/dc/elements/1.1/",
+              "atom":    "http://www.w3.org/2005/Atom",
+          }
+          UA = {"User-Agent": "Mozilla/5.0 (GrandangoloBot)"}
+
+          def fetch(url, timeout=25):
+              req = urllib.request.Request(url, headers=UA)
+              with urllib.request.urlopen(req, timeout=timeout) as r:
+                  return r.read()
+
+          def strip_html(s):
+              if not s: return ""
+              s = re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", s)
+              s = re.sub(r"(?s)<[^>]+>", " ", s)
+              s = (s.replace("&nbsp;", " ").replace("&amp;", "&").replace("&lt;", "<")
+                     .replace("&gt;", ">").replace("&quot;", '"').replace("&#8217;", "\u2019")
+                     .replace("&#8216;", "\u2018").replace("&#8220;", "\u201c").replace("&#8221;", "\u201d")
+                     .replace("&#8230;", "\u2026").replace("&#039;", "'").replace("&apos;", "'"))
+              s = re.sub(r"&#(\d+);", lambda m: chr(int(m.group(1))), s)
+              return re.sub(r"\s+", " ", s).strip()
+
+          def clip(s, n=200):
+              s = strip_html(s)
+              if len(s) <= n: return s
+              t = s[:n]; sp = t.rfind(" ")
+              if sp > 40: t = t[:sp]
+              return t.rstrip(" ,;:.") + "\u2026"
+
+          def first_img(html):
+              if not html: return None
+              m = re.search(r'(?i)<img[^>]+src=["\']([^"\']+)["\']', html)
+              return m.group(1) if m else None
+
+          def to_iso(d):
+              if not d: return ""
+              try: return parsedate_to_datetime(d).isoformat()
+              except Exception: return d.strip()
+
+          def tx(el): return (el.text or "").strip() if el is not None else ""
+
+          def item_image(item):
+              for tag in ("media:content", "media:thumbnail"):
+                  pre, name = tag.split(":")
+                  for m in item.findall("{%s}%s" % (NS[pre], name)):
+                      if m.get("url"): return m.get("url")
+              for enc in item.findall("enclosure"):
+                  if (enc.get("type") or "").startswith("image") and enc.get("url"):
+                      return enc.get("url")
+              img = first_img(tx(item.find("{%s}encoded" % NS["content"])))
+              return img or first_img(tx(item.find("description")))
+
+          def ext_from(url, ctype=""):
+              m = re.search(r"\.(jpe?g|png|webp|gif)(?:\?|$)", url, re.I)
+              if m: return "." + m.group(1).lower().replace("jpeg", "jpg")
+              ct = (ctype or "").lower()
+              if "png" in ct: return ".png"
+              if "webp" in ct: return ".webp"
+              if "gif" in ct: return ".gif"
+              return ".jpg"
+
+          def download(url):
+              try:
+                  req = urllib.request.Request(url, headers=UA)
+                  with urllib.request.urlopen(req, timeout=25) as r:
+                      data = r.read(); ctype = r.headers.get("Content-Type", "")
+                  if not data or len(data) < 500: return ""
+                  name = hashlib.sha1(url.encode()).hexdigest()[:16] + ext_from(url, ctype)
+                  with open(os.path.join(IMG_DIR, name), "wb") as f: f.write(data)
+                  return "/" + IMG_DIR + "/" + name
+              except Exception as e:
+                  print("  ! foto non scaricata:", e); return ""
+
+          print("Feed:", FEED)
+          root = ET.fromstring(fetch(FEED))
+          items = root.findall(".//item") or root.findall(".//{%s}entry" % NS["atom"])
+          items = items[:MAX_ITEMS]
+
+          if os.path.isdir(IMG_DIR): shutil.rmtree(IMG_DIR)
+          os.makedirs(IMG_DIR, exist_ok=True)
+
+          out = []
+          for it in items:
+              title = strip_html(tx(it.find("title")))
+              if not title: continue
+              desc = tx(it.find("description")) or tx(it.find("{%s}encoded" % NS["content"]))
+              date = tx(it.find("pubDate")) or tx(it.find("{%s}date" % NS["dc"]))
+              link = tx(it.find("link"))
+              iu = item_image(it)
+              img = download(iu) if iu else ""
+              out.append({"title": title, "summary": clip(desc, 200),
+                          "date": to_iso(date), "link": link, "img": img})
+              print(("  + [foto] " if img else "  + [----] ") + title[:70])
+
+          data = {"updated": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                  "source": FEED, "count": len(out), "items": out}
+          with open("news.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+          print("Scritte", len(out), "notizie.")
+          PY
+
+      - name: Salva nel repository
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add news.json feed-images
+          if git diff --cached --quiet; then
+            echo "Nessuna novità."
+          else
+            git commit -m "Aggiorna notizie [skip ci]"
+            git push
+          fi
