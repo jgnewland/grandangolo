@@ -193,7 +193,7 @@
           <select id="impList" style="margin-top:10px;display:none"></select>
           <button class="btn btn-lime btn-sm" id="impApply" style="margin-top:10px;display:none">Usa questa notizia</button>
           <p class="warn" id="impWarn"></p>
-          <p class="hint">Legge il feed RSS del sito (<code>/feed/</code>), senza installare nulla. La foto arriva se il feed la include; altrimenti importa il testo e la aggiungi a mano.</p>
+          <p class="hint">Legge le notizie dall'archivio aggiornato dal sito (file <code>news.json</code> generato da GitHub). Se non è ancora pronto, prova a leggere il feed direttamente.</p>
         </div>
       </details>
 
@@ -858,30 +858,50 @@ function fetchT(url,opts,ms){
   ms=ms||12000;const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);
   return fetch(url,Object.assign({signal:c.signal,cache:'no-store'},opts||{})).finally(()=>clearTimeout(t));
 }
+// legge il file news.json generato da GitHub Actions (stesso dominio: sempre affidabile)
+async function loadPostsLocal(){
+  try{
+    const r=await fetchT('news.json?nc='+Date.now());
+    if(!r.ok)return null;
+    const j=await r.json();
+    const arr=(j&&j.items)||[];
+    if(!arr.length)return null;
+    return arr.map(x=>({title:stripHtml(x.title||''),summary:clip(stripHtml(x.summary||''),180),img:x.img||null,date:x.date||'',ts:tsOf(x.date),local:true}));
+  }catch(e){return null;}
+}
+// carica un'immagine mantenendo il canvas "pulito": prova diretta (same-origin/CORS), poi proxy
+function loadCleanImg(url,onok,onerr){
+  const im=new Image();im.crossOrigin='anonymous';
+  im.onload=()=>onok(im);
+  im.onerror=()=>loadProxImg(url,onok,onerr);
+  im.src=url;
+}
 async function loadPosts(){
   $('impWarn').classList.remove('show');
-  $('impLoad').textContent='Carico…';setImpStatus('Leggo il feed…');
+  $('impLoad').textContent='Carico…';setImpStatus('Leggo le notizie…');
   const sel=$('impList');sel.innerHTML='';
-  let items=null,used=null;
-  for(const feed of feedCandidates()){
-    setImpStatus('Provo '+feed+' …');
-    items=await tryDirect(feed)|| await tryRss2json(feed)|| await tryRaw(feed);
-    if(items&&items.length){used=feed;break;}
+  let items=await loadPostsLocal(),used='news.json';
+  if(!items||!items.length){
+    items=null;
+    for(const feed of feedCandidates()){
+      setImpStatus('Provo '+feed+' …');
+      items=await tryDirect(feed)|| await tryRss2json(feed)|| await tryRaw(feed);
+      if(items&&items.length){used=hostOf(feed);break;}
+    }
   }
   sel._site=$('impSite').value;
   if(items&&items.length){
-    // togli i doppioni e ordina dalla più recente
     const seen=new Set();
     items=items.filter(x=>{const k=x.title.toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});
     if(items.some(x=>x.ts))items.sort((a,b)=>(b.ts||0)-(a.ts||0));
     items.forEach((it,i)=>{const o=document.createElement('option');o.value=i;const ds=dateShort(it.date);o.textContent=(ds?ds+' · ':'')+it.title.slice(0,62);sel.appendChild(o);});
     sel._items=items;sel.style.display='block';$('impApply').style.display='block';
-    const withImg=items.filter(x=>x.img).length;
-    const newest=items[0]&&dateShort(items[0].date);
-    setImpStatus('✓ '+items.length+' notizie da '+hostOf(used)+' ('+withImg+' con foto'+(newest?', più recente '+newest:'')+').',withImg?'var(--lime-soft)':'#ffd27a');
+    const withImg=items.filter(x=>x.img).length;const newest=items[0]&&dateShort(items[0].date);
+    const src=used==='news.json'?'archivio del sito':used;
+    setImpStatus('✓ '+items.length+' notizie ('+src+', '+withImg+' con foto'+(newest?', più recente '+newest:'')+').',withImg?'var(--lime-soft)':'#ffd27a');
   }else{
     sel.style.display='none';$('impApply').style.display='none';setImpStatus('');
-    $('impWarn').textContent='Non riesco a leggere il feed. Controlla che l\u2019indirizzo nel campo sia corretto (es. https://www.grandangoloagrigento.it/feed/) e riprova, oppure inserisci i dati a mano. I servizi di conversione RSS potrebbero anche essere momentaneamente occupati.';
+    $('impWarn').textContent='Non riesco a leggere le notizie. Se hai già configurato l\u2019automazione su GitHub, avvia il workflow "Aggiorna notizie" e riprova tra un minuto; altrimenti controlla l\u2019indirizzo del feed o inserisci i dati a mano.';
     $('impWarn').classList.add('show');
   }
   $('impLoad').textContent='Carica notizie';
@@ -898,13 +918,13 @@ async function applyPost(){
   capTouched=altTouched=false;update();toast('Notizia importata');
   if(it.img){
     setImpStatus('Scarico la foto…');
-    loadProxImg(it.img,
-      im=>{state.photo=im;state.posx=.5;state.posy=.5;state.zoom=1;$('ptools').classList.add('show');
-        $('drop').querySelector('div').innerHTML='<b>Foto importata</b> · clicca per sostituirla';update();
-        setImpStatus('✓ Foto importata: pronta per l\u2019esportazione.','var(--lime-soft)');},
-      ()=>setImpStatus('Testo importato. La foto dal feed non è caricabile: aggiungila a mano.','#ffd27a'));
+    const onok=im=>{state.photo=im;state.posx=.5;state.posy=.5;state.zoom=1;$('ptools').classList.add('show');
+      $('drop').querySelector('div').innerHTML='<b>Foto importata</b> · clicca per sostituirla';update();
+      setImpStatus('✓ Foto importata: pronta per l\u2019esportazione.','var(--lime-soft)');};
+    const onerr=()=>setImpStatus('Testo importato. La foto non è caricabile: aggiungila a mano.','#ffd27a');
+    if(it.local)loadCleanImg(it.img,onok,onerr); else loadProxImg(it.img,onok,onerr);
   }else{
-    setImpStatus('Testo importato. Il feed non include una foto per questa notizia: aggiungila a mano.','#ffd27a');
+    setImpStatus('Testo importato. Nessuna foto disponibile per questa notizia: aggiungila a mano.','#ffd27a');
   }
 }
 
