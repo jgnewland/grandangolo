@@ -837,14 +837,21 @@ async function tryRss2json(feed){
 }
 async function tryRaw(feed){
   const host=hostOf(feed);const b=bust(feed);
-  const proxies=[
-    'https://api.allorigins.win/raw?url='+encodeURIComponent(b),
-    'https://corsproxy.io/?url='+encodeURIComponent(b),
-    'https://thingproxy.freeboard.io/fetch/'+b
+  const attempts=[
+    {u:'https://api.codetabs.com/v1/proxy/?quest='+encodeURIComponent(b),json:false},
+    {u:'https://api.allorigins.win/raw?url='+encodeURIComponent(b),json:false},
+    {u:'https://api.allorigins.win/get?url='+encodeURIComponent(b),json:'contents'},
+    {u:'https://corsproxy.io/?url='+encodeURIComponent(b),json:false},
+    {u:'https://thingproxy.freeboard.io/fetch/'+b,json:false}
   ];
-  for(const u of proxies){
-    try{const r=await fetchT(u);if(!r.ok)continue;const txt=await r.text();const items=parseFeed(txt,host);if(items.length)return items;}
-    catch(e){}
+  for(const a of attempts){
+    try{
+      const r=await fetchT(a.u);if(!r.ok)continue;
+      let txt;if(a.json){const j=await r.json();txt=j&&j[a.json];}else{txt=await r.text();}
+      if(!txt)continue;
+      const items=parseFeed(txt,host);
+      if(items.length)return items;
+    }catch(e){}
   }
   return null;
 }
