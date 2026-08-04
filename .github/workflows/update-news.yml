@@ -1,8 +1,8 @@
 name: Aggiorna notizie
 
-# Legge il feed di Grandangolo, scarica le foto e crea news.json nel repository.
-# Il sito (statico) poi legge news.json dal proprio indirizzo: sempre aggiornato,
-# niente proxy esterni, foto che si esportano pulite.
+# Legge le notizie di Grandangolo (via API WordPress, con ripiego sul feed RSS),
+# scarica le foto e crea news.json nel repository. Il sito statico legge news.json
+# dal proprio indirizzo: sempre aggiornato, niente proxy esterni, foto pulite.
 #
 # Gira: ogni 15 minuti (circa), a comando dal tab "Actions", e a ogni modifica di questo file.
 
@@ -31,7 +31,7 @@ jobs:
       - name: Genera news.json e scarica le foto
         env:
           FEED_URL: "https://www.grandangoloagrigento.it/feed"
-          MAX_ITEMS: "20"
+          MAX_ITEMS: "30"
         run: |
           python3 - <<'PY'
           import os, re, json, hashlib, shutil, datetime, urllib.request
@@ -39,7 +39,7 @@ jobs:
           from email.utils import parsedate_to_datetime
 
           FEED = os.environ.get("FEED_URL", "https://www.grandangoloagrigento.it/feed")
-          MAX_ITEMS = int(os.environ.get("MAX_ITEMS", "20"))
+          MAX_ITEMS = int(os.environ.get("MAX_ITEMS", "30"))
           IMG_DIR = "feed-images"
           NS = {
               "content": "http://purl.org/rss/1.0/modules/content/",
@@ -84,19 +84,8 @@ jobs:
 
           def tx(el): return (el.text or "").strip() if el is not None else ""
 
-          def item_image(item):
-              for tag in ("media:content", "media:thumbnail"):
-                  pre, name = tag.split(":")
-                  for m in item.findall("{%s}%s" % (NS[pre], name)):
-                      if m.get("url"): return m.get("url")
-              for enc in item.findall("enclosure"):
-                  if (enc.get("type") or "").startswith("image") and enc.get("url"):
-                      return enc.get("url")
-              img = first_img(tx(item.find("{%s}encoded" % NS["content"])))
-              return img or first_img(tx(item.find("description")))
-
           def ext_from(url, ctype=""):
-              m = re.search(r"\.(jpe?g|png|webp|gif)(?:\?|$)", url, re.I)
+              m = re.search(r"\.(jpe?g|png|webp|gif)(?:\?|$)", url or "", re.I)
               if m: return "." + m.group(1).lower().replace("jpeg", "jpg")
               ct = (ctype or "").lower()
               if "png" in ct: return ".png"
@@ -105,6 +94,7 @@ jobs:
               return ".jpg"
 
           def download(url):
+              if not url: return ""
               try:
                   req = urllib.request.Request(url, headers=UA)
                   with urllib.request.urlopen(req, timeout=25) as r:
@@ -116,32 +106,86 @@ jobs:
               except Exception as e:
                   print("  ! foto non scaricata:", e); return ""
 
-          print("Feed:", FEED)
-          root = ET.fromstring(fetch(FEED))
-          items = root.findall(".//item") or root.findall(".//{%s}entry" % NS["atom"])
-          items = items[:MAX_ITEMS]
+          def base_site(feed):
+              return re.sub(r"/feed/?$", "", feed.strip())
+
+          # --- Via 1: API WordPress (più notizie + foto in evidenza) ---
+          def build_from_rest(base):
+              url = base + "/wp-json/wp/v2/posts?per_page=" + str(min(MAX_ITEMS, 100)) + "&_embed"
+              data = json.loads(fetch(url).decode("utf-8", "replace"))
+              if not isinstance(data, list) or not data:
+                  return None
+              out = []
+              for p in data:
+                  title = strip_html((p.get("title") or {}).get("rendered", ""))
+                  if not title: continue
+                  summary = (p.get("excerpt") or {}).get("rendered", "")
+                  dg = p.get("date_gmt"); dl = p.get("date")
+                  date = (dg + "Z") if dg else (dl or "")
+                  link = p.get("link", "")
+                  iu = None
+                  media = (p.get("_embedded") or {}).get("wp:featuredmedia") or []
+                  if media and isinstance(media[0], dict):
+                      iu = media[0].get("source_url")
+                  if not iu:
+                      iu = first_img((p.get("content") or {}).get("rendered", "")) or first_img(summary)
+                  out.append({"title": title, "summary": clip(summary, 200),
+                              "date": date, "link": link, "img_url": iu})
+              return out
+
+          # --- Via 2 (ripiego): feed RSS ---
+          def item_image(item):
+              for tag in ("media:content", "media:thumbnail"):
+                  pre, name = tag.split(":")
+                  for m in item.findall("{%s}%s" % (NS[pre], name)):
+                      if m.get("url"): return m.get("url")
+              for enc in item.findall("enclosure"):
+                  if (enc.get("type") or "").startswith("image") and enc.get("url"):
+                      return enc.get("url")
+              img = first_img(tx(item.find("{%s}encoded" % NS["content"])))
+              return img or first_img(tx(item.find("description")))
+
+          def build_from_rss(feed):
+              root = ET.fromstring(fetch(feed))
+              items = root.findall(".//item") or root.findall(".//{%s}entry" % NS["atom"])
+              out = []
+              for it in items[:MAX_ITEMS]:
+                  title = strip_html(tx(it.find("title")))
+                  if not title: continue
+                  desc = tx(it.find("description")) or tx(it.find("{%s}encoded" % NS["content"]))
+                  date = tx(it.find("pubDate")) or tx(it.find("{%s}date" % NS["dc"]))
+                  out.append({"title": title, "summary": clip(desc, 200),
+                              "date": to_iso(date), "link": tx(it.find("link")),
+                              "img_url": item_image(it)})
+              return out
+
+          # --- Esecuzione ---
+          base = base_site(FEED)
+          items = None
+          try:
+              items = build_from_rest(base)
+              if items: print("Lette via API WordPress:", len(items), "notizie")
+          except Exception as e:
+              print("API WordPress non disponibile:", e)
+          if not items:
+              items = build_from_rss(FEED)
+              print("Lette via feed RSS:", len(items), "notizie")
 
           if os.path.isdir(IMG_DIR): shutil.rmtree(IMG_DIR)
           os.makedirs(IMG_DIR, exist_ok=True)
 
-          out = []
-          for it in items:
-              title = strip_html(tx(it.find("title")))
-              if not title: continue
-              desc = tx(it.find("description")) or tx(it.find("{%s}encoded" % NS["content"]))
-              date = tx(it.find("pubDate")) or tx(it.find("{%s}date" % NS["dc"]))
-              link = tx(it.find("link"))
-              iu = item_image(it)
-              img = download(iu) if iu else ""
-              out.append({"title": title, "summary": clip(desc, 200),
-                          "date": to_iso(date), "link": link, "img": img})
-              print(("  + [foto] " if img else "  + [----] ") + title[:70])
+          final = []
+          for it in items[:MAX_ITEMS]:
+              img = download(it.get("img_url"))
+              final.append({"title": it["title"], "summary": it["summary"],
+                            "date": it["date"], "link": it["link"], "img": img})
+              print(("  + [foto] " if img else "  + [----] ") + it["title"][:70])
 
           data = {"updated": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-                  "source": FEED, "count": len(out), "items": out}
+                  "source": FEED, "count": len(final), "items": final}
           with open("news.json", "w", encoding="utf-8") as f:
               json.dump(data, f, ensure_ascii=False, indent=2)
-          print("Scritte", len(out), "notizie.")
+          print("Scritte", len(final), "notizie.")
           PY
 
       - name: Salva nel repository
