@@ -188,7 +188,7 @@
             </select>
             <button class="btn btn-green btn-sm" id="impLoad">Carica notizie</button>
           </div>
-          <input type="text" id="impFeed" placeholder="URL del feed RSS" value="https://www.grandangoloagrigento.it/feed" style="margin-top:10px">
+          <input type="text" id="impFeed" placeholder="URL del feed RSS" value="https://www.grandangoloagrigento.it/feed/" style="margin-top:10px">
           <div id="impStatus" class="hint" style="margin-top:8px"></div>
           <select id="impList" style="margin-top:10px;display:none"></select>
           <button class="btn btn-lime btn-sm" id="impApply" style="margin-top:10px;display:none">Usa questa notizia</button>
@@ -788,22 +788,28 @@ function loadProxImg(url,onok,onerr){
   im.src=prox;
 }
 // estrae gli item da un feed RSS/Atom grezzo
+function clip(s,n){s=(s||'').replace(/\s+/g,' ').trim();if(s.length<=n)return s;let t=s.slice(0,n);const sp=t.lastIndexOf(' ');if(sp>40)t=t.slice(0,sp);return t.replace(/[\s,;:.]+$/,'')+'\u2026';}
+function dateShort(s){const t=Date.parse(s);if(!t)return '';const d=new Date(t);return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0');}
+function tsOf(s){return Date.parse(s)||0;}
+// aggiunge un parametro anti-cache: costringe i convertitori RSS a rileggere il feed
+function bust(u){return u+(u.indexOf('?')<0?'?':'&')+'nc='+Date.now();}
 function parseFeed(xmlText,site){
   const doc=new DOMParser().parseFromString(xmlText,'text/xml');
   if(doc.querySelector('parsererror'))return [];
   const nodes=[...doc.getElementsByTagName('item')];
   const items= nodes.length?nodes:[...doc.getElementsByTagName('entry')];
-  return items.slice(0,12).map(it=>{
+  return items.slice(0,20).map(it=>{
     const g=t=>{const n=it.getElementsByTagName(t)[0];return n?n.textContent:'';};
     const title=stripHtml(g('title'));
     const content=g('content:encoded')||g('content')||g('description')||g('summary');
     const desc=g('description')||g('summary')||content;
+    const date=g('pubDate')||g('published')||g('updated')||g('dc:date');
     let img=null;
     const media=it.getElementsByTagName('media:content')[0]||it.getElementsByTagName('media:thumbnail')[0];
     if(media&&media.getAttribute('url'))img=media.getAttribute('url');
     if(!img){const enc=[...it.getElementsByTagName('enclosure')].find(e=>(e.getAttribute('type')||'').indexOf('image')===0);if(enc)img=enc.getAttribute('url');}
     if(!img)img=firstImg(content)||firstImg(desc);
-    return {title,summary:stripHtml(desc).slice(0,180),img:absUrl(img,site)};
+    return {title,summary:clip(stripHtml(desc),180),img:absUrl(img,site),date,ts:tsOf(date)};
   }).filter(x=>x.title);
 }
 function hostOf(u){try{return new URL(u).host;}catch(e){return '';}}
@@ -817,23 +823,24 @@ function feedCandidates(){
 }
 async function tryRss2json(feed){
   try{
-    const r=await fetchT('https://api.rss2json.com/v1/api.json?count=12&rss_url='+encodeURIComponent(feed));
+    const r=await fetchT('https://api.rss2json.com/v1/api.json?count=20&rss_url='+encodeURIComponent(bust(feed))+'&_='+Date.now());
     const j=await r.json();
     if(j&&j.status==='ok'&&Array.isArray(j.items)&&j.items.length){
       const host=hostOf(feed);
       return j.items.map(it=>{
         let img=it.thumbnail||(it.enclosure&&it.enclosure.link)||firstImg(it.content)||firstImg(it.description);
-        return {title:stripHtml(it.title),summary:stripHtml(it.description||it.content||'').slice(0,180),img:absUrl(img,host)};
+        return {title:stripHtml(it.title),summary:clip(stripHtml(it.description||it.content||''),180),img:absUrl(img,host),date:it.pubDate||'',ts:tsOf(it.pubDate)};
       }).filter(x=>x.title);
     }
   }catch(e){}
   return null;
 }
 async function tryRaw(feed){
-  const host=hostOf(feed);
+  const host=hostOf(feed);const b=bust(feed);
   const proxies=[
-    'https://api.allorigins.win/raw?url='+encodeURIComponent(feed),
-    'https://corsproxy.io/?url='+encodeURIComponent(feed)
+    'https://api.allorigins.win/raw?url='+encodeURIComponent(b),
+    'https://corsproxy.io/?url='+encodeURIComponent(b),
+    'https://thingproxy.freeboard.io/fetch/'+b
   ];
   for(const u of proxies){
     try{const r=await fetchT(u);if(!r.ok)continue;const txt=await r.text();const items=parseFeed(txt,host);if(items.length)return items;}
@@ -843,13 +850,13 @@ async function tryRaw(feed){
 }
 // tentativo diretto: funziona quando la pagina è ospitata sullo stesso dominio del feed (nessun proxy)
 async function tryDirect(feed){
-  try{const r=await fetchT(feed);if(!r.ok)return null;const txt=await r.text();const items=parseFeed(txt,hostOf(feed));return items.length?items:null;}
+  try{const r=await fetchT(bust(feed));if(!r.ok)return null;const txt=await r.text();const items=parseFeed(txt,hostOf(feed));return items.length?items:null;}
   catch(e){return null;}
 }
-// fetch con timeout per non lasciare il telefono a girare all'infinito
+// fetch con timeout + anti-cache, per non lasciare il telefono a girare all'infinito
 function fetchT(url,opts,ms){
   ms=ms||12000;const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);
-  return fetch(url,Object.assign({signal:c.signal},opts||{})).finally(()=>clearTimeout(t));
+  return fetch(url,Object.assign({signal:c.signal,cache:'no-store'},opts||{})).finally(()=>clearTimeout(t));
 }
 async function loadPosts(){
   $('impWarn').classList.remove('show');
@@ -863,10 +870,15 @@ async function loadPosts(){
   }
   sel._site=$('impSite').value;
   if(items&&items.length){
-    items.forEach((it,i)=>{const o=document.createElement('option');o.value=i;o.textContent=it.title.slice(0,70);sel.appendChild(o);});
+    // togli i doppioni e ordina dalla più recente
+    const seen=new Set();
+    items=items.filter(x=>{const k=x.title.toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});
+    if(items.some(x=>x.ts))items.sort((a,b)=>(b.ts||0)-(a.ts||0));
+    items.forEach((it,i)=>{const o=document.createElement('option');o.value=i;const ds=dateShort(it.date);o.textContent=(ds?ds+' · ':'')+it.title.slice(0,62);sel.appendChild(o);});
     sel._items=items;sel.style.display='block';$('impApply').style.display='block';
     const withImg=items.filter(x=>x.img).length;
-    setImpStatus('✓ '+items.length+' notizie da '+hostOf(used)+' ('+withImg+' con foto).',withImg?'var(--lime-soft)':'#ffd27a');
+    const newest=items[0]&&dateShort(items[0].date);
+    setImpStatus('✓ '+items.length+' notizie da '+hostOf(used)+' ('+withImg+' con foto'+(newest?', più recente '+newest:'')+').',withImg?'var(--lime-soft)':'#ffd27a');
   }else{
     sel.style.display='none';$('impApply').style.display='none';setImpStatus('');
     $('impWarn').textContent='Non riesco a leggere il feed. Controlla che l\u2019indirizzo nel campo sia corretto (es. https://www.grandangoloagrigento.it/feed/) e riprova, oppure inserisci i dati a mano. I servizi di conversione RSS potrebbero anche essere momentaneamente occupati.';
