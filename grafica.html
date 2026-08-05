@@ -1005,6 +1005,22 @@ function parseArticle(html,base){
   img=absUrl(img,hostOf(base));
   return {title:cleanTitle(title),summary:clip(stripHtml(summary),180),img:img||null,proxyImg:true};
 }
+function articleSlug(u){try{const p=new URL(u).pathname.replace(/\/+$/,'');const seg=p.split('/').filter(Boolean);return seg.length?decodeURIComponent(seg[seg.length-1]):'';}catch(e){return '';}}
+async function tryRestBySlug(url){
+  const host=hostOf(url);const slug=articleSlug(url);if(!slug)return null;
+  const api='https://'+host+'/wp-json/wp/v2/posts?_embed&slug='+encodeURIComponent(slug);
+  const txt=await fetchTextViaProxies(api);
+  if(!txt)return null;
+  let arr;try{arr=JSON.parse(txt);}catch(e){return null;}
+  if(!Array.isArray(arr)||!arr.length)return null;
+  const p=arr[0];
+  let img=null;const media=(p._embedded&&p._embedded['wp:featuredmedia'])||[];
+  if(media[0]&&media[0].source_url)img=media[0].source_url;
+  if(!img)img=firstImg(p.content&&p.content.rendered)||firstImg(p.excerpt&&p.excerpt.rendered);
+  const title=cleanTitle((p.title&&p.title.rendered)||'');
+  if(!title)return null;
+  return {title:title,summary:clip(stripHtml((p.excerpt&&p.excerpt.rendered)||''),180),img:absUrl(img,host),proxyImg:true};
+}
 async function importFromLink(){
   const url=($('linkUrl').value||'').trim();
   $('impWarn').classList.remove('show');
@@ -1020,15 +1036,22 @@ async function importFromLink(){
       if(hit){applyItem(hit,site);$('linkLoad').textContent='Importa dal link';return;}
     }
   }catch(e){}
-  // 2) leggi la pagina dell'articolo e ricava dati dall'anteprima (Open Graph)
+  // 2) API WordPress dell'articolo (dati strutturati + foto in evidenza vera)
   try{
+    setImpStatus('Leggo la scheda dell\u2019articolo…');
+    const it=await tryRestBySlug(url);
+    if(it&&it.title){applyItem(it,site);$('linkLoad').textContent='Importa dal link';return;}
+  }catch(e){}
+  // 3) anteprima social della pagina (Open Graph)
+  try{
+    setImpStatus('Leggo l\u2019anteprima della pagina…');
     const html=await fetchTextViaProxies(url);
     if(!html)throw new Error('no html');
     const it=parseArticle(html,url);
     if(!it.title)throw new Error('no title');
     applyItem(it,site);
   }catch(e){
-    setImpStatus('Non riesco a leggere la notizia da quel link. Riprova o inserisci i dati a mano.','#ffd27a');
+    setImpStatus('Non riesco a leggere la notizia da quel link in questo momento. Riprova tra poco (i servizi di lettura possono essere occupati) oppure inserisci i dati a mano.','#ffd27a');
   }
   $('linkLoad').textContent='Importa dal link';
 }
