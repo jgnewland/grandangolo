@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-05T11:28:42.040577+00:00",
+  "updated": "2026-08-05T13:12:56.806282+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "A Maddalusa recuperata moneta d’oro siracusana del V secolo a. C.",
+      "summary": "L’assessore Scarpinato: ‘Conferma importanza ricerca archeologica sul territorio’",
+      "date": "2026-08-05T11:59:56Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/a-maddalusa-recuperata-moneta-doro-siracusana-del-v-secolo-a-c",
+      "img": "/feed-images/87f4b8c18da38e7d.jpg"
+    },
+    {
+      "title": "Nascondeva in auto 16 chili di droga: arrestato",
+      "summary": "La droga nel borsone era occultata dentro il cofano dell’auto",
+      "date": "2026-08-05T11:48:03Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/nascondeva-in-auto-16-chili-di-droga-arrestato",
+      "img": "/feed-images/864d6b8d0f147bbe.jpg"
+    },
     {
       "title": "Il tentato omicidio a San Leone, 26enne resta in carcere: “Non è stata legittima difesa”",
       "summary": "Il giudice non ha convalidato il provvedimento disponendo, tuttavia, la custodia in carcere del 26enne accusato di aver colpito con 8 coltellate un minorenne",
@@ -16,6 +30,13 @@
       "date": "2026-08-05T10:00:12Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/sonora-esperienze-sonore-al-tramonto-alla-valle-dei-templi",
       "img": "/feed-images/d7dd4d2640e96522.jpg"
+    },
+    {
+      "title": "Precipita col trattore in un burrone: morto 61enne",
+      "summary": "L’uomo è rimasto schiacciato dal mezzo",
+      "date": "2026-08-05T09:50:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/precipita-col-trattore-in-un-burrone-morto-61enne",
+      "img": "/feed-images/200ad7eb74204fc8.webp"
     },
     {
       "title": "Maxi sequestro di droga e munizioni: scoperto deposito in un appartamento abbandonato",
@@ -191,27 +212,6 @@
       "date": "2026-08-04T13:20:00Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/reti-idriche-ok-a-progetti-per-54-milioni-di-euro",
       "img": "/feed-images/3a9a0d0a787a675f.jpg"
-    },
-    {
-      "title": "Donna e uomo feriti a Riesi, continuano ricerche del sospettato",
-      "summary": "L’ipotesi privilegiata è quella di un duplice tentato omicidio maturato nella sfera personale e nei rapporti tra i feriti e il sospettato, non esclusi anche quelli sentimentali.",
-      "date": "2026-08-04T13:08:05Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/donna-e-uomo-feriti-a-riesi-continuano-ricerche-del-sospettato",
-      "img": "/feed-images/0d800083ceb005ac.jpg"
-    },
-    {
-      "title": "Straniero colpito da una bottigliata in testa dopo rissa: al via le indagini",
-      "summary": "I militari stanno visionando le telecamere per individuare i responsabili.",
-      "date": "2026-08-04T12:57:42Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/straniero-colpito-da-una-bottigliata-in-testa-dopo-rissa-al-via-le-indagini",
-      "img": "/feed-images/fbac03f968918c23.jpg"
-    },
-    {
-      "title": "Cade da balcone di una casa al secondo piano: grave bimbo di 8 anni",
-      "summary": "Il bambino avrebbe riportato diverse fratture, in particolare al bacino e alle braccia",
-      "date": "2026-08-04T12:52:48Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/cade-da-balcone-di-una-casa-al-secondo-piano-grave-bimbo-di-8-anni",
-      "img": "/feed-images/d09107a505f27998.jpg"
     }
   ]
 }
