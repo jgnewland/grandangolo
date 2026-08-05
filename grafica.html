@@ -907,6 +907,8 @@ function loadCleanImg(url,onok,onerr){
   im.onerror=()=>loadProxImg(url,onok,onerr);
   im.src=url;
 }
+// esegue una promessa con tempo massimo: oltre il limite restituisce null senza bloccare
+function withTimeout(p,ms){return Promise.race([p,new Promise(r=>setTimeout(()=>r(null),ms))]);}
 // legge il feed dal vivo (per avere SEMPRE le ultimissime): diretto, poi servizi pubblici
 async function loadFeedLive(){
   for(const feed of feedCandidates()){
@@ -919,26 +921,29 @@ async function loadPosts(){
   $('impWarn').classList.remove('show');
   $('impLoad').textContent='Carico…';setImpStatus('Aggiorno l\u2019elenco…');
   const sel=$('impList');sel.innerHTML='';sel._site=$('impSite').value;
-  // leggo INSIEME l'archivio (affidabile, con foto) e il feed dal vivo (sempre aggiornato)
-  const [localRes,liveRes]=await Promise.all([
-    loadPostsLocal().catch(()=>null),
-    loadFeedLive().catch(()=>null)
-  ]);
-  const local=localRes||[], live=liveRes||[];
-  // unisco: prima l'archivio (ha le foto pulite), poi aggiungo dal feed le notizie non ancora archiviate
-  const items=[]; const byKey=new Map();
+  const byKey=new Map(); const merged=[];
   const keyOf=x=>'t:'+(x.title||'').toLowerCase().replace(/\s+/g,' ').trim();
-  const add=arr=>{for(const it of arr){const k=keyOf(it);if(!k)continue;
-    if(!byKey.has(k)){byKey.set(k,it);items.push(it);}
+  const add=arr=>{for(const it of (arr||[])){const k=keyOf(it);if(k==='t:')continue;
+    if(!byKey.has(k)){byKey.set(k,it);merged.push(it);}
     else{const ex=byKey.get(k);if(!ex.img&&it.img){ex.img=it.img;ex.local=it.local;ex.proxyImg=it.proxyImg;}if(!ex.ts&&it.ts)ex.ts=it.ts;}}};
-  add(local); add(live);
-  if(items.some(x=>x.ts))items.sort((a,b)=>(b.ts||0)-(a.ts||0));
-  if(items.length){
-    items.forEach((it,i)=>{const o=document.createElement('option');o.value=i;const ds=dateShort(it.date);o.textContent=(ds?ds+' · ':'')+it.title;o.title=it.title;sel.appendChild(o);});
-    sel._items=items;sel.style.display='block';$('impApply').style.display='block';
-    const withImg=items.filter(x=>x.img).length;const newest=items[0]&&dateShort(items[0].date);
-    let src = (local.length&&live.length)?'archivio + feed live':(live.length?'feed live':'archivio del sito');
-    setImpStatus('✓ '+items.length+' notizie ('+src+', '+withImg+' con foto'+(newest?', più recente '+newest:'')+').',withImg?'var(--lime-soft)':'#ffd27a');
+  const paint=label=>{
+    if(merged.some(x=>x.ts))merged.sort((a,b)=>(b.ts||0)-(a.ts||0));
+    sel.innerHTML='';
+    merged.forEach((it,i)=>{const o=document.createElement('option');o.value=i;const ds=dateShort(it.date);o.textContent=(ds?ds+' · ':'')+it.title;o.title=it.title;sel.appendChild(o);});
+    sel._items=merged;sel.style.display='block';$('impApply').style.display='block';
+    const withImg=merged.filter(x=>x.img).length;const newest=merged[0]&&dateShort(merged[0].date);
+    setImpStatus('✓ '+merged.length+' notizie ('+label+', '+withImg+' con foto'+(newest?', più recente '+newest:'')+').',withImg?'var(--lime-soft)':'#ffd27a');
+  };
+  // 1) ARCHIVIO (veloce, stesso dominio): mostra subito
+  let local=[];try{local=await loadPostsLocal()||[];}catch(e){}
+  add(local);
+  if(merged.length)paint('archivio del sito');
+  // 2) FEED DAL VIVO (in aggiunta, con tempo massimo: non blocca l'elenco)
+  setImpStatus(merged.length?'Cerco le ultimissime…':'Leggo il feed…');
+  let live=[];try{live=await withTimeout(loadFeedLive(),11000)||[];}catch(e){}
+  add(live);
+  if(merged.length){
+    paint(local.length&&live.length?'archivio + feed live':(live.length?'feed live':'archivio del sito'));
   }else{
     sel.style.display='none';$('impApply').style.display='none';setImpStatus('');
     $('impWarn').textContent='Non riesco a leggere le notizie in questo momento. Riprova tra poco, oppure esegui "Aggiorna notizie" su GitHub, o inserisci i dati a mano.';
