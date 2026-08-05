@@ -103,6 +103,16 @@
   .replay:hover .rbtn{transform:scale(1.06)}
   .replay .rbtn svg{width:50%;height:50%;fill:var(--green-ink)}
   .replay .rlabel{font-family:"Archivo",sans-serif;font-weight:600;font-size:clamp(11px,3cqw,15px);letter-spacing:.06em;text-transform:uppercase;color:#fff}
+  .seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .seg button{all:unset;cursor:pointer;padding:9px 14px;font-family:"Archivo",sans-serif;font-weight:600;font-size:13px;color:var(--muted)}
+  .seg button.on{background:var(--panel-2);color:var(--ink)}
+  .upload{cursor:pointer;font-family:"Archivo",sans-serif;font-weight:600;font-size:13px;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:10px 14px;white-space:nowrap}
+  .upload:hover{border-color:var(--mint)}
+  .pngbtn{all:unset;cursor:pointer;font-family:"Archivo",sans-serif;font-weight:700;font-size:13.5px;padding:12px 18px;border-radius:10px;background:var(--green);color:var(--green-ink);display:inline-flex;align-items:center;gap:8px}
+  .pngbtn:hover{filter:brightness(1.08)}
+  .pngbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:600}
+  .pngbtn.ghost:hover{border-color:var(--mint)}
+  .pnghead .step{background:var(--green)!important;color:var(--green-ink)!important;width:auto!important;padding:0 8px}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
   @media (max-width:620px){.field label{width:100%}}
 </style>
@@ -212,6 +222,21 @@
     <div class="field">
       <label>Indirizzo del player<span class="desc">il file player.html</span></label>
       <input type="text" id="inBase" placeholder="https://tuonome.github.io/repo/player.html">
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="phead pnghead"><span class="step">PNG</span><span class="t">Scarica il lower third (sfondo trasparente)</span></div>
+    <div class="field"><label>Risoluzione<span class="desc">del PNG a schermo intero</span></label>
+      <div class="seg" id="pngSeg"><button data-res="1920" class="on">1920×1080</button><button data-res="1280">1280×720</button><button data-res="2560">2560×1440</button></div>
+    </div>
+    <div class="field"><label>Logo nel PNG<span class="desc">se non entra, carica il file</span></label>
+      <label class="upload">Carica file<input type="file" id="pngLogoFile" accept="image/*" hidden></label>
+      <label class="checkrow"><input type="checkbox" id="pngLogoOn" checked> Includi logo in alto a destra</label>
+    </div>
+    <div class="field" style="gap:12px">
+      <button class="pngbtn" id="dlFull">Scarica PNG a schermo intero</button>
+      <button class="pngbtn ghost" id="dlCrop">Scarica PNG ritagliato</button>
     </div>
   </div>
 
@@ -489,6 +514,72 @@ const DEFAULT_BASE  = "https://grandangolosettimanale.it/player.html";
     copyBtn.textContent='Copiato ✓'; copyBtn.classList.add('done');
     setTimeout(()=>{copyBtn.textContent='Copia codice';copyBtn.classList.remove('done');},1600);
   });
+
+  /* ===== esporta il lower third come PNG trasparente ===== */
+  let pngRes=1920, pngLogoImg=null;
+  const pngLogoOn=document.getElementById('pngLogoOn'), pngLogoFile=document.getElementById('pngLogoFile');
+  const PNG_GREEN='#1fb069', PNG_MINT='#76e3aa';
+  function pWrap(ctx,text,maxW){ const w=String(text).split(/\s+/).filter(Boolean),ln=[]; let c=''; w.forEach(x=>{const t=c?c+' '+x:x; if(ctx.measureText(t).width>maxW&&c){ln.push(c);c=x;}else c=t;}); if(c)ln.push(c); return ln.length?ln:['']; }
+  function pLS(ctx,v){ try{ctx.letterSpacing=v;}catch(_){} }
+  function pLayout(ctx,k){
+    const sc=tsScale/100;
+    const titleSize=Math.round(48*k*sc), subSize=Math.round(22*k*sc), kickSize=Math.round(22*k*sc);
+    const accentW=Math.round(8*k), bodyPadX=Math.round(34*k), topPad=Math.round(18*k);
+    const kickPadX=Math.round(22*k), kickPadY=Math.round(10*k), kickBorder=Math.round(8*k), gap=Math.round(8*k);
+    const maxBodyW=Math.round(1250*k);
+    const title=inT1.value.trim(), sub=inT2.value.trim(), kicker=inTop.value.trim();
+    pLS(ctx,'0px'); ctx.font='700 '+titleSize+'px "Archivo",sans-serif';
+    const titleLines=title?pWrap(ctx,title,maxBodyW-bodyPadX*2):[]; let titleW=0; titleLines.forEach(l=>titleW=Math.max(titleW,ctx.measureText(l).width));
+    pLS(ctx,Math.round(1.5*k)+'px'); ctx.font='600 '+subSize+'px "Archivo",sans-serif';
+    const subW=sub?ctx.measureText(sub.toUpperCase()).width:0;
+    const bodyW=Math.max(titleW,subW)+bodyPadX*2;
+    const titleLineH=titleSize*1.14, titleBlockH=titleLines.length*titleLineH;
+    const subGap=sub?Math.round(10*k):0, subLineH=sub?subSize*1.2:0, botPad=topPad+(sub?Math.round(20*k):0);
+    const barH=title?(topPad+titleBlockH+subGap+subLineH+botPad):0;
+    let kickH=0,kickBodyW=0;
+    if(kicker){ pLS(ctx,Math.round(1.6*k)+'px'); ctx.font='600 '+kickSize+'px "Archivo",sans-serif'; const kw=ctx.measureText(kicker.toUpperCase()).width; kickBodyW=kickBorder+kw+kickPadX*2; kickH=kickPadY*2+kickSize*1.2; }
+    pLS(ctx,'0px');
+    const hasBar=!!title,hasKick=!!kicker;
+    const groupW=Math.max(hasBar?accentW+bodyW:0,kickBodyW);
+    const groupH=(hasKick?kickH:0)+(hasKick&&hasBar?gap:0)+(hasBar?barH:0);
+    return {titleSize,subSize,kickSize,accentW,bodyPadX,topPad,kickPadX,kickPadY,kickBorder,gap,titleLines,titleLineH,titleBlockH,subGap,subLineH,bodyW,barH,kickH,kickBodyW,groupW,groupH,title,sub,kicker,hasBar,hasKick,k};
+  }
+  function pDraw(ctx,ox,oy,L){
+    let y=oy;
+    if(L.hasKick){
+      ctx.fillStyle=PNG_GREEN; ctx.fillRect(ox,y,L.kickBorder,L.kickH);
+      const g=ctx.createLinearGradient(ox+L.kickBorder,0,ox+L.kickBodyW,0); g.addColorStop(0,'rgba(7,17,12,.95)'); g.addColorStop(1,'rgba(7,17,12,.55)');
+      ctx.fillStyle=g; ctx.fillRect(ox+L.kickBorder,y,L.kickBodyW-L.kickBorder,L.kickH);
+      ctx.fillStyle=PNG_MINT; pLS(ctx,Math.round(1.6*L.k)+'px'); ctx.font='600 '+L.kickSize+'px "Archivo",sans-serif';
+      ctx.textBaseline='middle'; ctx.fillText(L.kicker.toUpperCase(),ox+L.kickBorder+L.kickPadX,y+L.kickH/2); pLS(ctx,'0px');
+      y+=L.kickH+(L.hasBar?L.gap:0);
+    }
+    if(L.hasBar){
+      const barW=L.accentW+L.bodyW;
+      ctx.fillStyle=PNG_GREEN; ctx.fillRect(ox,y,L.accentW,L.barH);
+      const g2=ctx.createLinearGradient(ox+L.accentW,0,ox+barW,0); g2.addColorStop(0,'rgba(7,17,12,.94)'); g2.addColorStop(1,'rgba(7,17,12,.72)');
+      ctx.fillStyle=g2; ctx.fillRect(ox+L.accentW,y,L.bodyW,L.barH);
+      const tx=ox+L.accentW+L.bodyPadX;
+      ctx.textBaseline='alphabetic'; ctx.fillStyle='#fff'; pLS(ctx,'0px'); ctx.font='700 '+L.titleSize+'px "Archivo",sans-serif';
+      let ty=y+L.topPad+L.titleSize*0.9; L.titleLines.forEach(line=>{ctx.fillText(line,tx,ty);ty+=L.titleLineH;});
+      if(L.sub){ const sb=y+L.topPad+L.titleBlockH+L.subGap+L.subSize*0.9; ctx.fillStyle=PNG_MINT; pLS(ctx,Math.round(1.5*L.k)+'px'); ctx.font='600 '+L.subSize+'px "Archivo",sans-serif'; ctx.fillText(L.sub.toUpperCase(),tx,sb); pLS(ctx,'0px'); }
+    }
+  }
+  function pDrawLogo(ctx,W,H){ if(!pngLogoOn.checked||!pngLogoImg||!pngLogoImg.naturalWidth)return; const lh=Math.round(0.058*H); const lw=Math.round(lh*(pngLogoImg.naturalWidth/pngLogoImg.naturalHeight)); const rm=Math.round(0.021*W),tm=Math.round(0.04*H); ctx.drawImage(pngLogoImg,W-rm-lw,tm,lw,lh); }
+  function pRender(ctx,W,H){ ctx.clearRect(0,0,W,H); const k=W/1920; const L=pLayout(ctx,k); const bm=Math.round(0.115*H); const oy=(H-bm)-L.groupH; pDraw(ctx,Math.round(0.021*W),oy,L); pDrawLogo(ctx,W,H); }
+  function pSlug(){ const t=(inT1.value.trim()||inTop.value.trim()||'lower-third').toLowerCase().replace(/[^\w\s-]/g,'').replace(/\s+/g,'-').slice(0,40); return 'lower-third_'+(t||'grandangolo'); }
+  function pTaint(){ alert('Non riesco a includere il logo perche e su un altro dominio (blocco di sicurezza del browser). Usa "Carica file" per caricare il file del logo, oppure togli la spunta "Includi logo".'); }
+  function pDownload(canvas,name){ try{ canvas.toBlob(b=>{ if(!b){pTaint();return;} const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1500); },'image/png'); }catch(e){ pTaint(); } }
+  async function pFonts(){ try{ await Promise.all([document.fonts.load('700 48px "Archivo"'),document.fonts.load('600 22px "Archivo"')]); await document.fonts.ready; }catch(_){} }
+  async function pFull(){ await pFonts(); const W=pngRes,H=Math.round(pngRes*9/16); const c=document.createElement('canvas'); c.width=W; c.height=H; pRender(c.getContext('2d'),W,H); pDownload(c,pSlug()+'_'+W+'x'+H+'.png'); }
+  async function pCrop(){ await pFonts(); const oc=document.createElement('canvas'); const octx=oc.getContext('2d'); const L=pLayout(octx,1); const pad=6; oc.width=Math.max(2,Math.ceil(L.groupW)+pad*2); oc.height=Math.max(2,Math.ceil(L.groupH)+pad*2); pDraw(octx,pad,pad,L); pDownload(oc,pSlug()+'_ritagliato.png'); }
+  function pLoadLogo(url){ if(!url){pngLogoImg=null;return;} const img=new Image(); img.crossOrigin='anonymous'; img.onload=()=>{pngLogoImg=img;}; img.onerror=()=>{ const i2=new Image(); i2.onload=()=>{pngLogoImg=i2;}; i2.onerror=()=>{pngLogoImg=null;}; i2.src=url; }; img.src=url; }
+  document.querySelectorAll('#pngSeg button').forEach(b=>b.addEventListener('click',()=>{ document.querySelectorAll('#pngSeg button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); pngRes=+b.dataset.res; }));
+  pngLogoFile.addEventListener('change',e=>{ const f=e.target.files[0]; if(!f)return; const u=URL.createObjectURL(f); const img=new Image(); img.onload=()=>{pngLogoImg=img;}; img.src=u; });
+  document.getElementById('dlFull').addEventListener('click',pFull);
+  document.getElementById('dlCrop').addEventListener('click',pCrop);
+  inLogo.addEventListener('input',()=>pLoadLogo(inLogo.value.trim()));
+  pLoadLogo(inLogo.value.trim());
 
   refresh();
 })();
