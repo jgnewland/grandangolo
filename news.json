@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-05T18:50:15.913199+00:00",
+  "updated": "2026-08-05T20:23:44.342103+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "San Biagio Platani, provano la truffa del finto carabiniere: l’allarme della famiglia fa scattare l’intervento",
+      "summary": "I Carabinieri hanno bloccato i due individui",
+      "date": "2026-08-05T19:55:11Z",
+      "link": "https://www.grandangoloagrigento.it/san-biagio-platani/san-biagio-platani-provano-la-truffa-del-finto-carabiniere-lallarme-della-famiglia-fa-scattare-lintervento",
+      "img": "/feed-images/8fac52f4309a2999.jpg"
+    },
+    {
+      "title": "Incornato da un toro in un’azienda agricola: morto 78enne",
+      "summary": "L’uomo è stato ferito al petto dall’animale.",
+      "date": "2026-08-05T19:41:45Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia/incornato-da-un-toro-in-unazienda-agricola-morto-78enne",
+      "img": "/feed-images/680e29521fb302e9.jpg"
+    },
     {
       "title": "Il Kamarat non viene ammesso in serie D: resta in Eccellenza",
       "summary": "La società è pronta per la nuova stagione 2026/27",
@@ -198,20 +212,6 @@
       "date": "2026-08-05T05:34:00Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ladri-in-casa-di-un-impiegato-portata-via-la-cassaforte-30-mila-euro-il-bottino",
       "img": "/feed-images/ab250fd9214253ff.jpg"
-    },
-    {
-      "title": "La rissa e il tentato omicidio con otto coltellate a San Leone, minorenne fuori pericolo",
-      "summary": "Arrivano buone notizie dall’ospedale dove il 17enne colpito con 8 coltellate durante una rissa è fuori pericolo. A confermarlo l’avvocato del 26enne indagato per tentato omicidio",
-      "date": "2026-08-04T17:17:16Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/la-rissa-e-il-tentato-omicidio-con-otto-coltellate-a-san-leone-minorenne-fuori-pericolo",
-      "img": "/feed-images/e69bbb33367100a9.jpg"
-    },
-    {
-      "title": "“Chiudere all’una penalizza gli investimenti”, titolari del Mia Garden annunciano battaglia legale",
-      "summary": "Un’ordinanza del tribunale impone alla discoteca di staccare la musica entro l’una di notte in seguito ad un ricorso presentato dai residenti della zona",
-      "date": "2026-08-04T15:52:26Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/chiudere-alluna-penalizza-gli-investimenti-titolari-del-mia-garden-annunciano-battaglia-legale",
-      "img": "/feed-images/bf0747887f10f9c8.jpg"
     }
   ]
 }
