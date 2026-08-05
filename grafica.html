@@ -193,7 +193,11 @@
           <select id="impList" style="margin-top:10px;display:none"></select>
           <button class="btn btn-lime btn-sm" id="impApply" style="margin-top:10px;display:none">Usa questa notizia</button>
           <p class="warn" id="impWarn"></p>
-          <p class="hint">Legge le notizie dall'archivio del sito (file <code>news.json</code> aggiornato in automatico da GitHub). Se non è ancora pronto, prova comunque a leggere il feed.</p>
+          <div style="display:flex;align-items:center;gap:10px;margin:16px 0 12px"><span style="flex:1;height:1px;background:var(--line)"></span><span style="font-size:11px;color:var(--txt-dim);text-transform:uppercase;letter-spacing:1px">oppure</span><span style="flex:1;height:1px;background:var(--line)"></span></div>
+          <div class="glabel" style="margin-bottom:6px">Importa dal link di una notizia</div>
+          <input type="text" id="linkUrl" placeholder="Incolla il link dell'articolo (https://…)">
+          <button class="btn btn-green btn-sm" id="linkLoad" style="margin-top:10px">Importa dal link</button>
+          <p class="hint">Legge le notizie dall'archivio del sito (file <code>news.json</code> aggiornato in automatico da GitHub). Se non è ancora pronto, prova comunque a leggere il feed. Con "Importa dal link" prendi una singola notizia dal suo indirizzo: testo e foto dall'anteprima dell'articolo.</p>
         </div>
       </details>
 
@@ -875,7 +879,7 @@ async function loadPostsLocal(){
       const j=await r.json();
       const arr=(j&&j.items)||[];
       if(!arr.length)continue;
-      return arr.map(x=>({title:stripHtml(x.title||''),summary:clip(stripHtml(x.summary||''),180),img:x.img||null,date:x.date||'',ts:tsOf(x.date),local:true}));
+      return arr.map(x=>({title:stripHtml(x.title||''),summary:clip(stripHtml(x.summary||''),180),img:x.img||null,link:x.link||'',date:x.date||'',ts:tsOf(x.date),local:true}));
     }catch(e){}
   }
   return null;
@@ -939,10 +943,8 @@ async function loadPosts(){
   }
   $('impLoad').textContent='Carica notizie';
 }
-async function applyPost(){
-  const sel=$('impList');const items=sel._items;if(!items)return;
-  const it=items[+sel.value];if(!it)return;
-  const site=sel._site||$('impSite').value;
+function applyItem(it,site){
+  site=site||$('impSite').value;
   state.template='news';selectSeg('tpl','data-t','news');applyTemplateUI();
   state.title=(it.title||'').slice(0,200);state.summary=(it.summary||'').slice(0,180);
   $('title').value=state.title;$('summary').value=state.summary;
@@ -964,6 +966,71 @@ async function applyPost(){
   }else{
     setImpStatus('Testo importato. Nessuna foto disponibile per questa notizia: aggiungila a mano.','#ffd27a');
   }
+}
+async function applyPost(){
+  const sel=$('impList');const items=sel._items;if(!items)return;
+  const it=items[+sel.value];if(!it)return;
+  applyItem(it, sel._site||$('impSite').value);
+}
+
+// ---- Import da LINK diretto di una notizia ----
+function normUrl(u){return (u||'').trim().replace(/[#?].*$/,'').replace(/\/+$/,'').toLowerCase();}
+async function fetchTextViaProxies(u){
+  const b=bust(u);
+  const list=[
+    'https://api.codetabs.com/v1/proxy/?quest='+encodeURIComponent(b),
+    'https://api.allorigins.win/raw?url='+encodeURIComponent(b),
+    'https://corsproxy.io/?url='+encodeURIComponent(b),
+    'https://thingproxy.freeboard.io/fetch/'+b
+  ];
+  for(const p of list){try{const r=await fetchT(p);if(!r.ok)continue;const t=await r.text();if(t&&t.length>200)return t;}catch(e){}}
+  try{const r=await fetchT('https://api.allorigins.win/get?url='+encodeURIComponent(b));const j=await r.json();if(j&&j.contents)return j.contents;}catch(e){}
+  return null;
+}
+function cleanTitle(t){
+  t=stripHtml(t);
+  // togli il suffisso della testata: " - Grandangolo …", " | …"
+  t=t.replace(/\s*[|\u2013\u2014-]\s*Grandangolo[^|\u2013\u2014-]*$/i,'');
+  return t.trim();
+}
+function parseArticle(html,base){
+  const doc=new DOMParser().parseFromString(html,'text/html');
+  const meta=sel=>{const m=doc.querySelector(sel);return m?((m.getAttribute('content')||'').trim()):'';};
+  let title=meta('meta[property="og:title"]')||meta('meta[name="twitter:title"]');
+  if(!title){const h=doc.querySelector('h1');title=h?h.textContent:'';}
+  if(!title){const t=doc.querySelector('title');title=t?t.textContent:'';}
+  let summary=meta('meta[property="og:description"]')||meta('meta[name="description"]')||meta('meta[name="twitter:description"]');
+  let img=meta('meta[property="og:image"]')||meta('meta[name="twitter:image"]');
+  if(!img){const im=doc.querySelector('article img, .entry-content img, .post img, img');if(im)img=im.getAttribute('src');}
+  img=absUrl(img,hostOf(base));
+  return {title:cleanTitle(title),summary:clip(stripHtml(summary),180),img:img||null,proxyImg:true};
+}
+async function importFromLink(){
+  const url=($('linkUrl').value||'').trim();
+  $('impWarn').classList.remove('show');
+  if(!/^https?:\/\//i.test(url)){setImpStatus('Incolla un link valido che inizia con https://','#ffd27a');return;}
+  $('linkLoad').textContent='Leggo…';setImpStatus('Leggo la notizia dal link…');
+  const site=hostOf(url).replace(/^www\./,'')||$('impSite').value;
+  // 1) se è tra le notizie recenti dell'archivio, usala (pulita, stesso dominio)
+  try{
+    const local=await loadPostsLocal();
+    if(local&&local.length){
+      const target=normUrl(url);
+      const hit=local.find(x=>x.link&&normUrl(x.link)===target);
+      if(hit){applyItem(hit,site);$('linkLoad').textContent='Importa dal link';return;}
+    }
+  }catch(e){}
+  // 2) leggi la pagina dell'articolo e ricava dati dall'anteprima (Open Graph)
+  try{
+    const html=await fetchTextViaProxies(url);
+    if(!html)throw new Error('no html');
+    const it=parseArticle(html,url);
+    if(!it.title)throw new Error('no title');
+    applyItem(it,site);
+  }catch(e){
+    setImpStatus('Non riesco a leggere la notizia da quel link. Riprova o inserisci i dati a mano.','#ffd27a');
+  }
+  $('linkLoad').textContent='Importa dal link';
 }
 
 let toastT;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1900);}
@@ -1027,6 +1094,7 @@ $('dlAll').addEventListener('click',downloadLibrary);
 $('impSite').addEventListener('change',e=>{const bare=e.target.value.replace(/^www\./,'');$('impFeed').value='https://www.'+bare+'/feed/';});
 $('impLoad').addEventListener('click',loadPosts);
 $('impApply').addEventListener('click',applyPost);
+$('linkLoad').addEventListener('click',importFromLink);
 
 $('download').addEventListener('click',downloadCurrent);
 
