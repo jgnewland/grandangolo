@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-05T17:04:57.981590+00:00",
+  "updated": "2026-08-05T18:50:15.913199+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Il Kamarat non viene ammesso in serie D: resta in Eccellenza",
+      "summary": "La società è pronta per la nuova stagione 2026/27",
+      "date": "2026-08-05T17:18:42Z",
+      "link": "https://www.grandangoloagrigento.it/sport/il-kamarat-non-viene-ammesso-in-serie-d-resta-in-eccellenza",
+      "img": "/feed-images/442d80538cbe97ca.jpg"
+    },
     {
       "title": "Crisi idrica, nuova manifestazione ad Agrigento: “Più gente c’è, meglio è! Uniti per l’acqua: è un diritto!”",
       "summary": "La manifestazione popolare è in programma per sabato 8 agosto, alle ore 10:00, in Piazza Municipio.",
@@ -205,13 +212,6 @@
       "date": "2026-08-04T15:52:26Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/chiudere-alluna-penalizza-gli-investimenti-titolari-del-mia-garden-annunciano-battaglia-legale",
       "img": "/feed-images/bf0747887f10f9c8.jpg"
-    },
-    {
-      "title": "Scontro auto-scooter all’ingresso di San Leone, grave motociclista",
-      "summary": "Ad avere la peggio l’uomo alla guida del mezzo a due ruote trasferito a bordo di un’ambulanza del 118 al Pronto soccorso dell’ospedale di Agrigento",
-      "date": "2026-08-04T15:08:58Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-tra-auto-e-scooter-al-bivio-del-villaggio-peruzzo-centauro-in-gravi-condizioni",
-      "img": "/feed-images/77bd1c3aad0a473f.jpg"
     }
   ]
 }
