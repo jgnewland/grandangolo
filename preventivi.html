@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preventivi Pubblicitari · Grandangolo</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<style>
+  :root{
+    --verde:#0d7a3e;        /* verde brand Grandangolo */
+    --verde-scuro:#075127;
+    --verde-chiaro:#e6f4ec;
+    --inchiostro:#14201a;   /* near-black editoriale */
+    --carta:#f6f5f1;        /* carta calda */
+    --bianco:#ffffff;
+    --grigio:#6a7570;
+    --grigio-linea:#dfe2df;
+    --rosso:#c0362c;        /* accento ultim'ora */
+    --oro:#c9a227;
+    --ombra:0 1px 2px rgba(20,32,26,.06),0 8px 24px rgba(20,32,26,.06);
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    background:var(--carta);color:var(--inchiostro);
+    font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif}
+
+  /* ---- Topbar ---- */
+  .topbar{
+    background:var(--inchiostro);color:#fff;
+    display:flex;align-items:center;gap:18px;
+    padding:14px 24px;position:sticky;top:0;z-index:50;
+    border-bottom:3px solid var(--verde);
+  }
+  .brand{display:flex;align-items:center;gap:12px;font-family:Georgia,serif}
+  .lens{
+    width:34px;height:34px;border-radius:50%;
+    border:3px solid var(--verde);position:relative;flex:none;
+    background:radial-gradient(circle at 50% 50%,#0d7a3e33 0 40%,transparent 42%);
+  }
+  .lens::after{content:"";position:absolute;inset:7px;border-radius:50%;border:2px solid #fff9}
+  .brand b{font-size:20px;letter-spacing:.5px;font-weight:700}
+  .brand span{display:block;font-family:"Inter",sans-serif;font-size:10px;
+    letter-spacing:3px;text-transform:uppercase;color:var(--verde);font-weight:600}
+  .tabs{display:flex;gap:4px;margin-left:auto}
+  .tab{
+    background:transparent;border:0;color:#cfd6d1;font:inherit;font-weight:600;
+    padding:9px 16px;border-radius:8px;cursor:pointer;font-size:13px;
+    transition:.15s;
+  }
+  .tab:hover{background:#ffffff14;color:#fff}
+  .tab.active{background:var(--verde);color:#fff}
+
+  /* ---- Layout ---- */
+  .wrap{max-width:1280px;margin:0 auto;padding:22px}
+  .panel{display:none}
+  .panel.active{display:block}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+  @media(max-width:980px){.grid{grid-template-columns:1fr}}
+
+  .card{background:var(--bianco);border:1px solid var(--grigio-linea);
+    border-radius:var(--radius);box-shadow:var(--ombra);padding:20px;margin-bottom:18px}
+  .card h2{margin:0 0 4px;font-size:17px}
+  .card .hint{color:var(--grigio);font-size:12.5px;margin:0 0 16px}
+  .card > .sec-eyebrow{font-family:"Inter";font-size:10.5px;letter-spacing:2.5px;
+    text-transform:uppercase;color:var(--verde);font-weight:700;margin-bottom:8px}
+
+  label{display:block;font-size:11.5px;font-weight:600;color:var(--grigio);
+    text-transform:uppercase;letter-spacing:.4px;margin:0 0 5px}
+  input,textarea,select{
+    width:100%;font:inherit;font-size:14px;color:var(--inchiostro);
+    background:#fbfcfb;border:1px solid var(--grigio-linea);border-radius:8px;
+    padding:9px 11px;transition:.15s;
+  }
+  input:focus,textarea:focus,select:focus{
+    outline:none;border-color:var(--verde);background:#fff;
+    box-shadow:0 0 0 3px var(--verde-chiaro);
+  }
+  textarea{resize:vertical;min-height:64px;line-height:1.55}
+  .row{display:grid;gap:12px;margin-bottom:12px}
+  .row.c2{grid-template-columns:1fr 1fr}
+  .row.c3{grid-template-columns:1fr 1fr 1fr}
+  .row.c4{grid-template-columns:1fr 1fr 1fr 1fr}
+  @media(max-width:560px){.row.c2,.row.c3,.row.c4{grid-template-columns:1fr}}
+  .field{min-width:0}
+
+  .btn{
+    font:inherit;font-weight:600;font-size:13.5px;border-radius:8px;cursor:pointer;
+    padding:10px 16px;border:1px solid transparent;transition:.15s;
+    display:inline-flex;align-items:center;gap:7px;justify-content:center;
+  }
+  .btn-primary{background:var(--verde);color:#fff}
+  .btn-primary:hover{background:var(--verde-scuro)}
+  .btn-dark{background:var(--inchiostro);color:#fff}
+  .btn-dark:hover{background:#000}
+  .btn-ghost{background:#fff;border-color:var(--grigio-linea);color:var(--inchiostro)}
+  .btn-ghost:hover{border-color:var(--verde);color:var(--verde)}
+  .btn-danger{background:#fff;border-color:#e7c3c0;color:var(--rosso)}
+  .btn-danger:hover{background:var(--rosso);color:#fff;border-color:var(--rosso)}
+  .btn-sm{padding:6px 11px;font-size:12.5px}
+  .btn-block{width:100%}
+  .actions{display:flex;flex-wrap:wrap;gap:10px}
+
+  /* ---- Righe preventivo ---- */
+  .righe{display:flex;flex-direction:column;gap:12px}
+  .riga{
+    border:1px solid var(--grigio-linea);border-radius:10px;padding:12px;
+    background:#fbfcfb;position:relative;
+  }
+  .riga .riga-top{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start}
+  .riga .riga-nums{display:grid;grid-template-columns:1.6fr .8fr 1fr .9fr;gap:10px;margin-top:10px}
+  @media(max-width:560px){.riga .riga-nums{grid-template-columns:1fr 1fr}}
+  .riga label{margin-bottom:3px;font-size:10px}
+  .riga .del{
+    background:transparent;border:0;color:var(--grigio);cursor:pointer;
+    font-size:20px;line-height:1;padding:2px 6px;border-radius:6px;
+  }
+  .riga .del:hover{background:#fbe9e7;color:var(--rosso)}
+  .add-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+  /* ---- Totali ---- */
+  .totali{margin-top:6px}
+  .totali .r{display:flex;justify-content:space-between;padding:7px 0;
+    border-bottom:1px dashed var(--grigio-linea);font-size:14px}
+  .totali .r span:first-child{color:var(--grigio)}
+  .totali .r.big{border-bottom:0;margin-top:6px;padding-top:12px;
+    border-top:2px solid var(--inchiostro);font-size:20px;font-weight:700;font-family:Georgia,serif}
+  .totali .r.big .val{color:var(--verde)}
+  .mini-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 14px}
+
+  /* ---- Preview documento ---- */
+  .doc-shell{position:sticky;top:86px}
+  .doc{
+    background:#fff;border:1px solid var(--grigio-linea);border-radius:8px;
+    box-shadow:var(--ombra);padding:30px 32px;font-size:12px;color:#1c2a22;
+  }
+  .doc .d-head{display:flex;justify-content:space-between;align-items:flex-start;
+    border-bottom:3px solid var(--verde);padding-bottom:14px;margin-bottom:6px}
+  .doc .d-brand b{font-family:Georgia,serif;font-size:22px;letter-spacing:.5px}
+  .doc .d-brand small{display:block;font-size:9px;letter-spacing:2.5px;
+    text-transform:uppercase;color:var(--verde);font-weight:700;margin-top:2px}
+  .doc .d-emit{font-size:10px;color:var(--grigio);line-height:1.5;margin-top:8px}
+  .doc .d-meta{text-align:right}
+  .doc .d-meta .tag{font-family:Georgia,serif;font-size:19px;font-weight:700}
+  .doc .d-meta div{font-size:10.5px;color:var(--grigio);margin-top:3px}
+  .doc .d-to{margin:18px 0 4px;font-size:9px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--verde);font-weight:700}
+  .doc .d-cliente{border:1px solid var(--grigio-linea);border-radius:6px;
+    padding:11px 13px;background:#fafbfa;font-size:11.5px;line-height:1.55}
+  .doc .d-cliente b{font-size:13px}
+  .doc table{width:100%;border-collapse:collapse;margin:16px 0 8px;font-size:10.5px}
+  .doc th{background:var(--inchiostro);color:#fff;text-align:left;padding:7px 8px;
+    font-size:9px;letter-spacing:.5px;text-transform:uppercase;font-weight:600}
+  .doc th.num,.doc td.num{text-align:right}
+  .doc td{padding:7px 8px;border-bottom:1px solid var(--grigio-linea);vertical-align:top}
+  .doc td .desc-t{font-weight:600;font-size:11px}
+  .doc td .desc-s{color:var(--grigio);font-size:10px}
+  .doc .d-tot{display:flex;justify-content:flex-end;margin-top:6px}
+  .doc .d-tot table{width:min(280px,100%)}
+  .doc .d-tot td{border:0;padding:4px 8px}
+  .doc .d-tot .lab{color:var(--grigio)}
+  .doc .d-tot .v{text-align:right;font-weight:600}
+  .doc .d-tot .tt td{border-top:2px solid var(--inchiostro);font-family:Georgia,serif;
+    font-size:15px;font-weight:700;padding-top:8px}
+  .doc .d-tot .tt .v{color:var(--verde)}
+  .doc .d-cond{margin-top:16px;font-size:10px;color:#3a463f;line-height:1.6;
+    border-top:1px solid var(--grigio-linea);padding-top:12px;white-space:pre-wrap}
+  .doc .d-foot{margin-top:16px;border-top:1px solid var(--grigio-linea);
+    padding-top:10px;font-size:8.5px;color:var(--grigio);line-height:1.5}
+  .empty-note{color:var(--grigio);font-style:italic;padding:8px 0}
+
+  /* ---- Listino ---- */
+  .listino-item{border:1px solid var(--grigio-linea);border-radius:10px;
+    padding:14px;margin-bottom:12px;background:#fbfcfb}
+  .listino-item .li-top{display:grid;grid-template-columns:1.1fr auto;gap:12px;align-items:end}
+  .listino-item .li-mid{margin-top:10px}
+  .listino-item .li-bot{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+  .prezzo-wrap{position:relative}
+  .prezzo-wrap::before{content:"€";position:absolute;left:11px;top:50%;
+    transform:translateY(-50%);color:var(--grigio);font-weight:600;pointer-events:none}
+  .prezzo-wrap input{padding-left:24px}
+
+  /* ---- Salvati ---- */
+  .saved-item{display:flex;align-items:center;gap:14px;padding:14px 16px;
+    border:1px solid var(--grigio-linea);border-radius:10px;margin-bottom:10px;background:#fff}
+  .saved-item:hover{border-color:var(--verde)}
+  .saved-item .s-num{font-family:Georgia,serif;font-weight:700;font-size:15px;
+    color:var(--verde);min-width:78px}
+  .saved-item .s-info{flex:1;min-width:0}
+  .saved-item .s-info b{font-size:14px}
+  .saved-item .s-info div{color:var(--grigio);font-size:12px}
+  .saved-item .s-tot{font-family:Georgia,serif;font-weight:700;font-size:15px}
+  .saved-item .s-btns{display:flex;gap:8px}
+
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--inchiostro);color:#fff;padding:12px 20px;border-radius:10px;
+    font-weight:600;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.25);
+    opacity:0;pointer-events:none;transition:.25s;z-index:100;border-left:3px solid var(--verde)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .divider{height:1px;background:var(--grigio-linea);margin:16px 0}
+  .logo-box{display:flex;gap:16px;align-items:center}
+  @media(max-width:560px){.logo-box{flex-direction:column;align-items:flex-start}}
+  .logo-prev{width:130px;height:74px;border:1px dashed var(--grigio-linea);border-radius:10px;
+    display:flex;align-items:center;justify-content:center;background:#fbfcfb;flex:none;overflow:hidden;
+    color:var(--grigio);font-size:11px;text-align:center;padding:6px}
+  .logo-prev img{max-width:100%;max-height:100%;object-fit:contain}
+  .logo-ctrl{flex:1;min-width:0}
+  .foot-note{color:var(--grigio);font-size:11.5px;text-align:center;margin:24px 0 8px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="lens"></div>
+    <div><b>Grandangolo</b><span>Preventivi Pubblicitari</span></div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-tab="preventivo">Preventivo</button>
+    <button class="tab" data-tab="listino">Listino</button>
+    <button class="tab" data-tab="salvati">Salvati</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ PREVENTIVO ============ -->
+  <div class="panel active" id="panel-preventivo">
+    <div class="grid">
+      <!-- Colonna form -->
+      <div>
+        <div class="card">
+          <div class="sec-eyebrow">Dati del documento</div>
+          <div class="row c3">
+            <div class="field"><label>Tipo</label>
+              <select id="f-tipo" oninput="render()">
+                <option>Preventivo</option><option>Offerta</option><option>Proposta commerciale</option>
+              </select></div>
+            <div class="field"><label>Numero</label><input id="f-num" oninput="render()"></div>
+            <div class="field"><label>Data</label><input id="f-data" type="date" oninput="render()"></div>
+          </div>
+          <div class="row c2">
+            <div class="field"><label>Valido fino al</label><input id="f-scad" type="date" oninput="render()"></div>
+            <div class="field"><label>Referente commerciale</label><input id="f-ref" placeholder="Nome di chi firma" oninput="render()"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="sec-eyebrow">Committente</div>
+          <div class="row"><div class="field"><label>Ragione sociale / Nome</label><input id="c-nome" placeholder="Es. Rossi Auto S.r.l." oninput="render()"></div></div>
+          <div class="row c2">
+            <div class="field"><label>P. IVA</label><input id="c-piva" oninput="render()"></div>
+            <div class="field"><label>Codice fiscale / SDI</label><input id="c-cf" oninput="render()"></div>
+          </div>
+          <div class="row"><div class="field"><label>Indirizzo</label><input id="c-ind" placeholder="Via, civico – CAP Città (PR)" oninput="render()"></div></div>
+          <div class="row c3">
+            <div class="field"><label>Referente</label><input id="c-rif" oninput="render()"></div>
+            <div class="field"><label>Email / PEC</label><input id="c-mail" oninput="render()"></div>
+            <div class="field"><label>Telefono</label><input id="c-tel" oninput="render()"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="sec-eyebrow">Voci del preventivo</div>
+          <p class="hint">Scegli un pacchetto dal listino per compilarlo in automatico, oppure aggiungi una riga su misura.</p>
+          <div class="righe" id="righe"></div>
+          <div class="add-row">
+            <select id="pick-pacchetto" style="max-width:260px">
+              <option value="">＋ Aggiungi pacchetto dal listino…</option>
+            </select>
+            <button class="btn btn-ghost btn-sm" onclick="addFromListino()">Aggiungi</button>
+            <button class="btn btn-ghost btn-sm" onclick="addRiga()">＋ Riga su misura</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="sec-eyebrow">Sconto e imposte</div>
+          <div class="mini-row">
+            <div class="field"><label>Sconto globale (%)</label><input id="f-sconto" type="number" min="0" max="100" step="0.5" value="0" oninput="render()"></div>
+            <div class="field"><label>IVA (%)</label><input id="f-iva" type="number" min="0" max="100" step="1" value="22" oninput="render()"></div>
+          </div>
+          <label style="margin-top:4px">Condizioni e note</label>
+          <textarea id="f-cond" rows="4" oninput="render()"></textarea>
+        </div>
+      </div>
+
+      <!-- Colonna anteprima -->
+      <div>
+        <div class="doc-shell">
+          <div class="card" style="padding:14px 16px">
+            <div class="actions">
+              <button class="btn btn-primary" onclick="scaricaPDF()">⬇ Scarica PDF</button>
+              <button class="btn btn-dark" onclick="salvaPreventivo()">Salva</button>
+              <button class="btn btn-ghost" onclick="nuovoPreventivo()">Nuovo</button>
+            </div>
+          </div>
+          <div class="doc" id="doc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LISTINO ============ -->
+  <div class="panel" id="panel-listino">
+    <div class="card">
+      <h2 class="serif">Listino 2024 · Spazi pubblicitari</h2>
+      <p class="hint">I prezzi qui sotto alimentano il menù dei pacchetti nel preventivo. Modificali quando aggiorni il tariffario: le modifiche restano salvate.</p>
+      <div id="listino-edit"></div>
+      <div class="actions" style="margin-top:6px">
+        <button class="btn btn-primary" onclick="salvaListino()">Salva listino</button>
+        <button class="btn btn-ghost" onclick="addPacchetto()">＋ Nuovo pacchetto</button>
+        <button class="btn btn-ghost" onclick="ripristinaListino()">Ripristina prezzi 2024</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-eyebrow">Dati emittente (intestazione del documento)</div>
+      <div class="logo-box" id="logo-box">
+        <div class="logo-prev" id="logo-prev"></div>
+        <div class="logo-ctrl">
+          <label style="margin-bottom:6px">Logo Grandangolo</label>
+          <p class="hint" style="margin:0 0 8px">PNG o JPG, preferibilmente con sfondo trasparente. Compare nell'intestazione del preventivo e del PDF.</p>
+          <div class="actions">
+            <button class="btn btn-ghost btn-sm" onclick="document.getElementById('logo-file').click()">Carica logo</button>
+            <button class="btn btn-danger btn-sm" id="logo-del" onclick="rimuoviLogo()" style="display:none">Rimuovi</button>
+          </div>
+          <input type="file" id="logo-file" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="caricaLogo(this)">
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row c2">
+        <div class="field"><label>Testata</label><input id="e-nome" oninput="saveEmittente()"></div>
+        <div class="field"><label>Editore</label><input id="e-editore" oninput="saveEmittente()"></div>
+      </div>
+      <div class="row"><div class="field"><label>Indirizzo</label><input id="e-ind" oninput="saveEmittente()"></div></div>
+      <div class="row c2">
+        <div class="field"><label>P. IVA / C.F.</label><input id="e-piva" oninput="saveEmittente()"></div>
+        <div class="field"><label>Direttore responsabile</label><input id="e-dir" oninput="saveEmittente()"></div>
+      </div>
+      <div class="row c3">
+        <div class="field"><label>Email</label><input id="e-mail" oninput="saveEmittente()"></div>
+        <div class="field"><label>Telefono / WhatsApp</label><input id="e-tel" oninput="saveEmittente()"></div>
+        <div class="field"><label>Dati legali (ISSN/ROC/Reg.)</label><input id="e-legal" oninput="saveEmittente()"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SALVATI ============ -->
+  <div class="panel" id="panel-salvati">
+    <div class="card">
+      <h2 class="serif">Preventivi salvati</h2>
+      <p class="hint">Riapri un preventivo per aggiornarlo, oppure scaricalo di nuovo in PDF.</p>
+      <div id="saved-list"></div>
+    </div>
+  </div>
+
+  <div class="foot-note">Edizioni Grandangolo · strumento interno redazione · i dati restano su questo dispositivo</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATI DEFAULT ================= */
+const LISTINO_DEFAULT = [
+  {nome:"Starter Web", posizioni:"Banner home page PC + mobile (a1 · a2 · m1 · m2)", durata:"15 gg", prezzo:300},
+  {nome:"Web Full", posizioni:"Home page + tutti gli articoli, PC e mobile (a1 a2 · m1 m2 · i1 i2 · ia1 ia2 ia3)", durata:"30 gg", prezzo:400},
+  {nome:"Web Full + Settimanale", posizioni:"Web Full + banner su Grandangolo Settimanale × 4 numeri", durata:"30 gg", prezzo:1000},
+  {nome:"Testata Top", posizioni:"Posizione sotto il logo testata, su tutti gli articoli (a3 · m3)", durata:"30 gg", prezzo:550},
+  {nome:"Testata Top + Settimanale", posizioni:"a3 · m3 + banner su Grandangolo Settimanale × 4 numeri", durata:"30 gg", prezzo:600},
+  {nome:"Social & Podcast", posizioni:"Pre-roll Spotify + post-roll IG/FB + banner testata (a3 m3) — solo smartphone", durata:"30 gg", prezzo:800},
+];
+const EMITTENTE_DEFAULT = {
+  nome:"Grandangolo",
+  editore:"Edizioni Grandangolo",
+  ind:"Via Mazzini, 187 – 92100 Agrigento",
+  piva:"",
+  dir:"Franco Castaldo",
+  mail:"grandangoloagrigento@gmail.com",
+  tel:"0922 82 27 88 · 351 533 9611",
+  legal:"ISSN 2499-8907 · ROC 22361 · Reg. Trib. Agrigento n. 264/04",
+};
+const COND_DEFAULT =
+`Pagamento contestualmente alla firma del contratto, con emissione di regolare fattura.
+Prezzi IVA esclusa, salvo diverso accordo. Preventivo valido salvo disponibilità degli spazi alla conferma.
+Campagne su misura (video, articoli redazionali, foto e interviste) concordate con il committente.`;
+
+/* ================= STATE ================= */
+let LISTINO = JSON.parse(JSON.stringify(LISTINO_DEFAULT));
+let EMITTENTE = {...EMITTENTE_DEFAULT};
+let righe = [];            // {desc, sotto, durata, qta, prezzo, scontoRiga}
+let editId = null;         // id del preventivo aperto (per aggiornamento)
+let LOGO = null;           // dataURL del logo Grandangolo
+
+/* ================= UTIL ================= */
+const $ = s => document.querySelector(s);
+const eur = n => new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(n||0);
+const esc = s => (s||"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const dataIt = iso => { if(!iso) return "—"; const [y,m,d]=iso.split('-'); return `${d}/${m}/${y}`; };
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2200); }
+
+async function sGet(k){ try{ const r=await window.storage.get(k); return r?JSON.parse(r.value):null; }catch(e){ return null; } }
+async function sSet(k,v){ try{ await window.storage.set(k,JSON.stringify(v)); }catch(e){} }
+async function sDel(k){ try{ await window.storage.delete(k); }catch(e){} }
+async function sList(p){ try{ const r=await window.storage.list(p); return r?r.keys:[]; }catch(e){ return []; } }
+
+/* ================= TABS ================= */
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  $('#panel-'+b.dataset.tab).classList.add('active');
+  if(b.dataset.tab==='salvati') renderSalvati();
+});
+
+/* ================= RIGHE PREVENTIVO ================= */
+function addRiga(pre){
+  righe.push(pre || {desc:"",sotto:"",durata:"",qta:1,prezzo:0,scontoRiga:0});
+  renderRighe(); render();
+}
+function addFromListino(){
+  const i = $('#pick-pacchetto').value;
+  if(i==="") return;
+  const p = LISTINO[+i];
+  addRiga({desc:p.nome, sotto:p.posizioni, durata:p.durata, qta:1, prezzo:p.prezzo, scontoRiga:0});
+  $('#pick-pacchetto').value="";
+}
+function delRiga(i){ righe.splice(i,1); renderRighe(); render(); }
+function updRiga(i,campo,val){
+  righe[i][campo] = (campo==='qta'||campo==='prezzo'||campo==='scontoRiga') ? parseFloat(val)||0 : val;
+  render();
+}
+function renderRighe(){
+  const box = $('#righe');
+  if(!righe.length){ box.innerHTML = '<p class="empty-note">Nessuna voce. Aggiungi un pacchetto o una riga su misura.</p>'; return; }
+  box.innerHTML = righe.map((r,i)=>`
+    <div class="riga">
+      <div class="riga-top">
+        <div class="field"><label>Descrizione</label>
+          <input value="${esc(r.desc)}" oninput="updRiga(${i},'desc',this.value)" placeholder="Es. Web Full"></div>
+        <button class="del" title="Elimina" onclick="delRiga(${i})">×</button>
+      </div>
+      <div class="field" style="margin-top:8px"><label>Dettaglio posizioni</label>
+        <input value="${esc(r.sotto)}" oninput="updRiga(${i},'sotto',this.value)" placeholder="Spazi inclusi / note"></div>
+      <div class="riga-nums">
+        <div class="field"><label>Durata</label>
+          <input value="${esc(r.durata)}" oninput="updRiga(${i},'durata',this.value)" placeholder="30 gg"></div>
+        <div class="field"><label>Q.tà</label>
+          <input type="number" min="1" step="1" value="${r.qta}" oninput="updRiga(${i},'qta',this.value)"></div>
+        <div class="field"><label>Prezzo unit. €</label>
+          <input type="number" min="0" step="1" value="${r.prezzo}" oninput="updRiga(${i},'prezzo',this.value)"></div>
+        <div class="field"><label>Sconto %</label>
+          <input type="number" min="0" max="100" step="1" value="${r.scontoRiga}" oninput="updRiga(${i},'scontoRiga',this.value)"></div>
+      </div>
+    </div>`).join('');
+}
+
+/* ================= CALCOLO ================= */
+function calcola(){
+  let imponibileLordo = 0;
+  const dettaglio = righe.map(r=>{
+    const base = r.qta * r.prezzo;
+    const netto = base * (1 - (r.scontoRiga||0)/100);
+    imponibileLordo += netto;
+    return {...r, base, netto};
+  });
+  const scontoG = parseFloat($('#f-sconto').value)||0;
+  const scontoGval = imponibileLordo * scontoG/100;
+  const imponibile = imponibileLordo - scontoGval;
+  const ivaP = parseFloat($('#f-iva').value)||0;
+  const iva = imponibile * ivaP/100;
+  const totale = imponibile + iva;
+  return {dettaglio, imponibileLordo, scontoG, scontoGval, imponibile, ivaP, iva, totale};
+}
+
+/* ================= ANTEPRIMA ================= */
+function render(){
+  const t = calcola();
+  const tipo = $('#f-tipo').value;
+  const righeHtml = t.dettaglio.length ? t.dettaglio.map(r=>`
+    <tr>
+      <td><div class="desc-t">${esc(r.desc)||'—'}</div>${r.sotto?`<div class="desc-s">${esc(r.sotto)}</div>`:''}</td>
+      <td>${esc(r.durata)||'—'}</td>
+      <td class="num">${r.qta}</td>
+      <td class="num">${eur(r.prezzo)}</td>
+      <td class="num">${r.scontoRiga?r.scontoRiga+'%':'—'}</td>
+      <td class="num">${eur(r.netto)}</td>
+    </tr>`).join('')
+    : `<tr><td colspan="6" style="text-align:center;color:#8a948e;padding:16px">Aggiungi le voci del preventivo</td></tr>`;
+
+  $('#doc').innerHTML = `
+    <div class="d-head">
+      <div class="d-brand">
+        ${LOGO
+          ? `<img src="${LOGO}" alt="Grandangolo" style="max-height:46px;max-width:230px;object-fit:contain;display:block">`
+          : `<b>${esc(EMITTENTE.nome)}</b><small></small>`}
+        <div class="d-emit">${esc(EMITTENTE.editore)}<br>${esc(EMITTENTE.ind)}${EMITTENTE.piva?'<br>P.IVA '+esc(EMITTENTE.piva):''}</div>
+      </div>
+      <div class="d-meta">
+        <div class="tag">${esc(tipo)}</div>
+        <div>N. <b>${esc($('#f-num').value)||'—'}</b></div>
+        <div>Data ${dataIt($('#f-data').value)}</div>
+        ${$('#f-scad').value?`<div>Valido fino al ${dataIt($('#f-scad').value)}</div>`:''}
+      </div>
+    </div>
+
+    <div class="d-to">Spett.le</div>
+    <div class="d-cliente">
+      <b>${esc($('#c-nome').value)||'Committente'}</b>
+      ${($('#c-piva').value||$('#c-cf').value)?`<br>${$('#c-piva').value?'P.IVA '+esc($('#c-piva').value):''} ${$('#c-cf').value?' · CF/SDI '+esc($('#c-cf').value):''}`:''}
+      ${$('#c-ind').value?`<br>${esc($('#c-ind').value)}`:''}
+      ${($('#c-rif').value||$('#c-mail').value||$('#c-tel').value)?`<br>${[$('#c-rif').value,$('#c-mail').value,$('#c-tel').value].filter(Boolean).map(esc).join(' · ')}`:''}
+    </div>
+
+    <table>
+      <thead><tr>
+        <th>Descrizione</th><th>Durata</th><th class="num">Q.tà</th>
+        <th class="num">Prezzo</th><th class="num">Sc.</th><th class="num">Importo</th>
+      </tr></thead>
+      <tbody>${righeHtml}</tbody>
+    </table>
+
+    <div class="d-tot"><table>
+      <tr><td class="lab">Imponibile</td><td class="v">${eur(t.imponibileLordo)}</td></tr>
+      ${t.scontoG?`<tr><td class="lab">Sconto ${t.scontoG}%</td><td class="v">− ${eur(t.scontoGval)}</td></tr>
+      <tr><td class="lab">Netto</td><td class="v">${eur(t.imponibile)}</td></tr>`:''}
+      <tr><td class="lab">IVA ${t.ivaP}%</td><td class="v">${eur(t.iva)}</td></tr>
+      <tr class="tt"><td>Totale</td><td class="v">${eur(t.totale)}</td></tr>
+    </table></div>
+
+    ${$('#f-cond').value?`<div class="d-cond">${esc($('#f-cond').value)}</div>`:''}
+    ${$('#f-ref').value?`<div class="d-cond" style="border:0;padding-top:8px">Referente: ${esc($('#f-ref').value)}</div>`:''}
+
+    <div class="d-foot">
+      ${esc(EMITTENTE.editore)} · ${esc(EMITTENTE.ind)}${EMITTENTE.dir?' · Direttore Responsabile: '+esc(EMITTENTE.dir):''}<br>
+      ${[EMITTENTE.mail,EMITTENTE.tel].filter(Boolean).map(esc).join(' · ')}<br>
+      ${esc(EMITTENTE.legal)}
+    </div>`;
+}
+
+/* ================= LISTINO EDIT ================= */
+function renderListinoEdit(){
+  $('#listino-edit').innerHTML = LISTINO.map((p,i)=>`
+    <div class="listino-item">
+      <div class="li-top">
+        <div class="field"><label>Nome pacchetto</label>
+          <input value="${esc(p.nome)}" oninput="updList(${i},'nome',this.value)"></div>
+        <button class="btn btn-danger btn-sm" onclick="delPacchetto(${i})">Elimina</button>
+      </div>
+      <div class="li-mid field"><label>Posizioni incluse</label>
+        <input value="${esc(p.posizioni)}" oninput="updList(${i},'posizioni',this.value)"></div>
+      <div class="li-bot">
+        <div class="field"><label>Durata</label>
+          <input value="${esc(p.durata)}" oninput="updList(${i},'durata',this.value)"></div>
+        <div class="field"><label>Prezzo</label>
+          <div class="prezzo-wrap"><input type="number" min="0" step="1" value="${p.prezzo}" oninput="updList(${i},'prezzo',this.value)"></div></div>
+      </div>
+    </div>`).join('');
+  refreshPicker();
+}
+function updList(i,c,v){ LISTINO[i][c] = c==='prezzo' ? (parseFloat(v)||0) : v; }
+function addPacchetto(){ LISTINO.push({nome:"Nuovo pacchetto",posizioni:"",durata:"30 gg",prezzo:0}); renderListinoEdit(); }
+function delPacchetto(i){ LISTINO.splice(i,1); renderListinoEdit(); }
+async function salvaListino(){ await sSet('listino',LISTINO); renderListinoEdit(); toast('Listino salvato'); }
+async function ripristinaListino(){
+  LISTINO = JSON.parse(JSON.stringify(LISTINO_DEFAULT));
+  await sSet('listino',LISTINO); renderListinoEdit(); toast('Prezzi 2024 ripristinati');
+}
+function refreshPicker(){
+  const sel = $('#pick-pacchetto');
+  sel.innerHTML = '<option value="">＋ Aggiungi pacchetto dal listino…</option>' +
+    LISTINO.map((p,i)=>`<option value="${i}">${esc(p.nome)} — ${eur(p.prezzo)}</option>`).join('');
+}
+
+/* ================= EMITTENTE ================= */
+function loadEmittenteUI(){
+  $('#e-nome').value=EMITTENTE.nome; $('#e-editore').value=EMITTENTE.editore;
+  $('#e-ind').value=EMITTENTE.ind; $('#e-piva').value=EMITTENTE.piva;
+  $('#e-dir').value=EMITTENTE.dir; $('#e-mail').value=EMITTENTE.mail;
+  $('#e-tel').value=EMITTENTE.tel; $('#e-legal').value=EMITTENTE.legal;
+}
+async function saveEmittente(){
+  EMITTENTE = {nome:$('#e-nome').value,editore:$('#e-editore').value,ind:$('#e-ind').value,
+    piva:$('#e-piva').value,dir:$('#e-dir').value,mail:$('#e-mail').value,
+    tel:$('#e-tel').value,legal:$('#e-legal').value};
+  await sSet('emittente',EMITTENTE); render();
+}
+function renderLogoUI(){
+  const prev=$('#logo-prev'), del=$('#logo-del');
+  if(LOGO){ prev.innerHTML=`<img src="${LOGO}" alt="logo">`; del.style.display=''; }
+  else { prev.innerHTML='Nessun logo'; del.style.display='none'; }
+}
+function caricaLogo(input){
+  const f = input.files && input.files[0]; if(!f) return;
+  if(f.size > 1.5*1024*1024){ toast('Immagine troppo grande (max 1,5 MB)'); input.value=''; return; }
+  const r = new FileReader();
+  r.onload = async e => { LOGO = e.target.result; await sSet('logo',LOGO); renderLogoUI(); render(); toast('Logo caricato'); };
+  r.readAsDataURL(f); input.value='';
+}
+async function rimuoviLogo(){ LOGO=null; await sDel('logo'); renderLogoUI(); render(); toast('Logo rimosso'); }
+
+/* ================= SALVA / CARICA PREVENTIVI ================= */
+function raccogliDati(){
+  return {
+    id: editId || ('prev_'+Date.now()),
+    tipo:$('#f-tipo').value, num:$('#f-num').value, data:$('#f-data').value, scad:$('#f-scad').value, ref:$('#f-ref').value,
+    cliente:{nome:$('#c-nome').value,piva:$('#c-piva').value,cf:$('#c-cf').value,ind:$('#c-ind').value,
+             rif:$('#c-rif').value,mail:$('#c-mail').value,tel:$('#c-tel').value},
+    righe:JSON.parse(JSON.stringify(righe)),
+    sconto:$('#f-sconto').value, iva:$('#f-iva').value, cond:$('#f-cond').value,
+    totale:calcola().totale, salvato:new Date().toISOString()
+  };
+}
+async function salvaPreventivo(){
+  if(!$('#c-nome').value.trim()){ toast('Inserisci il nome del committente'); return; }
+  const d = raccogliDati(); editId = d.id;
+  await sSet(d.id, d);
+  toast('Preventivo salvato');
+  renderSalvati();
+}
+function caricaInForm(d){
+  editId = d.id;
+  $('#f-tipo').value=d.tipo||'Preventivo'; $('#f-num').value=d.num||''; $('#f-data').value=d.data||'';
+  $('#f-scad').value=d.scad||''; $('#f-ref').value=d.ref||'';
+  const c=d.cliente||{};
+  $('#c-nome').value=c.nome||''; $('#c-piva').value=c.piva||''; $('#c-cf').value=c.cf||'';
+  $('#c-ind').value=c.ind||''; $('#c-rif').value=c.rif||''; $('#c-mail').value=c.mail||''; $('#c-tel').value=c.tel||'';
+  righe = JSON.parse(JSON.stringify(d.righe||[]));
+  $('#f-sconto').value=d.sconto||0; $('#f-iva').value=d.iva??22; $('#f-cond').value=d.cond||'';
+  renderRighe(); render();
+  document.querySelector('.tab[data-tab="preventivo"]').click();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+async function renderSalvati(){
+  const keys = (await sList('prev_'));
+  const box = $('#saved-list');
+  if(!keys.length){ box.innerHTML='<p class="empty-note">Nessun preventivo salvato.</p>'; return; }
+  const items = [];
+  for(const k of keys){ const d=await sGet(k); if(d) items.push(d); }
+  items.sort((a,b)=> (b.salvato||'').localeCompare(a.salvato||''));
+  box.innerHTML = items.map(d=>`
+    <div class="saved-item">
+      <div class="s-num">${esc(d.num)||'—'}</div>
+      <div class="s-info">
+        <b>${esc(d.cliente?.nome)||'Senza committente'}</b>
+        <div>${esc(d.tipo)} · ${dataIt(d.data)} · ${(d.righe||[]).length} voci</div>
+      </div>
+      <div class="s-tot">${eur(d.totale)}</div>
+      <div class="s-btns">
+        <button class="btn btn-ghost btn-sm" onclick='apri("${d.id}")'>Apri</button>
+        <button class="btn btn-danger btn-sm" onclick='elimina("${d.id}")'>Elimina</button>
+      </div>
+    </div>`).join('');
+}
+async function apri(id){ const d=await sGet(id); if(d) caricaInForm(d); }
+async function elimina(id){ await sDel(id); if(editId===id) editId=null; renderSalvati(); toast('Preventivo eliminato'); }
+
+function nuovoPreventivo(){
+  editId=null; righe=[];
+  $('#f-tipo').value='Preventivo';
+  $('#f-num').value = suggerisciNumero();
+  $('#f-data').value = new Date().toISOString().slice(0,10);
+  const scad = new Date(Date.now()+30*864e5); $('#f-scad').value = scad.toISOString().slice(0,10);
+  $('#f-ref').value='';
+  ['c-nome','c-piva','c-cf','c-ind','c-rif','c-mail','c-tel'].forEach(id=>$('#'+id).value='');
+  $('#f-sconto').value=0; $('#f-iva').value=22; $('#f-cond').value=COND_DEFAULT;
+  renderRighe(); render();
+}
+function suggerisciNumero(){
+  const anno = new Date().getFullYear();
+  const n = (parseInt(localStorage_counter||0,10)||0)+1; // placeholder, sovrascritto in init
+  return `${anno}/${String(n).padStart(3,'0')}`;
+}
+let localStorage_counter = 0;
+
+/* ================= PDF ================= */
+async function scaricaPDF(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'mm',format:'a4'});
+  const W = 210, M = 16; let y = 16;
+  const t = calcola();
+  const green=[13,122,62], ink=[20,32,26], grey=[110,120,112], line=[210,214,210];
+
+  // Header band
+  doc.setFillColor(...ink); doc.rect(0,0,W,3,'F');
+  if(LOGO){
+    // Logo caricato — scalato mantenendo le proporzioni (max 46mm × 16mm)
+    try{
+      const p = doc.getImageProperties(LOGO);
+      const maxW=46, maxH=16;
+      let lw=maxW, lh=lw*p.height/p.width;
+      if(lh>maxH){ lh=maxH; lw=lh*p.width/p.height; }
+      const fmt = /image\/png/.test(LOGO)?'PNG':(/image\/webp/.test(LOGO)?'WEBP':'JPEG');
+      doc.addImage(LOGO, fmt, M, y, lw, lh);
+    }catch(err){ doc.setFont('times','bold'); doc.setFontSize(20); doc.setTextColor(...ink); doc.text(EMITTENTE.nome, M, y+5); }
+  } else {
+    // Fallback: marchio disegnato (ghiera + testata)
+    doc.setDrawColor(...green); doc.setLineWidth(1.1); doc.circle(M+4, y+3, 4);
+    doc.setLineWidth(.4); doc.circle(M+4, y+3, 1.6);
+    doc.setTextColor(...ink); doc.setFont('times','bold'); doc.setFontSize(20);
+    doc.text(EMITTENTE.nome, M+11, y+5);
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(...green);
+    doc.text('SPAZI PUBBLICITARI', M+11.5, y+9.5, {charSpace:1.2});
+  }
+  doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(...grey);
+  doc.text(`${EMITTENTE.editore}\n${EMITTENTE.ind}${EMITTENTE.piva?'  ·  P.IVA '+EMITTENTE.piva:''}`, M, y+18);
+
+  // Meta a destra
+  doc.setFont('times','bold'); doc.setFontSize(17); doc.setTextColor(...ink);
+  doc.text($('#f-tipo').value.toUpperCase(), W-M, y+4, {align:'right'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...grey);
+  let my = y+9.5;
+  doc.text(`N. ${$('#f-num').value||'—'}`, W-M, my, {align:'right'}); my+=4.5;
+  doc.text(`Data ${dataIt($('#f-data').value)}`, W-M, my, {align:'right'}); my+=4.5;
+  if($('#f-scad').value){ doc.text(`Valido fino al ${dataIt($('#f-scad').value)}`, W-M, my, {align:'right'}); }
+
+  y += 24;
+  doc.setDrawColor(...green); doc.setLineWidth(.8); doc.line(M,y,W-M,y);
+  y += 8;
+
+  // Committente
+  doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(...green);
+  doc.text('SPETT.LE', M, y, {charSpace:1.2}); y+=5;
+  const c={nome:$('#c-nome').value||'Committente',piva:$('#c-piva').value,cf:$('#c-cf').value,
+           ind:$('#c-ind').value,rif:$('#c-rif').value,mail:$('#c-mail').value,tel:$('#c-tel').value};
+  const cLines=[];
+  const idl=[c.piva?'P.IVA '+c.piva:'', c.cf?'CF/SDI '+c.cf:''].filter(Boolean).join('  ·  ');
+  if(idl) cLines.push(idl);
+  if(c.ind) cLines.push(c.ind);
+  const contatti=[c.rif,c.mail,c.tel].filter(Boolean).join('  ·  '); if(contatti) cLines.push(contatti);
+  const boxH = 8 + cLines.length*4.4;
+  doc.setDrawColor(...line); doc.setLineWidth(.3); doc.setFillColor(250,251,250);
+  doc.roundedRect(M,y-1,W-2*M,boxH,1.5,1.5,'FD');
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(...ink);
+  doc.text(c.nome, M+3, y+4.5);
+  doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(...grey);
+  let cy=y+9; cLines.forEach(l=>{ doc.text(l, M+3, cy); cy+=4.4; });
+  y += boxH + 6;
+
+  // Tabella voci
+  const body = t.dettaglio.map(r=>{
+    const desc = r.desc + (r.sotto? '\n'+r.sotto : '');
+    return [desc, r.durata||'—', String(r.qta), eur(r.prezzo), r.scontoRiga?r.scontoRiga+'%':'—', eur(r.netto)];
+  });
+  doc.autoTable({
+    startY:y, margin:{left:M,right:M},
+    head:[['Descrizione','Durata','Q.tà','Prezzo','Sc.','Importo']],
+    body: body.length?body:[['Nessuna voce','','','','','']],
+    theme:'plain',
+    styles:{fontSize:8.5, cellPadding:2.4, textColor:ink, lineColor:line, lineWidth:.1},
+    headStyles:{fillColor:ink, textColor:[255,255,255], fontSize:7.5, fontStyle:'bold', cellPadding:2.4},
+    columnStyles:{0:{cellWidth:80},1:{cellWidth:20},2:{halign:'right',cellWidth:14},
+                  3:{halign:'right',cellWidth:24},4:{halign:'right',cellWidth:14},5:{halign:'right',cellWidth:'auto',fontStyle:'bold'}},
+    didParseCell:(d)=>{
+      if(d.section==='body' && d.column.index===0 && d.cell.raw.includes('\n')){
+        const parts=d.cell.raw.split('\n');
+        d.cell.text=parts;
+      }
+    },
+    willDrawCell:(d)=>{
+      if(d.section==='body' && d.column.index===0){
+        // niente
+      }
+    }
+  });
+  y = doc.lastAutoTable.finalY + 4;
+
+  // Totali (riquadro destro)
+  const tx = W-M-70, tw=70;
+  const totRows=[['Imponibile', eur(t.imponibileLordo)]];
+  if(t.scontoG){ totRows.push([`Sconto ${t.scontoG}%`, '− '+eur(t.scontoGval)]); totRows.push(['Netto', eur(t.imponibile)]); }
+  totRows.push([`IVA ${t.ivaP}%`, eur(t.iva)]);
+  doc.setFontSize(9);
+  totRows.forEach(r=>{
+    doc.setTextColor(...grey); doc.setFont('helvetica','normal'); doc.text(r[0], tx, y+3);
+    doc.setTextColor(...ink); doc.setFont('helvetica','bold'); doc.text(r[1], W-M, y+3, {align:'right'});
+    y+=5.2;
+  });
+  doc.setDrawColor(...ink); doc.setLineWidth(.6); doc.line(tx, y, W-M, y); y+=1;
+  doc.setFont('times','bold'); doc.setFontSize(14);
+  doc.setTextColor(...ink); doc.text('Totale', tx, y+6);
+  doc.setTextColor(...green); doc.text(eur(t.totale), W-M, y+6, {align:'right'});
+  y+=13;
+
+  // Condizioni
+  const cond = $('#f-cond').value;
+  if(cond){
+    if(y>250){ doc.addPage(); y=20; }
+    doc.setDrawColor(...line); doc.setLineWidth(.3); doc.line(M,y,W-M,y); y+=5;
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(60,70,63);
+    const cl = doc.splitTextToSize(cond, W-2*M);
+    doc.text(cl, M, y); y += cl.length*3.8 + 3;
+  }
+  if($('#f-ref').value){
+    doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(...grey);
+    doc.text('Referente: '+$('#f-ref').value, M, y); y+=6;
+  }
+
+  // Footer
+  const fy = 285;
+  doc.setDrawColor(...line); doc.setLineWidth(.3); doc.line(M,fy,W-M,fy);
+  doc.setFont('helvetica','normal'); doc.setFontSize(6.8); doc.setTextColor(...grey);
+  const foot = `${EMITTENTE.editore} · ${EMITTENTE.ind}${EMITTENTE.dir?' · Direttore Responsabile: '+EMITTENTE.dir:''}\n`+
+               `${[EMITTENTE.mail,EMITTENTE.tel].filter(Boolean).join(' · ')}\n${EMITTENTE.legal}`;
+  doc.text(foot, W/2, fy+4, {align:'center'});
+
+  const nome = `Preventivo_${($('#f-num').value||'').replace(/\//g,'-')}_${($('#c-nome').value||'').replace(/[^a-zA-Z0-9]/g,'')}.pdf`;
+  doc.save(nome);
+}
+
+/* ================= INIT ================= */
+async function init(){
+  const l = await sGet('listino'); if(l && Array.isArray(l) && l.length) LISTINO = l;
+  const e = await sGet('emittente'); if(e) EMITTENTE = {...EMITTENTE_DEFAULT, ...e};
+  LOGO = await sGet('logo'); renderLogoUI();
+  // contatore numero da preventivi salvati
+  const keys = await sList('prev_');
+  let maxN = keys.length;
+  const anno = new Date().getFullYear();
+  for(const k of keys){ const d=await sGet(k); const m=(d?.num||'').match(/(\d+)\s*$/); if(m){ const v=parseInt(m[1],10); if(v>maxN) maxN=v; } }
+  localStorage_counter = maxN;
+
+  renderListinoEdit(); loadEmittenteUI(); refreshPicker();
+  nuovoPreventivo();
+}
+init();
+</script>
+</body>
+</html>
