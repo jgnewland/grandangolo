@@ -281,7 +281,7 @@
         <div class="card">
           <div class="sec-eyebrow">Sconto e imposte</div>
           <div class="mini-row">
-            <div class="field"><label>Sconto globale (%)</label><input id="f-sconto" type="number" min="0" max="100" step="0.5" value="0" oninput="render()"></div>
+            <div class="field"><label>Sconto globale % (su imponibile)</label><input id="f-sconto" type="number" min="0" max="100" step="0.5" value="0" oninput="render()"></div>
             <div class="field"><label>IVA (%)</label><input id="f-iva" type="number" min="0" max="100" step="1" value="22" oninput="render()"></div>
           </div>
           <label style="margin-top:4px">Condizioni e note</label>
@@ -375,7 +375,7 @@ const LISTINO_DEFAULT = [
   {nome:"Social & Podcast", posizioni:"Pre-roll Spotify + post-roll IG/FB + banner testata (a3 m3) — solo smartphone", durata:"30 gg", prezzo:800},
 ];
 const EMITTENTE_DEFAULT = {
-  nome:"Grandangolo",
+  nome:"Grandangolo Settimanale",
   editore:"Edizioni Grandangolo",
   ind:"Via Mazzini, 187 – 92100 Agrigento",
   piva:"",
@@ -451,7 +451,7 @@ function renderRighe(){
           <input value="${esc(r.durata)}" oninput="updRiga(${i},'durata',this.value)" placeholder="30 gg"></div>
         <div class="field"><label>Q.tà</label>
           <input type="number" min="1" step="1" value="${r.qta}" oninput="updRiga(${i},'qta',this.value)"></div>
-        <div class="field"><label>Prezzo unit. €</label>
+        <div class="field"><label>Prezzo unit. (IVA escl.)</label>
           <input type="number" min="0" step="1" value="${r.prezzo}" oninput="updRiga(${i},'prezzo',this.value)"></div>
         <div class="field"><label>Sconto %</label>
           <input type="number" min="0" max="100" step="1" value="${r.scontoRiga}" oninput="updRiga(${i},'scontoRiga',this.value)"></div>
@@ -497,7 +497,7 @@ function render(){
       <div class="d-brand">
         ${LOGO
           ? `<img src="${LOGO}" alt="Grandangolo" style="max-height:46px;max-width:230px;object-fit:contain;display:block">`
-          : `<b>${esc(EMITTENTE.nome)}</b><small></small>`}
+          : `<b>${esc(EMITTENTE.nome)}</b><small>Spazi pubblicitari</small>`}
         <div class="d-emit">${esc(EMITTENTE.editore)}<br>${esc(EMITTENTE.ind)}${EMITTENTE.piva?'<br>P.IVA '+esc(EMITTENTE.piva):''}</div>
       </div>
       <div class="d-meta">
@@ -523,6 +523,7 @@ function render(){
       </tr></thead>
       <tbody>${righeHtml}</tbody>
     </table>
+    <div style="font-size:9px;color:var(--grigio);margin:2px 0 0">Tutti gli importi si intendono IVA esclusa.</div>
 
     <div class="d-tot"><table>
       <tr><td class="lab">Imponibile</td><td class="v">${eur(t.imponibileLordo)}</td></tr>
@@ -556,7 +557,7 @@ function renderListinoEdit(){
       <div class="li-bot">
         <div class="field"><label>Durata</label>
           <input value="${esc(p.durata)}" oninput="updList(${i},'durata',this.value)"></div>
-        <div class="field"><label>Prezzo</label>
+        <div class="field"><label>Prezzo (IVA escl.)</label>
           <div class="prezzo-wrap"><input type="number" min="0" step="1" value="${p.prezzo}" oninput="updList(${i},'prezzo',this.value)"></div></div>
       </div>
     </div>`).join('');
@@ -768,6 +769,9 @@ async function scaricaPDF(){
     }
   });
   y = doc.lastAutoTable.finalY + 4;
+  doc.setFont('helvetica','italic'); doc.setFontSize(7.5); doc.setTextColor(...grey);
+  doc.text('Tutti gli importi si intendono IVA esclusa.', M, y);
+  y += 4;
 
   // Totali (riquadro destro)
   const tx = W-M-70, tw=70;
