@@ -324,10 +324,10 @@
         <div class="logo-prev" id="logo-prev"></div>
         <div class="logo-ctrl">
           <label style="margin-bottom:6px">Logo Grandangolo</label>
-          <p class="hint" style="margin:0 0 8px">PNG o JPG, preferibilmente con sfondo trasparente. Compare nell'intestazione del preventivo e del PDF.</p>
+          <p class="hint" style="margin:0 0 8px">Il logo Grandangolo è già impostato e compare nell'intestazione del preventivo e del PDF. Puoi sostituirlo con un altro file (PNG/JPG, meglio se con sfondo trasparente).</p>
           <div class="actions">
-            <button class="btn btn-ghost btn-sm" onclick="document.getElementById('logo-file').click()">Carica logo</button>
-            <button class="btn btn-danger btn-sm" id="logo-del" onclick="rimuoviLogo()" style="display:none">Rimuovi</button>
+            <button class="btn btn-ghost btn-sm" onclick="document.getElementById('logo-file').click()">Sostituisci logo</button>
+            <button class="btn btn-danger btn-sm" id="logo-del" onclick="rimuoviLogo()" style="display:none">Ripristina predefinito</button>
           </div>
           <input type="file" id="logo-file" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="caricaLogo(this)">
         </div>
@@ -395,6 +395,7 @@ let EMITTENTE = {...EMITTENTE_DEFAULT};
 let righe = [];            // {desc, sotto, durata, qta, prezzo, scontoRiga}
 let editId = null;         // id del preventivo aperto (per aggiornamento)
 let LOGO = null;           // dataURL del logo Grandangolo
+const DEFAULT_LOGO_URL = "https://www.grandangoloregionale.it/wp-content/uploads/2026/08/LOGO-NERO-GRANDANGOLO-SETTIMANALE.png";
 
 /* ================= UTIL ================= */
 const $ = s => document.querySelector(s);
@@ -495,8 +496,8 @@ function render(){
   $('#doc').innerHTML = `
     <div class="d-head">
       <div class="d-brand">
-        ${LOGO
-          ? `<img src="${LOGO}" alt="Grandangolo" style="max-height:46px;max-width:230px;object-fit:contain;display:block">`
+        ${(LOGO||DEFAULT_LOGO_URL)
+          ? `<img src="${LOGO||DEFAULT_LOGO_URL}" alt="Grandangolo" style="max-height:46px;max-width:230px;object-fit:contain;display:block">`
           : `<b>${esc(EMITTENTE.nome)}</b><small>Spazi pubblicitari</small>`}
         <div class="d-emit">${esc(EMITTENTE.editore)}<br>${esc(EMITTENTE.ind)}${EMITTENTE.piva?'<br>P.IVA '+esc(EMITTENTE.piva):''}</div>
       </div>
@@ -592,7 +593,8 @@ async function saveEmittente(){
 }
 function renderLogoUI(){
   const prev=$('#logo-prev'), del=$('#logo-del');
-  if(LOGO){ prev.innerHTML=`<img src="${LOGO}" alt="logo">`; del.style.display=''; }
+  const src = LOGO || DEFAULT_LOGO_URL;
+  if(src){ prev.innerHTML=`<img src="${src}" alt="logo">`; del.style.display=''; }
   else { prev.innerHTML='Nessun logo'; del.style.display='none'; }
 }
 function caricaLogo(input){
@@ -602,7 +604,22 @@ function caricaLogo(input){
   r.onload = async e => { LOGO = e.target.result; await sSet('logo',LOGO); renderLogoUI(); render(); toast('Logo caricato'); };
   r.readAsDataURL(f); input.value='';
 }
-async function rimuoviLogo(){ LOGO=null; await sDel('logo'); renderLogoUI(); render(); toast('Logo rimosso'); }
+async function rimuoviLogo(){
+  LOGO=null; await sDel('logo');
+  try{ LOGO = await urlToDataURL(DEFAULT_LOGO_URL); if(LOGO) await sSet('logo',LOGO); }catch(e){}
+  renderLogoUI(); render(); toast('Logo predefinito ripristinato');
+}
+// Converte un'immagine remota in dataURL (per incorporarla e usarla nel PDF)
+function urlToDataURL(url){
+  return new Promise((resolve,reject)=>{
+    const img=new Image(); img.crossOrigin='anonymous';
+    img.onload=()=>{ try{
+      const c=document.createElement('canvas'); c.width=img.naturalWidth; c.height=img.naturalHeight;
+      c.getContext('2d').drawImage(img,0,0); resolve(c.toDataURL('image/png'));
+    }catch(e){ reject(e); } };
+    img.onerror=()=>reject(new Error('load')); img.src=url;
+  });
+}
 
 /* ================= SALVA / CARICA PREVENTIVI ================= */
 function raccogliDati(){
@@ -820,7 +837,9 @@ async function scaricaPDF(){
 async function init(){
   const l = await sGet('listino'); if(l && Array.isArray(l) && l.length) LISTINO = l;
   const e = await sGet('emittente'); if(e) EMITTENTE = {...EMITTENTE_DEFAULT, ...e};
-  LOGO = await sGet('logo'); renderLogoUI();
+  LOGO = await sGet('logo');
+  if(!LOGO){ try{ LOGO = await urlToDataURL(DEFAULT_LOGO_URL); if(LOGO) await sSet('logo',LOGO); }catch(e){} }
+  renderLogoUI();
   // contatore numero da preventivi salvati
   const keys = await sList('prev_');
   let maxN = keys.length;
