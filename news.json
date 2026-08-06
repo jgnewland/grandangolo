@@ -1,8 +1,57 @@
 {
-  "updated": "2026-08-06T04:30:24.144264+00:00",
+  "updated": "2026-08-06T07:25:04.603324+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Insulta i carabinieri durante controllo, denunciato 18enne a Raffadali",
+      "summary": "È successo a Raffadali dove un ragazzo da pochi giorni maggiorenne è stato denunciato per oltraggio e resistenza a pubblico ufficiale",
+      "date": "2026-08-06T06:53:45Z",
+      "link": "https://www.grandangoloagrigento.it/raffadali/insulta-i-carabinieri-durante-controllo-denunciato-18enne-a-raffadali",
+      "img": "/feed-images/f3ab70d80dc464dd.jpg"
+    },
+    {
+      "title": "Incidente sul lavoro, morto operaio siciliano di 44 anni",
+      "summary": "Secondo una prima ricostruzione, durante le operazioni di movimentazione alcune lastre di marmo lo avrebbero travolto",
+      "date": "2026-08-06T06:37:06Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/incidente-sul-lavoro-morto-operaio-siciliano-di-44-anni",
+      "img": "/feed-images/2879a8afee3199ca.jpg"
+    },
+    {
+      "title": "Lopez: “Felice di essere ancora all’Akragas. All’Esseneto sarà tutta un’altra storia”",
+      "summary": "Prosegue con entusiasmo l’avventura in biancazzurro di Lopez, pronto a dare il proprio contributo anche nella nuova stagione",
+      "date": "2026-08-06T06:04:44Z",
+      "link": "https://www.grandangoloagrigento.it/sport/lopez-felice-di-essere-ancora-allakragas-allesseneto-sara-tutta-unaltra-storia",
+      "img": "/feed-images/05fc27c3e92458f7.jpg"
+    },
+    {
+      "title": "Non versa le ritenute fiscali trattenute ai lavoratori, sequestrati 700 mila euro a imprenditore",
+      "summary": "Le indagini nei confronti del legale rappresentante di un’azienda operante nel settore degli impianti di climatizzazione, con sede in Avola (SR) hanno permesso di accertare l’omesso versamento delle…",
+      "date": "2026-08-06T06:02:53Z",
+      "link": "https://www.grandangoloagrigento.it/siracusa/non-versa-le-ritenute-fiscali-trattenute-ai-lavoratori-sequestrati-700-mila-euro-a-imprenditore",
+      "img": "/feed-images/1ea71f314f844118.jpg"
+    },
+    {
+      "title": "Armato di coltello rapina sala scommesse a Canicattì, quasi 3 mila euro il bottino",
+      "summary": "Il bandito, con volto travisato da passamontagna, ha minacciato il dipendente che si trovava dietro il bancone e gli ha intimato di consegnare il denaro",
+      "date": "2026-08-06T05:02:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/armato-di-coltello-rapina-sala-scommesse-a-canicatti-quasi-3-mila-euro-il-bottino",
+      "img": "/feed-images/aba505fb99b715de.jpg"
+    },
+    {
+      "title": "Appicca incendio a Joppolo Giancaxio, arrestato pensionato di 85 anni",
+      "summary": "Ha appiccato un incendio nel suo terreno, tra Agrigento e Joppolo Giancaxio, forse nel tentativo di “pulire” dalle erbacce",
+      "date": "2026-08-06T05:01:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/appicca-incendio-a-joppolo-giancaxio-arrestato-pensionato-di-85-anni",
+      "img": "/feed-images/86d73c45158055fd.png"
+    },
+    {
+      "title": "Non favorì il boss di Sciacca, commerciante chiede risarcimento per ingiusta detenzione",
+      "summary": "Il commerciante ha trascorso due settimane in carcere e due anni ai domiciliari prima di essere assolto dall’accusa di aver favorito il boss Accursio Dimino",
+      "date": "2026-08-06T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/non-favori-il-boss-di-sciacca-commerciante-chiede-risarcimento-per-ingiusta-detenzione",
+      "img": "/feed-images/50cca75026c2225c.jpg"
+    },
     {
       "title": "San Biagio Platani, provano la truffa del finto carabiniere: l’allarme della famiglia fa scattare l’intervento",
       "summary": "I Carabinieri hanno bloccato i due individui",
@@ -35,7 +84,7 @@
       "title": "“Spedizione punitiva per recuperare un credito”, arrestati due commercianti a Licata",
       "summary": "In manette due fratelli accusati di estorsione, rapina, minacce e lesioni",
       "date": "2026-08-05T16:48:43Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/spedizione-punitiva-per-recuperare-un-credito-arrestati-due-commercianti-a-licata",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/spedizione-punitiva-per-recuperare-un-credito-arrestati-due-commercianti-a-licata",
       "img": "/feed-images/15b51b2326a82c61.jpg"
     },
     {
@@ -67,6 +116,13 @@
       "img": "/feed-images/70607a2733851f1f.jpg"
     },
     {
+      "title": "Il tentato omicidio a San Leone, 26enne resta in carcere: “Non è stata legittima difesa”",
+      "summary": "Il giudice non ha convalidato il provvedimento disponendo, tuttavia, la custodia in carcere del 26enne accusato di aver colpito con 8 coltellate un minorenne",
+      "date": "2026-08-05T12:09:23Z",
+      "link": "https://www.grandangoloagrigento.it/giudiziaria/il-tentato-omicidio-a-san-leone-26enne-resta-in-carcere-non-e-stata-legittima-difesa",
+      "img": "/feed-images/e69bbb33367100a9.jpg"
+    },
+    {
       "title": "A Maddalusa recuperata moneta d’oro siracusana del V secolo a. C.",
       "summary": "L’assessore Scarpinato: ‘Conferma importanza ricerca archeologica sul territorio’",
       "date": "2026-08-05T11:59:56Z",
@@ -79,13 +135,6 @@
       "date": "2026-08-05T11:48:03Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/nascondeva-in-auto-16-chili-di-droga-arrestato",
       "img": "/feed-images/864d6b8d0f147bbe.jpg"
-    },
-    {
-      "title": "Il tentato omicidio a San Leone, 26enne resta in carcere: “Non è stata legittima difesa”",
-      "summary": "Il giudice non ha convalidato il provvedimento disponendo, tuttavia, la custodia in carcere del 26enne accusato di aver colpito con 8 coltellate un minorenne",
-      "date": "2026-08-05T11:09:23Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-tentato-omicidio-a-san-leone-26enne-resta-in-carcere-non-e-stata-legittima-difesa",
-      "img": "/feed-images/e69bbb33367100a9.jpg"
     },
     {
       "title": "“Sonora”, esperienze sonore al tramonto alla Valle dei Templi",
@@ -163,55 +212,6 @@
       "date": "2026-08-05T08:00:11Z",
       "link": "https://www.grandangoloagrigento.it/favara/favara-intensificati-i-controlli-della-polizia-locale-scattano-sanzioni",
       "img": "/feed-images/edd949ecdf5a552d.jpg"
-    },
-    {
-      "title": "Polizia, Maurizio Carusotto nuovo dirigente del commissariato di Licata",
-      "summary": "Il dirigente lascia Palma di Montechiaro e va a guidare il commissariato di Licata",
-      "date": "2026-08-05T07:27:02Z",
-      "link": "https://www.grandangoloagrigento.it/notizie-licata/polizia-maurizio-carusotto-nuovo-dirigente-del-commissariato-di-licata",
-      "img": "/feed-images/546ae0304fbe97ba.jpg"
-    },
-    {
-      "title": "Mafia, 37 anni fa l’omicidio di Nino Agostino e Ida Castelluccio",
-      "summary": "Ricorre oggi il 37esimo anniversario dell’efferato omicidio di Nino Agostino e della moglie incinta Ida Castellucci",
-      "date": "2026-08-05T07:13:41Z",
-      "link": "https://www.grandangoloagrigento.it/mafia/mafia-37-anni-fa-lomicidio-di-nino-agostino-e-ida-castelluccio",
-      "img": "/feed-images/95fde3a46e26b0e8.jpg"
-    },
-    {
-      "title": "ASP Agrigento, pubblicata la delibera per la riqualificazione del personale ausiliario",
-      "summary": "Si tratta di un provvedimento atteso da tempo, che rappresenta un ulteriore tassello nel percorso di valorizzazione del personale dell’ASP di Agrigento",
-      "date": "2026-08-05T06:26:22Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/asp-agrigento-pubblicata-la-delibera-per-la-riqualificazione-del-personale-ausiliario",
-      "img": "/feed-images/d6e17a1132a999ba.jpg"
-    },
-    {
-      "title": "Gdf Agrigento, 20 nuovi militari sul territorio per potenziare vigilanza estiva",
-      "summary": "Venti finanzieri Allievi Marescialli assegnati nel periodo durante il quale l’ingente afflusso turistico genera una crescita della domanda di sicurezza da parte della cittadinanza",
-      "date": "2026-08-05T06:12:32Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/gdf-agrigento-20-nuovi-militari-sul-territorio-per-potenziare-vigilanza-estiva",
-      "img": "/feed-images/fe39613ec23cde5b.jpg"
-    },
-    {
-      "title": "Emergenza idrica e stop autobotti, la Protezione civile: “Requisite quelle private”",
-      "summary": "Il dipartimento regionale pronto a diffidare i sindaci che avrebbero dovuto consegnare i propri mezzi ad Aica",
-      "date": "2026-08-05T05:36:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/emergenza-idrica-e-stop-autobotti-la-protezione-civile-requisite-quelle-private",
-      "img": "/feed-images/8a365bbc980ae1b5.jpg"
-    },
-    {
-      "title": "L’appalto “truccato” della Mosella, il caso approda al Riesame",
-      "summary": "Gli indagati raggiunti da misura cautelare, infatti, hanno presentato ricorso al tribunale della Libertà chiedendo l’annullamento dell’ordinanza",
-      "date": "2026-08-05T05:35:00Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/lappalto-truccato-della-mosella-il-caso-approda-al-riesame",
-      "img": "/feed-images/b04b62e4b9b7e530.jpg"
-    },
-    {
-      "title": "Ladri in casa di un impiegato, portata via la cassaforte: 30 mila euro il bottino",
-      "summary": "All’interno vi erano custoditi oggetti preziosi, gioielli e monili. Il bottino, secondo una prima stima, ammonterebbe a circa 30 mila euro",
-      "date": "2026-08-05T05:34:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ladri-in-casa-di-un-impiegato-portata-via-la-cassaforte-30-mila-euro-il-bottino",
-      "img": "/feed-images/ab250fd9214253ff.jpg"
     }
   ]
 }
