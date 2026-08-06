@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-06T12:18:20.667511+00:00",
+  "updated": "2026-08-06T14:52:47.708488+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ospedale di Agrigento, la Stroke Unit si rafforza con nuovi spazi e attrezzature per la cura dell’ictus",
+      "summary": "La rapidità dell’intervento e la presenza di strutture specializzate come la Stroke Unit risultano determinanti per aumentare le probabilità di sopravvivenza",
+      "date": "2026-08-06T13:43:05Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ospedale-di-agrigento-la-stroke-unit-si-rafforza-con-nuovi-spazi-e-attrezzature-per-la-cura-dellictus",
+      "img": "/feed-images/d333d2a5ffe63ab3.jpg"
+    },
+    {
+      "title": "Cammarata e San Giovanni Gemini ospitano la terza edizione del Paesello Pride",
+      "summary": "Il tema scelto per questa edizione è “Qui. Queer.”",
+      "date": "2026-08-06T13:35:50Z",
+      "link": "https://www.grandangoloagrigento.it/cammarata/cammarata-e-san-giovanni-gemini-ospitano-la-terza-edizione-del-paesello-pride",
+      "img": "/feed-images/ad3c8961ec7abd29.jpg"
+    },
     {
       "title": "Sport e impegno sociale, Licata celebra la Campionessa di boxe Gloria Peritore",
       "summary": "L’incontro si svolgerà Domenica 9 agosto 2026 alle 10 nella sede del Carmine del Comune di Licata",
@@ -198,20 +212,6 @@
       "date": "2026-08-05T17:04:24Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crisi-idrica-nuova-manifestazione-ad-agrigento-piu-gente-ce-meglio-e-uniti-per-lacqua-e-un-diritto",
       "img": "/feed-images/23cb5a4b499800b1.jpg"
-    },
-    {
-      "title": "“Spedizione punitiva per recuperare un credito”, arrestati due commercianti a Licata",
-      "summary": "In manette due fratelli accusati di estorsione, rapina, minacce e lesioni",
-      "date": "2026-08-05T16:48:43Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/spedizione-punitiva-per-recuperare-un-credito-arrestati-due-commercianti-a-licata",
-      "img": "/feed-images/15b51b2326a82c61.jpg"
-    },
-    {
-      "title": "Agrigento, mini discariche in giro per la città: le segnalazioni dei cittadini",
-      "summary": "Il sindaco Sodano: “un po’ di pazienza. Il processo non è immediato, e sollecito ancora tutti ad avere sempre cura della città”",
-      "date": "2026-08-05T16:47:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-mini-discariche-in-giro-per-la-citta-le-segnalazioni-dei-cittadini",
-      "img": "/feed-images/e55865c18b6d6df8.jpg"
     }
   ]
 }
