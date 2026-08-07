@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-07T15:23:49.966157+00:00",
+  "updated": "2026-08-07T16:22:48.974667+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Incidente a catena a Porto Empedocle, motociclista in ospedale",
+      "summary": "L’uomo è stato trasferito al Pronto soccorso dell’ospedale di Agrigento con traumi alla tibia e alla spalla destra",
+      "date": "2026-08-07T16:16:09Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/incidente-a-catena-a-porto-empedocle-motociclista-in-ospedale",
+      "img": "/feed-images/cb60da64201a5f3e.jpg"
+    },
+    {
+      "title": "Etna, fontana di lava dal cratere voragine e voli dirottati",
+      "summary": "Diversi voli in arrivo sono stati dirottati su Palermo",
+      "date": "2026-08-07T15:35:15Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/etna-fontana-di-lava-dal-cratere-voragine-e-voli-dirottati",
+      "img": "/feed-images/8dbd4be2283bb1b2.jpg"
+    },
     {
       "title": "Crollo a Messina, Burgio (Vigili del Fuoco): “Ricerche fino all’ultimo granello di materiale”",
       "summary": "Le ricerche si stanno concentrando nell’area residuale del crollo, dove si ritiene possano trovarsi ancora i due dispersi",
@@ -198,20 +212,6 @@
       "date": "2026-08-06T15:07:24Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/guidava-la-banda-dei-kalashnikov-dalla-cella-con-lo-smartphone-imposto-il-41-bis-a-boss-emergente-di-palermo",
       "img": "/feed-images/a3756f97c9bb1be5.jpg"
-    },
-    {
-      "title": "Ospedale di Agrigento, la Stroke Unit si rafforza con nuovi spazi e attrezzature per la cura dell’ictus",
-      "summary": "La rapidità dell’intervento e la presenza di strutture specializzate come la Stroke Unit risultano determinanti per aumentare le probabilità di sopravvivenza",
-      "date": "2026-08-06T13:43:05Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ospedale-di-agrigento-la-stroke-unit-si-rafforza-con-nuovi-spazi-e-attrezzature-per-la-cura-dellictus",
-      "img": "/feed-images/d333d2a5ffe63ab3.jpg"
-    },
-    {
-      "title": "Cammarata e San Giovanni Gemini ospitano la terza edizione del Paesello Pride",
-      "summary": "Il tema scelto per questa edizione è “Qui. Queer.”",
-      "date": "2026-08-06T13:35:50Z",
-      "link": "https://www.grandangoloagrigento.it/cammarata/cammarata-e-san-giovanni-gemini-ospitano-la-terza-edizione-del-paesello-pride",
-      "img": "/feed-images/ad3c8961ec7abd29.jpg"
     }
   ]
 }
