@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-07T11:56:31.859282+00:00",
+  "updated": "2026-08-07T13:01:41.209428+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Sesta edizione dello Slalom Città di Alessandria della Rocca, iscrizioni fino al 19 agosto",
+      "summary": "La manifestazione si disputerà il 22 e 23 agosto sulla SS118, alle porte dell’abitato del comune della provincia agrigentina",
+      "date": "2026-08-07T12:48:45Z",
+      "link": "https://www.grandangoloagrigento.it/sport/sesta-edizione-dello-slalom-citta-di-alessandria-della-rocca-iscrizioni-fino-al-19-agosto",
+      "img": "/feed-images/8bb23c6f09e46345.jpg"
+    },
+    {
+      "title": "Operaio cade da tre metri in un cantiere edile: è grave",
+      "summary": "Il52enne stava effettuando dei lavori di ristrutturazione di un edificio a Bolognetta",
+      "date": "2026-08-07T12:32:37Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/operaio-cade-da-tre-metri-in-un-cantiere-edile-e-grave",
+      "img": "/feed-images/40d7d3b240eee87a.jpg"
+    },
     {
       "title": "Droga, tre ventenni denunciati per detenzione ai fini di spaccio",
       "summary": "I tre, due uomini e una donna, con precedenti di polizia per reati in materia di stupefacenti, nel corso di una perquisizione domiciliare sono stati trovati in possesso di 27 dosi di marijuana e…",
@@ -198,20 +212,6 @@
       "date": "2026-08-06T12:00:29Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/tre-nuovi-sbarchi-a-lampedusa-sullisola-100-migranti",
       "img": "/feed-images/6c1602890c34d98f.jpg"
-    },
-    {
-      "title": "Aiuti agli olivicoltori colpiti da incendi, sì della Camera all’OdG di Pisano, Mattia e Sbardella",
-      "summary": "Si tratta di un intervento che punta a sostenere la ripartenza di un comparto fortemente colpito dopo gli incendi",
-      "date": "2026-08-06T11:48:09Z",
-      "link": "https://www.grandangoloagrigento.it/politica/aiuti-agli-olivicoltori-colpiti-da-incendi-si-della-camera-allodg-di-pisano-mattia-e-sbardella",
-      "img": "/feed-images/03a4147cd5085dbb.jpg"
-    },
-    {
-      "title": "Lavori di pavimentazione sul viadotto Milena, ecco come cambia la viabilità sulla Ss189",
-      "summary": "Per limitare i disagi, ANAS ha predisposto percorsi alternativi",
-      "date": "2026-08-06T10:27:51Z",
-      "link": "https://www.grandangoloagrigento.it/casteltermini/lavori-di-pavimentazione-sul-viadotto-milena-ecco-come-cambia-la-viabilita-sulla-ss189",
-      "img": "/feed-images/e07cdacbb4b25b70.jpg"
     }
   ]
 }
