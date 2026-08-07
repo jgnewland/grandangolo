@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-07T13:01:41.209428+00:00",
+  "updated": "2026-08-07T14:18:31.918216+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "S.Stefano Quisquina: al via percorso scientifico per la rinascita del territorio dopo incendi",
+      "summary": "Durante l’incontro sono state individuate le linee guida per la predisposizione di un piano di interventi volto alla messa in sicurezza delle aree interessate",
+      "date": "2026-08-07T13:18:40Z",
+      "link": "https://www.grandangoloagrigento.it/santo-stefano-quisquina/s-stefano-quisquina-al-via-percorso-scientifico-per-la-rinascita-del-territorio-dopo-incendi",
+      "img": ""
+    },
     {
       "title": "Sesta edizione dello Slalom Città di Alessandria della Rocca, iscrizioni fino al 19 agosto",
       "summary": "La manifestazione si disputerà il 22 e 23 agosto sulla SS118, alle porte dell’abitato del comune della provincia agrigentina",
@@ -205,13 +212,6 @@
       "date": "2026-08-06T12:07:50Z",
       "link": "https://www.grandangoloagrigento.it/sport/sport-e-impegno-sociale-licata-celebra-la-campionessa-di-boxe-gloria-peritore",
       "img": "/feed-images/f4d5b94de1010df3.jpg"
-    },
-    {
-      "title": "Tre nuovi sbarchi a Lampedusa: sull’isola 100 migranti",
-      "summary": "Tutti sono stati trasferiti all’hotspot di contrada Imbriacola e due accompagnate al poliambulatorio per le cure necessarie",
-      "date": "2026-08-06T12:00:29Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tre-nuovi-sbarchi-a-lampedusa-sullisola-100-migranti",
-      "img": "/feed-images/6c1602890c34d98f.jpg"
     }
   ]
 }
