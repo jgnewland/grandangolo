@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-07T14:18:31.918216+00:00",
+  "updated": "2026-08-07T15:23:49.966157+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Crollo a Messina, Burgio (Vigili del Fuoco): “Ricerche fino all’ultimo granello di materiale”",
+      "summary": "Le ricerche si stanno concentrando nell’area residuale del crollo, dove si ritiene possano trovarsi ancora i due dispersi",
+      "date": "2026-08-07T15:02:17Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/crollo-della-palazzina-a-messina-burgio-vigili-del-fuoco-ricerche-fino-allultimo-granello-di-materiale",
+      "img": "/feed-images/f20c33af636ac4d2.jpg"
+    },
     {
       "title": "S.Stefano Quisquina: al via percorso scientifico per la rinascita del territorio dopo incendi",
       "summary": "Durante l’incontro sono state individuate le linee guida per la predisposizione di un piano di interventi volto alla messa in sicurezza delle aree interessate",
@@ -205,13 +212,6 @@
       "date": "2026-08-06T13:35:50Z",
       "link": "https://www.grandangoloagrigento.it/cammarata/cammarata-e-san-giovanni-gemini-ospitano-la-terza-edizione-del-paesello-pride",
       "img": "/feed-images/ad3c8961ec7abd29.jpg"
-    },
-    {
-      "title": "Sport e impegno sociale, Licata celebra la Campionessa di boxe Gloria Peritore",
-      "summary": "L’incontro si svolgerà Domenica 9 agosto 2026 alle 10 nella sede del Carmine del Comune di Licata",
-      "date": "2026-08-06T12:07:50Z",
-      "link": "https://www.grandangoloagrigento.it/sport/sport-e-impegno-sociale-licata-celebra-la-campionessa-di-boxe-gloria-peritore",
-      "img": "/feed-images/f4d5b94de1010df3.jpg"
     }
   ]
 }
