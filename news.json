@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-07T20:58:06.065049+00:00",
+  "updated": "2026-08-07T21:41:31.149171+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Mafia e stidda ancora potenti",
+      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
+      "date": "2026-08-07T21:20:42Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/mafia-e-stidda-ancora-potenti",
+      "img": "/feed-images/60ea912caa47d7af.png"
+    },
     {
       "title": "“Autorizzò prelievo acqua da pozzo comunale”, indagato il sindaco di Ravanusa",
       "summary": "Il primo cittadino ha ricevuto un avviso di garanzia per avere firmato l’ordinanza che dichiarava lo stato di emergenza idrica autorizzando il prelievo di acqua dal pozzo comunale di Cianciaramito",
@@ -205,13 +212,6 @@
       "date": "2026-08-06T17:35:34Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/realmonte-due-auto-in-fiamme-una-appartiene-allassessore-allambiente",
       "img": "/feed-images/78e3e94285e26c51.jpg"
-    },
-    {
-      "title": "Finto carabiniere truffa anziana e le porta via 14 mila euro tra soldi e gioielli",
-      "summary": "Questa volta a cadere nella trappola dei malviventi è stata una pensionata di 85 anni di Casteltermini",
-      "date": "2026-08-06T15:31:29Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/finto-carabiniere-truffa-anziana-e-le-porta-via-14-mila-euro-tra-soldi-e-gioielli",
-      "img": "/feed-images/40ef557af883c706.png"
     }
   ]
 }
