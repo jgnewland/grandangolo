@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-08T18:40:21.183756+00:00",
+  "updated": "2026-08-08T19:16:20.245044+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tragedia in mare a Lampedusa: giovane sub falciato da un gommone. Recuperato il corpo",
+      "summary": "Il giovane, un ventinovenne, si trovava insieme alla sua fidanzata quando è stato preso in pieno da un gommone",
+      "date": "2026-08-08T19:03:59Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/tragedia-in-mare-a-lampedusa-giovane-sub-falciato-da-un-gommone-recuperato-il-corpo",
+      "img": "/feed-images/cca72d34687bd42c.jpg"
+    },
     {
       "title": "Raid in vigneto a Ravanusa, abbattute 800 piante di uva da tavola: “Occorre alzare la testa”",
       "summary": "Sull’episodio è intervenuto Eugenio Di Francesco vicepresidente regionale di Sos Impresa-Rete per la legalità, associazione antiracket ed antiusura",
@@ -205,13 +212,6 @@
       "date": "2026-08-07T16:24:59Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/emergenza-idrica-il-comune-mette-a-disposizione-di-aica-la-propria-autobotte",
       "img": "/feed-images/e4cfaf03e5a42b0d.jpg"
-    },
-    {
-      "title": "Il duplice tentato omicidio a Riesi, l’indagato: “Sono pentito”",
-      "summary": "Pirrello, sempre davanti al gip, ha spiegato di essersi trovato in uno stato confusionale",
-      "date": "2026-08-07T16:24:36Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/il-duplice-tentato-omicidio-a-riesi-lindagato-sono-pentito",
-      "img": "/feed-images/9d4027426a7148c2.jpg"
     }
   ]
 }
