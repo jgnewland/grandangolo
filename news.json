@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-08T16:50:52.884036+00:00",
+  "updated": "2026-08-08T17:25:59.511679+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Messina, proseguono le ricerche sotto le macerie della palazzina crollata",
+      "summary": "Oltre 30 vigili del fuoco impegnati nelle operazioni di bonifica e messa in sicurezza",
+      "date": "2026-08-08T17:17:26Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/messina-proseguono-le-ricerche-sotto-le-macerie-della-palazzina-crollata-oltre-30-vigili-del-fuoco-impegnati",
+      "img": "/feed-images/5c4c5c24822a7fe5.jpg"
+    },
+    {
+      "title": "Scoperto relitto romano al largo di Mazara del Vallo",
+      "summary": "Giuli: “Una delle più importanti scoperte archeologiche subacquee degli ultimi anni”",
+      "date": "2026-08-08T17:15:58Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/scoperto-relitto-romano-al-largo-di-mazara-del-vallo-giuli-una-delle-piu-importanti-scoperte-archeologiche-subacquee-degli-ultimi-anni",
+      "img": "/feed-images/8afe9ee000d5d1ca.jpg"
+    },
     {
       "title": "Eruzione Etna, ripristinate le attività di volo in partenza e in arrivo all’aeroporto di Catania",
       "summary": "La nota della società",
@@ -147,7 +161,7 @@
       "title": "Picchia l’anziana madre per farsi consegnare i soldi, arrestato 40enne",
       "summary": "Un quarantenne agrigentino è stato arrestato con l’accusa di maltrattamenti in famiglia per avere aggredito l’anziana madre per farsi consegnare i soldi",
       "date": "2026-08-08T06:22:45Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/picchia-lanziana-madre-per-farsi-consegnare-i-soldi-arrestato-40enne",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/picchia-lanziana-madre-per-farsi-consegnare-i-soldi-arrestato-40enne",
       "img": "/feed-images/d0040924d449193a.png"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-07T16:16:09Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/incidente-a-catena-a-porto-empedocle-motociclista-in-ospedale",
       "img": "/feed-images/cb60da64201a5f3e.jpg"
-    },
-    {
-      "title": "Etna, fontana di lava dal cratere voragine e voli dirottati",
-      "summary": "Diversi voli in arrivo sono stati dirottati su Palermo",
-      "date": "2026-08-07T15:35:15Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-brevi/etna-fontana-di-lava-dal-cratere-voragine-e-voli-dirottati",
-      "img": "/feed-images/8dbd4be2283bb1b2.jpg"
-    },
-    {
-      "title": "Crollo a Messina, Burgio (Vigili del Fuoco): “Ricerche fino all’ultimo granello di materiale”",
-      "summary": "Le ricerche si stanno concentrando nell’area residuale del crollo, dove si ritiene possano trovarsi ancora i due dispersi",
-      "date": "2026-08-07T15:02:17Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/crollo-della-palazzina-a-messina-burgio-vigili-del-fuoco-ricerche-fino-allultimo-granello-di-materiale",
-      "img": "/feed-images/f20c33af636ac4d2.jpg"
     }
   ]
 }
