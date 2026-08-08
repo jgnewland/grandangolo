@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-08T17:25:59.511679+00:00",
+  "updated": "2026-08-08T17:57:27.439995+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Raid in vigneto a Ravanusa, abbattute 800 piante di uva da tavola: “Occorre alzare la testa”",
+      "summary": "Sull’episodio è intervenuto Eugenio Di Francesco vicepresidente regionale di Sos Impresa-Rete per la legalità, associazione antiracket ed antiusura",
+      "date": "2026-08-08T17:33:20Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/raid-in-vigneto-a-ravanusa-abbattute-800-piante-di-uva-da-tavola-occorre-alzare-la-testa",
+      "img": "/feed-images/fb973b08c14cd207.jpg"
+    },
     {
       "title": "Messina, proseguono le ricerche sotto le macerie della palazzina crollata",
       "summary": "Oltre 30 vigili del fuoco impegnati nelle operazioni di bonifica e messa in sicurezza",
@@ -205,13 +212,6 @@
       "date": "2026-08-07T16:24:36Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/il-duplice-tentato-omicidio-a-riesi-lindagato-sono-pentito",
       "img": "/feed-images/9d4027426a7148c2.jpg"
-    },
-    {
-      "title": "Incidente a catena a Porto Empedocle, motociclista in ospedale",
-      "summary": "L’uomo è stato trasferito al Pronto soccorso dell’ospedale di Agrigento con traumi alla tibia e alla spalla destra",
-      "date": "2026-08-07T16:16:09Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/incidente-a-catena-a-porto-empedocle-motociclista-in-ospedale",
-      "img": "/feed-images/cb60da64201a5f3e.jpg"
     }
   ]
 }
