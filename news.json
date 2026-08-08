@@ -1,8 +1,36 @@
 {
-  "updated": "2026-08-08T07:05:11.944921+00:00",
+  "updated": "2026-08-08T07:58:44.187837+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "“I Film del Griffo”, martedì appuntamento con “Il treno per il Darjeeling”",
+      "summary": "L’ottavo appuntamento è in programma martedì 11 agosto alle ore 21.00 con la proiezione di Il treno per il Darjeeling (The Darjeeling Limited, 2007)",
+      "date": "2026-08-08T07:12:47Z",
+      "link": "https://www.grandangoloagrigento.it/cultura/i-film-del-griffo-martedi-appuntamento-con-il-treno-per-il-darjeeling",
+      "img": "/feed-images/e0c84b237ce47628.jpg"
+    },
+    {
+      "title": "Computer rubato al Pronto soccorso, denunciato 16enne",
+      "summary": "Il minore è stato trovato in possesso di un computer portatile, riportante l’etichetta inventariale dell’Azienda Sanitaria Provinciale",
+      "date": "2026-08-08T07:09:27Z",
+      "link": "https://www.grandangoloagrigento.it/catania/computer-rubato-al-pronto-soccorso-denunciato-16enne",
+      "img": "/feed-images/30e4f3708eba7ec4.jpg"
+    },
+    {
+      "title": "Lascia il cane sul balcone di casa al sole: denunciato 50enne",
+      "summary": "Era stato lasciato su un balconcino al sole, privo di una cuccia e con le ciotole di acqua e cibo vuote",
+      "date": "2026-08-08T07:07:30Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lascia-il-cane-sul-balcone-di-casa-al-sole-denunciato-50enne",
+      "img": "/feed-images/eb9fbdd54b60e510.jpg"
+    },
+    {
+      "title": "Dramma nella notte, 19enne muore in incidente stradale",
+      "summary": "La vittima è Rosario Romeo. La sua moto è finita contro un palo",
+      "date": "2026-08-08T07:05:19Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/dramma-nella-notte-19enne-muore-in-incidente-stradale",
+      "img": "/feed-images/9f35c03163f6dce5.jpg"
+    },
     {
       "title": "Etna, sospese attività di volo all’aeroporto di Catania fino alle 12",
       "summary": "Sono sospese le attività di volo in arrivo all’aeroporto di Catania fino alle ore 12",
@@ -184,34 +212,6 @@
       "date": "2026-08-07T08:47:38Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/cattolica-eraclea-durante-lite-minaccia-nipote-con-pistola-clandestina-arrestato-69enne",
       "img": "/feed-images/6ee528a112fad76a.jpg"
-    },
-    {
-      "title": "Vede i carabinieri e tenta la fuga, in casa aveva cocaina e hashish: arrestato",
-      "summary": "In manette un 30enne di Licata. I militari hanno rinvenuto 109 grammi di cocaina, confezionata sottovuoto, e circa 100 grammi di hashish",
-      "date": "2026-08-07T08:46:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/vede-i-carabinieri-e-tenta-la-fuga-in-casa-aveva-cocaina-e-hashish-arrestato",
-      "img": "/feed-images/b57f226870711307.jpg"
-    },
-    {
-      "title": "Il proprietario lo sorprende a rubare frutta nel suo terreno, lui lo minaccia con un fucile",
-      "summary": "Nel corso della discussione, invece di desistere dal furto, avrebbe imbracciato un fucile puntandoglielo contro",
-      "date": "2026-08-07T07:52:24Z",
-      "link": "https://www.grandangoloagrigento.it/catania/il-proprietario-lo-sorprende-a-rubare-frutta-nel-suo-terreno-lui-lo-minaccia-con-un-fucile",
-      "img": "/feed-images/4eeb54f790bd39c8.jpg"
-    },
-    {
-      "title": "Minacciano passante con un coltello per rubargli il cellulare, due arresti",
-      "summary": "A chiedere aiuto ai poliziotti è stata la vittima della rapina che, pochi minuti prima, era stata fermata dai due rapinatori, mentre stava passeggiando",
-      "date": "2026-08-07T07:45:38Z",
-      "link": "https://www.grandangoloagrigento.it/catania/minacciano-passante-con-un-coltello-per-rubargli-il-cellulare-due-arresti",
-      "img": "/feed-images/0038e6947dc8cc3d.jpg"
-    },
-    {
-      "title": "Il tentato omicidio di un minorenne a San Leone, c’è un quarto indagato",
-      "summary": "Per i carabinieri, che lo hanno interrogato come testimone subito dopo l’evento, non avrebbe detto la verità su quanto accaduto quella notte omettendo alcuni particolari che invece sono emersi dalla…",
-      "date": "2026-08-07T07:26:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-tentato-omicidio-di-un-minorenne-a-san-leone-ce-un-quarto-indagato",
-      "img": "/feed-images/e69bbb33367100a9.jpg"
     }
   ]
 }
