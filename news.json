@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-08T11:53:18.896925+00:00",
+  "updated": "2026-08-08T12:39:40.116343+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Scontro tra un’auto e una moto: ci sono feriti",
+      "summary": "Il sinistro nel territorio comunale di Isola delle Femmine",
+      "date": "2026-08-08T12:04:29Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-tra-unauto-e-una-moto-ci-sono-feriti",
+      "img": "/feed-images/63c2ae3a88fb755e.jpg"
+    },
+    {
+      "title": "Latitante rintracciato su un volo per Catania: arrestato",
+      "summary": "L’uomo ricercato per bancarotta fraudolenta è stato condannato alla pena di anni 3 da scontare in carcere.",
+      "date": "2026-08-08T12:01:54Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/latitante-rintracciato-su-un-volo-per-catania-arrestato",
+      "img": "/feed-images/07acddb205d6d3a2.jpg"
+    },
     {
       "title": "Gli agrigentini chiedono l’acqua, manifestazione davanti il Comune (VIDEO)",
       "summary": "Manifestazione pubblica questa mattina davanti il Comune di Agrigento per chiedere con forza il diritto ad avere l’acqua",
@@ -198,20 +212,6 @@
       "date": "2026-08-07T12:32:37Z",
       "link": "https://www.grandangoloagrigento.it/primo-piano/operaio-cade-da-tre-metri-in-un-cantiere-edile-e-grave",
       "img": "/feed-images/40d7d3b240eee87a.jpg"
-    },
-    {
-      "title": "Droga, tre ventenni denunciati per detenzione ai fini di spaccio",
-      "summary": "I tre, due uomini e una donna, con precedenti di polizia per reati in materia di stupefacenti, nel corso di una perquisizione domiciliare sono stati trovati in possesso di 27 dosi di marijuana e…",
-      "date": "2026-08-07T11:46:10Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/droga-tre-ventenni-denunciati-per-detenzione-ai-fini-di-spaccio",
-      "img": "/feed-images/94cf1234add2c656.jpg"
-    },
-    {
-      "title": "Agrigento, il presidente Pendolino riceve Kazouz Mohammed membro dell’International Council Unesco",
-      "summary": "Una visita di cortesia che rafforza le relazioni tra le due sponde del mediterraneo legate da rapporti culturali “Agrigento e Sidi Bel Abes“",
-      "date": "2026-08-07T11:37:35Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-il-presidente-pendolino-riceve-kazouz-mohammed-membro-dellinternational-council-unesco",
-      "img": "/feed-images/c52d8c9fa6346c9c.jpg"
     }
   ]
 }
