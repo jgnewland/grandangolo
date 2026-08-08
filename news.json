@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-08T10:08:48.333196+00:00",
+  "updated": "2026-08-08T10:50:44.677621+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Gli agrigentini chiedono l’acqua, manifestazione davanti il Comune (VIDEO)",
+      "summary": "Manifestazione pubblica questa mattina davanti il Comune di Agrigento per chiedere con forza il diritto ad avere l’acqua",
+      "date": "2026-08-08T10:30:18Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/gli-agrigentini-chiedono-lacqua-manifestazione-davanti-il-comune-video",
+      "img": "/feed-images/49e685dfc6c1b46d.jpg"
+    },
+    {
+      "title": "Minaccia titolare di tabaccheria con un coltello, denunciato 45enne a Canicattì",
+      "summary": "L’uomo, armato di coltello, ha fatto irruzione nel locale minacciando il titolare di 52 anni per farsi consegnare l’incasso",
+      "date": "2026-08-08T10:14:52Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/minaccia-titolare-di-tabaccheria-con-un-coltello-denunciato-45enne-a-canicatti",
+      "img": "/feed-images/6c90ad1fa91844a4.jpg"
+    },
     {
       "title": "Sorpresi ad appiccare incendio nel parco delle Madonie, due denunce",
       "summary": "Per aver appiccato un incendio mediante la combustione di rifiuti pericolosi, costituiti da residui di officina, pneumatici e materiali plastici contaminati",
@@ -21,7 +35,7 @@
       "title": "Controlli nelle aree balneari a Porto Empedocle, sanzionati tre parcheggiatori abusivi",
       "summary": "Nei loro confronti sono state elevate sanzioni amministrative per un importo complessivo di quasi 5.000 euro. Sono state inoltre sequestrate le somme di denaro ritenute provento dell’attività illecita",
       "date": "2026-08-08T10:02:45Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/controlli-nelle-aree-balneari-a-porto-empedocle-sanzionati-tre-parcheggiatori-abusivi",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/controlli-nelle-aree-balneari-a-porto-empedocle-sanzionati-tre-parcheggiatori-abusivi",
       "img": "/feed-images/47e85eed9307872a.jpg"
     },
     {
@@ -112,7 +126,7 @@
       "title": "“Autorizzò prelievo acqua da pozzo comunale”, indagato il sindaco di Ravanusa",
       "summary": "Il primo cittadino ha ricevuto un avviso di garanzia per avere firmato l’ordinanza che dichiarava lo stato di emergenza idrica autorizzando il prelievo di acqua dal pozzo comunale di Cianciaramito",
       "date": "2026-08-07T18:00:54Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/autorizzo-prelievo-acqua-da-pozzo-comunale-indagato-il-sindaco-di-ravanusa",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/autorizzo-prelievo-acqua-da-pozzo-comunale-indagato-il-sindaco-di-ravanusa",
       "img": "/feed-images/ce0375ca25e79ccf.png"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-07T11:37:35Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-il-presidente-pendolino-riceve-kazouz-mohammed-membro-dellinternational-council-unesco",
       "img": "/feed-images/c52d8c9fa6346c9c.jpg"
-    },
-    {
-      "title": "Fermato su un’auto rubata dopo inseguimento e ferimento di un poliziotto, arrestato",
-      "summary": "Il poliziotto è stato affidato alle cure mediche del 118 e trasportato in ospedale, ove gli hanno riscontrato lesioni giudicate guaribili in 20 giorni",
-      "date": "2026-08-07T11:35:04Z",
-      "link": "https://www.grandangoloagrigento.it/catania/fermato-su-unauto-rubata-dopo-inseguimento-e-ferimento-di-un-poliziotto-arrestato",
-      "img": "/feed-images/a425ad0efa7ccf81.jpg"
-    },
-    {
-      "title": "DonatoriNati, prosegue la raccolta di sangue all’ospedale di Agrigento",
-      "summary": "Donare prima di partire per le vacanze: l’appello per garantire le scorte di sangue durante l’estate.",
-      "date": "2026-08-07T11:06:43Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/donatorinati-prosegue-la-raccolta-di-sangue-allospedale-di-agrigento",
-      "img": "/feed-images/74d6373c6e09961c.jpg"
     }
   ]
 }
