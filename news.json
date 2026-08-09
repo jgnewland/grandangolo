@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-09T16:40:25.521318+00:00",
+  "updated": "2026-08-09T17:14:00.524796+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Maxi truffa del finto carabiniere, anziana consegna 85 mila euro tra soldi e gioielli",
+      "summary": "A denunciare l’accaduto una 77enne residente a Sciacca che ha raccontato agli investigatori di essere stata raggirata, dopo essere stata contattata telefonicamente da uno sconosciuto",
+      "date": "2026-08-09T16:50:35Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/maxi-truffa-del-finto-carabiniere-anziana-consegna-85-mila-euro-tra-soldi-e-gioielli",
+      "img": "/feed-images/07e25629eb1d49d5.jpg"
+    },
+    {
+      "title": "Continuano le ricerche dei dispersi dopo il crollo a Messina, il sindaco chiede lo stato di emergenza",
+      "summary": "Si continua a scavare per ritrovare Santino Magazzù e dare una risposta definitiva anche alla famiglia di Lairu Warna-Kulasuriya, il collaboratore domestico di origine cingalese",
+      "date": "2026-08-09T16:40:57Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/continuano-le-ricerche-dei-dispersi-dopo-il-crollo-a-messina-il-sindaco-chiede-lo-stato-di-emergenza",
+      "img": "/feed-images/b2e14fac3d238b00.jpg"
+    },
     {
       "title": "Ubriaco danneggia il PTE di Bagheria",
       "summary": "Aggressione scongiurata dalle forze dell’ordine",
@@ -105,7 +119,7 @@
       "title": "Maxi furto a Porto Empedocle, rubati gommone e moto d’acqua: danni per 70 mila euro",
       "summary": "L’azione dei malviventi sarebbe però stata ripresa dalle numerose telecamere presenti nella zona. Gli investigatori stanno passando al setaccio le immagini",
       "date": "2026-08-09T06:35:33Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/maxi-furto-a-porto-empedocle-rubati-gommone-e-moto-dacqua-danni-per-70-mila-euro",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maxi-furto-a-porto-empedocle-rubati-gommone-e-moto-dacqua-danni-per-70-mila-euro",
       "img": "/feed-images/650dbb2df678b6e8.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-08T10:06:08Z",
       "link": "https://www.grandangoloagrigento.it/palermo/sorpresi-ad-appiccare-incendio-nel-parco-delle-madonie-due-denunce",
       "img": "/feed-images/9418740c201e0b0a.png"
-    },
-    {
-      "title": "“Rex” fiuta la droga nella stanzetta di un 14enne, arrestato",
-      "summary": "Sono stati rinvenuti, nella scatola di uno smartphone, 13 involucri di hashish del peso complessivo di 36 grammi",
-      "date": "2026-08-08T10:04:30Z",
-      "link": "https://www.grandangoloagrigento.it/catania/rex-fiuta-la-droga-nella-stanzetta-di-un-14enne-arrestato",
-      "img": "/feed-images/726b4b26c6fd53d4.png"
-    },
-    {
-      "title": "Controlli nelle aree balneari a Porto Empedocle, sanzionati tre parcheggiatori abusivi",
-      "summary": "Nei loro confronti sono state elevate sanzioni amministrative per un importo complessivo di quasi 5.000 euro. Sono state inoltre sequestrate le somme di denaro ritenute provento dell’attività illecita",
-      "date": "2026-08-08T10:02:45Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/controlli-nelle-aree-balneari-a-porto-empedocle-sanzionati-tre-parcheggiatori-abusivi",
-      "img": "/feed-images/47e85eed9307872a.jpg"
     }
   ]
 }
