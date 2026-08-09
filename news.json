@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-09T14:51:41.418300+00:00",
+  "updated": "2026-08-09T15:26:57.669101+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ubriaco danneggia il PTE di Bagheria",
+      "summary": "Aggressione scongiurata dalle forze dell’ordine",
+      "date": "2026-08-09T15:18:23Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/ubriaco-danneggia-il-pte-di-bagheria-aggressione-scongiurata-dalle-forze-dellordine",
+      "img": "/feed-images/503769c47fede124.jpg"
+    },
+    {
+      "title": "Calci e pugni a 22enne per rubargli il cellulare, 4 arresti",
+      "summary": "Alla giovane vittima, colpita da calci e pugni, furono rubati i cellulari",
+      "date": "2026-08-09T15:14:46Z",
+      "link": "https://www.grandangoloagrigento.it/ragusa/calci-e-pugni-a-22enne-per-rubargli-il-cellulare-4-arresti",
+      "img": "/feed-images/3163a6b86e37fde3.jpg"
+    },
+    {
+      "title": "Lampedusa, regista Giamporcaro falciato e ucciso da un gommone",
+      "summary": "Aperta inchiesta per omicidio nautico",
+      "date": "2026-08-09T12:21:59Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/tragedia-in-mare-a-lampedusa-giovane-sub-falciato-da-un-gommone-recuperato-il-corpo",
+      "img": "/feed-images/7b81d934c462596b.jpg"
+    },
     {
       "title": "Litiga con un gruppo di ciclisti e li travolge con l’auto, siciliano arrestato per tentato omicidio",
       "summary": "In manette un 73enne siciliano, artigiano in pensione. Prima li ha travolti, poi è tornato indietro per investirli ancora. Il tutto dopo un banale litigio",
@@ -44,13 +65,6 @@
       "date": "2026-08-09T10:03:04Z",
       "link": "https://www.grandangoloagrigento.it/catania/rapina-una-farmacia-armato-di-taglierino-arrestato",
       "img": "/feed-images/15b1524977304867.png"
-    },
-    {
-      "title": "Lampedusa, giovane sub falciato da un gommone: aperta inchiesta per omicidio nautico",
-      "summary": "La vittima, Cristiano Giamporcaro, si trovava insieme alla sua fidanzata quando è stato preso in pieno da un gommone",
-      "date": "2026-08-09T07:21:59Z",
-      "link": "https://www.grandangoloagrigento.it/lampedusa/tragedia-in-mare-a-lampedusa-giovane-sub-falciato-da-un-gommone-recuperato-il-corpo",
-      "img": "/feed-images/7b81d934c462596b.jpg"
     },
     {
       "title": "Carmelo Burgio, il generale agrigentino candidato da Vannacci a sindaco di Milano",
@@ -198,20 +212,6 @@
       "date": "2026-08-08T10:02:45Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/controlli-nelle-aree-balneari-a-porto-empedocle-sanzionati-tre-parcheggiatori-abusivi",
       "img": "/feed-images/47e85eed9307872a.jpg"
-    },
-    {
-      "title": "Computer rubato al Pronto soccorso, denunciato 16enne",
-      "summary": "Il minore è stato trovato in possesso di un computer portatile, riportante l’etichetta inventariale dell’Azienda Sanitaria Provinciale",
-      "date": "2026-08-08T07:09:27Z",
-      "link": "https://www.grandangoloagrigento.it/catania/computer-rubato-al-pronto-soccorso-denunciato-16enne",
-      "img": "/feed-images/30e4f3708eba7ec4.jpg"
-    },
-    {
-      "title": "Lascia il cane sul balcone di casa al sole: denunciato 50enne",
-      "summary": "Era stato lasciato su un balconcino al sole, privo di una cuccia e con le ciotole di acqua e cibo vuote",
-      "date": "2026-08-08T07:07:30Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lascia-il-cane-sul-balcone-di-casa-al-sole-denunciato-50enne",
-      "img": "/feed-images/eb9fbdd54b60e510.jpg"
     }
   ]
 }
