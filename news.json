@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-09T05:34:51.781494+00:00",
+  "updated": "2026-08-09T06:28:29.069075+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Maxi furto a Porto Empedocle, rubati gommone e moto d’acqua: danni per 70 mila euro",
+      "summary": "L’azione dei malviventi sarebbe però stata ripresa dalle numerose telecamere presenti nella zona. Gli investigatori stanno passando al setaccio le immagini",
+      "date": "2026-08-09T06:07:33Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/maxi-furto-a-porto-empedocle-rubati-gommone-e-moto-dacqua-danni-per-70-mila-euro",
+      "img": "/feed-images/650dbb2df678b6e8.jpg"
+    },
     {
       "title": "Tragedia in mare a Lampedusa: giovane sub falciato da un gommone. Recuperato il corpo",
       "summary": "Il giovane, un ventinovenne, si trovava insieme alla sua fidanzata quando è stato preso in pieno da un gommone",
@@ -126,7 +133,7 @@
       "title": "Dramma nella notte, 19enne muore in incidente stradale",
       "summary": "La vittima è Rosario Romeo. La sua moto è finita contro un palo",
       "date": "2026-08-08T07:05:19Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/dramma-nella-notte-19enne-muore-in-incidente-stradale",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/dramma-nella-notte-19enne-muore-in-incidente-stradale",
       "img": "/feed-images/fc5dc28ddb854b53.jpg"
     },
     {
@@ -168,7 +175,7 @@
       "title": "In fiamme capannone di un’azienda che vende piante a Licata, indagini",
       "summary": "Il rogo è avvenuto in via Torregrossa, a Licata. Lo stabile è di proprietà di un imprenditore sessantacinquenne",
       "date": "2026-08-08T06:29:51Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/in-fiamme-capannone-di-unazienda-che-vende-piante-a-licata-indagini",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-fiamme-capannone-di-unazienda-che-vende-piante-a-licata-indagini",
       "img": "/feed-images/a60ec0d92a868562.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-07T16:31:25Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/ravanusa-dietrofront-del-sindaco-revocata-lemergenza-idrica",
       "img": "/feed-images/9c8cbad0d65c794f.png"
-    },
-    {
-      "title": "Emergenza idrica, il Comune mette a disposizione di AICA la propria autobotte",
-      "summary": "Il sindaco Sodano: “resto severo sulle inadempienze del gestore”",
-      "date": "2026-08-07T16:24:59Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/emergenza-idrica-il-comune-mette-a-disposizione-di-aica-la-propria-autobotte",
-      "img": "/feed-images/e4cfaf03e5a42b0d.jpg"
     }
   ]
 }
