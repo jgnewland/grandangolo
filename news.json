@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-10T15:41:48.375316+00:00",
+  "updated": "2026-08-10T16:33:08.446561+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Caltabellotta, finanziata la demolizione di un edificio per mettere in sicurezza l’area",
+      "summary": "L’intervento, richiesto dall’IACP di Agrigento, è stato sollecitato dall’amministrazione comunale per la necessità di mettere in sicurezza l’areainteressata",
+      "date": "2026-08-10T15:54:55Z",
+      "link": "https://www.grandangoloagrigento.it/caltabellotta/caltabellotta-finanziata-la-demolizione-di-un-edificio-per-mettere-in-sicurezza-larea",
+      "img": "/feed-images/cf3c8603171cdc8d.jpg"
+    },
     {
       "title": "“Pratiche irregolari dei privati”, dalla Regione fondi per finanziare sette nuove autobotti pubbliche",
       "summary": "Il servizio servirà per garantire l’accesso all’acqua potabile anche a tutte quelle utenze che si trovano in territori non serviti da una efficiente rete idrica",
@@ -205,13 +212,6 @@
       "date": "2026-08-09T15:14:46Z",
       "link": "https://www.grandangoloagrigento.it/ragusa/calci-e-pugni-a-22enne-per-rubargli-il-cellulare-4-arresti",
       "img": "/feed-images/3163a6b86e37fde3.jpg"
-    },
-    {
-      "title": "Lampedusa, regista Giamporcaro falciato e ucciso da un gommone",
-      "summary": "Aperta inchiesta per omicidio nautico",
-      "date": "2026-08-09T12:21:59Z",
-      "link": "https://www.grandangoloagrigento.it/lampedusa/tragedia-in-mare-a-lampedusa-giovane-sub-falciato-da-un-gommone-recuperato-il-corpo",
-      "img": "/feed-images/7b81d934c462596b.jpg"
     }
   ]
 }
