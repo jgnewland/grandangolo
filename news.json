@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-10T11:29:59.545143+00:00",
+  "updated": "2026-08-10T12:11:13.965960+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Maxi carico di fertilizzante dalla Cina bloccato ad Augusta: sequestrati 100 tonnellate",
+      "summary": "La merce era destinata a un’impresa che opera nel settore della commercializzazione dei fertilizzanti",
+      "date": "2026-08-10T11:33:41Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maxi-carico-di-fertilizzante-dalla-cina-bloccato-ad-augusta-sequestrati-100-tonnellate",
+      "img": "/feed-images/5949cf4f6f7d9adc.jpg"
+    },
     {
       "title": "Asp Agrigento, si insedia il commissario Delle Donne: “Sanità sempre più vicina ai cittadini”",
       "summary": "L’avvio del nuovo incarico segna l’inizio di una fase improntata all’innovazione ma anche alla continuità amministrativa e gestionale",
@@ -23,6 +30,13 @@
       "date": "2026-08-10T10:29:43Z",
       "link": "https://www.grandangoloagrigento.it/ragusa/si-ribalta-con-lauto-quattro-feriti-in-ospedale",
       "img": "/feed-images/825d31df36bb1b1d.jpg"
+    },
+    {
+      "title": "Falciato e ucciso da gommone a Lampedusa, domani autopsia su Cristiano Giamporcaro",
+      "summary": "Il giovane è morto durante un’immersione, ucciso dalle eliche di un gommone sul quale viaggiava una coppia di turisti milanesi",
+      "date": "2026-08-10T10:25:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lampedusa-domani-autopsia-sul-cadavere-di-cristiano-giamporcaro",
+      "img": "/feed-images/04ed88cf7bf61879.jpg"
     },
     {
       "title": "Braccio fuori dal finestrino si incastra in una ringhiera del tram: 56enne perde l’arto",
@@ -72,13 +86,6 @@
       "date": "2026-08-10T09:25:37Z",
       "link": "https://www.grandangoloagrigento.it/naro/naro-rubato-trattore-da-azienda-agricola-al-via-indagini",
       "img": "/feed-images/eb6e0c4bf8722449.jpg"
-    },
-    {
-      "title": "Falciato e ucciso da gommone a Lampedusa, domani autopsia su Cristiano Giamporcaro",
-      "summary": "Il giovane è morto durante un’immersione, ucciso dalle eliche di un gommone sul quale viaggiava una coppia di turisti milanesi",
-      "date": "2026-08-10T09:25:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lampedusa-domani-autopsia-sul-cadavere-di-cristiano-giamporcaro",
-      "img": "/feed-images/04ed88cf7bf61879.jpg"
     },
     {
       "title": "Al Teatro dell’Efebo di Agrigento arriva Pino Minio",
@@ -205,13 +212,6 @@
       "date": "2026-08-09T10:05:03Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/inner-wheel-prima-edizione-premio-giunone-a-maricetta-lombardo",
       "img": "/feed-images/c8aa03f43137523e.jpg"
-    },
-    {
-      "title": "Rapina una farmacia armato di taglierino, arrestato",
-      "summary": "Aveva minacciato con un taglierino due dipendenti, impossessandosi della somma di 900 euro, prelevata dal registratore di cassa",
-      "date": "2026-08-09T10:03:04Z",
-      "link": "https://www.grandangoloagrigento.it/catania/rapina-una-farmacia-armato-di-taglierino-arrestato",
-      "img": "/feed-images/15b1524977304867.png"
     }
   ]
 }
