@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-10T05:54:36.886872+00:00",
+  "updated": "2026-08-10T07:24:23.026986+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
@@ -32,6 +32,20 @@
       "img": "/feed-images/dea48bcee34b5b16.jpg"
     },
     {
+      "title": "Maltrattamenti in una struttura per i disabili: sette indagati",
+      "summary": "Per due soggetti sono scattati gli arresti e cinque sottoposti alla misura interdittiva del divieto temporaneo di svolgere attività lavorative",
+      "date": "2026-08-10T04:40:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/maltrattamenti-in-una-struttura-per-i-disabili-sette-indagati",
+      "img": "/feed-images/9ac02f5781e11f1a.jpg"
+    },
+    {
+      "title": "Licata, svuota serbatoi dei treni e fugge in monopattino: denunciato",
+      "summary": "L’uomo deve rispondere del reato di truffa",
+      "date": "2026-08-10T04:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/licata-svuota-serbatoi-dei-treni-e-fugge-in-monopattino-denunciato",
+      "img": "/feed-images/41f6c2b0abe5ef79.jpg"
+    },
+    {
       "title": "Si perdono in moto nelle campagne di Sant’Angelo Muxaro, recuperati dopo ore di ricerche",
       "summary": "Una giornata dedicata alla scoperta dell’entroterra agrigentino si è trasformata in ore di apprensione per una coppia di motociclisti partiti da Agrigento",
       "date": "2026-08-09T17:29:58Z",
@@ -42,7 +56,7 @@
       "title": "Maxi truffa del finto carabiniere, anziana consegna 85 mila euro tra soldi e gioielli",
       "summary": "A denunciare l’accaduto una 77enne residente a Sciacca che ha raccontato agli investigatori di essere stata raggirata, dopo essere stata contattata telefonicamente da uno sconosciuto",
       "date": "2026-08-09T16:50:35Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/maxi-truffa-del-finto-carabiniere-anziana-consegna-85-mila-euro-tra-soldi-e-gioielli",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maxi-truffa-del-finto-carabiniere-anziana-consegna-85-mila-euro-tra-soldi-e-gioielli",
       "img": "/feed-images/07e25629eb1d49d5.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-08T15:42:14Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-casa-con-la-droga-nel-frigo-arrestata-una-coppia",
       "img": "/feed-images/891401e3cc4d83c3.jpg"
-    },
-    {
-      "title": "Catania, stop ai voli. Pisano: “L’aeroporto di Agrigento non può più aspettare”",
-      "summary": "Pisano torna a chiedere di imprimere un’accelerazione al percorso per la realizzazione dell’aeroporto di Agrigento",
-      "date": "2026-08-08T15:39:48Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/catania-stop-ai-voli-pisano-laeroporto-di-agrigento-non-puo-piu-aspettare",
-      "img": "/feed-images/47d20f3378c2331b.jpg"
-    },
-    {
-      "title": "Prosegue eruzione Etna con cenere vulcanica",
-      "summary": "Sac “sospese le operazioni di volo a Catania”",
-      "date": "2026-08-08T15:35:12Z",
-      "link": "https://www.grandangoloagrigento.it/catania/prosegue-eruzione-etna-con-cenere-vulcanica-sac-sospese-le-operazioni-di-volo-a-catania",
-      "img": "/feed-images/29b025d43a0f7d5a.jpg"
     }
   ]
 }
