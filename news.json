@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-10T14:44:56.188862+00:00",
+  "updated": "2026-08-10T15:41:48.375316+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "“Pratiche irregolari dei privati”, dalla Regione fondi per finanziare sette nuove autobotti pubbliche",
+      "summary": "Il servizio servirà per garantire l’accesso all’acqua potabile anche a tutte quelle utenze che si trovano in territori non serviti da una efficiente rete idrica",
+      "date": "2026-08-10T15:14:34Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crisi-idrica-nellagrigentino-dalla-regione-oltre-700mila-euro-per-finanziare-sette-nuove-autobotti",
+      "img": "/feed-images/f98b8d224f57421e.jpg"
+    },
     {
       "title": "Aggredito e colpito con una lama, operaio in ospedale",
       "summary": "L’uomo sarebbe stato colpito almeno con un fendente",
@@ -154,7 +161,7 @@
       "title": "Maltrattamenti in una struttura per i disabili: sette indagati",
       "summary": "Per due soggetti sono scattati gli arresti e cinque sottoposti alla misura interdittiva del divieto temporaneo di svolgere attività lavorative",
       "date": "2026-08-10T04:40:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/maltrattamenti-in-una-struttura-per-i-disabili-sette-indagati",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maltrattamenti-in-una-struttura-per-i-disabili-sette-indagati",
       "img": "/feed-images/9ac02f5781e11f1a.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-09T12:21:59Z",
       "link": "https://www.grandangoloagrigento.it/lampedusa/tragedia-in-mare-a-lampedusa-giovane-sub-falciato-da-un-gommone-recuperato-il-corpo",
       "img": "/feed-images/7b81d934c462596b.jpg"
-    },
-    {
-      "title": "Litiga con un gruppo di ciclisti e li travolge con l’auto, siciliano arrestato per tentato omicidio",
-      "summary": "In manette un 73enne siciliano, artigiano in pensione. Prima li ha travolti, poi è tornato indietro per investirli ancora. Il tutto dopo un banale litigio",
-      "date": "2026-08-09T11:24:05Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/litiga-con-un-gruppo-di-ciclisti-e-li-travolge-con-lauto-siciliano-arrestato-per-tentato-omicidio",
-      "img": "/feed-images/4e05b5b23bad9c84.webp"
     }
   ]
 }
