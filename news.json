@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-10T12:11:13.965960+00:00",
+  "updated": "2026-08-10T13:43:46.412144+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Regista travolto e ucciso da gommone a Lampedusa, due indagati",
+      "summary": "Si tratta di un 72enne e una 69enne, entrambi originari e residenti a Roma, per l’ipotesi di reato di omicidio nautico",
+      "date": "2026-08-10T13:06:37Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/regista-travolto-e-ucciso-da-gommone-a-lampedusa-due-indagati",
+      "img": "/feed-images/7b81d934c462596b.jpg"
+    },
     {
       "title": "Maxi carico di fertilizzante dalla Cina bloccato ad Augusta: sequestrati 100 tonnellate",
       "summary": "La merce era destinata a un’impresa che opera nel settore della commercializzazione dei fertilizzanti",
@@ -205,13 +212,6 @@
       "date": "2026-08-09T10:06:43Z",
       "link": "https://www.grandangoloagrigento.it/catania/cavallo-e-puledro-in-una-stalla-abusiva-6-mila-euro-di-multa",
       "img": "/feed-images/05c6ac0d507bb3d4.jpg"
-    },
-    {
-      "title": "Inner Wheel, prima edizione Premio Giunone a Maricetta Lombardo",
-      "summary": "​All’unanimità, il Club ha scelto di conferire il “Premio Giunone” a Maricetta Lombardo, illustre concittadina e figura di primo piano nel panorama cinematografico globale",
-      "date": "2026-08-09T10:05:03Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/inner-wheel-prima-edizione-premio-giunone-a-maricetta-lombardo",
-      "img": "/feed-images/c8aa03f43137523e.jpg"
     }
   ]
 }
