@@ -1,21 +1,35 @@
 {
-  "updated": "2026-08-10T16:33:08.446561+00:00",
+  "updated": "2026-08-10T17:35:53.286266+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "“Pratiche irregolari dei privati”, dalla Regione fondi per finanziare sette nuove autobotti pubbliche",
+      "summary": "Il servizio servirà per garantire l’accesso all’acqua potabile anche a tutte quelle utenze che si trovano in territori non serviti da una efficiente rete idrica",
+      "date": "2026-08-10T16:41:34Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crisi-idrica-nellagrigentino-dalla-regione-oltre-700mila-euro-per-finanziare-sette-nuove-autobotti",
+      "img": "/feed-images/f98b8d224f57421e.jpg"
+    },
+    {
+      "title": "Etna, sospesi tutti i voli all’aeroporto di Catania fino alle 6 di domani",
+      "summary": "Sono sospese tutte le attività di volo in partenza e in arrivo all’aeroporto di Catania fino alle ore 6 di domani",
+      "date": "2026-08-10T16:40:38Z",
+      "link": "https://www.grandangoloagrigento.it/catania/etna-sospesi-tutti-i-voli-allaeroporto-di-catania-fino-alle-6-di-domani",
+      "img": "/feed-images/0f4689de5b1d9fb2.jpg"
+    },
+    {
+      "title": "Serie D, esordio casalingo per Favara e Licata: ecco il calendario",
+      "summary": "Ecco tutti gli impegni del CastrumFavara e del Licata nella nuova stagione del campionato di Serie D",
+      "date": "2026-08-10T16:38:03Z",
+      "link": "https://www.grandangoloagrigento.it/sport/serie-d-esordio-casalingo-per-favara-e-licata-ecco-il-calendario",
+      "img": "/feed-images/3d1a9d3074804eae.jpg"
+    },
     {
       "title": "Caltabellotta, finanziata la demolizione di un edificio per mettere in sicurezza l’area",
       "summary": "L’intervento, richiesto dall’IACP di Agrigento, è stato sollecitato dall’amministrazione comunale per la necessità di mettere in sicurezza l’areainteressata",
       "date": "2026-08-10T15:54:55Z",
       "link": "https://www.grandangoloagrigento.it/caltabellotta/caltabellotta-finanziata-la-demolizione-di-un-edificio-per-mettere-in-sicurezza-larea",
       "img": "/feed-images/cf3c8603171cdc8d.jpg"
-    },
-    {
-      "title": "“Pratiche irregolari dei privati”, dalla Regione fondi per finanziare sette nuove autobotti pubbliche",
-      "summary": "Il servizio servirà per garantire l’accesso all’acqua potabile anche a tutte quelle utenze che si trovano in territori non serviti da una efficiente rete idrica",
-      "date": "2026-08-10T15:14:34Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crisi-idrica-nellagrigentino-dalla-regione-oltre-700mila-euro-per-finanziare-sette-nuove-autobotti",
-      "img": "/feed-images/f98b8d224f57421e.jpg"
     },
     {
       "title": "Aggredito e colpito con una lama, operaio in ospedale",
@@ -42,7 +56,7 @@
       "title": "Perde il controllo dell’auto e si ribalta: morto 48enne",
       "summary": "La vittima è Alberto Di Pietro",
       "date": "2026-08-10T12:10:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/perde-il-controllo-dellauto-e-si-ribalta-morto-48enne",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/perde-il-controllo-dellauto-e-si-ribalta-morto-48enne",
       "img": "/feed-images/ff4eeaea20546df5.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-09T16:40:57Z",
       "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/continuano-le-ricerche-dei-dispersi-dopo-il-crollo-a-messina-il-sindaco-chiede-lo-stato-di-emergenza",
       "img": "/feed-images/b2e14fac3d238b00.jpg"
-    },
-    {
-      "title": "Ubriaco danneggia il PTE di Bagheria",
-      "summary": "Aggressione scongiurata dalle forze dell’ordine",
-      "date": "2026-08-09T15:18:23Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/ubriaco-danneggia-il-pte-di-bagheria-aggressione-scongiurata-dalle-forze-dellordine",
-      "img": "/feed-images/503769c47fede124.jpg"
-    },
-    {
-      "title": "Calci e pugni a 22enne per rubargli il cellulare, 4 arresti",
-      "summary": "Alla giovane vittima, colpita da calci e pugni, furono rubati i cellulari",
-      "date": "2026-08-09T15:14:46Z",
-      "link": "https://www.grandangoloagrigento.it/ragusa/calci-e-pugni-a-22enne-per-rubargli-il-cellulare-4-arresti",
-      "img": "/feed-images/3163a6b86e37fde3.jpg"
     }
   ]
 }
