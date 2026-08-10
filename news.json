@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-10T19:41:25.755697+00:00",
+  "updated": "2026-08-10T20:22:52.317416+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Licata, morto a 77 anni il cronista Angelo Vecchio",
+      "summary": "Il mondo del giornalismo perde una figura importante",
+      "date": "2026-08-10T20:21:27Z",
+      "link": "https://www.grandangoloagrigento.it/notizie-licata/licata-morto-a-77-anni-il-cronista-angelo-vecchio",
+      "img": "/feed-images/ded80f52451432b5.jpg"
+    },
     {
       "title": "Acqua, l’Ati vuole un commissario per le reti di Camastra, il sindaco: “Resisteremo”",
       "summary": "Il primo cittadino Dario Gaglio chiede uno stop del provvedimento nelle more dell’esito del ricorso al Cga",
@@ -205,13 +212,6 @@
       "date": "2026-08-09T17:29:58Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/si-perdono-in-moto-nelle-campagne-di-santangelo-muxaro-recuperati-dopo-ore-di-ricerche",
       "img": "/feed-images/8512ba1f36f66108.jpg"
-    },
-    {
-      "title": "Maxi truffa del finto carabiniere, anziana consegna 85 mila euro tra soldi e gioielli",
-      "summary": "A denunciare l’accaduto una 77enne residente a Sciacca che ha raccontato agli investigatori di essere stata raggirata, dopo essere stata contattata telefonicamente da uno sconosciuto",
-      "date": "2026-08-09T16:50:35Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maxi-truffa-del-finto-carabiniere-anziana-consegna-85-mila-euro-tra-soldi-e-gioielli",
-      "img": "/feed-images/07e25629eb1d49d5.jpg"
     }
   ]
 }
