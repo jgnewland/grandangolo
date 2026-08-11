@@ -1,8 +1,36 @@
 {
-  "updated": "2026-08-11T14:54:30.220936+00:00",
+  "updated": "2026-08-11T15:57:46.891301+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "In moto si scontra con un camion: morto 35enne",
+      "summary": "A perdere la vita D.F di 35 anni",
+      "date": "2026-08-11T15:49:31Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/in-moto-si-scontra-con-un-camion-morto-35enne",
+      "img": "/feed-images/fd1d3737533dcb6a.jpg"
+    },
+    {
+      "title": "Etna, ancora disagi in aeroporto; Schifani: “potenzieremo scalo Comiso”",
+      "summary": "Sono sospese tutte le attività di volo in partenza e in arrivo all’aeroporto di Catania fino alle 11 di domani 12 agosto",
+      "date": "2026-08-11T15:28:53Z",
+      "link": "https://www.grandangoloagrigento.it/catania/etna-ancora-disagi-in-aeroporto-schifani-potenzieremo-scalo-comiso",
+      "img": "/feed-images/f9a1a27bb0ba6de4.jpg"
+    },
+    {
+      "title": "Sicilia nella morsa degli incendi, la Giunta dichiara lo stato di emergenza regionale",
+      "summary": "E’ quanto si legge in una nota della Regione Siciliana.",
+      "date": "2026-08-11T15:22:01Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/sicilia-nella-morsa-degli-incendi-la-giunta-dichiara-lo-stato-di-emergenza-regionale",
+      "img": "/feed-images/ce9fd4f24d0fd844.jpg"
+    },
+    {
+      "title": "Rifiuti di Canicattì dirottati da Gela a Catania, Corbo: “Inaccettabile, la Regione ci ripensi”",
+      "summary": "Il primo cittadino annuncia anche azioni legali dell’ente contro l’assessorato",
+      "date": "2026-08-11T15:00:34Z",
+      "link": "https://www.grandangoloagrigento.it/canicatti/rifiuti-di-canicatti-dirottati-da-gela-a-catania-corbo-inaccettabile-la-regione-ci-ripensi",
+      "img": "/feed-images/4f7cb497215a9531.jpg"
+    },
     {
       "title": "Detenuto agrigentino protesta per avere cella singola e viene sanzionato, ricorso alla Consulta",
       "summary": "La vicenda riguarda un agrigentino, detenuto a Padova dove sta scontando una pena di 30 anni per omicidio",
@@ -184,34 +212,6 @@
       "date": "2026-08-10T20:21:27Z",
       "link": "https://www.grandangoloagrigento.it/notizie-licata/licata-morto-a-77-anni-il-cronista-angelo-vecchio",
       "img": "/feed-images/65010b03410dd4a0.jpg"
-    },
-    {
-      "title": "Acqua, l’Ati vuole un commissario per le reti di Camastra, il sindaco: “Resisteremo”",
-      "summary": "Il primo cittadino Dario Gaglio chiede uno stop del provvedimento nelle more dell’esito del ricorso al Cga",
-      "date": "2026-08-10T18:05:00Z",
-      "link": "https://www.grandangoloagrigento.it/camastra-2/acqua-lati-vuole-un-commissario-per-le-reti-di-camastra-il-sindaco-resisteremo",
-      "img": "/feed-images/3e83f9c492971dfa.jpg"
-    },
-    {
-      "title": "“Pratiche irregolari dei privati”, dalla Regione fondi per finanziare sette nuove autobotti pubbliche",
-      "summary": "Il servizio servirà per garantire l’accesso all’acqua potabile anche a tutte quelle utenze che si trovano in territori non serviti da una efficiente rete idrica",
-      "date": "2026-08-10T16:41:34Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crisi-idrica-nellagrigentino-dalla-regione-oltre-700mila-euro-per-finanziare-sette-nuove-autobotti",
-      "img": "/feed-images/f98b8d224f57421e.jpg"
-    },
-    {
-      "title": "Etna, sospesi tutti i voli all’aeroporto di Catania fino alle 6 di domani",
-      "summary": "Sono sospese tutte le attività di volo in partenza e in arrivo all’aeroporto di Catania fino alle ore 6 di domani",
-      "date": "2026-08-10T16:40:38Z",
-      "link": "https://www.grandangoloagrigento.it/catania/etna-sospesi-tutti-i-voli-allaeroporto-di-catania-fino-alle-6-di-domani",
-      "img": "/feed-images/0f4689de5b1d9fb2.jpg"
-    },
-    {
-      "title": "Serie D, esordio casalingo per Favara e Licata: ecco il calendario",
-      "summary": "Ecco tutti gli impegni del CastrumFavara e del Licata nella nuova stagione del campionato di Serie D",
-      "date": "2026-08-10T16:38:03Z",
-      "link": "https://www.grandangoloagrigento.it/sport/serie-d-esordio-casalingo-per-favara-e-licata-ecco-il-calendario",
-      "img": "/feed-images/3d1a9d3074804eae.jpg"
     }
   ]
 }
