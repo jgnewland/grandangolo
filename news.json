@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-11T09:41:18.422572+00:00",
+  "updated": "2026-08-11T10:33:53.070540+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Rifiuti e degrado nel cuore del centro storico: la segnalazione di un cittadino",
+      "summary": "Una discarica di rifiuti tra la Via Belguardo e la discesa di Via Matteotti",
+      "date": "2026-08-11T10:16:34Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/rifiuti-e-degrado-nel-cuore-del-centro-storico-la-segnalazione-di-un-cittadino",
+      "img": "/feed-images/d133799e80a0e343.jpg"
+    },
     {
       "title": "Agrigento, l’Arcivescovo Damiano comunica i nuovi avvicendamenti pastorali",
       "summary": "Nomine che entreranno in vigore nel mese di settembre",
@@ -205,13 +212,6 @@
       "date": "2026-08-10T10:23:08Z",
       "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/palermo-braccio-fuori-dal-finestrino-si-incastra-in-una-ringhiera-del-tram-una-56enne-perde-larto",
       "img": "/feed-images/081ecc7a9ee4b073.jpg"
-    },
-    {
-      "title": "Pestati a sangue dal branco con catene e tirapugni, 3 minorenni in ospedale",
-      "summary": "La rissa fuori da un locale della movida. Ad avere la peggio due fratelli di Santa Margherita Belice e un minorenne di Montevago",
-      "date": "2026-08-10T10:21:10Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/pestati-a-sangue-dal-branco-con-catene-e-tirapugni-3-minorenni-in-ospedale",
-      "img": "/feed-images/526aa362e02d2783.jpg"
     }
   ]
 }
