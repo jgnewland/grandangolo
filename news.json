@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-11T03:59:20.636284+00:00",
+  "updated": "2026-08-11T05:15:23.249767+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Sorpreso con 30 grammi di cocaina in dosi, denunciato 55enne licatese",
+      "summary": "L’uomo è stato sorpreso dai carabinieri, impegnati in un controllo del territorio, in possesso di circa 30 grammi di cocaina",
+      "date": "2026-08-11T05:05:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/sorpreso-con-30-grammi-di-cocaina-in-dosi-denunciato-55enne-licatese",
+      "img": "/feed-images/1dd7e223e2df3f40.jpg"
+    },
+    {
+      "title": "Vìola divieto di avvicinamento ai genitori per chiedere soldi, arrestato 23enne",
+      "summary": "Un ventitreenne di Licata è stato arrestato in flagranza dai carabinieri per aver violato il divieto di avvicinamento ai genitori al quale era sottoposto",
+      "date": "2026-08-11T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/viola-divieto-di-avvicinamento-ai-genitori-per-chiedere-soldi-arrestato-23enne",
+      "img": "/feed-images/b57f226870711307.jpg"
+    },
     {
       "title": "Licata, morto a 77 anni il cronista Angelo Vecchio",
       "summary": "Il mondo del giornalismo perde una figura importante",
@@ -198,20 +212,6 @@
       "date": "2026-08-10T04:40:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/maltrattamenti-in-una-struttura-per-i-disabili-sette-indagati",
       "img": "/feed-images/9ac02f5781e11f1a.jpg"
-    },
-    {
-      "title": "Licata, svuota serbatoi dei treni e fugge in monopattino: denunciato",
-      "summary": "L’uomo deve rispondere del reato di truffa",
-      "date": "2026-08-10T04:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/notizie-licata/licata-svuota-serbatoi-dei-treni-e-fugge-in-monopattino-denunciato",
-      "img": "/feed-images/41f6c2b0abe5ef79.jpg"
-    },
-    {
-      "title": "Si perdono in moto nelle campagne di Sant’Angelo Muxaro, recuperati dopo ore di ricerche",
-      "summary": "Una giornata dedicata alla scoperta dell’entroterra agrigentino si è trasformata in ore di apprensione per una coppia di motociclisti partiti da Agrigento",
-      "date": "2026-08-09T17:29:58Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/si-perdono-in-moto-nelle-campagne-di-santangelo-muxaro-recuperati-dopo-ore-di-ricerche",
-      "img": "/feed-images/8512ba1f36f66108.jpg"
     }
   ]
 }
