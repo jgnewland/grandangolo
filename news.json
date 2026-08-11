@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-11T11:30:03.642438+00:00",
+  "updated": "2026-08-11T12:24:43.501087+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Costanza I di Sicilia, Aricò: “la nave resta a Lampedusa e coprirà la tratta con Porto Empedocle”",
+      "summary": "L’assessore regionale alle infrastrutture e alla mobilità smentisce le notizie su eventuali trasferimenti della nave a Pantelleria.",
+      "date": "2026-08-11T11:46:21Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/costanza-i-di-sicilia-arico-la-nave-resta-a-lampedusa-e-coprira-la-tratta-con-porto-empedocle",
+      "img": "/feed-images/e4e17f734e10ddea.jpg"
+    },
+    {
+      "title": "Teatri di Pietra, dal 12 al 20 agosto il festival in scena tra Eraclea Minoa e Caltabellotta",
+      "summary": "Dal 12 al 20 agosto in scena “Medea”, “Riccardo III. Il potere a pezzi” e “Nuvole”, tra tragedia greca, Shakespeare e commedia classica",
+      "date": "2026-08-11T11:33:35Z",
+      "link": "https://www.grandangoloagrigento.it/cultura/teatri-di-pietra-dal-12-al-20-agosto-il-festival-in-scena-tra-eraclea-minoa-e-caltabellotta",
+      "img": "/feed-images/a701bfa5518021eb.jpg"
+    },
     {
       "title": "Due giovani accoltellati sul lungomare di Gela, indagini",
       "summary": "E’ successo al culmine di una lite verificatasi sul lungomare Federico II di Svevia, mentre era in corso la manifestazione “La notte delle stelle”",
@@ -198,20 +212,6 @@
       "date": "2026-08-10T14:02:38Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/aggredito-e-colpito-con-una-lama-operaio-in-ospedale",
       "img": "/feed-images/77fdeb1ebd4f8942.jpg"
-    },
-    {
-      "title": "Bar ritrovo abituale di pregiudicati: sospesa attività",
-      "summary": "A firmare il provvedimento è stato il questore di Catania",
-      "date": "2026-08-10T13:50:13Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/bar-ritrovo-di-pregiudicati-sospesa-attivita",
-      "img": "/feed-images/3234b916f7fdf114.jpg"
-    },
-    {
-      "title": "Regista travolto e ucciso da gommone a Lampedusa, due indagati",
-      "summary": "Si tratta di un 72enne e una 69enne, entrambi originari e residenti a Roma, per l’ipotesi di reato di omicidio nautico",
-      "date": "2026-08-10T13:06:37Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/regista-travolto-e-ucciso-da-gommone-a-lampedusa-due-indagati",
-      "img": "/feed-images/7b81d934c462596b.jpg"
     }
   ]
 }
