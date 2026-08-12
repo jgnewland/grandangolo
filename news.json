@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-12T13:12:51.090078+00:00",
+  "updated": "2026-08-12T14:33:02.143705+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tragedia a Punta Bianca, uomo muore in mare: si ipotizza un malore",
+      "summary": "Secondo le prime informazioni, l’uomo avrebbe accusato un malore mentre si trovava in acqua e stava nuotando.",
+      "date": "2026-08-12T14:11:54Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/tragedia-a-punta-bianca-uomo-muore-in-mare-si-ipotizza-un-malore",
+      "img": "/feed-images/c1d01d8db7ed553a.jpg"
+    },
     {
       "title": "Etna, voli sospesi a Catania fino alle 16 di domani 13 agosto",
       "summary": "Torna operativo l’aeroporto di Comiso dopo la chiusura di questa mattina",
@@ -205,13 +212,6 @@
       "date": "2026-08-12T05:05:00Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/forzano-lauto-di-consigliere-comunale-a-maddalusa-rubati-200-euro",
       "img": "/feed-images/53c81db6472a0180.png"
-    },
-    {
-      "title": "Maltrattamenti alla compagna, arrestato 35enne a Canicattì",
-      "summary": "Il magistrato di Sorveglianza ha disposto la sospensione dell’affidamento in prova sostituendola con la custodia in carcere",
-      "date": "2026-08-12T05:04:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/maltrattamenti-alla-compagna-arrestato-35enne-a-canicatti",
-      "img": "/feed-images/2ee5756c4fcb3f13.jpg"
     }
   ]
 }
