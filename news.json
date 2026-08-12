@@ -1,14 +1,35 @@
 {
-  "updated": "2026-08-12T11:57:29.971698+00:00",
+  "updated": "2026-08-12T13:12:51.090078+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Etna, voli sospesi a Catania fino alle 16 di domani 13 agosto",
+      "summary": "Torna operativo l’aeroporto di Comiso dopo la chiusura di questa mattina",
+      "date": "2026-08-12T12:50:41Z",
+      "link": "https://www.grandangoloagrigento.it/catania/etna-voli-sospesi-a-catania-fino-alle-16-di-domani-13-agosto",
+      "img": ""
+    },
+    {
+      "title": "Agrigento, bloccato sul tetto per recuperare 5 euro: giovane salvato dai vigili del fuoco",
+      "summary": "Protagonista della vicenda, che ha fatto scattare l’allarme, è stato un minorenne agrigentino. Il fatto è avvenuto nel quartiere del Quadrivio, ad Agrigento",
+      "date": "2026-08-12T12:45:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-bloccato-sul-tetto-per-recuperare-5-euro-giovane-salvato-dai-vigili-del-fuoco",
+      "img": "/feed-images/b76e4eed3526f23c.jpg"
+    },
     {
       "title": "Regista travolto e ucciso da gommone a Lampedusa, l’autopsia: “Forti traumi dorsali”",
       "summary": "Il reato di omicidio nautico è stato aggravato alla fine del 2023 e viene comparato a quello stradale. I due indagati rischiano una condanna dai due ai sette anni",
       "date": "2026-08-12T11:16:06Z",
       "link": "https://www.grandangoloagrigento.it/apertura/regista-travolto-e-ucciso-da-gommone-a-lampedusa-lautopsia-forti-traumi-dorsali",
       "img": "/feed-images/2c8b07232ded7dc4.jpg"
+    },
+    {
+      "title": "Otto anni fa la scomparsa di Gessica Lattuca, Palumbo: “Non ho mai smesso di sperare”",
+      "summary": "La nota del sindaco di Favara, Antonio Palumbo",
+      "date": "2026-08-12T11:03:00Z",
+      "link": "https://www.grandangoloagrigento.it/favara/otto-anni-fa-la-scomparsa-di-gessica-lattuca-palumbo-non-ho-mai-smesso-di-sperare",
+      "img": "/feed-images/1c5f564c3376242e.jpg"
     },
     {
       "title": "Etna, ministro Musumeci: “Fuori posto è l’aeroporto e non il vulcano”",
@@ -191,27 +212,6 @@
       "date": "2026-08-12T05:04:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/maltrattamenti-alla-compagna-arrestato-35enne-a-canicatti",
       "img": "/feed-images/2ee5756c4fcb3f13.jpg"
-    },
-    {
-      "title": "Otto anni fa la scomparsa di Gessica Lattuca, Palumbo: “Non ho mai smesso di sperare”",
-      "summary": "La nota del sindaco di Favara, Antonio Palumbo",
-      "date": "2026-08-12T05:03:44Z",
-      "link": "https://www.grandangoloagrigento.it/favara/otto-anni-fa-la-scomparsa-di-gessica-lattuca-palumbo-non-ho-mai-smesso-di-sperare",
-      "img": "/feed-images/1c5f564c3376242e.jpg"
-    },
-    {
-      "title": "Maxi furto di rame nell’Agrigentino, danni per 50 mila euro",
-      "summary": "Sono stati asportati quasi 4 chilometri di cavi in rame per un danno che, secondo una prima stima, ammonterebbe a circa 50 mila euro",
-      "date": "2026-08-12T05:02:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maxi-furto-di-rame-nellagrigentino-danni-per-50-mila-euro",
-      "img": "/feed-images/bd873bd9da6190bf.jpg"
-    },
-    {
-      "title": "Agrigento, servizi di raccolta rifiuti: cosa cambia nella settimana di Ferragosto",
-      "summary": "Si invita pertanto l’utenza a rispettare le giornate e le tipologie di rifiuti previste per il conferimento, al fine di garantire il corretto svolgimento del servizio",
-      "date": "2026-08-11T17:23:03Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-servizi-di-raccolta-rifiuti-cosa-cambia-nella-settimana-di-ferragosto",
-      "img": "/feed-images/145a619bd9013472.jpg"
     }
   ]
 }
