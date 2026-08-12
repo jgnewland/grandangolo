@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-12T11:03:14.656108+00:00",
+  "updated": "2026-08-12T11:57:29.971698+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Regista travolto e ucciso da gommone a Lampedusa, l’autopsia: “Forti traumi dorsali”",
+      "summary": "Il reato di omicidio nautico è stato aggravato alla fine del 2023 e viene comparato a quello stradale. I due indagati rischiano una condanna dai due ai sette anni",
+      "date": "2026-08-12T11:16:06Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/regista-travolto-e-ucciso-da-gommone-a-lampedusa-lautopsia-forti-traumi-dorsali",
+      "img": "/feed-images/2c8b07232ded7dc4.jpg"
+    },
     {
       "title": "Etna, ministro Musumeci: “Fuori posto è l’aeroporto e non il vulcano”",
       "summary": "Così il ministro per la Protezione civile, Nello Musumeci, che sottolinea come “ad essere fuori posto” non sia “il vulcano ma l’aeroporto”",
@@ -39,7 +46,7 @@
       "img": "/feed-images/0b049360b9009b03.webp"
     },
     {
-      "title": "Paziente intossicato da farmaci, nuovo intervento salvavita del servizio antiveleni ASP di Agrigento",
+      "title": "Intossicato da farmaci, nuovo intervento salvavita del servizio antiveleni ASP di Agrigento",
       "summary": "«Questi interventi – sottolinea il dottor Giuseppe Bellavia – dimostrano concretamente il valore di una rete organizzata»",
       "date": "2026-08-12T10:27:57Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/paziente-intossicato-da-farmaci-nuovo-intervento-salvavita-del-servizio-antiveleni-asp-di-agrigento",
@@ -196,7 +203,7 @@
       "title": "Maxi furto di rame nell’Agrigentino, danni per 50 mila euro",
       "summary": "Sono stati asportati quasi 4 chilometri di cavi in rame per un danno che, secondo una prima stima, ammonterebbe a circa 50 mila euro",
       "date": "2026-08-12T05:02:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/maxi-furto-di-rame-nellagrigentino-danni-per-50-mila-euro",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maxi-furto-di-rame-nellagrigentino-danni-per-50-mila-euro",
       "img": "/feed-images/bd873bd9da6190bf.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-11T17:23:03Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-servizi-di-raccolta-rifiuti-cosa-cambia-nella-settimana-di-ferragosto",
       "img": "/feed-images/145a619bd9013472.jpg"
-    },
-    {
-      "title": "Il tentato omicidio di un minorenne a San Leone, accertamenti sui cellulari sequestrati",
-      "summary": "Per gli inquirenti, infatti, è fondamentale capire i motivi che hanno portato alla rissa, sfociata poi in tentato omicidio, tra un gruppo di ragazzini e un ventiseienne",
-      "date": "2026-08-11T16:29:14Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/il-tentato-omicidio-di-un-minorenne-a-san-leone-accertamenti-sui-cellulari-sequestrati",
-      "img": "/feed-images/e69bbb33367100a9.jpg"
     }
   ]
 }
