@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-12T16:35:42.959633+00:00",
+  "updated": "2026-08-12T17:41:21.337338+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Etna, Schifani: “Regione attiva per alleviare i disagi dei passeggeri”",
+      "summary": "Nel dettaglio tutte le informazioni sui collegamenti attivi",
+      "date": "2026-08-12T16:37:59Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia/etna-schifani-regione-attiva-per-alleviare-i-disagi-dei-passeggeri",
+      "img": "/feed-images/e268d1079f5a757c.jpg"
+    },
     {
       "title": "Etna, in quattro giorni saltati 700 voli all’aeroporto di Catania",
       "summary": "Dall’8 all’11 agosto a causa dell’eruzione dell’Etna sono saltati all’aeroporto di Catania, tra mancati arrivi e partenze e cancellazioni, circa 700 voli",
@@ -205,13 +212,6 @@
       "date": "2026-08-12T06:11:52Z",
       "link": "https://www.grandangoloagrigento.it/comitini/recital-gianfranco-jannuzzo-porta-il-suo-spettacolo-a-comitini",
       "img": "/feed-images/62d6604c2cb70ae8.jpg"
-    },
-    {
-      "title": "Mezzo chilo di droga e pistola con matricola abrasa, arrestato ventenne",
-      "summary": "I Carabinieri hanno rinvenuto una pistola Beretta modello 34 con matricola abrasa, fornita di 3 caricatori e 29 proiettili calibro 7,65",
-      "date": "2026-08-12T05:27:58Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/mezzo-chilo-di-droga-e-pistola-con-matricola-abrasa-arrestato-ventenne",
-      "img": "/feed-images/58f86c2f61de13c7.jpg"
     }
   ]
 }
