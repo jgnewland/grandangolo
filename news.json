@@ -1,8 +1,43 @@
 {
-  "updated": "2026-08-12T05:53:41.910470+00:00",
+  "updated": "2026-08-12T07:18:41.439124+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tende e falò in spiaggia, maxi controllo della Guardia Costiera a Licata",
+      "summary": "Alcuni soggetti sono stati sanzionati per l’accensione non autorizzata di fuochi e falò presso la spiaggia in località Playa",
+      "date": "2026-08-12T07:10:09Z",
+      "link": "https://www.grandangoloagrigento.it/notizie-licata/tende-e-falo-in-spiaggia-maxi-controllo-della-guardia-costiera-a-licata",
+      "img": "/feed-images/da234ac56ae5b313.jpg"
+    },
+    {
+      "title": "Siculiana tra le grandi mete turistiche della provincia, Zambito: “grande risultato”",
+      "summary": "I dati ISTAT collocano Siculiana al 6º posto subito dopo Lampedusa",
+      "date": "2026-08-12T07:02:49Z",
+      "link": "https://www.grandangoloagrigento.it/siculiana/siculiana-tra-le-grandi-mete-turistiche-della-provincia",
+      "img": "/feed-images/fe65c865f76dee8f.jpg"
+    },
+    {
+      "title": "Continue interruzioni di energia a San Leone, residenti protestano e diffidano Enel",
+      "summary": "I cittadini lamentano una sistematica riduzione della tensione che, per gran parte della giornata, impedisce il regolare funzionamento degli elettrodomestici e delle apparecchiature",
+      "date": "2026-08-12T06:44:20Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/continue-interruzioni-di-energia-a-san-leone-residenti-protestano-e-diffidano-enel",
+      "img": "/feed-images/5e77a5abdff1875e.jpg"
+    },
+    {
+      "title": "Etna, ancora disagi: sospesi i voli sia a Catania che Comiso",
+      "summary": "All’aeroporto di Catania stop dei voli fino alle 18 mentre a Comiso fino alle 10",
+      "date": "2026-08-12T06:31:30Z",
+      "link": "https://www.grandangoloagrigento.it/catania/etna-ancora-disagi-sospesi-i-voli-sia-a-catania-che-comiso",
+      "img": "/feed-images/0f4689de5b1d9fb2.jpg"
+    },
+    {
+      "title": "“Recital”, Gianfranco Jannuzzo porta il suo spettacolo a Comitini",
+      "summary": "Lo spettacolo che sarà portato in scena nella piazza Umberto I di Comitini è gratuito, fino ad esaurimento posti",
+      "date": "2026-08-12T06:11:52Z",
+      "link": "https://www.grandangoloagrigento.it/comitini/recital-gianfranco-jannuzzo-porta-il-suo-spettacolo-a-comitini",
+      "img": "/feed-images/62d6604c2cb70ae8.jpg"
+    },
     {
       "title": "Mezzo chilo di droga e pistola con matricola abrasa, arrestato ventenne",
       "summary": "I Carabinieri hanno rinvenuto una pistola Beretta modello 34 con matricola abrasa, fornita di 3 caricatori e 29 proiettili calibro 7,65",
@@ -177,41 +212,6 @@
       "date": "2026-08-11T10:16:34Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/rifiuti-e-degrado-nel-cuore-del-centro-storico-la-segnalazione-di-un-cittadino",
       "img": "/feed-images/d133799e80a0e343.jpg"
-    },
-    {
-      "title": "Agrigento, l’Arcivescovo Damiano comunica i nuovi avvicendamenti pastorali",
-      "summary": "Nomine che entreranno in vigore nel mese di settembre",
-      "date": "2026-08-11T09:16:20Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/agrigento-larcivescovo-damiano-comunica-i-nuovi-avvicendamenti-pastorali",
-      "img": "/feed-images/3eb4f9c708870090.jpg"
-    },
-    {
-      "title": "Oltre un chilo di droga in garage, arrestato un giovane",
-      "summary": "L’ingente quantitativo di droga è stato sottoposto a sequestro",
-      "date": "2026-08-11T09:11:54Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/oltre-un-chilo-di-droga-in-garage-arrestato-un-giovane",
-      "img": "/feed-images/780f5b57d318db1e.jpg"
-    },
-    {
-      "title": "Annullato precetto da oltre 34mila euro, la Banca non prova la cessione del credito",
-      "summary": "Importante pronuncia del Tribunale di Agrigento in materia di contenzioso bancario.",
-      "date": "2026-08-11T09:09:01Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/annullato-precetto-da-oltre-34mila-euro-la-banca-non-prova-la-cessione-del-credito",
-      "img": "/feed-images/9a8f7c03a5976b2c.jpg"
-    },
-    {
-      "title": "Droga e armi allo Zen, tre arresti",
-      "summary": "Nel corso delle operazioni, all’interno di un box adibito al gioco del biliardo, sono stati trovati 200 grammi di hashish.",
-      "date": "2026-08-11T09:04:42Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/droga-e-armi-allo-zen-tre-arresti",
-      "img": "/feed-images/40498edc9149075a.jpg"
-    },
-    {
-      "title": "Porto abusivo d’armi: arrestato 41enne",
-      "summary": "L’uomo è stato posto ai domiciliari.",
-      "date": "2026-08-11T09:02:09Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/porto-abusivo-darmi-arrestato-41enne",
-      "img": "/feed-images/d7c32ef565038298.jpg"
     }
   ]
 }
