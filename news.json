@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-13T13:25:25.587295+00:00",
+  "updated": "2026-08-13T15:37:53.201239+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "AICA, nuovo servizio “Stato richiesta autobotte” sul sito aziendale",
+      "summary": "Pensato per consentire la verifica in tempo reale dell’avanzamento delle richieste di approvvigionamento idrico sostitutivo tramite autobotte",
+      "date": "2026-08-13T15:17:58Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/aica-nuovo-servizio-stato-richiesta-autobotte-sul-sito-aziendale",
+      "img": "/feed-images/1bb359f3b98f9418.jpg"
+    },
+    {
+      "title": "Accusa malore al ristorante, turista salvato dagli operatori del 118",
+      "summary": "Grazie all’utilizzo del defibrillatore è stato possibile ristabilire l’attività cardiaca dell’uomo",
+      "date": "2026-08-13T14:31:58Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/lampedusa-turista-colto-da-malore-in-un-ristorante-salvato-dai-sanitari-del-118",
+      "img": "/feed-images/86d5446c0548bb04.jpg"
+    },
     {
       "title": "Crollo Messina, concluse le ricerche dei Vigili del Fuoco: stasera riapre via La Pira",
       "summary": "Con la conclusione delle operazioni, è prevista per la serata di oggi la riapertura al traffico di via Giorgio La Pira, dopo le restrizioni adottate nelle ultime settimane.",
@@ -43,7 +57,7 @@
       "summary": "Le vittime sono l’operaio Davide Anselmo e l’operatore del 118 Francesco Bulgarella.",
       "date": "2026-08-13T10:36:06Z",
       "link": "https://www.grandangoloagrigento.it/apertura/esalazioni-dal-depuratore-morti-operaio-e-soccorritore-del-118",
-      "img": "/feed-images/21fc780d1ca8e445.webp"
+      "img": "/feed-images/27f211dfe26dba24.jpg"
     },
     {
       "title": "Licata, marito e moglie sorpresi con due chili di marijuana e mezzo chilo di hashish",
@@ -168,7 +182,7 @@
       "title": "Era latitante da quasi due mesi, 41enne agrigentino si consegna in carcere",
       "summary": "Aveva fatto perdere le sue tracce lo scorso 25 giugno quando, in permesso, piuttosto che recarsi in una comunità terapeutica a Santa Margherita Belice si era dato alla fuga",
       "date": "2026-08-13T05:09:37Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/era-latitante-da-quasi-due-mesi-41enne-agrigentino-si-consegna-in-carcere",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/era-latitante-da-quasi-due-mesi-41enne-agrigentino-si-consegna-in-carcere",
       "img": "/feed-images/a31e69cfd068ea09.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-12T14:11:54Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/tragedia-a-punta-bianca-uomo-muore-in-mare-si-ipotizza-un-malore",
       "img": "/feed-images/128ecf75dab3e284.jpg"
-    },
-    {
-      "title": "Agrigento, bloccato sul tetto per recuperare 5 euro: giovane salvato dai vigili del fuoco",
-      "summary": "Protagonista della vicenda, che ha fatto scattare l’allarme, è stato un minorenne agrigentino. Il fatto è avvenuto nel quartiere del Quadrivio, ad Agrigento",
-      "date": "2026-08-12T14:10:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-bloccato-sul-tetto-per-recuperare-5-euro-giovane-salvato-dai-vigili-del-fuoco",
-      "img": "/feed-images/b76e4eed3526f23c.jpg"
-    },
-    {
-      "title": "In casa con due pistole e quasi 100 munizioni in casa, arrestato 50enne a Licata",
-      "summary": "L’uomo, oltre che per il reato di detenzione di armi, è indagato anche per una estorsione di 20 mila euro alla sorella",
-      "date": "2026-08-12T14:09:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-casa-con-due-pistole-e-quasi-100-munizioni-in-casa-arrestato-50enne-a-licata",
-      "img": "/feed-images/d6aa9f0d84258f12.jpg"
     }
   ]
 }
