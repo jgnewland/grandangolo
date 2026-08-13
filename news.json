@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-13T11:59:03.492374+00:00",
+  "updated": "2026-08-13T13:25:25.587295+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Crollo Messina, concluse le ricerche dei Vigili del Fuoco: stasera riapre via La Pira",
+      "summary": "Con la conclusione delle operazioni, è prevista per la serata di oggi la riapertura al traffico di via Giorgio La Pira, dopo le restrizioni adottate nelle ultime settimane.",
+      "date": "2026-08-13T13:07:59Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/crollo-messina-concluse-le-ricerche-dei-vigili-del-fuoco-stasera-riapre-via-la-pira",
+      "img": "/feed-images/21552a55758acf39.jpg"
+    },
     {
       "title": "Promozione turistica di Agrigento, Peppe Mendola esperto personale del sindaco Sodano",
       "summary": "Mendola è uno dei più autorevoli professionisti agrigentini del settore turistico, con una lunga e consolidata esperienza nella progettazione e promozione delle destinazioni, nel marketing…",
@@ -205,13 +212,6 @@
       "date": "2026-08-12T14:09:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-casa-con-due-pistole-e-quasi-100-munizioni-in-casa-arrestato-50enne-a-licata",
       "img": "/feed-images/d6aa9f0d84258f12.jpg"
-    },
-    {
-      "title": "Etna, voli sospesi a Catania fino alle 16 di domani 13 agosto",
-      "summary": "Torna operativo l’aeroporto di Comiso dopo la chiusura di questa mattina",
-      "date": "2026-08-12T12:50:41Z",
-      "link": "https://www.grandangoloagrigento.it/catania/etna-voli-sospesi-a-catania-fino-alle-16-di-domani-13-agosto",
-      "img": ""
     }
   ]
 }
