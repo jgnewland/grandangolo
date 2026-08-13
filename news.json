@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-13T05:54:35.549020+00:00",
+  "updated": "2026-08-13T07:20:59.491150+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Akragas, Rigoli: “Il settore giovanile è quasi pronto, l’obiettivo è portare i ragazzi in prima squadra”",
+      "summary": "L’Under 19 è già completa al 90%. Il direttore tecnico Pino Rigoli illustra il progetto del vivaio biancazzurro: attenzione ai talenti di Agrigento e provincia e obiettivo prima squadra.",
+      "date": "2026-08-13T06:56:56Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-settore-giovanile-rigoli-giovani-prima-squadra",
+      "img": "/feed-images/fd5bb59c20a807ee.jpg"
+    },
     {
       "title": "Incivili in azione a Realmonte, il sindaco: “Fate schifo”",
       "summary": "Le parole del sindaco sull’azione di alcuni incivili che hanno abbandonato rifiuti di ogni tipo lungo una strada del Comune della Scala dei Turchi",
@@ -11,18 +18,18 @@
       "img": "/feed-images/05872015c24e7916.jpg"
     },
     {
+      "title": "Minicar rubata e poi ritrovata bruciata a Favara, indagini",
+      "summary": "Il veicolo, di proprietà di un impiegato quarantacinquenne ma in uso alla figlia quindicenne, è stato rinvenuto completamente distrutto dalle fiamme",
+      "date": "2026-08-13T05:10:03Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/minicar-rubata-e-poi-ritrovata-bruciata-a-favara-indagini",
+      "img": "/feed-images/128fba48a095b0cc.jpg"
+    },
+    {
       "title": "Era latitante da quasi due mesi, 41enne agrigentino si consegna in carcere",
       "summary": "Aveva fatto perdere le sue tracce lo scorso 25 giugno quando, in permesso, piuttosto che recarsi in una comunità terapeutica a Santa Margherita Belice si era dato alla fuga",
       "date": "2026-08-13T05:09:37Z",
       "link": "https://www.grandangoloagrigento.it/apertura/era-latitante-da-quasi-due-mesi-41enne-agrigentino-si-consegna-in-carcere",
       "img": "/feed-images/a31e69cfd068ea09.jpg"
-    },
-    {
-      "title": "Minicar rubata e poi ritrovata bruciata a Favara, indagini",
-      "summary": "Il veicolo, di proprietà di un impiegato quarantacinquenne ma in uso alla figlia quindicenne, è stato rinvenuto completamente distrutto dalle fiamme",
-      "date": "2026-08-13T05:00:03Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/minicar-rubata-e-poi-ritrovata-bruciata-a-favara-indagini",
-      "img": "/feed-images/128fba48a095b0cc.jpg"
     },
     {
       "title": "Etna, Schifani: “Regione attiva per alleviare i disagi dei passeggeri”",
@@ -205,13 +212,6 @@
       "date": "2026-08-12T07:10:09Z",
       "link": "https://www.grandangoloagrigento.it/notizie-licata/tende-e-falo-in-spiaggia-maxi-controllo-della-guardia-costiera-a-licata",
       "img": "/feed-images/da234ac56ae5b313.jpg"
-    },
-    {
-      "title": "Siculiana tra le grandi mete turistiche della provincia, Zambito: “Grande risultato”",
-      "summary": "I dati ISTAT collocano Siculiana al 6º posto subito dopo Lampedusa",
-      "date": "2026-08-12T07:02:49Z",
-      "link": "https://www.grandangoloagrigento.it/siculiana/siculiana-tra-le-grandi-mete-turistiche-della-provincia",
-      "img": "/feed-images/fe65c865f76dee8f.jpg"
     }
   ]
 }
