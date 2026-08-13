@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-13T04:20:11.869192+00:00",
+  "updated": "2026-08-13T05:54:35.549020+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Incivili in azione a Realmonte, il sindaco: “Fate schifo”",
+      "summary": "Le parole del sindaco sull’azione di alcuni incivili che hanno abbandonato rifiuti di ogni tipo lungo una strada del Comune della Scala dei Turchi",
+      "date": "2026-08-13T05:39:31Z",
+      "link": "https://www.grandangoloagrigento.it/realmonte/incivili-in-azione-a-realmonte-il-sindaco-fate-schifo",
+      "img": "/feed-images/05872015c24e7916.jpg"
+    },
+    {
+      "title": "Era latitante da quasi due mesi, 41enne agrigentino si consegna in carcere",
+      "summary": "Aveva fatto perdere le sue tracce lo scorso 25 giugno quando, in permesso, piuttosto che recarsi in una comunità terapeutica a Santa Margherita Belice si era dato alla fuga",
+      "date": "2026-08-13T05:09:37Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/era-latitante-da-quasi-due-mesi-41enne-agrigentino-si-consegna-in-carcere",
+      "img": "/feed-images/a31e69cfd068ea09.jpg"
+    },
+    {
+      "title": "Minicar rubata e poi ritrovata bruciata a Favara, indagini",
+      "summary": "Il veicolo, di proprietà di un impiegato quarantacinquenne ma in uso alla figlia quindicenne, è stato rinvenuto completamente distrutto dalle fiamme",
+      "date": "2026-08-13T05:00:03Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/minicar-rubata-e-poi-ritrovata-bruciata-a-favara-indagini",
+      "img": "/feed-images/128fba48a095b0cc.jpg"
+    },
     {
       "title": "Etna, Schifani: “Regione attiva per alleviare i disagi dei passeggeri”",
       "summary": "Nel dettaglio tutte le informazioni sui collegamenti attivi",
@@ -56,7 +77,7 @@
       "title": "Regista travolto e ucciso da gommone a Lampedusa, l’autopsia: “Forti traumi dorsali”",
       "summary": "Il reato di omicidio nautico è stato aggravato alla fine del 2023 e viene comparato a quello stradale. I due indagati rischiano una condanna dai due ai sette anni",
       "date": "2026-08-12T11:16:06Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/regista-travolto-e-ucciso-da-gommone-a-lampedusa-lautopsia-forti-traumi-dorsali",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/regista-travolto-e-ucciso-da-gommone-a-lampedusa-lautopsia-forti-traumi-dorsali",
       "img": "/feed-images/2c8b07232ded7dc4.jpg"
     },
     {
@@ -84,7 +105,7 @@
       "title": "Raid in un vigneto a Ravanusa, danni per oltre 150 mila euro",
       "summary": "Il danno, secondo una prima stima, ammonterebbe ad oltre 150 mila euro e non sarebbe coperto da assicurazione",
       "date": "2026-08-12T10:55:57Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/raid-in-un-vigneto-a-ravanusa-danni-per-oltre-150-mila-euro",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/raid-in-un-vigneto-a-ravanusa-danni-per-oltre-150-mila-euro",
       "img": "/feed-images/c25163892346c734.jpg"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-08-12T07:02:49Z",
       "link": "https://www.grandangoloagrigento.it/siculiana/siculiana-tra-le-grandi-mete-turistiche-della-provincia",
       "img": "/feed-images/fe65c865f76dee8f.jpg"
-    },
-    {
-      "title": "Continue interruzioni di energia a San Leone, residenti protestano e diffidano Enel",
-      "summary": "I cittadini lamentano una sistematica riduzione della tensione che, per gran parte della giornata, impedisce il regolare funzionamento degli elettrodomestici e delle apparecchiature",
-      "date": "2026-08-12T06:44:20Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/continue-interruzioni-di-energia-a-san-leone-residenti-protestano-e-diffidano-enel",
-      "img": "/feed-images/5e77a5abdff1875e.jpg"
-    },
-    {
-      "title": "Etna, ancora disagi: sospesi i voli sia a Catania che Comiso",
-      "summary": "All’aeroporto di Catania stop dei voli fino alle 18 mentre a Comiso fino alle 10",
-      "date": "2026-08-12T06:31:30Z",
-      "link": "https://www.grandangoloagrigento.it/catania/etna-ancora-disagi-sospesi-i-voli-sia-a-catania-che-comiso",
-      "img": "/feed-images/0f4689de5b1d9fb2.jpg"
-    },
-    {
-      "title": "“Recital”, Gianfranco Jannuzzo porta il suo spettacolo a Comitini",
-      "summary": "Lo spettacolo che sarà portato in scena nella piazza Umberto I di Comitini è gratuito, fino ad esaurimento posti",
-      "date": "2026-08-12T06:11:52Z",
-      "link": "https://www.grandangoloagrigento.it/comitini/recital-gianfranco-jannuzzo-porta-il-suo-spettacolo-a-comitini",
-      "img": "/feed-images/62d6604c2cb70ae8.jpg"
     }
   ]
 }
