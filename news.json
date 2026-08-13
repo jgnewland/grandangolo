@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-13T11:10:25.636823+00:00",
+  "updated": "2026-08-13T11:59:03.492374+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Promozione turistica di Agrigento, Peppe Mendola esperto personale del sindaco Sodano",
+      "summary": "Mendola è uno dei più autorevoli professionisti agrigentini del settore turistico, con una lunga e consolidata esperienza nella progettazione e promozione delle destinazioni, nel marketing…",
+      "date": "2026-08-13T11:54:35Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/promozione-turistica-di-agrigento-peppe-mendola-esperto-personale-del-sindaco-sodano",
+      "img": "/feed-images/881afaaadaa1e0fa.jpg"
+    },
+    {
+      "title": "Morto in un incidente stradale, i genitori di Danilo Acquisto devolvono 2.500 euro all’AIFVS-APS",
+      "summary": "Un dolore che hanno voluto trasformare in un gesto simbolico ma tanto carico di significato",
+      "date": "2026-08-13T11:50:42Z",
+      "link": "https://www.grandangoloagrigento.it/cianciana/morto-in-un-incidente-stradale-i-genitori-di-danilo-acquisto-devolvono-2-500-euro-allaifvs-aps",
+      "img": "/feed-images/6266a93c16d8d703.jpg"
+    },
+    {
+      "title": "Incidente sulla Palermo-Catania: ferito motociclista",
+      "summary": "Si registrano code nel territorio di Villabate",
+      "date": "2026-08-13T11:31:43Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/incidente-sulla-palermo-catania-ferito-motociclista",
+      "img": "/feed-images/63c2ae3a88fb755e.jpg"
+    },
     {
       "title": "Cantieri Anas, Gemme: “in Sicilia146 gli interventi in corso per 4,5 miliardi di euro”",
       "summary": "Il bilancio di Claudio Gemme amministratore delegato di Anas",
@@ -191,27 +212,6 @@
       "date": "2026-08-12T12:50:41Z",
       "link": "https://www.grandangoloagrigento.it/catania/etna-voli-sospesi-a-catania-fino-alle-16-di-domani-13-agosto",
       "img": ""
-    },
-    {
-      "title": "Regista travolto e ucciso da gommone a Lampedusa, l’autopsia: “Forti traumi dorsali”",
-      "summary": "Il reato di omicidio nautico è stato aggravato alla fine del 2023 e viene comparato a quello stradale. I due indagati rischiano una condanna dai due ai sette anni",
-      "date": "2026-08-12T11:16:06Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/regista-travolto-e-ucciso-da-gommone-a-lampedusa-lautopsia-forti-traumi-dorsali",
-      "img": "/feed-images/2c8b07232ded7dc4.jpg"
-    },
-    {
-      "title": "Otto anni fa la scomparsa di Gessica Lattuca, Palumbo: “Non ho mai smesso di sperare”",
-      "summary": "La nota del sindaco di Favara, Antonio Palumbo",
-      "date": "2026-08-12T11:03:00Z",
-      "link": "https://www.grandangoloagrigento.it/favara/otto-anni-fa-la-scomparsa-di-gessica-lattuca-palumbo-non-ho-mai-smesso-di-sperare",
-      "img": "/feed-images/1c5f564c3376242e.jpg"
-    },
-    {
-      "title": "Etna, ministro Musumeci: “Fuori posto è l’aeroporto e non il vulcano”",
-      "summary": "Così il ministro per la Protezione civile, Nello Musumeci, che sottolinea come “ad essere fuori posto” non sia “il vulcano ma l’aeroporto”",
-      "date": "2026-08-12T11:02:15Z",
-      "link": "https://www.grandangoloagrigento.it/catania/etna-ministro-musumeci-fuori-posto-e-laeroporto-e-non-il-vulcano",
-      "img": "/feed-images/81233c69674ffc0e.png"
     }
   ]
 }
