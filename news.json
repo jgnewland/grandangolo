@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-14T16:31:18.507620+00:00",
+  "updated": "2026-08-14T17:37:38.015130+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Cade da autocisterna durante manovre di scarico, morto 53enne",
+      "summary": "La vittima è Giuseppe Biundo di Gela",
+      "date": "2026-08-14T17:03:25Z",
+      "link": "https://www.grandangoloagrigento.it/caltanisetta/cade-da-autocisterna-durante-manovre-di-scarico-morto-53enne",
+      "img": "/feed-images/395b55d2efc53b62.jpg"
+    },
     {
       "title": "Scontro tra scooter e auto, morto 39enne",
       "summary": "La vittima, Vincenzo Merenda, era alla guida di una Vespa insieme ad una donna quando si è schiantato contro un’Audi",
@@ -16,6 +23,13 @@
       "date": "2026-08-14T16:27:36Z",
       "link": "https://www.grandangoloagrigento.it/sciacca/aica-ridotta-la-fornitura-idrica-nei-comuni-serviti-dallacquedotto-favara-di-burgio",
       "img": "/feed-images/ecedfa4dc8f6e63d.jpg"
+    },
+    {
+      "title": "Canicattì, si allontana da casa e fa perdere le sue tracce: al via le ricerche",
+      "summary": "Luigia Narbone 69anni si è allontanata ieri mattina dalla propria abitazione di Canicattì",
+      "date": "2026-08-14T16:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/canicatti-si-allontana-da-casa-e-fa-perdere-le-sue-tracce-al-via-le-ricerche",
+      "img": "/feed-images/cc55b90af469c146.jpg"
     },
     {
       "title": "Svaligiano gioielleria con un escavatore: caccia ai ladri",
@@ -46,7 +60,7 @@
       "img": "/feed-images/12f18c5ae532dba2.jpg"
     },
     {
-      "title": "Etna in eruzione, proseguono i disagi all’aeroporto Catania. Sospese le attività di volo a Comiso fino alle 18",
+      "title": "Etna in eruzione, proseguono i disagi all’aeroporto Catania. Riprese le attività di volo a Comiso",
       "summary": "La Sac invita i passeggeri, prima di recarsi in aeroporto, a verificare lo stato del proprio volo con le compagnie aeree.",
       "date": "2026-08-14T14:31:39Z",
       "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/etna-in-eruzione-proseguono-i-disagi-allaeroporto-catania-sospese-le-attivita-di-volo-a-comiso-fino-alle-16",
@@ -100,13 +114,6 @@
       "date": "2026-08-14T09:50:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/tragico-schianto-tra-due-auto-morto-21enne",
       "img": "/feed-images/5714046653d1651d.webp"
-    },
-    {
-      "title": "Canicattì, si allontana da casa e fa perdere le sue tracce: al via le ricerche",
-      "summary": "Luigia Narbone 69anni si è allontanata ieri mattina dalla propria abitazione di Canicattì",
-      "date": "2026-08-14T09:49:47Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-si-allontana-da-casa-e-fa-perdere-le-sue-tracce-al-via-le-ricerche",
-      "img": "/feed-images/cc55b90af469c146.jpg"
     },
     {
       "title": "Maltrattamenti in famiglia, minorenne licatese trasferito in comunità",
@@ -205,13 +212,6 @@
       "date": "2026-08-13T15:41:28Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/tatuaggi-in-estate-cura-e-protezione",
       "img": "/feed-images/44f3f09c648271db.jpg"
-    },
-    {
-      "title": "AICA, nuovo servizio “Stato richiesta autobotte” sul sito aziendale",
-      "summary": "Pensato per consentire la verifica in tempo reale dell’avanzamento delle richieste di approvvigionamento idrico sostitutivo tramite autobotte",
-      "date": "2026-08-13T15:17:58Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/aica-nuovo-servizio-stato-richiesta-autobotte-sul-sito-aziendale",
-      "img": "/feed-images/1bb359f3b98f9418.jpg"
     }
   ]
 }
