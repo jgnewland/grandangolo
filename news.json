@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-14T13:42:37.618825+00:00",
+  "updated": "2026-08-14T14:40:06.065664+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Notte di Ferragosto, il mare rimane la meta preferita degli agrigentini",
+      "summary": "Dai dati del nostro sondaggio lanciato sui social la meta preferita rimane il mare e la piscina",
+      "date": "2026-08-14T14:39:02Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/notte-di-ferragosto-il-mare-rimane-la-meta-preferita-degli-agrigentini",
+      "img": "/feed-images/12f18c5ae532dba2.jpg"
+    },
+    {
+      "title": "Etna in eruzione, proseguono i disagi all’aeroporto Catania. Sospese le attività di volo a Comiso fino alle 18",
+      "summary": "La Sac invita i passeggeri, prima di recarsi in aeroporto, a verificare lo stato del proprio volo con le compagnie aeree.",
+      "date": "2026-08-14T14:31:39Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/etna-in-eruzione-proseguono-i-disagi-allaeroporto-catania-sospese-le-attivita-di-volo-a-comiso-fino-alle-16",
+      "img": "/feed-images/00d66e9bfce6b8e9.jpg"
+    },
     {
       "title": "È morto l’editore e libraio Francesco Flaccovio",
       "summary": "E’ morto Francesco Flaccovio, erede della storica famiglia palermitana di editori",
@@ -198,20 +212,6 @@
       "date": "2026-08-13T11:31:43Z",
       "link": "https://www.grandangoloagrigento.it/palermo/incidente-sulla-palermo-catania-ferito-motociclista",
       "img": "/feed-images/63c2ae3a88fb755e.jpg"
-    },
-    {
-      "title": "Licata, marito e moglie sorpresi con due chili di marijuana e mezzo chilo di hashish",
-      "summary": "Il gip del tribunale di Agrigento ha disposto la custodia in carcere nei confronti dell’uomo mentre per la donna i domiciliari",
-      "date": "2026-08-13T11:12:35Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/licata-marito-e-moglie-sorpresi-con-due-chili-di-marijuana-e-mezzo-chilo-di-hashish",
-      "img": "/feed-images/b23e86f5f3454975.jpg"
-    },
-    {
-      "title": "Cantieri Anas, Gemme: “in Sicilia146 gli interventi in corso per 4,5 miliardi di euro”",
-      "summary": "Il bilancio di Claudio Gemme amministratore delegato di Anas",
-      "date": "2026-08-13T11:10:05Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia/cantieri-anas-gemme-in-sicilia146-gli-interventi-in-corso-per-45-miliardi-di-euro",
-      "img": "/feed-images/2f40ddc708f8ad67.jpg"
     }
   ]
 }
