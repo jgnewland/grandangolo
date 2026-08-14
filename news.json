@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-14T08:43:25.840709+00:00",
+  "updated": "2026-08-14T09:44:22.035553+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Maltrattamenti in famiglia, minorenne licatese trasferito in comunità",
+      "summary": "Il 17 enne ha provocato anche lesioni ad alcuni familiari",
+      "date": "2026-08-14T09:13:18Z",
+      "link": "https://www.grandangoloagrigento.it/notizie-licata/maltrattamenti-in-famiglia-minorenne-licatese-trasferito-in-comunita",
+      "img": "/feed-images/4261a6193b8892e9.jpg"
+    },
     {
       "title": "Scoperta evasione fiscale da 650 mila euro nel settore della scuola paritaria",
       "summary": "I finanzieri hanno concluso una verifica fiscale nei confronti di una società che gestisce istituti scolastici paritari con sedi a Cefalù e Termini Imerese, constatando componenti positivi di reddito…",
@@ -44,6 +51,13 @@
       "date": "2026-08-14T05:05:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/in-fiamme-capannone-di-una-ditta-di-rifiuti-indagini",
       "img": "/feed-images/d48ed86c6d7fcb4e.jpg"
+    },
+    {
+      "title": "Canicattì, rapina a mano armata in tabaccheria: arrestato ladro",
+      "summary": "L’autore è stata riconosciuto attraverso l’acquisizione delle immagini di videosorveglianza e dalla presenza di specifici tatuaggi",
+      "date": "2026-08-14T05:04:00Z",
+      "link": "https://www.grandangoloagrigento.it/canicatti/canicatti-rapina-a-mano-armata-in-tabaccheria-arrestato-ladro",
+      "img": ""
     },
     {
       "title": "Bruciata l’auto di un pensionato, trovate tracce di liquido infiammabile",
@@ -198,20 +212,6 @@
       "date": "2026-08-13T09:02:04Z",
       "link": "https://www.grandangoloagrigento.it/catania/aggredisce-la-convivente-in-strada-arrestato-44enne",
       "img": "/feed-images/899bcc0eb5256a73.jpg"
-    },
-    {
-      "title": "Etna, anche oggi sospesi tutti voli all’aeroporto di Catania",
-      "summary": "Sono sospese le attività di volo in arrivo e partenza all’aeroporto di Catania fino alle 2 di notte del 14 agosto",
-      "date": "2026-08-13T08:58:29Z",
-      "link": "https://www.grandangoloagrigento.it/catania/etna-anche-oggi-sospesi-tutti-voli-allaeroporto-di-catania",
-      "img": "/feed-images/0f4689de5b1d9fb2.jpg"
-    },
-    {
-      "title": "A Maricetta Lombardo, maestro del suono, il “Premio Giunone” di Inner Wheel Club Agrigento",
-      "summary": "Lombardo: “Ricevere un riconoscimento nella mia terra, davanti ai miei concittadini e a persone che stimano il mio lavoro, ha un valore inestimabile”",
-      "date": "2026-08-13T08:56:03Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/a-maricetta-lombardo-maestro-del-suono-il-premio-giunone-di-inner-wheel-club-agrigento",
-      "img": "/feed-images/0db344eef4d66879.jpg"
     }
   ]
 }
