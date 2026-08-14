@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-14T15:31:29.593430+00:00",
+  "updated": "2026-08-14T16:31:18.507620+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Scontro tra scooter e auto, morto 39enne",
+      "summary": "La vittima, Vincenzo Merenda, era alla guida di una Vespa insieme ad una donna quando si è schiantato contro un’Audi",
+      "date": "2026-08-14T16:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/scontro-tra-scooter-e-auto-morto-39enne",
+      "img": "/feed-images/58a7ba0356f88242.jpg"
+    },
+    {
+      "title": "Aica, ridotta la fornitura idrica nei Comuni serviti dall’acquedotto Favara di Burgio",
+      "summary": "Si è verificato un guasto elettrico che ha determinato l’arresto della funzionalità dell’intero campo pozzi Grattavole",
+      "date": "2026-08-14T16:27:36Z",
+      "link": "https://www.grandangoloagrigento.it/sciacca/aica-ridotta-la-fornitura-idrica-nei-comuni-serviti-dallacquedotto-favara-di-burgio",
+      "img": "/feed-images/ecedfa4dc8f6e63d.jpg"
+    },
     {
       "title": "Svaligiano gioielleria con un escavatore: caccia ai ladri",
       "summary": "I ladri non sono riusciti a prendere la cassaforte e hanno portato via solo i gioielli esposti tra le macerie",
@@ -198,20 +212,6 @@
       "date": "2026-08-13T15:17:58Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/aica-nuovo-servizio-stato-richiesta-autobotte-sul-sito-aziendale",
       "img": "/feed-images/1bb359f3b98f9418.jpg"
-    },
-    {
-      "title": "Accusa malore al ristorante, turista salvato dagli operatori del 118",
-      "summary": "Grazie all’utilizzo del defibrillatore è stato possibile ristabilire l’attività cardiaca dell’uomo",
-      "date": "2026-08-13T14:31:58Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lampedusa-turista-colto-da-malore-in-un-ristorante-salvato-dai-sanitari-del-118",
-      "img": "/feed-images/86d5446c0548bb04.jpg"
-    },
-    {
-      "title": "Crollo Messina, concluse le ricerche dei Vigili del Fuoco: stasera riapre via La Pira",
-      "summary": "Con la conclusione delle operazioni, è prevista per la serata di oggi la riapertura al traffico di via Giorgio La Pira, dopo le restrizioni adottate nelle ultime settimane.",
-      "date": "2026-08-13T13:07:59Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/crollo-messina-concluse-le-ricerche-dei-vigili-del-fuoco-stasera-riapre-via-la-pira",
-      "img": "/feed-images/21552a55758acf39.jpg"
     }
   ]
 }
