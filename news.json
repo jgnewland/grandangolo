@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-15T09:21:38.648201+00:00",
+  "updated": "2026-08-15T09:48:57.183983+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ferragosto ad Agrigento: c’è chi va al mare e chi va alla fontana",
+      "summary": "Alla fontana di Bonamorone si sono ritrovati i residenti di Maddalusa: “non siamo il popolo delle piscine”",
+      "date": "2026-08-15T09:26:42Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/ferragosto-ad-agrigento-ce-chi-va-al-mare-e-chi-va-alla-fontana",
+      "img": "/feed-images/bb0d5315fbde9aa7.png"
+    },
     {
       "title": "Ragazzina di 13 anni cade dal nono piano e muore",
       "summary": "È successo questa mattina. Sono intervenuti i sanitari del 118 che hanno invano tentato di soccorrerla",
@@ -11,25 +18,25 @@
       "img": "/feed-images/b7079b04498955f5.jpg"
     },
     {
-      "title": "Trovato cadavere di un 45enne in strada, forse una rissa nella notte",
+      "title": "Trovato cadavere di un 45enne in strada, colpito più volte con un cacciavite",
       "summary": "I sanitari del 118 e i carabinieri intervenuti dopo una telefonata hanno trovato un uomo di 45 anni morto per strada",
       "date": "2026-08-15T08:04:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/trovato-cadavere-di-un-45enne-in-strada-forse-una-rissa-nella-notte",
       "img": "/feed-images/839ad3e1ecbbb66a.jpg"
     },
     {
+      "title": "Canicattì, proseguono le ricerche di Luigia Narbone: oggi in volo un elicottero dei Carabinieri",
+      "summary": "L’elicottero sorvolerà le zone di campagna con l’obiettivo di individuare eventuali tracce o elementi utili a ritrovare la 69enne.",
+      "date": "2026-08-15T08:03:01Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-proseguono-le-ricerche-di-luigia-narbone-oggi-in-volo-un-elicottero-dei-carabinieri",
+      "img": "/feed-images/385e341b52a415f7.jpg"
+    },
+    {
       "title": "Testa mozzata di animale davanti l’abitazione di una pensionata a Raffadali, indagini",
       "summary": "A fare la scoperta dell’inquietante “messaggio” è stata l’anziana che si è rivolta immediatamente ai carabinieri denunciando l’accaduto",
       "date": "2026-08-15T07:54:58Z",
       "link": "https://www.grandangoloagrigento.it/apertura/testa-mozzata-di-animale-davanti-labitazione-di-una-pensionata-a-raffadali-indagini",
-      "img": "/feed-images/33b6c668afdbbe6d.jpg"
-    },
-    {
-      "title": "Canicattì, proseguono le ricerche di Luigia Narbone: oggi in volo un elicottero dei Carabinieri",
-      "summary": "L’elicottero sorvolerà le zone di campagna con l’obiettivo di individuare eventuali tracce o elementi utili a ritrovare la 69enne.",
-      "date": "2026-08-15T07:53:01Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-proseguono-le-ricerche-di-luigia-narbone-oggi-in-volo-un-elicottero-dei-carabinieri",
-      "img": "/feed-images/385e341b52a415f7.jpg"
+      "img": ""
     },
     {
       "title": "Etna, diminuzione attività esplosiva riaperto il settore C1 dell’aeroporto",
@@ -205,13 +212,6 @@
       "date": "2026-08-14T05:39:23Z",
       "link": "https://www.grandangoloagrigento.it/catania/etna-laeroporto-di-catania-resta-chiuso-fino-a-ferragosto",
       "img": "/feed-images/0f4689de5b1d9fb2.jpg"
-    },
-    {
-      "title": "In casa con 11 chili di cocaina, due arresti (VIDEO)",
-      "summary": "La partita di cocaina, qualora messa in commercio al dettaglio nelle locali piazze di spaccio, avrebbe fruttato circa 2 milioni di euro",
-      "date": "2026-08-14T05:34:44Z",
-      "link": "https://www.grandangoloagrigento.it/ragusa/in-casa-con-11-chili-di-cocaina-due-arresti-video",
-      "img": "/feed-images/a081c6b96d38122f.jpg"
     }
   ]
 }
