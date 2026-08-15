@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-15T17:46:19.407062+00:00",
+  "updated": "2026-08-15T18:22:35.919217+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Sei sbarchi tra Lampedusa e Lampione",
+      "summary": "Sono 87 i migranti arrivati nella giornata di oggi",
+      "date": "2026-08-15T17:56:19Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/sei-sbarchi-tra-lampedusa-e-lampione",
+      "img": "/feed-images/24454b870fe3160a.jpg"
+    },
     {
       "title": "Persona soccorsa alla Scala dei turchi, l’intervento del 118 e della Guardia Costiera",
       "summary": "Sul posto sono intervenuti gli operatori Alfa 16 di Porto Empedocle",
@@ -70,7 +77,7 @@
       "title": "Etna, diminuzione attività esplosiva riaperto il settore C1 dell’aeroporto",
       "summary": "Il Vona emesso da Ingv è sceso da rosso ad arancione",
       "date": "2026-08-15T07:34:05Z",
-      "link": "https://www.grandangoloagrigento.it/primo-piano/etna-diminuzione-attivita-esplosiva-ma-i-voli-restato-sospesi",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/etna-diminuzione-attivita-esplosiva-ma-i-voli-restato-sospesi",
       "img": "/feed-images/f9a1a27bb0ba6de4.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-14T09:50:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/tragico-schianto-tra-due-auto-morto-21enne",
       "img": "/feed-images/5714046653d1651d.webp"
-    },
-    {
-      "title": "Maltrattamenti in famiglia, minorenne licatese trasferito in comunità",
-      "summary": "Il 17 enne ha provocato anche lesioni ad alcuni familiari",
-      "date": "2026-08-14T09:13:18Z",
-      "link": "https://www.grandangoloagrigento.it/notizie-licata/maltrattamenti-in-famiglia-minorenne-licatese-trasferito-in-comunita",
-      "img": "/feed-images/4261a6193b8892e9.jpg"
     }
   ]
 }
