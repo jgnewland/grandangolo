@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-15T19:19:08.241093+00:00",
+  "updated": "2026-08-15T19:43:58.803502+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Pronto soccorso sempre più sotto pressione: oltre 40 in attesa al San Giovanni di Dio",
+      "summary": "Diciannove le persone identificate con un codice “critico”, di cui 2 in codice rosso",
+      "date": "2026-08-15T19:26:21Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/pronto-soccorso-sempre-piu-sotto-pressione-oltre-40-in-attesa-al-san-giovanni-di-dio",
+      "img": "/feed-images/928f2a8a611c5978.jpg"
+    },
+    {
+      "title": "Enzo Miccio in vacanza a Lampedusa: “posto magico che ti entra dentro”",
+      "summary": "Il conduttore televisivo e wedding planner ha trascorso qualche giorno sull’isola di Lampedusa tra tuffi, tramonti mozzafiato, e buon cibo.",
+      "date": "2026-08-15T19:24:38Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/enzo-miccio-in-vacanza-a-lampedusa-posto-magico-che-ti-entra-dentro",
+      "img": "/feed-images/546aee2a0cea363b.jpg"
+    },
     {
       "title": "Sei sbarchi tra Lampedusa e Lampione",
       "summary": "Sono 87 i migranti arrivati nella giornata di oggi",
@@ -198,20 +212,6 @@
       "date": "2026-08-14T10:04:00Z",
       "link": "https://www.grandangoloagrigento.it/canicatti/canicatti-rapina-a-mano-armata-in-tabaccheria-arrestato-ladro",
       "img": ""
-    },
-    {
-      "title": "ASP Agrigento, Delle Donne: “Nessuna tolleranza per il maltrattamento degli animali”",
-      "summary": "Il commissario straordinario dell’Asp di Agrigento: “Rafforzeremo prevenzione, controllo e collaborazione con i Comuni”",
-      "date": "2026-08-14T10:02:14Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/asp-agrigento-delle-donne-nessuna-tolleranza-per-il-maltrattamento-degli-animali",
-      "img": "/feed-images/1bddef48d61a43cd.jpg"
-    },
-    {
-      "title": "Tragico schianto tra due auto, morto 21enne",
-      "summary": "La vittima è Alessandro Allegra, 21 anni, morto nel tragico impatto. Ferita anche una donna",
-      "date": "2026-08-14T09:50:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tragico-schianto-tra-due-auto-morto-21enne",
-      "img": "/feed-images/5714046653d1651d.webp"
     }
   ]
 }
