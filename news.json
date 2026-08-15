@@ -1,8 +1,36 @@
 {
-  "updated": "2026-08-15T07:15:56.312166+00:00",
+  "updated": "2026-08-15T07:51:46.622450+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Etna, diminuzione attività esplosiva ma i voli restato sospesi",
+      "summary": "Il Vona emesso da Ingv è sceso da rosso ad arancione",
+      "date": "2026-08-15T07:34:05Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/etna-diminuzione-attivita-esplosiva-ma-i-voli-restato-sospesi",
+      "img": "/feed-images/f9a1a27bb0ba6de4.jpg"
+    },
+    {
+      "title": "Sorpreso a cedere droga ad acquirente: arrestato",
+      "summary": "Il 29enne è stato arrestato per spaccio e detenzione ai fini di spaccio di sostanza stupefacente del tipo cocaina,",
+      "date": "2026-08-15T07:28:17Z",
+      "link": "https://www.grandangoloagrigento.it/catania/sorpreso-a-cedere-droga-ad-acquirente-arrestato",
+      "img": "/feed-images/d77322d9a3f19471.jpg"
+    },
+    {
+      "title": "Una richiesta di aiuto al 112 e l’intervento tempestivo dei Carabinieri salva un 33enne",
+      "summary": "I militari della Stazione di Adrano sono intervenuti in un’abitazione dopo la segnalazione di una donna che aveva trovato il marito privo di sensi",
+      "date": "2026-08-15T07:26:15Z",
+      "link": "https://www.grandangoloagrigento.it/catania/una-richiesta-di-aiuto-al-112-e-lintervento-tempestivo-dei-carabinieri-salva-un-33enne",
+      "img": "/feed-images/03a51699c1356761.png"
+    },
+    {
+      "title": "Testa mozzata di animale davanti l’abitazione di una pensionata a Raffadali, indagini",
+      "summary": "A fare la scoperta dell’inquietante “messaggio” è stata l’anziana che si è rivolta immediatamente ai carabinieri denunciando l’accaduto",
+      "date": "2026-08-15T07:21:58Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/testa-mozzata-di-animale-davanti-labitazione-di-una-pensionata-a-raffadali-indagini",
+      "img": "/feed-images/33b6c668afdbbe6d.jpg"
+    },
     {
       "title": "Paga 600 euro per uno scooter che non esiste, truffato impiegato agrigentino",
       "summary": "I carabinieri sono risaliti al presunto truffatore grazie al conto corrente. Denunciato un disoccupato calabrese",
@@ -184,34 +212,6 @@
       "date": "2026-08-13T18:19:53Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/abusivismo-demolizioni-corruzione-il-procuratore-di-leo-troppo-spesso-gli-amministratori-pensano-solo-a-fare-politica",
       "img": "/feed-images/b8716b271c9ec6f4.jpg"
-    },
-    {
-      "title": "Agrigento, ecco quanto guadagnano sindaco e amministratori",
-      "summary": "Il sindaco Michele Sodano percepirà 6.273,89 euro. Ecco tutte le indennità agli amministratori di Agrigento",
-      "date": "2026-08-13T17:04:40Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-ecco-quanto-guadagnano-sindaco-e-amministratori",
-      "img": "/feed-images/a3ef55c7473263d6.jpg"
-    },
-    {
-      "title": "Maddalusa, il Consiglio comunale aperto e il monito delle Parrocchie di Regalpetra",
-      "summary": "Il prossimo 27 agosto tutti insieme per discutere dell’emergenza che dura da tre mesi: ma a che scopo?",
-      "date": "2026-08-13T16:26:45Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maddalusa-il-consiglio-comunale-aperto-e-il-monito-delle-parrocchie-di-regalpetra",
-      "img": "/feed-images/653ba8aab6a0cc2d.jpg"
-    },
-    {
-      "title": "Ferragosto, cambia la viabilità ad Agrigento e deroga alla movida fino alle 3 del mattino",
-      "summary": "Ecco come cambia la viabilità ad Agrigento nella giornata di Ferragosto. Disposta una deroga anche alla movida con i locali che potranno mettere musica fino alle 3 del mattino",
-      "date": "2026-08-13T16:25:04Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ferragosto-cambia-la-viabilita-ad-agrigento-e-deroga-alla-movida-fino-alle-3-del-mattino",
-      "img": "/feed-images/cfacb56d05e6a268.png"
-    },
-    {
-      "title": "Più pattuglie in giro e attenzione rivolta alle località balneari: ecco il piano sicurezza per Ferragosto",
-      "summary": "La Questura di Agrigento vara il piano sicurezza per Ferragosto: più volanti in giro, con attenzione alle località balneari, e potenziamento del personale per la repressione dei reati",
-      "date": "2026-08-13T15:43:25Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/piu-pattuglie-in-giro-e-attenzione-rivolta-alle-localita-balneari-ecco-il-piano-sicurezza-per-ferragosto",
-      "img": "/feed-images/50284397614a3b45.jpg"
     }
   ]
 }
