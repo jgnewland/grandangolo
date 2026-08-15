@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-15T15:16:13.114882+00:00",
+  "updated": "2026-08-15T15:44:14.120941+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Persona soccorsa alla Scala dei turchi, l’intervento del 118 e della Guardia Costiera",
+      "summary": "Sul posto sono intervenuti gli operatori Alfa 16 di Porto Empedocle",
+      "date": "2026-08-15T15:41:15Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/persona-soccorsa-alla-scala-dei-turchi-lintervento-del-118-e-della-guardia-costiera",
+      "img": "/feed-images/50dd08c3c6ee5a06.jpg"
+    },
     {
       "title": "Terremoto con scossa di magnitudo 3.9 nel Catanese",
       "summary": "Un terremoto di magnitudo 3.9 è avvenuto nella zona di Linguaglossa, in provincia di Catania",
@@ -205,13 +212,6 @@
       "date": "2026-08-14T09:13:18Z",
       "link": "https://www.grandangoloagrigento.it/notizie-licata/maltrattamenti-in-famiglia-minorenne-licatese-trasferito-in-comunita",
       "img": "/feed-images/4261a6193b8892e9.jpg"
-    },
-    {
-      "title": "Scoperta evasione fiscale da 650 mila euro nel settore della scuola paritaria",
-      "summary": "I finanzieri hanno concluso una verifica fiscale nei confronti di una società che gestisce istituti scolastici paritari con sedi a Cefalù e Termini Imerese, constatando componenti positivi di reddito…",
-      "date": "2026-08-14T07:18:43Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/scoperta-evasione-fiscale-da-650-mila-euro-nel-settore-della-scuola-paritaria",
-      "img": "/feed-images/c781d23af5d86029.jpg"
     }
   ]
 }
