@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-15T11:16:37.041814+00:00",
+  "updated": "2026-08-15T11:43:30.970574+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Terremoto con scossa di magnitudo 3.9 nel Catanese",
+      "summary": "Un terremoto di magnitudo 3.9 è avvenuto nella zona di Linguaglossa, in provincia di Catania",
+      "date": "2026-08-15T11:24:48Z",
+      "link": "https://www.grandangoloagrigento.it/catania/terremoto-con-scossa-di-magnitudo-3-9-nel-catanese",
+      "img": "/feed-images/5721eaaa4a95bde1.jpg"
+    },
+    {
+      "title": "Dramma a Sciacca, 16enne muore dopo aver accusato malore a Ferragosto",
+      "summary": "Il minorenne, residente a Misilmeri, si trovava insieme alla fidanzata e ad alcuni amici in una casa vacanze a Sciacca per festeggiare il Ferragosto",
+      "date": "2026-08-15T11:20:35Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/dramma-a-sciacca-16enne-muore-dopo-aver-accusato-malore-a-ferragosto",
+      "img": "/feed-images/6a045b15154e4ea0.jpg"
+    },
+    {
+      "title": "Etna, danni al manto stradale dopo scossa di terremoto",
+      "summary": "Una scossa di magnitudo 3.9 è stata registrata oggi, 15 agosto, con epicentro a circa 7 km a ovest di Linguaglossa",
+      "date": "2026-08-15T11:18:55Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/etna-danni-al-manto-stradale-dopo-scossa-di-terremoto",
+      "img": "/feed-images/106bf69ff516c837.jpg"
+    },
     {
       "title": "Ferragosto ad Agrigento: c’è chi va al mare e chi va alla fontana",
       "summary": "Alla fontana di Bonamorone si sono ritrovati i residenti di Maddalusa: “non siamo il popolo delle piscine”",
@@ -191,27 +212,6 @@
       "date": "2026-08-14T07:18:43Z",
       "link": "https://www.grandangoloagrigento.it/palermo/scoperta-evasione-fiscale-da-650-mila-euro-nel-settore-della-scuola-paritaria",
       "img": "/feed-images/c781d23af5d86029.jpg"
-    },
-    {
-      "title": "Akragas, mister Cammarata: “Il gruppo risponde, buone indicazioni contro il Gela”",
-      "summary": "La squadra tornerà al lavoro lunedì 17 agosto, quando riprenderà la preparazione e inizierà una nuova fase del percorso di avvicinamento agli impegni ufficiali",
-      "date": "2026-08-14T07:14:05Z",
-      "link": "https://www.grandangoloagrigento.it/sport/calcio/akragas-mister-cammarata-il-gruppo-risponde-buone-indicazioni-contro-il-gela",
-      "img": "/feed-images/5aa6a12a2ee175f4.jpg"
-    },
-    {
-      "title": "Cocaina murata in una parete, arrestato 63enne",
-      "summary": "Nascosta all’interno di un vano ricavato sul retro di una tavola di legno, avvitata alla parete della veranda",
-      "date": "2026-08-14T06:56:40Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/cocaina-murata-in-una-parete-arrestato-63enne",
-      "img": "/feed-images/c50d3a381b470ac6.jpg"
-    },
-    {
-      "title": "Etna, l’aeroporto di Catania resta chiuso fino a Ferragosto",
-      "summary": "“Sono sospese le attività di volo in arrivo e partenza all’aeroporto di Catania fino alle 2 ora locale del 15 agosto”",
-      "date": "2026-08-14T05:39:23Z",
-      "link": "https://www.grandangoloagrigento.it/catania/etna-laeroporto-di-catania-resta-chiuso-fino-a-ferragosto",
-      "img": "/feed-images/0f4689de5b1d9fb2.jpg"
     }
   ]
 }
