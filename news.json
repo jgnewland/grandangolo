@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-15T06:31:18.850496+00:00",
+  "updated": "2026-08-15T07:15:56.312166+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Paga 600 euro per uno scooter che non esiste, truffato impiegato agrigentino",
+      "summary": "I carabinieri sono risaliti al presunto truffatore grazie al conto corrente. Denunciato un disoccupato calabrese",
+      "date": "2026-08-15T07:07:28Z",
+      "link": "https://www.grandangoloagrigento.it/comitini/paga-600-euro-per-uno-scooter-che-non-esiste-truffato-impiegato-agrigentino",
+      "img": "/feed-images/07e25629eb1d49d5.jpg"
+    },
     {
       "title": "Cade da autocisterna durante manovre di scarico, morto 53enne",
       "summary": "La vittima è Giuseppe Biundo di Gela",
@@ -205,13 +212,6 @@
       "date": "2026-08-13T15:43:25Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/piu-pattuglie-in-giro-e-attenzione-rivolta-alle-localita-balneari-ecco-il-piano-sicurezza-per-ferragosto",
       "img": "/feed-images/50284397614a3b45.jpg"
-    },
-    {
-      "title": "Tatuaggi in estate: cura e protezione",
-      "summary": "I consigli del tatuatore Stefano Alongi per proteggere i tatuaggi in estate",
-      "date": "2026-08-13T15:41:28Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tatuaggi-in-estate-cura-e-protezione",
-      "img": "/feed-images/44f3f09c648271db.jpg"
     }
   ]
 }
