@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-16T06:58:07.691240+00:00",
+  "updated": "2026-08-16T07:34:02.142106+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Furto al museo regionale di Messina, al via le indagini",
+      "summary": "Si tratta del Podittico, tre tavole su cinque, e la tavoletta bifronte prelevata dalla teca blindata.",
+      "date": "2026-08-16T07:03:17Z",
+      "link": "https://www.grandangoloagrigento.it/messina/furto-al-museo-regionale-di-messina-al-via-le-indagini",
+      "img": "/feed-images/f457750b8c99d31e.jpg"
+    },
     {
       "title": "A Grotte il 1° Raduno Folkloristico Internazionale della Pace",
       "summary": "Un importante appuntamento dedicato alla cultura popolare, alle tradizioni e all’incontro tra i popoli",
@@ -205,13 +212,6 @@
       "date": "2026-08-14T15:08:52Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/svaligiano-gioielleria-con-un-escavatore-caccia-ai-ladri",
       "img": "/feed-images/15cdd695d5d1590e.jpg"
-    },
-    {
-      "title": "Rimprovera ragazzini e viene picchiato davanti la fidanzata, 8 minori indagati",
-      "summary": "Tre degli indagati, in piazza San Francesco nei pressi dei locali della movida, erano stati richiamati dal giovane, perché ubriachi e creavano fastidi",
-      "date": "2026-08-14T15:06:53Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/rimprovera-ragazzini-e-viene-picchiato-davanti-la-fidanzata-8-minori-indagati",
-      "img": "/feed-images/8f0416d6c09e1437.jpg"
     }
   ]
 }
