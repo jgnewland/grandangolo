@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-16T09:02:40.930152+00:00",
+  "updated": "2026-08-16T09:40:31.545897+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
@@ -30,13 +30,6 @@
       "date": "2026-08-16T08:11:51Z",
       "link": "https://www.grandangoloagrigento.it/apertura/clamoroso-furto-al-museo-regionale-rubate-4-opere-di-antonello-da-messina",
       "img": "/feed-images/f239e9a42d84e329.jpg"
-    },
-    {
-      "title": "Furto al museo regionale di Messina, al via le indagini",
-      "summary": "Si tratta del Podittico, tre tavole su cinque, e la tavoletta bifronte prelevata dalla teca blindata.",
-      "date": "2026-08-16T07:03:17Z",
-      "link": "https://www.grandangoloagrigento.it/messina/furto-al-museo-regionale-di-messina-al-via-le-indagini",
-      "img": "/feed-images/f457750b8c99d31e.jpg"
     },
     {
       "title": "A Grotte il 1° Raduno Folkloristico Internazionale della Pace",
@@ -93,6 +86,13 @@
       "date": "2026-08-16T06:31:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/in-fiamme-lauto-di-un-pensionato-a-licata-indagini",
       "img": "/feed-images/1dd7e223e2df3f40.jpg"
+    },
+    {
+      "title": "Canicattì, proseguono le ricerche di Luigia Narbone: ricerche concentrate nelle campagne",
+      "summary": "Maggiore attenzione ai casolari abbandonati e agli edifici rurali presenti nella zona di Canicattì",
+      "date": "2026-08-16T06:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-proseguono-le-ricerche-di-luigia-narbone-ricerche-concentrate-nelle-campagne",
+      "img": "/feed-images/cc55b90af469c146.jpg"
     },
     {
       "title": "Pronto soccorso sempre più sotto pressione: oltre 40 in attesa al San Giovanni di Dio",
