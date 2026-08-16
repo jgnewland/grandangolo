@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-16T05:35:01.151271+00:00",
+  "updated": "2026-08-16T06:01:15.132663+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "In spiaggia con cocaina, marijuana e una pistola scacciacani: denunciato 22enne licatese",
+      "summary": "Il ragazzo, alla vista dei poliziotti impegnati in alcuni controlli, ha tentato di allontanarsi. Un atteggiamento che ha insospettito ancora di più gli agenti",
+      "date": "2026-08-16T05:35:07Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/in-spiaggia-con-cocaina-marijuana-e-una-pistola-scacciacani-denunciato-22enne-licatese",
+      "img": "/feed-images/b23e86f5f3454975.jpg"
+    },
     {
       "title": "Pronto soccorso sempre più sotto pressione: oltre 40 in attesa al San Giovanni di Dio",
       "summary": "Diciannove le persone identificate con un codice “critico”, di cui 2 in codice rosso",
@@ -205,13 +212,6 @@
       "date": "2026-08-14T10:05:49Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/poste-in-provincia-di-agrigento-con-seguimi-la-corrispondenza-viene-in-vacanza-con-te",
       "img": "/feed-images/873f1a872f856e0f.jpg"
-    },
-    {
-      "title": "Minaccia titolare di tabaccheria con coltello a Canicattì, rapinatore “incastrato” dai tatuaggi",
-      "summary": "L’autore è stata riconosciuto attraverso l’acquisizione delle immagini di videosorveglianza e dalla presenza di specifici tatuaggi",
-      "date": "2026-08-14T10:04:00Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/canicatti-rapina-a-mano-armata-in-tabaccheria-arrestato-ladro",
-      "img": ""
     }
   ]
 }
