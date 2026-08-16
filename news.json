@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-16T16:59:37.964530+00:00",
+  "updated": "2026-08-16T17:26:18.281497+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "L’emergenza idrica nell’Agrigentino e il “caso” Ravanusa domani su Raitre",
+      "summary": "In collegamento ci sarà anche Salvatore Pitrola, sindaco di Ravanusa, indagato dalla Procura di Agrigento per aver autorizzato prelievo dell’acqua dal pozzo comunale",
+      "date": "2026-08-16T17:22:57Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/lemergenza-idrica-nellagrigentino-e-il-caso-ravanusa-domani-su-raitre",
+      "img": "/feed-images/9c8cbad0d65c794f.png"
+    },
     {
       "title": "Luigia Narbone ancora non si trova, ricerche nelle campagne con droni e mezzi fuoristrada",
       "summary": "Ancora nessuna traccia di Luigia Narbone, la 69enne di Canicattì scomparsa nei giorni scorsi",
@@ -205,13 +212,6 @@
       "date": "2026-08-15T07:28:17Z",
       "link": "https://www.grandangoloagrigento.it/catania/sorpreso-a-cedere-droga-ad-acquirente-arrestato",
       "img": "/feed-images/d77322d9a3f19471.jpg"
-    },
-    {
-      "title": "Una richiesta di aiuto al 112 e l’intervento tempestivo dei Carabinieri salva un 33enne",
-      "summary": "I militari della Stazione di Adrano sono intervenuti in un’abitazione dopo la segnalazione di una donna che aveva trovato il marito privo di sensi",
-      "date": "2026-08-15T07:26:15Z",
-      "link": "https://www.grandangoloagrigento.it/catania/una-richiesta-di-aiuto-al-112-e-lintervento-tempestivo-dei-carabinieri-salva-un-33enne",
-      "img": "/feed-images/03a51699c1356761.png"
     }
   ]
 }
