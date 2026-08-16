@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-16T08:38:53.972816+00:00",
+  "updated": "2026-08-16T09:02:40.930152+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Finta volontaria raccoglie soldi fuori da un ospedale, denunciata",
+      "summary": "La donna si presentava con un tesserino riconducibile ad una nota organizzazione umanitaria e chiedeva contributi economici destinati a presunte iniziative benefiche",
+      "date": "2026-08-16T08:44:51Z",
+      "link": "https://www.grandangoloagrigento.it/catania/finta-volontaria-raccoglie-soldi-fuori-da-un-ospedale-denunciata",
+      "img": "/feed-images/6e3ad262125952b3.jpg"
+    },
     {
       "title": "Rifiuta alcoltest ed era anche senza patente, denunciato 18enne empedoclino",
       "summary": "A finire nei guai un 18enne di Porto Empedocle, fermato dagli agenti del locale commissariato per un controllo di routine",
@@ -205,13 +212,6 @@
       "date": "2026-08-14T17:03:25Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/cade-da-autocisterna-durante-manovre-di-scarico-morto-53enne",
       "img": "/feed-images/395b55d2efc53b62.jpg"
-    },
-    {
-      "title": "Scontro tra scooter e auto, morto 39enne",
-      "summary": "La vittima, Vincenzo Merenda, era alla guida di una Vespa insieme ad una donna quando si è schiantato contro un’Audi",
-      "date": "2026-08-14T16:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-tra-scooter-e-auto-morto-39enne",
-      "img": "/feed-images/58a7ba0356f88242.jpg"
     }
   ]
 }
