@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-16T09:59:01.255353+00:00",
+  "updated": "2026-08-16T10:29:56.632767+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ucciso a colpi di cacciavite, svolta nell’omicidio di Vito Genovese: 3 fermi",
+      "summary": "In manette due ragazzini di 16 anni e un 33enne che si trovava ai domiciliari. L’aggressione dopo che la vittima li aveva invitati ad allontanarsi dal garage",
+      "date": "2026-08-16T10:23:10Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/ucciso-a-colpi-di-cacciavite-svolta-nellomicidio-di-vito-genovese-3-fermi",
+      "img": "/feed-images/398c46a309686664.jpg"
+    },
     {
       "title": "Finta volontaria raccoglie soldi fuori da un ospedale, denunciata",
       "summary": "La donna si presentava con un tesserino riconducibile ad una nota organizzazione umanitaria e chiedeva contributi economici destinati a presunte iniziative benefiche",
@@ -28,7 +35,7 @@
       "title": "Clamoroso furto al museo Regionale, rubate 4 opere di Antonello da Messina",
       "summary": "Clamoroso furto d’arte nella serata del 15 agosto al MuMe, Museo Regionale Interdisciplinare di Messina",
       "date": "2026-08-16T08:11:51Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/clamoroso-furto-al-museo-regionale-rubate-4-opere-di-antonello-da-messina",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/clamoroso-furto-al-museo-regionale-rubate-4-opere-di-antonello-da-messina",
       "img": "/feed-images/f239e9a42d84e329.jpg"
     },
     {
@@ -74,6 +81,13 @@
       "img": "/feed-images/b23e86f5f3454975.jpg"
     },
     {
+      "title": "Luigia Narbone ancora non si trova, ricerche si concentrano nelle campagne",
+      "summary": "Ancora nessuna traccia di Luigia Narbone, la 69enne di Canicattì scomparsa nei giorni scorsi",
+      "date": "2026-08-16T06:34:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/luigia-narbone-ancora-non-si-trova-ricerche-si-concentrano-nelle-campagne",
+      "img": "/feed-images/cc55b90af469c146.jpg"
+    },
+    {
       "title": "Incendio danneggia l’esterno di un capannone agricolo a Ravanusa, indagini",
       "summary": "l tempestivo intervento dei vigili del fuoco di Canicattì hanno scongiurato conseguenze ben peggiori",
       "date": "2026-08-16T06:32:10Z",
@@ -86,13 +100,6 @@
       "date": "2026-08-16T06:31:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/in-fiamme-lauto-di-un-pensionato-a-licata-indagini",
       "img": "/feed-images/1dd7e223e2df3f40.jpg"
-    },
-    {
-      "title": "Canicattì, proseguono le ricerche di Luigia Narbone: ricerche concentrate nelle campagne",
-      "summary": "Maggiore attenzione ai casolari abbandonati e agli edifici rurali presenti nella zona di Canicattì",
-      "date": "2026-08-16T06:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-proseguono-le-ricerche-di-luigia-narbone-ricerche-concentrate-nelle-campagne",
-      "img": "/feed-images/cc55b90af469c146.jpg"
     },
     {
       "title": "Pronto soccorso sempre più sotto pressione: oltre 40 in attesa al San Giovanni di Dio",
@@ -205,13 +212,6 @@
       "date": "2026-08-15T07:07:28Z",
       "link": "https://www.grandangoloagrigento.it/comitini/paga-600-euro-per-uno-scooter-che-non-esiste-truffato-impiegato-agrigentino",
       "img": "/feed-images/07e25629eb1d49d5.jpg"
-    },
-    {
-      "title": "Cade da autocisterna durante manovre di scarico, morto 53enne",
-      "summary": "La vittima è Giuseppe Biundo di Gela",
-      "date": "2026-08-14T17:03:25Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/cade-da-autocisterna-durante-manovre-di-scarico-morto-53enne",
-      "img": "/feed-images/395b55d2efc53b62.jpg"
     }
   ]
 }
