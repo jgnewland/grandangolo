@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-16T11:43:41.408029+00:00",
+  "updated": "2026-08-16T11:58:54.437088+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Migrante fugge da centro d’accoglienza e finisce in una scarpata: soccorso dai Vigili del fuoco",
+      "summary": "Una volta recuperato, l’uomo è stato affidato ai sanitari e trasportato al pronto soccorso di Caltanissetta",
+      "date": "2026-08-16T11:54:48Z",
+      "link": "https://www.grandangoloagrigento.it/caltanisetta/migrante-fugge-da-centro-daccoglienza-e-finisce-in-una-scarpata-soccorso-dai-vigili-del-fuoco",
+      "img": "/feed-images/020e50857f6612f9.jpg"
+    },
     {
       "title": "Ucciso a colpi di cacciavite, svolta nell’omicidio di Vito Genovese: 3 fermi",
       "summary": "In manette due ragazzini di 16 anni e un 33enne che si trovava ai domiciliari. L’aggressione dopo che la vittima li aveva invitati ad allontanarsi dal garage",
@@ -205,13 +212,6 @@
       "date": "2026-08-15T07:26:15Z",
       "link": "https://www.grandangoloagrigento.it/catania/una-richiesta-di-aiuto-al-112-e-lintervento-tempestivo-dei-carabinieri-salva-un-33enne",
       "img": "/feed-images/03a51699c1356761.png"
-    },
-    {
-      "title": "Paga 600 euro per uno scooter che non esiste, truffato impiegato agrigentino",
-      "summary": "I carabinieri sono risaliti al presunto truffatore grazie al conto corrente. Denunciato un disoccupato calabrese",
-      "date": "2026-08-15T07:07:28Z",
-      "link": "https://www.grandangoloagrigento.it/comitini/paga-600-euro-per-uno-scooter-che-non-esiste-truffato-impiegato-agrigentino",
-      "img": "/feed-images/07e25629eb1d49d5.jpg"
     }
   ]
 }
