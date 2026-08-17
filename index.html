@@ -1921,7 +1921,7 @@ l.parentNode.insertBefore(s, l);
       bellBtn.style.display='flex';
 
       // Carica notifiche
-      const { data: notifs } = await sb.from('notifications').select('*').order('created_at', { ascending: false }).limit(20);
+      const { data: notifs } = await sb.from('notifications').select('*').or('user_id.is.null,user_id.eq.' + user.id).order('created_at', { ascending: false }).limit(20);
       notifData = notifs || [];
 
       // Carica già lette
