@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-17T13:25:56.003588+00:00",
+  "updated": "2026-08-17T14:01:07.266513+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Aereo ultraleggero scomparso dai radar: a bordo due avvocati in vacanza in Sicilia",
+      "summary": "A segnalare la scomparsa sono stati i familiari delle due persone a bordo facendo scattare il piano ricerca persone scomparse della Prefettura",
+      "date": "2026-08-17T13:55:33Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/aereo-ultraleggero-scomparso-dai-radar-a-bordo-due-avvocati-in-vacanza-in-sicilia",
+      "img": "/feed-images/5dc43e99824f3d6c.webp"
+    },
     {
       "title": "Agrigento, la Valle dei Templi raccontata dai visitatori",
       "summary": "La Valle dei Templi si conferma la meta preferita dei visitatori ad Agrigento",
@@ -205,13 +212,6 @@
       "date": "2026-08-16T08:44:51Z",
       "link": "https://www.grandangoloagrigento.it/catania/finta-volontaria-raccoglie-soldi-fuori-da-un-ospedale-denunciata",
       "img": "/feed-images/6e3ad262125952b3.jpg"
-    },
-    {
-      "title": "Rifiuta alcoltest ed era anche senza patente, denunciato 18enne empedoclino",
-      "summary": "A finire nei guai un 18enne di Porto Empedocle, fermato dagli agenti del locale commissariato per un controllo di routine",
-      "date": "2026-08-16T08:21:19Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/rifiuta-alcoltest-ed-era-anche-senza-patente-denunciato-18enne-empedoclino",
-      "img": "/feed-images/e7f72284e8b4aab8.jpg"
     }
   ]
 }
