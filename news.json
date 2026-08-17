@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-17T11:49:41.797821+00:00",
+  "updated": "2026-08-17T12:36:20.560652+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Crolla balcone, 56enne in ospedale in gravi condizioni",
+      "summary": "La donna si trovava fuori, pare a stendere i panni, quando è avvenuto il crollo.",
+      "date": "2026-08-17T12:13:14Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/crolla-balcone-56enne-in-ospedale-in-gravi-condizioni",
+      "img": "/feed-images/020e50857f6612f9.jpg"
+    },
+    {
+      "title": "Incendio di un’auto minaccia abitazione, carabiniere salva anziano invalido",
+      "summary": "Al primo piano, hanno individuato l’anziano in evidente stato di difficoltà e, dopo averlo messo in sicurezza su una sedia, lo hanno trasportato fino al piano terra",
+      "date": "2026-08-17T11:59:37Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/incendio-di-unauto-minaccia-abitazione-carabiniere-salva-anziano-invalido",
+      "img": "/feed-images/c21a7bf4cf5bf273.jpg"
+    },
     {
       "title": "Sei milioni di euro per la tangenziale di Agrigento, Savarino: “Migliorerà viabilità”",
       "summary": "La circonvallazione, attesa da tanti anni, consentirà di migliorare la mobilità del capoluogo e lungo la costa agrigentina, evitando di dover attraversare, come accade oggi, Porto Empedocle per gli…",
@@ -130,6 +144,13 @@
       "img": "/feed-images/0802e4d3dba12290.jpg"
     },
     {
+      "title": "Luigia Narbone ancora non si trova, ricerche nelle campagne con droni e mezzi fuoristrada",
+      "summary": "Ancora nessuna traccia di Luigia Narbone, la 69enne di Canicattì scomparsa nei giorni scorsi",
+      "date": "2026-08-17T04:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/luigia-narbone-ancora-non-si-trova-ricerche-si-concentrano-nelle-campagne",
+      "img": "/feed-images/d9c4d82919266dbb.jpg"
+    },
+    {
       "title": "Ordigni bellici nei fondali di Lampedusa, scoperti da turisti",
       "summary": "Sono stati allertati gli artificieri dell’Esercito che dovranno occuparsi delle operazioni di bonifica",
       "date": "2026-08-16T17:48:27Z",
@@ -149,13 +170,6 @@
       "date": "2026-08-16T17:22:57Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/lemergenza-idrica-nellagrigentino-e-il-caso-ravanusa-domani-su-raitre",
       "img": "/feed-images/9c8cbad0d65c794f.png"
-    },
-    {
-      "title": "Luigia Narbone ancora non si trova, ricerche nelle campagne con droni e mezzi fuoristrada",
-      "summary": "Ancora nessuna traccia di Luigia Narbone, la 69enne di Canicattì scomparsa nei giorni scorsi",
-      "date": "2026-08-16T16:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/luigia-narbone-ancora-non-si-trova-ricerche-si-concentrano-nelle-campagne",
-      "img": "/feed-images/d9c4d82919266dbb.jpg"
     },
     {
       "title": "Furto al museo Regionale, rubate quattro opere di Antonello da Messina: due ritrovate",
@@ -198,20 +212,6 @@
       "date": "2026-08-16T08:15:09Z",
       "link": "https://www.grandangoloagrigento.it/catania/aveva-154-dosi-di-cocaina-e-250-grammi-di-marijuana-arrestato",
       "img": "/feed-images/31049d164deec44f.jpg"
-    },
-    {
-      "title": "A Grotte il 1° Raduno Folkloristico Internazionale della Pace",
-      "summary": "Un importante appuntamento dedicato alla cultura popolare, alle tradizioni e all’incontro tra i popoli",
-      "date": "2026-08-16T06:52:37Z",
-      "link": "https://www.grandangoloagrigento.it/cultura/a-grotte-il-1-raduno-folkloristico-internazionale-della-pace",
-      "img": "/feed-images/f03a14ce2347564b.jpg"
-    },
-    {
-      "title": "Cocaina e crack nel negozio di caffè, 34enne arrestato",
-      "summary": "I militari hanno inoltre sequestrato quasi 9.000 euro in contanti, nascosti sotto una scrivania e non custoditi nella cassa dell’esercizio commerciale",
-      "date": "2026-08-16T06:41:02Z",
-      "link": "https://www.grandangoloagrigento.it/catania/cocaina-e-crack-nel-negozio-di-caffe-34enne-arrestato",
-      "img": "/feed-images/0615261ddb48f0bf.jpg"
     }
   ]
 }
