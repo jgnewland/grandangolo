@@ -2072,15 +2072,55 @@ l.parentNode.insertBefore(s, l);
     const chatSend  = document.getElementById('gaChatSend');
     const chatClose = document.getElementById('gaChatClose');
     let chatData = [];
+    let seenMsgIds = new Set();
+    let chatPollTimer = null;
+
+    function chatSetBadge(rows) {
+      const unread = rows.filter(m => m.from_admin && !m.read_user).length;
+      if (unread > 0) { chatBadge.textContent = unread > 9 ? '9+' : unread; chatBadge.classList.add('visible'); }
+      else chatBadge.classList.remove('visible');
+    }
 
     async function loadChat(user) {
-      if (!user) { if (chatBtn) chatBtn.style.display='none'; return; }
+      if (!user) {
+        if (chatBtn) chatBtn.style.display='none';
+        if (chatPollTimer) { clearInterval(chatPollTimer); chatPollTimer = null; }
+        seenMsgIds = new Set();
+        return;
+      }
       if (chatBtn) chatBtn.style.display='flex';
       const { data } = await sb.from('messages').select('*').eq('user_id', user.id).order('created_at', { ascending: true });
       chatData = data || [];
-      const unread = chatData.filter(m => m.from_admin && !m.read_user).length;
-      if (unread > 0) { chatBadge.textContent = unread > 9 ? '9+' : unread; chatBadge.classList.add('visible'); }
-      else chatBadge.classList.remove('visible');
+      // Tutto ciò che c'è già all'ingresso è "visto": non fa aprire la finestra da solo
+      chatData.forEach(m => seenMsgIds.add(m.id));
+      chatSetBadge(chatData);
+      if (!chatPollTimer) chatPollTimer = setInterval(pollChat, 12000);
+    }
+
+    // Controllo periodico: se arriva un NUOVO messaggio della redazione, apri la finestra da sola
+    async function pollChat() {
+      if (!currentUser) return;
+      const { data } = await sb.from('messages').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: true });
+      const rows = data || [];
+      chatData = rows;
+      const newFromAdmin = rows.filter(m => m.from_admin && !seenMsgIds.has(m.id));
+      rows.forEach(m => seenMsgIds.add(m.id));
+      chatSetBadge(rows);
+      const isOpen = chatModal.classList.contains('open');
+      if (isOpen) {
+        renderChat();
+        if (rows.some(m => m.from_admin && !m.read_user)) {
+          await sb.from('messages').update({ read_user: true }).eq('user_id', currentUser.id).eq('from_admin', true).eq('read_user', false);
+          chatBadge.classList.remove('visible');
+        }
+      } else if (newFromAdmin.length) {
+        // Apri la finestra e mostra subito la conversazione già scaricata
+        chatModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        renderChat();
+        await sb.from('messages').update({ read_user: true }).eq('user_id', currentUser.id).eq('from_admin', true).eq('read_user', false);
+        chatBadge.classList.remove('visible');
+      }
     }
     function renderChat() {
       if (!chatData.length) { chatBodyEl.innerHTML = '<div class="ga-chat-empty">Nessun messaggio ancora. Scrivi alla redazione qui sotto ✍️</div>'; return; }
