@@ -404,7 +404,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
           <span id="u-act-count" style="font-size:12px;color:#8fffc1;font-weight:700;margin-right:4px"></span>
           <button class="ghost btn-sm" id="u-gift-btn" style="border-color:rgba(0,166,81,0.4);color:#8fffc1">&#127873; Assegna omaggio</button>
           <button class="ghost btn-sm" id="u-email-btn">&#9993; Scrivi email</button>
-          <button class="ghost btn-sm" id="u-msg-btn">&#128172; Messaggio privato</button>
+          <button class="ghost btn-sm" id="u-msg-btn">&#128172; Chat</button>
         </div>
         <!-- PANNELLO OMAGGIO -->
         <div id="u-gift-panel" style="display:none;margin-bottom:12px;padding:14px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;background:rgba(255,255,255,0.02)">
@@ -437,24 +437,18 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
           </div>
           <div id="u-act-res" class="res" style="margin-top:10px"></div>
         </div>
-        <!-- PANNELLO MESSAGGIO PRIVATO -->
+        <!-- PANNELLO CHAT -->
         <div id="u-msg-panel" style="display:none;margin-bottom:12px;padding:14px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;background:rgba(255,255,255,0.02)">
-          <div style="font-weight:700;color:#fff;margin-bottom:10px;font-size:14px">&#128172; Messaggio privato agli iscritti selezionati</div>
-          <div style="margin-bottom:10px">
-            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Titolo</label>
-            <input id="msg-title" class="search" style="width:100%" placeholder="Es. Un regalo per te">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <div style="font-weight:700;color:#fff;font-size:14px;flex:1">&#128172; <span id="msg-head">Chat con l'iscritto</span></div>
+            <button class="ghost btn-sm" id="msg-refresh-btn" title="Aggiorna">&#8635;</button>
+            <button class="ghost btn-sm" id="msg-cancel-btn">Chiudi</button>
           </div>
-          <div style="margin-bottom:10px">
-            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Messaggio</label>
-            <textarea id="msg-body" class="search" style="width:100%;min-height:80px;resize:vertical" placeholder="Scrivi qui il messaggio che l'iscritto leggera nella sua area personale..."></textarea>
-          </div>
-          <div style="margin-bottom:10px">
-            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Link (facoltativo)</label>
-            <input id="msg-link" class="search" style="width:100%" placeholder="https://...">
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-            <button class="ghost btn-sm" id="msg-send-btn" style="border-color:rgba(0,166,81,0.5);color:#8fffc1;font-weight:700">Invia agli iscritti selezionati</button>
-            <button class="ghost btn-sm" id="msg-cancel-btn">Annulla</button>
+          <div id="msg-multi-hint" style="display:none;font-size:12px;color:#ffcf8f;margin-bottom:8px"></div>
+          <div id="msg-thread" style="display:none;max-height:260px;overflow-y:auto;margin-bottom:10px;padding:10px;border:1px solid rgba(255,255,255,0.08);border-radius:10px;background:rgba(0,0,0,0.25)"></div>
+          <textarea id="msg-body" class="search" style="width:100%;min-height:70px;resize:vertical" placeholder="Scrivi un messaggio..."></textarea>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px">
+            <button class="ghost btn-sm" id="msg-send-btn" style="border-color:rgba(0,166,81,0.5);color:#8fffc1;font-weight:700">Invia</button>
           </div>
           <div id="u-msg-res" class="res" style="margin-top:10px"></div>
         </div>
@@ -834,6 +828,7 @@ async function loadDati(){
     users.sort(function(a,b){ return new Date(b.created_at)-new Date(a.created_at); });
     prefs=await sbGet("/rest/v1/user_prefs?select=user_id,data")||[];
     codes=await sbGet("/rest/v1/user_codes?select=user_id,type,code")||[];
+    try { var _mu=await sbGet("/rest/v1/messages?select=user_id&from_admin=eq.false&read_admin=eq.false"); unreadMsg={}; if(Array.isArray(_mu)) _mu.forEach(function(x){ unreadMsg[x.user_id]=(unreadMsg[x.user_id]||0)+1; }); } catch(e){ unreadMsg={}; }
     updateStats(); renderNuovi(); renderU("");
   } catch(e){ console.error(e); }
 }
@@ -1144,7 +1139,7 @@ document.getElementById("u-refresh-btn").onclick = loadDati;
 document.getElementById("u-search").oninput = function(){ renderU(this.value); };
 
 // ── AZIONI ISCRITTI: omaggi / email ───────────────────────────────
-var giftIssues=[], giftBundles=[];
+var giftIssues=[], giftBundles=[], unreadMsg={};
 function selectedUsers(){ var em={}; document.querySelectorAll(".uch:checked").forEach(function(c){ em[c.value]=1; }); return users.filter(function(u){ return em[u.email]; }); }
 function giftFirstCover(){ return (giftIssues[0]&&giftIssues[0].cover_url)||""; }
 async function prepGift(){
@@ -1199,27 +1194,53 @@ document.getElementById("gift-assign-btn").onclick=async function(){
   loadDati();
 };
 
-// ── AZIONI ISCRITTI: messaggio privato in-app ─────────────────────
-document.getElementById("u-msg-btn").onclick=function(){ var mp=document.getElementById("u-msg-panel"); var show=(mp.style.display==="none"||!mp.style.display); mp.style.display=show?"block":"none"; if(show) showRes("u-msg-res","",""); };
+// ── AZIONI ISCRITTI: chat con l'iscritto ─────────────────────────
+var msgThreadUser=null;
+async function loadThread(u){
+  msgThreadUser=u;
+  var box=document.getElementById("msg-thread"); box.style.display="block";
+  document.getElementById("msg-head").textContent="Chat con "+u.email;
+  box.innerHTML='<div style="color:#888;font-size:12px">Caricamento\u2026</div>';
+  var rows=[]; try { rows=await sbGet("/rest/v1/messages?user_id=eq."+u.id+"&order=created_at.asc")||[]; } catch(e){ rows=[]; }
+  if(!Array.isArray(rows)) rows=[];
+  if(!rows.length){ box.innerHTML='<div style="color:#888;font-size:12px">Nessun messaggio con questo iscritto. Scrivi qui sotto per iniziare.</div>'; }
+  else {
+    box.innerHTML="";
+    rows.forEach(function(m){
+      var row=document.createElement("div"); row.style.cssText="display:flex;margin-bottom:6px;"+(m.from_admin?"justify-content:flex-end":"justify-content:flex-start");
+      var b=document.createElement("div"); b.style.cssText="max-width:80%;padding:7px 10px;border-radius:10px;"+(m.from_admin?"background:rgba(0,166,81,0.18);border:1px solid rgba(0,166,81,0.35)":"background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)");
+      var who=document.createElement("div"); who.style.cssText="font-size:10px;color:#888;margin-bottom:2px"; who.textContent=m.from_admin?"Redazione":u.email;
+      var tx=document.createElement("div"); tx.style.cssText="color:#eee;font-size:13px;white-space:pre-wrap;word-break:break-word"; tx.textContent=m.body;
+      b.appendChild(who); b.appendChild(tx); row.appendChild(b); box.appendChild(row);
+    });
+    box.scrollTop=box.scrollHeight;
+  }
+  try { await sbPatch("/rest/v1/messages?user_id=eq."+u.id+"&from_admin=eq.false&read_admin=eq.false",{read_admin:true}); if(unreadMsg[u.id]){ delete unreadMsg[u.id]; renderU(document.getElementById("u-search").value||""); } } catch(e){}
+}
+document.getElementById("u-msg-btn").onclick=function(){
+  var mp=document.getElementById("u-msg-panel"); var show=(mp.style.display==="none"||!mp.style.display); mp.style.display=show?"block":"none";
+  if(!show) return;
+  showRes("u-msg-res","","");
+  var us=selectedUsers();
+  var box=document.getElementById("msg-thread"); var hint=document.getElementById("msg-multi-hint");
+  if(us.length===1){ hint.style.display="none"; loadThread(us[0]); }
+  else { box.style.display="none"; box.innerHTML=""; msgThreadUser=null; document.getElementById("msg-head").textContent="Messaggio a "+us.length+" iscritti"; hint.style.display="block"; hint.textContent="Invio multiplo: il messaggio parte a tutti i selezionati (nessuna cronologia mostrata)."; }
+};
 document.getElementById("msg-cancel-btn").onclick=function(){ document.getElementById("u-msg-panel").style.display="none"; };
+document.getElementById("msg-refresh-btn").onclick=function(){ if(msgThreadUser) loadThread(msgThreadUser); };
 document.getElementById("msg-send-btn").onclick=async function(){
   var us=selectedUsers(); if(!us.length){ showRes("u-msg-res","Nessun iscritto selezionato.","err"); return; }
-  var t=(document.getElementById("msg-title").value||"").trim();
   var b=(document.getElementById("msg-body").value||"").trim();
-  var l=(document.getElementById("msg-link").value||"").trim();
-  if(!t||!b){ showRes("u-msg-res","Compila titolo e messaggio.","err"); return; }
+  if(!b){ showRes("u-msg-res","Scrivi un messaggio.","err"); return; }
   var btn=this; btn.disabled=true; var old=btn.textContent; btn.textContent="Invio\u2026";
   var done=0, err=0;
   for(var i=0;i<us.length;i++){
-    try {
-      var payload={title:t,body:b,user_id:us[i].id}; if(l) payload.link=l;
-      var r=await sbPost("/rest/v1/notifications",payload);
-      if(r.ok) done++; else err++;
-    } catch(e){ err++; }
+    try { var r=await sbPost("/rest/v1/messages",{user_id:us[i].id,from_admin:true,body:b,read_admin:true,read_user:false}); if(r.ok) done++; else err++; } catch(e){ err++; }
   }
   btn.disabled=false; btn.textContent=old;
-  showRes("u-msg-res","\u2713 Messaggio inviato a "+done+" iscritt"+(done===1?"o":"i")+(err?" \u00b7 "+err+" errori":""), err?"err":"ok");
-  if(!err){ document.getElementById("msg-title").value=""; document.getElementById("msg-body").value=""; document.getElementById("msg-link").value=""; }
+  document.getElementById("msg-body").value="";
+  showRes("u-msg-res","\u2713 Inviato a "+done+" iscritt"+(done===1?"o":"i")+(err?" \u00b7 "+err+" errori":""), err?"err":"ok");
+  if(msgThreadUser) loadThread(msgThreadUser);
 };
 function updSel(){ var n=document.querySelectorAll(".uch:checked").length; document.getElementById("u-sel-label").textContent=n>0?n+" selezionati":""; var act=document.getElementById("u-actions"); if(act){ act.style.display=n>0?"flex":"none"; var ac=document.getElementById("u-act-count"); if(ac) ac.textContent=n+" iscritt"+(n===1?"o":"i")+" selezionat"+(n===1?"o":"i"); } if(n===0){ var gp=document.getElementById("u-gift-panel"); if(gp) gp.style.display="none"; } }
 function renderU(filtro){
@@ -1236,7 +1257,7 @@ function renderU(filtro){
     var d=new Date(u.created_at).toLocaleDateString("it-IT",{day:"2-digit",month:"2-digit",year:"numeric"});
     var isN=(now-new Date(u.created_at))<86400000*7;
     var tr=document.createElement("tr"), email=u.email;
-    tr.innerHTML='<td><input type="checkbox" class="uch" value="'+email+'" style="width:15px;height:15px;accent-color:#00a651;cursor:pointer"></td><td style="font-weight:500">'+email+(isN?' <span class="badge badge-n">NUOVO</span>':'')+'</td><td>'+tipo+'</td><td style="color:rgba(255,255,255,0.5);font-size:12px">'+d+'</td><td style="text-align:center">'+notif+'</td><td></td>';
+    tr.innerHTML='<td><input type="checkbox" class="uch" value="'+email+'" style="width:15px;height:15px;accent-color:#00a651;cursor:pointer"></td><td style="font-weight:500">'+email+(unreadMsg[u.id]?' <span class="badge badge-n" style="background:#00a651">&#128172; '+unreadMsg[u.id]+'</span>':'')+(isN?' <span class="badge badge-n">NUOVO</span>':'')+'</td><td>'+tipo+'</td><td style="color:rgba(255,255,255,0.5);font-size:12px">'+d+'</td><td style="text-align:center">'+notif+'</td><td></td>';
     var cb=document.createElement("button"); cb.className="ghost btn-sm"; cb.textContent="📋"; cb.title="Copia email";
     cb.onclick=function(){ navigator.clipboard.writeText(email).then(function(){ cb.textContent="✓"; setTimeout(function(){ cb.textContent="📋"; },2000); }); };
     tr.querySelector("td:last-child").appendChild(cb);
