@@ -404,6 +404,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
           <span id="u-act-count" style="font-size:12px;color:#8fffc1;font-weight:700;margin-right:4px"></span>
           <button class="ghost btn-sm" id="u-gift-btn" style="border-color:rgba(0,166,81,0.4);color:#8fffc1">&#127873; Assegna omaggio</button>
           <button class="ghost btn-sm" id="u-email-btn">&#9993; Scrivi email</button>
+          <button class="ghost btn-sm" id="u-msg-btn">&#128172; Messaggio privato</button>
         </div>
         <!-- PANNELLO OMAGGIO -->
         <div id="u-gift-panel" style="display:none;margin-bottom:12px;padding:14px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;background:rgba(255,255,255,0.02)">
@@ -435,6 +436,27 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
             <button class="ghost btn-sm" id="gift-cancel-btn">Annulla</button>
           </div>
           <div id="u-act-res" class="res" style="margin-top:10px"></div>
+        </div>
+        <!-- PANNELLO MESSAGGIO PRIVATO -->
+        <div id="u-msg-panel" style="display:none;margin-bottom:12px;padding:14px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;background:rgba(255,255,255,0.02)">
+          <div style="font-weight:700;color:#fff;margin-bottom:10px;font-size:14px">&#128172; Messaggio privato agli iscritti selezionati</div>
+          <div style="margin-bottom:10px">
+            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Titolo</label>
+            <input id="msg-title" class="search" style="width:100%" placeholder="Es. Un regalo per te">
+          </div>
+          <div style="margin-bottom:10px">
+            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Messaggio</label>
+            <textarea id="msg-body" class="search" style="width:100%;min-height:80px;resize:vertical" placeholder="Scrivi qui il messaggio che l'iscritto leggera nella sua area personale..."></textarea>
+          </div>
+          <div style="margin-bottom:10px">
+            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Link (facoltativo)</label>
+            <input id="msg-link" class="search" style="width:100%" placeholder="https://...">
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <button class="ghost btn-sm" id="msg-send-btn" style="border-color:rgba(0,166,81,0.5);color:#8fffc1;font-weight:700">Invia agli iscritti selezionati</button>
+            <button class="ghost btn-sm" id="msg-cancel-btn">Annulla</button>
+          </div>
+          <div id="u-msg-res" class="res" style="margin-top:10px"></div>
         </div>
         <input type="search" class="search" id="u-search" placeholder="Cerca per email...">
         <div style="overflow-x:auto">
@@ -1175,6 +1197,29 @@ document.getElementById("gift-assign-btn").onclick=async function(){
   btn.disabled=false; btn.textContent=old;
   showRes("u-act-res","\u2713 Omaggio assegnato a "+done+" iscritt"+(done===1?"o":"i")+(skip?" \u00b7 "+skip+" gi\u00e0 in possesso":"")+(err?" \u00b7 "+err+" errori":""), err?"err":"ok");
   loadDati();
+};
+
+// ── AZIONI ISCRITTI: messaggio privato in-app ─────────────────────
+document.getElementById("u-msg-btn").onclick=function(){ var mp=document.getElementById("u-msg-panel"); var show=(mp.style.display==="none"||!mp.style.display); mp.style.display=show?"block":"none"; if(show) showRes("u-msg-res","",""); };
+document.getElementById("msg-cancel-btn").onclick=function(){ document.getElementById("u-msg-panel").style.display="none"; };
+document.getElementById("msg-send-btn").onclick=async function(){
+  var us=selectedUsers(); if(!us.length){ showRes("u-msg-res","Nessun iscritto selezionato.","err"); return; }
+  var t=(document.getElementById("msg-title").value||"").trim();
+  var b=(document.getElementById("msg-body").value||"").trim();
+  var l=(document.getElementById("msg-link").value||"").trim();
+  if(!t||!b){ showRes("u-msg-res","Compila titolo e messaggio.","err"); return; }
+  var btn=this; btn.disabled=true; var old=btn.textContent; btn.textContent="Invio\u2026";
+  var done=0, err=0;
+  for(var i=0;i<us.length;i++){
+    try {
+      var payload={title:t,body:b,user_id:us[i].id}; if(l) payload.link=l;
+      var r=await sbPost("/rest/v1/notifications",payload);
+      if(r.ok) done++; else err++;
+    } catch(e){ err++; }
+  }
+  btn.disabled=false; btn.textContent=old;
+  showRes("u-msg-res","\u2713 Messaggio inviato a "+done+" iscritt"+(done===1?"o":"i")+(err?" \u00b7 "+err+" errori":""), err?"err":"ok");
+  if(!err){ document.getElementById("msg-title").value=""; document.getElementById("msg-body").value=""; document.getElementById("msg-link").value=""; }
 };
 function updSel(){ var n=document.querySelectorAll(".uch:checked").length; document.getElementById("u-sel-label").textContent=n>0?n+" selezionati":""; var act=document.getElementById("u-actions"); if(act){ act.style.display=n>0?"flex":"none"; var ac=document.getElementById("u-act-count"); if(ac) ac.textContent=n+" iscritt"+(n===1?"o":"i")+" selezionat"+(n===1?"o":"i"); } if(n===0){ var gp=document.getElementById("u-gift-panel"); if(gp) gp.style.display="none"; } }
 function renderU(filtro){
