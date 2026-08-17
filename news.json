@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-17T14:43:07.650693+00:00",
+  "updated": "2026-08-17T15:03:07.783777+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Visite sonore, percorsi guidati e passeggiate: tra la Valle dei Templi e la Villa Romana di Realmonte",
+      "summary": "Una settimana particolare alla Valle dei Templi che si srotolerà tra percorsi sonori e un approfondimento dedicato al genio di Fernando Botero",
+      "date": "2026-08-17T15:02:04Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/visite-sonore-percorsi-guidati-e-passeggiate-tra-la-valle-dei-templi-e-la-villa-romana-di-realmonte",
+      "img": "/feed-images/2ad99d0d1001be9c.jpg"
+    },
     {
       "title": "Aereo ultraleggero scomparso dai radar: a bordo due avvocati in vacanza in Sicilia",
       "summary": "A segnalare la scomparsa sono stati i familiari delle due persone a bordo facendo scattare il piano ricerca persone scomparse della Prefettura",
@@ -133,7 +140,7 @@
       "title": "Occupazione abusiva e prodotti senza tracciabilità in un chiosco a Siculiana, maxi sanzione",
       "summary": "Nei guai il responsabile della società che gestisce una struttura turistica con annesso stabilimento balneare. Nei suoi confronti sono scattate denuncia e sanzione",
       "date": "2026-08-17T06:08:43Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/occupazione-abusiva-e-prodotti-senza-tracciabilita-in-un-chiosco-a-siculiana-maxi-sanzione",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/occupazione-abusiva-e-prodotti-senza-tracciabilita-in-un-chiosco-a-siculiana-maxi-sanzione",
       "img": ""
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-16T10:23:10Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/ucciso-a-colpi-di-cacciavite-svolta-nellomicidio-di-vito-genovese-3-fermi",
       "img": "/feed-images/398c46a309686664.jpg"
-    },
-    {
-      "title": "Finta volontaria raccoglie soldi fuori da un ospedale, denunciata",
-      "summary": "La donna si presentava con un tesserino riconducibile ad una nota organizzazione umanitaria e chiedeva contributi economici destinati a presunte iniziative benefiche",
-      "date": "2026-08-16T08:44:51Z",
-      "link": "https://www.grandangoloagrigento.it/catania/finta-volontaria-raccoglie-soldi-fuori-da-un-ospedale-denunciata",
-      "img": "/feed-images/6e3ad262125952b3.jpg"
     }
   ]
 }
