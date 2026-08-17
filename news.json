@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-17T08:38:14.662313+00:00",
+  "updated": "2026-08-17T09:23:21.410303+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Strutture ricettive senza acqua tra cancellazioni e disagi: il racconto di Alessandra",
+      "summary": "La testimonianza arriva da Alessandra che gestisce una struttura extralberghiera in piazza Pirandello nei pressi del Comune di Agrigento",
+      "date": "2026-08-17T08:51:58Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/strutture-ricettive-senza-acqua-tra-cancellazioni-e-disagi-il-racconto-di-alessandra",
+      "img": "/feed-images/475ac6d85820c12a.jpg"
+    },
     {
       "title": "“A Lampedusa il premio Nobel della pace”, l’appello di Jannuzzo dalla piazza di Comitini",
       "summary": "Durante lo spettacolo applausi a scena aperta per la piccola Mariam, immigrata nata proprio a Comitini dopo 51 anni dall’ultimo parto che si è registrato in paese",
@@ -15,7 +22,7 @@
       "summary": "Il giovane turista si trovava sull’Etna, sembra in una zona vietata quando è stato sorpreso da un violento temporale",
       "date": "2026-08-17T07:48:35Z",
       "link": "https://www.grandangoloagrigento.it/apertura/tragedia-sulletna-30enne-muore-colpito-da-un-fulmine-durante-escursione",
-      "img": ""
+      "img": "/feed-images/2b20a15a66c30233.jpg"
     },
     {
       "title": "Impianti di conferimento chiusi fino al 24 agosto, a Ravanusa la raccolta porta a porta non si ferma",
@@ -77,7 +84,7 @@
       "title": "Ai domiciliari danneggia il braccialetto elettronico, denunciato licatese",
       "summary": "I carabinieri hanno denunciato un ventenne di Licata, ma residente a Camastra, per il reato di danneggiamento aggravato",
       "date": "2026-08-17T06:04:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/ai-domiciliari-danneggia-il-braccialetto-elettronico-denunciato-licatese",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/ai-domiciliari-danneggia-il-braccialetto-elettronico-denunciato-licatese",
       "img": "/feed-images/0802e4d3dba12290.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-16T06:31:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/in-fiamme-lauto-di-un-pensionato-a-licata-indagini",
       "img": "/feed-images/1dd7e223e2df3f40.jpg"
-    },
-    {
-      "title": "Pronto soccorso sempre più sotto pressione: oltre 40 in attesa al San Giovanni di Dio",
-      "summary": "Diciannove le persone identificate con un codice “critico”, di cui 2 in codice rosso",
-      "date": "2026-08-15T19:26:21Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/pronto-soccorso-sempre-piu-sotto-pressione-oltre-40-in-attesa-al-san-giovanni-di-dio",
-      "img": "/feed-images/928f2a8a611c5978.jpg"
     }
   ]
 }
