@@ -1,14 +1,21 @@
 {
-  "updated": "2026-08-17T12:36:20.560652+00:00",
+  "updated": "2026-08-17T13:25:56.003588+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Agrigento, la Valle dei Templi raccontata dai visitatori",
+      "summary": "La Valle dei Templi si conferma la meta preferita dei visitatori ad Agrigento",
+      "date": "2026-08-17T13:23:13Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-la-valle-dei-templi-raccontata-dai-visitatori",
+      "img": "/feed-images/143fe1c269e5208d.jpg"
+    },
     {
       "title": "Crolla balcone, 56enne in ospedale in gravi condizioni",
       "summary": "La donna si trovava fuori, pare a stendere i panni, quando è avvenuto il crollo.",
       "date": "2026-08-17T12:13:14Z",
       "link": "https://www.grandangoloagrigento.it/palermo/crolla-balcone-56enne-in-ospedale-in-gravi-condizioni",
-      "img": "/feed-images/020e50857f6612f9.jpg"
+      "img": "/feed-images/711b6540274ce8cc.jpg"
     },
     {
       "title": "Incendio di un’auto minaccia abitazione, carabiniere salva anziano invalido",
@@ -205,13 +212,6 @@
       "date": "2026-08-16T08:21:19Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/rifiuta-alcoltest-ed-era-anche-senza-patente-denunciato-18enne-empedoclino",
       "img": "/feed-images/e7f72284e8b4aab8.jpg"
-    },
-    {
-      "title": "Aveva 154 dosi di cocaina e 250 grammi di marijuana, arrestato",
-      "summary": "L’uomo, durante il controllo, ha cercato di disfarsi, senza dare nell’occhio, di un involucro che è stato recuperato immediatamente dai poliziotti",
-      "date": "2026-08-16T08:15:09Z",
-      "link": "https://www.grandangoloagrigento.it/catania/aveva-154-dosi-di-cocaina-e-250-grammi-di-marijuana-arrestato",
-      "img": "/feed-images/31049d164deec44f.jpg"
     }
   ]
 }
