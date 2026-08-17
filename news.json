@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-17T06:45:38.721362+00:00",
+  "updated": "2026-08-17T07:49:25.486382+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tragedia sull’Etna, 30enne muore colpito da un fulmine durante escursione",
+      "summary": "Il giovane turista si trovava sull’Etna, sembra in una zona vietata quando è stato sorpreso da un violento temporale",
+      "date": "2026-08-17T07:48:35Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/tragedia-sulletna-30enne-muore-colpito-da-un-fulmine-durante-escursione",
+      "img": ""
+    },
+    {
+      "title": "Impianti di conferimento chiusi fino al 24 agosto, a Ravanusa la raccolta porta a porta non si ferma",
+      "summary": "La RAR – Ravanusa Ambiente e Risorse ha scelto di riorganizzare le attività e l’impiego delle risorse e dei mezzi disponibili per garantire il servizio",
+      "date": "2026-08-17T07:23:52Z",
+      "link": "https://www.grandangoloagrigento.it/ravanusa/impianti-di-conferimento-chiusi-fino-al-24-agosto-a-ravanusa-la-raccolta-porta-a-porta-non-si-ferma",
+      "img": "/feed-images/76142e4576bba60d.jpg"
+    },
     {
       "title": "Etna, ancora limitazioni all’aeroporto di Catania",
       "summary": "Sono limitate le attività di volo in arrivo pari a 5 aerei ogni ora, fino alle 14 di oggi",
@@ -70,7 +84,7 @@
       "title": "“Schiaffi alla figlia e maltrattamenti alla moglie”, misura cautelare per empedoclino",
       "summary": "A finire nei guai un 42enne di Porto Empedocle, indagato per lesioni personale e maltrattamenti in famiglia. Allontanato dalla casa familiare",
       "date": "2026-08-16T17:34:27Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/schiaffi-alla-figlia-e-maltrattamenti-alla-moglie-misura-cautelare-per-empedoclino",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/schiaffi-alla-figlia-e-maltrattamenti-alla-moglie-misura-cautelare-per-empedoclino",
       "img": "/feed-images/da60e5bcd9e80b54.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-15T19:24:38Z",
       "link": "https://www.grandangoloagrigento.it/lampedusa/enzo-miccio-in-vacanza-a-lampedusa-posto-magico-che-ti-entra-dentro",
       "img": "/feed-images/546aee2a0cea363b.jpg"
-    },
-    {
-      "title": "Sei sbarchi tra Lampedusa e Lampione",
-      "summary": "Sono 87 i migranti arrivati nella giornata di oggi",
-      "date": "2026-08-15T17:56:19Z",
-      "link": "https://www.grandangoloagrigento.it/lampedusa/sei-sbarchi-tra-lampedusa-e-lampione",
-      "img": "/feed-images/24454b870fe3160a.jpg"
-    },
-    {
-      "title": "Persona soccorsa alla Scala dei turchi, l’intervento del 118 e della Guardia Costiera",
-      "summary": "Sul posto sono intervenuti gli operatori Alfa 16 di Porto Empedocle",
-      "date": "2026-08-15T15:41:15Z",
-      "link": "https://www.grandangoloagrigento.it/realmonte/persona-soccorsa-alla-scala-dei-turchi-lintervento-del-118-e-della-guardia-costiera",
-      "img": "/feed-images/50dd08c3c6ee5a06.jpg"
     }
   ]
 }
