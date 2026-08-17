@@ -1,8 +1,36 @@
 {
-  "updated": "2026-08-17T15:03:07.783777+00:00",
+  "updated": "2026-08-17T15:38:19.187826+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tentato omicidio in un negozio di frutta e verdura, 3 arresti",
+      "summary": "Per la vittima, la corsa in ospedale e la prognosi riservata per trauma addominale con rottura della milza e un trauma toracico pericoloso, oltre alle ferite provocate dall’arma da taglio",
+      "date": "2026-08-17T15:26:36Z",
+      "link": "https://www.grandangoloagrigento.it/ragusa/tentato-omicidio-in-un-negozio-di-frutta-e-verdura-3-arresti",
+      "img": "/feed-images/6924e90438f51429.jpg"
+    },
+    {
+      "title": "“Ritrovo abituale di pregiudicati”, centro scommesse chiuso per una settimana",
+      "summary": "L’esercizio pubblico era divenuto luogo di incontro abituale di pregiudicati, ritenuti responsabili di reati di particolare allarme sociale",
+      "date": "2026-08-17T15:17:49Z",
+      "link": "https://www.grandangoloagrigento.it/catania/ritrovo-abituale-di-pregiudicati-centro-scommesse-chiuso-per-una-settimana",
+      "img": "/feed-images/e15dbd1ca6ebeed3.jpg"
+    },
+    {
+      "title": "Senza acqua nelle case, ma la rete perde in strada: grosso guasto in via Papa Luciani",
+      "summary": "In via Papa Luciani un grosso getto d’acqua ha iniziato a fuoriuscire direttamente dall’asfalto riversandosi sul manto stradale.",
+      "date": "2026-08-17T15:07:11Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/senza-acqua-nelle-case-ma-la-rete-perde-in-strada-grosso-guasto-in-via-papa-luciani",
+      "img": "/feed-images/5d64422d9ac6021f.png"
+    },
+    {
+      "title": "“Mi avete rotto i….sempre me dovete fermare”, 27enne a processo",
+      "summary": "La vicenda risale all’estate 2024 quando l’agrigentino venne fermato dalla polizia lungo la strada statale 640",
+      "date": "2026-08-17T15:05:47Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/mi-avete-rotto-i-sempre-me-dovete-fermare-27enne-a-processo",
+      "img": "/feed-images/244f4a806ed4dda3.jpg"
+    },
     {
       "title": "Visite sonore, percorsi guidati e passeggiate: tra la Valle dei Templi e la Villa Romana di Realmonte",
       "summary": "Una settimana particolare alla Valle dei Templi che si srotolerà tra percorsi sonori e un approfondimento dedicato al genio di Fernando Botero",
@@ -184,34 +212,6 @@
       "date": "2026-08-16T17:34:27Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/schiaffi-alla-figlia-e-maltrattamenti-alla-moglie-misura-cautelare-per-empedoclino",
       "img": "/feed-images/da60e5bcd9e80b54.jpg"
-    },
-    {
-      "title": "L’emergenza idrica nell’Agrigentino e il “caso” Ravanusa oggi su Raitre",
-      "summary": "In collegamento ci sarà anche Salvatore Pitrola, sindaco di Ravanusa, indagato dalla Procura di Agrigento per aver autorizzato prelievo dell’acqua dal pozzo comunale",
-      "date": "2026-08-16T17:22:57Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lemergenza-idrica-nellagrigentino-e-il-caso-ravanusa-domani-su-raitre",
-      "img": "/feed-images/9c8cbad0d65c794f.png"
-    },
-    {
-      "title": "Furto al museo Regionale, rubate quattro opere di Antonello da Messina: due ritrovate",
-      "summary": "La Procura di Messina ha aperto inchiesta per furto pluriaggravato di opere d’arte",
-      "date": "2026-08-16T14:50:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/clamoroso-furto-al-museo-regionale-rubate-4-opere-di-antonello-da-messina",
-      "img": "/feed-images/f239e9a42d84e329.jpg"
-    },
-    {
-      "title": "Fugge da centro d’accoglienza e finisce in una scarpata: soccorso dai Vigili del fuoco",
-      "summary": "Una volta recuperato, l’uomo è stato affidato ai sanitari e trasportato al pronto soccorso di Caltanissetta",
-      "date": "2026-08-16T11:54:48Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/migrante-fugge-da-centro-daccoglienza-e-finisce-in-una-scarpata-soccorso-dai-vigili-del-fuoco",
-      "img": "/feed-images/020e50857f6612f9.jpg"
-    },
-    {
-      "title": "Ucciso a colpi di cacciavite, svolta nell’omicidio di Vito Genovese: 3 fermi",
-      "summary": "In manette due ragazzini di 16 anni e un 33enne che si trovava ai domiciliari. L’aggressione dopo che la vittima li aveva invitati ad allontanarsi dal garage",
-      "date": "2026-08-16T10:23:10Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/ucciso-a-colpi-di-cacciavite-svolta-nellomicidio-di-vito-genovese-3-fermi",
-      "img": "/feed-images/398c46a309686664.jpg"
     }
   ]
 }
