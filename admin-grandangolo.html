@@ -399,6 +399,43 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
           </div>
         </div>
         <div id="u-sel-label" style="font-size:12px;color:#888;margin-bottom:10px"></div>
+        <!-- AZIONI ISCRITTI (compaiono con almeno 1 selezionato) -->
+        <div id="u-actions" style="display:none;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;padding:12px;border:1px solid rgba(0,166,81,0.25);border-radius:12px;background:rgba(0,166,81,0.05)">
+          <span id="u-act-count" style="font-size:12px;color:#8fffc1;font-weight:700;margin-right:4px"></span>
+          <button class="ghost btn-sm" id="u-gift-btn" style="border-color:rgba(0,166,81,0.4);color:#8fffc1">&#127873; Assegna omaggio</button>
+          <button class="ghost btn-sm" id="u-email-btn">&#9993; Scrivi email</button>
+        </div>
+        <!-- PANNELLO OMAGGIO -->
+        <div id="u-gift-panel" style="display:none;margin-bottom:12px;padding:14px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;background:rgba(255,255,255,0.02)">
+          <div style="font-weight:700;color:#fff;margin-bottom:10px;font-size:14px">&#127873; Assegna un omaggio agli iscritti selezionati</div>
+          <div style="margin-bottom:10px">
+            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Cosa vuoi regalare</label>
+            <select id="gift-kind" class="search" style="width:100%">
+              <option value="premium">&#9733; Abbonamento PREMIUM (tutti i numeri)</option>
+              <option value="promo">Bundle Pasqua (N.7&#8211;12/2026)</option>
+              <option value="issue">Un singolo numero&#8230;</option>
+              <option value="custom">Un bundle personalizzato&#8230;</option>
+              <option value="manual">Un codice specifico (incolla)&#8230;</option>
+            </select>
+          </div>
+          <div id="gift-issue-wrap" style="display:none;margin-bottom:10px">
+            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Numero da regalare</label>
+            <select id="gift-issue" class="search" style="width:100%"></select>
+          </div>
+          <div id="gift-custom-wrap" style="display:none;margin-bottom:10px">
+            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Bundle personalizzato</label>
+            <select id="gift-custom" class="search" style="width:100%"></select>
+          </div>
+          <div id="gift-manual-wrap" style="display:none;margin-bottom:10px">
+            <label style="display:block;font-size:12px;color:#aaa;margin-bottom:4px">Codice da assegnare</label>
+            <input id="gift-manual" class="search" style="width:100%" placeholder="GR22-...">
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <button class="ghost btn-sm" id="gift-assign-btn" style="border-color:rgba(0,166,81,0.5);color:#8fffc1;font-weight:700">Assegna agli iscritti selezionati</button>
+            <button class="ghost btn-sm" id="gift-cancel-btn">Annulla</button>
+          </div>
+          <div id="u-act-res" class="res" style="margin-top:10px"></div>
+        </div>
         <input type="search" class="search" id="u-search" placeholder="Cerca per email...">
         <div style="overflow-x:auto">
           <table class="tbl">
@@ -1083,7 +1120,63 @@ document.getElementById("u-sel-all-btn").onclick = function(){ var checks=docume
 document.getElementById("u-copy-btn").onclick = function(){ var sel=document.querySelectorAll(".uch:checked"); if(!sel.length){ alert("Seleziona almeno un utente."); return; } navigator.clipboard.writeText(Array.from(sel).map(function(c){ return c.value; }).join(", ")).then(function(){ document.getElementById("u-copy-btn").textContent="Copiate!"; setTimeout(function(){ document.getElementById("u-copy-btn").textContent="Copia selezionate"; },2000); }); };
 document.getElementById("u-refresh-btn").onclick = loadDati;
 document.getElementById("u-search").oninput = function(){ renderU(this.value); };
-function updSel(){ var n=document.querySelectorAll(".uch:checked").length; document.getElementById("u-sel-label").textContent=n>0?n+" selezionati":""; }
+
+// ── AZIONI ISCRITTI: omaggi / email ───────────────────────────────
+var giftIssues=[], giftBundles=[];
+function selectedUsers(){ var em={}; document.querySelectorAll(".uch:checked").forEach(function(c){ em[c.value]=1; }); return users.filter(function(u){ return em[u.email]; }); }
+function giftFirstCover(){ return (giftIssues[0]&&giftIssues[0].cover_url)||""; }
+async function prepGift(){
+  showRes("u-act-res","","");
+  try {
+    giftIssues=await sbGet("/rest/v1/issues?select=id,title,unlock_code,cover_url&order=sort_order.desc,created_at.desc")||[];
+    giftBundles=await sbGet("/rest/v1/custom_bundles?select=*")||[];
+  } catch(e){ giftIssues=giftIssues||[]; giftBundles=giftBundles||[]; }
+  var is=document.getElementById("gift-issue"); is.innerHTML="";
+  giftIssues.forEach(function(i){ var o=document.createElement("option"); o.value=i.id; o.textContent=i.title; is.appendChild(o); });
+  var cs=document.getElementById("gift-custom"); cs.innerHTML="";
+  if(giftBundles.length){ giftBundles.forEach(function(b){ var o=document.createElement("option"); o.value=b.codice; o.textContent=(b.nome||b.codice); cs.appendChild(o); }); }
+  else { var o=document.createElement("option"); o.value=""; o.textContent="(nessun bundle personalizzato)"; cs.appendChild(o); }
+}
+function giftResolve(code){
+  if(code===PREMIUM_CODE) return {code:code,type:"premium",issue_ids:["all"],label:"Abbonamento PREMIUM 2026",cover_url:giftFirstCover()};
+  if(code===PROMO_CODE){ var pc=giftIssues.filter(function(i){return PROMO_IDS.indexOf(i.id)!==-1;}); return {code:code,type:"bundle",issue_ids:PROMO_IDS,label:"Bundle Pasqua 6 numeri (N.7\u201312/2026)",cover_url:(pc[0]&&pc[0].cover_url)||giftFirstCover()}; }
+  var b=giftBundles.find(function(x){return x.codice===code;}); if(b) return {code:code,type:"bundle",issue_ids:(b.issue_codes||[]),label:(b.nome||b.codice),cover_url:""};
+  var i=giftIssues.find(function(x){return x.unlock_code===code;}); if(i) return {code:code,type:"singolo",issue_ids:[i.id],label:i.title,cover_url:i.cover_url||""};
+  return null;
+}
+function buildGiftPayload(){
+  var k=document.getElementById("gift-kind").value;
+  if(k==="premium") return {code:PREMIUM_CODE,type:"premium",issue_ids:["all"],label:"Abbonamento PREMIUM 2026",cover_url:giftFirstCover()};
+  if(k==="promo"){ var pc=giftIssues.filter(function(i){return PROMO_IDS.indexOf(i.id)!==-1;}); return {code:PROMO_CODE,type:"bundle",issue_ids:PROMO_IDS,label:"Bundle Pasqua 6 numeri (N.7\u201312/2026)",cover_url:(pc[0]&&pc[0].cover_url)||giftFirstCover()}; }
+  if(k==="issue"){ var id=document.getElementById("gift-issue").value; var i=giftIssues.find(function(x){return x.id===id;}); if(!i) return null; return {code:i.unlock_code,type:"singolo",issue_ids:[i.id],label:i.title,cover_url:i.cover_url||""}; }
+  if(k==="custom"){ var code=document.getElementById("gift-custom").value; if(!code) return null; var b=giftBundles.find(function(x){return x.codice===code;}); if(!b) return null; var cov=""; if(b.issue_codes&&b.issue_codes.length){ var mi=giftIssues.find(function(x){return b.issue_codes.indexOf(x.id)!==-1||b.issue_codes.indexOf(x.unlock_code)!==-1;}); cov=mi?(mi.cover_url||""):""; } return {code:b.codice,type:"bundle",issue_ids:(b.issue_codes||[]),label:(b.nome||b.codice),cover_url:cov}; }
+  if(k==="manual"){ var v=(document.getElementById("gift-manual").value||"").trim(); if(!v) return null; return giftResolve(v); }
+  return null;
+}
+document.getElementById("u-gift-btn").onclick=function(){ var gp=document.getElementById("u-gift-panel"); var show=(gp.style.display==="none"||!gp.style.display); gp.style.display=show?"block":"none"; if(show) prepGift(); };
+document.getElementById("gift-cancel-btn").onclick=function(){ document.getElementById("u-gift-panel").style.display="none"; };
+document.getElementById("gift-kind").onchange=function(){ var k=this.value; document.getElementById("gift-issue-wrap").style.display=k==="issue"?"block":"none"; document.getElementById("gift-custom-wrap").style.display=k==="custom"?"block":"none"; document.getElementById("gift-manual-wrap").style.display=k==="manual"?"block":"none"; };
+document.getElementById("u-email-btn").onclick=function(){ var us=selectedUsers(); if(!us.length) return; var to=us.map(function(u){return u.email;}); window.location.href="mailto:?bcc="+encodeURIComponent(to.join(",")); };
+document.getElementById("gift-assign-btn").onclick=async function(){
+  var us=selectedUsers(); if(!us.length){ showRes("u-act-res","Nessun iscritto selezionato.","err"); return; }
+  var payload=buildGiftPayload(); if(!payload){ showRes("u-act-res","Scegli un omaggio valido (o incolla un codice riconosciuto).","err"); return; }
+  var btn=this; btn.disabled=true; var old=btn.textContent; btn.textContent="Assegnazione\u2026";
+  var done=0, skip=0, err=0;
+  for(var idx=0; idx<us.length; idx++){
+    var u=us[idx];
+    try {
+      var ex=await sbGet("/rest/v1/user_codes?select=code&user_id=eq."+u.id);
+      var has=(ex||[]).some(function(row){ return row.code===payload.code; });
+      if(has){ skip++; continue; }
+      var r=await sbPost("/rest/v1/user_codes",{user_id:u.id,code:payload.code,type:payload.type,issue_ids:payload.issue_ids,label:payload.label,cover_url:payload.cover_url,added_at:new Date().toISOString()});
+      if(r.ok) done++; else err++;
+    } catch(e){ err++; }
+  }
+  btn.disabled=false; btn.textContent=old;
+  showRes("u-act-res","\u2713 Omaggio assegnato a "+done+" iscritt"+(done===1?"o":"i")+(skip?" \u00b7 "+skip+" gi\u00e0 in possesso":"")+(err?" \u00b7 "+err+" errori":""), err?"err":"ok");
+  loadDati();
+};
+function updSel(){ var n=document.querySelectorAll(".uch:checked").length; document.getElementById("u-sel-label").textContent=n>0?n+" selezionati":""; var act=document.getElementById("u-actions"); if(act){ act.style.display=n>0?"flex":"none"; var ac=document.getElementById("u-act-count"); if(ac) ac.textContent=n+" iscritt"+(n===1?"o":"i")+" selezionat"+(n===1?"o":"i"); } if(n===0){ var gp=document.getElementById("u-gift-panel"); if(gp) gp.style.display="none"; } }
 function renderU(filtro){
   var tbody=document.getElementById("u-body");
   var pm={}; prefs.forEach(function(p){ pm[p.user_id]=p.data; });
