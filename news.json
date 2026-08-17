@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-17T15:58:35.646500+00:00",
+  "updated": "2026-08-17T16:33:40.666814+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Agrigento, sospesa la raccolta della carta fino al 24 agosto",
+      "summary": "Da oggi e fino al 24 agosto, è vietato conferire all’esterno delle abitazioni e delle attività commerciali i relativi mastelli e/o sacchi destinati alla raccolta di carta e cartone",
+      "date": "2026-08-17T16:15:28Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-sospesa-la-raccolta-della-carta-fino-al-24-agosto",
+      "img": "/feed-images/fc09c6bcf55d09b3.jpg"
+    },
+    {
+      "title": "Raffadali, azzerate liste d’attesa per la carta d’identità elettronica",
+      "summary": "Al 1° agosto dello scorso anno le Carte d’Identità Elettroniche emesse erano state 1.112; alla stessa data di quest’anno il numero è salito a 2.633, con un incremento superiore al 150%",
+      "date": "2026-08-17T16:12:14Z",
+      "link": "https://www.grandangoloagrigento.it/raffadali/raffadali-azzerate-liste-dattesa-per-la-carta-didentita-elettronica",
+      "img": "/feed-images/a42e6f330f8011d4.jpg"
+    },
     {
       "title": "Tentato omicidio in un negozio di frutta e verdura, 3 arresti",
       "summary": "Per la vittima, la corsa in ospedale e la prognosi riservata per trauma addominale con rottura della milza e un trauma toracico pericoloso, oltre alle ferite provocate dall’arma da taglio",
@@ -198,20 +212,6 @@
       "date": "2026-08-17T04:00:00Z",
       "link": "https://www.grandangoloagrigento.it/primo-piano/luigia-narbone-ancora-non-si-trova-ricerche-si-concentrano-nelle-campagne",
       "img": "/feed-images/d9c4d82919266dbb.jpg"
-    },
-    {
-      "title": "Ordigni bellici nei fondali di Lampedusa, scoperti da turisti",
-      "summary": "Sono stati allertati gli artificieri dell’Esercito che dovranno occuparsi delle operazioni di bonifica",
-      "date": "2026-08-16T17:48:27Z",
-      "link": "https://www.grandangoloagrigento.it/lampedusa/ordigni-bellici-nei-fondali-di-lampedusa-scoperti-da-turisti",
-      "img": "/feed-images/4ddf0b9180ad04e2.png"
-    },
-    {
-      "title": "“Schiaffi alla figlia e maltrattamenti alla moglie”, misura cautelare per empedoclino",
-      "summary": "A finire nei guai un 42enne di Porto Empedocle, indagato per lesioni personale e maltrattamenti in famiglia. Allontanato dalla casa familiare",
-      "date": "2026-08-16T17:34:27Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/schiaffi-alla-figlia-e-maltrattamenti-alla-moglie-misura-cautelare-per-empedoclino",
-      "img": "/feed-images/da60e5bcd9e80b54.jpg"
     }
   ]
 }
