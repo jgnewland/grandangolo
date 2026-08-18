@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-18T09:59:12.542161+00:00",
+  "updated": "2026-08-18T10:35:13.774250+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Dramma a Canicattì, trovata morta Luigia Narbone: era scomparsa 5 giorni fa",
+      "summary": "E’ stata ritrovata morta, nell’area della linea ferroviaria a monte di via Cilea a Canicattì, la sessantanovenne Luigia Narbone",
+      "date": "2026-08-18T10:17:24Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/dramma-a-canicatti-trovata-morta-luigia-narbone-era-scomparsa-5-giorni-fa",
+      "img": "/feed-images/385e341b52a415f7.jpg"
+    },
+    {
+      "title": "Due scosse di terremoto magnitudo 3.7 nel Messinese",
+      "summary": "Non sembrano esserci danni ma a Gioiosa Marea le scosse sono state avvertite e la gente è scesa in strada",
+      "date": "2026-08-18T10:14:20Z",
+      "link": "https://www.grandangoloagrigento.it/messina/due-scosse-di-terremoto-magnitudo-3-7-nel-messinese",
+      "img": "/feed-images/de373ca6b64ee6ec.jpg"
+    },
     {
       "title": "Futura riserva di Punta Bianca: la Regione pronta ad affidare la gestione",
       "summary": "Il bando prevederà l’affidamento fino al 31 dicembre 2029, stanziati circa 225mila euro per i costi connessi a personale e mezzi",
@@ -147,7 +161,7 @@
       "title": "Lo convincono ad effettuare bonifico di 30 mila euro, maxi truffa a pensionato favarese",
       "summary": "La polizia ha individuato i due truffatori: si tratta di un ventitreenne di Benevento e un trentottenne di Napoli",
       "date": "2026-08-18T05:41:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/lo-convincono-ad-effettuare-bonifico-di-30-mila-euro-maxi-truffa-a-pensionato-favarese",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lo-convincono-ad-effettuare-bonifico-di-30-mila-euro-maxi-truffa-a-pensionato-favarese",
       "img": "/feed-images/a1a54b61206f6e4d.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-17T15:07:11Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/senza-acqua-nelle-case-ma-la-rete-perde-in-strada-grosso-guasto-in-via-papa-luciani",
       "img": "/feed-images/5d64422d9ac6021f.png"
-    },
-    {
-      "title": "“Mi avete rotto i….sempre me dovete fermare”, 27enne a processo",
-      "summary": "La vicenda risale all’estate 2024 quando l’agrigentino venne fermato dalla polizia lungo la strada statale 640",
-      "date": "2026-08-17T15:05:47Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/mi-avete-rotto-i-sempre-me-dovete-fermare-27enne-a-processo",
-      "img": "/feed-images/244f4a806ed4dda3.jpg"
-    },
-    {
-      "title": "Visite sonore, percorsi guidati e passeggiate: tra la Valle dei Templi e la Villa Romana di Realmonte",
-      "summary": "Una settimana particolare alla Valle dei Templi che si srotolerà tra percorsi sonori e un approfondimento dedicato al genio di Fernando Botero",
-      "date": "2026-08-17T15:02:04Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/visite-sonore-percorsi-guidati-e-passeggiate-tra-la-valle-dei-templi-e-la-villa-romana-di-realmonte",
-      "img": "/feed-images/2ad99d0d1001be9c.jpg"
     }
   ]
 }
