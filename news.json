@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-18T05:25:01.867354+00:00",
+  "updated": "2026-08-18T05:54:22.098872+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Pestato a sangue dal branco, ventenne in ospedale con trauma cranico e ferite",
+      "summary": "L’aggressione è avvenuta in via Acrone, nei pressi della stazione centrale di Agrigento: “caccia” al branco",
+      "date": "2026-08-18T05:47:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/pestato-a-sangue-dal-branco-ventenne-in-ospedale-con-trauma-cranico-e-ferite",
+      "img": "/feed-images/cb60da64201a5f3e.jpg"
+    },
+    {
+      "title": "Incendiano moto a Fontanelle, arrestati due ventenni",
+      "summary": "Sono accusati di aver bruciato una moto e uno scooter nel quartiere di Fontanelle. Per compiere il raid hanno usato un mezzo risultato rubato a Porto Empedocle",
+      "date": "2026-08-18T05:40:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/incendiano-moto-a-fontanelle-arrestati-due-ventenni",
+      "img": "/feed-images/c5a5ea4ab532ab02.jpg"
+    },
+    {
+      "title": "Lo convincono ad effettuare bonifico di 30 mila euro, maxi truffa a pensionato favarese",
+      "summary": "La polizia ha individuato i due truffatori: si tratta di un ventitreenne di Benevento e un trentottenne di Napoli",
+      "date": "2026-08-18T05:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/lo-convincono-ad-effettuare-bonifico-di-30-mila-euro-maxi-truffa-a-pensionato-favarese",
+      "img": "/feed-images/a1a54b61206f6e4d.jpg"
+    },
     {
       "title": "Maddalusa e la promessa del “minimo vitale”, l’Ati idrico: “Norma non applicabile”",
       "summary": "La legge regionale prevede il supporto solo per chi è utente del gestore unico d’ambito, anche perché a pagare quell’acqua sono i contribuenti",
@@ -126,7 +147,7 @@
       "title": "Morto a 16 anni la notte di Ferragosto a Sciacca: “Addolorati per la perdita di Salvo”",
       "summary": "La procura di Sciacca ha aperto inchiesta e disposta autopsia sul corpo del 16enne Salvatore Pessina",
       "date": "2026-08-17T09:24:27Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/morto-a-sciacca-la-notte-di-ferragosto-il-sindaco-di-misilmeri-addolorati-per-la-perdita-di-salvo",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/morto-a-sciacca-la-notte-di-ferragosto-il-sindaco-di-misilmeri-addolorati-per-la-perdita-di-salvo",
       "img": "/feed-images/d93f9f00ef2b638c.jpg"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-08-17T06:08:43Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/occupazione-abusiva-e-prodotti-senza-tracciabilita-in-un-chiosco-a-siculiana-maxi-sanzione",
       "img": ""
-    },
-    {
-      "title": "Ubriaco al volante a San Leone, denunciato cameriere favarese",
-      "summary": "Il giovane era alla guida della sua auto quando è stato fermato ad un posto di blocco dei carabinieri lungo il viale delle Dune",
-      "date": "2026-08-17T06:07:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/ubriaco-al-volante-a-san-leone-denunciato-cameriere-favarese",
-      "img": "/feed-images/0bc3bf074255faff.png"
-    },
-    {
-      "title": "Quasi un chilo di hashish tra Favara e Agrigento, chiesti due rinvii a giudizio",
-      "summary": "In due abitazioni, tra Agrigento e Favara, venne rinvenuto quasi un chilogrammo di hashish suddiviso in nove panetti",
-      "date": "2026-08-17T06:05:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/quasi-1-chilo-di-hashish-tra-favara-e-agrigento-chiesti-due-rinvii-a-giudizio",
-      "img": "/feed-images/105cfc5a9eb83938.jpg"
-    },
-    {
-      "title": "Ai domiciliari danneggia il braccialetto elettronico, denunciato licatese",
-      "summary": "I carabinieri hanno denunciato un ventenne di Licata, ma residente a Camastra, per il reato di danneggiamento aggravato",
-      "date": "2026-08-17T06:04:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/ai-domiciliari-danneggia-il-braccialetto-elettronico-denunciato-licatese",
-      "img": "/feed-images/0802e4d3dba12290.jpg"
     }
   ]
 }
