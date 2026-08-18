@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-18T09:28:35.677677+00:00",
+  "updated": "2026-08-18T09:59:12.542161+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Futura riserva di Punta Bianca: la Regione pronta ad affidare la gestione",
+      "summary": "Il bando prevederà l’affidamento fino al 31 dicembre 2029, stanziati circa 225mila euro per i costi connessi a personale e mezzi",
+      "date": "2026-08-18T09:30:04Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/futura-riserva-di-punta-bianca-la-regione-pronta-ad-affidare-la-gestione",
+      "img": "/feed-images/207782a7c16a6296.jpg"
+    },
     {
       "title": "Sfreccia in scooter con 52 grammi di cocaina, arrestato dopo inseguimento",
       "summary": "L’oggetto sospetto è stato recuperato immediatamente dagli agenti, i quali hanno appurato che al suo interno vi erano 52 grammi di cocaina, in parte in pietra, in parte in polvere",
@@ -205,13 +212,6 @@
       "date": "2026-08-17T15:02:04Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/visite-sonore-percorsi-guidati-e-passeggiate-tra-la-valle-dei-templi-e-la-villa-romana-di-realmonte",
       "img": "/feed-images/2ad99d0d1001be9c.jpg"
-    },
-    {
-      "title": "Aereo ultraleggero scomparso dai radar: a bordo due avvocati in vacanza in Sicilia",
-      "summary": "A segnalare la scomparsa sono stati i familiari delle due persone a bordo facendo scattare il piano ricerca persone scomparse della Prefettura",
-      "date": "2026-08-17T13:55:33Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/aereo-ultraleggero-scomparso-dai-radar-a-bordo-due-avvocati-in-vacanza-in-sicilia",
-      "img": "/feed-images/5dc43e99824f3d6c.webp"
     }
   ]
 }
