@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-18T13:56:06.617936+00:00",
+  "updated": "2026-08-18T14:31:55.881539+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Favara, rifiuti abbandonati nel centro storico: la pioggia li trascina per strada",
+      "summary": "Triste cartolina da Favara in Corso Vittorio Veneto incrocio con Via Fonte Canali",
+      "date": "2026-08-18T14:20:42Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/favara-rifiuti-abbandonati-nel-centro-storico-la-pioggia-li-trascina-per-strada",
+      "img": "/feed-images/31a255b05ee8d1e9.jpg"
+    },
+    {
+      "title": "Akragas, riparte la preparazione: Cammarata lavora in vista della Coppa Italia",
+      "summary": "Dopo il ritiro di Piazza Armerina e la pausa di Ferragosto, i biancazzurri tornano al lavoro. Il tecnico: «Meno carichi e più minutaggio per arrivare pronti».",
+      "date": "2026-08-18T14:07:20Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-seconda-fase-preparazione-cammarata-coppa-italia",
+      "img": "/feed-images/4312bc59cae21521.jpg"
+    },
+    {
+      "title": "Sanità provinciale, il Prefetto Caccamo incontra il neo commissario straordinario Delle Donne",
+      "summary": "L’incontro si è svolto in Prefettura",
+      "date": "2026-08-18T14:04:06Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sanita-provinciale-il-prefetto-caccamo-incontra-il-neo-commissario-straordinario-delle-donne",
+      "img": "/feed-images/073aeee304d47bb0.jpg"
+    },
     {
       "title": "Agrigento muore di sete, Picarella: “attività chiudono battenti, chi paga i danni?”",
       "summary": "Il grido d’allarme del Presidente della Delegazione Comunale Confcommercio Agrigento, Francesco Picarella",
@@ -191,27 +212,6 @@
       "date": "2026-08-18T05:40:00Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/incendiano-moto-a-fontanelle-arrestati-due-ventenni",
       "img": "/feed-images/c5a5ea4ab532ab02.jpg"
-    },
-    {
-      "title": "Maddalusa e la promessa del “minimo vitale”, l’Ati idrico: “Norma non applicabile”",
-      "summary": "La legge regionale prevede il supporto solo per chi è utente del gestore unico d’ambito, anche perché a pagare quell’acqua sono i contribuenti",
-      "date": "2026-08-17T18:01:38Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maddalusa-e-la-promessa-del-minimo-vitale-lati-idrico-norma-non-applicabile",
-      "img": "/feed-images/8a7d26b509cf4621.jpg"
-    },
-    {
-      "title": "Agrigento, sospesa la raccolta della carta fino al 24 agosto",
-      "summary": "Da oggi e fino al 24 agosto, è vietato conferire all’esterno delle abitazioni e delle attività commerciali i relativi mastelli e/o sacchi destinati alla raccolta di carta e cartone",
-      "date": "2026-08-17T16:15:28Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-sospesa-la-raccolta-della-carta-fino-al-24-agosto",
-      "img": "/feed-images/fc09c6bcf55d09b3.jpg"
-    },
-    {
-      "title": "Raffadali, azzerate liste d’attesa per la carta d’identità elettronica",
-      "summary": "Al 1° agosto dello scorso anno le Carte d’Identità Elettroniche emesse erano state 1.112; alla stessa data di quest’anno il numero è salito a 2.633, con un incremento superiore al 150%",
-      "date": "2026-08-17T16:12:14Z",
-      "link": "https://www.grandangoloagrigento.it/raffadali/raffadali-azzerate-liste-dattesa-per-la-carta-didentita-elettronica",
-      "img": "/feed-images/a42e6f330f8011d4.jpg"
     }
   ]
 }
