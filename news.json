@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-18T16:26:21.655252+00:00",
+  "updated": "2026-08-18T16:58:06.262895+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "“Io vi sparo..”, minaccia i carabinieri e prende a calci l’auto di servizio: un arresto a Raffadali",
+      "summary": "Due carabinieri, durante le fasi dell’arresto, sono rimasti feriti a spalle, mani e schiena con prognosi di sette e venti giorni",
+      "date": "2026-08-18T16:29:04Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/prende-a-calci-lauto-dei-carabinieri-e-minaccia-i-militari-arrestato-29enne-a-raffadali",
+      "img": "/feed-images/655bc55c1391025a.jpg"
+    },
     {
       "title": "Regione, torna “straccia bollo” per chi deve mettersi in regola",
       "summary": "Torna lo “straccia bollo” che permettera’ ai contribuenti di regolarizzare le posizioni non pagate, in tutto o in parte, al 31 dicembre 2025 senza incorrere in sanzioni e interessi",
@@ -205,13 +212,6 @@
       "date": "2026-08-18T06:05:56Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/tangenziale-di-agrigento-messina-confesercenti-opera-vitale-per-il-territorio",
       "img": "/feed-images/bf322376abec33e6.jpg"
-    },
-    {
-      "title": "Rifiuti e topi morti in via Picone, la denuncia del Consigliere Catania",
-      "summary": "A denunciare con forza la situazione è il consigliere Comunale Fabio Catania, che ha già provveduto a inviare una formale e urgente diffida al Comune di Agrigento e all’Azienda Sanitaria Provinciale",
-      "date": "2026-08-18T06:04:26Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/rifiuti-e-topi-morti-in-via-picone-la-denuncia-del-consigliere-catania",
-      "img": "/feed-images/884103c7b86a74cd.jpg"
     }
   ]
 }
