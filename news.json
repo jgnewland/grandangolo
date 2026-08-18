@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-18T11:39:58.630212+00:00",
+  "updated": "2026-08-18T12:00:38.085777+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Danneggiata l’auto di un sacerdote: al via le indagini della Polizia",
+      "summary": "Don Ugo Di Marzo della parrocchia di Maria Santissima delle Grazie, a Roccella, ha trovato la sua auto ricoperta di olio motore",
+      "date": "2026-08-18T11:46:25Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/danneggiata-lauto-di-un-sacerdote-al-via-le-indagini-della-polizia",
+      "img": "/feed-images/cef885936d9bb0f4.jpg"
+    },
     {
       "title": "Dramma a Canicattì, trovata morta Luigia Narbone: era scomparsa 5 giorni fa",
       "summary": "E’ stata ritrovata morta, nell’area della linea ferroviaria a monte di via Cilea a Canicattì, la sessantanovenne Luigia Narbone",
@@ -43,7 +50,7 @@
       "summary": "Nascosti all’interno di un borsone sono stati recuperati diversi attrezzi ritenuti compatibili con l’attività contestata: una cesoia, due cacciaviti, un martello",
       "date": "2026-08-18T09:03:44Z",
       "link": "https://www.grandangoloagrigento.it/catania/ruba-40-chili-di-cavi-in-rame-bloccato-dai-carabinieri",
-      "img": "/feed-images/30788b27122a615e.jpg"
+      "img": ""
     },
     {
       "title": "In auto con 200 grammi di cocaina, arrestato",
@@ -205,13 +212,6 @@
       "date": "2026-08-17T15:17:49Z",
       "link": "https://www.grandangoloagrigento.it/catania/ritrovo-abituale-di-pregiudicati-centro-scommesse-chiuso-per-una-settimana",
       "img": "/feed-images/e15dbd1ca6ebeed3.jpg"
-    },
-    {
-      "title": "Senza acqua nelle case, ma la rete perde in strada: grosso guasto in via Papa Luciani",
-      "summary": "In via Papa Luciani un grosso getto d’acqua ha iniziato a fuoriuscire direttamente dall’asfalto riversandosi sul manto stradale.",
-      "date": "2026-08-17T15:07:11Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/senza-acqua-nelle-case-ma-la-rete-perde-in-strada-grosso-guasto-in-via-papa-luciani",
-      "img": "/feed-images/5d64422d9ac6021f.png"
     }
   ]
 }
