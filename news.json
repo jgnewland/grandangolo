@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-18T06:36:24.881821+00:00",
+  "updated": "2026-08-18T07:24:02.919635+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Bloccato un rave party a Ribera, identificati diversi partecipanti",
+      "summary": "Un rave party è stato bloccato sul nascere dai poliziotti del commissariato di Sciacca in località Piana Grande, sulla spiaggia di Ribera",
+      "date": "2026-08-18T06:41:01Z",
+      "link": "https://www.grandangoloagrigento.it/ribera/bloccato-un-rave-party-a-ribera-identificati-diversi-partecipanti",
+      "img": "/feed-images/dd1ac8f2d60334a7.jpg"
+    },
     {
       "title": "Ferito alla testa con un colpo di pala durante rissa, riberese in ospedale",
       "summary": "Ad aggredirlo, per motivi ignoti, sarebbe stato una persona originaria della Romania. Al via le indagini dei carabinieri",
@@ -205,13 +212,6 @@
       "date": "2026-08-17T07:48:35Z",
       "link": "https://www.grandangoloagrigento.it/apertura/tragedia-sulletna-30enne-muore-colpito-da-un-fulmine-durante-escursione",
       "img": "/feed-images/2b20a15a66c30233.jpg"
-    },
-    {
-      "title": "Impianti di conferimento chiusi fino al 24 agosto, a Ravanusa la raccolta porta a porta non si ferma",
-      "summary": "La RAR – Ravanusa Ambiente e Risorse ha scelto di riorganizzare le attività e l’impiego delle risorse e dei mezzi disponibili per garantire il servizio",
-      "date": "2026-08-17T07:23:52Z",
-      "link": "https://www.grandangoloagrigento.it/ravanusa/impianti-di-conferimento-chiusi-fino-al-24-agosto-a-ravanusa-la-raccolta-porta-a-porta-non-si-ferma",
-      "img": "/feed-images/76142e4576bba60d.jpg"
     }
   ]
 }
