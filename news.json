@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-18T12:00:38.085777+00:00",
+  "updated": "2026-08-18T13:06:57.674443+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Agrigento muore di sete, Picarella: “attività chiudono battenti, chi paga i danni?”",
+      "summary": "Il grido d’allarme del Presidente della Delegazione Comunale Confcommercio Agrigento, Francesco Picarella",
+      "date": "2026-08-18T13:00:44Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-muore-di-sete-picarella-attivita-chiudono-battenti-chi-paga-i-danni",
+      "img": "/feed-images/70b79dd687d6327c.png"
+    },
+    {
+      "title": "San Giovanni Gemini, si dimette il vicesindaco Scrudato: al suo posto Guagenti",
+      "summary": "La già consigliere Cinzia Guangenti sarà il nuovo vicesindaco e si occuperà di attività produttive e servizi sociali",
+      "date": "2026-08-18T12:30:41Z",
+      "link": "https://www.grandangoloagrigento.it/san-giovanni-gemini/san-giovanni-gemini-si-dimette-il-vicesindaco-scrudato-al-suo-posto-in-giunta-guagenti",
+      "img": "/feed-images/8c167a5045578b5c.jpg"
+    },
     {
       "title": "Danneggiata l’auto di un sacerdote: al via le indagini della Polizia",
       "summary": "Don Ugo Di Marzo della parrocchia di Maria Santissima delle Grazie, a Roccella, ha trovato la sua auto ricoperta di olio motore",
@@ -50,7 +64,7 @@
       "summary": "Nascosti all’interno di un borsone sono stati recuperati diversi attrezzi ritenuti compatibili con l’attività contestata: una cesoia, due cacciaviti, un martello",
       "date": "2026-08-18T09:03:44Z",
       "link": "https://www.grandangoloagrigento.it/catania/ruba-40-chili-di-cavi-in-rame-bloccato-dai-carabinieri",
-      "img": ""
+      "img": "/feed-images/30788b27122a615e.jpg"
     },
     {
       "title": "In auto con 200 grammi di cocaina, arrestato",
@@ -198,20 +212,6 @@
       "date": "2026-08-17T16:12:14Z",
       "link": "https://www.grandangoloagrigento.it/raffadali/raffadali-azzerate-liste-dattesa-per-la-carta-didentita-elettronica",
       "img": "/feed-images/a42e6f330f8011d4.jpg"
-    },
-    {
-      "title": "Tentato omicidio in un negozio di frutta e verdura, 3 arresti",
-      "summary": "Per la vittima, la corsa in ospedale e la prognosi riservata per trauma addominale con rottura della milza e un trauma toracico pericoloso, oltre alle ferite provocate dall’arma da taglio",
-      "date": "2026-08-17T15:26:36Z",
-      "link": "https://www.grandangoloagrigento.it/ragusa/tentato-omicidio-in-un-negozio-di-frutta-e-verdura-3-arresti",
-      "img": "/feed-images/6924e90438f51429.jpg"
-    },
-    {
-      "title": "“Ritrovo abituale di pregiudicati”, centro scommesse chiuso per una settimana",
-      "summary": "L’esercizio pubblico era divenuto luogo di incontro abituale di pregiudicati, ritenuti responsabili di reati di particolare allarme sociale",
-      "date": "2026-08-17T15:17:49Z",
-      "link": "https://www.grandangoloagrigento.it/catania/ritrovo-abituale-di-pregiudicati-centro-scommesse-chiuso-per-una-settimana",
-      "img": "/feed-images/e15dbd1ca6ebeed3.jpg"
     }
   ]
 }
