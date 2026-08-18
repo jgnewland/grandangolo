@@ -1,8 +1,43 @@
 {
-  "updated": "2026-08-18T05:54:22.098872+00:00",
+  "updated": "2026-08-18T06:36:24.881821+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ferito alla testa con un colpo di pala durante rissa, riberese in ospedale",
+      "summary": "Ad aggredirlo, per motivi ignoti, sarebbe stato una persona originaria della Romania. Al via le indagini dei carabinieri",
+      "date": "2026-08-18T06:23:32Z",
+      "link": "https://www.grandangoloagrigento.it/ribera/ferito-alla-testa-con-un-colpo-di-pala-durante-rissa-riberese-in-ospedale",
+      "img": "/feed-images/eefba3e4213b0b42.jpg"
+    },
+    {
+      "title": "Ditta di autotrasporti sotto inchiesta, 3 indagati per evasione fiscale e false compensazioni",
+      "summary": "Sotto la lente dei pm la ditta “Emilia Transport”. Due dei tre indagati sono agrigentini, amministratori di fatto della società",
+      "date": "2026-08-18T06:10:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ditta-di-autotrasporti-sotto-inchiesta-3-indagati-per-evasione-fiscale-e-false-compensazioni",
+      "img": "/feed-images/8324758ce83fd82d.png"
+    },
+    {
+      "title": "Tangenziale di Agrigento, Messina (Confesercenti): “Opera vitale per il territorio”",
+      "summary": "Il provvedimento rappresenta un passo avanti per un’opera attesa da anni e destinata a incidere significativamente sulla mobilità del capoluogo e della fascia costiera",
+      "date": "2026-08-18T06:05:56Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/tangenziale-di-agrigento-messina-confesercenti-opera-vitale-per-il-territorio",
+      "img": "/feed-images/bf322376abec33e6.jpg"
+    },
+    {
+      "title": "Rifiuti e topi morti in via Picone, la denuncia del Consigliere Catania",
+      "summary": "A denunciare con forza la situazione è il consigliere Comunale Fabio Catania, che ha già provveduto a inviare una formale e urgente diffida al Comune di Agrigento e all’Azienda Sanitaria Provinciale",
+      "date": "2026-08-18T06:04:26Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/rifiuti-e-topi-morti-in-via-picone-la-denuncia-del-consigliere-catania",
+      "img": "/feed-images/884103c7b86a74cd.jpg"
+    },
+    {
+      "title": "“A cena con gli scrittori”, Gianfranco Jannuzzo apre la seconda edizione",
+      "summary": "L’appuntamento è per venerdì 21 agosto, alle ore 20.30, a Casa Diodoros, in via Giuseppe La Loggia, nel cuore del Parco Archeologico e Paesaggistico della Valle dei Templi",
+      "date": "2026-08-18T06:01:39Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/a-cena-con-gli-scrittori-gianfranco-jannuzzo-apre-la-seconda-edizione",
+      "img": "/feed-images/350a2b7191dd812b.jpg"
+    },
     {
       "title": "Pestato a sangue dal branco, ventenne in ospedale con trauma cranico e ferite",
       "summary": "L’aggressione è avvenuta in via Acrone, nei pressi della stazione centrale di Agrigento: “caccia” al branco",
@@ -11,18 +46,18 @@
       "img": "/feed-images/cb60da64201a5f3e.jpg"
     },
     {
+      "title": "Lo convincono ad effettuare bonifico di 30 mila euro, maxi truffa a pensionato favarese",
+      "summary": "La polizia ha individuato i due truffatori: si tratta di un ventitreenne di Benevento e un trentottenne di Napoli",
+      "date": "2026-08-18T05:41:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/lo-convincono-ad-effettuare-bonifico-di-30-mila-euro-maxi-truffa-a-pensionato-favarese",
+      "img": "/feed-images/a1a54b61206f6e4d.jpg"
+    },
+    {
       "title": "Incendiano moto a Fontanelle, arrestati due ventenni",
       "summary": "Sono accusati di aver bruciato una moto e uno scooter nel quartiere di Fontanelle. Per compiere il raid hanno usato un mezzo risultato rubato a Porto Empedocle",
       "date": "2026-08-18T05:40:00Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/incendiano-moto-a-fontanelle-arrestati-due-ventenni",
       "img": "/feed-images/c5a5ea4ab532ab02.jpg"
-    },
-    {
-      "title": "Lo convincono ad effettuare bonifico di 30 mila euro, maxi truffa a pensionato favarese",
-      "summary": "La polizia ha individuato i due truffatori: si tratta di un ventitreenne di Benevento e un trentottenne di Napoli",
-      "date": "2026-08-18T05:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/lo-convincono-ad-effettuare-bonifico-di-30-mila-euro-maxi-truffa-a-pensionato-favarese",
-      "img": "/feed-images/a1a54b61206f6e4d.jpg"
     },
     {
       "title": "Maddalusa e la promessa del “minimo vitale”, l’Ati idrico: “Norma non applicabile”",
@@ -70,7 +105,7 @@
       "title": "“Mi avete rotto i….sempre me dovete fermare”, 27enne a processo",
       "summary": "La vicenda risale all’estate 2024 quando l’agrigentino venne fermato dalla polizia lungo la strada statale 640",
       "date": "2026-08-17T15:05:47Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/mi-avete-rotto-i-sempre-me-dovete-fermare-27enne-a-processo",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/mi-avete-rotto-i-sempre-me-dovete-fermare-27enne-a-processo",
       "img": "/feed-images/244f4a806ed4dda3.jpg"
     },
     {
@@ -177,41 +212,6 @@
       "date": "2026-08-17T07:23:52Z",
       "link": "https://www.grandangoloagrigento.it/ravanusa/impianti-di-conferimento-chiusi-fino-al-24-agosto-a-ravanusa-la-raccolta-porta-a-porta-non-si-ferma",
       "img": "/feed-images/76142e4576bba60d.jpg"
-    },
-    {
-      "title": "Etna, ancora limitazioni all’aeroporto di Catania",
-      "summary": "Sono limitate le attività di volo in arrivo pari a 5 aerei ogni ora, fino alle 14 di oggi",
-      "date": "2026-08-17T06:35:23Z",
-      "link": "https://www.grandangoloagrigento.it/catania/etna-ancora-limitazioni-allaeroporto-di-catania",
-      "img": "/feed-images/0f4689de5b1d9fb2.jpg"
-    },
-    {
-      "title": "Nasconde 3.5 chili di cocaina in garage, arrestato 59enne",
-      "summary": "Nel garage era stata allestita una vera e propria base di stoccaggio e confezionamento della sostanza stupefacente",
-      "date": "2026-08-17T06:33:54Z",
-      "link": "https://www.grandangoloagrigento.it/catania/nasconde-3-5-chili-di-cocaina-in-garage-arrestato-59enne",
-      "img": "/feed-images/d423736936949e79.jpg"
-    },
-    {
-      "title": "Sicurezza nei locali e lavoro nero, controlli in uno stabilimento balneare",
-      "summary": "L’attività ispettiva è stata eseguita presso un lido dove era in corso una serata con DJ set e accesso a pagamento",
-      "date": "2026-08-17T06:32:08Z",
-      "link": "https://www.grandangoloagrigento.it/catania/sicurezza-nei-locali-e-lavoro-nero-controlli-in-uno-stabilimento-balneare",
-      "img": "/feed-images/efecdccf2948114f.jpg"
-    },
-    {
-      "title": "Sigfrido Ranucci al teatro dell’Efebo di Agrigento con “Diario di un trapezista”",
-      "summary": "Il volto e il conduttore di Report, nella prima uscita ufficiale dopo le note vicende degli scorsi mesi e degli ultimi giorni, sul palco di Agrigento sabato 29 agosto 2026, per un atteso…",
-      "date": "2026-08-17T06:12:21Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/sigfrido-ranucci-al-teatro-dellefebo-di-agrigento-con-diario-di-un-trapezista",
-      "img": "/feed-images/e49489c748be6ac3.jpg"
-    },
-    {
-      "title": "Occupazione abusiva e prodotti senza tracciabilità in un chiosco a Siculiana, maxi sanzione",
-      "summary": "Nei guai il responsabile della società che gestisce una struttura turistica con annesso stabilimento balneare. Nei suoi confronti sono scattate denuncia e sanzione",
-      "date": "2026-08-17T06:08:43Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/occupazione-abusiva-e-prodotti-senza-tracciabilita-in-un-chiosco-a-siculiana-maxi-sanzione",
-      "img": ""
     }
   ]
 }
