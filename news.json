@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-19T10:37:25.269797+00:00",
+  "updated": "2026-08-19T11:01:20.928588+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Danno d’immagine per lo Stato: l’ex assistente parlamentare Nicosia condannato a risarcire 15mila euro",
+      "summary": "Il saccense è stato condannato in sede penale a 16 anni di reclusione per aver agevolato la mafia",
+      "date": "2026-08-19T10:44:31Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/danno-dimmagine-per-lo-stato-lex-assistente-parlamentare-nicosia-condannato-a-risarcire-15mila-euro",
+      "img": "/feed-images/d8370b6fd0862bc4.jpg"
+    },
     {
       "title": "Gattopardo Wine, al via la quinta edizione con oltre 60 cantine",
       "summary": "La quinta edizione è in programma sabato 22 agosto dalle ore 20 al Saudade Verão Club, in contrada Capreria a Marina di Palma",
@@ -133,7 +140,7 @@
       "title": "Il sedicenne morto la sera di Ferragosto, domani l’autopsia",
       "summary": "Il sedicenne originario di Misilmeri, deceduto tragicamente la notte di Ferragosto mentre si trovava in una villetta a Menfi in compagnia di fidanzata e amici",
       "date": "2026-08-19T05:06:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-sedicenne-morto-la-sera-di-ferragosto-domani-lautopsia",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/il-sedicenne-morto-la-sera-di-ferragosto-domani-lautopsia",
       "img": "/feed-images/b36ea596d4d5d0a2.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-18T14:07:20Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-seconda-fase-preparazione-cammarata-coppa-italia",
       "img": "/feed-images/4312bc59cae21521.jpg"
-    },
-    {
-      "title": "Sanità, il Prefetto Caccamo incontra il neo commissario straordinario Delle Donne",
-      "summary": "L’incontro si è svolto in Prefettura",
-      "date": "2026-08-18T14:04:06Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sanita-provinciale-il-prefetto-caccamo-incontra-il-neo-commissario-straordinario-delle-donne",
-      "img": "/feed-images/073aeee304d47bb0.jpg"
     }
   ]
 }
