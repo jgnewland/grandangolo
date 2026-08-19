@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-19T11:38:39.426832+00:00",
+  "updated": "2026-08-19T12:00:02.863415+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Mafia, 77 anni fa la strage di Passo di Rigano",
+      "summary": "Sono stati ricordati i sette Carabinieri che il 19 agosto 1949 persero la vita in un vile agguato da parte della banda di Salvatore Giuliano",
+      "date": "2026-08-19T11:43:50Z",
+      "link": "https://www.grandangoloagrigento.it/mafia/mafia-77-anni-fa-la-strage-di-passo-di-rigano",
+      "img": "/feed-images/f588f835b52e0e58.jpg"
+    },
     {
       "title": "Accusa malore in strada, salvato dai poliziotti con il defibrillatore",
       "summary": "Dopo qualche minuto, l’uomo ha ripreso conoscenza, ma comunque per lui si è reso di vitale importanza l’utilizzo del defibrillatore che i poliziotti hanno adoperato per tenerlo in vita",
@@ -205,13 +212,6 @@
       "date": "2026-08-18T14:46:27Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/festivalle-2026-il-decimo-anniversario-si-chiude-con-oltre-diecimila-presenze",
       "img": "/feed-images/f0cc602829a34240.jpg"
-    },
-    {
-      "title": "Favara, rifiuti abbandonati nel centro storico: la pioggia li trascina per strada",
-      "summary": "Triste cartolina da Favara in Corso Vittorio Veneto incrocio con Via Fonte Canali",
-      "date": "2026-08-18T14:20:42Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/favara-rifiuti-abbandonati-nel-centro-storico-la-pioggia-li-trascina-per-strada",
-      "img": "/feed-images/31a255b05ee8d1e9.jpg"
     }
   ]
 }
