@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-19T07:24:41.152902+00:00",
+  "updated": "2026-08-19T08:02:07.121584+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Momentum, non solo musica ma valorizzazione e crescita del territorio",
+      "summary": "L’appuntamento è per il prossimo 21 agosto, alla Cava – Teatro dell’Efebo. L’apertura dei cancelli è prevista alle 20:30",
+      "date": "2026-08-19T07:31:48Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/momentum-non-solo-musica-ma-valorizzazione-e-crescita-del-territorio",
+      "img": "/feed-images/0bd4568f0a869223.jpg"
+    },
     {
       "title": "Stretta sui locali del turismo, scoperti 45 lavoratori in nero",
       "summary": "Altri 22 lavoratori sono invece risultati irregolari: erano impiegati a tempo pieno, ma formalmente assunti con contratti a tempo parziale",
@@ -205,13 +212,6 @@
       "date": "2026-08-18T08:57:24Z",
       "link": "https://www.grandangoloagrigento.it/messina/gravi-carenze-igienico-sanitaria-in-comunita-alloggio-per-disabili-scatta-il-sequestro",
       "img": "/feed-images/dccf6150429a7a10.jpg"
-    },
-    {
-      "title": "Etna, torna operativo l’aeroporto di Catania: cancellate tutte le restrizioni",
-      "summary": "La nota della Sac",
-      "date": "2026-08-18T08:54:25Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/etna-allaeroporto-di-catania-12-aerei-in-arrivo-ogni-ora-nessuna-restrizione-in-partenza",
-      "img": "/feed-images/fefdd6b32bb42406.jpg"
     }
   ]
 }
