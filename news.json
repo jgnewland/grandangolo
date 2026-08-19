@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-19T16:55:57.256307+00:00",
+  "updated": "2026-08-19T17:24:49.979424+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "AICA replica a Pitrola: “A Ravanusa turni d’acqua documentati, non venti giorni senza servizio”",
+      "summary": "Replica alle dichiarazioni pubbliche dal sindaco di Ravanusa, Salvatore Pitrola, nel corso della trasmissione “Filorosso” di Rai 3",
+      "date": "2026-08-19T17:00:19Z",
+      "link": "https://www.grandangoloagrigento.it/ravanusa/aica-replica-a-pitrola-a-ravanusa-turni-dacqua-documentati-non-venti-giorni-senza-servizio",
+      "img": "/feed-images/ecedfa4dc8f6e63d.jpg"
+    },
     {
       "title": "“Ucciso a colpi di cacciavite”, tre indagati restano in carcere",
       "summary": "Disposto il carcere ma non convalidato i fermi dei tre indagati per la morte di Vito Genovese, di cui due minori e il 34enne Paolo Puleo",
@@ -23,6 +30,13 @@
       "date": "2026-08-19T15:59:35Z",
       "link": "https://www.grandangoloagrigento.it/apertura/kerkent-il-clan-agli-ordini-del-boss-massimino-chi-ne-faceva-parte-e-chi-no",
       "img": "/feed-images/7f5349d55d8105dc.jpg"
+    },
+    {
+      "title": "Parcheggiano le auto per impedire ai vicini di uscire, condannata intera famiglia",
+      "summary": "Il nucleo familiare avrebbe ripetutamente parcheggiato le auto nell’area di pertinenza dell’abitazione al fine di “complicare” e bloccare il passaggio dei vicini di casa, peraltro loro parenti",
+      "date": "2026-08-19T15:58:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/parcheggiano-le-auto-per-impedire-ai-vicini-di-uscire-condannata-intera-famiglia",
+      "img": "/feed-images/b7b33452f4a5ba0b.jpg"
     },
     {
       "title": "Mafia, armi e droga: arrestati due giovanissimi",
@@ -175,7 +189,7 @@
       "title": "Auto di libera professionista presa a martellate, indagini",
       "summary": "L’episodio si è verificato sotto casa della donna, nel centro storico di Agrigento. Al via le indagini della polizia",
       "date": "2026-08-19T05:08:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/auto-di-libera-professionista-presa-a-martellate-indagini",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/auto-di-libera-professionista-presa-a-martellate-indagini",
       "img": "/feed-images/33716973dd00ccd0.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-19T05:06:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/nasconde-in-cantina-80-grammi-di-cocaina-indagato-32enne-di-licata",
       "img": "/feed-images/ccd291fd06ef9b4c.jpg"
-    },
-    {
-      "title": "Maxi incendio a Menfi, bruciati 100 ettari di macchia mediterranea",
-      "summary": "Un vasto incendio è divampato nelle scorse ore in contrada Cinquanta, nel territorio di Menfi",
-      "date": "2026-08-19T05:04:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maxi-incendio-a-menfi-bruciati-100-ettari-di-macchia-mediterranea",
-      "img": "/feed-images/a542cd5ab7598a8a.jpg"
-    },
-    {
-      "title": "“Io vi sparo..”, minaccia i carabinieri e prende a calci l’auto di servizio: un arresto a Raffadali",
-      "summary": "Due carabinieri, durante le fasi dell’arresto, sono rimasti feriti a spalle, mani e schiena con prognosi di sette e venti giorni",
-      "date": "2026-08-18T16:29:04Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/prende-a-calci-lauto-dei-carabinieri-e-minaccia-i-militari-arrestato-29enne-a-raffadali",
-      "img": "/feed-images/655bc55c1391025a.jpg"
     }
   ]
 }
