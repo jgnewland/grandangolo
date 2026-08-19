@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-19T05:25:09.772794+00:00",
+  "updated": "2026-08-19T05:54:59.191006+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Scoppia l’adduttore “Castello” chiusa al traffico la Sp Cianciana-Lucca Sicula",
+      "summary": "Il transito è stato interrotto",
+      "date": "2026-08-19T05:51:47Z",
+      "link": "https://www.grandangoloagrigento.it/cianciana/scoppia-ladduttore-castello-chiusa-al-traffico-la-sp-cianciana-lucca-sicula",
+      "img": "/feed-images/eeb6bc5274ff8060.jpg"
+    },
+    {
+      "title": "Auto di libera professionista presa a martellate, indagini",
+      "summary": "L’episodio si è verificato sotto casa della donna, nel centro storico di Agrigento. Al via le indagini della polizia",
+      "date": "2026-08-19T05:08:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/auto-di-libera-professionista-presa-a-martellate-indagini",
+      "img": "/feed-images/33716973dd00ccd0.jpg"
+    },
     {
       "title": "Nasconde in cantina 80 grammi di cocaina, indagato 32enne di Licata",
       "summary": "In cantina, invece, sono stati scoperti 80 grammi di cocaina che – se immessi sul mercato – avrebbe potuto fruttare fino a 10 mila euro",
@@ -11,11 +25,11 @@
       "img": "/feed-images/ccd291fd06ef9b4c.jpg"
     },
     {
-      "title": "Auto di libera professionista presa a martellate, indagini",
-      "summary": "L’episodio si è verificato sotto casa della donna, nel centro storico di Agrigento. Al via le indagini della polizia",
-      "date": "2026-08-19T05:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/auto-di-libera-professionista-presa-a-martellate-indagini",
-      "img": "/feed-images/33716973dd00ccd0.jpg"
+      "title": "Maxi incendio a Menfi, bruciati 100 ettari di macchia mediterranea",
+      "summary": "Un vasto incendio è divampato nelle scorse ore in contrada Cinquanta, nel territorio di Menfi",
+      "date": "2026-08-19T05:05:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/maxi-incendio-a-menfi-bruciati-100-ettari-di-macchia-mediterranea",
+      "img": "/feed-images/a542cd5ab7598a8a.jpg"
     },
     {
       "title": "“Io vi sparo..”, minaccia i carabinieri e prende a calci l’auto di servizio: un arresto a Raffadali",
@@ -198,20 +212,6 @@
       "date": "2026-08-18T07:36:43Z",
       "link": "https://www.grandangoloagrigento.it/notizie-licata/imbarcazione-si-capovolge-lungo-la-costa-licatese-sette-persone-in-difficolta",
       "img": "/feed-images/ded12ddb3beca5fd.png"
-    },
-    {
-      "title": "Bloccato un rave party a Ribera, identificati diversi partecipanti",
-      "summary": "Un rave party è stato bloccato sul nascere dai poliziotti del commissariato di Sciacca in località Piana Grande, sulla spiaggia di Ribera",
-      "date": "2026-08-18T06:41:01Z",
-      "link": "https://www.grandangoloagrigento.it/ribera/bloccato-un-rave-party-a-ribera-identificati-diversi-partecipanti",
-      "img": "/feed-images/dd1ac8f2d60334a7.jpg"
-    },
-    {
-      "title": "Ferito alla testa con un colpo di pala durante rissa, riberese in ospedale",
-      "summary": "Ad aggredirlo, per motivi ignoti, sarebbe stato una persona originaria della Romania. Al via le indagini dei carabinieri",
-      "date": "2026-08-18T06:23:32Z",
-      "link": "https://www.grandangoloagrigento.it/ribera/ferito-alla-testa-con-un-colpo-di-pala-durante-rissa-riberese-in-ospedale",
-      "img": "/feed-images/eefba3e4213b0b42.jpg"
     }
   ]
 }
