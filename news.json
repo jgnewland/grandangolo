@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-19T11:01:20.928588+00:00",
+  "updated": "2026-08-19T11:38:39.426832+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Accusa malore in strada, salvato dai poliziotti con il defibrillatore",
+      "summary": "Dopo qualche minuto, l’uomo ha ripreso conoscenza, ma comunque per lui si è reso di vitale importanza l’utilizzo del defibrillatore che i poliziotti hanno adoperato per tenerlo in vita",
+      "date": "2026-08-19T11:21:16Z",
+      "link": "https://www.grandangoloagrigento.it/catania/accusa-malore-in-strada-salvato-dai-poliziotti-con-il-defibrillatore",
+      "img": "/feed-images/1024024bb2964b6c.jpg"
+    },
     {
       "title": "Danno d’immagine per lo Stato: l’ex assistente parlamentare Nicosia condannato a risarcire 15mila euro",
       "summary": "Il saccense è stato condannato in sede penale a 16 anni di reclusione per aver agevolato la mafia",
@@ -205,13 +212,6 @@
       "date": "2026-08-18T14:20:42Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/favara-rifiuti-abbandonati-nel-centro-storico-la-pioggia-li-trascina-per-strada",
       "img": "/feed-images/31a255b05ee8d1e9.jpg"
-    },
-    {
-      "title": "Akragas, riparte la preparazione: Cammarata lavora in vista della Coppa Italia",
-      "summary": "Dopo il ritiro di Piazza Armerina e la pausa di Ferragosto, i biancazzurri tornano al lavoro. Il tecnico: «Meno carichi e più minutaggio per arrivare pronti».",
-      "date": "2026-08-18T14:07:20Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-seconda-fase-preparazione-cammarata-coppa-italia",
-      "img": "/feed-images/4312bc59cae21521.jpg"
     }
   ]
 }
