@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-20T09:31:38.515455+00:00",
+  "updated": "2026-08-20T10:05:19.682470+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ex infermiere morto in un incidente ad Agrigento, 75enne indagato per omicidio stradale",
+      "summary": "La vicenda è legata alla morte di Angelo D’Anna, ex infermiere di Raffadali, deceduto in ospedale venti giorni dopo un incidente stradale avvenuto nella zona del Quadrivio Spinasanta",
+      "date": "2026-08-20T09:36:22Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/ex-infermiere-morto-in-un-incidente-ad-agrigento-75enne-indagato-per-omicidio-stradale",
+      "img": "/feed-images/acb7686e73c199ca.jpg"
+    },
     {
       "title": "Racalmuto, incontro tra il sindaco Bongiorno e l’autore Rai Taglialavoro",
       "summary": "L’autore ha avanzato la proposta di realizzare un approfondimento dedicato al Teatro, da inserire all’interno della programmazione RAI",
@@ -205,13 +212,6 @@
       "date": "2026-08-19T14:53:14Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/dramma-a-favara-65enne-trovato-morto-in-casa",
       "img": "/feed-images/396bb40b80fcadd8.jpg"
-    },
-    {
-      "title": "Mafia, 77 anni fa la strage di Passo di Rigano",
-      "summary": "Sono stati ricordati i sette Carabinieri che il 19 agosto 1949 persero la vita in un vile agguato da parte della banda di Salvatore Giuliano",
-      "date": "2026-08-19T11:43:50Z",
-      "link": "https://www.grandangoloagrigento.it/mafia/mafia-77-anni-fa-la-strage-di-passo-di-rigano",
-      "img": "/feed-images/f588f835b52e0e58.jpg"
     }
   ]
 }
