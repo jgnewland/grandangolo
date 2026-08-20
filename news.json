@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-20T16:30:36.778221+00:00",
+  "updated": "2026-08-20T17:05:40.530599+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Imbrattarono la Scala dei Turchi con vernice rossa, fissato appello per due imputati",
+      "summary": "Sono ritenuti i responsabili del deturpamento della Scala dei Turchi, avvenuto il 7 gennaio 2022, macchiata con della polvere di ossido di ferro di colore rosso",
+      "date": "2026-08-20T17:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/imbrattarono-la-scala-dei-turchi-con-vernice-rossa-fissato-appello-per-due-imputati",
+      "img": "/feed-images/b248e0f4ae281c1a.jpg"
+    },
     {
       "title": "Furto al MuMe di Messina, i quattro custodi che erano in servizio sono stati trasferiti",
       "summary": "Si tratta di due dipendenti regionali e due lavoratori Asu.",
@@ -203,15 +210,8 @@
       "title": "Prima il gommone rubato e adesso l’auto in fiamme, commerciante empedoclino nel mirino?",
       "summary": "Elementi, questi, al vaglio degli investigatori che stanno cercando di capire se tra i due episodi possa esserci un nesso",
       "date": "2026-08-20T05:41:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/prima-il-gommone-rubato-e-adesso-lauto-in-fiamme-commerciante-empedoclino-nel-mirino",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/prima-il-gommone-rubato-e-adesso-lauto-in-fiamme-commerciante-empedoclino-nel-mirino",
       "img": "/feed-images/c3341169b3ed7685.jpg"
-    },
-    {
-      "title": "Non solo Zona A, la Procura accende i fari anche sugli abusi edilizi a Lampedusa",
-      "summary": "Nella maggiore delle Pelagie sono numerosi gli abusi presenti e l’ultima grande campagna di abbattimenti risale a 7 anni fa",
-      "date": "2026-08-20T05:40:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/non-solo-zona-a-la-procura-accende-i-fari-anche-sugli-abusi-edilizi-a-lampedusa",
-      "img": "/feed-images/2b2819ff9224ec39.jpg"
     }
   ]
 }
