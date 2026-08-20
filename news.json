@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-20T11:22:45.150435+00:00",
+  "updated": "2026-08-20T11:52:33.697888+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Gdf, il colonnello Gesuelli lascia Caltanissetta: al suo posto Beppe La Sala",
+      "summary": "Al suo posto arriverà il tenente colonnello Beppe La Sala",
+      "date": "2026-08-20T11:30:08Z",
+      "link": "https://www.grandangoloagrigento.it/caltanisetta/gdf-il-colonnello-gesuelli-lascia-caltanissetta-al-suo-posto-beppe-la-sala",
+      "img": "/feed-images/2eada4ad7b24f8d8.jpg"
+    },
+    {
+      "title": "Controlli nei ristoranti, sanzioni per 36 mila euro",
+      "summary": "Le irregolarità di carattere amministrativo hanno determinato molteplici sanzioni ad entrambi i ristoranti, per un totale complessivo di oltre 36.000 euro",
+      "date": "2026-08-20T11:27:44Z",
+      "link": "https://www.grandangoloagrigento.it/catania/controlli-nei-ristoranti-sanzioni-per-36-mila-euro",
+      "img": "/feed-images/cad7ec4a6cef5c16.jpg"
+    },
     {
       "title": "“Kerkent”, sequestro di persona e violenza sessuale? Imputato non diede nessun contributo",
       "summary": "Una vicenda complessa tanto dal punto di vista investigativo quanto da quello processuale. Ecco cosa dicono i giudici",
@@ -112,7 +126,7 @@
       "title": "Scontro auto-tir, morta mamma di 40 anni: era insieme al marito e i figli",
       "summary": "La donna viaggiava insieme al marito e ai figli. Era seduta nel sedile passeggero",
       "date": "2026-08-20T06:35:17Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/scontro-auto-tir-morta-mamma-di-40-anni-era-insieme-al-marito-e-i-figli",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-auto-tir-morta-mamma-di-40-anni-era-insieme-al-marito-e-i-figli",
       "img": "/feed-images/8c18ad8884cc4845.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-19T15:59:35Z",
       "link": "https://www.grandangoloagrigento.it/giudiziaria/kerkent-il-clan-agli-ordini-del-boss-massimino-chi-ne-faceva-parte-e-chi-no",
       "img": "/feed-images/7f5349d55d8105dc.jpg"
-    },
-    {
-      "title": "Parcheggiano le auto per impedire ai vicini di uscire, condannata intera famiglia",
-      "summary": "Il nucleo familiare avrebbe ripetutamente parcheggiato le auto nell’area di pertinenza dell’abitazione al fine di “complicare” e bloccare il passaggio dei vicini di casa, peraltro loro parenti",
-      "date": "2026-08-19T15:58:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/parcheggiano-le-auto-per-impedire-ai-vicini-di-uscire-condannata-intera-famiglia",
-      "img": "/feed-images/b7b33452f4a5ba0b.jpg"
-    },
-    {
-      "title": "Mafia, armi e droga: arrestati due giovanissimi",
-      "summary": "Per la partecipazione all’associazione armata operante sul territorio di Petrosino e finalizzata allo spaccio di sostanze stupefacenti",
-      "date": "2026-08-19T15:01:16Z",
-      "link": "https://www.grandangoloagrigento.it/trapani/mafia-armi-e-droga-arrestati-due-giovanissimi",
-      "img": "/feed-images/607553909abdf41a.jpg"
     }
   ]
 }
