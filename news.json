@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-20T10:05:19.682470+00:00",
+  "updated": "2026-08-20T10:46:05.102278+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "“Kerkent”, sequestro di persona e violenza sessuale? Imputato non diede nessun contributo",
+      "summary": "Una vicenda complessa tanto dal punto di vista investigativo quanto da quello processuale. Ecco cosa dicono i giudici",
+      "date": "2026-08-20T10:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/kerkent-sequestro-di-persona-e-violenza-sessuale-imputato-non-diede-nessun-contributo",
+      "img": "/feed-images/5bd54fa72e638091.jpg"
+    },
     {
       "title": "Ex infermiere morto in un incidente ad Agrigento, 75enne indagato per omicidio stradale",
       "summary": "La vicenda è legata alla morte di Angelo D’Anna, ex infermiere di Raffadali, deceduto in ospedale venti giorni dopo un incidente stradale avvenuto nella zona del Quadrivio Spinasanta",
@@ -205,13 +212,6 @@
       "date": "2026-08-19T15:01:16Z",
       "link": "https://www.grandangoloagrigento.it/trapani/mafia-armi-e-droga-arrestati-due-giovanissimi",
       "img": "/feed-images/607553909abdf41a.jpg"
-    },
-    {
-      "title": "Dramma a Favara, 65enne trovato morto in casa",
-      "summary": "Il cadavere di un 65enne disoccupato del posto è stato rinvenuto ieri pomeriggio nella sua abitazione in via Sottotenente Bosco",
-      "date": "2026-08-19T14:53:14Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/dramma-a-favara-65enne-trovato-morto-in-casa",
-      "img": "/feed-images/396bb40b80fcadd8.jpg"
     }
   ]
 }
