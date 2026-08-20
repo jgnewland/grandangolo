@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-20T15:48:12.831928+00:00",
+  "updated": "2026-08-20T16:30:36.778221+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Furto al MuMe di Messina, i quattro custodi che erano in servizio sono stati trasferiti",
+      "summary": "Si tratta di due dipendenti regionali e due lavoratori Asu.",
+      "date": "2026-08-20T16:03:45Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/furto-al-mume-di-messina-i-quattro-custodi-che-erano-in-servizio-sono-stati-trasferiti",
+      "img": "/feed-images/24a39cc1d2d2e3a3.jpg"
+    },
     {
       "title": "L’affondo di Controcorrente: “Aica ha fallito, Cda valuti un passo indietro”",
       "summary": "La dura nota del movimento di Ismaele La Vardera: “Mantenere in carica lo stesso CDA significherebbe negare l’evidenza e sottrarsi a ogni responsabilità”",
@@ -12,7 +19,7 @@
     },
     {
       "title": "Bimba di 4 anni muore per una difterite, non era vaccinata",
-      "summary": "Quella contro la difterite è una delle vaccinazioni obbligatorie per i bambini insieme a quelle per tetano, pertosse, poliomielite, epatite e altre",
+      "summary": "All’ospedale dei bambini a Palermo è ricoverato anche il cuginetto di 4 anni",
       "date": "2026-08-20T15:12:27Z",
       "link": "https://www.grandangoloagrigento.it/apertura/bimba-di-4-anni-muore-per-una-difterite-non-era-vaccinata",
       "img": "/feed-images/baa62c1e26f2a382.jpg"
@@ -205,13 +212,6 @@
       "date": "2026-08-20T05:40:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/non-solo-zona-a-la-procura-accende-i-fari-anche-sugli-abusi-edilizi-a-lampedusa",
       "img": "/feed-images/2b2819ff9224ec39.jpg"
-    },
-    {
-      "title": "Ladri “visitano” casa di medico: portati via soldi, orologi e preziosi",
-      "summary": "Ladri in azione nel centro di Agrigento. Ignoti malviventi sono riusciti ad entrare in un’abitazione di un medico in via Dante",
-      "date": "2026-08-20T05:39:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ladri-visitano-casa-di-medico-portati-via-soldi-orologi-e-preziosi",
-      "img": "/feed-images/9fba34da90a166bf.png"
     }
   ]
 }
