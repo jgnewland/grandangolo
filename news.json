@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-20T05:26:07.214135+00:00",
+  "updated": "2026-08-20T05:56:22.128390+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Non solo Zona A, la Procura accende i fari anche sugli abusi edilizi a Lampedusa",
+      "summary": "Nella maggiore delle Pelagie sono numerosi gli abusi presenti e l’ultima grande campagna di abbattimenti risale a 7 anni fa",
+      "date": "2026-08-20T05:40:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/non-solo-zona-a-la-procura-accende-i-fari-anche-sugli-abusi-edilizi-a-lampedusa",
+      "img": "/feed-images/2b2819ff9224ec39.jpg"
+    },
+    {
+      "title": "“I film del Griffo”, martedì 1 settembre appuntamento con “Ogni cosa è illuminata”",
+      "summary": "Il prossimo film in programma è “Ogni cosa è illuminata”, pellicola del 2005 diretta da Liev Schreiber e tratta dall’omonimo romanzo di Jonathan Safran Foer",
+      "date": "2026-08-20T05:35:52Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/i-film-del-griffo-martedi-1-settembre-appuntamento-con-ogni-cosa-e-illuminata",
+      "img": "/feed-images/1754f1a1e007aeb4.jpg"
+    },
+    {
+      "title": "Grotte, Aica rafforza i controlli sui lavori della rete idrica",
+      "summary": "Aica ha piu’ volte sollecitato l’impresa esecutrice al fine di garantire una corretta, puntuale e attenta esecuzione degli interventi",
+      "date": "2026-08-20T05:33:37Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/grotte-aica-rafforza-i-controlli-sui-lavori-della-rete-idrica",
+      "img": "/feed-images/6c5bec1c14065018.jpg"
+    },
     {
       "title": "Prima il gommone rubato e adesso l’auto in fiamme, commerciante empedoclino nel mirino?",
       "summary": "Elementi, questi, al vaglio degli investigatori che stanno cercando di capire se tra i due episodi possa esserci un nesso",
@@ -191,27 +212,6 @@
       "date": "2026-08-19T06:03:42Z",
       "link": "https://www.grandangoloagrigento.it/lampedusa/lampedusa-il-giornalista-colapinto-entra-al-consiglio-comunale-e-si-dimette-dopo-la-seduta-coerente-con-i-cittadini",
       "img": "/feed-images/d87d2751c150dca5.jpg"
-    },
-    {
-      "title": "Scoppia l’adduttore “Castello” chiusa al traffico la Sp Cianciana-Lucca Sicula",
-      "summary": "Il transito è stato interrotto",
-      "date": "2026-08-19T05:51:47Z",
-      "link": "https://www.grandangoloagrigento.it/cianciana/scoppia-ladduttore-castello-chiusa-al-traffico-la-sp-cianciana-lucca-sicula",
-      "img": "/feed-images/eeb6bc5274ff8060.jpg"
-    },
-    {
-      "title": "Auto di libera professionista presa a martellate, indagini",
-      "summary": "L’episodio si è verificato sotto casa della donna, nel centro storico di Agrigento. Al via le indagini della polizia",
-      "date": "2026-08-19T05:08:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/auto-di-libera-professionista-presa-a-martellate-indagini",
-      "img": "/feed-images/33716973dd00ccd0.jpg"
-    },
-    {
-      "title": "Incidente stradale al Villaggio Mosè, due le auto coinvolte",
-      "summary": "Un incidente stradale è avvenuto questa mattina nel quartiere di Villaggio Mosè, nei pressi del McDonald’s",
-      "date": "2026-08-19T05:07:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/incidente-stradale-al-villaggio-mose-due-le-auto-coinvolte",
-      "img": "/feed-images/1c0458eb120ee4ed.jpg"
     }
   ]
 }
