@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-20T14:20:39.989169+00:00",
+  "updated": "2026-08-20T15:04:14.407114+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Poste, completati interventi “polis” nelle 35 sedi della provincia",
+      "summary": "Ultimato il programma dei lavori di ammodernamento negli uffici dei comuni sotto i 15mila abitanti per ospitare i nuovi servizi e migliorare l’accoglienza dei cittadini",
+      "date": "2026-08-20T15:01:59Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/poste-completati-interventi-polis-nelle-35-sedi-della-provincia",
+      "img": "/feed-images/65819b0f8f85c571.jpg"
+    },
     {
       "title": "Allenamento estivo e ripartenza a settembre: i consigli del Personal Trainer",
       "summary": "Dalla gestione del caldo in sala pesi alla nutrizione corretta, fino ai consigli per chi vuole iniziare ad allenarsi dopo le vacanze.",
@@ -205,13 +212,6 @@
       "date": "2026-08-19T17:00:19Z",
       "link": "https://www.grandangoloagrigento.it/ravanusa/aica-replica-a-pitrola-a-ravanusa-turni-dacqua-documentati-non-venti-giorni-senza-servizio",
       "img": "/feed-images/ecedfa4dc8f6e63d.jpg"
-    },
-    {
-      "title": "“Ucciso a colpi di cacciavite”, tre indagati restano in carcere",
-      "summary": "Disposto il carcere ma non convalidato i fermi dei tre indagati per la morte di Vito Genovese, di cui due minori e il 34enne Paolo Puleo",
-      "date": "2026-08-19T16:04:51Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/ucciso-a-colpi-di-cacciavite-tre-indagati-restano-in-carcere",
-      "img": "/feed-images/398c46a309686664.jpg"
     }
   ]
 }
