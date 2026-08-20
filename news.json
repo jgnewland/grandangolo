@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-20T06:43:12.837912+00:00",
+  "updated": "2026-08-20T07:27:53.026879+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Agrigento, marciapiedi nel degrado tra erbacce e rifiuti: la denuncia dei cittadini",
+      "summary": "La denuncia dei residenti di via Magellano",
+      "date": "2026-08-20T07:07:27Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-marciapiedi-nel-degrado-tra-erbacce-e-rifiuti-la-denuncia-dei-cittadini",
+      "img": "/feed-images/d7794e345d3ec6f9.jpg"
+    },
     {
       "title": "Scontro auto-tir, morta mamma di 40 anni: era insieme al marito e i figli",
       "summary": "La donna viaggiava insieme al marito e ai figli. Era seduta nel sedile passeggero",
@@ -205,13 +212,6 @@
       "date": "2026-08-19T08:11:20Z",
       "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/voucher-per-i-laureati-che-frequentano-master-universitari-lersu-di-palermo-plaude-alla-misura-introdotta-dalla-regione-siciliana",
       "img": "/feed-images/5b2740783f51c58c.jpg"
-    },
-    {
-      "title": "Etna, ripresa l’attività stromboliana dal Cratere della Voragine",
-      "summary": "Lo rende noto l’Istituto Nazionale di Geofisica e Vulcanologia, Osservatorio Etnea",
-      "date": "2026-08-19T08:09:49Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/etna-ripresa-lattivita-stromboliana-dal-cratere-della-voragine",
-      "img": "/feed-images/7d4cc533a693e84a.jpg"
     }
   ]
 }
