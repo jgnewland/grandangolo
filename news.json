@@ -1,14 +1,28 @@
 {
-  "updated": "2026-08-21T13:31:33.065400+00:00",
+  "updated": "2026-08-21T14:18:40.759189+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Truffa del finto carabiniere, emessi 16 fogli di via dalla Questura di Agrigento",
+      "summary": "Di questi, sei sono stati adottati nel solo mese di giugno, cinque nel mese di luglio e due nel mese di agosto, a conferma della costante attenzione riservata al fenomeno",
+      "date": "2026-08-21T13:58:13Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/truffa-del-finto-carabiniere-emessi-16-fogli-di-via-dalla-questura-di-agrigento",
+      "img": "/feed-images/7c27999a50cf5f16.jpg"
+    },
     {
       "title": "Terremoto al teatro Pirandello, si dimette in blocco il CdA della Fondazione",
       "summary": "La decisione viene spiegata in una lunga nota che punta il dito contro l’Amministrazione, accusata di immobilismo",
       "date": "2026-08-21T12:15:12Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/terremoto-al-teatro-pirandello-si-dimette-in-blocco-il-cda-della-fondazione",
       "img": "/feed-images/4f2c5bf8869e8643.jpg"
+    },
+    {
+      "title": "Ladri nel campetto dedicato alla memoria di Davide Licata, il sindaco: “Atto vile”",
+      "summary": "Rubati una canotta e un pallone dal campetto dedicato al 12enne morto a Favara durante un allenamento di basket. Durissime parole del sindaco",
+      "date": "2026-08-21T12:12:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/ladri-nel-campetto-dedicato-alla-memoria-di-davide-licata-il-sindaco-atto-vile",
+      "img": "/feed-images/9221838312f2bac1.jpg"
     },
     {
       "title": "Morta Nuccia Quattrocchi, la maestra di danza era rimasta coinvolta in un incidente",
@@ -91,7 +105,7 @@
       "title": "Il clan Massimino e il canale palermitano della droga: non c’è concorso esterno",
       "summary": "I giudici depositano le motivazioni della sentenza Kerkent e spiegano perchè due imputati, ritenuti intermediari con i narcos, sono stati assolti dall’accusa di concorso esterno in associazione",
       "date": "2026-08-21T07:17:55Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-clan-massimino-e-il-canale-palermitano-della-droga-non-ce-concorso-esterno",
+      "link": "https://www.grandangoloagrigento.it/giudiziaria/il-clan-massimino-e-il-canale-palermitano-della-droga-non-ce-concorso-esterno",
       "img": "/feed-images/23f1f1f60a98dac3.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-20T11:30:08Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/gdf-il-colonnello-gesuelli-lascia-caltanissetta-al-suo-posto-beppe-la-sala",
       "img": "/feed-images/2eada4ad7b24f8d8.jpg"
-    },
-    {
-      "title": "Controlli nei ristoranti, sanzioni per 36 mila euro",
-      "summary": "Le irregolarità di carattere amministrativo hanno determinato molteplici sanzioni ad entrambi i ristoranti, per un totale complessivo di oltre 36.000 euro",
-      "date": "2026-08-20T11:27:44Z",
-      "link": "https://www.grandangoloagrigento.it/catania/controlli-nei-ristoranti-sanzioni-per-36-mila-euro",
-      "img": "/feed-images/cad7ec4a6cef5c16.jpg"
-    },
-    {
-      "title": "“Kerkent”, sequestro di persona e violenza sessuale? Imputato non diede nessun contributo",
-      "summary": "Una vicenda complessa tanto dal punto di vista investigativo quanto da quello processuale. Ecco cosa dicono i giudici",
-      "date": "2026-08-20T10:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/kerkent-sequestro-di-persona-e-violenza-sessuale-imputato-non-diede-nessun-contributo",
-      "img": "/feed-images/5bd54fa72e638091.jpg"
     }
   ]
 }
