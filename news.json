@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-21T16:28:43.686210+00:00",
+  "updated": "2026-08-21T17:02:09.116582+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Lampedusa, sbarcati altri 60 migranti",
+      "summary": "All’hotspot al momento ci sono 415 ospiti. Di questi, 96 stanno per lasciare la struttura di prima accoglienza per essere imbarcati sul traghetto di linea che all’alba di domani giungerà a Porto…",
+      "date": "2026-08-21T16:31:59Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/lampedusa-sbarcati-altri-60-migranti-2",
+      "img": "/feed-images/74a5a0fa5bf0d9d1.jpg"
+    },
     {
       "title": "Slalom Città di Alessandria della Rocca, almeno sei piloti pronti a contendersi la vittoria",
       "summary": "Tutto pronto per la sesta edizione dello Slalom Città di Alessandria della Rocca che si disputerà il 22 e 23 agosto sulla SS118",
@@ -205,13 +212,6 @@
       "date": "2026-08-20T15:04:25Z",
       "link": "https://www.grandangoloagrigento.it/sciacca/aica-al-via-i-lavori-di-manutenzione-della-rete-idrica-a-sciacca",
       "img": "/feed-images/ecedfa4dc8f6e63d.jpg"
-    },
-    {
-      "title": "Poste, completati interventi “polis” nelle 35 sedi della provincia",
-      "summary": "Ultimato il programma dei lavori di ammodernamento negli uffici dei comuni sotto i 15mila abitanti per ospitare i nuovi servizi e migliorare l’accoglienza dei cittadini",
-      "date": "2026-08-20T15:01:59Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/poste-completati-interventi-polis-nelle-35-sedi-della-provincia",
-      "img": "/feed-images/65819b0f8f85c571.jpg"
     }
   ]
 }
