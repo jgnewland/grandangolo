@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-21T11:21:28.498106+00:00",
+  "updated": "2026-08-21T11:51:37.291663+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Morta Nuccia Quattrocchi, la maestra di danza era rimasta coinvolta in un incidente",
+      "summary": "Ha lottato tra la vita e la morte per tre settimane ma, purtroppo, non ce l’ha fatta",
+      "date": "2026-08-21T11:22:28Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/morta-nuccia-quattrocchi-la-maestra-di-danza-era-rimasta-coinvolta-in-un-incidente",
+      "img": "/feed-images/e8cf83a4cfc42cbb.jpg"
+    },
     {
       "title": "Scoperta piantagione di marijuana, in due tentato la fuga e aizzano folla: arrestati",
       "summary": "Mentre i militari lo stavano accompagnando verso l’autovettura di servizio, un veicolo con a bordo due persone si è avvicinato agli operanti",
@@ -205,13 +212,6 @@
       "date": "2026-08-20T09:36:22Z",
       "link": "https://www.grandangoloagrigento.it/giudiziaria/ex-infermiere-morto-in-un-incidente-ad-agrigento-75enne-indagato-per-omicidio-stradale",
       "img": "/feed-images/acb7686e73c199ca.jpg"
-    },
-    {
-      "title": "Racalmuto, incontro tra il sindaco Bongiorno e l’autore Rai Taglialavoro",
-      "summary": "L’autore ha avanzato la proposta di realizzare un approfondimento dedicato al Teatro, da inserire all’interno della programmazione RAI",
-      "date": "2026-08-20T09:25:23Z",
-      "link": "https://www.grandangoloagrigento.it/racalmuto/racalmuto-incontro-tra-il-sindaco-bongiorno-e-lautore-rai-taglialavoro",
-      "img": "/feed-images/a89a03978e4ec098.jpg"
     }
   ]
 }
