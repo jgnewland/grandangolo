@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-21T05:47:41.649037+00:00",
+  "updated": "2026-08-21T06:38:59.418184+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Sanità, incontro tra il commissario Asp Delle Donne e la deputata Marchetta",
+      "summary": "Al centro del confronto le principali problematiche della sanità agrigentina, con particolare attenzione alle esigenze dei cittadini",
+      "date": "2026-08-21T05:57:41Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/sanita-incontro-tra-il-commissario-asp-delle-donne-e-la-deputata-marchetta",
+      "img": "/feed-images/280bc571245a811e.jpg"
+    },
+    {
+      "title": "Rapina in una casa a “luci rosse” nel centro di Agrigento, portati via 3 mila euro",
+      "summary": "È successo nel quartiere del campo sportivo di Agrigento. Ad agire un bandito solitario con volto parzialmente travisato",
+      "date": "2026-08-21T05:56:21Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/rapina-in-una-casa-a-luci-rosse-nel-centro-di-agrigento-portati-via-3-mila-euro",
+      "img": "/feed-images/1ed0a0a9587ae55c.jpg"
+    },
+    {
+      "title": "Organizza manifestazione senza avvisare la Questura, sanzionato 35enne",
+      "summary": "Sanzionato per avere organizzato una manifestazione a connotazione socio-politica senza però comunicarlo alle autorità di pubblica sicurezza",
+      "date": "2026-08-21T05:48:54Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/organizza-manifestazione-senza-avvisare-la-questura-sanzionato-35enne",
+      "img": "/feed-images/6d998156ed950b2d.jpg"
+    },
     {
       "title": "Porto Empedocle, sventati diversi tentativi di truffa su carta d’identità clonata",
       "summary": "I malviventi, spacciandosi per appartenenti alle forze dell’ordine, hanno contattato i “bersagli” riferendo che la loro carta d’identità elettronica era stata clonata",
@@ -191,27 +212,6 @@
       "date": "2026-08-20T07:34:04Z",
       "link": "https://www.grandangoloagrigento.it/palermo/sequestrati-400-chili-di-infiorescenze-di-marijuana-6-denunce",
       "img": "/feed-images/811ad926e4a2c6c3.jpg"
-    },
-    {
-      "title": "San Leone: residenti di via Magellano denunciano degrado, rifiuti ed erbacce",
-      "summary": "La denuncia dei residenti di via Magellano",
-      "date": "2026-08-20T07:07:27Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-marciapiedi-nel-degrado-tra-erbacce-e-rifiuti-la-denuncia-dei-cittadini",
-      "img": "/feed-images/d7794e345d3ec6f9.jpg"
-    },
-    {
-      "title": "Scontro auto-tir, morta mamma di 40 anni: era insieme al marito e i figli",
-      "summary": "La donna viaggiava insieme al marito e ai figli. Era seduta nel sedile passeggero",
-      "date": "2026-08-20T06:35:17Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-auto-tir-morta-mamma-di-40-anni-era-insieme-al-marito-e-i-figli",
-      "img": "/feed-images/8c18ad8884cc4845.jpg"
-    },
-    {
-      "title": "In auto con quasi 13 chili di hashish, trovate anche due pistole: arrestato",
-      "summary": "Durante le successive attività investigative sono state rinvenute anche due pistole e 500 munizioni nella disponibilità del padre del soggetto",
-      "date": "2026-08-20T06:21:49Z",
-      "link": "https://www.grandangoloagrigento.it/ragusa/in-auto-con-quasi-13-chili-di-hashish-trovate-anche-due-pistole-arrestato",
-      "img": "/feed-images/a6bc2b9ed5244eba.jpg"
     }
   ]
 }
