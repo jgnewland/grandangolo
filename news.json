@@ -1,8 +1,36 @@
 {
-  "updated": "2026-08-21T09:37:56.931639+00:00",
+  "updated": "2026-08-21T10:05:57.272240+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Restano in panne con l’auto, polizia interviene e trova 110 grammi di marijuana",
+      "summary": "Gli operatori di Polizia notavano nervosismo e agitazione da parte degli occupanti del veicolo",
+      "date": "2026-08-21T09:46:57Z",
+      "link": "https://www.grandangoloagrigento.it/enna/restano-in-panne-con-lauto-polizia-interviene-e-trova-110-grammi-di-marijuana",
+      "img": "/feed-images/b5f485223648a4d5.jpg"
+    },
+    {
+      "title": "Cessione di droga in diretta, i Carabinieri arrestano un 42enne e denunciano un 43enne",
+      "summary": "I Carabinieri si sono avvicinati ai tre bloccandoli in sicurezza e sorprendendo il 42enne proprio nell’atto di cedere una dose di cocaina ad uno dei due",
+      "date": "2026-08-21T09:44:17Z",
+      "link": "https://www.grandangoloagrigento.it/catania/cessione-di-droga-in-diretta-i-carabinieri-arrestano-un-42enne-e-denunciano-un-43enne",
+      "img": "/feed-images/46880957206a6808.jpg"
+    },
+    {
+      "title": "Viola il foglio di via obbligatorio, circola senza assicurazione e senza patente: denunciato",
+      "summary": "L’uomo circolava a bordo di un’autovettura priva di copertura assicurativa obbligatoria e senza essere provvisto della patente di guida perché gli era stata in precedenza ritirata",
+      "date": "2026-08-21T09:42:06Z",
+      "link": "https://www.grandangoloagrigento.it/catania/viola-il-foglio-di-via-obbligatorio-circola-senza-assicurazione-e-senza-patente-denunciato",
+      "img": "/feed-images/ba5209143facc6e1.jpg"
+    },
+    {
+      "title": "Colpo notturno al supermercato, recuperata parte della refurtiva: denunciato un 39enne",
+      "summary": "Durante gli accertamenti sul luogo del reato è stato infatti rinvenuto un telefono cellulare, che è stato sottoposto ai dovuti approfondimenti del caso",
+      "date": "2026-08-21T09:40:37Z",
+      "link": "https://www.grandangoloagrigento.it/catania/colpo-notturno-al-supermercato-recuperata-parte-della-refurtiva-denunciato-un-39enne",
+      "img": "/feed-images/bfa930f3e424a7aa.jpg"
+    },
     {
       "title": "Scoperta piantagione di droga tra la vegetazione: due arresti e una denuncia",
       "summary": "Gli arrestati sono un 22enne e un 52enne",
@@ -30,6 +58,13 @@
       "date": "2026-08-21T09:16:08Z",
       "link": "https://www.grandangoloagrigento.it/catania/controlli-in-una-panineria-trovata-carne-contaminata-15-mila-euro-di-sanzioni",
       "img": "/feed-images/2b5f2bf1c51fe36f.jpg"
+    },
+    {
+      "title": "Acqua contaminata a San Leone, scatta il divieto di usarla anche per lavarsi",
+      "summary": "Scatta il divieto di utilizzo dell’acqua sia per usi potabili e alimentari ma anche per l’igiene personale",
+      "date": "2026-08-21T09:16:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/acqua-contaminata-a-san-leone-scatta-il-divieto-di-usarla-anche-per-lavarsi",
+      "img": "/feed-images/eeb27f67c2f42c09.jpg"
     },
     {
       "title": "Il clan Massimino e il canale palermitano della droga: non c’è concorso esterno",
@@ -177,41 +212,6 @@
       "date": "2026-08-20T09:23:55Z",
       "link": "https://www.grandangoloagrigento.it/catania/pedina-lex-compagna-49enne-arrestato-per-stalking",
       "img": "/feed-images/f92ed663886ff78f.jpg"
-    },
-    {
-      "title": "“Naturalmente Agrigento”, al via progetto per valorizzare gli aspetti green del territorio",
-      "summary": "Il progetto, vinto dal Comune di Agrigento, è adesso in fase di realizzazione con la collaborazione di CoopCulture, e cercherà di mettere in risalto gli aspetti green del paesaggio storico-rurale che…",
-      "date": "2026-08-20T09:22:35Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/naturalmente-agrigento-al-via-progetto-per-valorizzare-gli-aspetti-green-del-territorio",
-      "img": "/feed-images/41c78d7350e10202.jpg"
-    },
-    {
-      "title": "Alla vista dei carabinieri perde la calma, in auto nascondeva 200 grammi di hashish",
-      "summary": "I militari hanno dunque effettuato una perquisizione personale e del veicolo, e proprio in auto hanno scovato ben 200 grammi di hashish",
-      "date": "2026-08-20T09:20:10Z",
-      "link": "https://www.grandangoloagrigento.it/catania/alla-vista-dei-carabinieri-perde-la-calma-in-auto-nascondeva-200-grammi-di-hashish",
-      "img": "/feed-images/e3d852e7ada04c5a.jpg"
-    },
-    {
-      "title": "Infrange vetrata e tenta furto al distributore automatico, incastrato dalle telecamere",
-      "summary": "Denunciato in stato di libertà un 29enne ritenuto gravemente indiziato del reato di furto aggravato",
-      "date": "2026-08-20T09:18:44Z",
-      "link": "https://www.grandangoloagrigento.it/catania/infrange-vetrata-e-tenta-furto-al-distributore-automatico-incastrato-dalle-telecamere",
-      "img": "/feed-images/531891713004ea11.jpg"
-    },
-    {
-      "title": "Telecamere incastrano “sporcaccioni” ad Agrigento, l’assessore Riccobene: “Criminali”",
-      "summary": "Grazie alle fototrappole sono state già elevate centinaia di pesanti contravvenzioni e sanzioni ma anche diversi deferimenti all’Autorità Giudiziaria",
-      "date": "2026-08-20T08:06:45Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/telecamere-incastrano-sporcaccioni-ad-agrigento-lassessore-riccobene-criminali",
-      "img": "/feed-images/09d9cce4e0df36f2.jpg"
-    },
-    {
-      "title": "Nasconde in casa 6.5 chili di marijuana e 65 mila euro in contanti: arrestato",
-      "summary": "La perquisizione ha permesso di smantellare una vera e propria base logistica per lo stoccaggio della droga, portando al sequestro di 6,5 chilogrammi di marijuana",
-      "date": "2026-08-20T08:02:09Z",
-      "link": "https://www.grandangoloagrigento.it/catania/nasconde-in-casa-6-5-chili-di-marijuana-e-65-mila-euro-in-contanti-arrestato",
-      "img": "/feed-images/8a63e53ed9f2a7ef.jpg"
     }
   ]
 }
