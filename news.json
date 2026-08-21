@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-21T11:51:37.291663+00:00",
+  "updated": "2026-08-21T12:38:33.964830+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Terremoto al teatro Pirandello, si dimette in blocco il CdA della Fondazione",
+      "summary": "La decisione viene spiegata in una lunga nota che punta il dito contro l’Amministrazione, accusata di immobilismo",
+      "date": "2026-08-21T12:15:12Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/terremoto-al-teatro-pirandello-si-dimette-in-blocco-il-cda-della-fondazione",
+      "img": "/feed-images/4f2c5bf8869e8643.jpg"
+    },
     {
       "title": "Morta Nuccia Quattrocchi, la maestra di danza era rimasta coinvolta in un incidente",
       "summary": "Ha lottato tra la vita e la morte per tre settimane ma, purtroppo, non ce l’ha fatta",
@@ -98,7 +105,7 @@
       "title": "Rapina in una casa a “luci rosse” nel centro di Agrigento, portati via 3 mila euro",
       "summary": "È successo nel quartiere del campo sportivo di Agrigento. Ad agire un bandito solitario con volto parzialmente travisato",
       "date": "2026-08-21T05:56:21Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/rapina-in-una-casa-a-luci-rosse-nel-centro-di-agrigento-portati-via-3-mila-euro",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/rapina-in-una-casa-a-luci-rosse-nel-centro-di-agrigento-portati-via-3-mila-euro",
       "img": "/feed-images/1ed0a0a9587ae55c.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-20T10:30:00Z",
       "link": "https://www.grandangoloagrigento.it/giudiziaria/kerkent-sequestro-di-persona-e-violenza-sessuale-imputato-non-diede-nessun-contributo",
       "img": "/feed-images/5bd54fa72e638091.jpg"
-    },
-    {
-      "title": "Ex infermiere morto in un incidente ad Agrigento, 75enne indagato per omicidio stradale",
-      "summary": "La vicenda è legata alla morte di Angelo D’Anna, ex infermiere di Raffadali, deceduto in ospedale venti giorni dopo un incidente stradale avvenuto nella zona del Quadrivio Spinasanta",
-      "date": "2026-08-20T09:36:22Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/ex-infermiere-morto-in-un-incidente-ad-agrigento-75enne-indagato-per-omicidio-stradale",
-      "img": "/feed-images/acb7686e73c199ca.jpg"
     }
   ]
 }
