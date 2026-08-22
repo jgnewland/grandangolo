@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-22T15:45:19.301180+00:00",
+  "updated": "2026-08-22T16:18:54.984482+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Morto a 16 anni la notte di Ferragosto, lacrime e applausi per l’ultimo saluto a Salvatore",
+      "summary": "I funerali di Salvatore Pessina, il 16enne deceduto in una casa a Menfi la notte di Ferragosto",
+      "date": "2026-08-22T16:04:58Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/morto-a-16-anni-la-notte-di-ferragosto-lacrime-e-applausi-per-lultimo-saluto-a-salvatore",
+      "img": "/feed-images/6a0bca28d4abae3b.jpg"
+    },
     {
       "title": "Esplosivo davanti sportello Unicredit, colpo fallito",
       "summary": "Gli artificieri hanno rimosso l’esplosivo mettendo in sicurezza l’area. Accanto al bancomat era presente anche del liquido infiammabile",
@@ -154,7 +161,7 @@
       "title": "Tentata estorsione mafiosa nell’Agrigentino, il processo approda in Cassazione",
       "summary": "Il fatto era peraltro emerso nell’operazione antimafia Opuntia contro le cosche di Menfi e Santa Margherita Belice",
       "date": "2026-08-22T06:10:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/tentata-estorsione-mafiosa-nellagrigentino-il-processo-approda-in-cassazione",
+      "link": "https://www.grandangoloagrigento.it/mafia/tentata-estorsione-mafiosa-nellagrigentino-il-processo-approda-in-cassazione",
       "img": "/feed-images/23567f9de8ccd594.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-21T14:19:24Z",
       "link": "https://www.grandangoloagrigento.it/catania/in-strada-con-marijuana-e-hashish-arrestato-pusher",
       "img": "/feed-images/d86d4052f15be762.jpg"
-    },
-    {
-      "title": "Truffa del finto carabiniere, emessi 16 fogli di via dalla Questura di Agrigento",
-      "summary": "Di questi, sei sono stati adottati nel solo mese di giugno, cinque nel mese di luglio e due nel mese di agosto, a conferma della costante attenzione riservata al fenomeno",
-      "date": "2026-08-21T13:58:13Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/truffa-del-finto-carabiniere-emessi-16-fogli-di-via-dalla-questura-di-agrigento",
-      "img": "/feed-images/7c27999a50cf5f16.jpg"
     }
   ]
 }
