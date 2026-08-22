@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-22T10:58:55.915335+00:00",
+  "updated": "2026-08-22T11:26:28.353984+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Bonus Tari 2026, Audiconsum chiede chiarimenti al Comune di Agrigento”",
+      "summary": "Regna profonda confusione tra i contribuenti agrigentini in merito all’applicazione del nuovo Bonus TARI 2026",
+      "date": "2026-08-22T11:08:43Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/bonus-tari-2026-audiconsum-chiede-chiarimenti-al-comune-di-agrigento",
+      "img": "/feed-images/653ba8aab6a0cc2d.jpg"
+    },
+    {
+      "title": "Tenta di strangolare la moglie con il cavo del cellulare, arrestato 77enne",
+      "summary": "A dare l’allarme al 112 è stata la collaboratrice domestica della coppia, che avrebbe assistito all’aggressione",
+      "date": "2026-08-22T11:06:01Z",
+      "link": "https://www.grandangoloagrigento.it/messina/tenta-di-strangolare-la-moglie-con-il-cavo-del-cellulare-arrestato-77enne",
+      "img": "/feed-images/edde805a93ad0210.jpg"
+    },
     {
       "title": "Degrado in via Imera, Fattori: “Riqualificazione sia priorità dell’amministrazione comunale”",
       "summary": "“È una strada che dovrebbe essere un biglietto da visita per chi arriva ad Agrigento e invece oggi presenta condizioni di degrado che non sono più tollerabili”",
@@ -67,9 +81,16 @@
       "img": "/feed-images/40e11edcb4fa9c99.jpg"
     },
     {
+      "title": "Bimba morta per difterite, indagati i genitori che non l’hanno vaccinata",
+      "summary": "Sono indagati per omicidio colposo i genitori di Anna Rosa Bartolotta, la bimba di 4 anni morta per difterite",
+      "date": "2026-08-22T08:08:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/bimba-morta-per-difterite-indagati-i-genitori-che-non-lhanno-vaccinata",
+      "img": "/feed-images/735156f8337ce74a.jpg"
+    },
+    {
       "title": "Ubriaco al volante finisce fuori strada a Villaggio Mosè, 30enne favarese nei guai",
       "summary": "Il tasso alcolemico è risultato essere quasi 5 volte superiore al consentito. Sequestrato anche un Suv di quasi 50 mila euro",
-      "date": "2026-08-22T06:13:53Z",
+      "date": "2026-08-22T08:07:53Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ubriaco-al-volante-finisce-fuori-strada-a-villaggio-mose-30enne-favarese-nei-guai",
       "img": "/feed-images/0bc3bf074255faff.png"
     },
@@ -77,7 +98,7 @@
       "title": "Trovato il cadavere di un 52enne in un dirupo, disposta autopsia",
       "summary": "Un uomo di 52 anni, Danilo Marretta, è stato trovato morto in un dirupo in contrada Santa Caterina a Castronovo di Sicilia",
       "date": "2026-08-22T06:12:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/trovato-il-cadavere-di-un-52enne-in-un-dirupo-disposta-autopsia",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/trovato-il-cadavere-di-un-52enne-in-un-dirupo-disposta-autopsia",
       "img": "/feed-images/1f6cb58fa53b225c.webp"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-08-21T09:42:06Z",
       "link": "https://www.grandangoloagrigento.it/catania/viola-il-foglio-di-via-obbligatorio-circola-senza-assicurazione-e-senza-patente-denunciato",
       "img": "/feed-images/ba5209143facc6e1.jpg"
-    },
-    {
-      "title": "Colpo notturno al supermercato, recuperata parte della refurtiva: denunciato un 39enne",
-      "summary": "Durante gli accertamenti sul luogo del reato è stato infatti rinvenuto un telefono cellulare, che è stato sottoposto ai dovuti approfondimenti del caso",
-      "date": "2026-08-21T09:40:37Z",
-      "link": "https://www.grandangoloagrigento.it/catania/colpo-notturno-al-supermercato-recuperata-parte-della-refurtiva-denunciato-un-39enne",
-      "img": "/feed-images/bfa930f3e424a7aa.jpg"
-    },
-    {
-      "title": "Scoperta piantagione di droga tra la vegetazione: due arresti e una denuncia",
-      "summary": "Gli arrestati sono un 22enne e un 52enne",
-      "date": "2026-08-21T09:25:57Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scoperta-piantagione-di-droga-tra-la-vegetazione-due-arresti-e-una-denuncia",
-      "img": "/feed-images/c1f632e5a2453f43.jpg"
-    },
-    {
-      "title": "Lanciano droga dalla finestra all’arrivo dei carabinieri, arrestati due fratelli",
-      "summary": "I due giovani avrebbero cercato frettolosamente di disfarsi dello stupefacente in casa gettandolo in una zona boschiva sottostante l’abitazione",
-      "date": "2026-08-21T09:23:30Z",
-      "link": "https://www.grandangoloagrigento.it/ragusa/lanciano-droga-dalla-finestra-allarrivo-dei-carabinieri-arrestati-due-fratelli",
-      "img": "/feed-images/47ddf681d874b9be.jpg"
     }
   ]
 }
