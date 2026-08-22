@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-22T13:18:26.530765+00:00",
+  "updated": "2026-08-22T13:51:24.457936+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Al cavaliere di Gran Croce Gaetano Allotta il premio culturale “Girasole”",
+      "summary": "Il premio è stato istituito da Giuseppe Iatì, poeta e attore",
+      "date": "2026-08-22T13:41:33Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/al-cavaliere-di-gran-croce-gaetano-allotta-il-premio-culturale-girasole",
+      "img": "/feed-images/ce69abbbe9a4fd4f.jpg"
+    },
     {
       "title": "Bonus Tari 2026, Audiconsum chiede chiarimenti al Comune di Agrigento”",
       "summary": "Regna profonda confusione tra i contribuenti agrigentini in merito all’applicazione del nuovo Bonus TARI 2026",
@@ -205,13 +212,6 @@
       "date": "2026-08-21T09:44:17Z",
       "link": "https://www.grandangoloagrigento.it/catania/cessione-di-droga-in-diretta-i-carabinieri-arrestano-un-42enne-e-denunciano-un-43enne",
       "img": "/feed-images/46880957206a6808.jpg"
-    },
-    {
-      "title": "Viola il foglio di via obbligatorio, circola senza assicurazione e senza patente: denunciato",
-      "summary": "L’uomo circolava a bordo di un’autovettura priva di copertura assicurativa obbligatoria e senza essere provvisto della patente di guida perché gli era stata in precedenza ritirata",
-      "date": "2026-08-21T09:42:06Z",
-      "link": "https://www.grandangoloagrigento.it/catania/viola-il-foglio-di-via-obbligatorio-circola-senza-assicurazione-e-senza-patente-denunciato",
-      "img": "/feed-images/ba5209143facc6e1.jpg"
     }
   ]
 }
