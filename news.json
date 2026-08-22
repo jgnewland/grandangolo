@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-22T09:59:27.442834+00:00",
+  "updated": "2026-08-22T10:31:05.911569+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Degrado in via Imera, Fattori: “Riqualificazione sia priorità dell’amministrazione comunale”",
+      "summary": "“È una strada che dovrebbe essere un biglietto da visita per chi arriva ad Agrigento e invece oggi presenta condizioni di degrado che non sono più tollerabili”",
+      "date": "2026-08-22T10:18:10Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/degrado-in-via-imera-fattori-riqualificazione-sia-priorita-dellamministrazione-comunale",
+      "img": "/feed-images/448e5a17852b37e4.jpg"
+    },
+    {
+      "title": "Drammatico incidente sulla SS115, morto metronotte 31enne di Canicattì",
+      "summary": "La vittima è il metronotte Alessandro Emanuele Diana, 31 anni, di Canicattì. Il ragazzo pare stesse rientrando dopo la giornata di lavoro",
+      "date": "2026-08-22T10:13:22Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/drammatico-incidente-sulla-ss115-morto-metronotte-31enne-di-canicatti",
+      "img": "/feed-images/43e558195ddc23cc.jpg"
+    },
     {
       "title": "Nasconde 71 grammi di cocaina negli slip, arrestato",
       "summary": "In possesso di 71 grammi di cocaina conservati in un involucro in cellophane termosaldato, nascosto nella biancheria intima",
@@ -42,7 +56,7 @@
       "title": "Tragico schianto sulla strada statale 115, morto un metronotte",
       "summary": "L’incidente è avvenuto sulla Strada statale 115 ”Sud Occidentale Sicula’’ in territorio di Butera. La vittima è un metronotte",
       "date": "2026-08-22T08:10:22Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/tragico-schianto-sulla-strada-statale-115-morto-un-metronotte",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tragico-schianto-sulla-strada-statale-115-morto-un-metronotte",
       "img": "/feed-images/573c898aa3675f42.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-21T09:23:30Z",
       "link": "https://www.grandangoloagrigento.it/ragusa/lanciano-droga-dalla-finestra-allarrivo-dei-carabinieri-arrestati-due-fratelli",
       "img": "/feed-images/47ddf681d874b9be.jpg"
-    },
-    {
-      "title": "Auto si schianta contro un muro: morti due ventenni, gravi altri due coetanei",
-      "summary": "Un ragazzo di 20 anni è morto sul colpo, mentre un coetaneo di 19 anni, trasportato d’urgenza in ospedale, è spirato nelle ore successive",
-      "date": "2026-08-21T09:18:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/auto-si-schianta-contro-un-muro-morti-due-ventenni-gravi-altri-due-coetanei",
-      "img": "/feed-images/6c1e7e12c5fd6827.jpg"
-    },
-    {
-      "title": "Controlli in una panineria, trovata carne contaminata: 15 mila euro di sanzioni",
-      "summary": "In particolare, 15 chili di carne equina, suina e pollame non tracciati e non idonei al consumo umano sono stati sequestrati e distrutti",
-      "date": "2026-08-21T09:16:08Z",
-      "link": "https://www.grandangoloagrigento.it/catania/controlli-in-una-panineria-trovata-carne-contaminata-15-mila-euro-di-sanzioni",
-      "img": "/feed-images/2b5f2bf1c51fe36f.jpg"
     }
   ]
 }
