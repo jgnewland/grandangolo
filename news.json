@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-22T14:17:36.262788+00:00",
+  "updated": "2026-08-22T14:46:35.730535+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "La febbre del Paloma: è il cocktail re dell’estate",
+      "summary": "Un drink messicano a base di Tequila e tonica al pompelmo rosa",
+      "date": "2026-08-22T14:37:29Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/la-febbre-del-paloma-e-il-cocktail-re-dellestate",
+      "img": "/feed-images/a047727569712094.jpg"
+    },
     {
       "title": "Al cavaliere di Gran Croce Gaetano Allotta il premio culturale “Girasole”",
       "summary": "Il premio è stato istituito da Giuseppe Iatì, poeta e attore",
@@ -205,13 +212,6 @@
       "date": "2026-08-21T09:46:57Z",
       "link": "https://www.grandangoloagrigento.it/enna/restano-in-panne-con-lauto-polizia-interviene-e-trova-110-grammi-di-marijuana",
       "img": "/feed-images/b5f485223648a4d5.jpg"
-    },
-    {
-      "title": "Cessione di droga in diretta, i Carabinieri arrestano un 42enne e denunciano un 43enne",
-      "summary": "I Carabinieri si sono avvicinati ai tre bloccandoli in sicurezza e sorprendendo il 42enne proprio nell’atto di cedere una dose di cocaina ad uno dei due",
-      "date": "2026-08-21T09:44:17Z",
-      "link": "https://www.grandangoloagrigento.it/catania/cessione-di-droga-in-diretta-i-carabinieri-arrestano-un-42enne-e-denunciano-un-43enne",
-      "img": "/feed-images/46880957206a6808.jpg"
     }
   ]
 }
