@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-22T07:35:36.994273+00:00",
+  "updated": "2026-08-22T08:00:11.231037+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
@@ -18,16 +18,23 @@
       "img": "/feed-images/0bc3bf074255faff.png"
     },
     {
+      "title": "Trovato il cadavere di un 52enne in un dirupo, disposta autopsia",
+      "summary": "Un uomo di 52 anni, Danilo Marretta, è stato trovato morto in un dirupo in contrada Santa Caterina a Castronovo di Sicilia",
+      "date": "2026-08-22T06:12:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/trovato-il-cadavere-di-un-52enne-in-un-dirupo-disposta-autopsia",
+      "img": "/feed-images/1f6cb58fa53b225c.webp"
+    },
+    {
       "title": "Tentata estorsione mafiosa nell’Agrigentino, il processo approda in Cassazione",
       "summary": "Il fatto era peraltro emerso nell’operazione antimafia Opuntia contro le cosche di Menfi e Santa Margherita Belice",
-      "date": "2026-08-22T06:12:00Z",
+      "date": "2026-08-22T06:10:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/tentata-estorsione-mafiosa-nellagrigentino-il-processo-approda-in-cassazione",
       "img": "/feed-images/23567f9de8ccd594.jpg"
     },
     {
       "title": "Incidente stradale a San Leone, ferito l’architetto La Mendola",
       "summary": "Il vicepresidente del Consiglio nazionale degli architetti ha riportato la frattura della clavicola e lesioni alle costole",
-      "date": "2026-08-22T06:11:09Z",
+      "date": "2026-08-22T06:08:09Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/incidente-stradale-a-san-leone-ferito-larchitetto-la-mendola",
       "img": "/feed-images/67c05c0f60db9ba6.png"
     },
@@ -42,7 +49,7 @@
       "title": "Polizia sventa maxi furto di cavi in rame a Licata, caccia ai ladri",
       "summary": "Ignoti malviventi, ben organizzati, avevano preso di mira la linea telefonica asportando oltre 200 metri di cavi in rame",
       "date": "2026-08-22T05:43:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/polizia-sventa-maxi-furto-di-cavi-in-rame-a-licata-caccia-ai-ladri",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/polizia-sventa-maxi-furto-di-cavi-in-rame-a-licata-caccia-ai-ladri",
       "img": "/feed-images/5122bcc1a265c028.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-21T05:42:46Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/porto-empedocle-sventati-diversi-tentativi-di-truffa-su-carta-didentita-clonata",
       "img": "/feed-images/b3d2c7c2254df4f5.jpg"
-    },
-    {
-      "title": "Imbrattarono la Scala dei Turchi con vernice rossa, fissato appello per due imputati",
-      "summary": "Sono ritenuti i responsabili del deturpamento della Scala dei Turchi, avvenuto il 7 gennaio 2022, macchiata con della polvere di ossido di ferro di colore rosso",
-      "date": "2026-08-20T17:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/imbrattarono-la-scala-dei-turchi-con-vernice-rossa-fissato-appello-per-due-imputati",
-      "img": "/feed-images/b248e0f4ae281c1a.jpg"
     }
   ]
 }
