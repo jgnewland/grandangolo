@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-22T09:40:57.645642+00:00",
+  "updated": "2026-08-22T09:59:27.442834+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Nasconde 71 grammi di cocaina negli slip, arrestato",
+      "summary": "In possesso di 71 grammi di cocaina conservati in un involucro in cellophane termosaldato, nascosto nella biancheria intima",
+      "date": "2026-08-22T09:56:31Z",
+      "link": "https://www.grandangoloagrigento.it/catania/nasconde-71-grammi-di-cocaina-negli-slip-arrestato",
+      "img": "/feed-images/35750faf8e21b140.jpg"
+    },
     {
       "title": "Licata, sospesa decadenza autorizzazioni di un impianto di carburanti",
       "summary": "Il Cga ha sospeso il provvedimento con cui il Comune di Licata aveva dichiarato la decadenza dei titoli autorizzativi",
@@ -32,18 +39,18 @@
       "img": "/feed-images/2b65e623db0658dd.jpg"
     },
     {
+      "title": "Tragico schianto sulla strada statale 115, morto un metronotte",
+      "summary": "L’incidente è avvenuto sulla Strada statale 115 ”Sud Occidentale Sicula’’ in territorio di Butera. La vittima è un metronotte",
+      "date": "2026-08-22T08:10:22Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/tragico-schianto-sulla-strada-statale-115-morto-un-metronotte",
+      "img": "/feed-images/573c898aa3675f42.jpg"
+    },
+    {
       "title": "Scendono dall’auto per un guasto, furgoncino li travolge: 6 feriti, due sono gravi",
       "summary": "L’incidente al bivio di Cattolica Eraclea. Ferita un’intera famiglia di Racalmuto che stava tornando da un matrimonio a Sciacca",
       "date": "2026-08-22T08:09:15Z",
       "link": "https://www.grandangoloagrigento.it/apertura/scendono-dallauto-per-un-guasto-furgoncino-li-travolge-6-feriti-due-sono-gravi",
       "img": "/feed-images/40e11edcb4fa9c99.jpg"
-    },
-    {
-      "title": "Tragico schianto sulla strada statale 115, morto un metronotte",
-      "summary": "L’incidente è avvenuto sulla Strada statale 115 ”Sud Occidentale Sicula’’ in territorio di Butera. La vittima è un metronotte",
-      "date": "2026-08-22T06:14:22Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/tragico-schianto-sulla-strada-statale-115-morto-un-metronotte",
-      "img": "/feed-images/c8dc59148b01557a.jpg"
     },
     {
       "title": "Ubriaco al volante finisce fuori strada a Villaggio Mosè, 30enne favarese nei guai",
@@ -205,13 +212,6 @@
       "date": "2026-08-21T09:16:08Z",
       "link": "https://www.grandangoloagrigento.it/catania/controlli-in-una-panineria-trovata-carne-contaminata-15-mila-euro-di-sanzioni",
       "img": "/feed-images/2b5f2bf1c51fe36f.jpg"
-    },
-    {
-      "title": "Acqua contaminata a San Leone, scatta il divieto di usarla anche per lavarsi",
-      "summary": "Scatta il divieto di utilizzo dell’acqua sia per usi potabili e alimentari ma anche per l’igiene personale",
-      "date": "2026-08-21T09:16:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/acqua-contaminata-a-san-leone-scatta-il-divieto-di-usarla-anche-per-lavarsi",
-      "img": "/feed-images/eeb27f67c2f42c09.jpg"
     }
   ]
 }
