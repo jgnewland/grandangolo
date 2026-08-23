@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-23T14:38:16.599030+00:00",
+  "updated": "2026-08-23T14:59:36.444180+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Dominio assoluto per Salvatore Castiglione al 6° Slalom Città di Alessandria della Rocca",
+      "summary": "Il podio è stato completato da Riccardo Cerniglia e Francesco Bigione.",
+      "date": "2026-08-23T14:39:17Z",
+      "link": "https://www.grandangoloagrigento.it/sport/dominio-assoluto-per-salvatore-castiglione-al-6-slalom-citta-di-alessandria-della-rocca",
+      "img": "/feed-images/d1e15daba7ed16f2.jpg"
+    },
     {
       "title": "La Chiesa Madre di Favara protagonista su Rai 1 con la Santa Messa domenicale",
       "summary": "Una vetrina spirituale ma anche una grande occasione di valorizzazione del territorio",
@@ -205,13 +212,6 @@
       "date": "2026-08-22T08:20:09Z",
       "link": "https://www.grandangoloagrigento.it/notizie-licata/licata-sospesa-decadenza-autorizzazioni-di-un-impianto-di-carburanti",
       "img": "/feed-images/8ca301977777a6dc.jpg"
-    },
-    {
-      "title": "Spacciava in casa, arrestato un 19enne",
-      "summary": "La perquisizione, estesa alla sua abitazione, ha permesso di scovare più di 50 dosi di marijuana per un totale di oltre 100 grammi",
-      "date": "2026-08-22T08:16:49Z",
-      "link": "https://www.grandangoloagrigento.it/catania/spacciava-in-casa-arrestato-un-19enne",
-      "img": "/feed-images/26d557521a8c2ba5.jpg"
     }
   ]
 }
