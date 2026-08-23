@@ -1,17 +1,24 @@
 {
-  "updated": "2026-08-23T09:53:19.183177+00:00",
+  "updated": "2026-08-23T10:19:38.599057+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
-      "title": "Tumulazioni al cimitero di Favara, una cittadina denuncia: “bare ancora ammassate, nessun problema risolto”",
+      "title": "Agrigento Pride: il 29 agosto la città scende in strada per i diritti e l’inclusione",
+      "summary": "L’appuntamento è per sabato 29 agosto, alle ore 18:00, in Piazza Municipio.",
+      "date": "2026-08-23T10:05:31Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-pride-il-29-agosto-la-citta-scende-in-strada-per-i-diritti-e-linclusione",
+      "img": "/feed-images/f790e8a6aba6bb6b.jpg"
+    },
+    {
+      "title": "Tumulazioni al cimitero di Favara, cittadina denuncia: “Bare ancora ammassate, nessun problema risolto”",
       "summary": "Nei giorni scorsi il sindaco aveva annunciato che l’emergenza fosse stata superata ma stando all’esposto-denuncia della cittadina la realtà sembra essere un’altra",
       "date": "2026-08-23T09:21:25Z",
       "link": "https://www.grandangoloagrigento.it/favara/tumulazioni-al-cimitero-di-favara-una-cittadina-denuncia-bare-ancora-ammassate-nessun-problema-risolto",
       "img": "/feed-images/fa9edadd9b91a478.jpg"
     },
     {
-      "title": "Decine di cicogne sul cielo di Menfi, il sindaco: “che sia segno di auspicio”",
+      "title": "Decine di cicogne sul cielo di Menfi, il sindaco: “Che sia segno di auspicio”",
       "summary": "Il primo cittadino ha voluto condividere le foto delle cicogne come buon auspicio per la città",
       "date": "2026-08-23T08:46:35Z",
       "link": "https://www.grandangoloagrigento.it/menfi/decine-di-cicogne-sul-cielo-di-menfi-il-sindaco-che-sia-segno-di-auspicio",
@@ -205,13 +212,6 @@
       "date": "2026-08-22T08:14:57Z",
       "link": "https://www.grandangoloagrigento.it/catania/aggredisce-medico-e-rifiuta-di-dare-generalita-ai-carabinieri-denunciato",
       "img": "/feed-images/565bf4e081124984.jpg"
-    },
-    {
-      "title": "Sorpreso a rubare un’auto, arrestato parcheggiatore abusivo",
-      "summary": "I proprietari si sono affacciati al balcone di casa e hanno immediatamente lanciato l’allarme mediante il numero unico d’emergenza",
-      "date": "2026-08-22T08:11:36Z",
-      "link": "https://www.grandangoloagrigento.it/catania/sorpreso-a-rubare-unauto-arrestato-parcheggiatore-abusivo",
-      "img": "/feed-images/2b65e623db0658dd.jpg"
     }
   ]
 }
