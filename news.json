@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-23T10:49:05.815240+00:00",
+  "updated": "2026-08-23T11:17:12.200843+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "La Chiesa Madre di Favara protagonista su Rai 1 con la Santa Messa domenicale",
+      "summary": "Una vetrina spirituale ma anche una grande occasione di valorizzazione del territorio",
+      "date": "2026-08-23T10:54:11Z",
+      "link": "https://www.grandangoloagrigento.it/favara/la-chiesa-madre-di-favara-protagonista-su-rai-1-con-la-santa-messa-domenicale",
+      "img": "/feed-images/e03e58065b845ceb.jpg"
+    },
     {
       "title": "Agrigento Pride: il 29 agosto la città scende in strada per i diritti e l’inclusione",
       "summary": "L’appuntamento è per sabato 29 agosto, alle ore 18:00, in Piazza Municipio.",
@@ -205,13 +212,6 @@
       "date": "2026-08-22T08:16:49Z",
       "link": "https://www.grandangoloagrigento.it/catania/spacciava-in-casa-arrestato-un-19enne",
       "img": "/feed-images/26d557521a8c2ba5.jpg"
-    },
-    {
-      "title": "Aggredisce medico e rifiuta di dare generalità ai carabinieri, denunciato",
-      "summary": "Proprio mentre il medico gli stava somministrando le cure nel tentativo di tranquillizzare il paziente questi, andato in escandescenza, lo ha aggredito",
-      "date": "2026-08-22T08:14:57Z",
-      "link": "https://www.grandangoloagrigento.it/catania/aggredisce-medico-e-rifiuta-di-dare-generalita-ai-carabinieri-denunciato",
-      "img": "/feed-images/565bf4e081124984.jpg"
     }
   ]
 }
