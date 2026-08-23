@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-23T19:33:32.069407+00:00",
+  "updated": "2026-08-23T19:55:32.074867+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
@@ -23,6 +23,13 @@
       "date": "2026-08-23T15:51:15Z",
       "link": "https://www.grandangoloagrigento.it/apertura/in-fiamme-portone-di-unabitazione-a-ravanusa-indagini",
       "img": "/feed-images/a60ec0d92a868562.jpg"
+    },
+    {
+      "title": "Canicattì, domani i funerali del metronotte Diana: sarà lutto cittadino",
+      "summary": "I funerali si svolgeranno nella Chiesa Maria Ausiliatrice",
+      "date": "2026-08-23T14:53:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-domani-i-funerali-del-metronotte-diana-sara-lutto-cittadino",
+      "img": "/feed-images/74f6ececf92d1cae.jpg"
     },
     {
       "title": "Dominio assoluto per Salvatore Castiglione al 6° Slalom Città di Alessandria della Rocca",
@@ -133,7 +140,7 @@
       "title": "Irregolarità in un cantiere edile nell’Agrigentino, denunciati due imprenditori",
       "summary": "Al termine dell’accertamento sono state elevate sanzioni e ammende per un importo complessivo di 12 mila euro",
       "date": "2026-08-23T05:51:03Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/irregolarita-in-un-cantiere-edile-nellagrigentino-denunciati-due-imprenditori",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/irregolarita-in-un-cantiere-edile-nellagrigentino-denunciati-due-imprenditori",
       "img": "/feed-images/40d7d3b240eee87a.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-08-22T11:06:01Z",
       "link": "https://www.grandangoloagrigento.it/messina/tenta-di-strangolare-la-moglie-con-il-cavo-del-cellulare-arrestato-77enne",
       "img": "/feed-images/edde805a93ad0210.jpg"
-    },
-    {
-      "title": "Degrado in via Imera, Fattori: “Riqualificazione sia priorità dell’amministrazione comunale”",
-      "summary": "“È una strada che dovrebbe essere un biglietto da visita per chi arriva ad Agrigento e invece oggi presenta condizioni di degrado che non sono più tollerabili”",
-      "date": "2026-08-22T10:18:10Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/degrado-in-via-imera-fattori-riqualificazione-sia-priorita-dellamministrazione-comunale",
-      "img": "/feed-images/448e5a17852b37e4.jpg"
     }
   ]
 }
