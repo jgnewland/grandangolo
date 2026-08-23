@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-23T19:03:16.151090+00:00",
+  "updated": "2026-08-23T19:33:32.069407+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "S.Stefano Quisquina, l’area fitness della villa comunale intitolata a Dario Mortellaro",
+      "summary": "Il giovane morto in un incidente stradale era molto conosciuto e apprezzato in paese",
+      "date": "2026-08-23T19:20:28Z",
+      "link": "https://www.grandangoloagrigento.it/santo-stefano-quisquina/s-stefano-quisquina-larea-fitness-della-villa-comunale-intitolata-a-dario-mortellaro",
+      "img": "/feed-images/1ce73f50b41ecec6.png"
+    },
     {
       "title": "In fiamme l’auto di un bidello a Raffadali, forse utilizzata una bomba carta",
       "summary": "È successo nella zona di via Fontanelle, a non molta distanza dal centro abitato di Raffadali. Il veicolo, una Toyota Yaris, è in uso ad un collaboratore scolastico",
@@ -205,13 +212,6 @@
       "date": "2026-08-22T10:18:10Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/degrado-in-via-imera-fattori-riqualificazione-sia-priorita-dellamministrazione-comunale",
       "img": "/feed-images/448e5a17852b37e4.jpg"
-    },
-    {
-      "title": "Drammatico incidente sulla SS115, morto metronotte 31enne di Canicattì",
-      "summary": "La vittima è il metronotte Alessandro Emanuele Diana, 31 anni, di Canicattì. Il ragazzo pare stesse rientrando dopo la giornata di lavoro",
-      "date": "2026-08-22T10:13:22Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/drammatico-incidente-sulla-ss115-morto-metronotte-31enne-di-canicatti",
-      "img": "/feed-images/43e558195ddc23cc.jpg"
     }
   ]
 }
