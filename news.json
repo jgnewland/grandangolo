@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-23T05:44:16.787726+00:00",
+  "updated": "2026-08-23T06:04:21.980437+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Insulta e picchia la mamma, arrestato ventenne",
+      "summary": "Nonostante la misura cautelare con tanto di braccialetto elettronico è tornato “alla carica” violando il provvedimento",
+      "date": "2026-08-23T05:59:15Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/insulta-e-picchia-la-mamma-arrestato-ventenne",
+      "img": "/feed-images/a3c1acf5ce1a0ac5.jpg"
+    },
+    {
+      "title": "Irregolarità in un cantiere edile nell’Agrigentino, denunciati due imprenditori",
+      "summary": "Al termine dell’accertamento sono state elevate sanzioni e ammende per un importo complessivo di 12 mila euro",
+      "date": "2026-08-23T05:51:03Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/irregolarita-in-un-cantiere-edile-nellagrigentino-denunciati-due-imprenditori",
+      "img": "/feed-images/40d7d3b240eee87a.jpg"
+    },
     {
       "title": "Morto a 16 anni la notte di Ferragosto, lacrime e applausi per l’ultimo saluto a Salvatore",
       "summary": "I funerali di Salvatore Pessina, il 16enne deceduto in una casa a Menfi la notte di Ferragosto",
@@ -198,20 +212,6 @@
       "date": "2026-08-21T16:24:36Z",
       "link": "https://www.grandangoloagrigento.it/sport/slalom-citta-di-alessandria-della-rocca-almeno-sei-piloti-pronti-a-contendersi-la-vittoria",
       "img": "/feed-images/364e0f0953ec57a1.jpg"
-    },
-    {
-      "title": "Tre turisti rapinati a Licata, malviventi fuggono con 300 euro",
-      "summary": "Sono stati avvicinati da due uomini su uno scooter nero, minacciati con un’arma impropria e rapinati in Corso Umberto",
-      "date": "2026-08-21T16:22:16Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tre-turisti-rapinati-a-licata-malviventi-fuggono-con-300-euro",
-      "img": "/feed-images/15b51b2326a82c61.jpg"
-    },
-    {
-      "title": "In strada con marijuana e hashish, arrestato pusher",
-      "summary": "All’interno del sacchetto vi erano 15 grammi di marijuana, quasi 10 grammi di hashish, due bilancini di precisione e materiale per il confezionamento",
-      "date": "2026-08-21T14:19:24Z",
-      "link": "https://www.grandangoloagrigento.it/catania/in-strada-con-marijuana-e-hashish-arrestato-pusher",
-      "img": "/feed-images/d86d4052f15be762.jpg"
     }
   ]
 }
