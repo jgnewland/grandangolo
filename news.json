@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-23T08:56:45.342366+00:00",
+  "updated": "2026-08-23T09:27:51.682564+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tumulazioni al cimitero di Favara, una cittadina denuncia: “bare ancora ammassate, nessun problema risolto”",
+      "summary": "Nei giorni scorsi il sindaco aveva annunciato che l’emergenza fosse stata superata ma stando all’esposto-denuncia della cittadina la realtà sembra essere un’altra",
+      "date": "2026-08-23T09:21:25Z",
+      "link": "https://www.grandangoloagrigento.it/favara/tumulazioni-al-cimitero-di-favara-una-cittadina-denuncia-bare-ancora-ammassate-nessun-problema-risolto",
+      "img": "/feed-images/fa9edadd9b91a478.jpg"
+    },
     {
       "title": "Decine di cicogne sul cielo di Menfi, il sindaco: “che sia segno di auspicio”",
       "summary": "Il primo cittadino ha voluto condividere le foto delle cicogne come buon auspicio per la città",
@@ -205,13 +212,6 @@
       "date": "2026-08-22T08:11:36Z",
       "link": "https://www.grandangoloagrigento.it/catania/sorpreso-a-rubare-unauto-arrestato-parcheggiatore-abusivo",
       "img": "/feed-images/2b65e623db0658dd.jpg"
-    },
-    {
-      "title": "Tragico schianto sulla strada statale 115, morto un metronotte",
-      "summary": "L’incidente è avvenuto sulla Strada statale 115 ”Sud Occidentale Sicula’’ in territorio di Butera. La vittima è un metronotte",
-      "date": "2026-08-22T08:10:22Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tragico-schianto-sulla-strada-statale-115-morto-un-metronotte",
-      "img": "/feed-images/573c898aa3675f42.jpg"
     }
   ]
 }
