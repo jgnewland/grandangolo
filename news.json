@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-24T16:32:29.158757+00:00",
+  "updated": "2026-08-24T17:15:28.859792+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Schiuma e acqua gialla a Licata, il Comune: “Individuata l’origine dello sversamento”",
+      "summary": "Si tratta di acqua proveniente dalla condotta idrica, che a causa della perdita si riversa nel canale e da lì prosegue verso il mare",
+      "date": "2026-08-24T16:35:12Z",
+      "link": "https://www.grandangoloagrigento.it/notizie-licata/schiuma-e-acqua-gialla-a-licata-il-comune-individuata-lorigine-dello-sversamento",
+      "img": "/feed-images/bc4c6e720d3d3836.jpg"
+    },
     {
       "title": "Sanità, istituita task force per vaccinazioni pediatriche",
       "summary": "Una task force che avrà il compito di monitorare eventuali casi di difterite e di proporre interventi non solo per limitare la circolazione del batterio sul territorio regionale",
@@ -205,13 +212,6 @@
       "date": "2026-08-24T05:36:19Z",
       "link": "https://www.grandangoloagrigento.it/ribera/il-reparto-di-malattie-infettive-resta-chiuso-lunico-candidato-non-si-presenta",
       "img": "/feed-images/f284406ee4a79340.jpg"
-    },
-    {
-      "title": "Perde il controllo dell’auto e si schianta contro muro, 20enne in ospedale",
-      "summary": "In un altro episodio, invece, un assicuratore di 26 anni è stato denunciato per guida in stato di ebbrezza a San Leone",
-      "date": "2026-08-24T05:15:10Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/perde-il-controllo-dellauto-e-si-schianta-contro-muro-20enne-in-ospedale",
-      "img": "/feed-images/cb60da64201a5f3e.jpg"
     }
   ]
 }
