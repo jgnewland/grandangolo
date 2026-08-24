@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-24T11:23:46.714255+00:00",
+  "updated": "2026-08-24T11:53:14.721215+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Commissariato di Lampedusa, il sindacato Mp: “Agenti già assegnati ma senza alloggi”",
+      "summary": "Il sindacato Mp si dice pronto a proclamare lo stato di agitazione se inascoltato”",
+      "date": "2026-08-24T11:25:09Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/commissariato-di-lampedusa-il-sindacato-mp-agenti-gia-assegnati-ma-senza-alloggi",
+      "img": "/feed-images/c7bdb47cb9de6704.jpg"
+    },
     {
       "title": "Aggredisce la madre e si scaglia contro i carabinieri, arrestato 31enne",
       "summary": "La donna ha riferito agli operanti di essere vittima di continue condotte minacciose e offensive da parte del figlio, spesso sfociate in pressanti ed estorsive richieste di denaro",
@@ -205,13 +212,6 @@
       "date": "2026-08-23T16:03:06Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-fiamme-lauto-di-un-bidello-a-raffadali-forse-utilizzata-una-bomba-carta",
       "img": "/feed-images/4eb4f647127d4c53.jpg"
-    },
-    {
-      "title": "In fiamme portone di un’abitazione a Ravanusa, indagini",
-      "summary": "Il rogo, la cui origine è ancora sconosciuta, è arrivata sotto l’appartamento che – per fortuna – non era abitato",
-      "date": "2026-08-23T15:51:15Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-fiamme-portone-di-unabitazione-a-ravanusa-indagini",
-      "img": "/feed-images/a60ec0d92a868562.jpg"
     }
   ]
 }
