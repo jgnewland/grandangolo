@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-24T10:52:46.110406+00:00",
+  "updated": "2026-08-24T11:23:46.714255+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Aggredisce la madre e si scaglia contro i carabinieri, arrestato 31enne",
+      "summary": "La donna ha riferito agli operanti di essere vittima di continue condotte minacciose e offensive da parte del figlio, spesso sfociate in pressanti ed estorsive richieste di denaro",
+      "date": "2026-08-24T11:00:33Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/aggredisce-la-madre-e-si-scaglia-contro-i-carabinieri-arrestato-31enne",
+      "img": "/feed-images/50120be9a28e0c5c.jpg"
+    },
     {
       "title": "La scrittrice agrigentina Denise Catalano tra i vincitori del Premio Letterario Antonio Veneziano",
       "summary": "Ancora un successo per la scrittrice di Porto Empedocle",
@@ -205,13 +212,6 @@
       "date": "2026-08-23T15:51:15Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-fiamme-portone-di-unabitazione-a-ravanusa-indagini",
       "img": "/feed-images/a60ec0d92a868562.jpg"
-    },
-    {
-      "title": "Dominio assoluto per Salvatore Castiglione al 6° Slalom Città di Alessandria della Rocca",
-      "summary": "Il podio è stato completato da Riccardo Cerniglia e Francesco Bigione.",
-      "date": "2026-08-23T14:39:17Z",
-      "link": "https://www.grandangoloagrigento.it/sport/dominio-assoluto-per-salvatore-castiglione-al-6-slalom-citta-di-alessandria-della-rocca",
-      "img": "/feed-images/d1e15daba7ed16f2.jpg"
     }
   ]
 }
