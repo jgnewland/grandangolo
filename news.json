@@ -1,13 +1,41 @@
 {
-  "updated": "2026-08-24T10:05:04.577611+00:00",
+  "updated": "2026-08-24T10:52:46.110406+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
+      "title": "La scrittrice agrigentina Denise Catalano tra i vincitori del Premio Letterario Antonio Veneziano",
+      "summary": "Ancora un successo per la scrittrice di Porto Empedocle",
+      "date": "2026-08-24T10:11:14Z",
+      "link": "https://www.grandangoloagrigento.it/cultura/la-scrittrice-agrigentina-denise-catalano-tra-i-vincitori-del-premio-letterario-antonio-veneziano",
+      "img": "/feed-images/8ea5877bf89ac85f.jpg"
+    },
+    {
+      "title": "Sorpreso a rubare la posta in diversi condomini, denunciato",
+      "summary": "Senza alcun motivo, l’uomo si era appropriato della corrispondenza altrui, prelevando le lettere direttamente dalle buche delle abitazioni",
+      "date": "2026-08-24T10:09:18Z",
+      "link": "https://www.grandangoloagrigento.it/catania/sorpreso-a-rubare-la-posta-in-diversi-condomini-denunciato",
+      "img": "/feed-images/9f92297fc58f9b5d.jpg"
+    },
+    {
+      "title": "A Sambuca Galluzzo racconta il Berlusconi “privato”: aneddoti, retroscena e 10 anni di caccia al Cavaliere",
+      "summary": "A Zabook la prima presentazione pubblica di “Berlusconi confidential”. Il giornalista del Corriere della Sera ripercorre il rapporto diretto tra Berlusconi e i cronisti di Palazzo Chigi: «Non era…",
+      "date": "2026-08-24T10:07:33Z",
+      "link": "https://www.grandangoloagrigento.it/cultura/a-sambuca-galluzzo-racconta-il-berlusconi-privato-aneddoti-retroscena-e-10-anni-di-caccia-al-cavaliere",
+      "img": "/feed-images/f68ce19272d2bec1.jpg"
+    },
+    {
+      "title": "Schiuma e acqua gialla a Mollarella: al via i controlli",
+      "summary": "Arpa e Guarda costiera hanno prelevato dei campioni di acqua; accertamenti anche da parte di Aica",
+      "date": "2026-08-24T10:07:14Z",
+      "link": "https://www.grandangoloagrigento.it/notizie-licata/schiuma-e-acqua-gialla-a-mollarella-al-via-i-controlli",
+      "img": "/feed-images/bc4c6e720d3d3836.jpg"
+    },
+    {
       "title": "Due donne morte nell’esplosione al mercato, al via processo di appello",
       "summary": "L’esplosione, provocata da una bombola della rosticceria ambulante di un commerciante agrigentino, provocò la morte di due donne e 13 feriti",
       "date": "2026-08-24T10:04:49Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/due-donne-morte-nellesplosione-al-mercato-al-via-processo-di-appello",
+      "link": "https://www.grandangoloagrigento.it/apertura/due-donne-morte-nellesplosione-al-mercato-al-via-processo-di-appello",
       "img": "/feed-images/61a0e9b4631f4bfb.png"
     },
     {
@@ -184,34 +212,6 @@
       "date": "2026-08-23T14:39:17Z",
       "link": "https://www.grandangoloagrigento.it/sport/dominio-assoluto-per-salvatore-castiglione-al-6-slalom-citta-di-alessandria-della-rocca",
       "img": "/feed-images/d1e15daba7ed16f2.jpg"
-    },
-    {
-      "title": "La Chiesa Madre di Favara protagonista su Rai 1 con la Santa Messa domenicale",
-      "summary": "Una vetrina spirituale ma anche una grande occasione di valorizzazione del territorio",
-      "date": "2026-08-23T10:54:11Z",
-      "link": "https://www.grandangoloagrigento.it/favara/la-chiesa-madre-di-favara-protagonista-su-rai-1-con-la-santa-messa-domenicale",
-      "img": "/feed-images/e03e58065b845ceb.jpg"
-    },
-    {
-      "title": "Agrigento Pride: il 29 agosto la città scende in strada per i diritti e l’inclusione",
-      "summary": "L’appuntamento è per sabato 29 agosto, alle ore 18:00, in Piazza Municipio.",
-      "date": "2026-08-23T10:05:31Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-pride-il-29-agosto-la-citta-scende-in-strada-per-i-diritti-e-linclusione",
-      "img": "/feed-images/f790e8a6aba6bb6b.jpg"
-    },
-    {
-      "title": "Tumulazioni al cimitero di Favara, cittadina denuncia: “Bare ancora ammassate, nessun problema risolto”",
-      "summary": "Nei giorni scorsi il sindaco aveva annunciato che l’emergenza fosse stata superata ma stando all’esposto-denuncia della cittadina la realtà sembra essere un’altra",
-      "date": "2026-08-23T09:21:25Z",
-      "link": "https://www.grandangoloagrigento.it/favara/tumulazioni-al-cimitero-di-favara-una-cittadina-denuncia-bare-ancora-ammassate-nessun-problema-risolto",
-      "img": "/feed-images/fa9edadd9b91a478.jpg"
-    },
-    {
-      "title": "Decine di cicogne sul cielo di Menfi, il sindaco: “Che sia segno di auspicio”",
-      "summary": "Il primo cittadino ha voluto condividere le foto delle cicogne come buon auspicio per la città",
-      "date": "2026-08-23T08:46:35Z",
-      "link": "https://www.grandangoloagrigento.it/menfi/decine-di-cicogne-sul-cielo-di-menfi-il-sindaco-che-sia-segno-di-auspicio",
-      "img": "/feed-images/41196eca2de93a0a.jpg"
     }
   ]
 }
