@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-24T09:13:01.759353+00:00",
+  "updated": "2026-08-24T10:05:04.577611+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Due donne morte nell’esplosione al mercato, al via processo di appello",
+      "summary": "L’esplosione, provocata da una bombola della rosticceria ambulante di un commerciante agrigentino, provocò la morte di due donne e 13 feriti",
+      "date": "2026-08-24T10:04:49Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/due-donne-morte-nellesplosione-al-mercato-al-via-processo-di-appello",
+      "img": "/feed-images/61a0e9b4631f4bfb.png"
+    },
+    {
+      "title": "Santo Stefano Quisquina, inviato documento tecnico-scientifico per il ripristino ambientale",
+      "summary": "Non una semplice richiesta di attenzione, ma la consegna agli enti preposti di un quadro di analisi e di proposte elaborato attraverso il contributo congiunto delle istituzioni locali e di 15…",
+      "date": "2026-08-24T09:55:52Z",
+      "link": "https://www.grandangoloagrigento.it/santo-stefano-quisquina/santo-stefano-quisquina-inviato-documento-tecnico-scientifico-per-il-ripristino-ambientale",
+      "img": "/feed-images/c880da06b481741d.jpg"
+    },
+    {
+      "title": "Lampedusa, sbarcati 37 migranti",
+      "summary": "Dopo l’arrivo sull’isola, entrambi i gruppi sono stati trasferiti all’hotspot di contrada Imbriacola, dove le presenze sono salite a 309",
+      "date": "2026-08-24T09:35:44Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/lampedusa-sbarcati-37-migranti",
+      "img": "/feed-images/10c34d0d5f8e630a.jpg"
+    },
     {
       "title": "Spacciava droga nonostante si trovasse ai domiciliari, arrestato",
       "summary": "Complessivamente sono stati sequestrati 40 dosi tra marijuana e cocaina",
@@ -147,7 +168,7 @@
       "title": "In fiamme l’auto di un bidello a Raffadali, forse utilizzata una bomba carta",
       "summary": "È successo nella zona di via Fontanelle, a non molta distanza dal centro abitato di Raffadali. Il veicolo, una Toyota Yaris, è in uso ad un collaboratore scolastico",
       "date": "2026-08-23T16:03:06Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/in-fiamme-lauto-di-un-bidello-a-raffadali-forse-utilizzata-una-bomba-carta",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-fiamme-lauto-di-un-bidello-a-raffadali-forse-utilizzata-una-bomba-carta",
       "img": "/feed-images/4eb4f647127d4c53.jpg"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-08-23T08:46:35Z",
       "link": "https://www.grandangoloagrigento.it/menfi/decine-di-cicogne-sul-cielo-di-menfi-il-sindaco-che-sia-segno-di-auspicio",
       "img": "/feed-images/41196eca2de93a0a.jpg"
-    },
-    {
-      "title": "Alessandria della Rocca intitola Piazza Cavour al Beato Rosario Livatino",
-      "summary": "Durante la cerimonia conferita cittadinanza onoraria al Prefetto Caccamo",
-      "date": "2026-08-23T08:33:30Z",
-      "link": "https://www.grandangoloagrigento.it/alessandria-della-rocca/alessandria-della-rocca-intitola-piazza-cavour-al-beato-rosario-livatino",
-      "img": "/feed-images/fe342fdf9d49c050.jpg"
-    },
-    {
-      "title": "Incendio in un’abitazione, trovato il cadavere di una 34enne",
-      "summary": "I vigili del fuoco, intervenuti per un incendio in un’abitazione, hanno scoperto il cadavere della trantaquattrenne",
-      "date": "2026-08-23T08:17:05Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/incendio-in-unabitazione-trovato-il-cadavere-di-una-34enne",
-      "img": "/feed-images/4c984b57f7acdcc6.jpg"
-    },
-    {
-      "title": "Fermato per un controllo tira fuori una pistola con il colpo in canna, arrestato",
-      "summary": "La pistola è risultata clandestina, munita di serbatoio contenente undici cartucce, di cui una già inserita nella camera di cartuccia",
-      "date": "2026-08-23T08:10:36Z",
-      "link": "https://www.grandangoloagrigento.it/catania/fermato-per-un-controllo-tira-fuori-una-pistola-con-il-colpo-in-canna-arrestato",
-      "img": "/feed-images/1b46b28fc3cca301.jpg"
     }
   ]
 }
