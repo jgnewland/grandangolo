@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-25T18:40:38.308449+00:00",
+  "updated": "2026-08-25T19:17:58.317195+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Impiantistica sportiva, Piparo: «Il Comune di Agrigento si accrediti subito al portale regionale»",
+      "summary": "Il consigliere comunale Gerlando Piparo sollecita l’Amministrazione ad attivarsi per intercettare le risorse dei Fondi FSC 2021-2027 destinate agli impianti sportivi",
+      "date": "2026-08-25T18:55:26Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/impiantistica-sportiva-agrigento-piparo-fondi-fsc-2021-2027",
+      "img": "/feed-images/89f4370b16bf9a51.jpg"
+    },
     {
       "title": "Pronto soccorso, ritardi, disservizi e… mosche. Quando si chiedono diritti e si forniscono scuse",
       "summary": "Si può avere paura di rivolgersi ad una struttura che dovrebbe occuparsi della nostra salute?",
@@ -64,7 +71,7 @@
       "summary": "Talk con Luca Mercalli, la green influencer ParlaSostenibile, Vincenzo Russo. Sul palco, Casadilego, Santi Francesi e Davide Shorty. Domenica 6 settembre, Plastic Free inviterà cittadini e turisti…",
       "date": "2026-08-25T12:48:46Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/un-progetto-per-rendere-green-agrigento-sodano-pianteremo-10-mila-alberi-entro-fine-mandato",
-      "img": ""
+      "img": "/feed-images/d3b7df3f66557e75.jpg"
     },
     {
       "title": "Piazzale Rosselli, la Cgil: “Governo regionale sblocchi ciò che può essere realizzato subito”",
@@ -141,7 +148,7 @@
       "summary": "Il pagamento, dell’importo di 920 euro, effettuato su una carta prepagata, si è rivelato una truffa",
       "date": "2026-08-25T09:02:29Z",
       "link": "https://www.grandangoloagrigento.it/catania/truffa-on-line-per-il-noleggio-di-unauto-denunciato-un-64enne",
-      "img": ""
+      "img": "/feed-images/40776f4b0d9ad464.jpg"
     },
     {
       "title": "Viola il divieto di avvicinamento all’ex convivente, arrestato 22enne",
@@ -205,13 +212,6 @@
       "date": "2026-08-25T05:47:22Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/valle-dei-templi-sequestrata-area-di-stoccaggio-rifiuti-a-casa-sanfilippo",
       "img": "/feed-images/dbd33b20ca1acb30.jpg"
-    },
-    {
-      "title": "Termina la preparazione dell’Akragas, Cammarata: “Iniziano le partite che contano”",
-      "summary": "I biancazzurri cominceranno la settimana tipo, quella che porterà al primo appuntamento ufficiale della stagione: la sfida di Coppa Italia contro lo Sciacca",
-      "date": "2026-08-25T05:43:36Z",
-      "link": "https://www.grandangoloagrigento.it/sport/termina-la-preparazione-dellakragas-cammarata-iniziano-le-partite-che-contano",
-      "img": "/feed-images/c9ef85bdbfeb0bb9.jpg"
     }
   ]
 }
