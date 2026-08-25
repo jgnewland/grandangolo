@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-25T12:39:42.588481+00:00",
+  "updated": "2026-08-25T13:34:52.556815+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Alcol a una minorenne: il TAR conferma la chiusura di 5 giorni per un locale di San Leone",
+      "summary": "I giudici amministrativi respingono il ricorso della società e la richiesta di risarcimento: “La sospensione ha valore preventivo ed è legittima anche di fronte a un singolo episodio”.",
+      "date": "2026-08-25T12:49:14Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/alcol-a-una-minorenne-il-tar-conferma-la-chiusura-di-5-giorni-per-un-locale-di-san-leone",
+      "img": "/feed-images/7ab11046753cb661.jpg"
+    },
+    {
+      "title": "Un progetto per rendere “green” Agrigento, Sodano: “Pianteremo 10 mila alberi entro fine mandato”",
+      "summary": "Talk con Luca Mercalli, la green influencer ParlaSostenibile, Vincenzo Russo. Sul palco, Casadilego, Santi Francesi e Davide Shorty. Domenica 6 settembre, Plastic Free inviterà cittadini e turisti…",
+      "date": "2026-08-25T12:48:46Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/un-progetto-per-rendere-green-agrigento-sodano-pianteremo-10-mila-alberi-entro-fine-mandato",
+      "img": "/feed-images/d3b7df3f66557e75.jpg"
+    },
     {
       "title": "Piazzale Rosselli, la Cgil: “Governo regionale sblocchi ciò che può essere realizzato subito”",
       "summary": "Il riferimento è al progetto per la realizzazione del parcheggio destinato agli autobus extraurbani nell’area di Piazzale Rosselli, ad Agrigento",
@@ -198,20 +212,6 @@
       "date": "2026-08-25T05:26:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/minaccia-e-picchia-la-convivente-arrestato-cinquantenne-a-canicatti",
       "img": "/feed-images/715b888bb2d513ba.jpg"
-    },
-    {
-      "title": "Schiuma e acqua gialla a Licata, il Comune: “Individuata l’origine dello sversamento”",
-      "summary": "Si tratta di acqua proveniente dalla condotta idrica, che a causa della perdita si riversa nel canale e da lì prosegue verso il mare",
-      "date": "2026-08-24T16:35:12Z",
-      "link": "https://www.grandangoloagrigento.it/notizie-licata/schiuma-e-acqua-gialla-a-licata-il-comune-individuata-lorigine-dello-sversamento",
-      "img": "/feed-images/bc4c6e720d3d3836.jpg"
-    },
-    {
-      "title": "Sanità, istituita task force per vaccinazioni pediatriche",
-      "summary": "Una task force che avrà il compito di monitorare eventuali casi di difterite e di proporre interventi non solo per limitare la circolazione del batterio sul territorio regionale",
-      "date": "2026-08-24T16:10:23Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia/sanita-istituita-task-force-per-vaccinazioni-pediatriche",
-      "img": "/feed-images/7a1c84276c62f0ef.jpg"
     }
   ]
 }
