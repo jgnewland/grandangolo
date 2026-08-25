@@ -1,8 +1,36 @@
 {
-  "updated": "2026-08-25T10:13:20.816422+00:00",
+  "updated": "2026-08-25T10:50:51.947833+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Perde il controllo dello scooter e si schianta, morto 19enne",
+      "summary": "Un ragazzo di 19 anni ha perso la vita in un incidente autonomo avvenuto intorno alle 4 del mattino",
+      "date": "2026-08-25T10:27:49Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/perde-il-controllo-dello-scooter-e-si-schianta-morto-19enne",
+      "img": "/feed-images/32f84980889fa809.jpg"
+    },
+    {
+      "title": "Ruba auto e tenta la fuga, arrestato 24enne",
+      "summary": "Al di sotto del volante un dispositivo elettronico verosimilmente utilizzato dall’uomo e dai suoi complici per avviare il motore dell’autovettura",
+      "date": "2026-08-25T10:20:31Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/ruba-auto-e-tenta-la-fuga-arrestato-24enne",
+      "img": "/feed-images/5f97f3c5b9c3c8c4.jpg"
+    },
+    {
+      "title": "Droga, sequestrato un chilo di stupefacente: due arresti",
+      "summary": "Tutto il materiale stupefacente sequestrato — per un totale complessivo superiore a un chilogrammo — è stato inviato al Laboratorio Analisi Sostanze Stupefacenti",
+      "date": "2026-08-25T10:18:43Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/droga-sequestrato-un-chilo-di-stupefacente-due-arresti",
+      "img": "/feed-images/3373be51a55b7efc.jpg"
+    },
+    {
+      "title": "Scoperta banda di truffatori che prosciugava i conti, 6 indagati",
+      "summary": "Avevano escogitato un sistema in grado di ingannare diversi utenti per prosciugare i loro conti, attraverso la creazione di pagine internet-civetta",
+      "date": "2026-08-25T10:16:45Z",
+      "link": "https://www.grandangoloagrigento.it/catania/scoperta-banda-di-truffatori-che-prosciugava-i-conti-6-indagati",
+      "img": "/feed-images/59785ddcd2eee4f0.jpg"
+    },
     {
       "title": "“Battiato Tribute – La cura dell’eterno”, giovedì 27 agosto al Teatro dell’Efebo",
       "summary": "Omaggio ad uno dei più amati artisti italiani che ha già fatto registrare uno straordinario successo nei vari appuntamenti dell’estate siciliana",
@@ -184,34 +212,6 @@
       "date": "2026-08-24T15:59:21Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/dipendente-di-aica-trovato-morto-in-casa-malore-fatale-per-55enne",
       "img": "/feed-images/558e478c31a9db6b.jpg"
-    },
-    {
-      "title": "Canicattì, 16enne sullo scooter senza casco si schianta contro auto della polizia",
-      "summary": "Il 16enne, che ha tentato di scappare al controllo della polizia, è stato denunciato per resistenza a pubblico ufficiale e danneggiamento",
-      "date": "2026-08-24T15:58:00Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/canicatti-16enne-sullo-scooter-senza-casco-si-schianta-contro-auto-della-polizia",
-      "img": "/feed-images/0872bae5e71fa31f.jpg"
-    },
-    {
-      "title": "Abbonamenti digitali e rinnovi automatici: cosa controllare prima del pagamento",
-      "summary": "Come prevenire le attivazioni involontarie e gestire i metodi di pagamento",
-      "date": "2026-08-24T15:49:04Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/abbonamenti-digitali-e-rinnovi-automatici-cosa-controllare-prima-del-pagamento",
-      "img": "/feed-images/5e4b4abd55560079.jpg"
-    },
-    {
-      "title": "Sorpresi con un panetto di hashish a Licata, indagati due minorenni",
-      "summary": "I giovani sono stati controllati mentre si trovavano a bordo di un ciclomotore lungo la strada statale 115, all’altezza di via Palma",
-      "date": "2026-08-24T15:44:26Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sorpresi-con-un-panetto-di-hashish-a-licata-indagati-due-minorenni",
-      "img": "/feed-images/a73a0f79e59acab5.jpg"
-    },
-    {
-      "title": "Commissariato di Lampedusa, il sindacato Mp: “Agenti già assegnati ma senza alloggi”",
-      "summary": "Il sindacato Mp si dice pronto a proclamare lo stato di agitazione se inascoltato”",
-      "date": "2026-08-24T11:25:09Z",
-      "link": "https://www.grandangoloagrigento.it/lampedusa/commissariato-di-lampedusa-il-sindacato-mp-agenti-gia-assegnati-ma-senza-alloggi",
-      "img": "/feed-images/c7bdb47cb9de6704.jpg"
     }
   ]
 }
