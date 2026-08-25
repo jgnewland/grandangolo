@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-25T10:50:51.947833+00:00",
+  "updated": "2026-08-25T11:23:11.083853+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Piazzale Rosselli, la Cgil: “Governo regionale sblocchi ciò che può essere realizzato subito”",
+      "summary": "Il riferimento è al progetto per la realizzazione del parcheggio destinato agli autobus extraurbani nell’area di Piazzale Rosselli, ad Agrigento",
+      "date": "2026-08-25T11:16:41Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/piazzale-rosselli-la-cgil-governo-regionale-sblocchi-cio-che-puo-essere-realizzato-subito",
+      "img": "/feed-images/ed79254f65e660c7.jpg"
+    },
     {
       "title": "Perde il controllo dello scooter e si schianta, morto 19enne",
       "summary": "Un ragazzo di 19 anni ha perso la vita in un incidente autonomo avvenuto intorno alle 4 del mattino",
@@ -205,13 +212,6 @@
       "date": "2026-08-24T16:10:23Z",
       "link": "https://www.grandangoloagrigento.it/sicilia/sanita-istituita-task-force-per-vaccinazioni-pediatriche",
       "img": "/feed-images/7a1c84276c62f0ef.jpg"
-    },
-    {
-      "title": "Dipendente di Aica trovato morto in casa, malore fatale per 55enne",
-      "summary": "A fare la scoperta un parente che si è recato a casa del 55enne. Questa mattina non si era presentato al lavoro e, soprattutto, non aveva risposto alle chiamate dei colleghi",
-      "date": "2026-08-24T15:59:21Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/dipendente-di-aica-trovato-morto-in-casa-malore-fatale-per-55enne",
-      "img": "/feed-images/558e478c31a9db6b.jpg"
     }
   ]
 }
