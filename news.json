@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-26T05:04:36.590429+00:00",
+  "updated": "2026-08-26T05:49:35.619217+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Utilizzano cellulari in carcere per comunicare con l’esterno, 15 indagati",
+      "summary": "Avrebbero utilizzato diversi cellulari tra l’aprile e il maggio scorso nonostante si trovassero tutti detenuti in carcere",
+      "date": "2026-08-26T05:27:59Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/utilizzano-cellulari-in-carcere-per-comunicare-con-lesterno-15-indagati",
+      "img": "/feed-images/a31e69cfd068ea09.jpg"
+    },
+    {
+      "title": "Mafia, bloccata una lettera inviata al boss ergastolano Falsone",
+      "summary": "Falsone, che sta scontando l’ergastolo, è ritenuto ancora oggi il capo della mafia agrigentina nonostante si trovi al 41bis dal 2010 quando venne arrestato in Francia dopo 11 anni di latitanza",
+      "date": "2026-08-26T05:05:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/mafia-bloccata-una-lettera-inviata-al-boss-ergastolano-falsone",
+      "img": "/feed-images/3e8e75a241afb4a4.jpg"
+    },
     {
       "title": "Minaccia e aggredisce i carabinieri durante controllo, denunciato studente minorenne",
       "summary": "A finire nei guai uno studente di 17 anni denunciato per minaccia, oltraggio e resistenza a pubblico ufficiale e rifiuto di fornire le proprie generalità",
@@ -198,20 +212,6 @@
       "date": "2026-08-25T07:58:34Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/uccise-la-sua-convivente-40enne-indagato-per-omicidio",
       "img": "/feed-images/c81bb5804734683a.webp"
-    },
-    {
-      "title": "Furto al museo regionale, custode indagato per falsa testimonianza",
-      "summary": "Uno dei custodi del Museo Accascina è indagato per false dichiarazioni ai pm nell’ambito delle indagini sul furto delle opere di Antonello da Messina",
-      "date": "2026-08-25T07:55:10Z",
-      "link": "https://www.grandangoloagrigento.it/messina/furto-al-museo-regionale-custode-indagato-per-falsa-testimonianza",
-      "img": "/feed-images/f91fa0e114693244.webp"
-    },
-    {
-      "title": "Mafia, confiscati 600 mila euro a esponente della famiglia di Caltanissetta",
-      "summary": "“Inserito nell’organigramma criminale Cosa Nostra in seno alla quale ha anche assunto la direzione della famiglia Nissena”",
-      "date": "2026-08-25T05:55:46Z",
-      "link": "https://www.grandangoloagrigento.it/mafia/mafia-confiscati-600-mila-euro-a-esponente-della-famiglia-di-caltanissetta",
-      "img": "/feed-images/3605ed5ccc7c7533.png"
     }
   ]
 }
