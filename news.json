@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-26T04:23:56.802893+00:00",
+  "updated": "2026-08-26T05:04:36.590429+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Minaccia e aggredisce i carabinieri durante controllo, denunciato studente minorenne",
+      "summary": "A finire nei guai uno studente di 17 anni denunciato per minaccia, oltraggio e resistenza a pubblico ufficiale e rifiuto di fornire le proprie generalità",
+      "date": "2026-08-26T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/minaccia-e-aggredisce-i-carabinieri-durante-controllo-denunciato-studente-minorenne",
+      "img": "/feed-images/05e27bd97043e07a.png"
+    },
     {
       "title": "Impiantistica sportiva, Piparo: «Il Comune di Agrigento si accrediti subito al portale regionale»",
       "summary": "Il consigliere comunale Gerlando Piparo sollecita l’Amministrazione ad attivarsi per intercettare le risorse dei Fondi FSC 2021-2027 destinate agli impianti sportivi",
@@ -205,13 +212,6 @@
       "date": "2026-08-25T05:55:46Z",
       "link": "https://www.grandangoloagrigento.it/mafia/mafia-confiscati-600-mila-euro-a-esponente-della-famiglia-di-caltanissetta",
       "img": "/feed-images/3605ed5ccc7c7533.png"
-    },
-    {
-      "title": "Valle dei Templi, sequestrata area di stoccaggio rifiuti a Casa Sanfilippo",
-      "summary": "Il sequestro è stato eseguito dalla polizia locale di Agrigento. Il Parco: “Riteniamo infondate le contestazioni mosse”",
-      "date": "2026-08-25T05:47:22Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/valle-dei-templi-sequestrata-area-di-stoccaggio-rifiuti-a-casa-sanfilippo",
-      "img": "/feed-images/dbd33b20ca1acb30.jpg"
     }
   ]
 }
