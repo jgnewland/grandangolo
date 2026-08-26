@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-26T11:06:17.775808+00:00",
+  "updated": "2026-08-26T11:43:50.539655+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Case in affitto a stranieri, controlli a tappeto della Questura di Agrigento",
+      "summary": "La normativa impone a chiunque dia alloggio o ceda un immobile a un cittadino straniero di darne comunicazione scritta all’Autorità di P.S. entro 48 ore dalla consegna dell’immobile",
+      "date": "2026-08-26T11:34:14Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/case-in-affitto-a-stranieri-controlli-a-tappeto-della-questura-di-agrigento",
+      "img": "/feed-images/39360c1db51302fd.jpg"
+    },
     {
       "title": "Imbarcazione in fiamme nel canale di Sicilia, naufrago salvato dalla Finanza",
       "summary": "Nel buio totale, tra le onde, veniva individuato un naufrago solo, privo di qualsiasi mezzo di galleggiamento e in evidente difficoltà",
@@ -205,13 +212,6 @@
       "date": "2026-08-25T12:49:14Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/alcol-a-una-minorenne-il-tar-conferma-la-chiusura-di-5-giorni-per-un-locale-di-san-leone",
       "img": "/feed-images/7ab11046753cb661.jpg"
-    },
-    {
-      "title": "Un progetto per rendere “green” Agrigento, Sodano: “Pianteremo 10 mila alberi entro fine mandato”",
-      "summary": "Talk con Luca Mercalli, la green influencer ParlaSostenibile, Vincenzo Russo. Sul palco, Casadilego, Santi Francesi e Davide Shorty. Domenica 6 settembre, Plastic Free inviterà cittadini e turisti…",
-      "date": "2026-08-25T12:48:46Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/un-progetto-per-rendere-green-agrigento-sodano-pianteremo-10-mila-alberi-entro-fine-mandato",
-      "img": "/feed-images/d3b7df3f66557e75.jpg"
     }
   ]
 }
