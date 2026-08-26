@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-26T07:32:02.234689+00:00",
+  "updated": "2026-08-26T08:23:48.650052+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Colpi di arma da fuoco contro l’abitazione di un pregiudicato, indagini",
+      "summary": "Poco dopo in ospedale si è presentato un 42enne che ha detto di essersi ferito cadendo sul vetro. Sono in corso le verifiche ma sembra che le ferite siano state provocate da colpi di arma da fuoco",
+      "date": "2026-08-26T07:48:22Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/colpi-di-arma-da-fuoco-contro-labitazione-di-un-pregiudicato-indagini",
+      "img": "/feed-images/6cbde0973cb34cf1.jpg"
+    },
     {
       "title": "Aggredisce e minaccia i genitori, arrestato 32enne",
       "summary": "I militari sono intervenuti, insieme alla Polizia locale, dopo una richiesta di aiuto arrivata al 112 perché l’uomo aveva aggredito e stava minacciando i propri genitori",
@@ -205,13 +212,6 @@
       "date": "2026-08-25T08:03:44Z",
       "link": "https://www.grandangoloagrigento.it/sambuca-di-sicilia/successo-a-sambuca-di-sicilia-per-pino-minio-live",
       "img": "/feed-images/3fbba1504108462f.jpg"
-    },
-    {
-      "title": "Trasforma immobile in base per lo spaccio, arrestato 19enne",
-      "summary": "Gli agenti hanno sequestrato 368 grammi di marijuana, in parte già confezionata in dosi, pronte per essere vendute",
-      "date": "2026-08-25T08:02:00Z",
-      "link": "https://www.grandangoloagrigento.it/catania/trasforma-immobile-in-base-per-lo-spaccio-arrestato-19enne",
-      "img": "/feed-images/57c854ddc7a23bc2.jpg"
     }
   ]
 }
