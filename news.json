@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-26T06:40:58.045607+00:00",
+  "updated": "2026-08-26T07:32:02.234689+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Aggredisce e minaccia i genitori, arrestato 32enne",
+      "summary": "I militari sono intervenuti, insieme alla Polizia locale, dopo una richiesta di aiuto arrivata al 112 perché l’uomo aveva aggredito e stava minacciando i propri genitori",
+      "date": "2026-08-26T07:30:13Z",
+      "link": "https://www.grandangoloagrigento.it/siracusa/aggredisce-e-minaccia-i-genitori-arrestato-32enne",
+      "img": "/feed-images/793a35d3b73dd116.jpg"
+    },
     {
       "title": "Trasporto studenti con disabilità grave, le linee guida per accedere al servizio",
       "summary": "Il servizio è istituito come intervento di supporto all’effettiva attuazione del diritto allo studio, con l’obiettivo di facilitare l’accesso alla scuola da parte degli studenti disabili con handicap",
@@ -205,13 +212,6 @@
       "date": "2026-08-25T08:02:00Z",
       "link": "https://www.grandangoloagrigento.it/catania/trasforma-immobile-in-base-per-lo-spaccio-arrestato-19enne",
       "img": "/feed-images/57c854ddc7a23bc2.jpg"
-    },
-    {
-      "title": "Incendio nel carcere minorile Malaspina, sindacati in stato di agitazione",
-      "summary": "I sindacati indicono lo stato di agitazione e chiedono l’immediata chiusura del carcere minorile di Palermo e la contestuale ristrutturazione",
-      "date": "2026-08-25T08:00:04Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/incendio-nel-carcere-minorile-malaspina-sindacati-in-stato-di-agitazione",
-      "img": "/feed-images/6320c475fa7ed6c3.png"
     }
   ]
 }
