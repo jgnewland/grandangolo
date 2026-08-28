@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-27T21:01:42.108277+00:00",
+  "updated": "2026-08-28T05:22:52.034654+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Scoperta officina abusiva ad Agrigento, maxi multa al titolare",
+      "summary": "Gli agenti della polizia locale di Agrigento hanno sequestrato un’officina ritenuta abusiva e multato con una sanzione di quasi 10 mila euro il titolare",
+      "date": "2026-08-28T05:05:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/scoperta-officina-abusiva-ad-agrigento-maxi-multa-al-titolare",
+      "img": "/feed-images/41150839d5a2880d.jpg"
+    },
+    {
+      "title": "In fiamme l’auto di un agronomo a Licata, indagini",
+      "summary": "L’automobile di proprietà di un agronomo sessantenne del posto è stata danneggiata da un incendio divampato nel quartiere balneare della Playa",
+      "date": "2026-08-28T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/in-fiamme-lauto-di-un-agronomo-a-licata-indagini",
+      "img": "/feed-images/86d73c45158055fd.png"
+    },
+    {
+      "title": "Sbarchi a Lampedusa, 191 migranti sull’isola in poche ore",
+      "summary": "Nuovi sbarchi a Lampedusa dove in poche ore sono arrivati in 191 in quattro sbarchi diversi",
+      "date": "2026-08-28T04:55:11Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/sbarchi-a-lampedusa-191-migranti-sullisola-in-poche-ore",
+      "img": "/feed-images/b6bf81c7d6826580.jpg"
+    },
     {
       "title": "L’indagato per il tentato omicidio a San Leone denuncia: “Minacciato in carcere”",
       "summary": "La denuncia del 26enne finito in carcere con l’accusa del tentato omicidio di un minorenne avvenuto a San Leone nella notte tra l’1 ed il 2 agosto",
@@ -112,7 +133,7 @@
       "title": "Il maxi incendio alla ditta Omnia, il tribunale: “D’Antona è l’esecutore materiale”",
       "summary": "Depositate le motivazioni della sentenza (rito abbreviato) sul maxi incendio doloso alla ditta Omnia di Licata: ecco cosa dice il giudice",
       "date": "2026-08-27T07:39:08Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-maxi-incendio-alla-ditta-omnia-il-tribunale-dantona-e-lesecutore-materiale",
+      "link": "https://www.grandangoloagrigento.it/giudiziaria/il-maxi-incendio-alla-ditta-omnia-il-tribunale-dantona-e-lesecutore-materiale",
       "img": "/feed-images/275f69578b5f653a.jpg"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-08-26T15:10:04Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/si-spaccia-per-carabiniere-per-rubare-soldi-condannato-truffatore-empedoclino",
       "img": "/feed-images/2f518f6f5af76e44.jpg"
-    },
-    {
-      "title": "Caldo record in Sicilia, temperature oltre i 40 gradi nell’Agrigentino",
-      "summary": "La rimonta africana partirà con la Sicilia. Temperature fino a 40º anche ad Agrigento. Ad Aragona oggi segnati 42.3 gradi",
-      "date": "2026-08-26T15:01:23Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/caldo-record-in-sicilia-temperature-oltre-i-40-gradi-nellagrigentino",
-      "img": "/feed-images/897b17c931c285e1.jpg"
-    },
-    {
-      "title": "“La frana sulle case ad Eraclea Minoa”, chiesti 4 rinvii a giudizio",
-      "summary": "L’indagine riguarda le opere che avrebbero dovuto proteggere le abitazioni ai piedi del costone. Il 6 febbraio 2024 il sistema di contenimento cedette e la frana provoco’ danni ad alcune ville",
-      "date": "2026-08-26T14:51:26Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/la-frana-sulle-case-ad-eraclea-minoa-chiesti-4-rinvii-a-giudizio",
-      "img": "/feed-images/88c1d2d486e765d5.webp"
-    },
-    {
-      "title": "Cura della pelle post estate: i consigli del dermatologo Carmelo Sgarito",
-      "summary": "Il dermatologo agrigentino ha spiegato come prevenire i tumori cutanei ed evitare gli errori più comuni nella skincare quotidiana",
-      "date": "2026-08-26T13:51:44Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/cura-della-pelle-post-estate-i-consigli-del-dermatologo-carmelo-sgarito",
-      "img": "/feed-images/a7799ecd6cc886c4.jpg"
     }
   ]
 }
