@@ -1,8 +1,15 @@
 {
-  "updated": "2026-08-29T17:22:45.171594+00:00",
+  "updated": "2026-08-29T19:53:53.141799+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Agrigento si veste d’arcobaleno: il primo Pride celebra diritti e diversità (FOTO e VIDEO)",
+      "summary": "Una città che per un giorno incontra se stessa e porta nello spazio pubblico corpi, identità, storie, musica, arte e partecipazione",
+      "date": "2026-08-29T17:35:55Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-si-veste-darcobaleno-il-primo-pride-celebra-diritti-e-diversita-foto-e-video",
+      "img": "/feed-images/49f6820fcf83d5bd.jpg"
+    },
     {
       "title": "Incendi nell’Agrigentino, paura a Makauda e Menfi: chiusa statale 115",
       "summary": "In via precauzionale i soccorritori e le forze dell’ordine hanno fatto allontanare tutte le persone presenti all’interno di un residence turistico",
@@ -205,13 +212,6 @@
       "date": "2026-08-29T05:31:18Z",
       "link": "https://www.grandangoloagrigento.it/mafia/mafia-35-anni-fa-lomicidio-di-libero-grassi",
       "img": "/feed-images/22072386a5a1b499.jpg"
-    },
-    {
-      "title": "Agguato fallito a Porto Empedocle, cameriere sfugge ad attentato e riesce a salvarsi",
-      "summary": "Il cameriere, appena uscito dalla pizzeria, è stato affiancato da una moto con due persone a volto travisato. Uno di loro ha estratto una pistola",
-      "date": "2026-08-29T05:10:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/agguato-a-porto-empedocle-cameriere-sfugge-ad-attentato-e-riesce-a-salvarsi",
-      "img": "/feed-images/5620bd55050f7dd7.jpg"
     }
   ]
 }
