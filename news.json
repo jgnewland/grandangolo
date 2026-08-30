@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-30T11:10:02.565571+00:00",
+  "updated": "2026-08-30T15:20:04.063659+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Due sbarchi a Lampedusa, 243 migranti nell’hotspot",
+      "summary": "Tutti sono stati trasferiti nell’hotspot di contrada Imbriacola",
+      "date": "2026-08-30T14:52:13Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/due-sbarchi-a-lampedusa-243-migranti-nellhotspot",
+      "img": "/feed-images/74f422a211e5130e.jpg"
+    },
+    {
+      "title": "Canicattì, prende due teste di moro da negozio e non paga: il titolare pubblica le immagini sui social",
+      "summary": "Le foto mostrerebbero la donna mentre si allontana dal negozio con gli oggetti in borsa",
+      "date": "2026-08-30T10:52:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-prende-due-teste-di-moro-da-negozio-e-non-paga-il-titolare-pubblica-le-immagini-sui-social",
+      "img": "/feed-images/1623bc2cee2658bd.jpg"
+    },
     {
       "title": "Fred De Palma infiamma la piazza di Favara",
       "summary": "Domani sera 31 Agosto atteso il concerto di Francesco Renga",
@@ -91,7 +105,7 @@
       "title": "Paura sul volo Lampedusa-Catania, scatta atterraggio di emergenza",
       "summary": "L’aereo è rientrato in pista pochi minuti dopo il decollo perché si è accesa la spia dell’incendio",
       "date": "2026-08-30T05:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/paura-sul-volo-lampedusa-catania-scatta-atterraggio-di-emergenza",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/paura-sul-volo-lampedusa-catania-scatta-atterraggio-di-emergenza",
       "img": "/feed-images/fcaa53ceac07eba0.jpg"
     },
     {
@@ -105,7 +119,7 @@
       "title": "Badante scippata sotto casa a Licata, denunciato operaio",
       "summary": "Ad agire un malvivente solitario identificato poco dopo dai carabinieri. Si tratta di un operaio trentenne di origine marocchina ma residente a Licata",
       "date": "2026-08-30T05:22:03Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/badante-scippata-sotto-casa-a-licata-denunciato-operaio",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/badante-scippata-sotto-casa-a-licata-denunciato-operaio",
       "img": "/feed-images/b57f226870711307.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-08-29T12:14:39Z",
       "link": "https://www.grandangoloagrigento.it/palermo/sventata-truffa-dei-finti-carabinieri-due-arresti",
       "img": "/feed-images/dc99f52c96e080de.jpg"
-    },
-    {
-      "title": "Maddalusa, il PD di Agrigento: “Acqua è un diritto, l’abusivismo non può essere diritto acquisito”",
-      "summary": "Lo dice in una nota il Partito Democratico di Agrigento a firma dei due assessori – Giuseppe Riccobene ed Eleonora Scioertino – e dei consiglieri comunali Giampiero Carta e Sandro Fanara",
-      "date": "2026-08-29T12:12:42Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/maddalusa-il-pd-di-agrigento-acqua-e-un-diritto-labusivismo-non-puo-essere-diritto-acquisito",
-      "img": "/feed-images/d46ff7a96b0d19d9.jpg"
-    },
-    {
-      "title": "Paura a Fontanelle, scontro tra due auto: una si ribalta, due feriti",
-      "summary": "Un brutto incidente stradale si è verificato questa mattina lungo viale Sicilia, nel popoloso quartiere agrigentino di Fontanelle",
-      "date": "2026-08-29T12:07:35Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/paura-a-fontanelle-scontro-tra-due-auto-una-si-ribalta-due-feriti",
-      "img": "/feed-images/ad02d293183bc549.jpg"
     }
   ]
 }
