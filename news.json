@@ -1,8 +1,22 @@
 {
-  "updated": "2026-08-30T15:20:04.063659+00:00",
+  "updated": "2026-08-30T18:42:05.291808+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Coppa Italia Eccellenza, l’Unitas Sciacca batte l’Akragas 3-1",
+      "summary": "I neroverdi si impongono nel primo round di Coppa Italia. Caternicchia, Mbengue e Costa firmano il tris, poi Lopez accorcia le distanze nel finale. Santulli salva su Cruz, il migliore dei…",
+      "date": "2026-08-30T18:11:49Z",
+      "link": "https://www.grandangoloagrigento.it/sport/coppa-italia-eccellenza-lunitas-sciacca-batte-lakragas-3-1",
+      "img": "/feed-images/e11520fafb828030.jpg"
+    },
+    {
+      "title": "Caldo estremo in Sicilia, incendi in tutta l’Isola",
+      "summary": "Quelli piu gravi si sono registrati in provincia di Palermo e Agrigento",
+      "date": "2026-08-30T15:41:30Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/caldo-estremo-in-sicilia-incendi-in-tutta-lisola",
+      "img": "/feed-images/da4e89b51ba5968c.jpg"
+    },
     {
       "title": "Due sbarchi a Lampedusa, 243 migranti nell’hotspot",
       "summary": "Tutti sono stati trasferiti nell’hotspot di contrada Imbriacola",
@@ -198,20 +212,6 @@
       "date": "2026-08-29T12:18:42Z",
       "link": "https://www.grandangoloagrigento.it/menfi/salute-cuore-e-sostenibilita-il-successo-di-mare-cuore-e-benessere-al-club-nautico-di-menfi",
       "img": "/feed-images/5ea5f91213473601.jpg"
-    },
-    {
-      "title": "Regione, Pace (DC): “Schifani candidato naturale del centrodestra”",
-      "summary": "Lo ha detto il capogruppo della Dc all’Ars e sindaco di Ribera, Carmelo Pace, schierandosi a favore di un secondo mandato del presidente della Regione siciliana",
-      "date": "2026-08-29T12:16:20Z",
-      "link": "https://www.grandangoloagrigento.it/politica/regione-pace-dc-schifani-candidato-naturale-del-centrodestra",
-      "img": "/feed-images/270c8c25e4e05ab1.jpg"
-    },
-    {
-      "title": "Sventata truffa dei finti carabinieri, due arresti",
-      "summary": "Il figlio della vittima ha chiamato i militari che hanno sorpreso i due indagati e sequestrato un tesserino con i marchi istituzionali dell’Arma",
-      "date": "2026-08-29T12:14:39Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/sventata-truffa-dei-finti-carabinieri-due-arresti",
-      "img": "/feed-images/dc99f52c96e080de.jpg"
     }
   ]
 }
