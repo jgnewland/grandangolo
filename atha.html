@@ -260,6 +260,7 @@
   <p class="progress-line" id="progress">.</p>
   <div class="mast-actions">
     <button class="btn primary" id="exportAll">Esporta PDF</button>
+    <button class="btn" id="pullCloud">Aggiorna dal cloud</button>
     <button class="btn" id="exportJson">Scarica backup</button>
     <button class="btn ghost" id="importBtn">Ripristina backup</button>
     <input type="file" id="importFile" accept="application/json" style="display:none">
@@ -532,20 +533,66 @@ const SEED = {
   updatedAt:Date.now()
 };
 
-/* ============ storage ============ */
-const KEY='romanzo_data';
-let mem=null;            // in-memory fallback if window.storage is missing
-const hasStore = (typeof window!=='undefined' && window.storage && typeof window.storage.get==='function');
+/* ============ storage: locale + Supabase (edicola Grandangolo) ============ */
+/* Incolla qui sotto la anon key del progetto Supabase dell'edicola:
+   e' la stessa stringa (comincia con eyJ...) che trovi in index.html dell'edicola. */
+const SUPABASE_URL = 'https://xfmiikymagamnexsbrdt.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn';
+const TABLE = 'romanzo_studio';
+const ROW_ID = 'main';
 
-async function storeGet(){
+const KEY='romanzo_data';
+let mem=null;            // fallback in memoria se window.storage manca
+const hasStore = (typeof window!=='undefined' && window.storage && typeof window.storage.get==='function');
+const cloudOn = ()=> !!(SUPABASE_URL && SUPABASE_ANON_KEY);
+function sbHeaders(extra){
+  const h = Object.assign({ apikey: SUPABASE_ANON_KEY }, extra||{});
+  if(/^eyJ/.test(SUPABASE_ANON_KEY)) h.Authorization = 'Bearer '+SUPABASE_ANON_KEY;
+  return h;
+}
+
+async function localGet(){
   if(!hasStore){ return mem; }
   try{ const r=await window.storage.get(KEY); return r? JSON.parse(r.value):null; }
   catch(e){ return null; }
 }
-async function storePut(obj){
+async function localPut(obj){
   if(!hasStore){ mem=obj; return true; }
   try{ await window.storage.set(KEY, JSON.stringify(obj)); return true; }
   catch(e){ return false; }
+}
+async function remoteGet(){
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${ROW_ID}&select=data,updated_at`,{
+    headers:sbHeaders()
+  });
+  if(!r.ok) throw new Error('GET '+r.status);
+  const rows=await r.json();
+  return rows.length? rows[0].data : null;
+}
+async function remotePut(obj){
+  const body=[{id:ROW_ID, data:obj, updated_at:new Date().toISOString()}];
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`,{
+    method:'POST',
+    headers:sbHeaders({'Content-Type':'application/json', Prefer:'resolution=merge-duplicates,return=minimal'}),
+    body:JSON.stringify(body)
+  });
+  if(!r.ok) throw new Error('POST '+r.status);
+  return true;
+}
+async function storeGet(){
+  if(cloudOn()){
+    try{ const remote=await remoteGet(); if(remote){ await localPut(remote); return remote; } }
+    catch(e){ /* cloud non raggiungibile: uso la copia locale */ }
+  }
+  return await localGet();
+}
+async function storePut(obj){
+  const okLocal=await localPut(obj);
+  let okRemote=null;
+  if(cloudOn()){
+    try{ okRemote=await remotePut(obj); }catch(e){ okRemote=false; }
+  }
+  return {local:okLocal, remote:okRemote};
 }
 
 /* ============ state ============ */
@@ -567,16 +614,17 @@ function setSaveState(state){
   const chip=$('#savechip'), txt=$('#savetext');
   chip.classList.remove('saving','error');
   if(state==='saving'){chip.classList.add('saving');txt.textContent='Salvataggio in corso';}
+  else if(state==='neterror'){chip.classList.add('error');txt.textContent='Salvato in locale (cloud non raggiungibile)';}
   else if(state==='error'){chip.classList.add('error');txt.textContent=hasStore?'Errore di salvataggio':'Salvato solo in questa sessione';}
-  else{txt.textContent=hasStore?'Tutto salvato':'Attivo (memoria locale)';}
+  else{txt.textContent = cloudOn() ? 'Sincronizzato con il cloud' : (hasStore?'Tutto salvato':'Attivo (memoria locale)');}
 }
 function scheduleSave(){
   setSaveState('saving');
   clearTimeout(saveTimer);
   saveTimer=setTimeout(async()=>{
     data.updatedAt=Date.now();
-    const ok=await storePut(data);
-    setSaveState(ok?'saved':'error');
+    const res=await storePut(data);
+    setSaveState(res.remote===false ? 'neterror' : (res.local? 'saved':'error'));
     renderProgress();
   },500);
 }
@@ -908,6 +956,12 @@ async function init(){
   $('#exportJson').onclick=exportJson;
   $('#importBtn').onclick=()=>$('#importFile').click();
   $('#importFile').onchange=e=>{if(e.target.files[0])importJson(e.target.files[0]);e.target.value='';};
+  $('#pullCloud').onclick=async()=>{
+    setSaveState('saving');
+    const fresh=await storeGet();
+    if(fresh){ data=fresh; currentId=null; bindHeader(); renderProgress(); render(); }
+    setSaveState(cloudOn()?'saved':'saved');
+  };
 
   if(!currentId){const first=[...data.capitoli].sort((a,b)=>a.ordine-b.ordine)[0];if(first)currentId=first.id;render();}
 }
