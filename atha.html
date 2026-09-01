@@ -98,6 +98,8 @@
   .btn.danger{color:var(--danger);border-color:transparent;background:transparent}
   .btn.danger:hover{background:rgba(154,74,60,.08)}
   .btn.sm{padding:5px 10px;font-size:12.5px}
+  .btn:disabled{opacity:.38;cursor:default}
+  .btn:disabled:hover{background:var(--card);border-color:var(--line)}
 
   /* ---------- layout ---------- */
   .tabs{
@@ -669,6 +671,14 @@ const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const words=t=>{const s=(t||'').trim();return s?s.split(/\s+/).length:0;};
 const statoClass=s=>({'Da scrivere':'st-scrivere','Bozza':'st-bozza','Rivisto':'st-rivisto','Definitivo':'st-definitivo'}[s]||'st-scrivere');
+function sortedCh(){return [...data.capitoli].sort((a,b)=>a.ordine-b.ordine);}
+function moveChapter(id,dir){
+  const s=sortedCh();const i=s.findIndex(c=>c.id===id);const j=i+dir;
+  if(i<0||j<0||j>=s.length)return;
+  s.splice(j,0,s.splice(i,1)[0]);
+  s.forEach((c,k)=>c.ordine=k+1);
+  data.capitoli=s;renderProgress();scheduleSave();render();
+}
 
 /* ============ save ============ */
 function setSaveState(state){
@@ -736,11 +746,18 @@ function renderDetail(){
   const ti=document.createElement('input');ti.className='titlefield';ti.value=c.titolo;ti.setAttribute('aria-label','Titolo del capitolo');
   ti.oninput=()=>{c.titolo=ti.value;updateRowText(c);renderProgress();scheduleSave();};
   const acts=document.createElement('div');acts.className='detail-actions';
+  const s=sortedCh();const pos=s.findIndex(x=>x.id===c.id);
+  const up=document.createElement('button');up.className='btn sm';up.textContent='Su';
+  up.title='Sposta il capitolo pi\u00f9 in alto';up.onclick=()=>moveChapter(c.id,-1);
+  if(pos<=0)up.disabled=true;
+  const down=document.createElement('button');down.className='btn sm';down.textContent='Gi\u00f9';
+  down.title='Sposta il capitolo pi\u00f9 in basso';down.onclick=()=>moveChapter(c.id,1);
+  if(pos>=s.length-1)down.disabled=true;
   const pdf=document.createElement('button');pdf.className='btn sm';pdf.textContent='Esporta PDF';pdf.onclick=()=>printChapter(c);
   const del=document.createElement('button');del.className='btn danger sm';del.textContent='Elimina';
   del.onclick=()=>{ if(confirm('Eliminare il capitolo \u201c'+c.titolo+'\u201d? L\u2019operazione non si pu\u00f2 annullare.')){
     data.capitoli=data.capitoli.filter(x=>x.id!==c.id); currentId=null; renderProgress(); scheduleSave(); render(); } };
-  acts.append(pdf,del);
+  acts.append(up,down,pdf,del);
   top.append(ti,acts);
   d.appendChild(top);
 
@@ -905,9 +922,14 @@ function render(){
   const h2=document.createElement('h2');h2.textContent='Indice';
   const nuovo=document.createElement('button');nuovo.className='btn sm';nuovo.textContent='Nuovo';
   nuovo.onclick=()=>{
-    const ord=data.capitoli.reduce((m,c)=>Math.max(m,c.ordine),0)+1;
-    const nc=CH(ord,'Nuovo capitolo');nc.id='c'+Date.now();
-    data.capitoli.push(nc);currentId=nc.id;renderProgress();scheduleSave();render();
+    const s=sortedCh();
+    const nc=CH(0,'Nuovo capitolo');nc.id='c'+Date.now();
+    let at=s.length;
+    if(currentId){const idx=s.findIndex(c=>c.id===currentId);if(idx>=0)at=idx+1;}
+    s.splice(at,0,nc);
+    s.forEach((c,k)=>c.ordine=k+1);
+    data.capitoli=s;
+    currentId=nc.id;renderProgress();scheduleSave();render();
   };
   sh.append(h2,nuovo);side.appendChild(sh);
 
