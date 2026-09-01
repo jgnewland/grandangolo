@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-01T19:24:27.966189+00:00",
+  "updated": "2026-09-01T21:53:55.715915+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Politica, si è spento Angelo Alfano, padre di Angelino",
+      "summary": "Molto conosciuto in città, ha ricoperto diversi incarichi come amministratore",
+      "date": "2026-09-01T20:35:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/politica-si-e-spento-angelo-alfano-padre-di-angelino",
+      "img": "/feed-images/ade6d08a5f9800f6.jpg"
+    },
     {
       "title": "Denise Pipitone scomparsa 22 anni fa, i genitori: “non smetteremo mai di cercarti”",
       "summary": "Il sindaco Quinci: ‘Il suo rapimento è una ferita ancora aperta e dolorosa”",
@@ -205,13 +212,6 @@
       "date": "2026-08-31T16:10:32Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/fiamme-nellagrigentino-bruciati-130-ettari-tre-auto-e-il-deposito-di-uno-stabilimento-balneare",
       "img": "/feed-images/a7a99016c01906f9.jpg"
-    },
-    {
-      "title": "Guasto all’aliscafo per Lampedusa, dietrofront con 157 passeggeri",
-      "summary": "Il problema si e’ verificato quando il mezzo si trovava a circa 20 miglia dalla costa di Porto Empedocle",
-      "date": "2026-08-31T16:04:46Z",
-      "link": "https://www.grandangoloagrigento.it/lampedusa/guasto-allaliscafo-per-lampedusa-dietrofront-con-157-passeggeri",
-      "img": "/feed-images/09f3e17a7fa9dad8.jpg"
     }
   ]
 }
