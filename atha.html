@@ -261,6 +261,7 @@
   <div class="mast-actions">
     <button class="btn primary" id="exportAll">Esporta PDF</button>
     <button class="btn" id="pullCloud">Aggiorna dal cloud</button>
+    <button class="btn ghost" id="testConn">Prova connessione</button>
     <button class="btn" id="exportJson">Scarica backup</button>
     <button class="btn ghost" id="importBtn">Ripristina backup</button>
     <input type="file" id="importFile" accept="application/json" style="display:none">
@@ -593,6 +594,20 @@ async function storePut(obj){
     try{ okRemote=await remotePut(obj); }catch(e){ okRemote=false; }
   }
   return {local:okLocal, remote:okRemote};
+}
+async function testConnection(){
+  if(!cloudOn()){ alert('Nel file manca l\u2019URL o la chiave di Supabase.'); return; }
+  try{
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${ROW_ID}&select=id`,{headers:sbHeaders()});
+    if(r.ok){ setSaveState('saved'); alert('Connessione riuscita. Il cloud risponde e la tabella romanzo_studio e\u2019 raggiungibile.'); }
+    else{
+      let msg=''; try{ const j=await r.json(); msg=j.message||j.hint||''; }catch(e){}
+      alert('Il cloud risponde ma rifiuta la richiesta.\n\nCodice HTTP '+r.status+(msg?('\n'+msg):'')+
+        '\n\n404 = la tabella non esiste ancora.\n401 o 403 = permessi chiusi (RLS): lancia lo SQL che ti ho dato.');
+    }
+  }catch(e){
+    alert('Non riesco a raggiungere il cloud.\n\nQuasi sempre e\u2019 perche\u2019 stai aprendo il file dentro l\u2019anteprima di Claude, che blocca queste chiamate. Caricalo sul tuo sito, accanto all\u2019edicola, e riprova da li\u2019.');
+  }
 }
 
 /* ============ state ============ */
@@ -962,6 +977,7 @@ async function init(){
     if(fresh){ data=fresh; currentId=null; bindHeader(); renderProgress(); render(); }
     setSaveState(cloudOn()?'saved':'saved');
   };
+  $('#testConn').onclick=testConnection;
 
   if(!currentId){const first=[...data.capitoli].sort((a,b)=>a.ordine-b.ordine)[0];if(first)currentId=first.id;render();}
 }
