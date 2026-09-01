@@ -221,12 +221,42 @@
   .placeholder-detail{padding:80px 34px;text-align:center;color:var(--ink-faint);font-family:var(--serif);font-style:italic;font-size:18px}
 
   @media (max-width:820px){
+    .masthead{padding:30px 18px 22px}
+    .savechip{position:static;justify-content:center;margin:0 0 12px}
+    .mast-actions .btn{flex:1 1 auto}
     .workspace{grid-template-columns:1fr}
-    .sidebar{border-right:none;border-bottom:1px solid var(--line)}
+    .sidebar{border-right:none;border-bottom:1px solid var(--line);max-height:44vh;overflow:auto}
     .fieldgrid{grid-template-columns:1fr}
     .detail{padding:22px 18px 60px}
+    .detail-top{flex-wrap:wrap}
+    .titlefield{font-size:24px}
+  }
+  @media (max-width:520px){
+    body{font-size:14.5px}
+    .booktitle{font-size:30px}
+    .tabs{justify-content:stretch}
+    .tab{padding:12px 10px;flex:1}
+    .mast-actions{gap:6px}
+    .person-top{flex-wrap:wrap;gap:6px}
+    .testo-head{flex-wrap:wrap;gap:8px}
+    .reading{padding:20px 18px;font-size:16px}
+    textarea.manuscript{padding:16px 16px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  /* ---------- login ---------- */
+  body.locked{overflow:hidden}
+  .login-overlay{position:fixed;inset:0;z-index:50;background:var(--paper);
+    display:flex;align-items:center;justify-content:center;padding:24px}
+  .login-card{width:100%;max-width:360px;text-align:center}
+  .login-card .kicker{font-size:12.5px;color:var(--ink-faint);margin-bottom:14px}
+  .login-card h1{font-family:var(--serif);font-weight:600;font-size:30px;margin:0 0 6px;letter-spacing:-.01em}
+  .login-card p{color:var(--ink-soft);font-size:14px;margin:0 0 22px}
+  .login-card input{width:100%;border:1px solid var(--line);border-radius:9px;background:var(--card);
+    padding:12px 14px;font-size:16px;text-align:center;margin-bottom:10px;color:var(--ink)}
+  .login-card input:focus{outline:none;border-color:var(--night);background:#fff}
+  .login-card .btn{width:100%;padding:12px;font-size:15px}
+  .login-err{color:var(--danger);font-size:13px;min-height:18px;margin-top:12px}
 
   /* ---------- print ---------- */
   #print-root{display:none}
@@ -250,6 +280,17 @@
 </style>
 </head>
 <body>
+
+<div class="login-overlay" id="login">
+  <div class="login-card">
+    <div class="kicker">Studio del romanzo</div>
+    <h1>Accesso riservato</h1>
+    <p>Inserisci la password per aprire lo studio.</p>
+    <input type="password" id="pw" placeholder="Password" autocomplete="current-password" aria-label="Password">
+    <button class="btn primary" id="pwBtn">Entra</button>
+    <div class="login-err" id="pwerr"></div>
+  </div>
+</div>
 
 <header class="masthead">
   <div class="savechip" id="savechip"><span class="dot"></span><span id="savetext">Tutto salvato</span></div>
@@ -279,6 +320,11 @@
 
 <script>
 "use strict";
+
+/* ============ accesso ============ */
+const PASS_HASH = 3475840646; // password attuale: Doolin2026 (per cambiarla, chiedimela)
+function ph(s){let h=0x811c9dc5>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h>>>0;}
+let started=false;
 
 /* ============ seed texts (capitoli chiusi) ============ */
 const T_PROLOGO = `Cinque anni prima
@@ -981,7 +1027,25 @@ async function init(){
 
   if(!currentId){const first=[...data.capitoli].sort((a,b)=>a.ordine-b.ordine)[0];if(first)currentId=first.id;render();}
 }
-init();
+function tryLogin(){
+  const el=document.getElementById('pw');
+  if(ph(el.value)===PASS_HASH){
+    document.getElementById('login').style.display='none';
+    document.body.classList.remove('locked');
+    if(!started){started=true; init();}
+  }else{
+    document.getElementById('pwerr').textContent='Password non corretta.';
+    el.select();
+  }
+}
+function setupLogin(){
+  document.body.classList.add('locked');
+  document.getElementById('pwBtn').onclick=tryLogin;
+  const el=document.getElementById('pw');
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();tryLogin();}});
+  el.focus();
+}
+setupLogin();
 </script>
 </body>
 </html>
