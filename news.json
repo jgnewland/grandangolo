@@ -1,8 +1,78 @@
 {
-  "updated": "2026-09-02T12:13:23.648883+00:00",
+  "updated": "2026-09-02T16:36:51.377734+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "L’omicidio di Gabriele Vaccaro, arrestato un altro minorenne",
+      "summary": "C’è un secondo arresto per l’omicidio di Gabriele Vaccaro, il 25enne di Favara ucciso con una coltellata nella notte tra il 18 ed il 19 aprile in un parcheggio a Pavia",
+      "date": "2026-09-02T16:29:08Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/lomicidio-di-gabriele-vaccaro-arrestato-un-altro-minorenne",
+      "img": "/feed-images/4cc092d5ef51410e.jpg"
+    },
+    {
+      "title": "Rischio incendi, allerta rossa per domani su Agrigento e Palermo",
+      "summary": "Secondo il bollettino regionale, le condizioni meteo-climatiche e l’umidità del combustibile vegetale possono favorire lo sviluppo e la propagazione degli incendi",
+      "date": "2026-09-02T15:46:49Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/rischio-incendi-allerta-rossa-per-domani-su-agrigento-e-palermo",
+      "img": "/feed-images/46e555c0b0b09500.png"
+    },
+    {
+      "title": "Scuola, si riparte il 15 settembre: in Sicilia resta il problema del caldo nelle aule",
+      "summary": "Il Codacons e Ida Carmina alzano la voce contro il governo",
+      "date": "2026-09-02T15:29:09Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scuola-si-riparte-il-15-settembre-in-sicilia-resta-il-problema-del-caldo-nelle-aule",
+      "img": "/feed-images/1309b68405abc546.jpg"
+    },
+    {
+      "title": "Tragedia a Sciacca, motociclista muore in incidente stradale",
+      "summary": "Tragedia alle porte di Sciacca. Un motociclista ha perso la vita in un incidente stradale. Ancora da chiarire la dinamica",
+      "date": "2026-09-02T14:48:19Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/grave-incidente-alle-porte-di-sciacca-morto-un-motociclista",
+      "img": "/feed-images/c911008846981f68.jpg"
+    },
+    {
+      "title": "Cade nella tromba delle scale di un palazzo: ferita una donna",
+      "summary": "La donna a bordo di un elisoccorso è stata trasferita al Trauma Center di Catania",
+      "date": "2026-09-02T14:35:39Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/cade-nella-tromba-delle-scale-di-un-palazzo-ferita-una-donna",
+      "img": "/feed-images/5836f10763d95702.jpg"
+    },
+    {
+      "title": "A Sambuca Giusi Cataldo presenta “Ha toccato”: cinema e inclusione alla sede estiva UNITRE",
+      "summary": "Giovedì 3 settembre l’attrice e regista sarà ospite dell’UNITRE in contrada Adragna. Dopo la proiezione del cortometraggio, dialogherà con Franco Nuccio e con le associazioni di volontariato sui temi…",
+      "date": "2026-09-02T14:29:27Z",
+      "link": "https://www.grandangoloagrigento.it/cultura/a-sambuca-giusi-cataldo-presenta-ha-toccato-cinema-e-inclusione-alla-sede-estiva-unitre",
+      "img": "/feed-images/a28129e86f124348.jpg"
+    },
+    {
+      "title": "Si ribalta con un trattore, morto operaio di 30 anni",
+      "summary": "L’uomo ha riportato una brutta ferita al collo che non gli ha lasciato scampo",
+      "date": "2026-09-02T14:25:47Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/si-ribalta-con-un-trattore-morto-operaio-di-30anni",
+      "img": "/feed-images/bc1924037ee6a478.jpg"
+    },
+    {
+      "title": "Centro “R. Guttuso”: Roberto Lipari alla serata a sostegno di Save the Children",
+      "summary": "Una serata per divertirsi, ascoltare buona musica e, soprattutto, fare solidarietà.",
+      "date": "2026-09-02T14:02:39Z",
+      "link": "https://www.grandangoloagrigento.it/cultura/centro-r-guttuso-roberto-lipari-alla-serata-a-sostegno-di-save-the-children",
+      "img": "/feed-images/d5920c949237b50f.jpg"
+    },
+    {
+      "title": "Favara, due rapinatori aggrediscono una pensionata: bottino da 500 euro",
+      "summary": "La donna è stata avvicinata e minacciata con un coltello",
+      "date": "2026-09-02T13:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/favara-due-rapinatori-aggrediscono-una-pensionata-bottino-da-500-euro",
+      "img": "/feed-images/2e8621e0d6187d67.jpg"
+    },
+    {
+      "title": "Trovato con hashish e 740 euro, arrestato 29enne",
+      "summary": "L’uomo è stato arrestato per detenzione ai fini di spaccio di sostanze stupefacenti.",
+      "date": "2026-09-02T12:23:49Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/trovato-con-hashish-e-740-euro-arrestato-29enne",
+      "img": "/feed-images/e97c87c7731ecb60.jpg"
+    },
     {
       "title": "Taxi abusivi all’aeroporto di Catania, una denuncia",
       "summary": "Il 31enne è risultato sprovvisto di licenza e, pertanto, è stato denunciato all’Autorità Giudiziaria per il reato di esercizio abusivo di professione",
@@ -112,7 +182,7 @@
       "title": "S.Stefano Quisquina, domani i funerali di Salvino Pullara: sarà lutto cittadino",
       "summary": "Il 52 enne è rimasto vittima in un incidente all’interno del cantiere edile dove stava lavorando; insieme a lui è rimasto ferito il figlio",
       "date": "2026-09-02T08:03:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/s-stefano-quisquina-domani-i-funerali-di-salvino-pullara-sara-lutto-cittadino",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/s-stefano-quisquina-domani-i-funerali-di-salvino-pullara-sara-lutto-cittadino",
       "img": "/feed-images/e17a2e71e2b67790.jpg"
     },
     {
@@ -142,76 +212,6 @@
       "date": "2026-09-02T05:30:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/revocata-la-serrata-degli-autobottisti-riprendono-le-consegne",
       "img": "/feed-images/8a365bbc980ae1b5.jpg"
-    },
-    {
-      "title": "Politica, si è spento Angelo Alfano, padre di Angelino",
-      "summary": "Molto conosciuto in città, ha ricoperto diversi incarichi come amministratore",
-      "date": "2026-09-02T05:29:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/politica-si-e-spento-angelo-alfano-padre-di-angelino",
-      "img": "/feed-images/d824493f9b35d255.jpg"
-    },
-    {
-      "title": "Racalmuto ricorda Fernando Cavallaro, il giurista che custodì la Fondazione Sciascia",
-      "summary": "Sabato sera, nella sede della Fondazione, il ricordo del giurista amico di Leonardo Sciascia e artefice dello statuto che ne protegge il patrimonio",
-      "date": "2026-09-02T04:54:43Z",
-      "link": "https://www.grandangoloagrigento.it/racalmuto/racalmuto-ricorda-fernando-cavallaro-il-giurista-che-custodi-la-fondazione-sciascia",
-      "img": "/feed-images/64b62648962b7485.jpg"
-    },
-    {
-      "title": "Via Saponara, sopralluogo del sindaco Sodano: “Subito lavori e messa in sicurezza”",
-      "summary": "Il sindaco ha effettuato un sopralluogo per verificare le condizioni dei luoghi",
-      "date": "2026-09-02T03:12:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/via-saponara-sopralluogo-del-sindaco-sodano-bisogna-partire-subito-con-i-lavori-di-messa-in-sicurezza",
-      "img": "/feed-images/acc7055d2bc2d652.jpg"
-    },
-    {
-      "title": "Denise Pipitone scomparsa 22 anni fa, i genitori: “non smetteremo mai di cercarti”",
-      "summary": "Il sindaco Quinci: ‘Il suo rapimento è una ferita ancora aperta e dolorosa”",
-      "date": "2026-09-01T16:38:02Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/denise-pipitone-scomparsa-22-anni-fa-i-genitori-non-smetteremo-mai-di-cercarti",
-      "img": "/feed-images/44f0eba0e1c66acd.jpg"
-    },
-    {
-      "title": "Finalmente la luce allo stadio Esseneto, Piparo: “momento che gli agrigentini attendevano da tempo”",
-      "summary": "Oggi allo stadio Esseneto si è svolto il precollaudo del nuovo impianto di illuminazione",
-      "date": "2026-09-01T16:25:54Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/finalmente-la-luce-allo-stadio-esseneto-piparo-momento-che-gli-agrigentini-attendevano-da-tempo",
-      "img": "/feed-images/c4a5c04f749c7689.jpg"
-    },
-    {
-      "title": "Crolla una parete in un cantiere a Bivona: muore operaio di 53 anni; ferito il figlio",
-      "summary": "Ferito anche il figlio che è stato trasportato in ambulanza all’ospedale di Agrigento",
-      "date": "2026-09-01T15:50:04Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/crolla-una-parete-in-un-cantiere-a-bivona-muore-operaio-di-53-anni-ferito-il-figlio",
-      "img": "/feed-images/5ff50c816d970b14.jpg"
-    },
-    {
-      "title": "Sale cinematografiche piene anche in estate: è boom di pubblico",
-      "summary": "Grandi uscite che hanno portato le sale cinematografiche a riempirsi anche nel periodo estivo",
-      "date": "2026-09-01T15:21:25Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sale-cinematografiche-piene-anche-in-estate-e-boom-di-pubblico",
-      "img": "/feed-images/411e85a53fbaf61e.jpg"
-    },
-    {
-      "title": "Colto da malore al cimitero, morto operaio",
-      "summary": "L’uomo è stato colto da malore mentre si trovava all’interno dell’area cimiteriale intento a lavorare.",
-      "date": "2026-09-01T14:09:17Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/colto-da-malore-al-cimitero-morto-operaio",
-      "img": "/feed-images/0bc61a843bb00b23.jpg"
-    },
-    {
-      "title": "Realmonte, incassano due bonifici per auto a noleggio e poi spariscono: due denunciati",
-      "summary": "Nel mirino della truffa un sessantenne di Realmonte che si è rivolto alla Polizia",
-      "date": "2026-09-01T14:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/realmonte-incassano-due-bonifici-per-auto-noleggio-e-poi-spariscono-due-denunciati",
-      "img": "/feed-images/4f10cf8a609056ea.jpg"
-    },
-    {
-      "title": "Incendio in centro commerciale: edificio evacuato",
-      "summary": "Le fiamme hanno avvolto il tetto in corrispondenza dell’area ristoro del centro",
-      "date": "2026-09-01T13:49:08Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/incendio-in-centro-commerciale-edificio-evacuato",
-      "img": "/feed-images/60ac2a7f5ad150ef.jpg"
     }
   ]
 }
