@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-02T16:36:51.377734+00:00",
+  "updated": "2026-09-02T19:30:15.907858+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ravanusa, Rar chiude agosto con il 67,58% di raccolta differenziata",
+      "summary": "Un risultato che assume particolare rilievo alla luce delle condizioni straordinarie affrontate dalla società durante il mese, con la chiusura degli impianti protrattasi fino al 27 agosto e la…",
+      "date": "2026-09-02T19:01:38Z",
+      "link": "https://www.grandangoloagrigento.it/ravanusa/ravanusa-rar-chiude-agosto-con-il-6758-di-raccolta-differenziata",
+      "img": "/feed-images/f9f621ba44286895.jpg"
+    },
     {
       "title": "L’omicidio di Gabriele Vaccaro, arrestato un altro minorenne",
       "summary": "C’è un secondo arresto per l’omicidio di Gabriele Vaccaro, il 25enne di Favara ucciso con una coltellata nella notte tra il 18 ed il 19 aprile in un parcheggio a Pavia",
@@ -205,13 +212,6 @@
       "date": "2026-09-02T07:01:19Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-labbonamento-diventa-da-collezione-quattro-card-disegnate-da-sergio-criminisi",
       "img": "/feed-images/4a2692031d328fe8.jpg"
-    },
-    {
-      "title": "Revocata la serrata degli autobottisti: riprendono le consegne",
-      "summary": "Dopo oltre un mese di stop le rassicurazioni dell’azienda avrebbero fatto rientrare lo sciopero",
-      "date": "2026-09-02T05:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/revocata-la-serrata-degli-autobottisti-riprendono-le-consegne",
-      "img": "/feed-images/8a365bbc980ae1b5.jpg"
     }
   ]
 }
