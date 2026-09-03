@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-03T16:35:56.895892+00:00",
+  "updated": "2026-09-03T19:26:43.795722+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "“Sistema Cuffaro” e presunta tangente da 25mila euro: archiviate 23 posizioni",
+      "summary": "Archiaviate accuse per Pace, Vetro e Pullara",
+      "date": "2026-09-03T18:20:58Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sistema-cuffaro-e-presunta-tangente-da-25mila-euro-archiviate-23-posizioni",
+      "img": "/feed-images/e91f3550727f479f.png"
+    },
     {
       "title": "Agrigento, confronto tra il commissario ASP Delle Donne e il personale: “Più complessità, tecnologia e integrazione con il territorio”",
       "summary": "Un momento di confronto con tutto il personale medico e infermieristico dell’ospedale San Giovanni di Dio",
@@ -205,13 +212,6 @@
       "date": "2026-09-03T05:01:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/maddalusa-senzacqua-da-mesi-e-il-resto-degli-abusivi",
       "img": "/feed-images/0cbbe852552390cb.jpg"
-    },
-    {
-      "title": "Cade in mare con la propria auto, morto 90enne",
-      "summary": "Il corpo dell’uomo è stato trovato all’interno del veicolo",
-      "date": "2026-09-03T05:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/cade-in-mare-con-la-propria-auto-morto-90enne",
-      "img": "/feed-images/e1d920230440b6d2.jpg"
     }
   ]
 }
