@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-04T19:02:36.857613+00:00",
+  "updated": "2026-09-04T21:27:48.750400+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Il mercato dei nuovi italiani",
+      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
+      "date": "2026-09-04T21:26:40Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/il-mercato-dei-nuovi-italiani",
+      "img": "/feed-images/3dfd4efd2765e367.jpg"
+    },
     {
       "title": "Prodotti ittici scaduti e alimenti mal conservati: multate sei attività",
       "summary": "Una tonnellata di pesce è stato sequestrato",
@@ -205,13 +212,6 @@
       "date": "2026-09-04T06:45:42Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/alla-vista-della-polizia-prova-a-disfarsi-di-39-dosi-di-hashish-arrestato",
       "img": "/feed-images/cde8a596a569c6d3.jpg"
-    },
-    {
-      "title": "Akragas, doppio colpo di mercato: Luís Henrique per l’attacco, La Rosa sulla fascia",
-      "summary": "È Luís Henrique il colpo dell’estate dell’Akragas. Nato a Vila Velha, in Brasile, e in possesso anche della cittadinanza italiana, il nuovo numero 9 biancazzurro porta ad Agrigento esperienza…",
-      "date": "2026-09-04T06:05:02Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-doppio-colpo-di-mercato-luis-henrique-per-lattacco-la-rosa-sulla-fascia",
-      "img": "/feed-images/192e2f98ec1945d2.jpg"
     }
   ]
 }
