@@ -1,15 +1,8 @@
 {
-  "updated": "2026-09-05T15:35:32.006644+00:00",
+  "updated": "2026-09-05T17:39:20.577648+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
-    {
-      "title": "Fuga di gas a Canicattì, paura tra i cittadini: evacuata palazzina",
-      "summary": "Dopo gli accertamenti da parte dei Vigili del fuoco e dei tecnici del gas, l’area è stata messa in sicurezza, evitando ulteriori rischi per la popolazione.",
-      "date": "2026-09-05T15:33:29Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/fuga-di-gas-a-canicatti-paura-tra-i-cittadini-evacuata-palazzina",
-      "img": "/feed-images/4b2e041f2689199c.jpg"
-    },
     {
       "title": "Inner Wheel Club di Agrigento, le parole e la musica accendono il cuore a Casa Sanfilippo",
       "summary": "L’evento “Il tempo della rinascita”si è svolto alla presenza delle massime autorità dei Club service locali",
@@ -39,11 +32,25 @@
       "img": "/feed-images/4f83741f518aba2c.jpg"
     },
     {
+      "title": "Incendio alla banchina di Marianello, carbonizzati tre box dei pescatori",
+      "summary": "Tra le ipotesi al vaglio vi è quella di un rogo di natura dolosa, considerata al momento una possibilità concreta",
+      "date": "2026-09-05T14:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/incendio-alla-banchina-di-marianello-carbonizzati-tre-box-dei-pescatori",
+      "img": "/feed-images/aa290aa3978a0e0a.png"
+    },
+    {
       "title": "Caso Crosta, La Vardera: “Vogliamo chiarezza sulla vicenda”",
       "summary": "Il leader di Controcorrente, durante gli stati generali del partito, è intervenuto sulla vicenda ribadendo comunque la fiducia nel vicesindaco",
       "date": "2026-09-05T13:52:29Z",
       "link": "https://www.grandangoloagrigento.it/apertura/caso-crosta-la-vardera-vogliamo-chiarezza-sulla-vicenda",
       "img": "/feed-images/45bb9e4fbe9691b9.jpg"
+    },
+    {
+      "title": "Fuga di gas a Canicattì, paura tra i cittadini: evacuata palazzina",
+      "summary": "Dopo gli accertamenti da parte dei Vigili del fuoco e dei tecnici del gas, l’area è stata messa in sicurezza, evitando ulteriori rischi per la popolazione.",
+      "date": "2026-09-05T12:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/canicatti/fuga-di-gas-a-canicatti-paura-tra-i-cittadini-evacuata-palazzina",
+      "img": "/feed-images/4b2e041f2689199c.jpg"
     },
     {
       "title": "Naturalmente Agrigento al via: riciclo, sostenibilità, kids per il turismo di doman",
@@ -205,13 +212,6 @@
       "date": "2026-09-05T05:43:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/camastra-fuochi-dartificio-incendiano-villa-comunale-durante-festa-del-patrono",
       "img": "/feed-images/9c3323a5f056b92a.jpg"
-    },
-    {
-      "title": "Il mercato dei nuovi italiani",
-      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
-      "date": "2026-09-04T21:26:40Z",
-      "link": "https://www.grandangoloagrigento.it/primo-piano/il-mercato-dei-nuovi-italiani",
-      "img": "/feed-images/3dfd4efd2765e367.jpg"
     }
   ]
 }
