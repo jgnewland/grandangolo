@@ -1,8 +1,29 @@
 {
-  "updated": "2026-09-06T01:11:13.511728+00:00",
+  "updated": "2026-09-06T05:57:30.853558+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Usura, i beni della famiglia Marturana di Canicattì passano allo Stato",
+      "summary": "Le vittime della famiglia di usurai erano semplici cittadini, piccoli imprenditori e grandi imprese assicurative, che per pagare i debiti e gli interessi non soltanto consegnavano denaro contante e…",
+      "date": "2026-09-06T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/usura-i-beni-della-famiglia-marturana-di-canicatti-passano-allo-stato",
+      "img": "/feed-images/aa86453a02b15557.jpg"
+    },
+    {
+      "title": "Fortitudo, buon test sul campo di Capo d’Orlando",
+      "summary": "Coach Devis Cagnardi può adesso contare sul gruppo al completo grazie all’arrivo di Bryce Douvier, che si è unito ai compagni in questa fase di preparazione",
+      "date": "2026-09-06T04:59:56Z",
+      "link": "https://www.grandangoloagrigento.it/sport/fortitudo-buon-test-sul-campo-di-capo-dorlando",
+      "img": "/feed-images/a9e2135b8722b537.jpg"
+    },
+    {
+      "title": "Risse e ritrovo di pregiudicati, chiuso per otto giorni un locale a Raffadali",
+      "summary": "In particolare, si sarebbero verificate diverse risse e il locale sarebbe stato inoltre frequentato da soggetti pregiudicati",
+      "date": "2026-09-06T04:59:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/risse-e-ritrovo-di-pregiudicati-chiuso-per-otto-giorni-un-locale-a-raffadali",
+      "img": "/feed-images/6d998156ed950b2d.jpg"
+    },
     {
       "title": "Incidente stradale a Villaseta, giovane motociclista ferito dopo lo scontro con due auto",
       "summary": "Sono in corso gli accertamenti per chiarire l’esatta dinamica dell’incidente.",
@@ -42,7 +63,7 @@
       "title": "Incendio alla banchina di Marianello, carbonizzati tre box dei pescatori",
       "summary": "Tra le ipotesi al vaglio vi è quella di un rogo di natura dolosa, considerata al momento una possibilità concreta",
       "date": "2026-09-05T14:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/incendio-alla-banchina-di-marianello-carbonizzati-tre-box-dei-pescatori",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/incendio-alla-banchina-di-marianello-carbonizzati-tre-box-dei-pescatori",
       "img": "/feed-images/aa290aa3978a0e0a.png"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-09-05T06:29:37Z",
       "link": "https://www.grandangoloagrigento.it/primo-piano/corruzione-nellagrigentino-no-a-misura-cautelare-per-ispettore-polizia-locale-di-naro",
       "img": "/feed-images/6e41cad52f30254f.jpg"
-    },
-    {
-      "title": "Scontro tra due auto sulla Palermo-Agrigento, quattro feriti e un bimbo grave in ospedale",
-      "summary": "Nel sinistro sono rimaste ferite quattro persone, due adulti e due minori, tutti trasferiti in ospedale",
-      "date": "2026-09-05T06:08:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/scontro-tra-piu-auto-sulla-palermo-agrigento-quattro-feriti",
-      "img": "/feed-images/2849cb50cbf80194.jpg"
-    },
-    {
-      "title": "Favara, provoca incidente in cui rimane gravemente ferita una ragazza: aveva tasso alcolemico 4 volte superiore",
-      "summary": "La ragazza che viaggiava con lui lungo la strada statale 122 ha riportato un trauma cranico con emorragia cerebrale. Dopo alcuni giorni di prognosi è stata giudicata fuori pericolo",
-      "date": "2026-09-05T06:07:36Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/favara-provoca-incidente-in-cui-rimane-gravemente-ferita-una-ragazza-aveva-tasso-alcolemico-4-volte-superiore",
-      "img": "/feed-images/0bc3bf074255faff.png"
-    },
-    {
-      "title": "Maltratta l’anziana madre, arrestato cinquantenne agrigentino",
-      "summary": "L’uomo, nonostante si trovasse in detenzione domiciliare, avrebbe continuato a perseguitare l’anziana madre rendendole la vita un inferno",
-      "date": "2026-09-05T05:44:17Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/maltratta-lanziana-madre-arrestato-cinquantenne-agrigentino",
-      "img": "/feed-images/2ddfaed921b30484.jpg"
     }
   ]
 }
