@@ -1,14 +1,35 @@
 {
-  "updated": "2026-09-06T13:48:04.345097+00:00",
+  "updated": "2026-09-06T16:41:11.301871+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
-      "title": "Dramma alla cronoscalata Monte Erice, pilota sbanda e uccide ufficiale di gara e spettatore",
-      "summary": "Il pilota di una vettura mentre affrontava una curva e’ uscito fuori dal tracciato investendo l’ufficiale di gara e un’altra persona",
+      "title": "Bombola prende fuoco in casa, ferita una donna",
+      "summary": "Una donna è rimasta leggermente ferita e soccorsa dai sanitari del 118",
+      "date": "2026-09-06T16:11:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/bombola-prende-fuoco-in-casa-ferita-una-donna",
+      "img": "/feed-images/ff8f207d3e0a7b5f.jpg"
+    },
+    {
+      "title": "Tragedia all’autodromo, 29enne muore dopo incidente",
+      "summary": "La moto su cui viaggiava si è schiantata contro le barriere protettive. per il giovane non c’è stato nulla da fare",
+      "date": "2026-09-06T15:25:52Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/tragedia-allautodromo-29enne-muore-dopo-incidente",
+      "img": ""
+    },
+    {
+      "title": "Cuffaro, Pace, l’imprenditore di Favara e la tangente: tutti prosciolti: “Non raggiunta gravità indiziaria”",
+      "summary": "Ecco perchè sono stati scagionati l’imprenditore di Favara, il sindaco di Ribera, l’ex governatore e il direttore del Consorzio di Bonifica",
+      "date": "2026-09-06T15:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/cuffaro-pace-limprenditore-di-favara-e-la-tangente-tutti-prosciolti-non-raggiunta-gravita-indiziaria",
+      "img": "/feed-images/0424d9d9504982c0.jpg"
+    },
+    {
+      "title": "Dramma alla cronoscalata Monte Erice, pilota sbanda e uccide due giovani spettatori",
+      "summary": "Sono due spettatori di 18 e 20 anni le vittime del tragico impatto della Peugeot 308 Tcr numero 54, uscita stamane fuori pista durante la cronoscalata sul Monte Eric",
       "date": "2026-09-06T12:06:21Z",
       "link": "https://www.grandangoloagrigento.it/apertura/dramma-alla-cronoscalata-monte-erice-pilota-sbanda-e-uccide-ufficiale-di-gara-e-spettatore",
-      "img": "/feed-images/5ba5e152852421fd.jpg"
+      "img": "/feed-images/97981375d1489731.jpg"
     },
     {
       "title": "Il segretario PD Barbagallo: “Nei prossimi giorni il nostro candidato alla presidenza della Regione”",
@@ -84,7 +105,7 @@
       "title": "Usura, i beni della famiglia Marturana di Canicattì passano allo Stato",
       "summary": "Le vittime della famiglia di usurai erano semplici cittadini, piccoli imprenditori e grandi imprese assicurative, che per pagare i debiti e gli interessi non soltanto consegnavano denaro contante e…",
       "date": "2026-09-06T05:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/usura-i-beni-della-famiglia-marturana-di-canicatti-passano-allo-stato",
+      "link": "https://www.grandangoloagrigento.it/giudiziaria/usura-i-beni-della-famiglia-marturana-di-canicatti-passano-allo-stato",
       "img": "/feed-images/aa86453a02b15557.jpg"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-09-05T09:24:09Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/munizioni-in-auto-e-droga-in-casa-arrestato",
       "img": "/feed-images/1678ee753cb5c6da.jpg"
-    },
-    {
-      "title": "Sorpreso a consegnare droga a domicilio: arrestato",
-      "summary": "Durante la perquisizione, i poliziotti hanno sequestrato un variegato assortimento di droga, già confezionata in dosi.",
-      "date": "2026-09-05T08:12:10Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sorpreso-a-consegnare-droga-a-domicilio-arrestato",
-      "img": "/feed-images/48555f3087cd4cf6.jpg"
-    },
-    {
-      "title": "In auto con cocaina, crack e 4 candelotti esplosivi: denunciato",
-      "summary": "Tutto il materiale trovato in auto è stato sequestrato",
-      "date": "2026-09-05T08:09:19Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-auto-con-cocaina-crack-e-4-candelotti-esplosivi-denunciato",
-      "img": "/feed-images/8eab54b43956c378.jpg"
-    },
-    {
-      "title": "Coltiva droga nel giardino di casa: denunciato 32enne",
-      "summary": "I Carabinieri sequestrano 25 piante di cannabis",
-      "date": "2026-09-05T08:03:54Z",
-      "link": "https://www.grandangoloagrigento.it/catania/coltiva-droga-nel-giardino-di-casa-denunciato-32enne",
-      "img": "/feed-images/f0f8600922722ce1.jpg"
     }
   ]
 }
