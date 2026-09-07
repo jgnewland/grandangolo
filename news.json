@@ -1,8 +1,134 @@
 {
-  "updated": "2026-09-07T05:00:30.725984+00:00",
+  "updated": "2026-09-07T10:15:41.354675+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Il commissario Di Maggio è il nuovo dirigente della Sezione della Polizia Stradale di Caltanissetta",
+      "summary": "Il neo dirigente sostituisce Sonia Zicari, Vice Questore Aggiunto, dirigente della sezione Polizia Stradale di Agrigento",
+      "date": "2026-09-07T10:02:31Z",
+      "link": "https://www.grandangoloagrigento.it/caltanisetta/il-commissario-di-maggio-e-il-nuovo-dirigente-della-sezione-della-polizia-stradale-di-caltanissetta",
+      "img": "/feed-images/ce565f6c815c5e85.jpg"
+    },
+    {
+      "title": "Sicilia, la Cisl a Giunta e Ars: “mettere al centro le vere priorità dell’isola”",
+      "summary": "Nella nota il segretario generale della Cisl Sicilia, Leonardo La Piana richiama le istituzioni e la politica regionale a un’assunzione di responsabilità",
+      "date": "2026-09-07T09:52:46Z",
+      "link": "https://www.grandangoloagrigento.it/politica/sicilia-la-cisl-a-giunta-e-ars-mettere-al-centro-le-vere-priorita-dellisola",
+      "img": "/feed-images/e6a11060479a27c3.jpg"
+    },
+    {
+      "title": "L’attacco di William Giacalone (Forza Azzurri): “Sindaco Sodano, basta silenzio: Agrigento non merita questo teatro politico”",
+      "summary": "Giacalone accusa il primo cittadino di non assumersi le proprie responsabilità",
+      "date": "2026-09-07T09:21:01Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lattacco-di-william-giacalone-forza-azzurri-sindaco-sodano-basta-silenzio-agrigento-non-merita-questo-teatro-politico",
+      "img": "/feed-images/ac75688543f9afee.jpg"
+    },
+    {
+      "title": "Aggredisce personale medico al pronto soccorso, arrestato 36enne",
+      "summary": "L’uomo è stato arrestato per lesioni aggravate",
+      "date": "2026-09-07T09:10:24Z",
+      "link": "https://www.grandangoloagrigento.it/catania/aggredisce-personale-medico-al-pronto-soccorso-arrestato-36enne",
+      "img": "/feed-images/763d84337c2f51f5.jpg"
+    },
+    {
+      "title": "Crosta, da candidato in pectore per le Regionali a indesiderabile: La Vardera e il “suo” modello Agrigento",
+      "summary": "L’ordine è stato chiaro, ma nulla della vicenda era stata concordata: da che parte starà il sindaco?",
+      "date": "2026-09-07T09:09:40Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/crosta-da-candidato-in-pectore-per-le-regionali-a-indesiderabile-la-vardera-e-il-suo-modello-agrigento",
+      "img": "/feed-images/31e3567627ccd23f.jpg"
+    },
+    {
+      "title": "Dramma alla cronoscalata Monte Erice, pilota indagato per omicidio stradale",
+      "summary": "Sono morti due giovani spettatori, ferito il commissario di gara",
+      "date": "2026-09-07T09:06:51Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/dramma-alla-cronoscalata-monte-erice-pilota-indagato-per-omicidio-stradale",
+      "img": "/feed-images/97981375d1489731.jpg"
+    },
+    {
+      "title": "Crollo centro storico, Piparo: “Ripartire dal progetto Hyperion per il recupero degli edifici”",
+      "summary": "Il progetto fu realizzato grazie all’importante lavoro del Dipartimento di Protezione civile dell’Ordine degli Architetti della Provincia di Agrigento.",
+      "date": "2026-09-07T08:27:47Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crollo-centro-storico-piparo-ripartire-dal-progetto-hyperion-per-il-recupero-degli-edifici",
+      "img": "/feed-images/cc0db02ad52e9cde.jpg"
+    },
+    {
+      "title": "Sorpreso in strada con cocaina e marijuana, arrestato pregiudicato",
+      "summary": "Deve rispondere di detenzione di sostanze stupefacenti ai fini di spaccio.",
+      "date": "2026-09-07T08:23:17Z",
+      "link": "https://www.grandangoloagrigento.it/catania/sorpreso-in-strada-con-cocaina-e-marijuana-arrestato-pregiudicato",
+      "img": ""
+    },
+    {
+      "title": "Ad Agrigento cala l’impresa indipendente, Confesercenti: “Serve una nuova stagione di rigenerazione urbana”",
+      "summary": "Gli addetti sono complessivamente 12.832, con i lavoratori dipendenti in crescita del 17% e gli indipendenti in calo del 16,5%.",
+      "date": "2026-09-07T08:19:55Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ad-agrigento-cala-limpresa-indipendente-confesercenti-serve-una-nuova-stagione-di-rigenerazione-urbana",
+      "img": ""
+    },
+    {
+      "title": "Caso Crosta, Controcorrente: “Vicesindaco si dimetta”",
+      "summary": "La decisione fa seguito agli sviluppi legati alla villa abusiva di contrada Zingarello, immobile che Crosta ha coereditato alla morte del padre",
+      "date": "2026-09-07T08:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/caso-crosta-controcorrente-vicesindaco-si-dimetta",
+      "img": "/feed-images/a7f6a47ebe730ecd.jpg"
+    },
+    {
+      "title": "Migranti: 93 sbarcati a Lampedusa",
+      "summary": "Sono 351 al momento nell’hotspot di contrada Imbriacola, compresi 112 minori non accompagnati.",
+      "date": "2026-09-07T07:58:15Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/migranti-93-sbarcati-a-lampedusa",
+      "img": "/feed-images/6b2dd04e298470a5.jpg"
+    },
+    {
+      "title": "Giovane tenta il suicidio, salvato in extremis da un soccorritore fuori servizio",
+      "summary": "Un intervento provvidenziale ha evitato una tragedia che rischiava di consumarsi nel silenzio",
+      "date": "2026-09-07T07:53:51Z",
+      "link": "https://www.grandangoloagrigento.it/caltanisetta/caltanissetta-giovane-tenta-il-suicidio-salvato-in-extremis-da-un-soccorritore-fuori-servizio",
+      "img": "/feed-images/13f0b549322028a0.jpg"
+    },
+    {
+      "title": "Aule climatizzate a Comitini, il sindaco: “inizio lezioni regolare”",
+      "summary": "L’anno scolastico inizierà regolarmente il 15 settembre",
+      "date": "2026-09-07T07:23:57Z",
+      "link": "https://www.grandangoloagrigento.it/comitini/aule-climatizzate-a-comitini-il-sindaco-inizio-lezioni-regolare",
+      "img": "/feed-images/b009d5d0ad8eb4be.jpg"
+    },
+    {
+      "title": "Il “sistema” Cuffaro: “Pluralità di episodi ma non è associazione a delinquere”",
+      "summary": "La Procura chiede e ottiene l’archiviazione sul reato di associazione a delinquere: “Non sono emersi elementi idonei a sostenere in giudizio l’esistenza di un autonomo vincolo associativo”",
+      "date": "2026-09-07T07:06:37Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/il-sistema-cuffaro-pluralita-di-episodi-ma-non-e-associazione-a-delinquere",
+      "img": "/feed-images/ee0c401acf0222bb.jpg"
+    },
+    {
+      "title": "Conclusa la 4ª edizione del Festival dei Tramonti",
+      "summary": "Un momento che ha rappresentato in maniera concreta lo spirito del Festival: fare della bellezza del territorio un’esperienza capace di coinvolgere persone provenienti anche da oltre i confini…",
+      "date": "2026-09-07T06:17:25Z",
+      "link": "https://www.grandangoloagrigento.it/cattolica-eraclea/conclusa-la-4a-edizione-del-festival-dei-tramonti",
+      "img": "/feed-images/069ffd120efa8d0f.jpg"
+    },
+    {
+      "title": "Gero Miceli conquista Buenos Aires, “Tampasiannu” vince il Premio José Capparelli",
+      "summary": "Il poeta e regista siciliano Gero Miceli, ha ottenuto il primo posto alla XVIII edizione del prestigioso “ Encuentro Internacional de Poesia y Cuento” Premio “José Carlos Capparelli”",
+      "date": "2026-09-07T05:58:26Z",
+      "link": "https://www.grandangoloagrigento.it/cultura/gero-miceli-conquista-buenos-aires-tampasiannu-vince-il-premio-jose-capparelli",
+      "img": "/feed-images/6167d8cb81de51b2.webp"
+    },
+    {
+      "title": "Corruzione, al via oggi il processo all’assessore regionale Amata",
+      "summary": "In cambio dei favori ricevuti l’assessora avrebbe concesso un finanziamento pubblico di 30mila euro alla manifestazione “XXIII ed. Donna, Economia e Potere”",
+      "date": "2026-09-07T05:56:32Z",
+      "link": "https://www.grandangoloagrigento.it/giudiziaria/corruzione-al-via-oggi-il-processo-allassessore-regionale-amata",
+      "img": "/feed-images/163907f1139a092d.jpg"
+    },
+    {
+      "title": "Lavoratore in nero in una rosticceria e rifiuti incontrollati in supermercato, multa e sequestro",
+      "summary": "È quanto emerso durante un controllo effettuato dalla polizia locale di Agrigento",
+      "date": "2026-09-07T05:05:39Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/lavoratore-in-nero-in-una-rosticceria-e-rifiuti-incontrollati-in-supermercato-multa-e-sequestro",
+      "img": "/feed-images/41150839d5a2880d.jpg"
+    },
     {
       "title": "Trovate diverse banconote false in un’aiuola a Porta di Ponte, indagini",
       "summary": "Nei mesi scorsi molti commercianti, soprattutto proprietari di bar e piccole botteghe, hanno denunciato l’utilizzo di denaro contraffatto per piccole spese",
@@ -28,7 +154,7 @@
       "title": "Akragas-Sciacca 2-1: rimonta biancazzurra, ma in Coppa passa lo Sciacca",
       "summary": "L’Akragas vince il ritorno di Coppa Italia, ma non basta per ribaltare il 3-1 dell’andata.",
       "date": "2026-09-06T18:52:23Z",
-      "link": "https://www.grandangoloagrigento.it/primo-piano/akragas-sciacca-2-1-rimonta-biancazzurra-ma-in-coppa-passa-lo-sciacca",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/akragas-sciacca-2-1-rimonta-biancazzurra-ma-in-coppa-passa-lo-sciacca",
       "img": "/feed-images/cd6b7d326ce3be28.jpg"
     },
     {
@@ -70,8 +196,15 @@
       "title": "Dramma alla cronoscalata Monte Erice, pilota sbanda e uccide due giovani spettatori",
       "summary": "Sono due spettatori di 18 e 20 anni le vittime del tragico impatto della Peugeot 308 Tcr numero 54, uscita stamane fuori pista durante la cronoscalata sul Monte Eric",
       "date": "2026-09-06T12:06:21Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/dramma-alla-cronoscalata-monte-erice-pilota-sbanda-e-uccide-ufficiale-di-gara-e-spettatore",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/dramma-alla-cronoscalata-monte-erice-pilota-sbanda-e-uccide-ufficiale-di-gara-e-spettatore",
       "img": "/feed-images/97981375d1489731.jpg"
+    },
+    {
+      "title": "Il concorso “truccato” e le tracce in anteprima ai candidati, scagionati politici e raccomandati: ecco perchè",
+      "summary": "La vicenda è legata ad un episodio del “sistema Cuffaro” e riguardava il concorso per la copertura di 15 posti di Oss. Ecco perché sono stati scagionati politici, imprenditori e dirigenti",
+      "date": "2026-09-06T11:35:56Z",
+      "link": "https://www.grandangoloagrigento.it/giudiziaria/il-concorso-truccato-e-le-tracce-in-anteprima-ai-candidati-scagionati-politici-e-raccomandati-ecco-perche",
+      "img": "/feed-images/6f3811c3fe370091.png"
     },
     {
       "title": "Il segretario PD Barbagallo: “Nei prossimi giorni il nostro candidato alla presidenza della Regione”",
@@ -79,139 +212,6 @@
       "date": "2026-09-06T10:51:52Z",
       "link": "https://www.grandangoloagrigento.it/politica/il-segretario-pd-barbagallo-nei-prossimi-giorni-il-nostro-candidato-alla-presidenza-della-regione",
       "img": "/feed-images/f2f9caa1c38a3263.jpg"
-    },
-    {
-      "title": "Maxi rissa in un locale con spari a salve, 9 indagati",
-      "summary": "L’arma in questione, prontamente sequestrata, si è rivelata essere una pistola a salve sprovvista del tappo rosso obbligatorio, ed è stata rinvenuta dai Carabinieri a breve distanza dal luogo dei…",
-      "date": "2026-09-06T10:49:36Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/maxi-rissa-in-un-locale-con-spari-a-salve-9-indagati",
-      "img": "/feed-images/1d2d3c6608ecc1a6.jpg"
-    },
-    {
-      "title": "Diga Castello, Catanzaro (PD): “Raddoppio dell’adduttore non più rinviabile”",
-      "summary": "A sostenere con convinzione l’appello dell’associazione Liberi Agricoltori è Michele Catanzaro, presidente del gruppo parlamentare del Partito Democratico",
-      "date": "2026-09-06T10:44:14Z",
-      "link": "https://www.grandangoloagrigento.it/politica/diga-castello-catanzaro-pd-raddoppio-delladduttore-non-piu-rinviabile",
-      "img": "/feed-images/c7d1f464a4464cc7.png"
-    },
-    {
-      "title": "Il concorso “truccato” e le tracce in anteprima ai candidati, scagionati politici e raccomandati: ecco perchè",
-      "summary": "La vicenda è legata ad un episodio del “sistema Cuffaro” e riguardava il concorso per la copertura di 15 posti di Oss. Ecco perché sono stati scagionati politici, imprenditori e dirigenti",
-      "date": "2026-09-06T09:35:56Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-concorso-truccato-e-le-tracce-in-anteprima-ai-candidati-scagionati-politici-e-raccomandati-ecco-perche",
-      "img": "/feed-images/6f3811c3fe370091.png"
-    },
-    {
-      "title": "Tragedia sul lavoro, 67enne muore incastrato in una vendemmiatrice",
-      "summary": "La vittima è rimasta incastrata in una mietitrice, il ferito è stato trasportato in elisoccorso all’ospedale Civico in gravi condizioni con diversi traumi",
-      "date": "2026-09-06T09:02:42Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/tragedia-sul-lavoro-uomo-muore-incastrato-nella-mietitrice",
-      "img": "/feed-images/3805606609b1288d.jpg"
-    },
-    {
-      "title": "Aggredisce e rompe il naso alla compagna, arrestato",
-      "summary": "La vittima è stata trasportata in ospedale",
-      "date": "2026-09-06T08:43:24Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/aggredisce-e-rompe-il-naso-alla-compagna-arrestato",
-      "img": ""
-    },
-    {
-      "title": "In casa con la droga pronta per essere venduta: arrestato 24enne",
-      "summary": "Aveva allestito in casa un vero delivery della droga",
-      "date": "2026-09-06T08:28:14Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-casa-con-la-droga-pronta-per-essere-venduta-arrestato-24enne",
-      "img": "/feed-images/7d0e5f561ebb085c.jpg"
-    },
-    {
-      "title": "Fuoco nella notte a Lampedusa, in fiamme sterpaglie e un motorino",
-      "summary": "I vigili del fuoco hanno domani le fiamme e messo in sicurezza anche due bombole del gas",
-      "date": "2026-09-06T07:56:48Z",
-      "link": "https://www.grandangoloagrigento.it/porto-empedocle/fuoco-nella-notte-a-lampedusa-in-fiamme-sterpaglie-e-un-motorino",
-      "img": "/feed-images/0ba63b850fa6c829.jpg"
-    },
-    {
-      "title": "Sorpresi con un carico di mango appena rubato: due denunciati",
-      "summary": "I Carabinieri hanno provveduto alla restituzione al legittimo proprietario.",
-      "date": "2026-09-06T07:33:22Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sorpresi-con-un-carico-di-mango-appena-rubato-due-denunciati",
-      "img": "/feed-images/8b34a11b6a47e836.jpg"
-    },
-    {
-      "title": "Vede i poliziotti e lancia una pistola mentre sfreccia con la moto: arrestato 16enne",
-      "summary": "Il giovane per detenzione e porto abusivo di arma, denunciandolo all’Autorità Giudiziaria per fuga pericolosa",
-      "date": "2026-09-06T07:29:15Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/vede-i-poliziotti-e-lancia-una-pistola-mentre-sfreccia-con-la-moto-arrestato-16enne",
-      "img": "/feed-images/594e054e091dfb55.jpg"
-    },
-    {
-      "title": "Usura, i beni della famiglia Marturana di Canicattì passano allo Stato",
-      "summary": "Le vittime della famiglia di usurai erano semplici cittadini, piccoli imprenditori e grandi imprese assicurative, che per pagare i debiti e gli interessi non soltanto consegnavano denaro contante e…",
-      "date": "2026-09-06T05:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/usura-i-beni-della-famiglia-marturana-di-canicatti-passano-allo-stato",
-      "img": "/feed-images/aa86453a02b15557.jpg"
-    },
-    {
-      "title": "Fortitudo, buon test sul campo di Capo d’Orlando",
-      "summary": "Coach Devis Cagnardi può adesso contare sul gruppo al completo grazie all’arrivo di Bryce Douvier, che si è unito ai compagni in questa fase di preparazione",
-      "date": "2026-09-06T04:59:56Z",
-      "link": "https://www.grandangoloagrigento.it/sport/fortitudo-buon-test-sul-campo-di-capo-dorlando",
-      "img": "/feed-images/a9e2135b8722b537.jpg"
-    },
-    {
-      "title": "Risse e ritrovo di pregiudicati, chiuso per otto giorni un locale a Raffadali",
-      "summary": "In particolare, si sarebbero verificate diverse risse e il locale sarebbe stato inoltre frequentato da soggetti pregiudicati",
-      "date": "2026-09-06T04:59:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/risse-e-ritrovo-di-pregiudicati-chiuso-per-otto-giorni-un-locale-a-raffadali",
-      "img": "/feed-images/6d998156ed950b2d.jpg"
-    },
-    {
-      "title": "Incidente stradale a Villaseta, giovane motociclista ferito dopo lo scontro con due auto",
-      "summary": "Sono in corso gli accertamenti per chiarire l’esatta dinamica dell’incidente.",
-      "date": "2026-09-05T19:15:02Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/incidente-stradale-a-villaseta-giovane-motociclista-ferito-dopo-lo-scontro-con-due-auto",
-      "img": "/feed-images/13054df87ca5dc47.jpg"
-    },
-    {
-      "title": "Inner Wheel Club di Agrigento, le parole e la musica accendono il cuore a Casa Sanfilippo",
-      "summary": "L’evento “Il tempo della rinascita”si è svolto alla presenza delle massime autorità dei Club service locali",
-      "date": "2026-09-05T14:59:03Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/inner-wheel-club-di-agrigento-le-parole-e-la-musica-accendono-il-cuore-a-casa-sanfilippo",
-      "img": "/feed-images/06d37727575ba398.jpg"
-    },
-    {
-      "title": "Sambuca di Sicilia, Lions e Croce Rossa insieme per incontro dedicato alla prevenzione",
-      "summary": "Cittadini, genitori e insegnanti a lezione di primo soccorso e disostruzione delle vie aeree con gli esperti del territorio.",
-      "date": "2026-09-05T14:56:11Z",
-      "link": "https://www.grandangoloagrigento.it/sambuca-di-sicilia/sambuca-di-sicilia-lions-e-croce-rossa-insieme-per-incontro-dedicato-alla-prevenzione",
-      "img": "/feed-images/9bfc013273b7d7fb.jpg"
-    },
-    {
-      "title": "Controcorrente prepara il dopo Schifani, La Vardera: “Pronti a portare il modello Agrigento alla Regione”",
-      "summary": "Dal movimento arriva una voce comune: pronti alle primarie. Onorato: “La Vardera presidente è gesto di generosità”",
-      "date": "2026-09-05T14:20:25Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/controcorrente-prepara-il-dopo-schifani-la-vardera-pronti-a-portare-il-modello-agrigento-alla-regione",
-      "img": "/feed-images/32b12bc0bd7afa23.jpg"
-    },
-    {
-      "title": "Scontro tra camion e auto sulla S115: tre giovani in codice rosso",
-      "summary": "Particolare apprensione per le condizioni del conducente dell’automobile, un giovane di 26 anni, che avrebbe riportato un politrauma.",
-      "date": "2026-09-05T14:19:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-tra-camion-e-auto-sulla-s115-tre-giovani-in-codice-rosso",
-      "img": "/feed-images/4f83741f518aba2c.jpg"
-    },
-    {
-      "title": "Incendio alla banchina di Marianello, carbonizzati tre box dei pescatori",
-      "summary": "Tra le ipotesi al vaglio vi è quella di un rogo di natura dolosa, considerata al momento una possibilità concreta",
-      "date": "2026-09-05T14:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/incendio-alla-banchina-di-marianello-carbonizzati-tre-box-dei-pescatori",
-      "img": "/feed-images/aa290aa3978a0e0a.png"
-    },
-    {
-      "title": "Caso Crosta, La Vardera: “Vogliamo chiarezza sulla vicenda”",
-      "summary": "Il leader di Controcorrente, durante gli stati generali del partito, è intervenuto sulla vicenda ribadendo comunque la fiducia nel vicesindaco",
-      "date": "2026-09-05T13:52:29Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/caso-crosta-la-vardera-vogliamo-chiarezza-sulla-vicenda",
-      "img": "/feed-images/45bb9e4fbe9691b9.jpg"
     }
   ]
 }
