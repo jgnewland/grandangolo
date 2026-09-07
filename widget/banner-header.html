@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banner Grandangolo</title>
+<style>
+  html, body { margin:0; padding:0; background:transparent; }
+  a   { display:block; text-decoration:none; }
+  img { display:block; width:100%; height:auto; border-radius:8px; }
+</style>
+</head>
+<body>
+  <!-- target="_top" apre il sito nella finestra intera, non dentro l'iframe -->
+  <a href="https://www.grandangoloagrigento.it" target="_top" rel="noopener">
+    <img id="gg-banner"
+         src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/09/ChatGPT-Image-7-set-2026-16_38_39.png"
+         alt="Grandangolo Agrigento">
+  </a>
+
+  <script>
+    function sendHeight() {
+      var h = document.body.scrollHeight;
+      parent.postMessage({ ggBannerHeight: h }, "*");
+    }
+    window.addEventListener("load", sendHeight);
+    window.addEventListener("resize", sendHeight);
+    // ricalcola quando l'immagine ha finito di caricare
+    document.getElementById("gg-banner").addEventListener("load", sendHeight);
+  </script>
+</body>
+</html>
