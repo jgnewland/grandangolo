@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-08T17:54:42.324342+00:00",
+  "updated": "2026-09-08T20:39:28.424453+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Frana di Niscemi, nuovo sopralluogo di Ciciliano e vertice operativo",
+      "summary": "Il vertice dopo che una nuova frattura si è aperta nella zona rossa in via Ustica",
+      "date": "2026-09-08T18:57:01Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/frana-di-niscemi-nuovo-sopralluogo-di-ciciliano-e-vertice-operativo",
+      "img": "/feed-images/cd2dce7974448887.jpg"
+    },
     {
       "title": "Controcorrente, Crosta è ancora dentro: saranno gli organismi del partito a deciderne il futuro",
       "summary": "Nonostante le dichiarazioni social di La Vardera, l’avvocato è ancora dentro il movimento con cui è tesserato",
@@ -23,6 +30,13 @@
       "date": "2026-09-08T16:49:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/il-tentato-omicidio-di-un-19enne-a-canicatti-disposta-perizia-balistica",
       "img": ""
+    },
+    {
+      "title": "Scontro tra due auto lungo la Ss115, feriti i conducenti",
+      "summary": "Il sinistro si è verificato all’altezza del bivio per i lidi di Porto Empedocle",
+      "date": "2026-09-08T16:47:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/scontro-tra-due-auto-lungo-la-ss115-feriti-i-conducenti",
+      "img": "/feed-images/14991eda2ae87dc9.jpg"
     },
     {
       "title": "A Racalmuto la diciassettesima edizione del Premio Nazionale Solidarietà, Mons. Cataldo Naro",
@@ -198,20 +212,6 @@
       "date": "2026-09-08T08:19:40Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/atti-persecutori-lesioni-e-maltrattamenti-un-arresto-e-due-provvedimenti-restrittivi",
       "img": "/feed-images/c8cb8d0c0fa1839e.jpg"
-    },
-    {
-      "title": "Molesta e pedina ex compagna, misura cautelare per 48enne",
-      "summary": "La chiamava costantemente a telefono arrivando anche a stazionare sotto la sua abitazione e a pedinarla",
-      "date": "2026-09-08T08:09:28Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/molesta-e-pedina-ex-compagna-misura-cautelare-per-48enne",
-      "img": "/feed-images/81c14198a2a1db31.jpg"
-    },
-    {
-      "title": "Demolisce copertura in amianto senza autorizzazione, denunciato 68enne",
-      "summary": "La sostanza tossica va rimossa da imprese specializzare con rigidi protocolli di smaltimento",
-      "date": "2026-09-08T08:08:04Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/demolisce-copertura-in-amianto-senza-autorizzazione-denunciato-68enne",
-      "img": "/feed-images/8ee9089fe4db9ab7.jpg"
     }
   ]
 }
