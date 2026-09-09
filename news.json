@@ -1,14 +1,63 @@
 {
-  "updated": "2026-09-09T15:06:23.554168+00:00",
+  "updated": "2026-09-09T18:35:03.375529+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Lampedusa, sequestrata area di rifiuti accanto all’hotspot di contrada Imbriacola",
+      "summary": "Il sequestro arriva dopo un esposto presentato dal consigliere comunale Totò Martello",
+      "date": "2026-09-09T17:13:20Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lampedusa-sequestrata-area-di-rifiuti-accanto-allhotspot-di-contrada-imbriacola",
+      "img": "/feed-images/a9529fb8029d3022.jpg"
+    },
+    {
+      "title": "Crisi idrica a Maddalusa e caso Crosta, De Luca: “andrò ad Agrigento per dare dei consigli a Sodano”",
+      "summary": "Il leader di Sud chiama Nord annuncia la visita ad Agrigento per incontrare il sindaco Sodano",
+      "date": "2026-09-09T16:54:16Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crisi-idrica-a-maddalusa-e-caso-crosta-de-luca-andro-ad-agrigento-per-dare-dei-consigli-a-sodano",
+      "img": "/feed-images/f1bd339197bba4a2.jpg"
+    },
+    {
+      "title": "Dieci anni di radioterapia, il primario Michele Bono: “Un percorso che parla di sanità e umanità”",
+      "summary": "Decennale che arriva in un momento particolarmente significativo per il reparto, anche in vista della prossima installazione di un secondo acceleratore lineare",
+      "date": "2026-09-09T16:37:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/dieci-anni-di-radioterapia-il-primario-michele-bono-un-percorso-che-parla-di-sanita-e-umanita",
+      "img": "/feed-images/0f9d52da4ae7ef61.jpg"
+    },
+    {
+      "title": "Stroncato da un infarto durante immersione: muore 62enne",
+      "summary": "La vittima Marco De Falco, 62 anni, docente di scienze motorie al liceo Santa Rosa da Viterbo, istruttore ed esperto subacqueo",
+      "date": "2026-09-09T16:26:47Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/stroncato-da-un-infarto-durante-immersione-muore-62enne",
+      "img": "/feed-images/fdf63136646047ea.jpg"
+    },
+    {
+      "title": "Schiacciato da trattore muore dopo giorni di agonia",
+      "summary": "Per tentare di salvargli la vita gli era stata anche amputata una gamba.",
+      "date": "2026-09-09T16:20:55Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/schiacciato-da-trattore-muore-dopo-giorni-di-agonia",
+      "img": "/feed-images/200ad7eb74204fc8.webp"
+    },
+    {
+      "title": "Agrigento Bassa, il consigliere Fattori “da oltre un mese e mezzo non si raccolgono i rifiuti”",
+      "summary": "Il consigliere raccoglie la denuncia di operatori e residenti",
+      "date": "2026-09-09T16:11:06Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-bassa-il-consigliere-fattori-da-oltre-un-mese-e-mezzo-non-si-raccolgono-i-rifiuti",
+      "img": "/feed-images/adcd7a929b144829.png"
+    },
     {
       "title": "Al via in nuovo anno scolastico, il messaggio del Direttore generale USR Sicilia Filippo Serra agli studenti",
       "summary": "Nel messaggio trova spazio anche il ruolo delle famiglie",
       "date": "2026-09-09T14:35:16Z",
       "link": "https://www.grandangoloagrigento.it/sicilia/al-via-in-nuovo-anno-scolastico-il-messaggio-del-direttore-generale-usr-sicilia-filippo-serra-agli-studenti",
       "img": "/feed-images/92183fcb9784da0e.jpg"
+    },
+    {
+      "title": "Tamponamento tra due camion, un morto e un ferito",
+      "summary": "Nell’impatto è stato travolto il conducente del primo mezzo, che si trovava fuori dall’abitacolo",
+      "date": "2026-09-09T13:15:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/tamponamento-tra-due-camion-un-morto-e-un-ferito",
+      "img": "/feed-images/2ced4684de973ed5.jpg"
     },
     {
       "title": "Agrigento, al via i ripristini definitivi delle strade interessate dai lavori sulla rete idrica",
@@ -49,7 +98,7 @@
       "title": "Carabinieri, ad Agrigento si insedia il colonnello Palmieri: “Sicurezza e legalità al centro della sfida”",
       "summary": "Idee chiare e precise quelle del neo comandante provinciale dei Carabinieri pronto ad affrontare questa nuova sfida",
       "date": "2026-09-09T11:17:31Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/carabinieri-ad-agrigento-si-insedia-il-colonnello-palmieri-sicurezza-e-legalita-al-centro-della-sfida",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/carabinieri-ad-agrigento-si-insedia-il-colonnello-palmieri-sicurezza-e-legalita-al-centro-della-sfida",
       "img": "/feed-images/afff4e6f4718aa75.jpg"
     },
     {
@@ -144,11 +193,11 @@
       "img": "/feed-images/215e9aa9405b7c54.jpg"
     },
     {
-      "title": "Incidente sulla statale 115 a Licata: auto fuori strada, un ferito",
+      "title": "Incidente sulla statale 115 a Licata: furgoncino fuori strada, un ferito",
       "summary": "L’incidente sta causando rallentamenti alla circolazione lungo la statale 115. Il traffico dovrebbe tornare regolare dopo il completamento delle operazioni di rimozione del veicolo incidentato.",
       "date": "2026-09-09T07:44:22Z",
       "link": "https://www.grandangoloagrigento.it/notizie-licata/incidente-sulla-statale-115-a-licata-auto-fuori-strada-un-ferito",
-      "img": "/feed-images/fb6d4192efc21aa0.jpg"
+      "img": "/feed-images/6600ce04d54aaf9c.jpg"
     },
     {
       "title": "Dramma in cantina, 31enne scende per una perdita d’acqua e muore folgorato",
@@ -163,55 +212,6 @@
       "date": "2026-09-09T07:13:20Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/crolla-balcone-di-una-palazzina-morta-la-proprietaria-dellabitazione",
       "img": "/feed-images/f44c57a9c678c555.jpg"
-    },
-    {
-      "title": "Irregolarità in un cantiere ad Agrigento, 4 mila euro di multa alla ditta",
-      "summary": "Quattromila euro di multa ad una ditta agrigentina che si sta occupando di alcuni lavori nel quartiere di Fontanelle per conto di un Ente pubblico",
-      "date": "2026-09-09T07:01:33Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/irregolarita-in-un-cantiere-ad-agrigento-4-mila-euro-di-multa-alla-ditta",
-      "img": "/feed-images/81792192939ada86.jpg"
-    },
-    {
-      "title": "Via Graceffo, Aica:”Approfondimenti per individuare una soluzione”",
-      "summary": "Alla luce del quadro emerso, il tratto della nuova condotta destinato a servire via Graceffo non può, allo stato, essere realizzato secondo il percorso originariamente previsto",
-      "date": "2026-09-09T05:34:37Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/via-graceffo-aicaapprofondimenti-per-individuare-una-soluzione",
-      "img": "/feed-images/248a1ab2e13a45a7.png"
-    },
-    {
-      "title": "Scontro tra auto al bivio per i lidi di Porto Empedocle, due feriti",
-      "summary": "Il sinistro si è verificato all’altezza del bivio per i lidi di Porto Empedocle",
-      "date": "2026-09-08T20:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-tra-due-auto-lungo-la-ss115-feriti-i-conducenti",
-      "img": "/feed-images/14991eda2ae87dc9.jpg"
-    },
-    {
-      "title": "Frana di Niscemi, nuovo sopralluogo di Ciciliano e vertice operativo",
-      "summary": "Il vertice dopo che una nuova frattura si è aperta nella zona rossa in via Ustica",
-      "date": "2026-09-08T18:57:01Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/frana-di-niscemi-nuovo-sopralluogo-di-ciciliano-e-vertice-operativo",
-      "img": "/feed-images/cd2dce7974448887.jpg"
-    },
-    {
-      "title": "Controcorrente, Crosta è ancora dentro: saranno gli organismi del partito a deciderne il futuro",
-      "summary": "Nonostante le dichiarazioni social di La Vardera, l’avvocato è ancora dentro il movimento con cui è tesserato",
-      "date": "2026-09-08T17:39:41Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/controcorrente-crosta-ancora-dentro-il-partito-saranno-gli-organismi-a-deciderne-il-futuro",
-      "img": "/feed-images/a7f6a47ebe730ecd.jpg"
-    },
-    {
-      "title": "Ladri al porticciolo di San Leone, rubati due gommoni",
-      "summary": "I balordi hanno agito sabato notte e, secondo una prima ricostruzione, sarebbero fuggiti “via mare” trainando i natanti",
-      "date": "2026-09-08T16:50:16Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/ladri-al-porticciolo-di-san-leone-rubati-due-gommoni",
-      "img": "/feed-images/07dd9fc82f6a5795.png"
-    },
-    {
-      "title": "Il tentato omicidio di un 19enne a Canicattì, disposta perizia balistica",
-      "summary": "La vicenda risale allo scorso 20 aprile quando quattro ragazzini, appena maggiorenni, si presentano sotto casa di un coetaneo con una pistola calibro 22",
-      "date": "2026-09-08T16:49:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/il-tentato-omicidio-di-un-19enne-a-canicatti-disposta-perizia-balistica",
-      "img": ""
     }
   ]
 }
