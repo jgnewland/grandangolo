@@ -1,8 +1,29 @@
 {
-  "updated": "2026-09-09T01:07:58.014546+00:00",
+  "updated": "2026-09-09T05:58:18.273635+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Panico a San Leone: turista aggredisce dipendente hotel, molesta residenti e si scaglia contro carabinieri",
+      "summary": "Protagonista un trentenne turista siciliano che si trovava in una struttura ricettiva per trascorrere un periodo di vacanza con la fidanzata",
+      "date": "2026-09-09T05:48:58Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/panico-a-san-leone-turista-aggredisce-dipendente-hotel-molesta-residenti-e-si-scaglia-contro-carabinieri",
+      "img": "/feed-images/215e9aa9405b7c54.jpg"
+    },
+    {
+      "title": "Via Graceffo, Aica:”Approfondimenti per individuare una soluzione”",
+      "summary": "Alla luce del quadro emerso, il tratto della nuova condotta destinato a servire via Graceffo non può, allo stato, essere realizzato secondo il percorso originariamente previsto",
+      "date": "2026-09-09T05:34:37Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/via-graceffo-aicaapprofondimenti-per-individuare-una-soluzione",
+      "img": "/feed-images/248a1ab2e13a45a7.png"
+    },
+    {
+      "title": "Scontro tra auto al bivio per i lidi di Porto Empedocle, due feriti",
+      "summary": "Il sinistro si è verificato all’altezza del bivio per i lidi di Porto Empedocle",
+      "date": "2026-09-08T20:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/scontro-tra-due-auto-lungo-la-ss115-feriti-i-conducenti",
+      "img": "/feed-images/14991eda2ae87dc9.jpg"
+    },
     {
       "title": "Frana di Niscemi, nuovo sopralluogo di Ciciliano e vertice operativo",
       "summary": "Il vertice dopo che una nuova frattura si è aperta nella zona rossa in via Ustica",
@@ -28,15 +49,8 @@
       "title": "Il tentato omicidio di un 19enne a Canicattì, disposta perizia balistica",
       "summary": "La vicenda risale allo scorso 20 aprile quando quattro ragazzini, appena maggiorenni, si presentano sotto casa di un coetaneo con una pistola calibro 22",
       "date": "2026-09-08T16:49:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-tentato-omicidio-di-un-19enne-a-canicatti-disposta-perizia-balistica",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/il-tentato-omicidio-di-un-19enne-a-canicatti-disposta-perizia-balistica",
       "img": ""
-    },
-    {
-      "title": "Scontro tra due auto lungo la Ss115, feriti i conducenti",
-      "summary": "Il sinistro si è verificato all’altezza del bivio per i lidi di Porto Empedocle",
-      "date": "2026-09-08T16:47:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/scontro-tra-due-auto-lungo-la-ss115-feriti-i-conducenti",
-      "img": "/feed-images/14991eda2ae87dc9.jpg"
     },
     {
       "title": "A Racalmuto la diciassettesima edizione del Premio Nazionale Solidarietà, Mons. Cataldo Naro",
@@ -133,7 +147,7 @@
       "title": "Da Catania a Licata con 300 grammi di cocaina in auto: arrestati due giovani",
       "summary": "Un involucro contenente oltre 300 grammi lordi di sostanza stupefacente, nascosto nel vano motore dell’automobile",
       "date": "2026-09-08T10:06:21Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/da-catania-a-licata-con-300-grammi-di-cocaina-in-auto-arrestati-due-giovani",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/da-catania-a-licata-con-300-grammi-di-cocaina-in-auto-arrestati-due-giovani",
       "img": "/feed-images/a03b577b27a16cef.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-09-08T08:27:48Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/licata-nasconde-pistola-clandestina-sotto-il-materasso-arrestato-38enne",
       "img": "/feed-images/d6aa9f0d84258f12.jpg"
-    },
-    {
-      "title": "Escursionista colto da malore sull’isola di Levanzo, in salvo grazie ad elicottero aeronautica",
-      "summary": "L’uomo è stato rapidamente messo in sicurezza e recuperato a bordo del velivolo",
-      "date": "2026-09-08T08:22:25Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/escursionista-colto-da-malore-sullisola-di-levanzo-in-salvo-grazie-ad-elicottero-aeronautica",
-      "img": "/feed-images/c80c3287af862b23.jpg"
-    },
-    {
-      "title": "Atti persecutori, lesioni e maltrattamenti: un arresto e due provvedimenti restrittivi",
-      "summary": "Un 50enne è stato arrestato per aver violato il divieto di avvicinamento alla persona offesa",
-      "date": "2026-09-08T08:19:40Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/atti-persecutori-lesioni-e-maltrattamenti-un-arresto-e-due-provvedimenti-restrittivi",
-      "img": "/feed-images/c8cb8d0c0fa1839e.jpg"
     }
   ]
 }
