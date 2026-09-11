@@ -1,10 +1,24 @@
 {
-  "updated": "2026-09-11T14:25:09.074356+00:00",
+  "updated": "2026-09-11T17:48:51.110589+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
-      "title": "Porto Empedocle, il capitano Peluso: “a servizio del Paese e della comunità con grande energia”",
+      "title": "Morto in ospedale per una infezione, chiesta condanna dell’ex direttore sanitario",
+      "summary": "Una tac al torace svelò nei giorni successivi una infezione. Il 22 ottobre l’anziano morì al San Giovanni di Dio",
+      "date": "2026-09-11T17:06:51Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/morto-in-ospedale-per-una-infezione-chiesta-condanna-dellex-direttore-sanitario",
+      "img": "/feed-images/cb60da64201a5f3e.jpg"
+    },
+    {
+      "title": "Dalla Regione fondo 5 mln per riequilibrio finanziario dei Comuni",
+      "summary": "Lo rende noto l’assessore alla Funzione Pubblica Elisa Ingala",
+      "date": "2026-09-11T14:49:19Z",
+      "link": "https://www.grandangoloagrigento.it/politica/dalla-regione-fondo-5-mln-per-riequilibrio-finanziario-dei-comuni",
+      "img": "/feed-images/41b66cf589fa0870.jpg"
+    },
+    {
+      "title": "Porto Empedocle, il capitano Peluso: “Al servizio del Paese e della comunità con grande energia”",
       "summary": "Il neo comandante subentra al capitano di fregata, Agazio Tedesco.",
       "date": "2026-09-11T14:03:24Z",
       "link": "https://www.grandangoloagrigento.it/porto-empedocle/porto-empedocle-il-capitano-peluso-a-servizio-del-paese-e-della-comunita-con-grande-energia",
@@ -198,20 +212,6 @@
       "date": "2026-09-11T05:00:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/maltrattamenti-alla-moglie-40enne-disoccupato-ai-domiciliari",
       "img": "/feed-images/d57453aea95769b0.jpg"
-    },
-    {
-      "title": "La Stidda e la catena di supermercati di Licata: “Quando li toccò mi mandarono a chiamare i Pace di Palma..”",
-      "summary": "Il pentito Cavallo svela l’intervento del gruppo stiddaro dei Pace quando un affiliato di Gela fece “pressioni” su degli imprenditori di Licata",
-      "date": "2026-09-10T17:26:12Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/la-stidda-e-la-catena-di-supermercati-di-licata-quando-li-tocco-mi-mandarono-a-chiamare-i-pace-di-palma",
-      "img": "/feed-images/aa757ffbc1980ad7.jpg"
-    },
-    {
-      "title": "A Sciacca il commissario Costas Kadis, Falcone: “sul tavolo cinque priorità per la pesca siciliana”",
-      "summary": "Il commissario europeo ha incontrato oggi le autorità cittadine e la marineria, alla presenza di parlamentari regionali ed europei",
-      "date": "2026-09-10T16:31:31Z",
-      "link": "https://www.grandangoloagrigento.it/politica/a-sciacca-il-commissario-costas-kadis-falcone-sul-tavolo-cinque-priorita-per-la-pesca-siciliana",
-      "img": "/feed-images/559f0cfc5cc5ad4d.jpg"
     }
   ]
 }
