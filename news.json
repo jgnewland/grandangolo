@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-11T17:48:51.110589+00:00",
+  "updated": "2026-09-11T20:23:27.403425+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Capitale Cultura, la Fondazione non c’è più: votato lo scioglimento",
+      "summary": "Il punto attendeva di essere approvato da aprile: in cassa rimane mezzo milione di euro che servirà per finanziare eventi",
+      "date": "2026-09-11T19:02:30Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/capitale-cultura-la-fondazione-non-ce-piu-votato-lo-scioglimento",
+      "img": "/feed-images/b72ea885eae6fe30.webp"
+    },
     {
       "title": "Morto in ospedale per una infezione, chiesta condanna dell’ex direttore sanitario",
       "summary": "Una tac al torace svelò nei giorni successivi una infezione. Il 22 ottobre l’anziano morì al San Giovanni di Dio",
@@ -205,13 +212,6 @@
       "date": "2026-09-11T05:00:00Z",
       "link": "https://www.grandangoloagrigento.it/aragona/raid-ad-aragona-danneggiati-locali-dei-servizi-sociali-e-dellex-guardia-medica",
       "img": "/feed-images/7c7bf98a04bd5aa9.jpg"
-    },
-    {
-      "title": "Maltrattamenti alla moglie, 40enne disoccupato ai domiciliari",
-      "summary": "La vicenda scaturisce dalla denuncia della donna, una 35enne libera professionista stanca ormai di subire continui soprusi ed essere sottoposta a vessazioni",
-      "date": "2026-09-11T05:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maltrattamenti-alla-moglie-40enne-disoccupato-ai-domiciliari",
-      "img": "/feed-images/d57453aea95769b0.jpg"
     }
   ]
 }
