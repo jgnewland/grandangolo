@@ -1,8 +1,106 @@
 {
-  "updated": "2026-09-11T10:00:50.911081+00:00",
+  "updated": "2026-09-11T14:25:09.074356+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Porto Empedocle, il capitano Peluso: “a servizio del Paese e della comunità con grande energia”",
+      "summary": "Il neo comandante subentra al capitano di fregata, Agazio Tedesco.",
+      "date": "2026-09-11T14:03:24Z",
+      "link": "https://www.grandangoloagrigento.it/porto-empedocle/porto-empedocle-il-capitano-peluso-a-servizio-del-paese-e-della-comunita-con-grande-energia",
+      "img": "/feed-images/84fcb596f20fabb7.jpg"
+    },
+    {
+      "title": "Travolti e uccisi da auto durante cronoscalata, lunedì i funerali di Karol e Giuseppe",
+      "summary": "Karol Greco e Giuseppe Bisconti, i due giovani morti investiti da un’auto durante la cronoscalata a Monte Erice domenica scorsa",
+      "date": "2026-09-11T13:57:30Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/travolti-e-uccisi-da-auto-durante-cronoscalata-lunedi-i-funerali-di-karol-e-giuseppe",
+      "img": "/feed-images/bb994b2c914d17ce.jpg"
+    },
+    {
+      "title": "Morta suicida la figlia di Lea Garofalo, Cutrò: “Lasciare solo un figlio fa capire il nostro dolore”",
+      "summary": "Lo dice all’Adnkronos Ignazio Cutrò, imprenditore siciliano, della provincia di Agrigento, presidente dell’Associazione nazionale Testimoni di Giustizia, a proposito del suicidio a 35 anni di Denise…",
+      "date": "2026-09-11T13:55:47Z",
+      "link": "https://www.grandangoloagrigento.it/mafia/morta-suicida-la-figlia-di-lea-garofalo-cutro-lasciare-solo-un-figlio-fa-capire-il-nostro-dolore",
+      "img": "/feed-images/a6094f22b4071bbf.png"
+    },
+    {
+      "title": "Il sindaco Sodano dopo le dimissioni di Crosta: “Sei la prima vittima di un sistema che sta reagendo”",
+      "summary": "Il sindaco Sodano commenta così le dimissioni del suo vice, l’avvocato Giovanni Crosta, travolto dalle polemiche per la casa abusiva",
+      "date": "2026-09-11T13:52:25Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/il-sindaco-sodano-dopo-le-dimissioni-di-crosta-sei-la-prima-vittima-di-un-sistema-che-sta-reagendo",
+      "img": "/feed-images/1b013dcb3e19e902.jpg"
+    },
+    {
+      "title": "Gli negano il trasferimento da Belluno ad Agrigento per seguire il figlio, poliziotto vince ricorso",
+      "summary": "I giudici del Tar Veneto hanno accolto il ricorso di un poliziotto agrigentino in servizio alla questura di Belluno che aveva chiesto il trasferimento per potere assistere il figlio che ha meno di…",
+      "date": "2026-09-11T13:08:03Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/gli-negano-il-trasferimento-da-belluno-ad-agrigento-per-seguire-il-figlio-poliziotto-vince-ricorso",
+      "img": ""
+    },
+    {
+      "title": "Tangenti alla Regione, chieste condanne per il figlio del boss di Favara e altri quattro",
+      "summary": "L’inchiesta è quella che ha coinvolto il figlio dello storico capomafia di Favara, Carmelo Vetro. Tra gli imputati anche un dirigente regionale, un funzionario e altri due imprenditori favaresi",
+      "date": "2026-09-11T12:31:30Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/tangenti-alla-regione-chieste-condanne-per-il-figlio-del-boss-di-favara-e-altri-cinque",
+      "img": "/feed-images/0835b79f4dcbd97b.jpg"
+    },
+    {
+      "title": "Capitaneria di Porto Empedocle, il Capitano di Fregata Sergio Maria Peluso è il nuovo Comandante",
+      "summary": "Il neo comandante subentra al parigrado Agazio Tedesco trasferito a Reggio Calabria; oggi il passaggio di consegne alla presenza del Contrammiraglio Maltese",
+      "date": "2026-09-11T12:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/porto-empedocle-il-capitano-di-fregata-sergio-maria-peluso-e-il-nuovo-comandante-della-capitaneria",
+      "img": "/feed-images/dbf846901b8c8138.jpg"
+    },
+    {
+      "title": "In punta di piedi sul cornicione del ponte: giovane messo in salvo da un medico e dalla Polizia",
+      "summary": "Momenti di paura che fortunatamente non hanno portato a gravi conseguenze.",
+      "date": "2026-09-11T11:45:51Z",
+      "link": "https://www.grandangoloagrigento.it/caltanisetta/caltanissetta-in-punta-di-piedi-sul-cornicione-del-ponte-giovane-messo-in-salvo-da-un-medico-e-dalla-polizia",
+      "img": "/feed-images/e12d72eca0c5fa22.jpg"
+    },
+    {
+      "title": "E’ morta Emma Bonino, aveva 78 anni",
+      "summary": "Una lunga malattia, un tumore al polmone, che l’ha costretta a sottoporsi a chemioterapia, ma ha continuato a lavorare attivamente in politica",
+      "date": "2026-09-11T11:23:54Z",
+      "link": "https://www.grandangoloagrigento.it/top-news-italpress/e-morta-emma-bonino-aveva-78-anni",
+      "img": "/feed-images/4f5e41e05538c32b.jpg"
+    },
+    {
+      "title": "Agrigento, si è dimesso il vicesindaco Giovanni Crosta",
+      "summary": "Il vicesindaco, dopo le polemiche sulla casa abusiva, ha deciso di dimettersi dagli incarichi",
+      "date": "2026-09-11T11:12:59Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/agrigento-si-e-dimesso-il-vicesindaco-giovanni-crosta",
+      "img": "/feed-images/8caeec93a1c255e9.jpg"
+    },
+    {
+      "title": "Si presenta in commissariato a bordo di una Vespa rubata oltre 40 anni fa, denunciato",
+      "summary": "Si è presentato presso gli uffici della Polizia di Stato a bordo di uno scooter d’epoca rubato oltre 40 anni fa",
+      "date": "2026-09-11T10:21:10Z",
+      "link": "https://www.grandangoloagrigento.it/catania/si-presenta-in-commissariato-a-bordo-di-una-vespa-rubata-oltre-40-anni-fa-denunciato",
+      "img": "/feed-images/e9f879204e085355.jpg"
+    },
+    {
+      "title": "Ruba almeno 16 contatori di acqua, arrestato ladro seriale",
+      "summary": "Rubava misuratori dei consumi idrici presso private abitazioni, causando l’interruzione della fornitura idrici e quindi notevoli disagi",
+      "date": "2026-09-11T10:19:31Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/ruba-almeno-16-contatori-di-acqua-arrestato-ladro-seriale",
+      "img": "/feed-images/8c55f847b7119534.jpg"
+    },
+    {
+      "title": "Premio Città di Aragona, chi sono i cinque cittadini illustri della 4ª edizione",
+      "summary": "Il riconoscimento intende valorizzare personalità che,per il loro impegno professionale, scientifico, sociale e umano, hanno contribuito alla crescita della comunità",
+      "date": "2026-09-11T10:17:39Z",
+      "link": "https://www.grandangoloagrigento.it/aragona/premio-citta-di-aragona-chi-sono-i-cinque-cittadini-illustri-della-4a-edizione",
+      "img": "/feed-images/4e59d63ec34e3e53.jpg"
+    },
+    {
+      "title": "Ucciso a colpi di pistola mentre sedava una rissa, 28enne a processo per omicidio",
+      "summary": "Maranzano, che e’ reo confesso, ha dato una spiegazione confusa sulle motivazioni, sostenendo di avere “punito” la vittima per presunte avance social alla propria compagna. Una tesi su cui non c’e’…",
+      "date": "2026-09-11T10:14:15Z",
+      "link": "https://www.grandangoloagrigento.it/giudiziaria/ucciso-a-colpi-di-pistola-mentre-sedava-una-rissa-28enne-a-processo-per-omicidio",
+      "img": "/feed-images/d54831761b5262bf.jpg"
+    },
     {
       "title": "Aggredisce la nonna per i soldi della droga, arrestato 25enne",
       "summary": "Secondo quanto riferito dalla 75enne, il nipote sarebbe stato solito raggiungerla in casa non per visite di cortesia, ma per chiederle continuamente soldi in modo da procacciarsi le dosi",
@@ -15,7 +113,7 @@
       "summary": "Giulio Cinque andrà alla vicepresidenza, nei prossimi giorni si nomineranno direttore generale e direttore artistico",
       "date": "2026-09-11T08:42:23Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/fondazione-pirandello-osvaldo-lo-iacono-nominato-presidente",
-      "img": "/feed-images/5f5219b75c15628c.jpg"
+      "img": "/feed-images/ce5f143261d57ef1.jpg"
     },
     {
       "title": "Premio Zabook 2026 ad Alaa Faraj e Alessandra Sciurba per il libro “Perché ero ragazzo” (Sellerio)",
@@ -46,7 +144,7 @@
       "img": "/feed-images/97d78b76c5e2c6de.jpg"
     },
     {
-      "title": "Srade provinciali della zona centro-nord, aggiudicato appalto per lavori di manutenzione",
+      "title": "Strade provinciali della zona centro-nord, aggiudicato appalto per lavori di manutenzione",
       "summary": "Si tratta di lavori finanziati con fondi regionali destinati a Liberi Consorzi e Città metropolitane della Sicilia per interventi sulla viabilità secondaria",
       "date": "2026-09-11T06:59:28Z",
       "link": "https://www.grandangoloagrigento.it/cammarata/srade-provinciali-della-zona-centro-nord-aggiudicato-appalto-per-lavori-di-manutenzione",
@@ -84,7 +182,7 @@
       "title": "Tragico incidente con lo scooter, morto 17enne",
       "summary": "Il giovane – Emanuel Giorgio Ruta – era in sella ad uno scooter mentre dal lato opposto sopraggiungeva un’autovettura",
       "date": "2026-09-11T05:02:04Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/tragico-incidente-con-lo-scooter-morto-17enne",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/tragico-incidente-con-lo-scooter-morto-17enne",
       "img": "/feed-images/519265edff3490f3.jpg"
     },
     {
@@ -114,104 +212,6 @@
       "date": "2026-09-10T16:31:31Z",
       "link": "https://www.grandangoloagrigento.it/politica/a-sciacca-il-commissario-costas-kadis-falcone-sul-tavolo-cinque-priorita-per-la-pesca-siciliana",
       "img": "/feed-images/559f0cfc5cc5ad4d.jpg"
-    },
-    {
-      "title": "Resta incastrata tra gli scogli, donna messo in salvo dai Vigili del fuoco",
-      "summary": "La donna è stata prontamente soccorsa e dopo avere disincastrato l’arto è stata affidati ai sanitari",
-      "date": "2026-09-10T15:57:12Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/resta-incastrata-tra-gli-scogli-donna-messo-in-salvo-dai-vigili-del-fuoco",
-      "img": "/feed-images/2172d43032e0ccf5.png"
-    },
-    {
-      "title": "Quarto appuntamento al Circolo della Stampa con “La qualità dell’informazione sanitaria”",
-      "summary": "Il tema del quarto appuntamento del Circolo della stampa ha l’obiettivo di fornire ai professionisti dell’informazione, e non solo, gli strumenti critici, giuridici e deontologici per orientarsi in…",
-      "date": "2026-09-10T15:28:05Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/quarto-appuntamento-al-circolo-della-stampa-con-la-qualita-dellinformazione-sanitaria",
-      "img": "/feed-images/d499d441196241c6.jpg"
-    },
-    {
-      "title": "Caso Crosta, dalla Soprintendenza diniego alla sanatoria per la casa delle polemiche",
-      "summary": "Alle 15 La Vardera e Sodano si sono riuniti ad Agrigento per ragionare della vicenda che in questi giorni sta tenendo banco",
-      "date": "2026-09-10T15:27:55Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/caso-crosta-dalla-soprintendenza-diniego-alla-sanatoria-per-la-casa-delle-polemiche",
-      "img": "/feed-images/2ed89304e2dc935a.jpg"
-    },
-    {
-      "title": "Crollo palazzina a Messina, identificati i resti di Santino Magazzù. Resta ancora un disperso",
-      "summary": "L’identificazione è arrivata dagli accertamenti dei Ris dei Carabinieri di Messina",
-      "date": "2026-09-10T15:23:54Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/crollo-della-palazzina-a-messina-identificati-i-resti-di-santino-magazzu-resta-ancora-un-disperso",
-      "img": "/feed-images/fcdec46e8b85d19f.jpg"
-    },
-    {
-      "title": "Operai travolti da muro, Cgil e Uil: “Servono controlli”",
-      "summary": "Uno dei feriti, quello più grave, è stato trasferito in codice rosso al Pronto soccorso dell’ospedale Cannizzaro.",
-      "date": "2026-09-10T15:15:13Z",
-      "link": "https://www.grandangoloagrigento.it/catania/operai-travolti-da-muro-cgil-e-uil-servono-controlli",
-      "img": "/feed-images/3ae94ce2a1983ac0.jpg"
-    },
-    {
-      "title": "Diga Castello, La Rocca Ruvolo: emendamento per la progettazione del nuovo adduttore",
-      "summary": "Si tratta della condotta di collegamento destinata a distribuire l’acqua della diga nei territori del bacino del fiume Magazzolo, del Medio Verdura e del Basso Platani",
-      "date": "2026-09-10T14:55:45Z",
-      "link": "https://www.grandangoloagrigento.it/montevago/diga-castello-la-rocca-ruvolo-emendamento-per-la-progettazione-del-nuovo-adduttore",
-      "img": "/feed-images/c3430a6a838df656.jpg"
-    },
-    {
-      "title": "Galleria “Corleone”, verifiche Anas per attività di cantiere e interventi di consolidamento strutturale",
-      "summary": "Dal cantiere il confronto è proseguito presso gli uffici comunali di Corleone, dove sono state approfondite le lavorazioni da eseguire all’interno della galleria e le relative modalità operative",
-      "date": "2026-09-10T14:52:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/galleria-corleone-verifiche-anas-per-attivita-di-cantiere-e-interventi-di-consolidamento-strutturale",
-      "img": "/feed-images/9ae4680e6489f6e4.png"
-    },
-    {
-      "title": "Udc, Decio Terrana protagonista alla Festa Nazionale a Roma",
-      "summary": "L’onorevole Terrana sarà tra i relatori della Festa Nazionale dell’Unione di Centro, in programma sabato 12 e domenica 13 settembre a Roma",
-      "date": "2026-09-10T14:38:53Z",
-      "link": "https://www.grandangoloagrigento.it/politica/udc-decio-terrana-protagonista-alla-festa-nazionale-a-roma",
-      "img": "/feed-images/1e844edeea1ee2f1.jpg"
-    },
-    {
-      "title": "Scontro frontale tra auto: due i feriti in ospedale",
-      "summary": "Temporaneamente chiusa al traffico, in entrambe le direzioni, la strada statale 113 “Settentrionale Sicula” nel territorio comunale di Merì",
-      "date": "2026-09-10T14:36:06Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-frontale-tra-auto-due-i-feriti-in-ospedale",
-      "img": "/feed-images/63c2ae3a88fb755e.jpg"
-    },
-    {
-      "title": "Il pentito della Stidda svela le rotte della droga: “Siamo arrivati ad Aragona e a Palma abbiamo…”",
-      "summary": "Il pentito svela nomi, organigrammi e dinamiche della Stidda fino ad arrivare al cuore della provincia di Agrigento. Grandangolo pubblica un primo verbale del figlio del boss Cavallo",
-      "date": "2026-09-10T14:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/mafia/il-pentito-della-stidda-svela-le-rotte-della-droga-siamo-arrivati-ad-aragona-e-a-palma-abbiamo",
-      "img": "/feed-images/a60fd8459e2c876c.jpg"
-    },
-    {
-      "title": "Causano incidente e non prestano soccorso ai feriti: denunciati",
-      "summary": "Nel sinistro sono rimasti coinvolti cinque auto con numeri feriti tutti trasferiti in ospedale",
-      "date": "2026-09-10T12:04:21Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/causano-incidente-e-non-prestano-soccorso-ai-feriti-denunciati",
-      "img": "/feed-images/2b2e348bfb5f21d7.jpg"
-    },
-    {
-      "title": "Giovani travolti e uccisi durante gara rally, 5 indagati",
-      "summary": "Sull’incidente avvenuto il 6 settembre durante la cronoscalata Monte Erice, costato la vita a Giuseppe Bisconti e Karol Greco",
-      "date": "2026-09-10T11:49:49Z",
-      "link": "https://www.grandangoloagrigento.it/trapani/giovani-travolti-e-uccisi-durante-gara-rally-5-indagati",
-      "img": "/feed-images/bb994b2c914d17ce.jpg"
-    },
-    {
-      "title": "Agrigento, presentato il percorso museale del porto di Akragas",
-      "summary": "Se l’obiettivo del progetto è la riqualificazione di una zona antica ma in stato di profondo degrado, la creazione del percorso museale illustra la storia della colonia di Akragas attraverso la vita…",
-      "date": "2026-09-10T11:47:45Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-presentato-il-percorso-museale-del-porto-di-akragas",
-      "img": "/feed-images/9cea6be8e8636e92.jpg"
-    },
-    {
-      "title": "Distribuire acqua ai cittadini di Maddalusa, lanciata petizione online",
-      "summary": "Il promotore della petizione è l’avvocato Salvatore Pennica",
-      "date": "2026-09-10T11:03:22Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/distribuire-acqua-ai-cittadini-di-maddalusa-lanciata-petizione-online",
-      "img": "/feed-images/0305254801cf08a0.jpg"
     }
   ]
 }
