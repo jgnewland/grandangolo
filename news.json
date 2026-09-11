@@ -1,14 +1,42 @@
 {
-  "updated": "2026-09-11T00:48:49.696838+00:00",
+  "updated": "2026-09-11T05:35:21.407638+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
+      "title": "L’omicidio, l’affronto allo zio e i progetti di vendetta: “A Licata recuperai 4 pistole e un paio di fucili”",
+      "summary": "Il collaboratore di giustizia Giuseppe Cavallo torna indietro nel tempo e svela un episodio inedito. Una storia che, come spesso accade, si intreccia con i fatti della nostra terra.",
+      "date": "2026-09-11T05:05:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/lomicidio-laffronto-allo-zio-e-i-progetti-di-vendetta-andammo-a-licata-a-prendere-4-pistole-e-un-paio-di-fucili",
+      "img": "/feed-images/51d8be2a830ae458.jpg"
+    },
+    {
       "title": "Comune, assessore Crosta verso la rimozione da parte del sindaco",
       "summary": "Il componente della giunta Sodano non sarebbe intenzionato ad un passo indietro: potrebbe quindi arrivare un atto più “cruento”",
-      "date": "2026-09-10T19:50:12Z",
+      "date": "2026-09-11T05:04:12Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/comune-assessore-crosta-verso-la-rimozione-da-parte-del-sindaco",
       "img": "/feed-images/cbb3944dd4453cb0.jpg"
+    },
+    {
+      "title": "Tragico incidente con lo scooter, morto 17enne",
+      "summary": "Il giovane – Emanuel Giorgio Ruta – era in sella ad uno scooter mentre dal lato opposto sopraggiungeva un’autovettura",
+      "date": "2026-09-11T05:03:04Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/tragico-incidente-con-lo-scooter-morto-17enne",
+      "img": "/feed-images/519265edff3490f3.jpg"
+    },
+    {
+      "title": "Raid ad Aragona, danneggiati locali dei servizi sociali e dell’ex guardia medica",
+      "summary": "Non è ancora chiaro se chi ha agito lo ha fatto per rubare qualcosa o soltanto per il puro scopo di devastare ogni cosa. Certo è, invece, il danno provocato ai locali del Comune di Aragona che…",
+      "date": "2026-09-11T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/aragona/raid-ad-aragona-danneggiati-locali-dei-servizi-sociali-e-dellex-guardia-medica",
+      "img": "/feed-images/7c7bf98a04bd5aa9.jpg"
+    },
+    {
+      "title": "Maltrattamenti alla moglie, 40enne disoccupato ai domiciliari",
+      "summary": "La vicenda scaturisce dalla denuncia della donna, una 35enne libera professionista stanca ormai di subire continui soprusi ed essere sottoposta a vessazioni",
+      "date": "2026-09-11T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maltrattamenti-alla-moglie-40enne-disoccupato-ai-domiciliari",
+      "img": "/feed-images/d57453aea95769b0.jpg"
     },
     {
       "title": "La Stidda e la catena di supermercati di Licata: “Quando li toccò mi mandarono a chiamare i Pace di Palma..”",
@@ -37,6 +65,13 @@
       "date": "2026-09-10T15:28:05Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/quarto-appuntamento-al-circolo-della-stampa-con-la-qualita-dellinformazione-sanitaria",
       "img": "/feed-images/d499d441196241c6.jpg"
+    },
+    {
+      "title": "Caso Crosta, dalla Soprintendenza diniego alla sanatoria per la casa delle polemiche",
+      "summary": "Alle 15 La Vardera e Sodano si sono riuniti ad Agrigento per ragionare della vicenda che in questi giorni sta tenendo banco",
+      "date": "2026-09-10T15:27:55Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/caso-crosta-dalla-soprintendenza-diniego-alla-sanatoria-per-la-casa-delle-polemiche",
+      "img": "/feed-images/2ed89304e2dc935a.jpg"
     },
     {
       "title": "Crollo palazzina a Messina, identificati i resti di Santino Magazzù. Resta ancora un disperso",
@@ -79,13 +114,6 @@
       "date": "2026-09-10T14:36:06Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-frontale-tra-auto-due-i-feriti-in-ospedale",
       "img": "/feed-images/63c2ae3a88fb755e.jpg"
-    },
-    {
-      "title": "Caso Crosta, dalla Soprintendenza diniego alla sanatoria per la casa delle polemiche",
-      "summary": "Alle 15 La Vardera e Sodano si sono riuniti ad Agrigento per ragionare della vicenda che in questi giorni sta tenendo banco",
-      "date": "2026-09-10T14:27:55Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/caso-crosta-dalla-soprintendenza-diniego-alla-sanatoria-per-la-casa-delle-polemiche",
-      "img": "/feed-images/2ed89304e2dc935a.jpg"
     },
     {
       "title": "Causano incidente e non prestano soccorso ai feriti: denunciati",
@@ -184,34 +212,6 @@
       "date": "2026-09-10T08:10:38Z",
       "link": "https://www.grandangoloagrigento.it/catania/tenta-di-gettare-la-droga-nello-scarico-aveva-anche-una-pistola-arrestato",
       "img": "/feed-images/94f204736a2b3418.jpg"
-    },
-    {
-      "title": "Ristoratore gambizzato e tentata rapina, due arresti e 8 indagati",
-      "summary": "Il rapinatore dopo averlo minacciato a lungo gli ha sparato alla gambe per due volte",
-      "date": "2026-09-10T07:26:39Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/ristoratore-gambizzato-e-tentata-rapina-due-arresti-e-8-indagati",
-      "img": "/feed-images/6a1315db780e7e5e.jpg"
-    },
-    {
-      "title": "Anziani abbandonati in case di riposo per “contenere i costi”, 3 misure cautelari",
-      "summary": "Durante il turno notturno, dalle 19 alle 07, un solo operatore socio sanitario era incaricato di assistere decine di anziani non autosufficienti dislocati su più piani”",
-      "date": "2026-09-10T07:04:28Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/anziani-abbandonati-in-case-di-riposo-per-contenere-i-costi-3-misure-cautelari",
-      "img": "/feed-images/44cab343a084b471.jpg"
-    },
-    {
-      "title": "Al magistrato Graziella Luparello il “premio europeo della Giustizia Beato Rosario Livatino”",
-      "summary": "La dott.ssa Graziella Luparello, in servizio presso il Tribunale di Caltanissetta, è l’unico magistrato della funzione giudicante tra i premiati",
-      "date": "2026-09-10T07:04:27Z",
-      "link": "https://www.grandangoloagrigento.it/cultura/al-magistrato-graziella-luparello-il-premio-europeo-della-giustizia-beato-rosario-livatino",
-      "img": "/feed-images/271d4bdb4c67858d.jpg"
-    },
-    {
-      "title": "Stidda, il pentito Cavallo tira in ballo il consulente dell’assessore Giusi Savarino",
-      "summary": "Giuseppe Cavallo, figlio del boss della Stidda Aurelio Cavallo, oggi collaboratore di giustizia, mette a verbale (anche) questo",
-      "date": "2026-09-10T07:00:20Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/stidda-il-pentito-cavallo-tira-in-ballo-il-consulente-dellassessore-giusi-savarino",
-      "img": "/feed-images/853c175276f4283f.jpg"
     }
   ]
 }
