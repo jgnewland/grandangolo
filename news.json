@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-12T16:09:53.072801+00:00",
+  "updated": "2026-09-12T18:22:17.079282+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Canicattì, 43enne trovato morto in strada: cosa dice l’autopsia",
+      "summary": "È quanto emerge dall’autopsia eseguita sulla salma di Damiano Petitto, il 43enne di Canicattì scomparso e poi trovato morto in strada a non molta distanza dalla sua auto",
+      "date": "2026-09-12T16:11:25Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-43enne-trovato-morto-in-strada-cosa-dice-lautopsia",
+      "img": "/feed-images/105cfc5a9eb83938.jpg"
+    },
     {
       "title": "“Suo figlio è stato arrestato”: finto carabiniere truffa anziana agrigentina, lei consegna soldi e gioielli",
       "summary": "È accaduto nel quartiere del campo sportivo, ad Agrigento. Una pensionata di 86 anni è stata contattata telefonicamente da un sedicente appartenente all’Arma",
@@ -205,13 +212,6 @@
       "date": "2026-09-11T21:11:49Z",
       "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/palermo-scontro-auto-moto-in-viale-regione-siciliana-perde-la-vita-un-uomo-di-42-anni",
       "img": "/feed-images/19902027cdc600cc.jpg"
-    },
-    {
-      "title": "Capitale Cultura, la Fondazione non c’è più: votato lo scioglimento",
-      "summary": "Il punto attendeva di essere approvato da aprile: in cassa rimane mezzo milione di euro che servirà per finanziare eventi",
-      "date": "2026-09-11T19:02:30Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/capitale-cultura-la-fondazione-non-ce-piu-votato-lo-scioglimento",
-      "img": "/feed-images/b72ea885eae6fe30.webp"
     }
   ]
 }
