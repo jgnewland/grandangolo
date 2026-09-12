@@ -1,8 +1,22 @@
 {
-  "updated": "2026-09-12T12:59:21.515701+00:00",
+  "updated": "2026-09-12T16:09:53.072801+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "“Suo figlio è stato arrestato”: finto carabiniere truffa anziana agrigentina, lei consegna soldi e gioielli",
+      "summary": "È accaduto nel quartiere del campo sportivo, ad Agrigento. Una pensionata di 86 anni è stata contattata telefonicamente da un sedicente appartenente all’Arma",
+      "date": "2026-09-12T16:04:17Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/suo-figlio-e-stato-arrestato-finto-carabiniere-truffa-anziana-agrigentina-lei-consegna-soldi-e-gioielli",
+      "img": "/feed-images/8fac52f4309a2999.jpg"
+    },
+    {
+      "title": "Ribera, incendio di sterpaglie in centro città: in corso operazioni di spegnimento",
+      "summary": "Nell’intervento anche un elicottero per evitare che le fiamme raggiungessero le abitazioni",
+      "date": "2026-09-12T15:37:49Z",
+      "link": "https://www.grandangoloagrigento.it/ribera/ribera-incendio-di-sterpaglie-in-centro-citta-in-corso-operazioni-di-spegnimento",
+      "img": "/feed-images/6b9e1b78895cdc45.jpg"
+    },
     {
       "title": "Blatte, materassi sporchi e alimenti mal conservati: chiuse due strutture per anziani e denunciato titolare",
       "summary": "Dall’ispezione sono emersi “gravi carenze sotto il profilo igienico-sanitario, assistenziale e della sicurezza”",
@@ -140,7 +154,7 @@
       "title": "Tragico schianto moto-auto, morto 42enne",
       "summary": "Sono intervenute diverse pattuglie di polizia e i sanitari del 118 che hanno provato per oltre mezz’ora a rianimare il conducente del mezzo a due ruote",
       "date": "2026-09-12T07:42:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/tragico-schianto-moto-auto-morto-42enne",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tragico-schianto-moto-auto-morto-42enne",
       "img": "/feed-images/f6ec17d6e5e7c6cc.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-09-11T19:02:30Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/capitale-cultura-la-fondazione-non-ce-piu-votato-lo-scioglimento",
       "img": "/feed-images/b72ea885eae6fe30.webp"
-    },
-    {
-      "title": "Incidente all’autodromo Concordia, eseguita autopsia sulla salma di Egidio Blandina",
-      "summary": "La salma è stata restituita ai familiari per i funerali che si svolgeranno domani alle 11 presso il Duomo di Messina",
-      "date": "2026-09-11T17:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/incidente-allautodromo-concordia-eseguita-autopsia-sulla-salma-di-egidio-blandina",
-      "img": "/feed-images/70c689ac52cc800e.jpg"
-    },
-    {
-      "title": "Morto in ospedale per una infezione, chiesta condanna dell’ex direttore sanitario",
-      "summary": "Una tac al torace svelò nei giorni successivi una infezione. Il 22 ottobre l’anziano morì al San Giovanni di Dio",
-      "date": "2026-09-11T17:06:51Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/morto-in-ospedale-per-una-infezione-chiesta-condanna-dellex-direttore-sanitario",
-      "img": "/feed-images/cb60da64201a5f3e.jpg"
     }
   ]
 }
