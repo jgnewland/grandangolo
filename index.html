@@ -1083,7 +1083,8 @@ l.parentNode.insertBefore(s, l);
 
     async function caricaIssuesDaSupabase() {
       try {
-        const res = await fetch(SB_URL_SITE + '/rest/v1/issues?order=sort_order.desc,created_at.desc', {
+        const now = new Date().toISOString();
+        const res = await fetch(SB_URL_SITE + '/rest/v1/issues?or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte.' + now + '))&order=sort_order.desc,created_at.desc', {
           headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
         });
         const data = await res.json();
