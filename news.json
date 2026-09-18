@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-18T17:26:54.135072+00:00",
+  "updated": "2026-09-18T19:52:26.240130+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Scontro tra un pullman e un mezzo pesante: più di dieci feriti",
+      "summary": "Si attendono aggiornamenti sulle condizioni dei feriti e sui tempi di riapertura del tratto autostradale.",
+      "date": "2026-09-18T19:51:20Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-tra-un-pullman-e-un-mezzo-pesante-piu-di-dieci-feriti",
+      "img": "/feed-images/65301ff96ae025bd.jpg"
+    },
     {
       "title": "Savarino: “Ok a più giornate per forestali stagionali ma servono i giovani”",
       "summary": "Lo dice l’assessore regionale al Territorio e all’Ambiente, Giusi Savarino",
@@ -205,13 +212,6 @@
       "date": "2026-09-18T05:03:58Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/nasconde-droga-nel-bagagliaio-dellauto-20enne-arrestato-a-palma-di-montechiaro",
       "img": "/feed-images/6aef6e5461209313.jpg"
-    },
-    {
-      "title": "San Leone, rubata l’auto al vice presidente del consiglio comunale di Canicattì",
-      "summary": "L’auto, dal valore di oltre 25 mila euro, era parcheggiata sul lungomare Falcone-Borsellino",
-      "date": "2026-09-18T05:02:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/san-leone-rubata-lauto-al-vice-presidente-del-consiglio-comunale-di-canicatti",
-      "img": "/feed-images/e4962ce3d10cd0e5.jpg"
     }
   ]
 }
