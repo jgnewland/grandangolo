@@ -260,7 +260,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <!-- NUOVO NUMERO -->
     <div class="pg" id="pg-nuovo">
       <div class="pg-title">Aggiungi nuovo numero</div>
-      <div class="pg-sub">Compila il form e pubblica. Il numero appare automaticamente sul sito.</div>
+      <div class="pg-sub">Compila il form, scegli se pubblicare subito, salvare in bozza o programmare la pubblicazione.</div>
       <div class="card">
         <div class="card-t" style="margin-bottom:16px">Informazioni numero</div>
         <div class="row2">
@@ -309,6 +309,34 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
             <div><div class="prev-t" id="nu-prev-title"></div><div class="prev-s" id="nu-prev-sub"></div><div class="prev-info" id="nu-prev-info"></div></div>
           </div>
         </div>
+
+        <!-- MODALITÀ DI PUBBLICAZIONE -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Modalità di pubblicazione</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="nu-mode-group">
+            <label id="nu-mode-now-lbl" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(0,166,81,0.6);background:rgba(0,166,81,0.08);cursor:pointer;transition:all .15s;">
+              <input type="radio" name="nu-pub-mode" value="now" checked style="accent-color:#00a651;width:16px;height:16px;flex-shrink:0;">
+              <div><div style="font-size:13px;font-weight:700;color:#8fffc1;">&#128640; Pubblica subito</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">Visibile immediatamente sul sito</div></div>
+            </label>
+            <label id="nu-mode-draft-lbl" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer;transition:all .15s;">
+              <input type="radio" name="nu-pub-mode" value="draft" style="accent-color:#00a651;width:16px;height:16px;flex-shrink:0;">
+              <div><div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);">&#128221; Salva come bozza</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">Salvato ma non visibile sul sito</div></div>
+            </label>
+            <label id="nu-mode-sched-lbl" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer;transition:all .15s;">
+              <input type="radio" name="nu-pub-mode" value="scheduled" style="accent-color:#00a651;width:16px;height:16px;flex-shrink:0;">
+              <div><div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);">&#9201; Programma pubblicazione</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">Scegli data e ora esatte</div></div>
+            </label>
+          </div>
+          <!-- campo data/ora programmata, nascosto finché non si sceglie "Programma" -->
+          <div id="nu-sched-box" style="display:none;margin-top:10px;padding:12px 14px;border-radius:10px;border:1px solid rgba(100,150,255,0.25);background:rgba(100,150,255,0.06);">
+            <div class="f" style="margin-bottom:0;">
+              <label>Data e ora di pubblicazione</label>
+              <input type="datetime-local" id="nu-scheduled-at" style="color-scheme:dark;">
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:6px;">Il numero apparirà sul sito automaticamente alla data e ora indicata.</div>
+          </div>
+        </div>
+
         <button class="btn btn-w btn-lg" id="nu-pubblica-btn">&#128640; Pubblica numero sul sito</button>
         <div class="res" id="nu-res"></div>
       </div>
@@ -734,8 +762,26 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="f"><label>Link Stripe</label><input type="url" id="m-buy"></div>
     <div class="f"><label>Codice di sblocco</label><input type="text" id="m-code" style="font-family:monospace"></div>
     <div class="f"><label>Pagine JPG (una per riga)</label><textarea id="m-pages" style="min-height:160px;font-family:monospace;font-size:12px;line-height:1.6"></textarea></div>
-    <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.2);border-radius:10px;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.2);border-radius:10px;margin-bottom:14px">
       <input type="checkbox" id="m-latest"><label for="m-latest" style="font-size:13px;font-weight:600;color:#fff;cursor:pointer">&#11088; Segna come ULTIMA USCITA</label>
+    </div>
+    <!-- STATO PUBBLICAZIONE NEL MODAL -->
+    <div style="margin-bottom:16px;">
+      <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Stato pubblicazione</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer;font-size:12px;">
+          <input type="radio" name="m-pub-mode" value="published" style="accent-color:#00a651;"> <span style="color:#8fffc1;font-weight:600;">&#128640; Pubblicato</span> <span style="color:rgba(255,255,255,0.35);margin-left:4px;">— visibile sul sito</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer;font-size:12px;">
+          <input type="radio" name="m-pub-mode" value="draft" style="accent-color:#00a651;"> <span style="color:#ffe566;font-weight:600;">&#128221; Bozza</span> <span style="color:rgba(255,255,255,0.35);margin-left:4px;">— non visibile sul sito</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer;font-size:12px;">
+          <input type="radio" name="m-pub-mode" value="scheduled" style="accent-color:#00a651;"> <span style="color:#a0b8ff;font-weight:600;">&#9201; Programmato</span>
+        </label>
+      </div>
+      <div id="m-sched-box" style="display:none;margin-top:8px;padding:10px 12px;border-radius:8px;border:1px solid rgba(100,150,255,0.25);background:rgba(100,150,255,0.06);">
+        <div class="f" style="margin-bottom:0;"><label>Data e ora</label><input type="datetime-local" id="m-scheduled-at" style="color-scheme:dark;"></div>
+      </div>
     </div>
     <div style="display:flex;gap:10px">
       <button class="btn" style="flex:1" id="modal-save">Salva modifiche</button>
@@ -911,27 +957,76 @@ function updatePrev(){
   if(t||c){ prev.style.display="block"; document.getElementById("nu-prev-img").src=c||""; document.getElementById("nu-prev-title").textContent=t; document.getElementById("nu-prev-sub").textContent=s; document.getElementById("nu-prev-info").textContent=pg.length+" pagine"+(k?" · "+k:""); }
   else { prev.style.display="none"; }
 }
+// ── Gestione selezione modalità pubblicazione ──────────────────────
+(function(){
+  var labels = {
+    now:   document.getElementById("nu-mode-now-lbl"),
+    draft: document.getElementById("nu-mode-draft-lbl"),
+    sched: document.getElementById("nu-mode-sched-lbl")
+  };
+  var schedBox = document.getElementById("nu-sched-box");
+  var btn = document.getElementById("nu-pubblica-btn");
+  function updateModeUI(){
+    var val = document.querySelector('input[name="nu-pub-mode"]:checked').value;
+    Object.values(labels).forEach(function(l){ l.style.borderColor="rgba(255,255,255,0.08)"; l.style.background="rgba(255,255,255,0.03)"; });
+    if(val==="now"){
+      labels.now.style.borderColor="rgba(0,166,81,0.6)"; labels.now.style.background="rgba(0,166,81,0.08)";
+      schedBox.style.display="none";
+      btn.textContent="\uD83D\uDE80 Pubblica numero sul sito";
+    } else if(val==="draft"){
+      labels.draft.style.borderColor="rgba(255,200,50,0.5)"; labels.draft.style.background="rgba(255,200,50,0.06)";
+      schedBox.style.display="none";
+      btn.textContent="\uD83D\uDCDD Salva in bozza";
+    } else {
+      labels.sched.style.borderColor="rgba(100,150,255,0.55)"; labels.sched.style.background="rgba(100,150,255,0.07)";
+      schedBox.style.display="block";
+      btn.textContent="\u23F0 Programma pubblicazione";
+    }
+  }
+  document.querySelectorAll('input[name="nu-pub-mode"]').forEach(function(r){ r.addEventListener("change", updateModeUI); });
+  updateModeUI();
+})();
+
 document.getElementById("nu-pubblica-btn").onclick = async function(){
   var t=document.getElementById("nu-title").value.trim(), s=document.getElementById("nu-sub").value.trim();
   var c=document.getElementById("nu-cover").value.trim(), buy=document.getElementById("nu-buy").value.trim();
   var k=document.getElementById("nu-code").value.trim(), anno=parseInt(document.getElementById("nu-anno").value)||2026;
   var latest=document.getElementById("nu-latest").checked;
   var pgs=document.getElementById("nu-pages").value.trim().split(NL).map(function(l){ return l.trim(); }).filter(function(l){ return l; });
+  var mode = document.querySelector('input[name="nu-pub-mode"]:checked').value;
+  var scheduledAt = document.getElementById("nu-scheduled-at").value;
+
   if(!t){ showRes("nu-res","Inserisci il titolo.","err"); return; }
   if(!k){ showRes("nu-res","Inserisci il codice.","err"); return; }
   if(!pgs.length){ showRes("nu-res","Inserisci le pagine.","err"); return; }
-  var btn=document.getElementById("nu-pubblica-btn"); btn.disabled=true; btn.textContent="Pubblicazione...";
+  if(mode==="scheduled" && !scheduledAt){ showRes("nu-res","Scegli data e ora di pubblicazione.","err"); return; }
+
+  var btn=document.getElementById("nu-pubblica-btn"); btn.disabled=true; btn.textContent="Salvataggio...";
   try {
-    if(latest) await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
-    var maxR=await sbGet("/rest/v1/issues?select=sort_order&order=sort_order.desc&limit=1");
-    var ord=(maxR&&maxR.length?(maxR[0].sort_order||0):0)+1;
-    // sort_order altissimo = va sempre in cima. Usiamo timestamp unix per unicita
+    var status = mode==="draft" ? "draft" : (mode==="scheduled" ? "scheduled" : "published");
+    var scheduled_at = mode==="scheduled" ? new Date(scheduledAt).toISOString() : null;
+
+    if(mode==="now" && latest) await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
     var topOrder = Math.floor(Date.now()/1000);
-    var r=await sbPost("/rest/v1/issues",{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno,sort_order:topOrder});
-    if(r.ok){ showRes("nu-res","\u2713 Numero pubblicato! Appare in cima all'edicola come ultima uscita.","ok"); ["nu-title","nu-sub","nu-cover","nu-buy","nu-code","nu-pages"].forEach(function(id){ document.getElementById(id).value=""; }); document.getElementById("nu-latest").checked=false; document.getElementById("nu-prev").style.display="none"; setTimeout(function(){ loadNumeri(); },500); }
-    else { var d=await r.json().catch(function(){return{};}); showRes("nu-res","Errore: "+JSON.stringify(d),"err"); }
+    var payload = {title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,
+                   is_latest:(mode==="now"?latest:false),anno:anno,sort_order:topOrder,
+                   status:status,scheduled_at:scheduled_at};
+    var r=await sbPost("/rest/v1/issues", payload);
+    if(r.ok){
+      var msgs = { now:"\u2713 Numero pubblicato! Appare in cima all'edicola.", draft:"\uD83D\uDCDD Bozza salvata! Non \u00e8 visibile sul sito.", scheduled:"\u23F0 Pubblicazione programmata per "+new Date(scheduledAt).toLocaleString("it-IT")+"." };
+      showRes("nu-res", msgs[mode], "ok");
+      ["nu-title","nu-sub","nu-cover","nu-buy","nu-code","nu-pages"].forEach(function(id){ document.getElementById(id).value=""; });
+      document.getElementById("nu-latest").checked=false;
+      document.getElementById("nu-prev").style.display="none";
+      document.getElementById("nu-scheduled-at").value="";
+      document.querySelector('input[name="nu-pub-mode"][value="now"]').checked=true;
+      document.querySelector('input[name="nu-pub-mode"][value="now"]').dispatchEvent(new Event("change"));
+      setTimeout(function(){ loadNumeri(); },500);
+    } else { var d=await r.json().catch(function(){return{};}); showRes("nu-res","Errore: "+JSON.stringify(d),"err"); }
   } catch(e){ showRes("nu-res","Errore: "+e.message,"err"); }
-  btn.disabled=false; btn.textContent="🚀 Pubblica numero sul sito";
+  btn.disabled=false;
+  var modeNow = document.querySelector('input[name="nu-pub-mode"]:checked').value;
+  btn.textContent = modeNow==="draft" ? "\uD83D\uDCDD Salva in bozza" : (modeNow==="scheduled" ? "\u23F0 Programma pubblicazione" : "\uD83D\uDE80 Pubblica numero sul sito");
 };
 
 // ── NUMERI ────────────────────────────────────────────────────────
@@ -976,7 +1071,8 @@ async function loadNumeri(){
           issues.push({
             title:r.title, subtitle:r.subtitle||"", cover:r.cover_url||"",
             buyUrl:r.buy_url||"", unlockCode:r.unlock_code, pages:r.pages||[],
-            anno:r.anno||2026, isLatest:r.is_latest||false, sbId:r.id, sortOrder:r.sort_order||0
+            anno:r.anno||2026, isLatest:r.is_latest||false, sbId:r.id, sortOrder:r.sort_order||0,
+            status:r.status||"published", scheduledAt:r.scheduled_at||null
           });
         }
       });
@@ -1010,15 +1106,20 @@ function renderNum(issues){
   }
   tbody.innerHTML = "";
   filtered.forEach(function(issue){
+    var isDraft     = issue.status === "draft";
+    var isScheduled = issue.status === "scheduled";
+    var isPublished = !isDraft && !isScheduled;
     var tr = document.createElement("tr");
     if(issue.isLatest) tr.style.background = "rgba(0,166,81,0.07)";
+    if(isDraft)        tr.style.background = "rgba(255,200,50,0.04)";
+    if(isScheduled)    tr.style.background = "rgba(100,150,255,0.05)";
 
     // Cella copertina
     var tdCover = document.createElement("td");
     if(issue.cover){
       var coverImg = document.createElement("img");
       coverImg.src = issue.cover;
-      coverImg.style.cssText = "width:32px;height:44px;border-radius:4px;object-fit:cover;display:block";
+      coverImg.style.cssText = "width:32px;height:44px;border-radius:4px;object-fit:cover;display:block" + (isDraft||isScheduled ? ";opacity:.5" : "");
       coverImg.onerror = function(){ this.style.display = "none"; };
       tdCover.appendChild(coverImg);
     }
@@ -1032,6 +1133,19 @@ function renderNum(issues){
       badgeLatest.textContent = "ULTIMA USCITA";
       badgeLatest.style.cssText = "margin-left:6px;background:rgba(230,0,0,0.15);border:1px solid rgba(230,0,0,0.4);color:#ff8080;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;text-transform:uppercase;vertical-align:middle";
       tdTitle.appendChild(badgeLatest);
+    }
+    if(isDraft){
+      var badgeDraft = document.createElement("span");
+      badgeDraft.textContent = "\uD83D\uDCDD BOZZA";
+      badgeDraft.style.cssText = "margin-left:6px;background:rgba(255,200,50,0.12);border:1px solid rgba(255,200,50,0.4);color:#ffe566;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;text-transform:uppercase;vertical-align:middle";
+      tdTitle.appendChild(badgeDraft);
+    }
+    if(isScheduled){
+      var schedLabel = issue.scheduledAt ? new Date(issue.scheduledAt).toLocaleString("it-IT",{day:"2-digit",month:"2-digit",year:"2-digit",hour:"2-digit",minute:"2-digit"}) : "";
+      var badgeSched = document.createElement("span");
+      badgeSched.textContent = "\u23F0 " + schedLabel;
+      badgeSched.style.cssText = "margin-left:6px;background:rgba(100,150,255,0.12);border:1px solid rgba(100,150,255,0.4);color:#a0b8ff;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;vertical-align:middle";
+      tdTitle.appendChild(badgeSched);
     }
     if(!issue.sbId){
       var badgeStatic = document.createElement("span");
@@ -1064,6 +1178,21 @@ function renderNum(issues){
     tdActions.appendChild(bc);
 
     if(issue.sbId){
+      // Bottone "Pubblica ora" per bozze e programmate
+      if(isDraft || isScheduled){
+        var bpub = document.createElement("button");
+        bpub.className = "btn btn-sm";
+        bpub.style.cssText = "background:rgba(0,166,81,0.8);box-shadow:none;padding:6px 12px;font-size:11px";
+        bpub.textContent = "\uD83D\uDE80 Pubblica ora";
+        (function(iss, row){ bpub.onclick = async function(){
+          bpub.disabled=true; bpub.textContent="...";
+          var r=await sbPatch("/rest/v1/issues?id=eq."+iss.sbId,{status:"published",scheduled_at:null});
+          if(r.ok){ setTimeout(function(){ loadNumeri(); },400); }
+          else { alert("Errore nella pubblicazione."); bpub.disabled=false; bpub.textContent="\uD83D\uDE80 Pubblica ora"; }
+        }; })(issue, tr);
+        tdActions.appendChild(bpub);
+      }
+
       var be = document.createElement("button");
       be.className = "ghost btn-sm";
       be.style.cssText = "border-color:rgba(100,150,255,0.3);color:#a0b8ff;background:rgba(100,150,255,0.08)";
@@ -1106,6 +1235,13 @@ function openModal(issue){
   document.getElementById("m-code").value=issue.unlockCode||"";
   document.getElementById("m-pages").value=(issue.pages||[]).join(NL);
   document.getElementById("m-latest").checked=issue.isLatest||false;
+  // Stato pubblicazione
+  var mStatus = issue.status||"published";
+  document.querySelectorAll('input[name="m-pub-mode"]').forEach(function(r){ r.checked=(r.value===mStatus); });
+  var mSchedBox = document.getElementById("m-sched-box");
+  mSchedBox.style.display = mStatus==="scheduled" ? "block" : "none";
+  if(issue.scheduledAt){ var dt=new Date(issue.scheduledAt); var pad=function(n){return String(n).padStart(2,"0");}; document.getElementById("m-scheduled-at").value=dt.getFullYear()+"-"+pad(dt.getMonth()+1)+"-"+pad(dt.getDate())+"T"+pad(dt.getHours())+":"+pad(dt.getMinutes()); } else { document.getElementById("m-scheduled-at").value=""; }
+  document.querySelectorAll('input[name="m-pub-mode"]').forEach(function(r){ r.onchange=function(){ document.getElementById("m-sched-box").style.display=this.value==="scheduled"?"block":"none"; }; });
   document.getElementById("m-res").className="res";
   document.getElementById("modal-ov").classList.add("open");
 }
@@ -1121,10 +1257,15 @@ document.getElementById("modal-save").onclick = async function(){
   var latest=document.getElementById("m-latest").checked;
   var pgs=document.getElementById("m-pages").value.trim().split(NL).map(function(l){ return l.trim(); }).filter(function(l){ return l; });
   if(!t||!k){ showRes("m-res","Inserisci titolo e codice.","err"); return; }
+  var mMode = document.querySelector('input[name="m-pub-mode"]:checked');
+  var mStatus = mMode ? mMode.value : "published";
+  var mSchedVal = document.getElementById("m-scheduled-at").value;
+  if(mStatus==="scheduled" && !mSchedVal){ showRes("m-res","Scegli data e ora di pubblicazione.","err"); return; }
+  var mScheduledAt = mStatus==="scheduled" ? new Date(mSchedVal).toISOString() : null;
   var btn=document.getElementById("modal-save"); btn.disabled=true; btn.textContent="Salvataggio...";
   try {
-    if(latest) await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
-    var r=await sbPatch("/rest/v1/issues?id=eq."+editId,{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno});
+    if(latest && mStatus==="published") await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
+    var r=await sbPatch("/rest/v1/issues?id=eq."+editId,{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:(mStatus==="published"?latest:false),anno:anno,status:mStatus,scheduled_at:mScheduledAt});
     if(r.ok){ showRes("m-res","Salvato!","ok"); setTimeout(function(){ closeModal(); loadNumeri(); },800); }
     else { var d=await r.json().catch(function(){return{};}); showRes("m-res","Errore: "+JSON.stringify(d),"err"); }
   } catch(e){ showRes("m-res","Errore: "+e.message,"err"); }
