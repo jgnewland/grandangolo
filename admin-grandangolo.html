@@ -1006,10 +1006,12 @@ document.getElementById("nu-pubblica-btn").onclick = async function(){
     var status = mode==="draft" ? "draft" : (mode==="scheduled" ? "scheduled" : "published");
     var scheduled_at = mode==="scheduled" ? new Date(scheduledAt).toISOString() : null;
 
-    if(mode==="now" && latest) await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
+    // Se is_latest è spuntato, resetta sempre il vecchio (anche per bozze/programmate)
+    // Il sito mostra is_latest solo sui numeri visibili, quindi non fa danni
+    if(latest) await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
     var topOrder = Math.floor(Date.now()/1000);
     var payload = {title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,
-                   is_latest:(mode==="now"?latest:false),anno:anno,sort_order:topOrder,
+                   is_latest:latest,anno:anno,sort_order:topOrder,
                    status:status,scheduled_at:scheduled_at};
     var r=await sbPost("/rest/v1/issues", payload);
     if(r.ok){
@@ -1264,8 +1266,8 @@ document.getElementById("modal-save").onclick = async function(){
   var mScheduledAt = mStatus==="scheduled" ? new Date(mSchedVal).toISOString() : null;
   var btn=document.getElementById("modal-save"); btn.disabled=true; btn.textContent="Salvataggio...";
   try {
-    if(latest && mStatus==="published") await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
-    var r=await sbPatch("/rest/v1/issues?id=eq."+editId,{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:(mStatus==="published"?latest:false),anno:anno,status:mStatus,scheduled_at:mScheduledAt});
+    if(latest) await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
+    var r=await sbPatch("/rest/v1/issues?id=eq."+editId,{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno,status:mStatus,scheduled_at:mScheduledAt});
     if(r.ok){ showRes("m-res","Salvato!","ok"); setTimeout(function(){ closeModal(); loadNumeri(); },800); }
     else { var d=await r.json().catch(function(){return{};}); showRes("m-res","Errore: "+JSON.stringify(d),"err"); }
   } catch(e){ showRes("m-res","Errore: "+e.message,"err"); }
