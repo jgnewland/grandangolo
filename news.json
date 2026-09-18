@@ -1,8 +1,29 @@
 {
-  "updated": "2026-09-18T19:52:26.240130+00:00",
+  "updated": "2026-09-18T22:14:24.563176+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ecco chi sono gli imprenditori vicini alla stidda",
+      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
+      "date": "2026-09-18T21:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/ecco-chi-sono-gli-imprenditori-vicini-alla-stidda",
+      "img": "/feed-images/6888db52bd093f14.jpg"
+    },
+    {
+      "title": "Maltempo in arrivo, allerta gialla in Sicilia",
+      "summary": "Attese piogge per la giornata di domani 18 settembre",
+      "date": "2026-09-18T20:03:39Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia/maltempo-in-arrivo-allerta-gialla-in-sicilia-2",
+      "img": "/feed-images/87dc7c7f6bd2a65e.jpg"
+    },
+    {
+      "title": "Canicattì, pensionato stordito e scippato della catenina d’oro: al via le indagini",
+      "summary": "Il pensionato ha raccontato di essere stato avvicinato da due donne",
+      "date": "2026-09-18T20:00:13Z",
+      "link": "https://www.grandangoloagrigento.it/canicatti/canicatti-pensionato-stordito-e-scippato-della-catenina-doro-al-via-le-indagini",
+      "img": "/feed-images/c199caeeb2635930.jpg"
+    },
     {
       "title": "Scontro tra un pullman e un mezzo pesante: più di dieci feriti",
       "summary": "Si attendono aggiornamenti sulle condizioni dei feriti e sui tempi di riapertura del tratto autostradale.",
@@ -191,27 +212,6 @@
       "date": "2026-09-18T05:31:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/non-si-accorge-di-una-buca-e-si-ribalta-con-il-trattore-morto-74enne",
       "img": "/feed-images/d5afff7dfdf174db.jpg"
-    },
-    {
-      "title": "La compagna lo accusa di violenza sessuale e stalking, 63enne assolto",
-      "summary": "Una ricostruzione che, però, non ha trovato conferma durante il processo al termine del quale l’imputato è stato assolto perchè il fatto non sussiste",
-      "date": "2026-09-18T05:22:39Z",
-      "link": "https://www.grandangoloagrigento.it/sciacca/la-compagna-lo-accusa-di-violenza-sessuale-e-stalking-63enne-assolto",
-      "img": "/feed-images/387b6cbf4cbbfb46.jpg"
-    },
-    {
-      "title": "Scoperto laboratorio di armi con stampante 3D: un arresto",
-      "summary": "In un barattolo sono state rinvenute numerosi parti di armi in plastica, autoprodotte con la stampante 3D, repliche in polimeri plastici prive di matricola e, quindi, non tracciabili",
-      "date": "2026-09-18T05:10:05Z",
-      "link": "https://www.grandangoloagrigento.it/catania/scoperto-laboratorio-di-armi-con-stampante-3d-un-arresto",
-      "img": "/feed-images/17d9183c71ea04e6.jpg"
-    },
-    {
-      "title": "Nasconde droga nel bagagliaio dell’auto, 20enne arrestato a Palma di Montechiaro",
-      "summary": "Una successiva perquisizione veicolare ha dato esito positivo. Nel bagagliaio del veicolo, infatti, sono stati recuperati 90 grammi di marijuana",
-      "date": "2026-09-18T05:03:58Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/nasconde-droga-nel-bagagliaio-dellauto-20enne-arrestato-a-palma-di-montechiaro",
-      "img": "/feed-images/6aef6e5461209313.jpg"
     }
   ]
 }
