@@ -1,14 +1,28 @@
 {
-  "updated": "2026-09-19T16:28:56.146010+00:00",
+  "updated": "2026-09-19T18:46:33.825491+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Agrigento, in sup “navigano” il viale Le Dune completamente allagato",
+      "summary": "Scene surreali che arrivano dalla zona balneare di Agrigento",
+      "date": "2026-09-19T17:56:57Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-in-sup-navigano-il-viale-le-dune-completamente-allagato",
+      "img": "/feed-images/255decae0c77492d.jpg"
+    },
     {
       "title": "Maltempo ad Agrigento, temporali e strade allagate",
       "summary": "Prime piogge in città che hanno creato disagi alla viabilità",
       "date": "2026-09-19T14:23:52Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/maltempo-ad-agrigento-temporali-e-strade-allagate",
       "img": "/feed-images/7f4386bdf23fd2d6.jpg"
+    },
+    {
+      "title": "Agrigento, studenti costretti a stare in un’aula senza finestre; i genitori: “non manderemo i figli a scuola”",
+      "summary": "La protesta dei genitori degli studenti della classe III ASA del Liceo Scientifico Statale “Leonardo” di Agrigento",
+      "date": "2026-09-19T14:10:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-studenti-costretti-a-stare-in-unaula-senza-finestre-i-genitori-non-manderemo-i-figli-a-scuola",
+      "img": "/feed-images/9607c4a5b238252f.jpg"
     },
     {
       "title": "San Cataldo, sorelline ritrovate vicino a casa: stanno bene",
@@ -198,20 +212,6 @@
       "date": "2026-09-19T05:06:00Z",
       "link": "https://www.grandangoloagrigento.it/apertura/ecco-chi-sono-gli-imprenditori-vicini-alla-stidda",
       "img": "/feed-images/6888db52bd093f14.jpg"
-    },
-    {
-      "title": "Maxi incendio distrugge uliveto e minaccia abitazioni, piromane in azione?",
-      "summary": "Le fiamme, partite da un terreno incolto, in breve tempo hanno raggiunto alcuni fondi agricoli di diversi proprietari carbonizzando ben 60 alberi di ulivo e mandorlo",
-      "date": "2026-09-19T05:05:07Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maxi-incendio-distrugge-uliveto-e-minaccia-abitazioni-piromane-in-azione",
-      "img": "/feed-images/62725ca1001e17aa.jpg"
-    },
-    {
-      "title": "In fiamme scooter di una casalinga, non si esclude pista dolosa",
-      "summary": "Al via le indagini delle forze dell’ordine. Al momento gli investigatori non escludono alcuna ipotesi, compresa quella dolosa",
-      "date": "2026-09-19T05:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-fiamme-scooter-di-una-casalinga-non-si-esclude-pista-dolosa",
-      "img": "/feed-images/a542cd5ab7598a8a.jpg"
     }
   ]
 }
