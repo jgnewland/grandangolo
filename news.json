@@ -1,14 +1,42 @@
 {
-  "updated": "2026-09-19T13:08:59.734354+00:00",
+  "updated": "2026-09-19T16:28:56.146010+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Maltempo ad Agrigento, temporali e strade allagate",
+      "summary": "Prime piogge in città che hanno creato disagi alla viabilità",
+      "date": "2026-09-19T14:23:52Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/maltempo-ad-agrigento-temporali-e-strade-allagate",
+      "img": "/feed-images/7f4386bdf23fd2d6.jpg"
+    },
+    {
+      "title": "San Cataldo, sorelline ritrovate vicino a casa: stanno bene",
+      "summary": "Le due bambini avrebbero riferito di essere state prese e portate nel negozio gestito da cinesi, da alcune persone",
+      "date": "2026-09-19T14:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/san-cataldo-sorelline-ritrovate-vicino-a-casa-stanno-bene",
+      "img": "/feed-images/f6c0e62884dd3a1a.jpg"
+    },
+    {
+      "title": "Agrigento, cede l’asfalto e finisce con l’ auto dentro la voragine: conducente illeso",
+      "summary": "Tanta paura per il conducente dell’auto",
+      "date": "2026-09-19T13:08:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-cede-lasfalto-e-finisce-con-l-auto-dentro-la-voragine-conducente-illeso",
+      "img": "/feed-images/eb65a90fd67cae7a.jpg"
+    },
     {
       "title": "Favorì Matteo Messina Denaro, vivandiere torna libero per fine pena",
       "summary": "Bonafede, marito di Lorena Lanceri, la vivandiera del boss, a gennaio scorso la Corte di Cassazione ha confermato la pena d’Appello a 4 anni e 4 mesi",
       "date": "2026-09-19T12:56:42Z",
       "link": "https://www.grandangoloagrigento.it/mafia/favori-matteo-messina-denaro-vivandiere-torna-libero-per-fine-pena",
       "img": "/feed-images/076af34824da4b9d.png"
+    },
+    {
+      "title": "Auto fuori strada sulla SS 410 Naro-Canicattì: donna in ospedale",
+      "summary": "La donna è stata trasferita in ospedale per le cure necessarie",
+      "date": "2026-09-19T12:43:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/auto-fuori-strada-sulla-ss-410-naro-canicatti-donna-in-ospedale",
+      "img": "/feed-images/53051a9a98ad320d.jpg"
     },
     {
       "title": "Licata, devono scontare pena per spaccio e detenzione di droga: arrestata coppia",
@@ -25,10 +53,10 @@
       "img": "/feed-images/56633b479a4a0e12.jpg"
     },
     {
-      "title": "Sorelline scomparse a San Cataldo, il papà presenza denuncia",
+      "title": "Sorelline scomparse a San Cataldo, il papà presenta denuncia",
       "summary": "Si tratta di Benedetta Costanza, 12 anni, e Domitilla Costanza, 8 anni.",
       "date": "2026-09-19T11:00:40Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/sorelline-scomparse-da-san-cataldo-il-papa-presenta-denuncia",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sorelline-scomparse-da-san-cataldo-il-papa-presenta-denuncia",
       "img": "/feed-images/f0270d39b27f00b4.webp"
     },
     {
@@ -184,34 +212,6 @@
       "date": "2026-09-19T05:00:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-fiamme-scooter-di-una-casalinga-non-si-esclude-pista-dolosa",
       "img": "/feed-images/a542cd5ab7598a8a.jpg"
-    },
-    {
-      "title": "Maltempo in arrivo, allerta gialla in Sicilia",
-      "summary": "Attese piogge per la giornata di domani 18 settembre",
-      "date": "2026-09-18T20:03:39Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia/maltempo-in-arrivo-allerta-gialla-in-sicilia-2",
-      "img": "/feed-images/87dc7c7f6bd2a65e.jpg"
-    },
-    {
-      "title": "Canicattì, pensionato stordito e scippato della catenina d’oro: al via le indagini",
-      "summary": "Il pensionato ha raccontato di essere stato avvicinato da due donne",
-      "date": "2026-09-18T20:00:13Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/canicatti-pensionato-stordito-e-scippato-della-catenina-doro-al-via-le-indagini",
-      "img": "/feed-images/c199caeeb2635930.jpg"
-    },
-    {
-      "title": "Scontro tra un pullman e un mezzo pesante: più di dieci feriti",
-      "summary": "Si attendono aggiornamenti sulle condizioni dei feriti e sui tempi di riapertura del tratto autostradale.",
-      "date": "2026-09-18T19:51:20Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scontro-tra-un-pullman-e-un-mezzo-pesante-piu-di-dieci-feriti",
-      "img": "/feed-images/65301ff96ae025bd.jpg"
-    },
-    {
-      "title": "Savarino: “Ok a più giornate per forestali stagionali ma servono i giovani”",
-      "summary": "Lo dice l’assessore regionale al Territorio e all’Ambiente, Giusi Savarino",
-      "date": "2026-09-18T17:01:04Z",
-      "link": "https://www.grandangoloagrigento.it/politica/savarino-ok-a-piu-giornate-per-forestali-stagionali-ma-servono-i-giovani",
-      "img": "/feed-images/9727c882ecb2c3a4.jpg"
     }
   ]
 }
