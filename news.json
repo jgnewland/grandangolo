@@ -1,8 +1,36 @@
 {
-  "updated": "2026-09-20T11:48:26.070368+00:00",
+  "updated": "2026-09-20T15:21:33.046842+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Licata, crolla un lampione in piazza Duomo: ferito lievemente un ragazzo",
+      "summary": "L’incidente si è verificato a seguito del maltempo che si è abbattuto in città",
+      "date": "2026-09-20T14:43:36Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/licata-crolla-un-lampione-in-piazza-duomo-ferito-lievemente-un-ragazzo",
+      "img": "/feed-images/c60a8da410ce9b1d.jpg"
+    },
+    {
+      "title": "Ragazzo di 17 anni cade da cavallo, trasferito in ospedale con l’elisoccorso",
+      "summary": "Il giovane ha riportato gravi traumi alla testa e al torace e la prognosi resta riservata.",
+      "date": "2026-09-20T14:18:13Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/ragazzo-di-17-anni-cade-da-cavallo-trasferito-in-ospedale-con-lelisoccorso",
+      "img": "/feed-images/86d5446c0548bb04.jpg"
+    },
+    {
+      "title": "Ordine degli Ingegneri di Agrigento: Picone eletto Vicepresidente",
+      "summary": "Nel corso delle determinazioni l’ingegnere Sorce è stato delegato alla Consulta Regionale",
+      "date": "2026-09-20T12:49:27Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ordine-degli-ingegneri-di-agrigento-picone-eletto-vicepresidente",
+      "img": "/feed-images/e41d466c6b8abc9c.jpg"
+    },
+    {
+      "title": "Uomo accoltellato al culmine di una rissa, indagini in corso",
+      "summary": "La dinamica dell’accaduto è al vaglio delle Forze dell’Ordine.",
+      "date": "2026-09-20T11:47:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/uomo-accoltellato-al-culmine-di-una-rissa-indagini-in-corso",
+      "img": "/feed-images/3767538b8536b61e.jpg"
+    },
     {
       "title": "Maltempo ad Agrigento, il sindaco Sodano: “evento che deve spingerci ad accelerare”",
       "summary": "Assessori e funzionari della protezione civile in campo per sopralluoghi e la conta dei danni",
@@ -184,34 +212,6 @@
       "date": "2026-09-19T10:09:44Z",
       "link": "https://www.grandangoloagrigento.it/palermo/blitz-contro-il-lavoro-nero-denunciati-sei-datori-di-lavoro-e-sospese-quattro-attivita",
       "img": "/feed-images/64caaf8832d22e48.jpg"
-    },
-    {
-      "title": "Sorpreso a rubare capi griffati: arrestato 27enne",
-      "summary": "La refurtiva è stata recuperata e, dopo gli opportuni riscontri, è stata restituita al responsabile del negozio",
-      "date": "2026-09-19T10:02:50Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sorpreso-a-rubare-capi-griffati-arrestato-27enne",
-      "img": "/feed-images/c44b8324a5f3b12d.jpg"
-    },
-    {
-      "title": "A Sambuca inaugurata la mostra permanente “(In)quietudine” di Sylvie Clavel",
-      "summary": "Otto sculture tessili nella nuova sede espositiva dell’artista francese",
-      "date": "2026-09-19T09:12:14Z",
-      "link": "https://www.grandangoloagrigento.it/cultura/a-sambuca-inaugurata-la-mostra-permanente-inquietudine-di-sylvie-clavel",
-      "img": "/feed-images/ab0f238d216647f8.jpg"
-    },
-    {
-      "title": "Azienda agrigentina presenta “Argo”, un cane robot con IA per gestire le emergenze",
-      "summary": "La società agrigentina Medical Cloud, dell’ingegnere Ivano Midulla, è infatti tra le realtà che partecipano al trentaseiesimo convegno italiano di medicina aeronautica e spaziale",
-      "date": "2026-09-19T09:08:31Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/azienda-agrigentina-presenta-argo-un-cane-robot-con-ia-per-gestire-le-emergenze",
-      "img": "/feed-images/d2e0be3e9408f268.jpg"
-    },
-    {
-      "title": "Violenza sulle donne, evento di sensibilizzazione e memoria ad Agrigento",
-      "summary": "L’evento è in programma il 23 settembre",
-      "date": "2026-09-19T08:41:18Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/violenza-sulle-donne-evento-di-sensibilizzazione-e-memoria-ad-agrigento",
-      "img": "/feed-images/517ce2c47faf0933.png"
     }
   ]
 }
