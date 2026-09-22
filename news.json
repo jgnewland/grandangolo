@@ -1,8 +1,106 @@
 {
-  "updated": "2026-09-22T10:00:09.773247+00:00",
+  "updated": "2026-09-22T14:39:55.276763+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tamponamento sulla A19 Palermo-Catania: quattro veicolo coinvolti e due feriti",
+      "summary": "Il traffico è bloccato",
+      "date": "2026-09-22T12:54:09Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tamponamento-sulla-a19-palermo-catania-quattro-veicolo-coinvolti-e-due-feriti",
+      "img": "/feed-images/63c2ae3a88fb755e.jpg"
+    },
+    {
+      "title": "Libero Consorzio, avviati i servizi per gli studenti con disabilità negli istituti superiori",
+      "summary": "Soddisfatto del pronto avvio del servizio, il presidente del Libero Consorzio Giuseppe Pendolino.",
+      "date": "2026-09-22T12:50:49Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/libero-consorzio-avviati-i-servizi-per-gli-studenti-con-disabilita-negli-istituti-superiori",
+      "img": "/feed-images/721bf289946100be.jpg"
+    },
+    {
+      "title": "Prosa, musical e impegno civile: ecco la nuova edizione di “Riflessi culturali”",
+      "summary": "Presentato anche il cartellone dei “Venerdì Jazz” e il nuovo “Progetto Pirandello” nel nome, stavolta di Leonardo Sciascia",
+      "date": "2026-09-22T12:47:45Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/prosa-musical-e-impegno-civile-ecco-la-nuova-edizione-di-riflessi-culturali",
+      "img": "/feed-images/8ffcfe246e8c7c56.jpg"
+    },
+    {
+      "title": "Canicattì, messa a dimora la foglia in memoria del maresciallo Guazzelli",
+      "summary": "Alla cerimonia hanno preso parte i vertici provinciali delle istituzioni civili, militari e delle forze dell’ordine, oltre a numerose delegazioni di studenti del territorio.",
+      "date": "2026-09-22T12:41:24Z",
+      "link": "https://www.grandangoloagrigento.it/canicatti/canicatti-messa-a-dimora-la-foglia-in-memoria-del-maresciallo-guazzelli",
+      "img": "/feed-images/076066a9dc116853.jpg"
+    },
+    {
+      "title": "Al via la bonifica e pulizia della via Sant’Antonio, Balsamo: “Licata merita rispetto”",
+      "summary": "Ancora una volta è stato necessario bonificare e pulire l’area dai rifiuti abbandonati",
+      "date": "2026-09-22T11:32:19Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/al-via-la-bonifica-e-pulizia-della-via-santantonio-balsamo-licata-merita-rispetto",
+      "img": "/feed-images/04a4dcdb35689b9c.jpg"
+    },
+    {
+      "title": "Donna trovata morto nel cortile della sua abitazione: arrestato 22enne",
+      "summary": "Il giovane interrogato dal pm ha confessato di aver commesso l’omicidio",
+      "date": "2026-09-22T11:27:15Z",
+      "link": "https://www.grandangoloagrigento.it/messina/donna-trovata-morto-nel-cortile-della-sua-abitazione-arrestato-22enne",
+      "img": ""
+    },
+    {
+      "title": "Catania, tre poliziotti aggrediti durante un controllo antidroga. Schifani: “Azioni intollerabili”",
+      "summary": "L’aggressione è stata interrotta grazie all’intervento di altre pattuglie in ausilio ai colleghi.",
+      "date": "2026-09-22T11:22:56Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/catania-tre-poliziotti-aggrediti-durante-un-controllo-antidroga-schifani-azioni-intollerabili",
+      "img": "/feed-images/d8fc9e1bc10824ee.jpg"
+    },
+    {
+      "title": "Agrigento si prepara ad ospitare il 46° Congresso Regionale SIAPAV Sicilia",
+      "summary": "Dalle nuove frontiere farmacologiche ed interventistiche per ridurre il rischio di malattie cardiovascolari, alle tecniche di chirurgia endovascolare e mininvasiva",
+      "date": "2026-09-22T11:21:59Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-si-prepara-ad-ospitare-il-46-congresso-regionale-siapav-sicilia",
+      "img": "/feed-images/fede9232e4e7a76a.jpg"
+    },
+    {
+      "title": "La chiusura della galleria Belvedere inibisce l’accesso alla farmacia, Pace: “viene meno un servizio essenziale”",
+      "summary": "Sulla vicenda, interviene Maurizio Pace, presidente dell’Ordine dei farmacisti di Agrigento",
+      "date": "2026-09-22T10:37:01Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/la-chiusura-della-galleria-belvedere-inibisce-laccesso-alla-farmacia-pace-viene-meno-un-servizio-essenziale",
+      "img": "/feed-images/33ee1ad0e7af1c2e.jpg"
+    },
+    {
+      "title": "Racalmuto, vandalizzato l’anfiteatro Messana: il rammarico dell’amministrazione",
+      "summary": "Avviate le indagini per risalire a chi ha compiuto il vile gesto",
+      "date": "2026-09-22T10:31:47Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/racalmuto-vandalizzato-lanfiteatro-messana-il-rammarico-dellamministrazione",
+      "img": "/feed-images/4c7bc5dfedf149c9.jpg"
+    },
+    {
+      "title": "Minorenne ucciso a colpi di pistola a Palma di Montechiaro, chiesti 20 anni di carcere per Falco Abramo",
+      "summary": "Antonio Morgana, ragazzo di appena 17 anni, venne ucciso con tre colpi di pistola in contrada Ciotta a Palma di Montechiaro nell’ottobre 2013",
+      "date": "2026-09-22T10:29:32Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/minorenne-ucciso-a-colpi-di-pistola-a-palma-di-montechiaro-chiesti-20-anni-di-carcere-per-falco-abramo",
+      "img": "/feed-images/59fcea028265f80a.jpg"
+    },
+    {
+      "title": "Mandorlo in fiore, si lavora al 24esimo Festival internazionale “I Bambini del Mondo”",
+      "summary": "L’evento si terrà ad Agrigento dal 2 al 7 marzo 2027.",
+      "date": "2026-09-22T10:22:26Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/mandorlo-in-fiore-si-lavora-al-24esimo-festival-internazionale-i-bambini-del-mondo",
+      "img": "/feed-images/83e17ec8cf0f1e91.jpg"
+    },
+    {
+      "title": "Dalla grande scuola del teatro e della TV alla musica evocativa: il viaggio d’autore di Luigi Mirotta",
+      "summary": "L’agrigentino firma una serie di composizioni di musica evocativa e narrativa.",
+      "date": "2026-09-22T10:15:15Z",
+      "link": "https://www.grandangoloagrigento.it/cultura/dalla-grande-scuola-del-teatro-e-della-tv-alla-musica-evocativa-il-viaggio-dautore-di-luigi-mirotta",
+      "img": "/feed-images/8633625afe94f776.jpg"
+    },
+    {
+      "title": "Rapina in un supermercato: rintracciati e denunciati",
+      "summary": "Si tratta di due pregiudicati catanesi di 44 e 59 anni, entrambi con precedenti per reati contro il patrimonio.",
+      "date": "2026-09-22T10:10:36Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/rapina-in-un-supermercato-rintracciati-e-denunciati",
+      "img": "/feed-images/301f7a9e85b341e6.jpg"
+    },
     {
       "title": "Organizzava corse clandestine su pubblica via: arrestato 19enne",
       "summary": "Il 19enne è ritenuto responsabile di organizzazione di competizioni non autorizzate in velocità con veicoli a motore e partecipazione alle gare”",
@@ -11,7 +109,7 @@
       "img": "/feed-images/b6d4145d900f886e.jpg"
     },
     {
-      "title": "Fuggono all’Alt e investono con lo scooter una donna: arrestato 24enne",
+      "title": "Fuggono all’Alt e investono con lo scooter una donna: bloccati e uno arrestato",
       "summary": "La donna è stata trasferita in ospedale per le cure necessarie;",
       "date": "2026-09-22T09:35:01Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/fuggono-allalt-e-investono-con-lo-scooter-una-donna-arrestato-24enne",
@@ -114,104 +212,6 @@
       "date": "2026-09-22T04:32:17Z",
       "link": "https://www.grandangoloagrigento.it/palermo/la-morte-dellimprenditore-onorato-procura-chiede-nuova-archiviazione",
       "img": "/feed-images/70bc5b0cbc189f67.jpg"
-    },
-    {
-      "title": "Maltempo, comitato d’urgenza al Comune; il sindaco Sodano: “Questa è l’operatività di cui Agrigento ha bisogno”",
-      "summary": "Al tavolo hanno partecipato tutti gli enti preposti",
-      "date": "2026-09-21T19:13:07Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/maltempo-comitato-durgenza-al-comune-il-sindaco-sodano-questa-e-loperativita-di-cui-agrigento-ha-bisogno",
-      "img": "/feed-images/eef5ac0bfbbae1ef.jpg"
-    },
-    {
-      "title": "Mandorlo in Fiore 2027, la Delegazione di Confcommercio Agrigento: “Ora un tavolo sulla sostenibilità e l’ipotesi ticket”",
-      "summary": "La kermesse si svolgerà dal 2 al 7 marzo 2027",
-      "date": "2026-09-21T18:47:28Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/mandorlo-in-fiore-2027-la-delegazione-di-confcommercio-agrigento-ora-un-tavolo-sulla-sostenibilita-e-lipotesi-ticket",
-      "img": "/feed-images/5f1ca34596c2106a.jpg"
-    },
-    {
-      "title": "Fatture false ed evasione fiscale tramite società moldava, assolti due imprenditori agrigentini",
-      "summary": "La vicenda risale al 2018 quando la Guardia di Finanza di Canicattì avviò un accertamento su una società di Racalmuto",
-      "date": "2026-09-21T17:59:08Z",
-      "link": "https://www.grandangoloagrigento.it/primo-piano/fatture-false-ed-evasione-fiscale-tramite-societa-moldava-assolti-due-imprenditori-agrigentini",
-      "img": "/feed-images/3632e3aee47cf3f9.jpg"
-    },
-    {
-      "title": "Palma di Montechiaro, cacciatore ferito alla gamba dall’amico con un colpo di fucile",
-      "summary": "Un cacciatore è rimasto ferito ad una gamba con un colpo di fucile che, secondo una prima ricostruzione, sarebbe partito accidentalmente dall’arma dell’amico",
-      "date": "2026-09-21T17:53:25Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/palma-di-montechiaro-ferito-con-un-fucile-dallamico-durante-battuta-di-caccia",
-      "img": "/feed-images/6aef6e5461209313.jpg"
-    },
-    {
-      "title": "Cinque omicidi (ancora) senza un colpevole: i “cold case” che hanno sconvolto Licata",
-      "summary": "Una scia di sangue che dal 2004 ad oggi ha lasciato a terra cinque vittime stroncate da una furia omicida ad oggi senza responsabili",
-      "date": "2026-09-21T17:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/cinque-omicidi-ancora-senza-un-colpevole-i-cold-case-che-hanno-sconvolto-licata",
-      "img": "/feed-images/eca89b6e98b54621.jpg"
-    },
-    {
-      "title": "Sorelline scomparse e ritrovate in un negozio, si indaga per sequestro di persona",
-      "summary": "E’ stato aperto un procedimento a carico di ignoti. La procura indaga perche’ vi sono ancora circostanze poco chiare",
-      "date": "2026-09-21T16:54:58Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/sorelline-scomparse-e-ritrovate-in-un-negozio-si-indaga-per-sequestro-di-persona",
-      "img": "/feed-images/cf505f45edd522a5.jpg"
-    },
-    {
-      "title": "Ai domiciliari ingiustamente per 15 giorni, ex sindaco sarà risarcito",
-      "summary": "I fatti risalgono al marzo 2020, quando l’allora sindaco era stato arrestato, oltre che per truffa aggravata, per falsita’ in atti pubblici",
-      "date": "2026-09-21T16:53:06Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/ai-domiciliari-ingiustamente-per-15-giorni-ex-sindaco-sara-risarcito",
-      "img": "/feed-images/7f51b4b7d41e915d.jpg"
-    },
-    {
-      "title": "“Ucciso perchè onesto”, l’omicidio del vigile Giovanni Fazio e quelle parole del boss Di Gati cadute nel vuoto",
-      "summary": "Giovanni Fazio è stato ucciso con due colpi di pistola la sera del 21 settembre 1997 a Palma di Montechiaro. L’unica traccia di quel delitto l’ha lasciato il boss pentito Maurizio Di Gati",
-      "date": "2026-09-21T16:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/ucciso-perche-onesto-lomicidio-del-vigile-giovanni-fazio-e-quelle-parole-del-boss-di-gati-cadute-nel-vuoto",
-      "img": "/feed-images/bad2cf0c53b3d52a.jpg"
-    },
-    {
-      "title": "Tangenti alla motorizzazione, direttore Pizzuto ai domiciliari: “Era un prestito”",
-      "summary": "Il direttore della motorizzazione sostiene che i 5.500 euro trovati nel suo zaino non erano una tangente ma una trance di un prestito",
-      "date": "2026-09-21T16:13:14Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/tangenti-alla-motorizzazione-direttore-pizzuto-ai-domiciliari-era-un-prestito",
-      "img": "/feed-images/d57f6faa4b6ff2ec.jpg"
-    },
-    {
-      "title": "Migranti, al via il progetto per rafforzare il sistema di accoglienza dei minori stranieri",
-      "summary": "L’iniziativa ha una durata di 24 mesi, ha ottenuto un finanziamento di 495 mila euro e si sviluppa nelle province di Agrigento e Ragusa",
-      "date": "2026-09-21T16:05:19Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/migranti-al-via-il-progetto-per-rafforzare-il-sistema-di-accoglienza-dei-minori-stranieri",
-      "img": "/feed-images/6c1602890c34d98f.jpg"
-    },
-    {
-      "title": "Nasce l’associazione Giovani Idee, Luca Iacolino: “Costruire un futuro migliore per la nostra provincia”",
-      "summary": "Il promotore Luca Iacolino afferma: “Abbiamo l’intenzione di portare le idee ed i progetti in ogni comune della provincia di Agrigento per stimolare con azioni ed istanze le amministrazioni comunali”",
-      "date": "2026-09-21T15:57:16Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/nasce-lassociazione-giovani-idee-luca-iacolino-costruire-un-futuro-migliore-per-la-nostra-provincia",
-      "img": "/feed-images/6799502e4094cc5e.jpg"
-    },
-    {
-      "title": "Rifiuti, la Regione: “3,5 mln a 4 Comuni per raccolta differenziata”",
-      "summary": "Tra i comuni c’è Caltabellotta che andrà un contributo di quasi 432 mila euro.",
-      "date": "2026-09-21T15:51:17Z",
-      "link": "https://www.grandangoloagrigento.it/caltabellotta/rifiuti-la-regione-35-mln-a-4-comuni-per-raccolta-differenziata",
-      "img": "/feed-images/fc09c6bcf55d09b3.jpg"
-    },
-    {
-      "title": "Criminalità, il Prefetto Caccamo: “Le forze di polizia ci sono ma serve impegno di tutti”",
-      "summary": "Allarme sicurezza nell’Agrigentino e i cittadini chiedono più controlli",
-      "date": "2026-09-21T15:04:55Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/criminalita-il-prefetto-caccamo-le-forze-di-polizia-ci-sono-ma-serve-impegno-di-tutti",
-      "img": "/feed-images/c99dc8fe1239ebfb.jpg"
-    },
-    {
-      "title": "Il Lions Club Agrigento Host lancia la prima edizione del premio legalità “Rosario Livatino”",
-      "summary": "Il Premio è rivolto agli studenti delle classi terze, quarte e quinte delle scuole secondarie di secondo grado della provincia di Agrigento",
-      "date": "2026-09-21T14:57:26Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/il-lions-club-agrigento-host-lancia-la-prima-edizione-del-premio-legalita-rosario-livatino",
-      "img": "/feed-images/6dcf2a3817cd0fc4.jpg"
     }
   ]
 }
