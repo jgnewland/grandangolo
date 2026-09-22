@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-22T18:17:11.412379+00:00",
+  "updated": "2026-09-22T21:32:51.699602+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Esseneto, dopo 80 anni arrivano i fari: lo stadio di Agrigento si accende",
+      "summary": "L’impianto di illuminazione è finalmente realtà. Oggi le verifiche della Lega Nazionale Dilettanti per l’omologazione: sugli spalti e sul terreno di gioco uno spettacolo che Agrigento aspettava da…",
+      "date": "2026-09-22T20:00:35Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/esseneto-agrigento-impianto-illuminazione-fari",
+      "img": "/feed-images/41dd6377ce47a8f8.png"
+    },
     {
       "title": "La morte di Gino Brucceri, periti passano al setaccio il viadotto Morandi: al via incidente probatorio",
       "summary": "Gli indagati sono 16 (tra colleghi della vittima, dirigenti Anas e imprenditori) e a tutti viene contestato il reato di omicidio colposo in concorso",
@@ -205,13 +212,6 @@
       "date": "2026-09-22T07:35:56Z",
       "link": "https://www.grandangoloagrigento.it/apertura/appalti-e-mazzette-le-elezioni-del-libero-consorzio-e-la-foto-del-voto-come-prova-di-fedelta-ha-fatto-il-bravo",
       "img": "/feed-images/d7a36f86f31d479d.jpg"
-    },
-    {
-      "title": "Cade da cavallo e muore a 17 anni, Ismaele non ce l’ha fatta",
-      "summary": "Inizialmente la prognosi era stata riservata, ma nelle ore successive il quadro clinico è precipitato fino al decesso",
-      "date": "2026-09-22T07:04:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/cade-da-cavallo-e-muore-a-17enne-la-tragedia-a-camporeale",
-      "img": "/feed-images/66ec7e1c02f64b52.jpg"
     }
   ]
 }
