@@ -1,8 +1,29 @@
 {
-  "updated": "2026-09-25T14:57:59.345018+00:00",
+  "updated": "2026-09-25T19:10:31.876019+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Il generale Riccardo Sciuto nuovo comandante dei carabinieri Nas",
+      "summary": "Sciuto, originario di Rho, è stato per anni il comandante provinciale dei carabinieri di Agrigento",
+      "date": "2026-09-25T16:22:53Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/il-generale-riccardo-sciuto-nuovo-comandante-dei-carabinieri-nas",
+      "img": "/feed-images/1947077588fdcb70.png"
+    },
+    {
+      "title": "Castrum Favara: Gabriele Mazza firma per i gialloblù",
+      "summary": "Giovane attaccante palermitano che rafforza così la squadra",
+      "date": "2026-09-25T15:20:16Z",
+      "link": "https://www.grandangoloagrigento.it/sport/castrum-favara-gabriele-mazza-firma-per-i-gialloblu",
+      "img": "/feed-images/0eec5e485359afc4.jpg"
+    },
+    {
+      "title": "Caro-voli, Regione proroga lo sconto per i residenti fino al 30 novembre",
+      "summary": "La Regione Siciliana proroga fino al 30 novembre la misura contro il caro voli che prevede sconti sui biglietti delle tratte aeree nazionali per i residenti in Sicilia",
+      "date": "2026-09-25T15:10:28Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia/caro-voli-regione-proroga-lo-sconto-per-i-residenti-fino-al-30-novembre",
+      "img": "/feed-images/50cf2704992a560b.jpg"
+    },
     {
       "title": "Scontro scooter-bici, morto rider di 37 anni",
       "summary": "La vittima è Salvatore Zora, rider di Glovo. Lascia la moglie e due figlie piccole",
@@ -191,27 +212,6 @@
       "date": "2026-09-25T05:05:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/bruciato-un-piaggio-porter-di-un-operaio-trovata-bottiglia-con-liquido-infiammabile",
       "img": ""
-    },
-    {
-      "title": "Al via il Progetto “On The Road”: giovani protagonisti della cultura della legalità e della sicurezza stradale",
-      "summary": "L’avvio è previsto per il 28 settembre",
-      "date": "2026-09-24T16:43:56Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/al-via-il-progetto-on-the-road-giovani-protagonisti-della-cultura-della-legalita-e-della-sicurezza-stradale",
-      "img": "/feed-images/c50b12a5016d2ddc.jpg"
-    },
-    {
-      "title": "Teatro Pirandello, Roberta Torre conclude il mandato alla Direzione Artistica",
-      "summary": "Le dichiarazioni di Roberta Torre a fine mandato",
-      "date": "2026-09-24T16:39:17Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/teatro-pirandello-roberta-torre-conclude-il-mandato-alla-direzione-artistica",
-      "img": "/feed-images/91e30ead057f42ea.jpg"
-    },
-    {
-      "title": "Caro carburante, agricoltori minacciano di bloccare la Palermo-Agrigento",
-      "summary": "Lunedì 28 settembre l’associazione degli agricoltorei Agrisat è pronta a bloccare lo scorrimento veloce Palermo-Agrigento se sui carburanti non arriveranno risposte",
-      "date": "2026-09-24T16:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/caro-carburante-agricoltori-minacciano-di-bloccare-la-palermo-agrigento",
-      "img": "/feed-images/ab8fe048a2cc328e.webp"
     }
   ]
 }
