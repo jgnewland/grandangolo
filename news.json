@@ -1,8 +1,36 @@
 {
-  "updated": "2026-09-26T10:16:15.980987+00:00",
+  "updated": "2026-09-26T14:38:30.607668+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Scoperta casa di prostituzione, denunciata 37enne",
+      "summary": "Al momento del controllo effettuato da agenti la donna è stata trovata nella casa in compagnia di un cliente",
+      "date": "2026-09-26T13:51:39Z",
+      "link": "https://www.grandangoloagrigento.it/catania/scoperta-casa-di-prostituzione-denunciata-37enne",
+      "img": "/feed-images/cdf26e792cc4d84d.jpg"
+    },
+    {
+      "title": "Rissa in un centro di accoglienza, 5 arresti",
+      "summary": "La lite e’ scaturita da reciproche accuse di sottrazione di denaro e di un telefono cellulare, degenerando rapidamente e coinvolgendo vari ospiti armati anche di bastoni",
+      "date": "2026-09-26T13:48:51Z",
+      "link": "https://www.grandangoloagrigento.it/messina/rissa-in-un-centro-di-accoglienza-5-arresti",
+      "img": "/feed-images/a30b0354d942fe8e.jpg"
+    },
+    {
+      "title": "Donna getta acido addosso al suo avvocato, legale finisce in terapia intensiva",
+      "summary": "Subito medicato per le ustioni da acido su circa il 20% del corpo, ma profonde, per l’uso di un prodotto caustico ma non sarebbe in pericolo di vita",
+      "date": "2026-09-26T13:47:22Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/donna-getta-acido-addosso-al-suo-avvocato-legale-finisce-in-terapia-intensiva",
+      "img": "/feed-images/903c2d7c1515b67a.jpg"
+    },
+    {
+      "title": "Scoperta stalla abusiva, scatta il sequestro e la sanzione",
+      "summary": "Il gestore della stalla è stato sanzionato per oltre 13.000 euro",
+      "date": "2026-09-26T10:35:13Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scoperta-stalla-abusiva-scatta-il-sequestro-e-la-sanzione",
+      "img": "/feed-images/b804dfaa3fcd55cc.jpg"
+    },
     {
       "title": "La fotografa licatese Bontà tra i finalisti alla Biennale MarteLive con il progetto “Quello che resta”",
       "summary": "Al centro del progetto fotografico c’è la memoria di una famiglia, con i suoi gesti quotidiani, i suoi silenzi e le sue fragilità",
@@ -184,34 +212,6 @@
       "date": "2026-09-25T14:10:23Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/controcorrente-agrigento-mangione-e-svettini-nessun-accordo-con-il-centrodestra-far-parte-delle-commissioni-e-un-diritto-e-non-una-concessione",
       "img": "/feed-images/02e1af672c7c76bb.jpg"
-    },
-    {
-      "title": "Inaugurato a Canicattì il murale dedicato ad Antonino e Stefano Saetta. Savarino: «La memoria diventi un messaggio per le nuove generazioni»",
-      "summary": "Il murale è stato dedicato in occasione del 38 anniversario di morte del giudice Saetta e del figlio Stefano",
-      "date": "2026-09-25T14:02:27Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/inaugurato-a-canicatti-il-murale-dedicato-ad-antonino-e-stefano-saetta-savarino-la-memoria-diventi-un-messaggio-per-le-nuove-generazioni",
-      "img": "/feed-images/51ed76a1a7523b92.jpg"
-    },
-    {
-      "title": "L’ASP di Agrigento rafforza il dialogo con enti e rappresentanze sociali: personale e servizi al centro del confronto",
-      "summary": "La nota del commissario dell’Asp Delle Donne",
-      "date": "2026-09-25T13:29:16Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lasp-di-agrigento-rafforza-il-dialogo-con-enti-e-rappresentanze-sociali-personale-e-servizi-al-centro-del-confronto",
-      "img": "/feed-images/0414f82a29fe3da9.jpg"
-    },
-    {
-      "title": "Agrigento sposa il modello isola per una transizione verso il 100% di energia rinnovabile",
-      "summary": "Il Sindaco Sodano ha firmato un Protocollo d’intesa con Greening the Islands Foundation e Blue Planet Alliance durante la Settimana del Clima di New York",
-      "date": "2026-09-25T13:25:49Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-sposa-il-modello-isola-per-una-transizione-verso-il-100-di-energia-rinnovabile",
-      "img": "/feed-images/00331900e26d04e5.png"
-    },
-    {
-      "title": "NaturalmenteAgrigento prosegue e costruisce una rete di attività, laboratori e visite green",
-      "summary": "Il progetto quindi, continua, con un calendario attraverserà l’autunno agrigentino tra trekking e passeggiate, laboratori e attività per bambini, performance teatrali e poetico-musicali, fotografia…",
-      "date": "2026-09-25T12:06:03Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/naturalmenteagrigento-prosegue-e-costruisce-una-rete-di-attivita-laboratori-e-visite-green",
-      "img": "/feed-images/eca758d9173b1061.jpg"
     }
   ]
 }
