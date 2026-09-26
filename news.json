@@ -1,8 +1,29 @@
 {
-  "updated": "2026-09-26T18:01:55.963493+00:00",
+  "updated": "2026-09-26T21:08:38.751975+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Dramma in via Dante, 48enne morto all’interno di una tabaccheria",
+      "summary": "Un quarantottenne di Favara è deceduto questa sera all’interno di un tabacchi probabilmente stroncato da un malore fatale",
+      "date": "2026-09-26T20:29:29Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/dramma-in-via-dante-48enne-morto-allinterno-di-una-tabaccheria",
+      "img": "/feed-images/1ab81a8393017089.jpg"
+    },
+    {
+      "title": "Aula troppo piccola, rientra la protesta degli studenti del Liceo Leonardo di Agrigento",
+      "summary": "A margine di un incontro con la dirigente Pilato gli studenti sono stati spostati presso la sede di via Cimarra",
+      "date": "2026-09-26T18:49:39Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/aula-troppo-piccola-rientra-la-protesta-degli-studenti-del-liceo-leonardo-di-agrigento",
+      "img": "/feed-images/38baffffe61aab6b.jpg"
+    },
+    {
+      "title": "Erosione costiera, Savarino: “trasformare le risorse in opere concrete e difendere il territorio”",
+      "summary": "Intercettati 77 milioni di euro di risorse FESR riprogrammate per finanziare interventi contro l’erosione costiera",
+      "date": "2026-09-26T18:13:57Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/erosione-costiera-savarino-trasformare-le-risorse-in-opere-concrete-e-difendere-il-territorio",
+      "img": "/feed-images/60fd3f036400d9d0.jpg"
+    },
     {
       "title": "Gas off-shore, ministero proroga autorizzazione per il pozzo Lince tra Gela e Licata",
       "summary": "La richiesta è stata avanzata da Eni, in un’area di costa tra Gela e Licata.",
@@ -191,27 +212,6 @@
       "date": "2026-09-26T06:59:21Z",
       "link": "https://www.grandangoloagrigento.it/apertura/blitz-antidroga-ad-aragona-38enne-fermato-con-un-chilo-di-cocaina",
       "img": "/feed-images/655bc55c1391025a.jpg"
-    },
-    {
-      "title": "Agenti aggrediti dai residenti, scatta il maxi blitz nel rione",
-      "summary": "All’alba circa 200 operatori di polizia di Stato, carabinieri e guardia di finanza hanno garantito massicci presidi e dispositivi straordinari",
-      "date": "2026-09-26T06:09:49Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/agenti-aggrediti-dai-residenti-scatta-il-maxi-blitz-nel-rione",
-      "img": "/feed-images/6cd669830194abdc.jpg"
-    },
-    {
-      "title": "Litiga con la moglie e la minaccia di morte davanti ai figli, denunciato 40enne",
-      "summary": "Madre e figli sono stati trasferiti in una località protetta. Nei confronti dell’uomo, invece, è scattata una denuncia a piede libero",
-      "date": "2026-09-26T05:20:19Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/litiga-con-la-moglie-e-la-minaccia-di-morte-davanti-ai-figli-denunciato-40enne",
-      "img": ""
-    },
-    {
-      "title": "Ztl, raffica di verbali nei mesi estivi: multe in arrivo per automobilisti “distratti”",
-      "summary": "A luglio i verbali elevati erano 361 per poi arrivare addirittura a 450 nel mese di agosto. Gli agenti della polizia locale stanno provvedendo a notificare le multe agli automobilisti indisciplinati",
-      "date": "2026-09-26T05:12:47Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ztl-raffica-di-verbali-nei-mesi-estivi-multe-in-arrivo-per-automobilisti-distratti",
-      "img": "/feed-images/2305c403bd1488c9.jpg"
     }
   ]
 }
