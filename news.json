@@ -1,14 +1,84 @@
 {
-  "updated": "2026-09-27T01:48:22.726120+00:00",
+  "updated": "2026-09-27T07:32:02.781177+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
+      "title": "Smantellata piazza di spaccio, arrestati due pusher",
+      "summary": "La piazza di spaccio era stata organizzata in modo più smart, secondo il modello già consolidato del “drive-in” che permette ai pusher di ridurre notevolmente i tempi",
+      "date": "2026-09-27T07:19:33Z",
+      "link": "https://www.grandangoloagrigento.it/catania/smantellata-piazza-di-spaccio-arrestati-due-pusher-2",
+      "img": "/feed-images/a7afe51f5722ef81.jpg"
+    },
+    {
+      "title": "Gatti avvelenati in strada, denunciato un 68enne",
+      "summary": "L’esame ha accertato che i felini erano stati avvelenati, quindi l’Autorità Giudiziaria, informata dai militari dell’Arma, ha disposto una perquisizione presso l’abitazione del 68enne.",
+      "date": "2026-09-27T07:17:43Z",
+      "link": "https://www.grandangoloagrigento.it/catania/gatti-avvelenati-in-strada-denunciato-un-68enne",
+      "img": "/feed-images/9e68ef2bd6d8c405.jpg"
+    },
+    {
+      "title": "Ruba un’auto e si schianta contro un muro, denunciato",
+      "summary": "I Carabinieri hanno subito avviato tutte le verifiche del caso, appurando come l’uomo si fosse messo alla guida senza aver mai conseguito la patente",
+      "date": "2026-09-27T07:15:37Z",
+      "link": "https://www.grandangoloagrigento.it/catania/ruba-unauto-e-si-schianta-contro-un-muro-denunciato",
+      "img": "/feed-images/1eddbd0319d6361d.jpg"
+    },
+    {
+      "title": "Nasconde tre pistole pronte all’uso in un container, arrestato 27enne",
+      "summary": "La perquisizione ha riservato un’ulteriore sorpresa, perché su un altro scaffale era stata nascosta una terza pistola, un revolver di colore grigio con impugnatura nera",
+      "date": "2026-09-27T07:13:50Z",
+      "link": "https://www.grandangoloagrigento.it/catania/nasconde-tre-pistole-pronte-alluso-in-un-container-arrestato-27enne",
+      "img": "/feed-images/c09bee2542056c06.jpg"
+    },
+    {
+      "title": "Evade dai domiciliari e si rende irripetibile, arrestato dopo un mese",
+      "summary": "Da più di un mese si era allontanato da casa senza alcuna autorizzazione rendendosi di fatto irreperibile",
+      "date": "2026-09-27T07:01:03Z",
+      "link": "https://www.grandangoloagrigento.it/catania/evade-dai-domiciliari-e-si-rende-irripetibile-arrestato-dopo-un-mese",
+      "img": "/feed-images/e5305387e20a1945.jpg"
+    },
+    {
+      "title": "In fiamme la Jaguar di una 37enne a Licata, indagini",
+      "summary": "Al momento non viene esclusa alcuni ipotesi anche se, da una prima ricostruzione, non sarebbero state trovate tracce di liquido infiammabile",
+      "date": "2026-09-27T06:19:33Z",
+      "link": "https://www.grandangoloagrigento.it/notizie-licata/in-fiamme-la-jaguar-di-una-37enne-a-licata-indagini",
+      "img": "/feed-images/0ba63b850fa6c829.jpg"
+    },
+    {
       "title": "Dramma in via Dante, 48enne morto all’interno di una tabaccheria",
       "summary": "Un quarantottenne di Favara è deceduto questa sera all’interno di un tabacchi probabilmente stroncato da un malore fatale",
-      "date": "2026-09-26T20:29:29Z",
+      "date": "2026-09-27T05:01:29Z",
       "link": "https://www.grandangoloagrigento.it/apertura/dramma-in-via-dante-48enne-morto-allinterno-di-una-tabaccheria",
       "img": "/feed-images/1ab81a8393017089.jpg"
+    },
+    {
+      "title": "Accerchiato e picchiato dal branco in via Atenea, 27enne finisce in ospedale",
+      "summary": "Il giovane è stato trasferito all’ospedale San Giovanni di Dio dove i medici gli hanno diagnosticato traumi e ferite sparse",
+      "date": "2026-09-27T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/accerchiato-e-picchiato-dal-branco-in-via-atenea-27enne-finisce-in-ospedale",
+      "img": "/feed-images/e976d25077e92844.jpg"
+    },
+    {
+      "title": "In casa con oltre 8 chili tra cocaina e hashish, agrigentino a processo",
+      "summary": "I militari dell’Arma trovarono 79 panetti di hashish, per un peso complessivo di oltre 8,2 chilogrammi, e circa 290 grammi di cocaina purissima",
+      "date": "2026-09-27T04:59:30Z",
+      "link": "https://www.grandangoloagrigento.it/sciacca/in-casa-con-oltre-8-chili-tra-cocaina-e-hashish-agrigentino-a-processo",
+      "img": "/feed-images/129a524d69aae550.webp"
+    },
+    {
+      "title": "Svaligiati studio legale e appartamento, ladri portano via 23 mila euro tra soldi e gioielli",
+      "summary": "Ignoti malviventi hanno preso di mira un appartamento e uno studio legale, situati nello stesso stabile, di proprietà di padre e figlio",
+      "date": "2026-09-27T04:57:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/svaligiati-studio-legale-e-appartamento-ladri-portano-via-23-mila-euro-tra-soldi-e-gioielli",
+      "img": "/feed-images/a3c1acf5ce1a0ac5.jpg"
+    },
+    {
+      "title": "Fermato con un chilo di cocaina ad Aragona, domani udienza di convalida per 38enne",
+      "summary": "Sotto il sedile, infatti, è stato rinvenuto un panetto di cocaina dal peso di un chilogrammo. Dopo le formalità di rito l’indagato è stato trasferito in carcere",
+      "date": "2026-09-27T04:55:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/fermato-con-un-chilo-di-cocaina-ad-aragona-domani-udienza-di-convalida-per-38enne",
+      "img": "/feed-images/3d77e7ffa71a5128.jpg"
     },
     {
       "title": "Aula troppo piccola, rientra la protesta degli studenti del Liceo Leonardo di Agrigento",
@@ -46,7 +116,7 @@
       "img": "/feed-images/dd55e8c64da4ad7d.jpg"
     },
     {
-      "title": "Scontro tra due auto lungo la A19, provvidenziale il passaggio di un’ambulanza del soccorso nisseno",
+      "title": "Scontro tra due auto lungo la A19, provvidenziale il passaggio di un’ambulanza",
       "summary": "Gli operatori del 118 notando l’incidente si sono accostati prestando primo soccorso e allertando altri soccorsi",
       "date": "2026-09-26T16:13:16Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/scontro-tra-due-auto-lungo-la-a19-provvidenziale-il-passaggio-di-unambulanza-del-soccorso-nisseno",
@@ -91,7 +161,7 @@
       "title": "Donna getta acido addosso al suo avvocato, legale finisce in terapia intensiva",
       "summary": "Subito medicato per le ustioni da acido su circa il 20% del corpo, ma profonde, per l’uso di un prodotto caustico ma non sarebbe in pericolo di vita",
       "date": "2026-09-26T13:47:22Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/donna-getta-acido-addosso-al-suo-avvocato-legale-finisce-in-terapia-intensiva",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/donna-getta-acido-addosso-al-suo-avvocato-legale-finisce-in-terapia-intensiva",
       "img": "/feed-images/903c2d7c1515b67a.jpg"
     },
     {
@@ -107,6 +177,13 @@
       "date": "2026-09-26T10:09:25Z",
       "link": "https://www.grandangoloagrigento.it/moda/la-fotografa-licatese-bonta-tra-i-finalisti-alla-biennale-martelive-con-il-progetto-quello-che-resta",
       "img": "/feed-images/bad5a3959b0b9faa.jpg"
+    },
+    {
+      "title": "Blitz antidroga ad Aragona, 38enne fermato con un chilo di cocaina",
+      "summary": "In manette un trentottenne di Aragona. Negli scorsi mesi era stato trovato in possesso di oltre 10 mila euro in contanti",
+      "date": "2026-09-26T09:59:21Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/blitz-antidroga-ad-aragona-38enne-fermato-con-un-chilo-di-cocaina",
+      "img": "/feed-images/655bc55c1391025a.jpg"
     },
     {
       "title": "Cade e sbatte la testa, carabiniere libero dal servizio lo soccorre e lo salva",
@@ -135,83 +212,6 @@
       "date": "2026-09-26T09:17:43Z",
       "link": "https://www.grandangoloagrigento.it/primo-piano/caro-carburanti-eni-mette-un-tetto-ai-prezzi-di-gasolio-e-benzina",
       "img": "/feed-images/14c7a9eebe172fbc.jpg"
-    },
-    {
-      "title": "Akragas, all’Esseneto arriva la Sancataldese",
-      "summary": "Cipolla: «Servirà battagliare e arrivare prima sulla palla»",
-      "date": "2026-09-26T09:13:59Z",
-      "link": "https://www.grandangoloagrigento.it/sport/akragas-allesseneto-arriva-la-sancataldese",
-      "img": "/feed-images/90a6b8fff007c4fc.jpg"
-    },
-    {
-      "title": "Professionista in ospedale con ustioni denuncia: “Una donna mi ha gettato acido addosso”",
-      "summary": "L’uomo, un professionista 58enne, ha raccontato di essere stato aggredito per strada da una donna che gli ha versato dell’acido addosso",
-      "date": "2026-09-26T09:13:47Z",
-      "link": "https://www.grandangoloagrigento.it/messina/professionista-in-ospedale-con-ustioni-denuncia-una-donna-mi-ha-gettato-acido-addosso",
-      "img": "/feed-images/e60a679da4e92031.jpg"
-    },
-    {
-      "title": "San Giovanni Gemini, si avvia il progetto di potenziamento del sistema di videosorveglianza",
-      "summary": "Un ulteriore strumento per la prevenzione e il contrasto dei fenomeni di illegalità",
-      "date": "2026-09-26T09:10:40Z",
-      "link": "https://www.grandangoloagrigento.it/san-giovanni-gemini/san-giovanni-gemini-si-avvia-il-progetto-di-potenziamento-del-sistema-di-videosorveglianza",
-      "img": "/feed-images/ad50f3a6fd47821b.jpg"
-    },
-    {
-      "title": "Restauro dei mosaici del Bouleuterion della Valle dei Templi, al via le visite a cantiere aperto",
-      "summary": "A partire da lunedì 28 settembre al via l’apertura al pubblico del cantiere di restauro",
-      "date": "2026-09-26T08:54:51Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/restauro-dei-mosaici-del-bouleuterion-della-valle-dei-templi-al-via-le-visite-a-cantiere-aperto",
-      "img": "/feed-images/b5f679dbe66a7190.jpg"
-    },
-    {
-      "title": "Esseneto, dopo le torri faro si punta ai fondi regionali: l’iniziativa di Piparo",
-      "summary": "Il consigliere comunale di Fratelli d’Italia punta a proseguire il percorso di riqualificazione dell’impianto",
-      "date": "2026-09-26T08:51:38Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/esseneto-dopo-le-torri-faro-si-punta-ai-fondi-regionali-liniziativa-di-piparo",
-      "img": "/feed-images/e04891ee6d003849.jpg"
-    },
-    {
-      "title": "“Quanta ne vuoi?”, pusher propongono droga dalla feritoia sul portone d’ingresso: due arresti",
-      "summary": "La piazza di spaccio aveva un sistema di video sorveglianza a circuito chiuso, di ultima generazione, con quattro microcamere installate all’esterno per monitorare tutto il perimetro dell’edificio",
-      "date": "2026-09-26T08:23:57Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/quanta-ne-vuoi-pusher-propongono-droga-dalla-feritoia-sul-portone-dingresso-due-arresti",
-      "img": "/feed-images/3c40d6df03fee739.jpg"
-    },
-    {
-      "title": "Minacce di morte alla madre, arrestato 45enne",
-      "summary": "E’ accusato di maltrattamenti contro familiari o conviventi.",
-      "date": "2026-09-26T08:20:26Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/minacce-di-morte-alla-madre-arrestato-45enne",
-      "img": "/feed-images/2ca18a5e3c7ebab4.jpg"
-    },
-    {
-      "title": "Violenta aggressione in un’abitazione: arrestati due 18enni",
-      "summary": "Sono ritenuti responsabili in concorso di “tentato omicidio”, “violazione di domicilio” e “porto di oggetti atti ad offendere”",
-      "date": "2026-09-26T07:58:55Z",
-      "link": "https://www.grandangoloagrigento.it/messina/violenta-aggressione-in-unabitazione-arrestati-due-18enni",
-      "img": ""
-    },
-    {
-      "title": "Temporale e cenere dell’Etna, disagi e voli dirottati all’aeroporto di Catania",
-      "summary": "Sono già dieci i voli dirottati in altri scali: cinque a Palermo, tre a Trapani e due a Comiso",
-      "date": "2026-09-26T07:28:13Z",
-      "link": "https://www.grandangoloagrigento.it/catania/temporale-e-cenere-delletna-disagi-e-voli-dirottati-allaeroporto-di-catania",
-      "img": "/feed-images/34558e451d32a844.jpg"
-    },
-    {
-      "title": "Rifiuti, la ditta che si è aggiudicata il maxi appalto ad Agrigento finisce nel mirino della Procura: 4 indagati",
-      "summary": "Debiti milionari e rischio dissesto. La società che si è aggiudicata il maxi appalto ad Agrigento finisce nel mirino della Procura: 4 indagati",
-      "date": "2026-09-26T07:00:29Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/rifiuti-la-ditta-che-si-e-aggiudicata-il-maxi-appalto-ad-agrigento-finisce-nel-mirino-della-procura-4-indagati",
-      "img": "/feed-images/145a619bd9013472.jpg"
-    },
-    {
-      "title": "Blitz antidroga ad Aragona, 38enne fermato con un chilo di cocaina",
-      "summary": "In manette un trentottenne di Aragona. Negli scorsi mesi era stato trovato in possesso di oltre 10 mila euro in contanti",
-      "date": "2026-09-26T06:59:21Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/blitz-antidroga-ad-aragona-38enne-fermato-con-un-chilo-di-cocaina",
-      "img": "/feed-images/655bc55c1391025a.jpg"
     }
   ]
 }
