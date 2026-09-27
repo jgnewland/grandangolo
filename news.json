@@ -1,8 +1,29 @@
 {
-  "updated": "2026-09-27T13:18:26.090851+00:00",
+  "updated": "2026-09-27T17:52:43.578452+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Navigando nella Scienza, 83 giovani alla scoperta del mare di Agrigento",
+      "summary": "Concluso il progetto di MeRiS – Mediterraneo Ricerca e Sviluppo APS, realizzato con il sostegno dell’Otto per Mille della Chiesa Valdese",
+      "date": "2026-09-27T15:34:51Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/navigando-nella-scienza-83-giovani-alla-scoperta-del-mare-di-agrigento",
+      "img": "/feed-images/afe03d833321261b.jpg"
+    },
+    {
+      "title": "Agrigento, un altro appalto nel mirino della Procura: indagati dirigenti comunali, funzionari e imprenditori",
+      "summary": "La Procura di Agrigento all’attacco: dopo la rete idrica e la Mosella finisce sotto inchiesta l’appalto della videosorveglianza. Indagati 6 tra dirigenti, funzionari e imprenditori",
+      "date": "2026-09-27T15:06:46Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-un-altro-appalto-nel-mirino-della-procura-indagati-dirigenti-comunali-funzionari-e-imprenditori",
+      "img": "/feed-images/fe35dc00f2ca5127.jpg"
+    },
+    {
+      "title": "Akragas, vittoria per 2-0 sulla Sancataldese all’Esseneto",
+      "summary": "Un successo meritato contro una formazione coriacea e ben strutturata che non rilancia in biancazzurri al secondo posto in classifica",
+      "date": "2026-09-27T15:05:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/akragas-vittoria-per-2-0-sulla-sancataldese-allesseneto",
+      "img": "/feed-images/fb287c18e25a1ef5.jpg"
+    },
     {
       "title": "Prevenzione tumore alla mammella, due iniziative ad Agrigento e Favara",
       "summary": "Il 16 a Favara e il 18 ad Agrigento si scende in piazza per la prevenzione",
@@ -112,7 +133,7 @@
       "title": "Accerchiato e picchiato dal branco in via Atenea, 27enne finisce in ospedale",
       "summary": "Il giovane è stato trasferito all’ospedale San Giovanni di Dio dove i medici gli hanno diagnosticato traumi e ferite sparse",
       "date": "2026-09-27T05:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/accerchiato-e-picchiato-dal-branco-in-via-atenea-27enne-finisce-in-ospedale",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/accerchiato-e-picchiato-dal-branco-in-via-atenea-27enne-finisce-in-ospedale",
       "img": "/feed-images/e976d25077e92844.jpg"
     },
     {
@@ -126,7 +147,7 @@
       "title": "Svaligiati studio legale e appartamento, ladri portano via 23 mila euro tra soldi e gioielli",
       "summary": "Ignoti malviventi hanno preso di mira un appartamento e uno studio legale, situati nello stesso stabile, di proprietà di padre e figlio",
       "date": "2026-09-27T04:57:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/svaligiati-studio-legale-e-appartamento-ladri-portano-via-23-mila-euro-tra-soldi-e-gioielli",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/svaligiati-studio-legale-e-appartamento-ladri-portano-via-23-mila-euro-tra-soldi-e-gioielli",
       "img": "/feed-images/a3c1acf5ce1a0ac5.jpg"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-09-26T15:05:09Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/erosione-costiera-nellagrigentino-104-chilometri-su-140-sono-a-rischio",
       "img": "/feed-images/2a0d83d812f4c9c4.jpg"
-    },
-    {
-      "title": "Dove sono finiti?",
-      "summary": "Le storie di sei agrigentini scomparsi nel nulla e mai più ritrovati. Le vite sospese di chi è svanito nel nulla. Sei storie senza un ritorno.",
-      "date": "2026-09-26T15:02:20Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/dove-sono-finiti",
-      "img": "/feed-images/c7063c866287d512.jpg"
-    },
-    {
-      "title": "Scoperta casa di prostituzione, denunciata 37enne",
-      "summary": "Al momento del controllo effettuato da agenti la donna è stata trovata nella casa in compagnia di un cliente",
-      "date": "2026-09-26T13:51:39Z",
-      "link": "https://www.grandangoloagrigento.it/catania/scoperta-casa-di-prostituzione-denunciata-37enne",
-      "img": "/feed-images/cdf26e792cc4d84d.jpg"
-    },
-    {
-      "title": "Rissa in un centro di accoglienza, 5 arresti",
-      "summary": "La lite e’ scaturita da reciproche accuse di sottrazione di denaro e di un telefono cellulare, degenerando rapidamente e coinvolgendo vari ospiti armati anche di bastoni",
-      "date": "2026-09-26T13:48:51Z",
-      "link": "https://www.grandangoloagrigento.it/messina/rissa-in-un-centro-di-accoglienza-5-arresti",
-      "img": "/feed-images/a30b0354d942fe8e.jpg"
     }
   ]
 }
