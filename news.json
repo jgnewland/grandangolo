@@ -1,8 +1,22 @@
 {
-  "updated": "2026-09-28T17:00:50.655334+00:00",
+  "updated": "2026-09-28T22:32:13.293087+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Colpi di pistola contro un’abitazione a Licata, indaga la Polizia",
+      "summary": "L’episodio ha interessato la casa di un quarantenne già noto alle forze dell’ordine",
+      "date": "2026-09-28T18:00:31Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/colpi-di-pistola-contro-unabitazione-a-licata-indaga-la-polizia",
+      "img": "/feed-images/d6aa9f0d84258f12.jpg"
+    },
+    {
+      "title": "Etna, riprendono i voli in arrivo e in partenza dall’aeroporto di Catania",
+      "summary": "Ripristinati i servizi",
+      "date": "2026-09-28T17:31:49Z",
+      "link": "https://www.grandangoloagrigento.it/catania/etna-riprendono-i-voli-in-arrivo-e-in-partenza-dallaeroporto-di-catania",
+      "img": "/feed-images/f9a1a27bb0ba6de4.jpg"
+    },
     {
       "title": "Avvicinare i giovani alle regole e alla sicurezza sulle strade: parte il progetto “On the Road”",
       "summary": "I 21 ragazzi scelti scenderanno concretamente in strada e saranno coinvolti, al fianco delle forze dell’ordine, Istituzioni, e operatori di soccorso, nei servizi dedicati alla sicurezza e alla…",
@@ -198,20 +212,6 @@
       "date": "2026-09-28T09:06:28Z",
       "link": "https://www.grandangoloagrigento.it/catania/tenta-di-sfuggire-al-controllo-dei-carabinieri-inseguito-e-arrestato-con-50-dosi-di-marijuana-e-contanti",
       "img": "/feed-images/469a5e9daefec420.jpg"
-    },
-    {
-      "title": "Caro carburanti, agricoltori bloccano la statale Palermo-Agrigento",
-      "summary": "Il sit-in è organizzato da Agrisat, guidata da Franco Calderone",
-      "date": "2026-09-28T08:40:04Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/caro-carburanti-la-protesta-degli-agricoltori-lungo-la-statale-palermo-agrigento",
-      "img": "/feed-images/748e250a56b09ce0.jpg"
-    },
-    {
-      "title": "Carburanti, scatta il tetto ai prezzi di ENI: fare il pieno costerà meno",
-      "summary": "Automobilisti in attesa, ma nessuna lunga coda stamani nei distributori di ENI dell provincia di Agrigento dove il prezzo del gasolio self è 2.190 euro al litro e 1.990 euro",
-      "date": "2026-09-28T08:39:23Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/carburanti-scatta-il-tetto-ai-prezzi-di-eni-fare-il-pieno-costera-meno",
-      "img": "/feed-images/e8c2103426825bbb.jpg"
     }
   ]
 }
