@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-29T20:05:58.739170+00:00",
+  "updated": "2026-09-29T23:42:05.373546+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Caso di meningite a Sambuca di Sicilia, l’amministrazione: “situazione sotto controllo”",
+      "summary": "Il paziente, è stato trasferito nella giornata di ieri a Palermo, presso il reparto di Malattie Infettive, ed è attualmente sottoposto a terapia antibiotica e sta ricevendo le cure necessarie.",
+      "date": "2026-09-29T20:37:31Z",
+      "link": "https://www.grandangoloagrigento.it/primo-piano/caso-di-meningite-a-sambuca-di-sicilia-lamministrazione-situazione-sotto-controllo",
+      "img": "/feed-images/89fc2815dae908e4.jpg"
+    },
     {
       "title": "Porto Empedocle, protesta dei lavoratori della pesca: assemblea davanti alle imbarcazioni",
       "summary": "La protesta, promossa dalla Uila e dalla Cst Uil di Agrigento",
@@ -205,13 +212,6 @@
       "date": "2026-09-29T07:27:14Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/torna-allerta-rossa-cenere-a-catania-sospesi-voli",
       "img": ""
-    },
-    {
-      "title": "Scoperta discarica abusiva, sequestrato terreno di oltre 6.500 metri quadrati",
-      "summary": "Al momento del controllo è stata rilevata la presenza di consistente materiale edile di varia natura (in plastica, ferro e legno) nonché scarti di vernici e loro contenitori",
-      "date": "2026-09-29T06:29:11Z",
-      "link": "https://www.grandangoloagrigento.it/siracusa/scoperta-discarica-abusiva-sequestrato-terreno-di-oltre-6-500-metri-quadrati",
-      "img": "/feed-images/c9d684996f21e786.jpg"
     }
   ]
 }
