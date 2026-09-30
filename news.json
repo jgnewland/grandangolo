@@ -1,14 +1,154 @@
 {
-  "updated": "2026-09-30T08:50:12.303183+00:00",
+  "updated": "2026-09-30T15:34:33.563320+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Incidente stradale a Torre di Gaffe, 4 feriti",
+      "summary": "Uno dei mezzi coinvolti, una Fiat 500, è finito fuori strada. L’altro risulta pesantemente danneggiato",
+      "date": "2026-09-30T15:20:08Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/incidente-stradale-a-torre-di-gaffe-4-feriti",
+      "img": "/feed-images/ccb86fdc2da2fee2.jpg"
+    },
+    {
+      "title": "Lampedusa, De Rubeis denuncia criticità nell’area del Centro raccolta rifiuti",
+      "summary": "A seguito della denuncia i Carabinieri hanno effettuato un sopralluogo avviando di fatto le verifiche sulle circostanze segnalate",
+      "date": "2026-09-30T14:20:00Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/lampedusa-de-rubeis-denuncia-criticita-nellarea-del-centro-raccolta-rifiuti",
+      "img": "/feed-images/0a5afe76bab562c7.png"
+    },
+    {
+      "title": "Dc, Carmelo Pace eletto nuovo Segretario Nazionale",
+      "summary": "L’elezione è avvenuta oggi a Roma al termine dei lavori del Consiglio Nazionale, convocato dal Presidente del Consiglio Nazionale Renato Grassi.",
+      "date": "2026-09-30T14:07:43Z",
+      "link": "https://www.grandangoloagrigento.it/politica/dc-carmelo-pace-eletto-nuovo-segretario-nazionale",
+      "img": "/feed-images/39a0c1da186adc41.jpg"
+    },
+    {
+      "title": "Sicurezza stradale: i ragazzi “On the road” a fianco di Anas",
+      "summary": "Collegamento con la Sala Operativa Territoriale, simulazione di un cantiere di emergenza e visita al viadotto Maddalusa",
+      "date": "2026-09-30T13:56:58Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/sicurezza-stradale-i-ragazzi-on-the-road-a-fianco-di-anas",
+      "img": "/feed-images/ebbc7f0f9ce8d0d1.jpg"
+    },
+    {
+      "title": "Mazzette per i certificati necroscopici, indagati 17 impresari e due medici legali dell’Asp",
+      "summary": "I certificati venivano rilasciati a vista e dietro il pagamento di modeste somme di denaro, senza alcun accertamento da parte dei due medici che sono indagati per corruzione e falso ideologico.",
+      "date": "2026-09-30T13:16:46Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/mazzette-per-i-certificati-sul-caro-estinto-indagati-17-impresari-e-due-medici-legali-dellasp",
+      "img": "/feed-images/4ab3499eae49ded4.jpg"
+    },
+    {
+      "title": "Turismo ad Agrigento, Termine: “Crescita delle presenze deve tradursi in sviluppo del territorio”",
+      "summary": "Tra il 2019 e il 2025 le presenze turistiche, al netto degli alloggi in affitto, sono cresciute del 26,74%",
+      "date": "2026-09-30T13:07:37Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/turismo-ad-agrigento-termine-crescita-delle-presenze-deve-tradursi-in-sviluppo-del-territorio",
+      "img": "/feed-images/1f171e678321838d.jpg"
+    },
+    {
+      "title": "Si scatena la rissa per un fazzoletto: padre e figli denunciati",
+      "summary": "Il 46enne è sceso dall’auto armato di una mazza da baseball e si sarebbe scagliato contro l’automobilista",
+      "date": "2026-09-30T13:03:06Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/si-scatena-la-rissa-per-un-fazzoletto-padre-e-figli-denunciati",
+      "img": ""
+    },
+    {
+      "title": "Anziano cade in casa e rimane ferito, necessario l’intervento di 118 e Vigili del fuoco",
+      "summary": "Particolarmente complesse le operazioni di soccorso a causa delle difficoltà nel raggiungere con i mezzi l’abitazione dell’uomo nel cuore del centro storico di Agrigento",
+      "date": "2026-09-30T11:56:21Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-anziano-cade-in-casa-e-rimane-ferito-necessario-lintervento-di-118-e-vigili-del-fuoco",
+      "img": "/feed-images/8fcd8d4f41008fbf.jpg"
+    },
+    {
+      "title": "Boom di visitatori per Botero tra Agrigento e Palermo, gli organizzatori prevedono una proroga",
+      "summary": "Il grande successo ha dunque indotto l’organizzazione a ipotizzare una proroga della mostra",
+      "date": "2026-09-30T11:06:13Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/boom-di-visitatori-per-botero-tra-agrigento-e-palermo-gli-organizzatori-prevedono-una-proroga",
+      "img": "/feed-images/2ad99d0d1001be9c.jpg"
+    },
+    {
+      "title": "Fugge alla vista dei Carabinieri, arrestato con il crack in bocca",
+      "summary": "L’uomo è stato arrestato e messo a disposizione dell’Autorità Giudiziaria per “fuga pericolosa” e “uso personale di sostanze stupefacenti”.",
+      "date": "2026-09-30T10:51:09Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/fugge-alla-vista-dei-carabinieri-arrestato-con-il-crack-in-bocca",
+      "img": "/feed-images/3f6b200be8f1cb22.jpg"
+    },
+    {
+      "title": "Oltre 300 grammi di cocaina nascosti nel vano motore: arrestati due giovani",
+      "summary": "I due devono rispondere di detenzione di sostanze stupefacenti ai fini di spaccio in concorso",
+      "date": "2026-09-30T10:46:48Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/oltre-300-grammi-di-cocaina-nascosti-nel-vano-motore-arrestati-due-giovani",
+      "img": "/feed-images/0e8e26b691a581a3.jpg"
+    },
+    {
+      "title": "Scoperto furto a danno di un anziano: denunciata coppia",
+      "summary": "Si tratta di un 40 enne e la compagna 28enne",
+      "date": "2026-09-30T10:27:32Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scoperto-furto-a-danno-di-un-anziano-denunciata-coppia",
+      "img": "/feed-images/147fa6d538c23677.png"
+    },
+    {
+      "title": "ASP di Agrigento, al via il primo convegno degli psicologi",
+      "summary": "Si terrà domani e dopodomani, 1 e 2 ottobre, a Casa Sanfilippo, nel Parco Archeologico della Valle dei Templi",
+      "date": "2026-09-30T10:01:43Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/asp-di-agrigento-al-via-il-primo-convegno-degli-psicologi",
+      "img": "/feed-images/b1c283e40e8e26aa.jpg"
+    },
+    {
+      "title": "Manodopera irregolare, lavoratori in nero e condizioni di sicurezza carenti nei cantieri edili: sanzioni per 18mila euro",
+      "summary": "L’attività dei Carabinieri Nil si è svolta dal 14 al 25 settembre",
+      "date": "2026-09-30T10:00:11Z",
+      "link": "https://www.grandangoloagrigento.it/messina/manodopera-irregolare-lavoratori-in-nero-e-condizioni-di-sicurezza-carenti-nei-cantieri-edili-sanzioni-per-18mila-euro",
+      "img": "/feed-images/c4ed2219b90b2510.jpg"
+    },
+    {
+      "title": "Proiettile in una busta indirizzata ad un cuoco a Torre Salsa, indagini",
+      "summary": "È il messaggio inquietante ricevuto da un cuoco di 43 anni, residente nel palermitano, dipendente di una struttura a Torre Salsa, a Siculiana",
+      "date": "2026-09-30T09:58:37Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/proiettile-in-una-busta-indirizzata-ad-un-cuoco-a-torre-salsa-indagini",
+      "img": ""
+    },
+    {
+      "title": "Minaccia di morte l’ex compagna, denunciato 31enne",
+      "summary": "Dopo aver raggiunto il piano dell’appartamento della donna, avrebbe iniziato a bussare violentemente e a sferrare calci e pugni contro la porta, per impaurire la donna",
+      "date": "2026-09-30T09:34:07Z",
+      "link": "https://www.grandangoloagrigento.it/catania/minaccia-di-morte-lex-compagna-denunciato-31enne",
+      "img": "/feed-images/8ef1784b3f5b460a.jpg"
+    },
+    {
+      "title": "Perseguita la fidanzata che lo aveva lasciato, arrestato",
+      "summary": "I Carabinieri della Stazione di Capaci, coadiuvati dai colleghi della Compagnia di Palermo San Lorenzo, hanno dato esecuzione a un’ordinanza di custodia cautelare in carcere emessa dal Giudice per le…",
+      "date": "2026-09-30T09:32:39Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/perseguita-la-fidanzata-che-lo-aveva-lasciato-arrestato",
+      "img": "/feed-images/977ec17e15fd2f35.png"
+    },
+    {
+      "title": "“On the road”, giovani al fianco degli operatori della Protezione Civile di Agrigento",
+      "summary": "Per una settimana 21 giovani di età superiore ai 16 anni avranno l’opportunità di affiancare gli operatori impegnati nei servizi di prevenzione, controllo del territorio e soccorso, entrando in…",
+      "date": "2026-09-30T09:30:44Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/on-the-road-giovani-al-fianco-degli-operatori-della-protezione-civile-di-agrigento",
+      "img": "/feed-images/33b9668163a7688d.jpg"
+    },
     {
       "title": "Il cane Rex fiuta cocaina e marijuana, arrestato pusher",
       "summary": "All’interno dello zaino vi erano 13 dosi di marijuana e 27 involucri di cocaina, una radio, un telefono cellulare e denaro contante per una somma di 125 euro",
       "date": "2026-09-30T08:40:36Z",
       "link": "https://www.grandangoloagrigento.it/catania/il-cane-rex-fiuta-cocaina-e-marijuana-arrestato-pusher",
       "img": "/feed-images/cc31a9b4fdfaedd5.jpg"
+    },
+    {
+      "title": "Caro carburanti, sit-in dei pescatori e armatori di Porto Empedocle: “meglio fermarci”",
+      "summary": "La mobilitazione proseguirà fino a quando il comparto non avrà ricevuto risposte sulle criticità poste.",
+      "date": "2026-09-30T07:35:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/caro-carburati-sit-in-dei-pescatori-e-armatori-di-porto-empedocle-meglio-fermarci",
+      "img": "/feed-images/8dc4040f0f4f618a.jpg"
+    },
+    {
+      "title": "Scontro sulla Ss115 tra camion e due auto: due feriti",
+      "summary": "Il tratto di strada risulta ancora chiusa tra Gela e Licata",
+      "date": "2026-09-30T07:34:00Z",
+      "link": "https://www.grandangoloagrigento.it/caltanisetta/scontro-sulla-ss115-tra-camion-e-due-auto-due-feriti",
+      "img": "/feed-images/a7efcd74d6e818fc.jpg"
     },
     {
       "title": "Migranti, in 18 sbarcano a Lampedusa",
@@ -42,7 +182,7 @@
       "title": "“Accoltellò un anziano al cimitero per 120 euro”, chiesto processo per agrigentino",
       "summary": "L’agrigentino colpì alla gola e alla testa un 78enne che stava portando i fiori sulla tomba della moglie per sfilargli il portafoglio con 120 euro",
       "date": "2026-09-30T05:07:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/accoltello-un-anziano-al-cimitero-per-120-euro-chiesto-processo-per-agrigentino",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/accoltello-un-anziano-al-cimitero-per-120-euro-chiesto-processo-per-agrigentino",
       "img": "/feed-images/19633d9b1f8ef9de.webp"
     },
     {
@@ -72,146 +212,6 @@
       "date": "2026-09-29T17:01:34Z",
       "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/furto-al-museo-di-messina-i-video-aprono-una-nuova-pista-possibile-la-presenza-di-una-donna",
       "img": "/feed-images/014e58ba611debf1.jpg"
-    },
-    {
-      "title": "Che fine ha fatto Gessica Lattuca? Il caso torna su Fatti di Nera",
-      "summary": "Durante la trasmissione “Scmparsi” condotta da Tommaso Pondini è stata ricostruita la storia della scomparsa della giovane mamma di Favara",
-      "date": "2026-09-29T16:57:05Z",
-      "link": "https://www.grandangoloagrigento.it/favara/che-fine-ha-fatto-gessica-lattuca-il-caso-torna-su-fatti-di-nera",
-      "img": "/feed-images/6abdbef894248e39.jpg"
-    },
-    {
-      "title": "Mandorlo in fiore, Nino Lauretta esperto del Sindaco (a titolo gratuito) per l’organizzazione del festival",
-      "summary": "A renderlo noto è il sindaco di Agrigento Michele Sodano",
-      "date": "2026-09-29T16:26:07Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/mandorlo-in-fiore-nino-lauretta-esperto-del-sindaco-a-titolo-gratuito-per-lorganizzazione-del-festival",
-      "img": "/feed-images/f13e4bd794fa1aa0.jpg"
-    },
-    {
-      "title": "Truffe agli anziani, il 2 ottobre giornata di prevenzione e informazione ad Agrigento",
-      "summary": "La giornata si svolgerà presso il centro commerciale Città dei templi di Agrigento",
-      "date": "2026-09-29T15:57:42Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/truffe-agli-anziani-il-2-ottobre-giornata-di-prevenzione-e-informazione-ad-agrigento",
-      "img": "/feed-images/d45e6dd25f1fd1c1.jpg"
-    },
-    {
-      "title": "All’Asp di Agrigento entrano sette educatori professionali socio pedagogici",
-      "summary": "I professionisti saranno destinati ai consultori familiari della provincia",
-      "date": "2026-09-29T15:51:11Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/allasp-di-agrigento-entrano-sette-educatori-professionali-socio-pedagogici",
-      "img": "/feed-images/2d5f1b3521658600.jpg"
-    },
-    {
-      "title": "Fucile, pistola e 1.8 chili di cocaina: arrestato pensionato di Santa Elisabetta",
-      "summary": "Nel vano postiere l’uomo aveva nascosto un fucile a doppietta calibro 12, risultato provento di furto in Spagna e con matricola parzialmente abrasa, una pistola semiautomatica Beretta calibro 7,65 e…",
-      "date": "2026-09-29T15:28:30Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/casteltermini-in-auto-con-armi-clandestine-e-un-18-chili-di-cocaina-arrestato-67enne",
-      "img": "/feed-images/8d677961619cbc7d.jpg"
-    },
-    {
-      "title": "Carabinieri, il capitano Santino lascia il reparto Norm di Agrigento e va ad Asti",
-      "summary": "Il capitato Alberto Santino è il nuovo comandante della Compagnia Carabinieri di Canelli D’Asti",
-      "date": "2026-09-29T15:20:34Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/carabinieri-il-capitano-santino-lascia-il-reparto-norm-di-agrigento-e-va-ad-asti",
-      "img": "/feed-images/13e69de6208b3367.jpg"
-    },
-    {
-      "title": "Scuola, l’assessore Turano incontra i presidi dell’agrigentino",
-      "summary": "Ad accogliere l’assessore Turano sono stati gli studenti dell’IIS Ambrosini-King di Favara, diretto da Mirella Vella, mentre a fare gli onori di casa è stato il dirigente dell’Ambito territoriale di…",
-      "date": "2026-09-29T15:14:24Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/scuola-lassessore-turano-incontra-i-presidi-dellagrigentino",
-      "img": "/feed-images/08720fb09d97e470.jpg"
-    },
-    {
-      "title": "In casa con due esemplari di coccodrillo, pistola e droga: arrestato",
-      "summary": "L’uomo deve rispondere ora di detenzione abusiva di armi, produzione e detenzione di droga.",
-      "date": "2026-09-29T14:34:49Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-casa-con-due-esemplari-di-coccodrillo-pistola-e-droga-arrestato",
-      "img": "/feed-images/ed4d4aec55ef2318.jpg"
-    },
-    {
-      "title": "San Michele Arcangelo: la Polizia di Stato ad Agrigento celebra il suo Patrono",
-      "summary": "La Santa Messa è stata officiata da Alessandro Damiano, Arcivescovo di Agrigento, insieme al Cappellano della Polizia di Stato Don Maurizio Di Franco e a Don Sergio Bonvissuto.",
-      "date": "2026-09-29T14:24:38Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/san-michele-arcangelo-la-polizia-di-stato-ad-agrigento-celebra-il-suo-patrono",
-      "img": "/feed-images/f1224540503c23a4.jpg"
-    },
-    {
-      "title": "Tragedia a Racalmuto, accusa malore alla guida e si schianta: morta una donna",
-      "summary": "La signora si trovava alla guida di una mini-car quando avrebbe accusato un improvviso malore",
-      "date": "2026-09-29T13:25:13Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/tragedia-a-racalmuto-accusa-malore-alla-guida-e-si-schianta-morta-una-donna",
-      "img": "/feed-images/284a244037e543b9.jpg"
-    },
-    {
-      "title": "Chiede di parlare con il medico e aggredisce infermiere, denunciato",
-      "summary": "I carabinieri lo hanno rintracciato e hanno ascoltato i testimoni presenti che hanno assistito alla scena per confermare l’identità. L’aggressore è stato denunciato",
-      "date": "2026-09-29T12:50:43Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/chiede-di-parlare-con-il-medico-e-aggredisce-infermiere-denunciato",
-      "img": "/feed-images/d09107a505f27998.jpg"
-    },
-    {
-      "title": "Travolto da un tir, morto giovane ciclista",
-      "summary": "La vittima era in sella a una bicicletta elettrica e sarebbe rimasta schiacciata dal mezzo pesante mentre questo effettuava una manovra di svolta",
-      "date": "2026-09-29T12:40:21Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/travolto-da-un-tir-morto-giovane-ciclista",
-      "img": "/feed-images/2fb6915bde11d61f.webp"
-    },
-    {
-      "title": "“Corsi fantasma e diplomi senza valore”, condannato agrigentino",
-      "summary": "L’indagine era partita dalle denunce di alcuni corsisti che avevano scoperto come gli attestati conseguiti non avessero valore legale",
-      "date": "2026-09-29T12:39:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/corsi-fantasma-e-diplomi-senza-valore-condannato-agrigentino",
-      "img": "/feed-images/6e41cad52f30254f.jpg"
-    },
-    {
-      "title": "Sud chiama Nord, tre consiglieri comunali di Favara aderiscono al progetto di Cateno De Luca",
-      "summary": "Tra questi vi è anche Salvatore Fanara, il più votato alle ultime elezioni con oltre 6 mila preferenze, che lascia la Democrazia Cristiana",
-      "date": "2026-09-29T11:08:22Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/sud-chiama-nord-tre-consiglieri-comunali-di-favara-aderiscono-al-progetto-di-cateno-de-luca",
-      "img": "/feed-images/52ce6031734f4a00.jpg"
-    },
-    {
-      "title": "Licata, Sofia Bonvissuto convocata per il Trofeo Coni di Beach Handball",
-      "summary": "L’atleta dell’Halikada Gattopardo rappresenterà la Sicilia al Trofeo Coni in programma dal 4 al 7 Ottobre a Taranto",
-      "date": "2026-09-29T10:38:38Z",
-      "link": "https://www.grandangoloagrigento.it/sport/licata-sofia-bonvissuto-convocata-per-il-trofeo-coni-di-beach-handball",
-      "img": "/feed-images/1e5807d0d96ddfbb.jpg"
-    },
-    {
-      "title": "Posti per disabili occupati abusivamente davanti le scuole, i genitori: “più controlli e più senso civico”",
-      "summary": "Sono passate ormai alcune settimane dall’inizio della scuola e puntuali sono tornati i soliti problemi",
-      "date": "2026-09-29T10:24:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/posti-per-disabili-occupati-abusivamente-davanti-le-scuole-i-genitori-piu-controlli-e-piu-senso-civico",
-      "img": "/feed-images/3e95f909c8857349.jpg"
-    },
-    {
-      "title": "Carburanti, Q8 Italia fissa un tetto massimo ai prezzi per un mese da ottobre",
-      "summary": "A partire dal 1 ottobre price cap anche nei distributori Q8",
-      "date": "2026-09-29T09:46:51Z",
-      "link": "https://www.grandangoloagrigento.it/top-news-italpress/carburanti-q8-italia-fissa-un-tetto-massimo-ai-prezzi-per-un-mese-da-ottobre",
-      "img": "/feed-images/bee10b288025c305.jpg"
-    },
-    {
-      "title": "Ispezioni in aziende e cantieri edili, sanzioni per oltre 10 mila euro nell’Agrigentino",
-      "summary": "Una serie di controlli nel capoluogo e in diversi centri della provincia, concentrando l’attività sui settori dell’edilizia e dei pubblici esercizi",
-      "date": "2026-09-29T09:35:36Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ispezioni-in-aziende-e-cantieri-edili-sanzioni-per-oltre-10-mila-euro-nellagrigentino",
-      "img": "/feed-images/955e7354094d178f.webp"
-    },
-    {
-      "title": "Aica, completato il potenziamento del depuratore di Joppolo Giancaxio",
-      "summary": "L’impianto di depurazione in contrada Cacici risultava privo di fornitura elettrica e dunque sprovvisto di apparecchiature elettriche ed elettromeccaniche",
-      "date": "2026-09-29T08:53:32Z",
-      "link": "https://www.grandangoloagrigento.it/joppolo-giancaxio/aica-completato-il-potenziamento-del-depuratore-di-joppolo-giancaxio",
-      "img": "/feed-images/f1c1586e8ae6b64b.png"
-    },
-    {
-      "title": "In giro con la droga nella sella dello scooter pronta a venderla: arrestato",
-      "summary": "Un vero e proprio ambulante della droga",
-      "date": "2026-09-29T08:37:30Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-giro-con-la-droga-nella-sella-dello-scooter-pronta-a-venderla-arrestato",
-      "img": "/feed-images/aa377f8223a333f7.jpg"
     }
   ]
 }
