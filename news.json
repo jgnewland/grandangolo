@@ -1,21 +1,49 @@
 {
-  "updated": "2026-10-01T00:02:01.507901+00:00",
+  "updated": "2026-10-01T05:50:01.268137+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
-      "title": "Lotta al tumore al seno, la Stazione centrale di Agrigento si tinge di fucsia",
+      "title": "Il mandamento mafioso di Canicattì e la nuova Stidda: 9 condanne",
+      "summary": "Si chiude così il capitolo giudiziario scaturito dalla maxi inchiesta Xidy. La Corte di Cassazione in serata ha messo il sigillo finale chiudendo di fatto l’iter giudiziario",
+      "date": "2026-10-01T05:05:17Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/il-mandamento-mafioso-di-canicatti-e-la-nuova-stidda-9-condanne",
+      "img": "/feed-images/988aeab9872b083b.jpg"
+    },
+    {
+      "title": "Calci e pugni a ventenne per rubargli 100 euro, una denuncia a Villaggio Mosè",
+      "summary": "La vittima del pestaggio è stata avvicinata con una scusa e poi presa a calci e pugni prima di cadere stordito sul selciato",
+      "date": "2026-10-01T05:03:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/calci-e-pugni-a-ventenne-per-rubargli-100-euro-una-denuncia-a-villaggio-mose",
+      "img": "/feed-images/84a5cd636f978871.png"
+    },
+    {
+      "title": "Fermato a Ribera con 1.2 chili di cocaina, operaio chiede di patteggiare",
+      "summary": "Lo scorso giugno era stato fermato dai carabinieri mentre trasportava 1.2 chili di cocaina in auto",
+      "date": "2026-10-01T05:02:17Z",
+      "link": "https://www.grandangoloagrigento.it/ribera/fermato-a-ribera-con-1-2-chili-di-cocaina-operaio-chiede-di-patteggiare",
+      "img": "/feed-images/2ee5756c4fcb3f13.jpg"
+    },
+    {
+      "title": "Buca stradale in via Crispi, impiegato la prende in pieno con lo scooter e resta ferito",
+      "summary": "La Protezione civile aveva segnalato la buca transennando l’area ma qualcuno, non si sa per quale motivo, avrebbe spostato le barriere",
+      "date": "2026-10-01T05:01:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/buca-stradale-in-via-crispi-impiegato-la-prende-in-pieno-con-lo-scooter-e-resta-ferito",
+      "img": "/feed-images/8cc2e17e3e37ee2b.jpg"
+    },
+    {
+      "title": "Deve scontare oltre 4 anni di carcere, arrestato 48enne a Ravanusa",
+      "summary": "Tra i reati contestati il furto aggravato, violenza privata ma anche indebita percezione del reddito di cittadinanza",
+      "date": "2026-10-01T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/deve-scontare-oltre-4-anni-di-carcere-arrestato-48enne-a-ravanusa",
+      "img": "/feed-images/2ddfaed921b30484.jpg"
+    },
+    {
+      "title": "Lotta al tumore al seno, la stazione centrale di Agrigento si tinge di fucsia",
       "summary": "La campagna “Ottobre in rosa” è promossa dalla LILT – Nastro Rosa",
       "date": "2026-09-30T21:14:59Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/lotta-al-tumore-al-seno-la-stazione-centrale-di-agrigento-si-tinge-di-fucsia",
       "img": "/feed-images/5847c1dd3dfc77b5.jpg"
-    },
-    {
-      "title": "Il mandamento mafioso di Canicattì e la nuova Stidda: 9 condanne",
-      "summary": "Si chiude così il capitolo giudiziario scaturito dalla maxi inchiesta Xidy. La Corte di Cassazione in serata ha messo il sigillo finale chiudendo di fatto l’iter giudiziario",
-      "date": "2026-09-30T18:32:17Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-mandamento-mafioso-di-canicatti-e-la-nuova-stidda-9-condanne",
-      "img": "/feed-images/988aeab9872b083b.jpg"
     },
     {
       "title": "La giavellottista Parolino torna ad allenarsi all’Esseneto: “Un inizio non solo per me ma per tanti atleti”",
@@ -49,7 +77,7 @@
       "title": "Incidente stradale a Torre di Gaffe, 4 feriti",
       "summary": "Uno dei mezzi coinvolti, una Fiat 500, è finito fuori strada. L’altro risulta pesantemente danneggiato",
       "date": "2026-09-30T15:20:08Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/incidente-stradale-a-torre-di-gaffe-4-feriti",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/incidente-stradale-a-torre-di-gaffe-4-feriti",
       "img": "/feed-images/ccb86fdc2da2fee2.jpg"
     },
     {
@@ -67,7 +95,7 @@
       "img": "/feed-images/39a0c1da186adc41.jpg"
     },
     {
-      "title": "Sicurezza stradale: i ragazzi “On the road” a fianco di Anas",
+      "title": "Sicurezza stradale: i ragazzi “On the road” al fianco di Anas",
       "summary": "Collegamento con la Sala Operativa Territoriale, simulazione di un cantiere di emergenza e visita al viadotto Maddalusa",
       "date": "2026-09-30T13:56:58Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/sicurezza-stradale-i-ragazzi-on-the-road-a-fianco-di-anas",
@@ -184,34 +212,6 @@
       "date": "2026-09-30T07:35:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/caro-carburati-sit-in-dei-pescatori-e-armatori-di-porto-empedocle-meglio-fermarci",
       "img": "/feed-images/8dc4040f0f4f618a.jpg"
-    },
-    {
-      "title": "Scontro sulla Ss115 tra camion e due auto: due feriti",
-      "summary": "Il tratto di strada risulta ancora chiusa tra Gela e Licata",
-      "date": "2026-09-30T07:34:00Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/scontro-sulla-ss115-tra-camion-e-due-auto-due-feriti",
-      "img": "/feed-images/a7efcd74d6e818fc.jpg"
-    },
-    {
-      "title": "Migranti, in 18 sbarcano a Lampedusa",
-      "summary": "Dopo lo sbarco sono stati accompagnati all’hotspot di contrada Imbriacola, dove si trovano 130 ospiti.",
-      "date": "2026-09-30T07:15:50Z",
-      "link": "https://www.grandangoloagrigento.it/lampedusa/migranti-in-18-sbarcano-a-lampedusa-2",
-      "img": "/feed-images/24f4bb7f24657fa6.jpg"
-    },
-    {
-      "title": "Srr Ato 4 Agrigento, ecco il nuovo Consiglio di amministrazione",
-      "summary": "Si tratta di Vito Terrana, sindaco di Campobello di Licata; Giordana Bonanno, consigliere comunale del Comune di Sant’Angelo Muxaro; Alessandro Pietro Mallia, sindaco di Realmonte",
-      "date": "2026-09-30T06:48:41Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/srr-ato-4-agrigento-ecco-il-nuovo-consiglio-di-amministrazione",
-      "img": "/feed-images/5161ee6a5123b8bb.jpg"
-    },
-    {
-      "title": "Scoperto laboratorio di abbigliamento contraffatto con lavoratori in nero, attività sospesa",
-      "summary": "Scoperto un “laboratorio del falso” in cui erano impiegati 3 lavoratori “in nero”, dediti al confezionamento e alla vendita di capi recanti marchi contraffatti",
-      "date": "2026-09-30T06:11:25Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/scoperto-laboratorio-di-abbigliamento-contraffatto-con-lavoratori-in-nero-attivita-sospesa",
-      "img": "/feed-images/e1355e152e144137.jpg"
     }
   ]
 }
