@@ -1,8 +1,22 @@
 {
-  "updated": "2026-10-01T18:30:24.405168+00:00",
+  "updated": "2026-10-01T22:54:25.019960+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Mafia, arrestata (di nuovo) l’ex avvocato Angela Porcello: condanna definitiva",
+      "summary": "L’ex avvocata deve scontare una pena residua di circa un anno e nove mesi, con fine pena fissato al 2 luglio 2028",
+      "date": "2026-10-01T19:48:42Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/mafia-arrestata-di-nuovo-lex-avvocato-angela-porcello-condanna-definitiva",
+      "img": "/feed-images/0a177a4ed3fe23e9.jpg"
+    },
+    {
+      "title": "Sequestro di persona e tentata estorsione, assolti due canicattinesi",
+      "summary": "Erano accusati di aver sequestrato un 30enne del posto, caricandolo in auto e – dopo averlo condotto lungo la strada statale 410 in direzione Naro – preso a schiaffi e lasciato seminudo",
+      "date": "2026-10-01T19:46:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/sequestro-di-persona-e-tentata-estorsione-assolti-due-canicattinesi",
+      "img": "/feed-images/105cfc5a9eb83938.jpg"
+    },
     {
       "title": "Assemblea marineria Porto Empedocle, Uil e Uila: “servono aiuti concreti”",
       "summary": "Al centro dell’assemblea il caro carburante, il mancato pagamento delle indennità relative al fermo biologico e le difficoltà determinate dal crescente peso degli adempimenti normativi e burocratici.",
@@ -154,7 +168,7 @@
       "title": "Incidente stradale a Fontanelle, due feriti nello scontro tra auto e scooter",
       "summary": "Il bilancio è di due feriti che, secondo una prima ricostruzione, non sarebbero in pericolo di vita",
       "date": "2026-10-01T08:14:19Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/incidente-stradale-a-fontanelle-due-feriti-nello-scontro-tra-auto-e-scooter",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/incidente-stradale-a-fontanelle-due-feriti-nello-scontro-tra-auto-e-scooter",
       "img": "/feed-images/1cdf9b99c5abf42f.jpg"
     },
     {
@@ -198,20 +212,6 @@
       "date": "2026-10-01T07:52:28Z",
       "link": "https://www.grandangoloagrigento.it/favara/tradimento-e-potere-di-stefano-vinciguerra-sfiora-il-primo-premio-al-tropea-film-festival",
       "img": "/feed-images/0be31131de4278f1.jpg"
-    },
-    {
-      "title": "Agrigento, sindacalista aggredito durante contrattazione: la denuncia",
-      "summary": "Salvatore Terrana, segretario territoriale del Nursind di Agrigento, ha denunciato di avere subito un’aggressione da parte del segretario generale della Fials",
-      "date": "2026-10-01T07:48:53Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-sindacalista-aggredito-durante-contrattazione-la-denuncia",
-      "img": "/feed-images/7c981c4f17b6d2b5.jpg"
-    },
-    {
-      "title": "Tragico schianto scooter-furgone, morto 27enne",
-      "summary": "Il giovane in sella su un’ Honda T-Max si è scontrato con Ford Transit. Non c’è stato nulla fare",
-      "date": "2026-10-01T07:44:10Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tragico-schianto-scooter-furgone-morto-27enne",
-      "img": "/feed-images/a8d0e6114b33bb01.webp"
     }
   ]
 }
