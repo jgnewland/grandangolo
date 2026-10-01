@@ -1,8 +1,15 @@
 {
-  "updated": "2026-09-30T20:18:01.894394+00:00",
+  "updated": "2026-10-01T00:02:01.507901+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Lotta al tumore al seno, la Stazione centrale di Agrigento si tinge di fucsia",
+      "summary": "La campagna “Ottobre in rosa” è promossa dalla LILT – Nastro Rosa",
+      "date": "2026-09-30T21:14:59Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/lotta-al-tumore-al-seno-la-stazione-centrale-di-agrigento-si-tinge-di-fucsia",
+      "img": "/feed-images/5847c1dd3dfc77b5.jpg"
+    },
     {
       "title": "Il mandamento mafioso di Canicattì e la nuova Stidda: 9 condanne",
       "summary": "Si chiude così il capitolo giudiziario scaturito dalla maxi inchiesta Xidy. La Corte di Cassazione in serata ha messo il sigillo finale chiudendo di fatto l’iter giudiziario",
@@ -205,13 +212,6 @@
       "date": "2026-09-30T06:11:25Z",
       "link": "https://www.grandangoloagrigento.it/palermo/scoperto-laboratorio-di-abbigliamento-contraffatto-con-lavoratori-in-nero-attivita-sospesa",
       "img": "/feed-images/e1355e152e144137.jpg"
-    },
-    {
-      "title": "Aeroporti, Confesercenti: “Basta campanilismi, serve una strategia unica per tutta la Sicilia”",
-      "summary": "A dirlo è il presidente di Confesercenti Sicilia, Vittorio Messina",
-      "date": "2026-09-30T06:09:11Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/aeroporti-confesercenti-basta-campanilismi-serve-una-strategia-unica-per-tutta-la-sicilia",
-      "img": "/feed-images/bf322376abec33e6.jpg"
     }
   ]
 }
