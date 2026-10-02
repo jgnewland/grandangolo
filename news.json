@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-02T19:32:39.938143+00:00",
+  "updated": "2026-10-02T23:15:25.524197+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tangenti, rifiuti e sanità: l’inchiesta che scuote la Sicilia (e Agrigento)",
+      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
+      "date": "2026-10-02T21:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/tangenti-rifiuti-e-sanita-linchiesta-che-scuote-la-sicilia-e-agrigento",
+      "img": "/feed-images/e2fc197951973ae7.jpg"
+    },
     {
       "title": "L’operaio morto sul viadotto Morandi, i Ris di Messina si occuperanno del caso",
       "summary": "I carabinieri del Ris sono chiamati ad esaminare le tracce di sangue rinvenute sulla scena del crimine",
@@ -205,13 +212,6 @@
       "date": "2026-10-02T07:05:35Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/caltanissetta-si-sono-resi-protagonisti-di-condotte-pericolose-emessi-26-provvedimenti-del-questore",
       "img": "/feed-images/bf92a5c44f78bde7.jpg"
-    },
-    {
-      "title": "Al via lo sciopero generale. Si fermano scuola, treni e sanità",
-      "summary": "La fascia più critica per lo sciopero dei treni è dalle 11 alle 14",
-      "date": "2026-10-02T07:03:18Z",
-      "link": "https://www.grandangoloagrigento.it/top-news-italpress/al-via-lo-sciopero-generale-si-fermano-scuola-treni-e-sanita",
-      "img": "/feed-images/76c673d46c7bc276.jpg"
     }
   ]
 }
