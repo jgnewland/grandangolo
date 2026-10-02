@@ -1,14 +1,63 @@
 {
-  "updated": "2026-10-02T14:43:34.879193+00:00",
+  "updated": "2026-10-02T19:32:39.938143+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "L’operaio morto sul viadotto Morandi, i Ris di Messina si occuperanno del caso",
+      "summary": "I carabinieri del Ris sono chiamati ad esaminare le tracce di sangue rinvenute sulla scena del crimine",
+      "date": "2026-10-02T18:16:33Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/loperaio-morto-sul-viadotto-morandi-i-ris-di-messina-si-occuperanno-del-caso",
+      "img": "/feed-images/749bd8e4ead8c06e.jpg"
+    },
+    {
+      "title": "Inchiesta corruzione, Armao: “Dimostrerò che le accuse sono prive di fondamento”",
+      "summary": "Per Armao i pm hanno chiesto l’arresto",
+      "date": "2026-10-02T16:05:45Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/inchiesta-corruzione-armao-dimostrero-che-le-accuse-sono-prive-di-fondamento",
+      "img": ""
+    },
+    {
+      "title": "Accusato di femminicidio lascia il carcere per decorrenza termini custodia",
+      "summary": "Scarcerato Lucian Stan, romeno di 41 anni, accusato di aver ucciso la convivente sessantacinquenne Veronica Abaza, lo scorso anno in un’abitazione di via Amendola a Gela",
+      "date": "2026-10-02T15:58:35Z",
+      "link": "https://www.grandangoloagrigento.it/caltanisetta/accusato-di-femminicidio-lascia-il-carcere-per-decorrenza-termini-custodia",
+      "img": "/feed-images/2cccacb079b6c573.jpg"
+    },
+    {
+      "title": "Giura all’Ars la nuova assessore alla Funzione pubblica e alle autonomie locali Garigliano",
+      "summary": "Schifani aveva firmato il decreto di nomina lo scorso 24 settembre",
+      "date": "2026-10-02T15:29:23Z",
+      "link": "https://www.grandangoloagrigento.it/politica/giura-allars-la-nuova-assessore-alla-funzione-pubblica-e-alle-autonomie-locali-garigliano",
+      "img": "/feed-images/606a111be52c5145.jpg"
+    },
+    {
+      "title": "Valle dei Templi, prima domenica del mese a ingresso gratuito: ecco cosa fare",
+      "summary": "Percorsi sotterranei, segreti svelati, opere di Botero",
+      "date": "2026-10-02T15:21:41Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/valle-dei-templi-prima-domenica-del-mese-a-ingresso-gratuito-ecco-cosa-fare",
+      "img": "/feed-images/f56ce17a2c7669e7.jpg"
+    },
+    {
+      "title": "Inchiesta corruzione, il deputato Lombardo: “Lascio commissioni, fiducia nella magistratura”",
+      "summary": "Nei suoi confronti la procura diretta da Maurizio de Lucia ha richiesto una misura cautelare.",
+      "date": "2026-10-02T15:18:37Z",
+      "link": "https://www.grandangoloagrigento.it/politica/inchiesta-corruzione-il-deputato-lombardo-lascio-commissioni-fiducia-nella-magistratura",
+      "img": "/feed-images/e506265c0d404f3b.jpg"
+    },
     {
       "title": "Soldi per l’impianto di biometano ad Aragona? Le accuse all’imprenditore Vella e Armao",
       "summary": "Un vero e proprio terremoto giudiziario che si è abbattuto (anche) ad Agrigento e che ipotizza un giro di “mazzette” nell’ambito della Commissione tecnica specialistica",
       "date": "2026-10-02T14:34:06Z",
       "link": "https://www.grandangoloagrigento.it/apertura/soldi-per-limpianto-di-biometano-ad-aragona-le-accuse-allimprenditore-vella-e-armao",
       "img": "/feed-images/5ec56b09006d0774.jpg"
+    },
+    {
+      "title": "Favara, rubati 10mila metri di cavi da un impianto fotovoltaico: al via indagini",
+      "summary": "Danni per un valore stimato di 30mila euro.",
+      "date": "2026-10-02T13:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/favara-rubati-10mila-metri-di-cavi-da-un-impianto-fotovoltaico-al-via-indagini",
+      "img": "/feed-images/b12b4b7eb0a4678f.png"
     },
     {
       "title": "Caro gasolio insostenibile, anche i pescatori di Licata si fermano",
@@ -30,6 +79,13 @@
       "date": "2026-10-02T11:06:20Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/screening-oncologici-accordo-tra-asp-di-agrigento-e-federfarma-la-prevenzione-arriva-nelle-farmacie",
       "img": "/feed-images/de1c2154340c822e.png"
+    },
+    {
+      "title": "Agrigento, vietato vendere bevande e alcolici in vetro da asporto dalle 22 alle 7 fino al 31 dicembre",
+      "summary": "Nuova ordinanza firmata dal sindaco Michele Sodano",
+      "date": "2026-10-02T10:00:02Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-vietato-vendere-bevande-e-alcolici-in-vetro-da-asporto-dalle-22-alle-7-fino-al-31-dicembre",
+      "img": "/feed-images/b16a13cdc47cae12.jpg"
     },
     {
       "title": "Furto di energia elettrica, denunciato titolare di una panineria",
@@ -156,62 +212,6 @@
       "date": "2026-10-02T07:03:18Z",
       "link": "https://www.grandangoloagrigento.it/top-news-italpress/al-via-lo-sciopero-generale-si-fermano-scuola-treni-e-sanita",
       "img": "/feed-images/76c673d46c7bc276.jpg"
-    },
-    {
-      "title": "Licata, a 100 anni sottoposta ad intervento chirurgico e rapidamente rimessa in piedi",
-      "summary": "La donna è stata operata dall’equipe di Ortopedia dell’Ospedale San Giacomo Altopasso diretta dal Dottore Alberto Rapisarda.",
-      "date": "2026-10-02T06:55:03Z",
-      "link": "https://www.grandangoloagrigento.it/notizie-licata/licata-a-100-anni-sottoposta-ad-intervento-chirurgico-e-rapidamente-rimessa-in-piedi",
-      "img": "/feed-images/e40439130da4e7e4.jpg"
-    },
-    {
-      "title": "Emergenza idrica, il sindaco di Canicattì: “Serve piano autobotti, non si ripetano errori del passato”",
-      "summary": "Il sindaco di Canicattì Vincenzo Corbo rompe gli indugi e chiama a raccolta i vertici provinciali e regionali per scongiurare una nuova paralisi del servizio",
-      "date": "2026-10-02T06:36:17Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/emergenza-idrica-il-sindaco-di-canicatti-serve-piano-autobotti-non-si-ripetano-errori-del-passato",
-      "img": "/feed-images/ae70e6da86a58804.jpg"
-    },
-    {
-      "title": "Maxi controllo della polizia a Ribera e Santa Margherita Belice, il bilancio",
-      "summary": "L’operazione rientra in un piano d’azione volto a rafforzare la vigilanza e a contrastare i fenomeni criminali nell’intera provincia",
-      "date": "2026-10-02T06:29:33Z",
-      "link": "https://www.grandangoloagrigento.it/ribera/maxi-controllo-della-polizia-a-ribera-e-santa-margherita-belice-il-bilancio",
-      "img": "/feed-images/8cfa0476153cc2dc.jpg"
-    },
-    {
-      "title": "Naro, revocato il decreto ingiuntivo. Brandara: “Un risultato importante, nato dalla scelta di difendere il Comune”",
-      "summary": "La vicenda è relativa al contenzioso promosso da BFF Bank, cessionaria dei crediti vantati da Enel Sole ed Enel Energia, per una pretesa economica che, comprensiva degli interessi moratori, superava…",
-      "date": "2026-10-02T06:12:07Z",
-      "link": "https://www.grandangoloagrigento.it/naro/naro-revocato-il-decreto-ingiuntivo-brandara-un-risultato-importante-nato-dalla-scelta-di-difendere-il-comune",
-      "img": "/feed-images/c224cffdddf2a495.jpg"
-    },
-    {
-      "title": "“Mazzette per il rilascio delle salme in ospedale”, due agrigentini tra i 45 indagati",
-      "summary": "Si tratta di due impresari di pompe funebri agrigentini. Numerosi gli agrigentini (Cammarata, Favara, Ribera, Licata) vittime di estorsione",
-      "date": "2026-10-02T06:07:03Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/mazzette-per-il-rilascio-delle-salme-in-ospedale-due-agrigentini-tra-i-45-indagati",
-      "img": "/feed-images/9f5523bb2878f830.webp"
-    },
-    {
-      "title": "Favarese trovato senza vita a Porto Empedocle, autopsia esclude morte violenta",
-      "summary": "Una prima ispezione cadaverica aveva portato gli inquirenti ad aprire un fascicolo d’inchiesta ma l’autopsia conferma le cause naturali del decesso",
-      "date": "2026-10-02T06:06:06Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/favarese-trovato-morto-a-porto-empedocle-autopsia-esclude-morte-violenta-arresto-cardiaco",
-      "img": "/feed-images/3632e3aee47cf3f9.jpg"
-    },
-    {
-      "title": "Ex Province, via libera agli “stipendi d’oro” per i presidenti: ad Agrigento quasi 10 mila euro al mese",
-      "summary": "La norma prevede l’aumento delle indennità dei presidenti delle ex Province. Ad Agrigento il compenso passerà da 4 mila euro a 9 mila e 660 euro al mese",
-      "date": "2026-10-02T05:55:34Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ex-province-via-libera-agli-stipendi-doro-per-i-presidenti-ad-agrigento-quasi-10-mila-euro-al-mese",
-      "img": "/feed-images/975458cee82ef3ca.jpg"
-    },
-    {
-      "title": "Sorpreso con 20 grammi di hashish dai carabinieri a Sciacca, denunciato",
-      "summary": "Il giovane è incappato in un posto di controllo dei militari dell’Arma, impegnati sul territorio",
-      "date": "2026-10-02T05:44:01Z",
-      "link": "https://www.grandangoloagrigento.it/sciacca/sorpreso-con-20-grammi-di-hashish-dai-carabinieri-a-sciacca-denunciato",
-      "img": "/feed-images/a3c1acf5ce1a0ac5.jpg"
     }
   ]
 }
