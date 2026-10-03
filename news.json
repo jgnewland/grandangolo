@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-03T13:22:04.983539+00:00",
+  "updated": "2026-10-03T17:29:33.778181+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Akragas, primo successo esterno: Ten Lopez firma la vittoria e i biancazzurri volano in vetta",
+      "summary": "Un gol di Ten Lopez al 7′ della ripresa regala all’Akragas la prima vittoria esterna della stagione e il momentaneo primato in classifica.",
+      "date": "2026-10-03T15:40:28Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-ten-lopez-primo-successo-esterno-vetta-classifica",
+      "img": "/feed-images/35866f2094a1e222.jpg"
+    },
     {
       "title": "Licata, 75enne morto in casa dopo intervento al cuore: disposta autopsia",
       "summary": "Secondo una prima ricostruzione, il decesso sarebbe avvenuto a causa di un arresto cardiocircolatorio",
@@ -168,7 +175,7 @@
       "title": "Commette furti nonostante misura cautelare, arrestata 40enne a Licata",
       "summary": "L’indagata, secondo quanto ricostruito, sarebbe la responsabile di due furti messi a segno il 21 luglio ed il 4 settembre",
       "date": "2026-10-03T05:03:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/commette-furti-nonostante-misura-cautelare-arrestata-40enne-a-licata",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/commette-furti-nonostante-misura-cautelare-arrestata-40enne-a-licata",
       "img": "/feed-images/249216e585d05848.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-10-02T15:58:35Z",
       "link": "https://www.grandangoloagrigento.it/caltanisetta/accusato-di-femminicidio-lascia-il-carcere-per-decorrenza-termini-custodia",
       "img": "/feed-images/2cccacb079b6c573.jpg"
-    },
-    {
-      "title": "Giura all’Ars la nuova assessore alla Funzione pubblica e alle autonomie locali Garigliano",
-      "summary": "Schifani aveva firmato il decreto di nomina lo scorso 24 settembre",
-      "date": "2026-10-02T15:29:23Z",
-      "link": "https://www.grandangoloagrigento.it/politica/giura-allars-la-nuova-assessore-alla-funzione-pubblica-e-alle-autonomie-locali-garigliano",
-      "img": "/feed-images/606a111be52c5145.jpg"
     }
   ]
 }
