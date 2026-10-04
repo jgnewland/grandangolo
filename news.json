@@ -1,14 +1,70 @@
 {
-  "updated": "2026-10-04T08:47:29.112547+00:00",
+  "updated": "2026-10-04T14:35:51.151212+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
-      "title": "Abusi su 2 escort a Sciacca, confermata condanna 8 anni e 4 mesi",
-      "summary": "M.E., egiziano di 28 anni, accusato di violenza sessuale",
-      "date": "2026-10-04T08:33:03Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/abusi-su-2-escort-a-sciacca-confermata-condanna-8-anni-e-4-mesi",
-      "img": "/feed-images/7e46e1d0d14c5515.jpg"
+      "title": "Prevenzione e prossimità, il farmacista sempre più vicino al cittadino",
+      "summary": "Maurizio Pace: “Farmacisti, medici e istituzioni fanno sistema: prevenzione e servizi al centro di una nuova sanità di prossimità”",
+      "date": "2026-10-04T12:50:06Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/prevenzione-e-prossimita-il-farmacista-sempre-piu-vicino-al-cittadino",
+      "img": "/feed-images/7055b5f6f09958ad.jpg"
+    },
+    {
+      "title": "Dramma sulla foce del Platani, 42enne stroncato da malore in spiaggia",
+      "summary": "Dramma sulla spiaggia alla foce del Platani, tra Cattolica Eraclea e Ribera. Niente da fare per un 42enne",
+      "date": "2026-10-04T12:47:27Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/dramma-tra-cattolica-eraclea-e-ribera-42enne-stroncato-da-malore-in-spiaggia",
+      "img": "/feed-images/8d6544e7e538b489.jpg"
+    },
+    {
+      "title": "Ventiduenne ferito alle gambe con colpi di pistola, indagini",
+      "summary": "Un ragazzo di 22 anni è stato ferito stanotte da colpi di armi da fuoco alle gambe",
+      "date": "2026-10-04T12:13:40Z",
+      "link": "https://www.grandangoloagrigento.it/catania/ventiduenne-ferito-alle-gambe-con-colpi-di-pistola-indagini",
+      "img": "/feed-images/137de8a5865ac4d0.jpg"
+    },
+    {
+      "title": "Abusivismo, furto di energia, armi e droga: 10 denunce",
+      "summary": "I reati contestati vanno dall’occupazione abusiva di suolo pubblico al deturpamento di beni culturali, dalla falsità in atti all’inosservanza dei provvedimenti dell’Autorità, fino alla ricettazione…",
+      "date": "2026-10-04T12:11:35Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/abusivismo-furto-di-energia-armi-e-droga-10-denunce",
+      "img": "/feed-images/bff97ee1b25e1540.jpg"
+    },
+    {
+      "title": "Deve scontare condanna per furto, arrestato 40enne",
+      "summary": "Dovrà espiare la pena di 5 mesi e 18 giorni di reclusione, oltre al pagamento di una multa",
+      "date": "2026-10-04T12:09:48Z",
+      "link": "https://www.grandangoloagrigento.it/catania/deve-scontare-condanna-per-furto-arrestato-40enne",
+      "img": "/feed-images/cf7a519850f3af90.jpg"
+    },
+    {
+      "title": "Tragico incidente stradale con lo scooter, morto 38enne",
+      "summary": "Non si esclude che possa essersi trattato di un incidente autonomo, ma sono in corso accertamenti per verificare l’eventuale coinvolgimento di altri veicoli",
+      "date": "2026-10-04T12:08:06Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tragico-incidente-stradale-con-lo-scooter-morto-38enne",
+      "img": "/feed-images/8e8cd3491cb5a730.jpg"
+    },
+    {
+      "title": "Bambino di 6 anni cade da un palco, è ricoverato in gravi condizioni",
+      "summary": "Il violento impatto al suolo gli ha provocato un grave trauma cranico con emorragia cerebrale",
+      "date": "2026-10-04T11:58:05Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/bambino-di-6-anni-cade-da-un-palco-nel-messinese-e-ricoverato-in-gravi-condizioni",
+      "img": "/feed-images/79b0963ef564a3d5.jpg"
+    },
+    {
+      "title": "Lampedusa, trasferiti 172 migranti dall’hotspot",
+      "summary": "Sono 172 i migranti trasferiti dall’hotspot di Lampedusa al porto per essere imbarcati sulla motonave Sansovino, attesa in serata a Porto Empedocle",
+      "date": "2026-10-04T11:57:31Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lampedusa-trasferiti-172-migranti-dallhotspot",
+      "img": "/feed-images/aeb80e4de37ff78e.jpg"
+    },
+    {
+      "title": "Tartaruga Caretta caretta ferita recuperata da un peschereccio di Licata",
+      "summary": "La tartaruga è stata condotta presso la Capitaneria di porto, dove è stata presa in consegna per essere affidata alle cure specialistiche.",
+      "date": "2026-10-04T08:50:21Z",
+      "link": "https://www.grandangoloagrigento.it/notizie-licata/tartaruga-caretta-caretta-ferita-recuperata-da-un-peschereccio-di-licata",
+      "img": "/feed-images/74625c8cb393246e.jpg"
     },
     {
       "title": "Specializzanda palermitana di 31 anni trovata morta in casa a Barcellona Pozzo di Gotto: indagato il suo compagno",
@@ -29,7 +85,7 @@
       "summary": "Gli agenti della polizia hanno effettuato un primo sopralluogo in via Guggino, dove con vernice nera erano state vergate frasi dal contenuto esoterico e profanatorio",
       "date": "2026-10-04T07:52:49Z",
       "link": "https://www.grandangoloagrigento.it/canicatti/raid-vandalico-nella-chiesa-che-ospita-le-reliquie-del-giudice-livatino-indagini",
-      "img": "/feed-images/d52aa905b44fe877.jpg"
+      "img": "/feed-images/120690ee1de30f89.jpg"
     },
     {
       "title": "Sicurezza stradale, si è concluso il progetto formativo per i ragazzi “On the Road”",
@@ -153,65 +209,9 @@
     {
       "title": "Tangente mascherata da consulenza per aiutare azienda di energie rinnovabili?",
       "summary": "Secondo i pm l’escamotage escogitato per intascare la tangente sarebbe stato un contratto di consulenza dal valore complessivo di 147.494 euro",
-      "date": "2026-10-03T17:38:04Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/tangente-mascherata-da-consulenza-per-aiutare-azienda-di-energie-rinnovabili",
+      "date": "2026-10-03T20:38:04Z",
+      "link": "https://www.grandangoloagrigento.it/giudiziaria/tangente-mascherata-da-consulenza-per-aiutare-azienda-di-energie-rinnovabili",
       "img": "/feed-images/5ec56b09006d0774.jpg"
-    },
-    {
-      "title": "La CGIL dona un murale per ricordare le vittime di mafia, Buscemi: “vogliamo parlare alle nuove generazioni”",
-      "summary": "Il murale “Nel solco dei diritti, il riscatto di una terra che costruisce il futuro”, è stato realizzato dall’artista, Sergio Criminisi",
-      "date": "2026-10-03T17:34:01Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/la-cgil-dona-un-murale-per-ricordare-le-vittime-di-mafia-buscemi-vogliamo-parlare-alle-nuove-generazioni",
-      "img": "/feed-images/2e3b1f91e90f8169.jpg"
-    },
-    {
-      "title": "Akragas, primo successo esterno: Ten Lopez firma la vittoria e i biancazzurri volano in vetta",
-      "summary": "Un gol di Ten Lopez al 7′ della ripresa regala all’Akragas la prima vittoria esterna della stagione e il momentaneo primato in classifica.",
-      "date": "2026-10-03T15:40:28Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-ten-lopez-primo-successo-esterno-vetta-classifica",
-      "img": "/feed-images/35866f2094a1e222.jpg"
-    },
-    {
-      "title": "Licata, 75enne morto in casa dopo intervento al cuore: disposta autopsia",
-      "summary": "Secondo una prima ricostruzione, il decesso sarebbe avvenuto a causa di un arresto cardiocircolatorio",
-      "date": "2026-10-03T12:33:08Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/licata-75enne-morto-in-casa-dopo-intervento-al-cuore-disposta-autopsia",
-      "img": "/feed-images/ed7ceadc96dbe66d.jpg"
-    },
-    {
-      "title": "Corteo in strada a Gela per salvare l’ospedale: “andremo avanti in attesa di risposte concrete”",
-      "summary": "In prima fila il sindaco Di Stefano, Nuccio Di Paola del M5S e tantissimi cittadini",
-      "date": "2026-10-03T12:18:32Z",
-      "link": "https://www.grandangoloagrigento.it/caltanisetta/corteo-in-strada-a-gela-per-salvare-lospedale-andremo-avanti-in-attesa-di-risposte-concrete",
-      "img": "/feed-images/42e97a5d3294b6aa.jpg"
-    },
-    {
-      "title": "Prevenzione tumore al seno, Onde Rosa accende tre ulivi nella Valle dei Templi",
-      "summary": "Silvia Failla Mulone: “La prevenzione salva la vita”",
-      "date": "2026-10-03T11:09:29Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/prevenzione-tumore-al-seno-onde-rosa-accende-tre-ulivi-nella-valle-dei-templi",
-      "img": "/feed-images/df497012c1f200ed.jpg"
-    },
-    {
-      "title": "Giornate FAI d’Autunno il 10 e l’11 ottobre alla scoperta del piccolo borgo di Burgio",
-      "summary": "Un viaggio ricco di storia, tradizione e antichi mestieri che raccontano l’identità di questo piccolo borgo della provincia di Agrigento",
-      "date": "2026-10-03T11:07:04Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/giornate-fai-dautunno-il-10-e-l11-ottobre-alla-scoperta-del-piccolo-borgo-di-burgio",
-      "img": "/feed-images/52ef7d337a772e4e.jpg"
-    },
-    {
-      "title": "Commercio a Canicattì, Di Fazio: “Ogni saracinesca abbassata è anche il risultato di una politica che non c’è stata”",
-      "summary": "La nota del presidente della delegazione di Confcommercio Canicattì Giangaspare Di Fazio",
-      "date": "2026-10-03T10:38:44Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/commercio-a-canicatti-di-fazio-ogni-saracinesca-abbassata-e-anche-il-risultato-di-una-politica-che-non-ce-stata",
-      "img": "/feed-images/d524021d4ebf236e.jpg"
-    },
-    {
-      "title": "Chiesa, nuove nomine pastorali dell’Arcivescovo Damiano",
-      "summary": "Nomine che arrivano nel giorno della nascita del Beato Rosario Angelo Livatino",
-      "date": "2026-10-03T10:34:36Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/chiesa-nuove-nomine-pastorali-dellarcivescovo-damiano",
-      "img": "/feed-images/95c02c4e0b6e927c.jpg"
     }
   ]
 }
