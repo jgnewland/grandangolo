@@ -1,13 +1,20 @@
 {
-  "updated": "2026-10-04T18:21:58.382437+00:00",
+  "updated": "2026-10-04T21:44:34.302338+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
-      "title": "Scritte sacrileghe su chiesa Livatino, Don Giuseppe Maniscalco: “Vi siete spinti un pò oltre”",
+      "title": "Sicilia, Renzi: “Sosteniamo candidatura Bartolo a guida Regione”",
+      "summary": "E’ Pietro Bartolo, lanciato ufficialmente nella corsa a succedere a Renato Schifani da Matteo Renzi durante la Leopolda",
+      "date": "2026-10-04T18:55:22Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/sicilia-renzi-sosteniamo-candidatura-bartolo-a-guida-regione",
+      "img": "/feed-images/c23b2951c1db5ee3.jpg"
+    },
+    {
+      "title": "Scritte sacrileghe su chiesa Livatino, Don Giuseppe Maniscalco: “Vi siete spinti un po’ oltre”",
       "summary": "Le parole del parroco della Santa Chiara di Canicattì dentro la quale giace la Sacra salma del giudice Rosario Livatino.",
       "date": "2026-10-04T18:05:04Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/scritte-sacrileghe-su-chiesa-livatino-don-giuseppe-maniscalco-vi-siete-spinti-un-po-oltre",
+      "link": "https://www.grandangoloagrigento.it/canicatti/scritte-sacrileghe-su-chiesa-livatino-don-giuseppe-maniscalco-vi-siete-spinti-un-po-oltr",
       "img": "/feed-images/f09fe5a8837d0133.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-10-04T05:44:10Z",
       "link": "https://www.grandangoloagrigento.it/mafia/stragi-1992-il-gip-archivia-clima-ostile-contro-falcone-e-borsellino",
       "img": "/feed-images/6952a7e180e95905.jpg"
-    },
-    {
-      "title": "Stragi del 1992, archiviato filone indagini su mafia e appalti",
-      "summary": "“Gli elementi acquisiti non consentono l’iscrizione di alcun soggetto e di conseguenza non consentono di formulare alcuna ragionevole previsione di condanna”",
-      "date": "2026-10-04T05:41:59Z",
-      "link": "https://www.grandangoloagrigento.it/mafia/stragi-del-1992-archiviato-filone-indagini-su-mafia-e-appalti",
-      "img": "/feed-images/d37219d91b923dbd.jpg"
     }
   ]
 }
