@@ -1,8 +1,22 @@
 {
-  "updated": "2026-10-09T19:59:47.695456+00:00",
+  "updated": "2026-10-09T23:57:59.223297+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tutte le strade portano ad Agrigento",
+      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
+      "date": "2026-10-09T21:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/tutte-le-strade-portano-ad-agrigento",
+      "img": "/feed-images/68aba00768196d1c.jpg"
+    },
+    {
+      "title": "Il turista scomparso nella Valle dei Templi è stato ritrovato, è vivo",
+      "summary": "Il turista ottantenne originario di Molfetta, scomparso nel nulla nel primo pomeriggio nel cuore della Valle dei Templi, è stato ritrovato sano e salvo dai carabinieri",
+      "date": "2026-10-09T20:52:27Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/il-turista-scomparso-nella-valle-dei-templi-e-stato-ritrovato-e-vivo",
+      "img": "/feed-images/e3860236ced35691.jpg"
+    },
     {
       "title": "Turista svanito nel nulla alla Valle dei Templi, ricerche in corso",
       "summary": "Da oltre tre ore non si hanno più notizie di un turista italiano che sembra essere svanito nel nulla",
@@ -198,20 +212,6 @@
       "date": "2026-10-09T08:53:09Z",
       "link": "https://www.grandangoloagrigento.it/enna/10elotto-a-enna-colpo-da-10mila-euro",
       "img": "/feed-images/2451d9a8c95aedde.webp"
-    },
-    {
-      "title": "SS 118, i Consiglieri Comunali di Raffadali chiedono interventi di manutenzioni ad ANAS",
-      "summary": "Ai bordi della strada vegetazione, rifiuti, caditoie ostruite",
-      "date": "2026-10-09T08:45:03Z",
-      "link": "https://www.grandangoloagrigento.it/raffadali/ss-118-i-consiglieri-comunali-di-raffadali-chiedono-interventi-di-manutenzioni-ad-anas",
-      "img": "/feed-images/992e87bb450b17d0.jpg"
-    },
-    {
-      "title": "Screening mammografico, aperture straordinarie con esami gratuiti nei presidi della provincia",
-      "summary": "Le aperture straordinarie interesseranno la Diagnostica senologica dell’ospedale di Agrigento, il Servizio di radiologia del PTA di Agrigento, la UOC di Radiodiagnostica dell’ospedale di Sciacca, la…",
-      "date": "2026-10-09T08:19:12Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/screening-mammografico-aperture-straordinarie-con-esami-gratuiti-nei-presidi-della-provincia",
-      "img": "/feed-images/42dc0d3e12a2c7e8.jpg"
     }
   ]
 }
