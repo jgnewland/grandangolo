@@ -1,14 +1,63 @@
 {
-  "updated": "2026-10-09T14:56:04.486693+00:00",
+  "updated": "2026-10-09T19:59:47.695456+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
+      "title": "Turista svanito nel nulla alla Valle dei Templi, ricerche in corso",
+      "summary": "Da oltre tre ore non si hanno più notizie di un turista italiano che sembra essere svanito nel nulla",
+      "date": "2026-10-09T16:39:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/turista-svanito-nel-nulla-alla-valle-dei-templi-al-via-le-ricerche",
+      "img": "/feed-images/d72d95dc6456ccec.jpg"
+    },
+    {
+      "title": "Maltempo, sospese le visite a Burgio per le giornate Fai",
+      "summary": "Lo comunica la delegazione Fai di Agrigento",
+      "date": "2026-10-09T16:28:02Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/maltempo-sospese-le-visite-a-burgio-per-le-giornate-fai",
+      "img": "/feed-images/27f0637b872c528d.jpg"
+    },
+    {
+      "title": "Allerta meteo arancione, domani scuole chiuse ad Agrigento",
+      "summary": "Lo ha appena comunicato con un video sui profili social il sindaco della Città dei templi, Michele Sodano.",
+      "date": "2026-10-09T15:53:27Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/allerta-meteo-arancione-domani-scuole-chiuse-ad-agrigento-3",
+      "img": "/feed-images/e356771263665517.png"
+    },
+    {
+      "title": "Maltempo, allerta arancione in Sicilia",
+      "summary": "Sono previste precipitazioni diffuse, anche di forte intensità, con possibili raffiche di vento, grandinate e frequente attività elettrica.",
+      "date": "2026-10-09T15:35:06Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/maltempo-allerta-arancione-in-sicilia-2",
+      "img": "/feed-images/d6175449b9ce175d.jpg"
+    },
+    {
+      "title": "Protocollo Antimafia, la firma tra Regione Siciliana, Irfis Fin Sicilia e Prefetture",
+      "summary": "I controlli si applicheranno tanto ai beneficiari del contributo finanziario concesso quanto ai fornitori di beni e servizi che eseguono i lavori",
+      "date": "2026-10-09T15:29:05Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/protocollo-antimafia-la-firma-tra-regione-siciliana-irfis-fin-sicilia-e-prefetture",
+      "img": "/feed-images/a18e4ae836fe6de3.jpg"
+    },
+    {
+      "title": "Eccellenze universitarie, Emily Cortese tra i vincitori del Premio America Giovani",
+      "summary": "La giovane di Ribera ha conseguito la laurea in Giurisprudenza presso la LUMSA di Palermo con il massimo dei voti, 110 e lode",
+      "date": "2026-10-09T15:22:16Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-brevi/eccellenze-universitarie-emily-cortese-tra-i-vincitori-del-premio-america-giovani",
+      "img": "/feed-images/44403bedb20af34f.jpg"
+    },
+    {
+      "title": "Crisi agricola, riunione al Libero Consorzio di Agrigento: pronto un documento per chiedere ristori",
+      "summary": "Il documento verrà consegnato al Prefetto di Agrigento, Salvatore Caccamo",
+      "date": "2026-10-09T15:06:03Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crisi-agricola-riunione-al-libero-consorzio-di-agrigento-pronto-un-documento-per-chiedere-ristori",
+      "img": "/feed-images/3e6a64db7fbd9e6d.jpg"
+    },
+    {
       "title": "Picchia e maltratta la moglie anche davanti la figlia piccola, 3 anni di carcere a favarese",
       "summary": "Il trentaduenne avrebbe costretto la moglie a restare sveglia per avvertirlo di eventuali controlli delle forze dell’ordine, privandola di coperte e cuscino",
       "date": "2026-10-09T14:55:48Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/picchia-e-maltratta-la-moglie-anche-davanti-la-figlia-piccola-3-anni-di-carcere-a-favarese",
-      "img": ""
+      "link": "https://www.grandangoloagrigento.it/apertura/picchia-e-maltratta-la-moglie-anche-davanti-la-figlia-piccola-3-anni-di-carcere-a-favarese",
+      "img": "/feed-images/71d97194fecaa7df.jpg"
     },
     {
       "title": "Anziana vittima della truffa del finto carabiniere: rubati oro, preziosi e denaro",
@@ -16,6 +65,13 @@
       "date": "2026-10-09T14:38:35Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/naro-anziana-vittima-della-truffa-del-finto-carabiniere-rubati-oro-preziosi-e-denaro",
       "img": "/feed-images/02210fb4c477ae24.jpg"
+    },
+    {
+      "title": "Anas e Kore, centro sperimentale su guida autonoma a Pergusa",
+      "summary": "La proposta è stata lanciata oggi dall’Amministratore delegato di Anas, Claudio Andrea Gemme",
+      "date": "2026-10-09T13:13:00Z",
+      "link": "https://www.grandangoloagrigento.it/enna/anas-e-kore-centro-sperimentale-su-guida-autonoma-a-pergusa",
+      "img": "/feed-images/8f7ad99ee0ab03e4.jpg"
     },
     {
       "title": "Favara, al via i lavori per il rifacimento della villa comunale Stefano Pompeo",
@@ -156,62 +212,6 @@
       "date": "2026-10-09T08:19:12Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/screening-mammografico-aperture-straordinarie-con-esami-gratuiti-nei-presidi-della-provincia",
       "img": "/feed-images/42dc0d3e12a2c7e8.jpg"
-    },
-    {
-      "title": "Migranti, la Guardia Costiera soccorre minore colto da malore",
-      "summary": "L’emergenza ha riguardato un minorenne, di nazionalità somala, presente sulla nave Ong, la Solidaire",
-      "date": "2026-10-09T08:18:06Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/migranti-la-guardia-costiera-soccorre-minore-colto-da-malore",
-      "img": "/feed-images/cd26d60c376c45f3.jpg"
-    },
-    {
-      "title": "Lavoratore sfruttato in un’azienda agricola, denunciato titolare e maxi multa di 25 mila euro",
-      "summary": "È quanto scoperto dai carabinieri del Nucleo Ispet­to­rato del Lavoro di Agrigento a margine di una ispezione eseguita in un’azienda agricola a Ribera.",
-      "date": "2026-10-09T07:52:45Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/lavoratore-sfruttato-in-unazienda-agricola-denunciato-titolare-e-maxi-multa-di-25-mila-euro",
-      "img": "/feed-images/5bb7a88b02c115bf.jpg"
-    },
-    {
-      "title": "In giro con droga e un coltello a soli 15 anni, denunciato studente agrigentino",
-      "summary": "È successo a Cammarata dove i carabinieri, impegnati in un controllo del territorio, hanno deciso di perquisire il minore che si aggirava con un atteggiamento ritenuto sospetto",
-      "date": "2026-10-09T07:32:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/in-giro-con-droga-e-un-coltello-a-soli-15-anni-denunciato-studente-agrigentino",
-      "img": "/feed-images/655bc55c1391025a.jpg"
-    },
-    {
-      "title": "Detenuto prende a testate agente di polizia penitenziaria, la denuncia del sindacato",
-      "summary": "Un agente e’ stato colpito al volto con una violenta testata da un detenuto, riportando la frattura del naso e del setto nasale, con una prognosi di dieci giorni",
-      "date": "2026-10-09T07:28:27Z",
-      "link": "https://www.grandangoloagrigento.it/trapani/detenuto-prende-a-testate-agente-di-polizia-penitenziaria-la-denuncia-del-sindacato",
-      "img": "/feed-images/a31e69cfd068ea09.jpg"
-    },
-    {
-      "title": "Castrofilippo ritrova le sue radici, una giornata tra memoria e famiglia",
-      "summary": "Marion e Angela, discendenti della famiglia Safonte, originaria di Castrofilippo, sono tornate nel paese da cui, molti anni fa, i loro familiari emigrarono verso gli Stati Uniti",
-      "date": "2026-10-09T07:26:44Z",
-      "link": "https://www.grandangoloagrigento.it/castrofilippo/castrofilippo-ritrova-le-sue-radici-una-giornata-tra-memoria-e-famiglia",
-      "img": "/feed-images/b03b0fb26849c06f.jpg"
-    },
-    {
-      "title": "Balneari, Confcommercio Agrigento: “Finito il tempo delle proroghe”",
-      "summary": "“E’ questione di mesi e si va a gara”, avverte il presidente di Confcommercio Agrigento, Gero Niesi, agli imprenditori balneari del litorale agrigentino",
-      "date": "2026-10-09T07:23:16Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/balneari-confcommercio-agrigento-finito-il-tempo-delle-proroghe",
-      "img": "/feed-images/8765bd414f4e0292.jpg"
-    },
-    {
-      "title": "Truffa sul bonus del Mezzogiorno, scoperti 370 mila euro di crediti non spettanti",
-      "summary": "Sono stati individuati oltre 370 mila euro di crediti d’imposta non spettanti generati nell’ambito del cosiddetto “Bonus Mezzogiorno” .",
-      "date": "2026-10-09T07:16:21Z",
-      "link": "https://www.grandangoloagrigento.it/trapani/truffa-sul-bonus-del-mezzogiorno-scoperti-370-mila-euro-di-crediti-non-spettanti",
-      "img": "/feed-images/076e7e4ee846ca8d.jpg"
-    },
-    {
-      "title": "Corruzione e tangenti, l’avvocato Matta sospeso da commissione esami concorso in magistratura",
-      "summary": "Matta è indagato per corruzione con l’ex vicepresidente della Regione Gaetano Armao. Per entrambi la Procura ha chiesto l’arresto",
-      "date": "2026-10-09T05:36:04Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/corruzione-e-tangenti-lavvocato-matta-sospeso-da-commissione-esami-concorso-in-magistratura",
-      "img": "/feed-images/cff765be148f4819.jpg"
     }
   ]
 }
