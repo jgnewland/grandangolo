@@ -1,8 +1,29 @@
 {
-  "updated": "2026-10-10T16:13:47.719017+00:00",
+  "updated": "2026-10-10T20:05:24.177723+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "ASP di Agrigento, domani l’Alzheimer Fest in piazza Cavour tra prevenzione, musica e inclusione",
+      "summary": "La manifestazione itinerante farà tappa in piazza Cavour dalle ore 10 alle 12.30",
+      "date": "2026-10-10T18:49:21Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/asp-di-agrigento-domani-lalzheimer-fest-in-piazza-cavour-tra-prevenzione-musica-e-inclusione",
+      "img": "/feed-images/7cc6862e8f800db6.jpg"
+    },
+    {
+      "title": "Siciliacque in campo per fronteggiare gli effetti del maltempo: squadre anche nell’agrigentino",
+      "summary": "Grazie all’immediato intervento del personale tecnico e alle manovre operative messe in atto, al momento non si registrano disservizi significativi.",
+      "date": "2026-10-10T18:13:37Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/siciliacque-in-campo-per-fronteggiare-gli-effetti-del-maltempo-squadre-anche-nellagrigentino",
+      "img": "/feed-images/e1adc1cc92bbb0d3.jpg"
+    },
+    {
+      "title": "Allarme bomba in distributore benzina, intervento degli artificieri",
+      "summary": "A lanciare l’allarme l’addetto al lavaggio auto",
+      "date": "2026-10-10T18:09:49Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/allarme-bomba-in-distributore-benzina-intervento-degli-artificieri",
+      "img": "/feed-images/3e5946ff384711bb.jpg"
+    },
     {
       "title": "Anziana truffata da finto carabiniere a Palma di Montechiaro, rubati soldi e gioielli",
       "summary": "Ennesima truffa del finto carabinieri nell’Agrigentino, questa volta a Palma di Montechiaro",
@@ -29,7 +50,7 @@
       "summary": "La vittima è Giuseppe Schembri, 34 anni, originario di Licata. Da un anno si era trasferito a Trieste",
       "date": "2026-10-10T13:12:09Z",
       "link": "https://www.grandangoloagrigento.it/apertura/dramma-a-trieste-motociclista-di-licata-morto-in-incidente-stradale",
-      "img": "/feed-images/7a2434d63c8948f9.jpg"
+      "img": "/feed-images/b7f9aa1bc3f2de2c.jpg"
     },
     {
       "title": "Aggredisce due poliziotti durante un controllo al Quadrivio Spinasanta, arrestato",
@@ -191,27 +212,6 @@
       "date": "2026-10-09T15:35:06Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/maltempo-allerta-arancione-in-sicilia-2",
       "img": "/feed-images/d6175449b9ce175d.jpg"
-    },
-    {
-      "title": "Protocollo Antimafia, la firma tra Regione Siciliana, Irfis Fin Sicilia e Prefetture",
-      "summary": "I controlli si applicheranno tanto ai beneficiari del contributo finanziario concesso quanto ai fornitori di beni e servizi che eseguono i lavori",
-      "date": "2026-10-09T15:29:05Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/protocollo-antimafia-la-firma-tra-regione-siciliana-irfis-fin-sicilia-e-prefetture",
-      "img": "/feed-images/a18e4ae836fe6de3.jpg"
-    },
-    {
-      "title": "Eccellenze universitarie, Emily Cortese tra i vincitori del Premio America Giovani",
-      "summary": "La giovane di Ribera ha conseguito la laurea in Giurisprudenza presso la LUMSA di Palermo con il massimo dei voti, 110 e lode",
-      "date": "2026-10-09T15:22:16Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-brevi/eccellenze-universitarie-emily-cortese-tra-i-vincitori-del-premio-america-giovani",
-      "img": "/feed-images/44403bedb20af34f.jpg"
-    },
-    {
-      "title": "Crisi agricola, riunione al Libero Consorzio di Agrigento: pronto un documento per chiedere ristori",
-      "summary": "Il documento verrà consegnato al Prefetto di Agrigento, Salvatore Caccamo",
-      "date": "2026-10-09T15:06:03Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/crisi-agricola-riunione-al-libero-consorzio-di-agrigento-pronto-un-documento-per-chiedere-ristori",
-      "img": "/feed-images/3e6a64db7fbd9e6d.jpg"
     }
   ]
 }
