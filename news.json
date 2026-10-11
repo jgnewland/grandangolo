@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-11T08:51:08.114886+00:00",
+  "updated": "2026-10-11T15:18:38.659624+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tragico schianto in auto: morta una donna, ferito il marito",
+      "summary": "L’uomo di circa 60 anni è stato ricoverato all’ospedale Garibaldi, dove si trova nel reparto di Ortopedia per fratture multiple",
+      "date": "2026-10-11T10:12:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/incidente-stradale-muore-una-donna-ferito-il-marito",
+      "img": "/feed-images/506c027c7394b5f6.jpg"
+    },
     {
       "title": "Prodotti scaduti in un laboratorio di analisi, assolto il titolare: “Non c’è dolo”",
       "summary": "Assolto il titolare di un laboratorio di analisi di Agrigento dall’accusa di frode nelle pubbliche forniture",
@@ -119,7 +126,7 @@
       "title": "Il centrodestra prepara le elezioni a Favara: “Fallimento di Palumbo, ora programma rilancio della città”",
       "summary": "La coalizione di centrodestra prepara la prossima tornata elettorale: “Questa volta ci presenteremo uniti, compatti e pronti a restituire alla città il futuro che merita”",
       "date": "2026-10-11T05:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-centrodestra-prepara-le-elezioni-a-favara-fallimento-di-palumbo-ora-programma-rilancio-della-citta",
+      "link": "https://www.grandangoloagrigento.it/politica/il-centrodestra-prepara-le-elezioni-a-favara-fallimento-di-palumbo-ora-programma-rilancio-della-citta",
       "img": "/feed-images/7c30824814aa1006.png"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-10-10T12:37:29Z",
       "link": "https://www.grandangoloagrigento.it/catania/tenta-di-salire-su-aereo-con-un-coltello-nella-cintura-denunciato",
       "img": "/feed-images/58a43c45cef49841.jpg"
-    },
-    {
-      "title": "Perde una causa, minaccia gli avvocati con una pistola e chiede 100 mila euro per il danno: arrestato",
-      "summary": "In manette un 57enne per i reati di minaccia e tentata estorsione, aggravate dall’utilizzo di un’arma da fuoco",
-      "date": "2026-10-10T09:05:38Z",
-      "link": "https://www.grandangoloagrigento.it/catania/perde-una-causa-minaccia-gli-avvocati-con-una-pistola-e-chiede-100-mila-euro-per-il-danno-arrestato",
-      "img": "/feed-images/c28667aee4defd78.jpg"
     }
   ]
 }
