@@ -1,8 +1,43 @@
 {
-  "updated": "2026-10-11T15:18:38.659624+00:00",
+  "updated": "2026-10-11T19:37:45.598620+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Aggredisce medico al pronto soccorso: arrestato",
+      "summary": "L’uomo era ubriaco",
+      "date": "2026-10-11T15:50:56Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/aggredisce-medico-al-pronto-soccorso-arrestato",
+      "img": "/feed-images/1f909dd886f898de.jpg"
+    },
+    {
+      "title": "Divampa incendio in una casa, morto 89enne",
+      "summary": "I vigili del fuoco hanno trovato il corpo carbonizzato",
+      "date": "2026-10-11T15:46:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/divampa-incendio-in-una-casa-morto-89enne",
+      "img": "/feed-images/90ff3b8a0f3d67bd.jpg"
+    },
+    {
+      "title": "Papa Leone “Ho un nodulo al polmone, operazione programmata nei prossimi giorni”",
+      "summary": "Lo ha comunicato il Papa durante l’Angelus",
+      "date": "2026-10-11T15:41:37Z",
+      "link": "https://www.grandangoloagrigento.it/top-news-italpress/papa-leone-ho-un-nodulo-al-polmone-operazione-programmata-nei-prossimi-giorni",
+      "img": "/feed-images/1f419e0a1210a84d.jpg"
+    },
+    {
+      "title": "Akragas, che fatica: Lopez abbatte il muro del Borgetto",
+      "summary": "Una partita giocata con ordine dalla squadra di Grimaudo che ha bloccato tutte le iniziative dei padroni di casa che hanno trovato il gol decisivo soltanto nel finale.",
+      "date": "2026-10-11T15:39:41Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-che-fatica-lopez-abbatte-il-muro-del-borgetto",
+      "img": "/feed-images/aaa7a20a6acc3d21.jpg"
+    },
+    {
+      "title": "Confessò omicidio donna a Messina, 22enne si è suicidato in carcere",
+      "summary": "La Procura apre fascicolo e dispone autopsia",
+      "date": "2026-10-11T15:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/confesso-omicidio-donna-a-messina-22enne-si-e-suicidato-in-carcere",
+      "img": "/feed-images/b8b130a5511443e0.jpg"
+    },
     {
       "title": "Tragico schianto in auto: morta una donna, ferito il marito",
       "summary": "L’uomo di circa 60 anni è stato ricoverato all’ospedale Garibaldi, dove si trova nel reparto di Ortopedia per fratture multiple",
@@ -177,41 +212,6 @@
       "date": "2026-10-10T13:12:09Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/dramma-a-trieste-motociclista-di-licata-morto-in-incidente-stradale",
       "img": "/feed-images/b7f9aa1bc3f2de2c.jpg"
-    },
-    {
-      "title": "Aggredisce due poliziotti durante un controllo al Quadrivio Spinasanta, arrestato",
-      "summary": "Due poliziotti hanno riportato ferite, per fortuna lievi, e sono finiti in ospedale. Il 38enne, invece, è stato arrestato e posto ai domiciliari",
-      "date": "2026-10-10T13:10:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/aggredisce-due-poliziotti-durante-un-controllo-al-quadrivio-spinasanta-arrestato",
-      "img": "/feed-images/a1a54b61206f6e4d.jpg"
-    },
-    {
-      "title": "Sassaiola contro forze dell’ordine a Licata, in due restano ai domiciliari: scarcerato 18enne",
-      "summary": "Nella sassaiola sono rimasti feriti due carabinieri e un’auto della Guardia di finanza è stata danneggiata",
-      "date": "2026-10-10T13:09:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/sassaiola-contro-forze-dellordine-a-licata-in-due-restano-ai-domiciliari-scarcerato-18enne",
-      "img": "/feed-images/f355ed5047fcee19.jpg"
-    },
-    {
-      "title": "Egiziano entrato irregolarmente nel territorio nazionale: allontanato da Agrigento",
-      "summary": "Lo straniero ha attraversato l’isola di Lampedusa eludendo i controlli di frontiera",
-      "date": "2026-10-10T12:56:38Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/egiziano-entrato-irregolarmente-nel-territorio-nazionale-allontanato-da-agrigento",
-      "img": "/feed-images/9876de7c6b7a7899.jpg"
-    },
-    {
-      "title": "Inchiesta Armao, il deputato Lombardo: “Chiarirò la mia posizione, rispetto per la magistratura”",
-      "summary": "“Ribadisco la mia estraneità ai fatti e confido di poterlo dimostrare nelle sedi competenti”",
-      "date": "2026-10-10T12:40:01Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/inchiesta-armao-il-deputato-lombardo-chiariro-la-mia-posizione-rispetto-per-la-magistratura",
-      "img": "/feed-images/a791c2fd9ee2f02e.jpg"
-    },
-    {
-      "title": "Tenta di salire su aereo con un coltello nella cintura, denunciato",
-      "summary": "L’arma, con una lama lunga circa 8 centimetri, e’ stato notato durante le consuete verifiche di sicurezza prima dell’imbarco",
-      "date": "2026-10-10T12:37:29Z",
-      "link": "https://www.grandangoloagrigento.it/catania/tenta-di-salire-su-aereo-con-un-coltello-nella-cintura-denunciato",
-      "img": "/feed-images/58a43c45cef49841.jpg"
     }
   ]
 }
