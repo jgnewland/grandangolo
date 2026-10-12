@@ -5,108 +5,103 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Grandangolo · prova app</title>
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#161513">
+<meta name="theme-color" content="#0e0d0c">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="https://www.grandangoloregionale.it/wp-content/uploads/2026/10/G-scaled.png">
 <link rel="icon" href="https://www.grandangoloregionale.it/wp-content/uploads/2026/10/G-scaled.png">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Grandangolo">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="app.css?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- lo stesso foglio di stile del sito: il feed è identico a quello del telefono -->
+<link rel="stylesheet" href="https://www.grandangoloregionale.it/wp-content/themes/grandangolo/style.css">
+<link rel="stylesheet" href="barra.css?v=3">
 <style>
-.prova-nastro{position:fixed;top:calc(8px + env(safe-area-inset-top));right:-34px;z-index:900;background:#FFD23F;color:#161513;font:700 10px 'IBM Plex Mono',monospace;letter-spacing:.14em;padding:4px 40px;transform:rotate(35deg);pointer-events:none}
-.errore-dati{margin:30px 18px;padding:16px;border-radius:14px;background:#F2EFE6;font:16px/1.45 'Newsreader',Georgia,serif}
+.mfeed--rep .mfeed__top{padding-top:calc(10px + env(safe-area-inset-top))}
+.mfeed--rep .mfeed__logo{filter:brightness(0) invert(1)!important}
+.prova-nastro{position:fixed;top:calc(8px + env(safe-area-inset-top));right:-34px;z-index:2147483002;background:#FFD23F;color:#161513;font:700 10px 'IBM Plex Mono',monospace;letter-spacing:.14em;padding:4px 40px;transform:rotate(35deg);pointer-events:none}
+.mfeed .rcard{cursor:pointer}
+.mfeed__vuoto{padding:40px 22px;text-align:center;font:17px/1.45 'Newsreader',Georgia,serif;color:#6b665c}
+@media (min-width:769px){ body{background:#0e0d0c} .mfeed{display:block!important;position:fixed;inset:0;overflow-y:auto;max-width:480px;margin:0 auto;background:#fff} }
 </style>
-</head>
-<body>
-<div class="prova-nastro">PROVA</div>
-<div id="splash" aria-hidden="true">
-  <div class="sp-in">
-    <div class="sp-med"><img src="https://www.grandangoloregionale.it/wp-content/uploads/2026/10/G-scaled.png" alt=""></div>
-    <div class="sp-logo"><img src="https://www.grandangoloregionale.it/wp-content/uploads/2026/06/cropped-GRANDANGOLO-REGIONALE-LOGO-300-x-50-px.png" alt="Grandangolo"></div>
-    <div class="sp-riga"></div>
-    <div class="sp-sotto">Notizie · Il settimanale in edicola</div>
-  </div>
-</div>
-
-<header class="testa testa--scura">
-  <div class="testa__r">
-    <div class="testa__logo"><img src="https://www.grandangoloregionale.it/wp-content/uploads/2026/06/cropped-GRANDANGOLO-REGIONALE-LOGO-300-x-50-px.png" alt="Grandangolo" onerror="this.outerHTML='<span class=&quot;marchio&quot;>GRAND<b>ANGOLO</b></span>'"></div>
-    <button class="ic-btn" id="btn-cerca" aria-label="Cerca"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
-  </div>
-  <div class="testa__data" id="oggi"></div>
-  <div class="cerca" id="cerca"><input type="search" id="cerca-in" placeholder="Cerca tra le notizie…" enterkeyhint="search"><button id="cerca-x" aria-label="Chiudi">✕</button></div>
-</header>
-
-<main id="viste">
-  <section class="vista on" id="v-home" aria-label="Home"><div class="scheletro" style="height:220px"></div><div class="scheletro"></div><div class="scheletro"></div></section>
-  <section class="vista" id="v-ultimora" aria-label="Ultim'ora"></section>
-  <section class="vista" id="v-edicola" aria-label="Edicola"></section>
-  <section class="vista" id="v-salvati" aria-label="Salvati"></section>
-  <section class="vista" id="v-avvisi" aria-label="Avvisi"></section>
-  <section class="vista" id="v-cerca" aria-label="Risultati"></section>
-</main>
-
-<nav class="tabbar" aria-label="Sezioni dell'app">
-  <button data-v="home" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
-  <button data-v="ultimora"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Ultim'ora</button>
-  <button data-v="edicola" class="tab-edicola"><span class="tab-ed-ic"><svg viewBox="0 0 24 24"><path d="M4 5h11v14H6a2 2 0 0 1-2-2zM15 8h4v9a2 2 0 0 1-2 2h-2"/><path d="M7 9h5M7 12h5M7 15h3"/></svg></span>Edicola</button>
-  <button data-v="salvati"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Salvati</button>
-  <button data-v="avvisi"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4zM10 21h4"/></svg>Avvisi</button>
-</nav>
-
-<div class="foglio" id="foglio" role="dialog" aria-modal="true" aria-labelledby="foglio-t">
-  <div class="foglio__in"><div class="foglio__ic">🔔</div><h3 id="foglio-t">Avvisi</h3><p></p>
-  <button class="btn-giallo" id="foglio-si">Ok</button><button class="btn-vuoto" id="foglio-no">Chiudi</button></div>
-</div>
-
 <script>
-/* ═══ Versione di prova dell'app: legge notizie e numeri dai siti veri ═══ */
+window.GRDAPP={ sempre:true, home:'./', app:'app.html', attiva:'home',
+  med:'https://www.grandangoloregionale.it/wp-content/uploads/2026/10/G-scaled.png',
+  logo:'https://www.grandangoloregionale.it/wp-content/uploads/2026/06/cropped-GRANDANGOLO-REGIONALE-LOGO-300-x-50-px.png' };
+</script>
+<script src="barra.js?v=3"></script>
+</head>
+<body class="home grd-mfeed-attivo">
+<div class="prova-nastro">PROVA</div>
+<div class="mfeed mfeed--rep" id="grd-mfeed" aria-label="Ultime notizie">
+  <header class="mfeed__top">
+    <span class="mfeed__brand"><img class="mfeed__logo" src="https://www.grandangoloregionale.it/wp-content/uploads/2026/06/cropped-GRANDANGOLO-REGIONALE-LOGO-300-x-50-px.png" alt="Grandangolo"></span>
+  </header>
+  <div class="mfeed__cards" id="grd-mfeed-cards"><h2 class="rsez__tit rsez__tit--top"><span>Primo piano</span></h2></div>
+  <div class="mfeed__stato" id="grd-mfeed-stato">Carico le notizie…</div>
+</div>
+<script>
+/* Ricostruisce il feed mobile del sito (stile quotidiano) con le notizie vere */
 (function(){
   var SITO='https://www.grandangoloregionale.it', EDICOLA='https://edicola.grandangoloregionale.it/';
   var SB='https://xfmiikymagamnexsbrdt.supabase.co', SBK='sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn';
-  function ls(k,v){ try{ if(v===undefined) return localStorage.getItem(k); if(v===null) localStorage.removeItem(k); else localStorage.setItem(k,v); }catch(e){ return null; } }
-  var C=window.GRDAPP={
-    prova:true, ls:ls, icona:SITO+'/wp-content/uploads/2026/10/G-scaled.png', ajax:'', app:location.pathname,
-    standalone:function(){ return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true; },
-    ios:/iphone|ipad|ipod/i.test(navigator.userAgent),
-    pushPossibile:function(){ return false; },
-    temi:function(){ return ['notizie','edicola']; },
-    salvati:function(){ try{ return JSON.parse(ls('grd_salvati')||'[]'); }catch(e){ return []; } },
-    salva:function(a){ var l=C.salvati().filter(function(x){ return x.u!==a.u; }); l.unshift(a); ls('grd_salvati',JSON.stringify(l.slice(0,60))); },
-    togli:function(u){ ls('grd_salvati',JSON.stringify(C.salvati().filter(function(x){ return x.u!==u; }))); },
-    eSalvato:function(u){ return C.salvati().some(function(x){ return x.u===u; }); }
-  };
-  if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function(){});
+  var feed=document.getElementById('grd-mfeed'), cont=document.getElementById('grd-mfeed-cards'), stato=document.getElementById('grd-mfeed-stato');
   var tmp=document.createElement('textarea');
   function dec(h){ tmp.innerHTML=h||''; return tmp.value; }
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   function testo(h){ var d=document.createElement('div'); d.innerHTML=h||''; return (d.textContent||'').trim(); }
   function voce(p){
-    var e=p._embedded||{}, m=(e['wp:featuredmedia']||[])[0], t=((e['wp:term']||[])[0]||[])[0];
-    var img=''; if(m && m.source_url){ var s=m.media_details&&m.media_details.sizes; img=(s&&(s.medium_large||s.large||s.medium)||m).source_url||m.source_url; }
-    var ex=testo(p.excerpt&&p.excerpt.rendered).split(/\s+/); ex=ex.length>24?ex.slice(0,24).join(' ')+'…':ex.join(' ');
-    return { id:p.id, t:dec(p.title&&p.title.rendered), u:p.link, i:img, k:t?dec(t.name):'', d:(p.date_gmt||p.date)+'Z', e:ex };
+    var e=p._embedded||{}, m=(e['wp:featuredmedia']||[])[0], a=(e.author||[])[0];
+    var big='', small='';
+    if(m && m.source_url){ var s=m.media_details&&m.media_details.sizes||{}; big=(s.large||s.full||m).source_url||m.source_url; small=(s.medium_large||s.medium||s.large||m).source_url||m.source_url; }
+    var d=new Date(p.date);
+    return { t:dec(p.title&&p.title.rendered), u:p.link, big:big, small:small, firma:a&&a.name?'di '+a.name:d.toLocaleDateString('it-IT',{day:'numeric',month:'long',year:'numeric'}), somm:testo(p.excerpt&&p.excerpt.rendered) };
   }
-  C.notizie=function(pag,cat,q){
-    var u=SITO+'/wp-json/wp/v2/posts?_embed=wp:featuredmedia,wp:term&per_page='+(q?20:14)+'&page='+(pag||1)+(cat?'&categories='+cat:'')+(q?'&search='+encodeURIComponent(q):'');
-    return fetch(u).then(function(r){ return r.ok?r.json():[]; }).then(function(a){ return (a||[]).map(voce); }).catch(function(){ return []; });
-  };
-  var oggi=new Date().toISOString();
-  var pNotizie=fetch(SITO+'/wp-json/wp/v2/posts?_embed=wp:featuredmedia,wp:term&per_page=15').then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); });
-  var pCat=fetch(SITO+'/wp-json/wp/v2/categories?orderby=count&order=desc&per_page=12&hide_empty=true&_fields=id,name').then(function(r){ return r.ok?r.json():[]; }).catch(function(){ return []; });
-  var pNum=fetch(SB+"/rest/v1/issues?select=id,title,subtitle,cover_url,is_latest&or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte."+oggi+"))&order=sort_order.desc,created_at.desc&limit=14",{headers:{apikey:SBK,Authorization:'Bearer '+SBK}}).then(function(r){ return r.ok?r.json():[]; }).catch(function(){ return []; });
-  Promise.all([pNotizie.catch(function(e){ return {errore:e}; }),pCat,pNum]).then(function(r){
-    var posts=Array.isArray(r[0])?r[0].map(voce):[], visti={}, numeri=[];
-    (r[2]||[]).forEach(function(i){ if(!i.cover_url||visti[i.title]) return; visti[i.title]=1; numeri.push({id:i.id,titolo:i.title,sotto:i.subtitle,cover:i.cover_url,ultimo:!!i.is_latest}); });
-    numeri.sort(function(a,b){ return (b.ultimo?1:0)-(a.ultimo?1:0); });
-    window.GRDDATI={ apertura:posts[0]||null, lista:posts.slice(1), numeri:numeri,
-      cats:(r[1]||[]).filter(function(c){ return !/senza categoria|uncategori/i.test(c.name); }).slice(0,9).map(function(c){ return {id:c.id,n:dec(c.name)}; }),
-      edicola:EDICOLA, sito:SITO+'/', push:0 };
-    var s=document.createElement('script'); s.src='app.js?v=2';
-    s.onload=function(){ if(!posts.length){ document.getElementById('v-home').insertAdjacentHTML('afterbegin','<div class="errore-dati">Non riesco a leggere le notizie da grandangoloregionale.it. Controlla la connessione e riapri l\'app.</div>'); } };
-    document.body.appendChild(s);
-  });
+  function lead(v,primo){
+    var somm=''; if(primo && v.somm){ var w=v.somm.split(/\s+/); somm='<p class="rcard__somm">'+esc(w.length>45?w.slice(0,45).join(' ')+'…':v.somm)+'</p>'; }
+    return '<article class="mcard rcard rcard--lead'+(primo?' rcard--primo':'')+(v.big?'':' rcard--senzafoto')+'" data-href="'+esc(v.u)+'">'+
+      (v.big?'<a class="rcard__media" href="'+esc(v.u)+'"><img src="'+esc(v.big)+'" alt="" loading="'+(primo?'eager':'lazy')+'"></a>':'')+
+      '<div class="rcard__testo"><h2 class="rcard__tit"><a href="'+esc(v.u)+'">'+esc(v.t)+'</a></h2>'+somm+'<p class="rcard__firma">'+esc(v.firma)+'</p></div></article>';
+  }
+  function riga(v){
+    return '<article class="mcard rcard rcard--riga" data-href="'+esc(v.u)+'"><div class="rcard__testo"><h3 class="rcard__tit"><a href="'+esc(v.u)+'">'+esc(v.t)+'</a></h3><p class="rcard__firma">'+esc(v.firma)+'</p></div>'+
+      (v.small?'<a class="rcard__thumb" href="'+esc(v.u)+'"><img src="'+esc(v.small)+'" alt="" loading="lazy"></a>':'')+'</article>';
+  }
+  var numero=null;
+  function edicola(){
+    if(!numero) return '';
+    return '<section class="mcard rsez rsez--edicola" data-href="'+esc(EDICOLA+'?numero='+numero.id)+'"><div class="rbox">'+(numero.cover_url?'<img src="'+esc(numero.cover_url)+'" alt="" loading="lazy">':'')+
+      '<span class="rbox__kick">In edicola</span><h3 class="rbox__tit">Grandangolo Settimanale</h3><p class="rbox__somm">Sfoglia il numero della settimana in edicola digitale.</p>'+
+      '<a class="rbox__cta" href="'+esc(EDICOLA+'?numero='+numero.id)+'">Vai in edicola →</a></div></section>';
+  }
+  var SEP='<div class="rsep" aria-hidden="true"></div>';
+  function confine(k){ var sp=(k%2===0)?edicola():''; return sp?SEP+sp+SEP:SEP; }
+  var pag=1, idx=0, carica=false, fine=false;
+  function prendi(){
+    return fetch(SITO+'/wp-json/wp/v2/posts?_embed=wp:featuredmedia,author&per_page=12&page='+pag).then(function(r){ if(!r.ok){ fine=true; return []; } return r.json(); }).then(function(a){ return (a||[]).map(voce); });
+  }
+  function aggiungi(lista){
+    var h='';
+    lista.forEach(function(v){
+      if(idx===0){ h+=lead(v,true); }
+      else if(idx<=3){ h+=lead(v,false); if(idx===3) h+=confine(1); }
+      else { var j=idx-4+2; h+=(j%3===0)?lead(v):riga(v); if((j+1)%3===0) h+=confine((j+1)/3); }
+      idx++;
+    });
+    cont.insertAdjacentHTML('beforeend',h);
+  }
+  function altre(){
+    if(carica||fine) return; carica=true; stato.textContent='Carico altre notizie…';
+    prendi().then(function(l){ if(l.length<12) fine=true; aggiungi(l); pag++; stato.textContent=fine?'':''; })
+      .catch(function(){ stato.textContent=''; if(!idx) cont.insertAdjacentHTML('beforeend','<div class="mfeed__vuoto">Non riesco a leggere le notizie da grandangoloregionale.it. Controlla la connessione e riapri.</div>'); fine=true; })
+      .then(function(){ carica=false; });
+  }
+  fetch(SB+"/rest/v1/issues?select=id,title,cover_url,is_latest&status=eq.published&order=sort_order.desc&limit=6",{headers:{apikey:SBK,Authorization:'Bearer '+SBK}})
+    .then(function(r){ return r.ok?r.json():[]; }).then(function(a){ numero=(a||[]).filter(function(x){ return x.is_latest; })[0]||(a||[])[0]||null; })
+    .catch(function(){}).then(altre);
+  feed.addEventListener('scroll',function(){ if(feed.scrollTop+feed.clientHeight>feed.scrollHeight-900) altre(); },{passive:true});
+  /* tutta la scheda è cliccabile, come sul sito */
+  cont.addEventListener('click',function(e){ if(e.target.closest('a,button')) return; var c=e.target.closest('[data-href]'); if(c) location.href=c.getAttribute('data-href'); });
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function(){});
 })();
 </script>
 </body>

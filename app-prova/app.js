@@ -220,6 +220,8 @@
   document.querySelector('.tabbar').addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b) return;
     var n=b.getAttribute('data-v');
+    /* la Home dell'app è la prima pagina del sito, identica a quella che si vede dal telefono */
+    if(n==='home' && D.homeSito){ location.href=D.homeSito; return; }
     if(n===vista && n==='home'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
     vai(n);
   });
