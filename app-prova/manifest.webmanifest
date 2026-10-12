@@ -1,0 +1,17 @@
+{
+  "id": "/app-prova/",
+  "name": "Grandangolo (prova)",
+  "short_name": "Grandangolo",
+  "description": "Prova dell'app di Grandangolo: notizie e settimanale in edicola.",
+  "lang": "it",
+  "start_url": "/app-prova/",
+  "scope": "/app-prova/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#161513",
+  "theme_color": "#161513",
+  "icons": [
+    { "src": "https://www.grandangoloregionale.it/wp-content/uploads/2026/10/G-scaled.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "https://www.grandangoloregionale.it/wp-content/uploads/2026/10/G-scaled.png", "sizes": "192x192", "type": "image/png", "purpose": "any" }
+  ]
+}
