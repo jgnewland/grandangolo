@@ -1,9 +1,0 @@
-/* service worker della prova: serve solo a rendere l'app installabile e a riaprirla senza rete */
-const V='grd-prova-3';
-self.addEventListener('install',e=>{ e.waitUntil(caches.open(V).then(c=>c.addAll(['./','app.html','app.css?v=3','app.js?v=3','barra.css?v=3','barra.js?v=3']).catch(()=>{}))); self.skipWaiting(); });
-self.addEventListener('activate',e=>{ e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim())); });
-self.addEventListener('fetch',e=>{
-  const u=new URL(e.request.url);
-  if(e.request.method!=='GET'||u.origin!==location.origin||!u.pathname.startsWith('/app-prova/')) return;
-  e.respondWith(fetch(e.request).then(r=>{ const c=r.clone(); caches.open(V).then(x=>x.put(e.request,c)); return r; }).catch(()=>caches.match(e.request)));
-});
