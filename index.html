@@ -3095,5 +3095,24 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
 })();
 
 </script>
+
+<script>
+/* link diretto a un numero (dalle notifiche e dall'app): ?numero=ID oppure ?numero=ultimo */
+(function(){
+  try{
+    var q=new URLSearchParams(location.search), n=q.get('numero'); if(!n) return;
+    var prove=0;
+    (function cerca(){
+      var l=(window.issues||[]).filter(function(i){ return i && i.pages && i.pages.length; });
+      var i= n==='ultimo' ? (l.filter(function(x){ return x.isLatest; })[0]||l[0]) : l.filter(function(x){ return String(x.id)===n; })[0];
+      if(i && typeof window.openFlipbook==='function'){
+        q.delete('numero'); try{ history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:'')); }catch(e){}
+        window.openFlipbook(i,0); return;
+      }
+      if(++prove<40) setTimeout(cerca,250);
+    })();
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
