@@ -565,7 +565,10 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
             <button class="ghost" onclick="genCod();document.getElementById('wg-code').value=document.getElementById('cod-val').textContent" style="white-space:nowrap;padding:11px 14px;flex-shrink:0">🔑 Genera</button>
           </div>
         </div>
-        <div class="f"><label>Link acquisto Stripe</label><input type="url" id="wg-buy" placeholder="https://buy.stripe.com/..."></div>
+        <div class="row2">
+          <div class="f"><label>Link acquisto Stripe</label><input type="url" id="wg-buy" placeholder="https://buy.stripe.com/..."></div>
+          <div class="f"><label>Prezzo del numero</label><input type="text" id="wg-prezzo" value="1,50 €"></div>
+        </div>
         <div class="f"><label>Pagine JPG (una per riga)</label><textarea id="wg-pages" style="min-height:120px;font-family:monospace;font-size:12px;line-height:1.6" placeholder="https://.../1.jpg&#10;https://.../2.jpg"></textarea></div>
         <button class="btn" id="wg-gen-btn" onclick="generaWidget()">⚡ Genera entrambi i widget</button>
         <div class="res" id="wg-res"></div>
@@ -1975,6 +1978,8 @@ function generaWidget(){
   showRes("wg-res","✓ Widget generati! Copia il codice sidebar e incollalo nel widget HTML di WordPress.","ok");
 }
 
+function wgPrezzo(){ var e=document.getElementById("wg-prezzo"); return (e&&e.value.trim())||"1,50 €"; }
+var WG_ABBO="https://buy.stripe.com/eVqcN764gcMFaln5kQ9MY0k";
 // ── BUILD SIDEBAR SNIPPET — struttura identica al widget che funziona in WP ──
 function buildSidebarSnippet(numero, badge, cover, code, buy, pages){
   var PREMIUM  = "GR22-PREMIUM(SJjA?$\u00a3-AaX";
@@ -2049,6 +2054,12 @@ function buildSidebarSnippet(numero, badge, cover, code, buy, pages){
 '  }',
 '  #ga40-widget #ga40-unlock-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }',
 '  #ga40-widget #ga40-code-msg { color: #ffb4b4; }',
+'  #ga40-widget .ga40-acq { margin-top: 12px; padding: 12px; border-radius: 12px; background: rgba(0,166,81,0.10); border: 1px solid rgba(0,166,81,0.38); text-align: center; }',
+'  #ga40-widget .ga40-free { font-size: 11.5px; color: #d8ffe9; margin-bottom: 9px; line-height: 1.4; }',
+'  #ga40-widget .ga40-buy-main { display: block; padding: 11px 12px; border-radius: 10px; background: #00a651; color: #fff !important; font-weight: 800; font-size: 14px; text-decoration: none !important; box-shadow: 0 6px 16px rgba(0,166,81,0.35); }',
+'  #ga40-widget .ga40-buy-main:hover { filter: brightness(1.08); }',
+'  #ga40-widget .ga40-abbo { display: block; margin-top: 8px; font-size: 11.5px; color: #f2e600 !important; text-decoration: none !important; font-weight: 700; }',
+'  #ga40-widget .ga40-steps { margin-top: 9px; font-size: 10.5px; color: rgba(255,255,255,0.6); line-height: 1.45; }',
 '</style>',
 '',
 '<div id="ga40-widget">',
@@ -2102,14 +2113,21 @@ function buildSidebarSnippet(numero, badge, cover, code, buy, pages){
 '      <button id="ga40-next" type="button" class="ga40-btn-circle">&#8594;</button>',
 '    </div>',
 '',
+'    <div class="ga40-acq" id="ga40-acq">',
+'      <div class="ga40-free">&#128214; Le prime <b>2 pagine sono gratis</b>. Per leggere tutto il numero acquista il codice di accesso.</div>',
+(buy?'      <a class="ga40-buy-main" href="'+buy+'">Acquista il numero &middot; '+wgPrezzo()+'</a>':''),
+'      <a class="ga40-abbo" href="'+WG_ABBO+'">oppure abbonati: tutto il 2026 a 50 &euro; &rarr;</a>',
+'      <div class="ga40-steps">Dopo il pagamento ricevi il codice: scrivilo qui sotto e il giornale si apre tutto.</div>',
+'    </div>',
+'',
 '    <div id="ga40-code-box">',
-'      <div>Hai gi&agrave; acquistato questo numero? Inserisci il codice di accesso:</div>',
+'      <div>Hai gi&agrave; il codice? Scrivilo qui:</div>',
 '      <div style="display:flex;gap:4px;margin-top:4px;">',
 '        <input id="ga40-code-input" type="text" placeholder="Inserisci il codice"',
 '               style="flex:1;padding:4px 6px;font-size:11px;border-radius:4px;">',
 '        <button id="ga40-unlock-btn" type="button"',
 '                style="padding:4px 8px;border-radius:4px;font-size:11px;cursor:pointer;">',
-'          Sblocca',
+'          Leggi tutto',
 '        </button>',
 '      </div>',
 '      <div id="ga40-code-msg" style="margin-top:4px;font-size:11px;display:none;">Codice non valido.</div>',
@@ -2144,6 +2162,7 @@ pagesArr,
 '    if (v === unlockCode || v === premiumCode) {',
 '      unlocked = true;',
 '      document.getElementById("ga40-code-box").style.display = "none";',
+'      var acq = document.getElementById("ga40-acq"); if (acq) acq.style.display = "none";',
 '      codeMsg.style.display = "none";',
 '      updateSmall(true);',
 '      if (typeof onSuccess === "function") onSuccess();',
@@ -2163,7 +2182,7 @@ pagesArr,
 '    imgSmall.src = pages[currentIndex];',
 '    prevBtn.disabled = (currentIndex === 0);',
 '    nextBtn.disabled = (currentIndex === pages.length - 1);',
-'    indic.textContent = "Pagina " + (currentIndex + 1) + " di " + pages.length;',
+'    indic.textContent = "Pagina " + (currentIndex + 1) + " di " + pages.length + (unlocked ? "" : (currentIndex <= 1 ? " \u00b7 gratis" : " \u00b7 \ud83d\udd12 da acquistare"));',
 '    if (noAnim) imgSmall.style.transform = "none";',
 '  }',
 '',
@@ -2291,6 +2310,11 @@ function buildPageSnippet(numero, badge, cover, code, buy, pages){
 '#ga40-widget-page .ga40p-buy-title{font-size:16px;font-weight:700;margin-bottom:8px;}',
 '#ga40-widget-page .ga40p-buy-text{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:16px;line-height:1.5;}',
 '#ga40-widget-page .ga40p-buy-btn{display:inline-block;padding:12px 24px;border-radius:999px;border:none;cursor:pointer;font-size:14px;font-weight:700;background:#00a651;color:#fff;box-shadow:0 5px 16px rgba(0,166,81,0.45);}',
+'#ga40-widget-page .ga40p-acq{margin-top:14px;padding:16px;border-radius:12px;background:rgba(0,166,81,0.10);border:1px solid rgba(0,166,81,0.38);text-align:center;}',
+'#ga40-widget-page .ga40p-free{font-size:13.5px;color:#d8ffe9;margin-bottom:12px;line-height:1.45;}',
+'#ga40-widget-page .ga40p-buy-main{display:block;max-width:420px;margin:0 auto;padding:13px 16px;border-radius:12px;background:#00a651;color:#fff !important;font-weight:800;font-size:16px;text-decoration:none !important;box-shadow:0 6px 18px rgba(0,166,81,0.4);}',
+'#ga40-widget-page .ga40p-abbo{display:block;margin-top:10px;font-size:13px;color:#f2e600 !important;text-decoration:none !important;font-weight:700;}',
+'#ga40-widget-page .ga40p-steps{margin-top:10px;font-size:12px;color:rgba(255,255,255,0.6);}',
 '#ga40-widget-page .ga40p-code-box{margin-top:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px;}',
 '#ga40-widget-page .ga40p-code-label{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:7px;}',
 '#ga40-widget-page .ga40p-code-row{display:flex;gap:8px;}',
@@ -2323,11 +2347,17 @@ function buildPageSnippet(numero, badge, cover, code, buy, pages){
 '      <span id="ga40p-indicator">Pagina 1 di '+pages.length+'</span>',
 '      <button id="ga40p-next" class="ga40p-btn">&#8594;</button>',
 '    </div>',
+'    <div class="ga40p-acq" id="ga40p-acq">',
+'      <div class="ga40p-free">📖 Le prime <b>2 pagine sono gratis</b>. Per leggere tutto il numero acquista il codice di accesso.</div>',
+(buy?'      <a class="ga40p-buy-main" href="'+buy+'" target="_blank" rel="noopener">Acquista il numero · '+wgPrezzo()+'</a>':''),
+'      <a class="ga40p-abbo" href="'+WG_ABBO+'" target="_blank" rel="noopener">oppure abbonati: tutto il 2026 a 50 € →</a>',
+'      <div class="ga40p-steps">Dopo il pagamento ricevi il codice: scrivilo qui sotto e il giornale si apre tutto.</div>',
+'    </div>',
 '    <div class="ga40p-code-box">',
-'      <div class="ga40p-code-label">Hai già acquistato? Inserisci il tuo codice di sblocco:</div>',
+'      <div class="ga40p-code-label">Hai già il codice? Scrivilo qui:</div>',
 '      <div class="ga40p-code-row">',
 '        <input id="ga40p-code" class="ga40p-code-input" type="text" placeholder="Es. GR22-XXXXX" autocomplete="off">',
-'        <button id="ga40p-unlock" class="ga40p-unlock-btn">Sblocca</button>',
+'        <button id="ga40p-unlock" class="ga40p-unlock-btn">Leggi tutto</button>',
 '      </div>',
 '      <div id="ga40p-msg" class="ga40p-msg"></div>',
 '    </div>',
@@ -2361,13 +2391,14 @@ pagesArr,
 '    buyOverlay.style.display = blocked ? "flex" : "none";',
 '    prevBtn.disabled = (idx === 0);',
 '    nextBtn.disabled = (idx === pages.length - 1);',
-'    indicEl.textContent = "Pagina " + (idx+1) + " di " + pages.length;',
+'    indicEl.textContent = "Pagina " + (idx+1) + " di " + pages.length + (unlocked ? "" : (idx < FREE_PAGES ? " · gratis" : " · 🔒 da acquistare"));',
 '  }',
 '  function doUnlock(){',
 '    var v = (codeInput.value || "").trim();',
 '    if(!v){ msgEl.textContent = "Inserisci un codice."; msgEl.className = "ga40p-msg err"; return; }',
 '    if(checkCode(v)){',
 '      unlocked = true;',
+'      var acq = document.getElementById("ga40p-acq"); if(acq) acq.style.display = "none";',
 '      msgEl.textContent = v === PREMIUM_CODE ? "\\u2713 Accesso PREMIUM attivato!" : "\\u2713 Numero sbloccato!";',
 '      msgEl.className = "ga40p-msg ok";',
 '      render(cur);',
