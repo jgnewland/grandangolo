@@ -589,6 +589,17 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
         <textarea id="wg-code-sidebar" readonly style="width:100%;min-height:140px;font-family:monospace;font-size:11px;line-height:1.5;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#8fffc1;padding:12px;resize:vertical"></textarea>
       </div>
 
+      <!-- OUTPUT WIDGET PAGINA INTERNA PROTETTO (iframe) -->
+      <div class="card" id="wg-out-iframe" style="display:none;border-color:rgba(242,230,0,0.45);">
+        <div class="card-hdr" style="margin-bottom:8px">
+          <div><div class="card-t">🛡️ Widget pagina interna — protetto dalla pubblicità (consigliato)</div>
+          <div class="card-s" style="color:#f2e600">Uguale a quello qui sotto, ma dentro una «finestra»: i banner automatici del sito non possono entrarci. Incollalo nell'articolo in un blocco HTML personalizzato.</div></div>
+          <button class="btn btn-sm" onclick="copiaWidget('wg-code-iframe')">📋 Copia</button>
+        </div>
+        <textarea id="wg-code-iframe" readonly style="width:100%;min-height:110px;font-family:monospace;font-size:11px;line-height:1.5;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#f2e600;padding:12px;resize:vertical"></textarea>
+        <div id="wg-iframe-nota" style="font-size:11.5px;color:rgba(255,255,255,0.5);margin-top:6px"></div>
+      </div>
+
       <!-- OUTPUT WIDGET PAGINA INTERNA -->
       <div class="card" id="wg-out-page" style="display:none">
         <div class="card-hdr" style="margin-bottom:12px">
@@ -1913,7 +1924,22 @@ var mobLogout=document.getElementById("mob-logout-btn");
 if(mobLogout) mobLogout.onclick=function(){ logout(); closeMobMenu(); };
 
 // ── WIDGET: SCELTA DI UN NUMERO ESISTENTE ─────────────────────────
-var wgNumeri=[];
+var wgNumeri=[], wgIdScelto=null;
+function wgCodiceIframe(){
+  var box=document.getElementById("wg-out-iframe"), ta=document.getElementById("wg-code-iframe"), nota=document.getElementById("wg-iframe-nota");
+  if(!box) return;
+  box.style.display="block";
+  if(!wgIdScelto){ ta.value=""; nota.textContent="Per il widget protetto scegli il numero dal menu giallo in alto (deve essere già nell'edicola)."; return; }
+  var pz=document.getElementById("wg-prezzo"), bd=document.getElementById("wg-badge");
+  var src="https://edicola.grandangoloregionale.it/widget-numero.html?id="+encodeURIComponent(wgIdScelto)+
+    (pz&&pz.value.trim()&&pz.value.trim()!=="1,50 €"?"&prezzo="+encodeURIComponent(pz.value.trim()):"")+
+    (bd&&bd.value.trim()?"&badge="+encodeURIComponent(bd.value.trim()):"");
+  var fid="gaw"+String(wgIdScelto).replace(/[^a-z0-9]/gi,"");
+  ta.value='<div style="max-width:760px;margin:0 auto 24px;">\n'+
+    '<iframe id="'+fid+'" src="'+src+'" title="Grandangolo Settimanale" loading="lazy" scrolling="no" style="width:100%;height:1250px;border:0;display:block;overflow:hidden;"></iframe>\n'+
+    '</div>\n<scr'+'ipt>window.addEventListener("message",function(e){if(e.origin==="https://edicola.grandangoloregionale.it"&&e.data&&e.data.gaWidget=='+JSON.stringify(String(wgIdScelto))+'){var f=document.getElementById("'+fid+'");if(f)f.style.height=(e.data.h+4)+"px";}});</scr'+'ipt>';
+  nota.textContent="Si aggiorna da solo: se correggi il numero nell'edicola (pagine, link, codice), il widget già incollato mostra subito le modifiche.";
+}
 async function wgCaricaNumeri(){
   var sel=document.getElementById("wg-scegli"); if(!sel) return;
   try{
@@ -1936,6 +1962,7 @@ window.wgUsaNumero=function(i){
   document.getElementById("wg-code").value = x.unlock_code || "";
   document.getElementById("wg-buy").value = x.buy_url || "";
   document.getElementById("wg-pages").value = x.pages.join("\n");
+  wgIdScelto = x.id;
   generaWidget();
 };
 // carico l'elenco anche se la pagina è già aperta all'avvio
@@ -1974,6 +2001,7 @@ function generaWidget(){
   // ── WIDGET PAGINA INTERNA: snippet incollabile nel blocco HTML di WP ──
   document.getElementById("wg-code-page").value = buildPageSnippet(numero, badge, cover, code, buy, pages);
   document.getElementById("wg-out-page").style.display="block";
+  wgCodiceIframe();
 
   showRes("wg-res","✓ Widget generati! Copia il codice sidebar e incollalo nel widget HTML di WordPress.","ok");
 }

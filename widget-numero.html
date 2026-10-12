@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Grandangolo Settimanale</title>
+</head>
+<body style="margin:0;background:transparent;font-family:system-ui,sans-serif">
+<div id="attesa" style="padding:40px;text-align:center;color:#888">Caricamento del giornale…</div>
+<script>
+/* Widget del numero da incorporare negli articoli con un iframe:
+   dentro un iframe i circuiti pubblicitari del sito non possono infilare annunci. */
+var SB_URL="https://xfmiikymagamnexsbrdt.supabase.co";
+var SB_KEY="sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn";
+var WG_ABBO="https://buy.stripe.com/eVqcN764gcMFaln5kQ9MY0k";
+var Q=new URLSearchParams(location.search);
+function wgPrezzo(){ return Q.get("prezzo")||"1,50 €"; }
+function buildPageSnippet(numero, badge, cover, code, buy, pages){
+  var PREMIUM = "GR22-PREMIUM(SJjA?$\u00a3-AaX";
+  var pagesArr = pages.map(function(p){ return '    "'+p+'"'; }).join(',\n');
+
+  return [
+'<!-- BOX FLIPBOOK GRANDANGOLO - WIDGET PAGINA INTERNA -->',
+'<style>',
+'#ga40-widget-page{max-width:530px;margin:20px auto;font-family:system-ui,-apple-system,sans-serif;color:#f5f5f5;}',
+'#ga40-widget-page *,#ga40-widget-page *::before,#ga40-widget-page *::after{box-sizing:border-box;}',
+'#ga40-widget-page .ga40p-card{background:radial-gradient(circle at top,#19192b 0,#050509 55%);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.08);}',
+'#ga40-widget-page .ga40p-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}',
+'#ga40-widget-page .ga40p-logo{height:36px;width:auto;display:block;}',
+'#ga40-widget-page .ga40p-badge{padding:5px 12px;border-radius:999px;background:rgba(0,166,81,0.18);border:1px solid rgba(0,166,81,0.55);font-size:11px;color:#8fffc1;}',
+'#ga40-widget-page .ga40p-title{font-size:14px;margin-bottom:8px;}',
+'#ga40-widget-page .ga40p-edicola-link{display:inline-flex;margin-bottom:10px;font-size:12px;color:#b0ffcf;text-decoration:none;padding:6px 14px;border-radius:999px;border:1px solid rgba(0,166,81,0.4);background:rgba(0,166,81,0.12);}',
+'#ga40-widget-page .ga40p-flipbook{position:relative;width:100%;padding-top:133.333%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 8px 24px rgba(0,0,0,0.5);}',
+'#ga40-widget-page .ga40p-flipbook img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .3s;}',
+'#ga40-widget-page .ga40p-controls{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:12px;color:rgba(255,255,255,0.5);}',
+'#ga40-widget-page .ga40p-btn{padding:7px 18px;border-radius:999px;border:1px solid rgba(255,255,255,0.18);background:rgba(5,5,9,0.9);color:#fff;cursor:pointer;font-size:14px;}',
+'#ga40-widget-page .ga40p-btn:disabled{opacity:.3;cursor:default;}',
+'#ga40-widget-page .ga40p-buy-overlay{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;color:#fff;background:radial-gradient(circle at center,rgba(0,0,0,0.05),rgba(0,0,0,0.85));}',
+'#ga40-widget-page .ga40p-buy-title{font-size:16px;font-weight:700;margin-bottom:8px;}',
+'#ga40-widget-page .ga40p-buy-text{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:16px;line-height:1.5;}',
+'#ga40-widget-page .ga40p-buy-btn{display:inline-block;padding:12px 24px;border-radius:999px;border:none;cursor:pointer;font-size:14px;font-weight:700;background:#00a651;color:#fff;box-shadow:0 5px 16px rgba(0,166,81,0.45);}',
+'#ga40-widget-page .ga40p-acq{margin-top:14px;padding:16px;border-radius:12px;background:rgba(0,166,81,0.10);border:1px solid rgba(0,166,81,0.38);text-align:center;}',
+'#ga40-widget-page .ga40p-free{font-size:13.5px;color:#d8ffe9;margin-bottom:12px;line-height:1.45;}',
+'#ga40-widget-page .ga40p-buy-main{display:block;max-width:420px;margin:0 auto;padding:13px 16px;border-radius:12px;background:#00a651;color:#fff !important;font-weight:800;font-size:16px;text-decoration:none !important;box-shadow:0 6px 18px rgba(0,166,81,0.4);}',
+'#ga40-widget-page .ga40p-abbo{display:block;margin-top:10px;font-size:13px;color:#f2e600 !important;text-decoration:none !important;font-weight:700;}',
+'#ga40-widget-page .ga40p-steps{margin-top:10px;font-size:12px;color:rgba(255,255,255,0.6);}',
+'#ga40-widget-page .ga40p-code-box{margin-top:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px;}',
+'#ga40-widget-page .ga40p-code-label{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:7px;}',
+'#ga40-widget-page .ga40p-code-row{display:flex;gap:8px;}',
+'#ga40-widget-page .ga40p-code-input{flex:1;padding:9px 12px;font-size:13px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;outline:none;font-family:monospace;}',
+'#ga40-widget-page .ga40p-code-input:focus{border-color:rgba(0,166,81,0.5);}',
+'#ga40-widget-page .ga40p-code-input::placeholder{color:rgba(255,255,255,0.25);font-family:inherit;}',
+'#ga40-widget-page .ga40p-unlock-btn{padding:9px 18px;border-radius:8px;border:none;background:#00a651;color:#fff;font-size:13px;font-weight:700;cursor:pointer;}',
+'#ga40-widget-page .ga40p-msg{margin-top:7px;font-size:12px;display:none;}',
+'#ga40-widget-page .ga40p-msg.err{display:block;color:#ffb4b4;}',
+'#ga40-widget-page .ga40p-msg.ok{display:block;color:#8fffc1;}',
+'</style>',
+'<div id="ga40-widget-page">',
+'  <div class="ga40p-card">',
+'    <div class="ga40p-header">',
+'      <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2025/11/Progetto-senza-titolo-8.png" class="ga40p-logo" alt="Grandangolo">',
+'      <div class="ga40p-badge">'+badge+'</div>',
+'    </div>',
+'    <div class="ga40p-title"><strong>Grandangolo Settimanale</strong> — '+numero+'</div>',
+'    <a href="https://edicola.grandangoloregionale.it" target="_blank" rel="noopener" class="ga40p-edicola-link">Apri l\'edicola digitale ↗</a>',
+'    <div class="ga40p-flipbook">',
+'      <img id="ga40p-img" src="'+cover+'" alt="'+numero+'">',
+'      <div id="ga40p-buy-overlay" class="ga40p-buy-overlay">',
+'        <div class="ga40p-buy-title">Continua a sfogliare 📖</div>',
+'        <div class="ga40p-buy-text">Le prime 2 pagine sono gratuite.<br>Acquista il numero per leggere tutto.</div>',
+'        <button class="ga40p-buy-btn" id="ga40p-buy-btn">Acquista il numero completo</button>',
+'      </div>',
+'    </div>',
+'    <div class="ga40p-controls">',
+'      <button id="ga40p-prev" class="ga40p-btn">&#8592;</button>',
+'      <span id="ga40p-indicator">Pagina 1 di '+pages.length+'</span>',
+'      <button id="ga40p-next" class="ga40p-btn">&#8594;</button>',
+'    </div>',
+'    <div class="ga40p-acq" id="ga40p-acq">',
+'      <div class="ga40p-free">📖 Le prime <b>2 pagine sono gratis</b>. Per leggere tutto il numero acquista il codice di accesso.</div>',
+(buy?'      <a class="ga40p-buy-main" href="'+buy+'" target="_blank" rel="noopener">Acquista il numero · '+wgPrezzo()+'</a>':''),
+'      <a class="ga40p-abbo" href="'+WG_ABBO+'" target="_blank" rel="noopener">oppure abbonati: tutto il 2026 a 50 € →</a>',
+'      <div class="ga40p-steps">Dopo il pagamento ricevi il codice: scrivilo qui sotto e il giornale si apre tutto.</div>',
+'    </div>',
+'    <div class="ga40p-code-box">',
+'      <div class="ga40p-code-label">Hai già il codice? Scrivilo qui:</div>',
+'      <div class="ga40p-code-row">',
+'        <input id="ga40p-code" class="ga40p-code-input" type="text" placeholder="Es. GR22-XXXXX" autocomplete="off">',
+'        <button id="ga40p-unlock" class="ga40p-unlock-btn">Leggi tutto</button>',
+'      </div>',
+'      <div id="ga40p-msg" class="ga40p-msg"></div>',
+'    </div>',
+'  </div>',
+'</div>',
+'<scr'+'ipt>',
+'(function(){',
+'  var UNLOCK_CODE = "'+code+'";',
+'  var PREMIUM_CODE = "'+PREMIUM+'";',
+'  var buyUrl = "'+buy+'";',
+'  var FREE_PAGES = 2;',
+'  var pages = [',
+pagesArr,
+'  ];',
+'  var cur = 0, unlocked = false;',
+'  var imgEl = document.getElementById("ga40p-img");',
+'  var prevBtn = document.getElementById("ga40p-prev");',
+'  var nextBtn = document.getElementById("ga40p-next");',
+'  var indicEl = document.getElementById("ga40p-indicator");',
+'  var buyOverlay = document.getElementById("ga40p-buy-overlay");',
+'  var buyBtn = document.getElementById("ga40p-buy-btn");',
+'  var codeInput = document.getElementById("ga40p-code");',
+'  var unlockBtn = document.getElementById("ga40p-unlock");',
+'  var msgEl = document.getElementById("ga40p-msg");',
+'  function checkCode(v){ return v === UNLOCK_CODE || v === PREMIUM_CODE; }',
+'  function render(idx){',
+'    cur = idx;',
+'    var blocked = !unlocked && idx >= FREE_PAGES;',
+'    imgEl.src = pages[idx];',
+'    imgEl.style.filter = blocked ? "blur(7px) brightness(0.7)" : "none";',
+'    buyOverlay.style.display = blocked ? "flex" : "none";',
+'    prevBtn.disabled = (idx === 0);',
+'    nextBtn.disabled = (idx === pages.length - 1);',
+'    indicEl.textContent = "Pagina " + (idx+1) + " di " + pages.length + (unlocked ? "" : (idx < FREE_PAGES ? " · gratis" : " · 🔒 da acquistare"));',
+'  }',
+'  function doUnlock(){',
+'    var v = (codeInput.value || "").trim();',
+'    if(!v){ msgEl.textContent = "Inserisci un codice."; msgEl.className = "ga40p-msg err"; return; }',
+'    if(checkCode(v)){',
+'      unlocked = true;',
+'      var acq = document.getElementById("ga40p-acq"); if(acq) acq.style.display = "none";',
+'      msgEl.textContent = v === PREMIUM_CODE ? "\\u2713 Accesso PREMIUM attivato!" : "\\u2713 Numero sbloccato!";',
+'      msgEl.className = "ga40p-msg ok";',
+'      render(cur);',
+'    } else {',
+'      msgEl.textContent = "Codice non valido."; msgEl.className = "ga40p-msg err";',
+'    }',
+'  }',
+'  prevBtn.addEventListener("click", function(){ if(cur > 0) render(cur - 1); });',
+'  nextBtn.addEventListener("click", function(){ if(cur < pages.length - 1) render(cur + 1); });',
+'  unlockBtn.addEventListener("click", doUnlock);',
+'  codeInput.addEventListener("keydown", function(e){ if(e.key === "Enter") doUnlock(); });',
+'  if(buyBtn) buyBtn.addEventListener("click", function(){',
+'    try { window.open(buyUrl, "_blank", "noopener"); } catch(e){ window.location.href = buyUrl; }',
+'  });',
+'  render(0);',
+'})();',
+'<\/script>'
+  ].join('\n');
+}
+function scrivi(html){
+  var resize='<script>(function(){var id='+JSON.stringify(Q.get("id")||"")+';function invia(){var w=document.getElementById("ga40-widget-page")||document.body.firstElementChild;var h=Math.ceil(w?w.getBoundingClientRect().bottom+window.scrollY+24:document.body.offsetHeight);try{parent.postMessage({gaWidget:id,h:h},"*");}catch(e){}}'+
+    'window.addEventListener("load",invia);window.addEventListener("resize",invia);setInterval(invia,800);document.addEventListener("click",function(){setTimeout(invia,60);});})();<\/script>';
+  document.open();
+  document.write('<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base target="_blank"><style>html,body{margin:0;background:transparent}</style></head><body>'+html+resize+'</body></html>');
+  document.close();
+}
+(async function(){
+  var id=Q.get("id");
+  if(!id){ document.getElementById("attesa").textContent="Numero non indicato."; return; }
+  try{
+    var r=await fetch(SB_URL+"/rest/v1/issues?select=title,subtitle,cover_url,unlock_code,buy_url,pages,anno,is_latest&id=eq."+encodeURIComponent(id),{headers:{apikey:SB_KEY,Authorization:"Bearer "+SB_KEY}});
+    var x=(await r.json())[0];
+    if(!x||!x.pages||!x.pages.length) throw new Error("numero non trovato");
+    var anno=x.anno||((x.subtitle||"").match(/20\d\d/)||[])[0]||"";
+    var m=(x.title||"").match(/N\.?\s*(\d+)/i);
+    var numero=m?("N. "+m[1]+(anno?"/"+anno:"")):(x.title||"");
+    var badge=Q.get("badge")||(x.is_latest?"Ultima uscita":(x.subtitle||"Grandangolo Settimanale"));
+    scrivi(buildPageSnippet(numero,badge,x.cover_url||x.pages[0],x.unlock_code||"",x.buy_url||"",x.pages));
+  }catch(e){ document.getElementById("attesa").innerHTML='Giornale non disponibile. <a href="https://edicola.grandangoloregionale.it" target="_blank">Vai all\'edicola digitale</a>'; }
+})();
+</script>
+</body>
+</html>
