@@ -548,6 +548,11 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
       <div class="pg-title">Widget settimanale</div>
       <div class="pg-sub">Genera il codice HTML per il widget pagina interna e sidebar WordPress.</div>
       <div class="card">
+        <div class="f" style="background:rgba(242,230,0,0.06);border:1px solid rgba(242,230,0,0.35);border-radius:10px;padding:12px 14px;margin-bottom:16px">
+          <label style="color:#f2e600">⚡ Scegli un numero già nell'edicola</label>
+          <select id="wg-scegli" onchange="wgUsaNumero(this.value)" style="width:100%"><option value="">Caricamento dei numeri…</option></select>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.55);margin-top:6px">Copertina, codice, link Stripe e pagine si compilano da soli e i due widget vengono generati subito. Puoi comunque correggere i campi qui sotto e premere di nuovo «Genera».</div>
+        </div>
         <div class="card-t" style="margin-bottom:16px">Dati del numero</div>
         <div class="row2">
           <div class="f"><label>Numero (es. N. 13/2026)</label><input type="text" id="wg-numero" placeholder="N. 13/2026"></div>
@@ -842,6 +847,7 @@ document.querySelectorAll(".nav-i[data-pg]").forEach(function(el){
     if(pg==="avvisi") loadAvvisi();
     if(pg==="stripe") loadStripe();
     if(pg==="grazie") initGrazie();
+    if(pg==="widget") wgCaricaNumeri();
   };
 });
 
@@ -1897,10 +1903,40 @@ mobDrawer&&mobDrawer.querySelectorAll(".nav-i[data-pg]").forEach(function(el){
     if(pg==="avvisi") loadAvvisi();
     if(pg==="stripe") loadStripe();
     if(pg==="grazie") initGrazie();
+    if(pg==="widget") wgCaricaNumeri();
   };
 });
 var mobLogout=document.getElementById("mob-logout-btn");
 if(mobLogout) mobLogout.onclick=function(){ logout(); closeMobMenu(); };
+
+// ── WIDGET: SCELTA DI UN NUMERO ESISTENTE ─────────────────────────
+var wgNumeri=[];
+async function wgCaricaNumeri(){
+  var sel=document.getElementById("wg-scegli"); if(!sel) return;
+  try{
+    var r=await sbGet("/rest/v1/issues?select=id,title,subtitle,cover_url,unlock_code,buy_url,pages,anno,status,is_latest&order=sort_order.desc,created_at.desc");
+    wgNumeri=Array.isArray(r)?r.filter(function(x){ return x.pages && x.pages.length; }):[];
+  }catch(e){ wgNumeri=[]; }
+  var stati={draft:" · bozza",scheduled:" · programmato"};
+  sel.innerHTML='<option value="">'+(wgNumeri.length?'— Scegli il numero —':'Nessun numero trovato')+'</option>'+wgNumeri.map(function(x,i){
+    return '<option value="'+i+'">'+(x.title||"Senza titolo").replace(/</g,"&lt;")+(x.subtitle?" · "+x.subtitle.replace(/</g,"&lt;"):"")+(x.is_latest?" ★ ultima uscita":"")+(stati[x.status]||"")+'</option>';
+  }).join("");
+}
+window.wgCaricaNumeri=wgCaricaNumeri;
+window.wgUsaNumero=function(i){
+  var x=wgNumeri[parseInt(i,10)]; if(!x) return;
+  var anno=x.anno || ((x.subtitle||"").match(/20\d\d/)||[])[0] || new Date().getFullYear();
+  var m=(x.title||"").match(/N\.?\s*(\d+)/i);
+  document.getElementById("wg-numero").value = m ? ("N. "+m[1]+"/"+anno) : (x.title||"");
+  document.getElementById("wg-badge").value = x.is_latest ? "Ultima uscita" : (x.subtitle || "Grandangolo Settimanale");
+  document.getElementById("wg-cover").value = x.cover_url || x.pages[0] || "";
+  document.getElementById("wg-code").value = x.unlock_code || "";
+  document.getElementById("wg-buy").value = x.buy_url || "";
+  document.getElementById("wg-pages").value = x.pages.join("\n");
+  generaWidget();
+};
+// carico l'elenco anche se la pagina è già aperta all'avvio
+setTimeout(function(){ var pg=document.getElementById("pg-widget"); if(pg && pg.classList.contains("on")) wgCaricaNumeri(); }, 1500);
 
 // ── WIDGET GENERATOR ──────────────────────────────────────────────
 window.generaWidget = generaWidget;
