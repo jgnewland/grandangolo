@@ -3168,10 +3168,56 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       .mf-btn::after{opacity:.5}
       .mf-x{right:8px;top:10px;transform:none;width:26px;height:26px;font-size:12px}
     }
+    /* ── alternanza dei banner ── */
+    .mf-ban__in.mf-slide{transition:opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1)}
+    .mf-ban__in.mf-slide:not(.attivo){position:absolute;left:0;right:0;bottom:0;opacity:0;transform:translateY(18px);pointer-events:none;visibility:hidden;transition:opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1),visibility 0s .8s}
+    .mf-ban__in.mf-slide.attivo{visibility:visible}
+    .mf-punti{position:absolute;left:50%;bottom:7px;transform:translateX(-50%);display:flex;gap:6px;z-index:4;pointer-events:auto}
+    .mf-punti button{width:18px;height:3px;border:0;padding:0;border-radius:3px;background:rgba(255,255,255,.22);cursor:pointer;transition:background .3s,width .3s}
+    .mf-punti button.on{background:#f5c842;width:28px}
+    .mf-ban.verde .mf-punti button.on{background:#19c26b}
+    /* ── banner «in colonna» ── */
+    .mf-col{background:linear-gradient(100deg,#060a08 0%,#0d1411 45%,#090c0b 100%)!important;border-top-color:rgba(0,166,81,.3)!important}
+    .mf-col::before{background:linear-gradient(90deg,transparent 0%,transparent 35%,#19c26b 50%,transparent 65%,transparent 100%)!important;background-size:250% 100%!important}
+    .mf-col::after{background:radial-gradient(420px 140px at 12% 100%,rgba(0,166,81,.16),transparent 70%),repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 7px)!important}
+    .mf-col .mf-giro{border-left-color:rgba(0,166,81,.35)}
+    .mf-col .mf-giro::before{color:rgba(25,194,107,.6)}
+    .mf-col .mf-giro b{color:#3ddc8a}
+    .mf-col .mf-btn{background:#00a651;color:#fff!important;box-shadow:0 8px 24px rgba(0,166,81,.3)}
+    .mf-col:hover .mf-btn{box-shadow:0 12px 30px rgba(0,166,81,.45)}
+    .mf-col .mf-nome{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#f4f1e8;animation:none}
+    .mf-col .mf-nome em{font-style:italic;color:#19c26b;font-weight:800}
+    /* la paginetta che si compone da sola */
+    .mf-pag{position:absolute;left:56px;bottom:14px;width:118px;aspect-ratio:210/297;background:#f7f5ef;border-radius:2px;box-shadow:14px 18px 30px rgba(0,0,0,.7),-2px 0 0 rgba(255,255,255,.1);transform:rotate(-3deg);padding:7px 7px 6px;display:flex;flex-direction:column;gap:3px;z-index:2;overflow:hidden;animation:mf-galleggia 6s ease-in-out infinite}
+    .mf-pag__testa{display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid #111;padding-bottom:2px}
+    .mf-pag__testa b{font:900 9.5px/1 'Playfair Display',Georgia,serif;letter-spacing:.02em;color:#111}
+    .mf-pag__testa i{width:13px;height:3px;background:#00a651;border-radius:1px}
+    .mf-pag__tit{height:5px;background:#111;width:92%;margin-top:2px;transform-origin:left;transform:scaleX(0)}
+    .mf-pag__tit.b{width:64%;margin-top:0}
+    .mf-pag__foto{height:30px;margin-top:2px;background:linear-gradient(135deg,#6d7a73,#2f3a34);border-radius:1px;opacity:0}
+    .mf-pag__cols{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:2px}
+    .mf-pag__cols span{display:flex;flex-direction:column;gap:2.4px}
+    .mf-pag__cols i{display:block;height:1.6px;background:#8a8a84;border-radius:1px;transform-origin:left;transform:scaleX(0)}
+    .mf-pag__cols i:nth-child(5n){width:70%}
+    .mf-col.attivo .mf-pag__tit{animation:mf-riga .5s cubic-bezier(.6,0,.2,1) .25s forwards}
+    .mf-col.attivo .mf-pag__tit.b{animation-delay:.45s}
+    .mf-col.attivo .mf-pag__foto{animation:mf-appari .5s ease .65s forwards}
+    .mf-col.attivo .mf-pag__cols i{animation:mf-riga .22s ease-out forwards;animation-delay:calc(.9s + var(--k) * .045s)}
+    @keyframes mf-riga{to{transform:scaleX(1)}}
+    @keyframes mf-appari{to{opacity:1}}
+    @media (max-width:600px){
+      .mf-pag{left:16px;width:88px;bottom:14px;padding:5px 5px 4px;gap:2px}
+      .mf-pag__testa b{font-size:7px}
+      .mf-pag__foto{height:22px}
+      .mf-pag__cols i{height:1.3px}
+      .mf-pag__cols span{gap:2px}
+      .mf-col .mf-nome{font-size:27px}
+      .mf-punti{bottom:4px}
+    }
     @media (prefers-reduced-motion:reduce){.mf-ban,.mf-ban *,.mf-ban *::before,.mf-ban *::after{animation:none!important;transition:none!important}}
   </style>
-  <div class="mf-ban" id="mf-ban" role="complementary" aria-label="Il libro Mafiare di Franco Castaldo">
-    <a class="mf-ban__in" href="/libreria" aria-label="Mafiare di Franco Castaldo: acquistalo online">
+  <div class="mf-ban" id="mf-ban" role="complementary" aria-label="Autopromozione Grandangolo">
+    <a class="mf-ban__in mf-slide attivo" href="/libreria" aria-label="Mafiare di Franco Castaldo: acquistalo online">
       <span class="mf-cover"><img src="/mafiare-copertina.jpg" alt="Copertina di Mafiare" width="118" height="176"></span>
       <span class="mf-testo">
         <span class="mf-kick"><span class="mf-lungo">Il libro di </span>Franco Castaldo</span>
@@ -3186,33 +3232,79 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
         <span>Saggio introduttivo di <b>Luigi Patronaggio</b></span>
         <span>Nelle migliori <b>librerie</b> ed <b>edicole</b>, e <b>online</b></span>
       </span>
-      <span class="mf-btn"><span class="mf-lungo">Acquistalo online</span><span class="mf-corto" style="display:none">Acquista</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <span class="mf-btn"><span class="mf-lungo">Acquistalo online</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
+    <a class="mf-ban__in mf-slide mf-col" href="/?numero=ultimo" data-apri="ultimo" aria-label="La nuova impaginazione in colonna: sfoglia l'ultimo numero">
+      <span class="mf-pag" aria-hidden="true">
+        <span class="mf-pag__testa"><b>GRANDANGOLO</b><i></i></span>
+        <span class="mf-pag__tit"></span><span class="mf-pag__tit b"></span>
+        <span class="mf-pag__foto"></span>
+        <span class="mf-pag__cols"></span>
+      </span>
+      <span class="mf-testo">
+        <span class="mf-kick"><span class="mf-lungo">Grandangolo </span>Settimanale · Novità</span>
+        <span class="mf-tit"><span class="mf-nome">Ora in <em>colonna</em></span><span class="mf-sotto">La nuova impaginazione del settimanale</span></span>
+        <span class="mf-mob" style="display:none">Si legge come un vero giornale</span>
+      </span>
+      <span class="mf-giro" aria-hidden="true">
+        <span class="on">Titoli, foto e articoli disposti <b>in colonna</b>, come sulla carta</span>
+        <span>Si legge come un <b>vero giornale</b>, anche dal telefono</span>
+        <span>Cronaca, inchieste e giudiziaria dalla <b>provincia di Agrigento</b></span>
+        <span><b>Sfoglia gratis</b> le prime pagine dell'ultimo numero</span>
+      </span>
+      <span class="mf-btn"><span class="mf-lungo">Sfoglia l'ultimo numero</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <span class="mf-punti" aria-hidden="true"></span>
     <button class="mf-x" type="button" aria-label="Chiudi">✕</button>
   </div>
   <script>
   (function(){
     var b=document.getElementById('mf-ban'); if(!b) return;
-    var K='ga_mafiare_chiuso';
-        /* resta sopra la striscia delle ultime notizie, se è visibile */
+    /* righe della paginetta: tre colonne di testo */
+    var cols=b.querySelector('.mf-pag__cols');
+    if(cols){ var h='',k=0; for(var c=0;c<3;c++){ h+='<span>'; for(var r=0;r<11;r++){ h+='<i style="--k:'+(k++)+'"></i>'; } h+='</span>'; } cols.innerHTML=h; }
     function posa(){
-      var tk=document.getElementById('news-ticker-wrap');
-      var off=0;
-      b.style.bottom=off+'px';
-      document.body.style.setProperty('--mf-off',off+'px');
-      document.body.style.setProperty('--mf-h',b.querySelector('.mf-ban__in').offsetHeight+'px');
+      b.style.bottom='0px';
+      var a=b.querySelector('.mf-slide.attivo')||b.querySelector('.mf-ban__in');
+      document.body.style.setProperty('--mf-h',a.offsetHeight+'px');
     }
     setTimeout(function(){ posa(); document.body.classList.add('mf-spazio'); b.classList.add('on'); },1400);
     window.addEventListener('resize',posa); setInterval(posa,2000);
-    /* frasi che si alternano */
-    var g=[].slice.call(b.querySelectorAll('.mf-giro span')), i=0;
-    if(g.length>1) setInterval(function(){ g[i].classList.remove('on'); i=(i+1)%g.length; g[i].classList.add('on'); },4600);
+    /* i due banner si alternano */
+    var sl=[].slice.call(b.querySelectorAll('.mf-slide')), cur=0, sosta=false;
+    var pt=b.querySelector('.mf-punti');
+    pt.innerHTML=sl.map(function(_,j){ return '<button type="button" class="'+(j?'':'on')+'" aria-label="Banner '+(j+1)+'"></button>'; }).join('');
+    var bt=[].slice.call(pt.children);
+    function vai(n){
+      sl[cur].classList.remove('attivo'); bt[cur].classList.remove('on');
+      cur=(n+sl.length)%sl.length;
+      sl[cur].classList.add('attivo'); bt[cur].classList.add('on');
+      b.classList.toggle('verde', sl[cur].classList.contains('mf-col'));
+      posa();
+    }
+    bt.forEach(function(x,j){ x.addEventListener('click',function(e){ e.preventDefault(); vai(j); }); });
+    b.addEventListener('mouseenter',function(){ sosta=true; }); b.addEventListener('mouseleave',function(){ sosta=false; });
+    setInterval(function(){ if(!sosta && !document.hidden) vai(cur+1); },14000);
+    /* frasi che si alternano, solo nel banner visibile */
+    setInterval(function(){
+      var g=[].slice.call(sl[cur].querySelectorAll('.mf-giro span')); if(g.length<2) return;
+      var i=g.findIndex(function(x){ return x.classList.contains('on'); });
+      g[i].classList.remove('on'); g[(i+1)%g.length].classList.add('on');
+    },4600);
+    /* «Sfoglia l'ultimo numero» apre direttamente lo sfogliatore */
+    b.querySelector('[data-apri=ultimo]').addEventListener('click',function(e){
+      var l=(window.issues||[]).filter(function(i){ return i && i.pages && i.pages.length; });
+      var u=l.filter(function(x){ return x.isLatest; })[0]||l[0];
+      if(u && typeof window.openFlipbook==='function'){ e.preventDefault(); window.openFlipbook(u,0); }
+    });
+    /* la ✕ lo chiude solo per questa visita: alla prossima apertura della pagina ricompare */
     b.querySelector('.mf-x').addEventListener('click',function(e){
       e.preventDefault(); b.classList.remove('on'); document.body.classList.remove('mf-spazio');
       setTimeout(function(){ b.remove(); },900);
     });
   })();
   </script>
-  <!-- ═══ /BANNER MAFIARE ═══ -->
+  
+<!-- ═══ /BANNER AUTOPROMOZIONE ═══ -->
 </body>
 </html>
