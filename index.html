@@ -3118,6 +3118,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800;900&display=swap" rel="stylesheet">
   <style>
     #news-ticker-wrap{display:none!important}
+    html,body{overflow-x:clip}
     .mf-ban{position:fixed;left:0;right:0;bottom:0;z-index:8990;transform:translateY(130%);transition:transform .9s cubic-bezier(.16,1,.3,1),bottom .3s;font-family:Inter,system-ui,sans-serif;pointer-events:none}
     .mf-ban.on{transform:none}
     .mf-ban__in{pointer-events:auto;position:relative;display:flex;align-items:center;gap:22px;height:124px;padding:0 70px 0 206px;gap:28px;background:linear-gradient(100deg,#07070a 0%,#111015 45%,#0b0a0d 100%);border-top:1px solid rgba(245,200,66,.18);box-shadow:0 -14px 40px rgba(0,0,0,.55);color:#f4f1e8;text-decoration:none;overflow:visible}
@@ -3140,10 +3141,11 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     .mf-giro span{position:absolute;left:22px;right:0;top:0;font:italic 500 18px/24px Newsreader,Georgia,serif;color:#f4f1e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
     .mf-giro span.on{opacity:1;transform:none}
     .mf-giro b{color:#f5c842;font-weight:600}
-    .mf-btn{position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:10px;background:#f5c842;color:#0b0a0d;font-weight:800;font-size:16px;letter-spacing:.02em;padding:16px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(245,200,66,.25);transition:transform .2s,box-shadow .2s;overflow:hidden}
+    .mf-btn{position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:10px;background:#f5c842;color:#0b0a0d!important;font-weight:800;font-size:16px;letter-spacing:.02em;padding:16px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(245,200,66,.25);transition:transform .2s,box-shadow .2s;overflow:hidden}
     .mf-btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-120%);animation:mf-btn 4.5s ease-in-out 1.5s infinite}
     @keyframes mf-btn{0%,75%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
     .mf-btn svg{width:16px;height:16px;transition:transform .2s}
+    .mf-btn>span,.mf-btn svg{position:relative;z-index:1}
     .mf-ban__in:hover .mf-btn{transform:translateY(-1px);box-shadow:0 12px 30px rgba(245,200,66,.4)}
     .mf-ban__in:hover .mf-btn svg{transform:translateX(3px)}
     .mf-x{pointer-events:auto;position:absolute;right:14px;top:50%;transform:translateY(-50%);z-index:3;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.4);color:rgba(255,255,255,.7);font-size:15px;line-height:1;cursor:pointer;display:grid;place-items:center}
@@ -3151,18 +3153,19 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     body.mf-spazio{padding-bottom:calc(var(--mf-h,124px) + var(--mf-off,0px) + 24px)!important}
     @media (max-width:900px){.mf-giro{display:none}.mf-ban__in{justify-content:space-between}}
     @media (max-width:600px){
-      .mf-ban__in{height:100px;gap:8px;padding:0 44px 0 106px}
-      .mf-cover{left:14px;width:82px;bottom:10px}
-      .mf-kick{font-size:10px;letter-spacing:.16em;white-space:nowrap}
+      .mf-ban__in{height:auto;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:10px;padding:14px 16px 14px 118px}
+      .mf-cover{left:16px;width:88px;bottom:14px}
+      .mf-kick{font-size:10px;letter-spacing:.18em;white-space:nowrap;padding-right:30px}
       .mf-kick .mf-lungo{display:none}
-      .mf-nome{font-size:32px}
+      .mf-tit{gap:2px}
+      .mf-nome{font-size:34px}
       .mf-sotto{display:none}
-      .mf-tit{gap:0}
-      .mf-mob{display:block!important;font:italic 500 14px/1.2 Newsreader,Georgia,serif;color:#d8d3c4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-      .mf-btn{padding:11px 13px;font-size:13.5px;gap:5px}
-      .mf-btn svg{display:none}
-      .mf-btn .mf-lungo{display:none}
-      .mf-x{right:8px;width:26px;height:26px;font-size:13px}
+      .mf-mob{display:block!important;font:italic 500 14px/1.25 Newsreader,Georgia,serif;color:#d8d3c4}
+      .mf-btn{justify-content:center;padding:11px 14px;font-size:15px;gap:8px;color:#0b0a0d!important}
+      .mf-btn .mf-lungo{display:inline!important}
+      .mf-btn .mf-corto{display:none!important}
+      .mf-btn::after{opacity:.5}
+      .mf-x{right:8px;top:10px;transform:none;width:26px;height:26px;font-size:12px}
     }
     @media (prefers-reduced-motion:reduce){.mf-ban,.mf-ban *,.mf-ban *::before,.mf-ban *::after{animation:none!important;transition:none!important}}
   </style>
@@ -3189,8 +3192,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     var b=document.getElementById('mf-ban'); if(!b) return;
     var K='ga_mafiare_chiuso';
     try{ var t=parseInt(localStorage.getItem(K)||'0',10); if(t && Date.now()-t<24*3600*1000){ b.remove(); return; } }catch(e){}
-    if(window.matchMedia && matchMedia('(max-width:600px)').matches){ var l=b.querySelector('.mf-btn .mf-lungo'), c=b.querySelector('.mf-corto'); if(l&&c){ l.style.display='none'; c.style.display=''; } }
-    /* resta sopra la striscia delle ultime notizie, se è visibile */
+        /* resta sopra la striscia delle ultime notizie, se è visibile */
     function posa(){
       var tk=document.getElementById('news-ticker-wrap');
       var off=0;
