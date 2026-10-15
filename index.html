@@ -3194,7 +3194,6 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
   (function(){
     var b=document.getElementById('mf-ban'); if(!b) return;
     var K='ga_mafiare_chiuso';
-    try{ var t=parseInt(localStorage.getItem(K)||'0',10); if(t && Date.now()-t<24*3600*1000){ b.remove(); return; } }catch(e){}
         /* resta sopra la striscia delle ultime notizie, se è visibile */
     function posa(){
       var tk=document.getElementById('news-ticker-wrap');
@@ -3210,7 +3209,6 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     if(g.length>1) setInterval(function(){ g[i].classList.remove('on'); i=(i+1)%g.length; g[i].classList.add('on'); },4600);
     b.querySelector('.mf-x').addEventListener('click',function(e){
       e.preventDefault(); b.classList.remove('on'); document.body.classList.remove('mf-spazio');
-      try{ localStorage.setItem(K,String(Date.now())); }catch(x){}
       setTimeout(function(){ b.remove(); },900);
     });
   })();
