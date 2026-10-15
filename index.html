@@ -3137,9 +3137,10 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     .mf-nome{font:900 52px/1 'Playfair Display',Georgia,serif;letter-spacing:-.01em;background:linear-gradient(100deg,#e9b92e 0%,#f5c842 35%,#fff3c4 50%,#f5c842 65%,#d9a51f 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:mf-oro 6s ease-in-out infinite}
     @keyframes mf-oro{0%,60%{background-position:100% 0}85%,100%{background-position:0 0}}
     .mf-sotto{font:500 14px/1.2 Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:#d8d3c4}
-    .mf-giro{position:relative;z-index:1;flex:1;min-width:0;height:24px;overflow:hidden;border-left:1px solid rgba(245,200,66,.25);padding-left:22px}
-    .mf-giro span{position:absolute;left:22px;right:0;top:0;font:italic 500 18px/24px Newsreader,Georgia,serif;color:#f4f1e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
-    .mf-giro span.on{opacity:1;transform:none}
+    .mf-giro{position:relative;z-index:1;flex:1;min-width:0;height:56px;overflow:hidden;border-left:1px solid rgba(245,200,66,.25);padding-left:26px;max-width:560px}
+    .mf-giro::before{content:"\201C";position:absolute;left:8px;top:-8px;font:900 34px/1 'Playfair Display',Georgia,serif;color:rgba(245,200,66,.55)}
+    .mf-giro span{position:absolute;left:26px;right:0;top:50%;font:italic 500 19px/1.4 Newsreader,Georgia,serif;color:#f4f1e8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;opacity:0;transform:translateY(calc(-50% + 14px));transition:opacity .7s,transform .7s}
+    .mf-giro span.on{opacity:1;transform:translateY(-50%)}
     .mf-giro b{color:#f5c842;font-weight:600}
     .mf-btn{position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:10px;background:#f5c842;color:#0b0a0d!important;font-weight:800;font-size:16px;letter-spacing:.02em;padding:16px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(245,200,66,.25);transition:transform .2s,box-shadow .2s;overflow:hidden}
     .mf-btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-120%);animation:mf-btn 4.5s ease-in-out 1.5s infinite}
@@ -3151,7 +3152,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     .mf-x{pointer-events:auto;position:absolute;right:14px;top:50%;transform:translateY(-50%);z-index:3;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.4);color:rgba(255,255,255,.7);font-size:15px;line-height:1;cursor:pointer;display:grid;place-items:center}
     .mf-x:hover{color:#fff;border-color:rgba(255,255,255,.35)}
     body.mf-spazio{padding-bottom:calc(var(--mf-h,124px) + var(--mf-off,0px) + 24px)!important}
-    @media (max-width:900px){.mf-giro{display:none}.mf-ban__in{justify-content:space-between}}
+    @media (max-width:1240px){.mf-giro{display:none}.mf-ban__in{justify-content:space-between}}
     @media (max-width:600px){
       .mf-ban__in{height:auto;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:10px;padding:14px 16px 14px 118px}
       .mf-cover{left:16px;width:88px;bottom:14px}
@@ -3178,10 +3179,12 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
         <span class="mf-mob" style="display:none">Libreria · edicola · online</span>
       </span>
       <span class="mf-giro" aria-hidden="true">
-        <span class="on">Nelle <b>migliori librerie</b> ed <b>edicole</b></span>
+        <span class="on">La storia mafiosa <b>agrigentina</b> degli ultimi <b>cinquant'anni</b></span>
+        <span>Dinamiche e trasformazioni di Cosa Nostra e Stidda, analizzate nel tempo</span>
+        <span>Senza mai staccarsi dal <b>gotha mafioso siciliano</b></span>
+        <span>Con la scrittura propria del <b>cronista di nera e giudiziaria</b></span>
         <span>Saggio introduttivo di <b>Luigi Patronaggio</b></span>
-        <span>Disponibile anche <b>online</b>, con consegna a casa</span>
-        <span>Edizioni <b>Grandangolo</b></span>
+        <span>Nelle migliori <b>librerie</b> ed <b>edicole</b>, e <b>online</b></span>
       </span>
       <span class="mf-btn"><span class="mf-lungo">Acquistalo online</span><span class="mf-corto" style="display:none">Acquista</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
@@ -3204,7 +3207,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     window.addEventListener('resize',posa); setInterval(posa,2000);
     /* frasi che si alternano */
     var g=[].slice.call(b.querySelectorAll('.mf-giro span')), i=0;
-    if(g.length>1) setInterval(function(){ g[i].classList.remove('on'); i=(i+1)%g.length; g[i].classList.add('on'); },3200);
+    if(g.length>1) setInterval(function(){ g[i].classList.remove('on'); i=(i+1)%g.length; g[i].classList.add('on'); },4600);
     b.querySelector('.mf-x').addEventListener('click',function(e){
       e.preventDefault(); b.classList.remove('on'); document.body.classList.remove('mf-spazio');
       try{ localStorage.setItem(K,String(Date.now())); }catch(x){}
