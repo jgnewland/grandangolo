@@ -1229,7 +1229,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     async function caricaIssuesDaSupabase() {
       try {
         const now = new Date().toISOString();
-        const res = await fetch(SB_URL_SITE + '/rest/v1/issues?or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte.' + now + '))&order=sort_order.desc,created_at.desc', {
+        const res = await fetch(SB_URL_SITE + '/rest/v1/issues?or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte.' + now + '))&order=sort_order.desc.nullslast,created_at.desc', {
           headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
         });
         const data = await res.json();
@@ -1250,23 +1250,28 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
         });
 
         // Aggiungi SOLO quelli nuovi (non presenti nell'array esistente)
-        const existingCodes = new Set(window.issues.map(function(i){ return i.unlockCode; }));
+        /* un numero è «già presente» se ha lo stesso id o lo stesso codice (solo se il codice non è vuoto) */
+        const existingCodes = new Set(window.issues.map(function(i){ return i.unlockCode; }).filter(Boolean));
+        const existingIds = new Set(window.issues.map(function(i){ return i.id; }).filter(Boolean));
         var aggiunti = 0;
         nuovi.forEach(function(n) {
-          if (n.unlockCode && !existingCodes.has(n.unlockCode)) {
+          if (!existingIds.has(n.id) && !(n.unlockCode && existingCodes.has(n.unlockCode))) {
             window.issues.unshift(n);
             aggiunti++;
           }
         });
 
         // Aggiorna ultima uscita: quella da Supabase sovrascrive tutto
-        const latest = nuovi.find(function(n){ return n.isLatest; });
+        /* ultima uscita: quella segnata come tale fra i numeri visibili; se nessuna è segnata
+           (per esempio è programmata e non ancora uscita) il numero visibile più recente */
+        const latest = nuovi.find(function(n){ return n.isLatest; }) || nuovi.find(function(n){ return n.cover && n.pages && n.pages.length; });
         if (latest) {
          if (latest) {
           // Rimuovi isLatest da tutti
           window.issues.forEach(function(i){ i.isLatest = false; });
           // Imposta isLatest sul numero corretto
-          var found = window.issues.find(function(i){ return i.unlockCode === latest.unlockCode; });
+          var stesso = function(i){ return (latest.id && i.id === latest.id) || (latest.unlockCode && i.unlockCode === latest.unlockCode); };
+          var found = window.issues.find(stesso);
           if (found) found.isLatest = true;
           // Aggiorna hero card
           var heroImg = document.getElementById('hero-cover-img');
@@ -1281,7 +1286,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
           document.querySelectorAll('.issue-label-latest').forEach(function(b){ b.remove(); });
           // Aggiungi badge SOLO alla card con unlockCode corrispondente
           allCards.forEach(function(item){
-            if(item.issue && item.issue.unlockCode === latest.unlockCode){
+            if(item.issue && stesso(item.issue)){
               var wrap = item.card.querySelector('.edicola-cover-wrap');
               if(wrap && !wrap.querySelector('.issue-label-latest')){
                 var badge = document.createElement('div');
