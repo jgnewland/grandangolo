@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-16T00:32:31.772311+00:00",
+  "updated": "2026-10-16T05:00:29.079585+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "In ospedale dopo incidente a Favara: 20enne era ubriaco, drogato e alla guida di una moto rubata",
+      "summary": "Protagonista di un incidente autonomo con la motocicletta è risultato dai successivi controlli in ospedale ubriaco, drogato e alla guida di un veicolo rubato",
+      "date": "2026-10-16T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/in-ospedale-dopo-incidente-a-favara-20enne-era-ubriaco-drogato-e-alla-guida-di-una-moto-rubata",
+      "img": "/feed-images/2d50770985d641cd.jpg"
+    },
     {
       "title": "De Luca in città prepara la corsa per le Regionali: “Qui Controcorrente ha fatto goal a porta vuota”",
       "summary": "Il “sindaco di Sicilia” stuzzica via social il “collega” Michele Sodano: “Domani passo per un caffè”",
@@ -28,7 +35,7 @@
       "title": "Uccise 31enne a colpi di pistola a Ribera, condannato a 14 anni",
       "summary": "Il delitto, secondo quanto ipotizzato, sarebbe maturato nell’ambito di conflitti legati al locale traffico di stupefacenti",
       "date": "2026-10-15T19:20:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/uccise-31enne-a-colpi-di-pistola-a-ribera-condannato-a-14-anni",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/uccise-31enne-a-colpi-di-pistola-a-ribera-condannato-a-14-anni",
       "img": "/feed-images/38190bae9660d845.jpg"
     },
     {
@@ -56,7 +63,7 @@
       "title": "Precetto da oltre 5 milioni di euro per una controversia legale, bloccati i conti aziendali di Aica",
       "summary": "Una 65enne ha intimato ad Aica di pagare 5.4 milioni di euro in virtù di una sentenza del tribunale di Agrigento del 2009. La vicenda riguarda una controversia con la consortile Voltano",
       "date": "2026-10-15T14:49:47Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/precetto-da-oltre-5-milioni-di-euro-per-una-controversia-legale-bloccati-i-conti-aziendali-di-aica",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/precetto-da-oltre-5-milioni-di-euro-per-una-controversia-legale-bloccati-i-conti-aziendali-di-aica",
       "img": "/feed-images/ecedfa4dc8f6e63d.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-10-15T05:06:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/costretto-a-versare-la-pensione-ogni-mese-chiesti-3-rinvii-a-giudizio-per-estorsione",
       "img": "/feed-images/da62c34bc6dc2387.jpg"
-    },
-    {
-      "title": "Diagnosi e cure errate? Chiesto un milione di euro di risarcimento per un presunto caso di malasanità",
-      "summary": "I familiari della donna, deceduta nel 2013, hanno chiesto oltre un milione di euro di risarcimento all’Asp di Agrigento per un presunto caso di malasanità",
-      "date": "2026-10-15T05:03:00Z",
-      "link": "https://www.grandangoloagrigento.it/menfi/diagnosi-e-cure-errate-chiesto-un-milione-di-euro-di-risarcimento-per-un-presunto-caso-di-malasanita",
-      "img": "/feed-images/b968c9202222b3d4.jpg"
     }
   ]
 }
