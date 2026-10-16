@@ -689,7 +689,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     <section id="hero">
       <div>
         <h1 class="hero-title">Sfoglia il settimanale <br>come in edicola, ma online.</h1>
-        <p class="hero-subtitle">Una pagina dedicata dove i lettori possono aprire il giornale, leggere le prime pagine gratuitamente e sbloccare il numero completo con un codice di accesso.</p>
+        <p class="hero-subtitle">Una pagina dedicata dove i lettori possono aprire il giornale, sfogliare il giornale e sbloccare il numero completo con un codice di accesso.</p>
         <div class="hero-cta">
           <a href="#edicola" class="btn-primary">Vai all'edicola</a>
           <a href="#about" class="btn-ghost">Come funziona</a>
@@ -800,7 +800,6 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       <h2>Come funziona l'edicola digitale</h2>
       <p>In questa pagina ogni numero del settimanale è mostrato come una copertina. Cliccando sulla copertina si apre il giornale a tutto schermo:</p>
       <ul>
-        <li>le prime due pagine sono leggibili gratuitamente;</li>
         <li>le pagine successive appaiono sfocate;</li>
         <li>il lettore può acquistare il codice di sblocco per continuare a leggere;</li>
         <li>una volta inserito il codice corretto, il blur scompare e tutte le pagine saranno leggibili.</li>
@@ -884,7 +883,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
               </div>
             <div class="promo-carousel-dots" id="promo-dots"></div>
           </div>
-          <p style="text-align:center;font-size:12px;color:rgba(143,255,193,0.55);margin:4px 0 22px;">▲ Clicca su una copertina per sfogliare l'anteprima</p>
+          <p style="text-align:center;font-size:12px;color:rgba(143,255,193,0.55);margin:4px 0 22px;">▲ Clicca su una copertina per sfogliare il numero</p>
           <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px;">
             <div style="text-align:center;line-height:1;">
               <div style="font-size:50px;font-weight:900;color:#00a651;letter-spacing:-.02em;">€&nbsp;7,50</div>
@@ -1405,7 +1404,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       if(!pages.length)return;
       const ZOOM_STEPS=[0.5,0.75,1,1.25,1.5,1.75,2,2.5,3];
       const PAGE_RATIO=1.414;
-      const FREE_PAGES=2;
+      const FREE_PAGES=1;
       function pageToSpread(p){return p===0?0:Math.ceil(p/2);}
       function spreadPages(s){if(s===0)return{left:null,right:0,single:true};const left=s*2-1,right=s*2;return{left:left<pages.length?left:null,right:right<pages.length?right:null,single:false};}
       const maxSpread=Math.ceil((pages.length-1)/2);
@@ -2460,13 +2459,13 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
 /* ═══════════════════════════════════════════════════════════════════
    GRANDANGOLO · NUOVO SFOGLIATORE
    Stessa logica di sblocco del vecchio (window.performUnlock, issue._unlocked,
-   prime 2 pagine gratis), con: pagina che gira, doppia pagina su computer,
+   solo la copertina è libera), con: pagina che gira, doppia pagina su computer,
    scorrimento col dito, pizzico e doppio tocco per ingrandire, indice a
    griglia, «riprendi da dove eri», schermo intero, tasto indietro del telefono.
    ═══════════════════════════════════════════════════════════════════ */
 (function(){
   'use strict';
-  var FREE_PAGES = 2;
+  var FREE_PAGES = 1;
   var RATIO = 1 / 1.414;           /* larghezza / altezza della pagina */
   var STORE = 'ga_lettura_v1';
 
@@ -2545,7 +2544,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     var abbo = abbonamentoUrl();
     pay.innerHTML = '<div class="rd-pay-card"><div class="rd-pay-ic">'+ICO.lock+'</div>'+
       '<div class="rd-pay-t">Continua a leggere</div>'+
-      '<div class="rd-pay-d">Le prime due pagine sono gratis. Per sfogliare tutto il numero sblocca la tua copia.</div>'+
+      '<div class="rd-pay-d">Per sfogliare tutto il numero sblocca la tua copia.</div>'+
       '<button type="button" class="rd-btn rd-btn-buy">Acquista questo numero</button>'+
       (abbo?'<a class="rd-btn rd-btn-abbo" target="_blank" rel="noopener" href="'+abbo+'">★ Abbonati: tutto il 2026 a 50 €</a>':'')+
       '<button type="button" class="rd-btn rd-btn-code">Ho già un codice</button></div>';
@@ -2962,7 +2961,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     card.setAttribute('aria-label','Apri l\'ultimo numero');
     var cta=document.createElement('div');
     cta.className='gx-hero-cta';
-    cta.innerHTML='<span class="gx-play">▶</span> Sfoglia gratis le prime pagine';
+    cta.innerHTML='<span class="gx-play">▶</span> Sfoglia l\'ultimo numero';
     card.appendChild(cta);
     card.addEventListener('click', function(){ apri(ultimo(),0); });
     card.addEventListener('keydown', function(e){ if(e.key==='Enter') apri(ultimo(),0); });
@@ -2978,7 +2977,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     var h=$('.hero-title');
     if(h && !h.dataset.gx){ h.dataset.gx='1'; h.innerHTML='Il settimanale<br><em>da sfogliare</em> ovunque.'; }
     var sub=$('.hero-subtitle');
-    if(sub) sub.textContent='Apri il giornale come in edicola, pagina dopo pagina. Le prime pagine sono gratis; con un codice leggi tutto il numero, anche dal telefono.';
+    if(sub) sub.textContent='Apri il giornale come in edicola, pagina dopo pagina. Con il tuo codice leggi tutto il numero, anche dal telefono.';
     var ctaRow=$('.hero-cta');
     if(ctaRow && !$('.gx-leggi',ctaRow)){
       var b=document.createElement('a'); b.href='#'; b.className='btn-primary gx-leggi'; b.textContent='Leggi l\'ultimo numero';
@@ -3041,7 +3040,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     a.dataset.gx='1';
     a.innerHTML='<h2>Come funziona</h2><div class="gx-passi">'+
       '<div class="gx-passo"><b>1</b><strong>Scegli il numero</strong><span>Tocca una copertina: il giornale si apre a tutto schermo.</span></div>'+
-      '<div class="gx-passo"><b>2</b><strong>Sfoglia gratis</strong><span>Le prime due pagine sono libere. Gira le pagine col dito o con le frecce, ingrandisci con due dita.</span></div>'+
+      '<div class="gx-passo"><b>2</b><strong>Sfoglia</strong><span>Gira le pagine col dito o con le frecce, ingrandisci con due dita.</span></div>'+
       '<div class="gx-passo"><b>3</b><strong>Sblocca con un codice</strong><span>Acquista il numero, un pacchetto o l\'abbonamento: ricevi il codice e leggi tutto. Con l\'account lo ritrovi sempre.</span></div>'+
       '</div>';
   }
@@ -3255,7 +3254,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
         <span class="on">Titoli, foto e articoli disposti <b>in colonna</b>, come sulla carta</span>
         <span>Si legge come un <b>vero giornale</b>, anche dal telefono</span>
         <span>Cronaca, inchieste e giudiziaria dalla <b>provincia di Agrigento</b></span>
-        <span><b>Sfoglia gratis</b> le prime pagine dell'ultimo numero</span>
+        <span><b>Sfoglia</b> l'ultimo numero dell'edicola digitale</span>
       </span>
       <span class="mf-btn"><span class="mf-lungo">Sfoglia l'ultimo numero</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>

@@ -1400,7 +1400,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       if(!pages.length)return;
       const ZOOM_STEPS=[0.5,0.75,1,1.25,1.5,1.75,2,2.5,3];
       const PAGE_RATIO=1.414;
-      const FREE_PAGES=2;
+      const FREE_PAGES=1;
       function pageToSpread(p){return p===0?0:Math.ceil(p/2);}
       function spreadPages(s){if(s===0)return{left:null,right:0,single:true};const left=s*2-1,right=s*2;return{left:left<pages.length?left:null,right:right<pages.length?right:null,single:false};}
       const maxSpread=Math.ceil((pages.length-1)/2);
@@ -2461,7 +2461,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
    ═══════════════════════════════════════════════════════════════════ */
 (function(){
   'use strict';
-  var FREE_PAGES = 2;
+  var FREE_PAGES = 1;
   var RATIO = 1 / 1.414;           /* larghezza / altezza della pagina */
   var STORE = 'ga_lettura_v1';
 
