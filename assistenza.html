@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistenza acquisti · Grandangolo Edicola Digitale</title>
+<meta name="description" content="Assistenza sugli acquisti dell'edicola digitale Grandangolo: scrivi a redazione@grandangoloregionale.it">
+<link rel="icon" href="logo-grandangolo.png.png">
+<style>
+  :root{--verde:#00a651;--giallo:#f5c842;--testo:#f5f5f5;--muted:#b0b0b0}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at top,#141428 0,#050509 60%);color:var(--testo)}
+  a{color:inherit}
+  header{position:sticky;top:0;z-index:5;background:rgba(5,5,9,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
+  .barra{max-width:1000px;margin:0 auto;padding:8px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .barra img{height:46px;display:block}
+  .torna{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12)}
+  .torna:hover{color:#fff;background:rgba(255,255,255,.06)}
+  main{max-width:760px;margin:0 auto;padding:46px 18px 70px}
+  .kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--verde)}
+  .kick::before{content:"";width:22px;height:3px;border-radius:3px;background:var(--verde)}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,6vw,52px);line-height:1.05;margin:14px 0 12px;letter-spacing:-.01em}
+  h1 em{color:var(--giallo);font-style:italic}
+  .intro{font-size:18px;line-height:1.55;color:#d5d5d5;margin:0 0 30px}
+  .box{position:relative;background:linear-gradient(135deg,rgba(0,166,81,.18),rgba(0,166,81,.04));border:2px solid rgba(0,166,81,.55);border-radius:22px;padding:30px 26px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45);overflow:hidden}
+  .box::before{content:"";position:absolute;width:320px;height:320px;right:-120px;top:-160px;background:radial-gradient(circle,rgba(245,200,66,.22),transparent 65%)}
+  .box small{display:block;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#bfeccf}
+  .mail{display:block;margin:12px 0 22px;font-size:clamp(22px,5.4vw,36px);font-weight:800;color:#fff;text-decoration:none;overflow-wrap:anywhere;letter-spacing:-.01em}
+  .mail:hover{color:var(--giallo)}
+  .bottoni{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;position:relative}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;font-size:16px;font-weight:800;text-decoration:none;cursor:pointer;border:0;font-family:inherit}
+  .btn-giallo{background:var(--giallo);color:#111;box-shadow:0 10px 28px rgba(245,200,66,.3)}
+  .btn-giallo:hover{transform:translateY(-1px)}
+  .btn-vuoto{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.18)}
+  .ok{display:none;margin-top:12px;font-size:14px;color:#8fffc1}
+  h2{font-size:20px;margin:40px 0 14px}
+  ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+  li{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 16px;font-size:15.5px;line-height:1.45;color:#ddd}
+  li b{color:#fff}
+  li span.n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--verde);color:#fff;font-weight:800;display:grid;place-items:center;font-size:14px}
+  .nota{margin-top:26px;font-size:14px;color:var(--muted);line-height:1.5}
+  footer{text-align:center;font-size:12px;color:#777;padding:0 18px 30px}
+</style>
+</head>
+<body>
+<header><div class="barra">
+  <a href="/"><img src="logo-grandangolo.png.png" alt="Grandangolo Edicola Digitale"></a>
+  <a class="torna" href="/">← Torna all'edicola</a>
+</div></header>
+<main>
+  <span class="kick">Assistenza</span>
+  <h1>Hai un problema con un <em>acquisto</em>?</h1>
+  <p class="intro">Codice che non arriva, numero che non si sblocca, pagamento non andato a buon fine: scrivici e ti rispondiamo il prima possibile.</p>
+
+  <div class="box">
+    <small>Per assistenza sugli acquisti scrivi a</small>
+    <a class="mail" href="mailto:redazione@grandangoloregionale.it?subject=Assistenza%20acquisto%20edicola%20digitale">redazione@<wbr>grandangoloregionale.it</a>
+    <div class="bottoni">
+      <a class="btn btn-giallo" href="mailto:redazione@grandangoloregionale.it?subject=Assistenza%20acquisto%20edicola%20digitale">✉️ Scrivi un'email</a>
+      <button class="btn btn-vuoto" type="button" id="copia">📋 Copia l'indirizzo</button>
+    </div>
+    <div class="ok" id="ok">✔ Indirizzo copiato</div>
+  </div>
+
+  <h2>Per aiutarti più in fretta, nell'email indica:</h2>
+  <ul>
+    <li><span class="n">1</span><span><b>Il numero</b> del settimanale che hai acquistato (o l'abbonamento).</span></li>
+    <li><span class="n">2</span><span><b>L'indirizzo email</b> usato per il pagamento.</span></li>
+    <li><span class="n">3</span><span><b>Data e importo</b> del pagamento, o la ricevuta che ti è arrivata via email.</span></li>
+    <li><span class="n">4</span><span><b>Cosa succede</b>: per esempio «il codice non funziona» o «non ho ricevuto il codice».</span></li>
+  </ul>
+  <p class="nota">Se hai già un account, i codici acquistati li trovi anche in <b>Il mio account → Codici</b> nell'edicola.</p>
+</main>
+<footer>Grandangolo · Edicola Digitale</footer>
+<script>
+document.getElementById('copia').addEventListener('click',function(){
+  var t='redazione@grandangoloregionale.it', ok=document.getElementById('ok');
+  function fatto(){ ok.style.display='block'; setTimeout(function(){ ok.style.display='none'; },2500); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(fatto,function(){ prompt('Copia l\'indirizzo:',t); }); }
+  else { prompt('Copia l\'indirizzo:',t); }
+});
+</script>
+</body>
+</html>
