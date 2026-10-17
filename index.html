@@ -21,6 +21,18 @@
 
   <meta charset="UTF-8">
   <title>Edicola digitale Grandangolo</title>
+  <meta name="description" content="Il settimanale Grandangolo da sfogliare ovunque, come in edicola: pagina dopo pagina, anche dal telefono.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Grandangolo · Edicola digitale">
+  <meta property="og:url" content="https://edicola.grandangoloregionale.it/">
+  <meta property="og:title" content="Edicola digitale Grandangolo · Il settimanale, ora in colonna">
+  <meta property="og:description" content="Sfoglia il settimanale Grandangolo come in edicola, pagina dopo pagina, anche dal telefono.">
+  <meta property="og:image" content="https://edicola.grandangoloregionale.it/condivisione-edicola.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="it_IT">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://edicola.grandangoloregionale.it/condivisione-edicola.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="7038f31ca12a9e9ba1b1ea33b67d5c7bf3453890" content="7038f31ca12a9e9ba1b1ea33b67d5c7bf3453890" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YMXRKS286V"></script>
@@ -43,7 +55,7 @@
     header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:linear-gradient(to bottom,rgba(5,5,9,0.95),rgba(5,5,9,0.85));border-bottom:1px solid var(--border-soft)}
     .nav-inner{max-width:1100px;margin:0 auto;padding:6px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px}
     .brand{display:flex;align-items:center;gap:10px;font-size:14px;flex-shrink:0}
-    .brand img{height:52px;width:auto;display:block}
+    .brand img{height:58px;width:auto;max-width:230px;display:block;object-fit:contain}
     nav{display:flex;gap:8px;font-size:13px;flex-wrap:nowrap;overflow:hidden}
     nav a{padding:6px 10px;border-radius:999px;color:var(--muted);transition:background .2s ease,color .2s ease;white-space:nowrap}
     nav a:hover{background:rgba(255,255,255,0.06);color:var(--text)}
@@ -78,7 +90,7 @@
     @media (max-width:720px){
       nav{display:none}
       .nav-hamburger{display:flex}
-      .brand img{height:44px}
+      .brand img{height:40px;max-width:170px}
       .nav-inner{padding:6px 14px;min-height:52px}
     }
 
@@ -633,8 +645,8 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
 
   <header>
     <div class="nav-inner">
-      <a href="https://www.grandangoloagrigento.it/" class="brand" target="_blank" rel="noopener">
-        <img src="https://raw.githubusercontent.com/jgnewland/grandangolo/refs/heads/main/logo-grandangolo.png.png" alt="Grandangolo Edicola Digitale">
+      <a href="https://edicola.grandangoloregionale.it/" class="brand">
+        <img src="/logo-settimanale.png" alt="Grandangolo Settimanale · Edicola digitale">
       </a>
       <nav>
         <a href="https://edicola.grandangoloregionale.it" target="_blank" rel="noopener">HOME</a>
@@ -642,7 +654,6 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
         <a href="#offerta" style="color:#00a651;font-weight:700;">★ OFFERTA</a>
         <a href="#edicola">EDICOLA</a>
         <a href="https://edicola.grandangoloregionale.it/radio">RADIO</a>
-        <a href="https://edicola.grandangoloregionale.it/video" target="_blank" rel="noopener">VIDEO/TV</a>
         <a href="/assistenza" class="nav-assistenza">✉️ ASSISTENZA</a>
       </nav>
       <!-- CAMPANELLA NOTIFICHE -->
@@ -686,7 +697,6 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
         <a href="#offerta" class="nav-drawer-link" id="drawerOfferta" style="color:#00a651;border-color:rgba(0,166,81,0.20);background:rgba(0,166,81,0.06);">★ Offerta speciale</a>
         <a href="#edicola" class="nav-drawer-link" id="drawerEdicola">Edicola</a>
         <a href="https://edicola.grandangoloregionale.it/radio" class="nav-drawer-link">Radio</a>
-        <a href="https://edicola.grandangoloregionale.it/video" class="nav-drawer-link" target="_blank" rel="noopener">Video / TV</a>
         <a href="/assistenza" class="nav-drawer-link" style="color:#f5c842;border-color:rgba(245,200,66,0.35);background:rgba(245,200,66,0.08);">✉️ Assistenza acquisti</a>
       </div>
       <div class="nav-drawer-ft">Grandangolo · Edicola Digitale</div>
