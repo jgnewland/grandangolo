@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-18T17:46:35.461981+00:00",
+  "updated": "2026-10-18T20:01:35.877243+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Cattolica Eraclea, scontro tra un’auto e una moto da cross: ferito motociclista",
+      "summary": "Il centauro è stato trasferito in ospedale in elisoccorso; non risulterebbe in pericolo di vita",
+      "date": "2026-10-18T17:47:03Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/cattolica-eraclea-scontro-tra-unauto-e-una-moto-da-cross-ferito-motociclista",
+      "img": "/feed-images/73af4042504f61fc.jpg"
+    },
     {
       "title": "Santa Elisabetta, 61enne muore dopo un improvviso malore nel suo terreno",
       "summary": "La vittima Francesco Rizzo di 61 anni era conosciuto anche per il suo lavoro come collaboratore scolastico.",
@@ -42,7 +49,7 @@
       "title": "Una brutta Akragas cade a Marineo, il San Giorgio La Piana vince 2-0",
       "summary": "A Marineo i biancazzurri vengono sconfitti meritatamente dal San Giorgio La Piana per 2-0",
       "date": "2026-10-18T15:35:30Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/una-brutta-akragas-cade-a-marineo-il-san-giorgio-la-piana-vince-2-0",
+      "link": "https://www.grandangoloagrigento.it/sport/una-brutta-akragas-cade-a-marineo-il-san-giorgio-la-piana-vince-2-0",
       "img": "/feed-images/5944ac5306f8cd4e.jpg"
     },
     {
@@ -205,13 +212,6 @@
       "date": "2026-10-18T05:47:53Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/in-ospedale-per-accertamenti-nello-zaino-aveva-un-coltello-di-20-centimetri-denunciato",
       "img": "/feed-images/875eadbdbb4eb81c.jpg"
-    },
-    {
-      "title": "Aggredisce i carabinieri dopo fuga dalla comunità, 17enne arrestato a Naro",
-      "summary": "Alla vista dei carabinieri l’indagato si è scagliato contro gli uomini in divisa.",
-      "date": "2026-10-18T05:02:14Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/aggredisce-i-carabinieri-dopo-fuga-dalla-comunita-17enne-arrestato-a-naro",
-      "img": "/feed-images/d3a23c6b89d7a061.jpg"
     }
   ]
 }
