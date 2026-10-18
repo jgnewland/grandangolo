@@ -1,14 +1,77 @@
 {
-  "updated": "2026-10-18T14:49:56.938877+00:00",
+  "updated": "2026-10-18T17:46:35.461981+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Santa Elisabetta, 61enne muore dopo un improvviso malore nel suo terreno",
+      "summary": "La vittima Francesco Rizzo di 61 anni era conosciuto anche per il suo lavoro come collaboratore scolastico.",
+      "date": "2026-10-18T17:18:50Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/santa-elisabetta-61enne-muore-dopo-un-improvviso-malore-nel-suo-terreno",
+      "img": "/feed-images/0199ba098d4924a6.jpg"
+    },
+    {
+      "title": "Caro-gasolio, deroga salva-uva: il pressing del Sindaco di Canicattì e il plauso della Regione",
+      "summary": "A farsi portavoce di questa crisi era stato, già nei giorni scorsi, il Sindaco di Canicattì, Vincenzo Corbo.",
+      "date": "2026-10-18T17:03:28Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/caro-gasolio-deroga-salva-uva-il-pressing-del-sindaco-di-canicatti-e-il-plauso-della-regione",
+      "img": "/feed-images/bca7b25214f5cd10.png"
+    },
+    {
+      "title": "Protesta autotrasportatori, scaffali vuoti nei supermercati ad Agrigento",
+      "summary": "In alcuni punti vendita mancano frutta, verdura e prodotti surgelati",
+      "date": "2026-10-18T16:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/protesta-autotrasportatori-scaffali-vuoti-nei-supermercati-ad-agrigento",
+      "img": "/feed-images/946b523e905485c8.jpg"
+    },
+    {
+      "title": "Due mani sul cuore: a Favara i bambini imparano a salvare una vita",
+      "summary": "Giornata di prevenzione e formazione promossa dall’Associazione Davide per lo Sport",
+      "date": "2026-10-18T15:58:52Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/due-mani-sul-cuore-a-favara-i-bambini-imparano-a-salvare-una-vita",
+      "img": "/feed-images/911eb0967fd07f10.jpg"
+    },
+    {
+      "title": "Autotrasportatori “allentano” lo sciopero, via libera a consegne di ortofrutta",
+      "summary": "Si tratta di una misura di emergenza fondamentale, che permetterà finalmente di svuotare le celle frigorifere sbloccando la merce già raccolta, evitando così che tonnellate di prodotto d’eccellenza…",
+      "date": "2026-10-18T15:45:00Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/autotrasportatori-allentano-lo-sciopero-via-libera-a-consegne-di-ortofrutta",
+      "img": "/feed-images/7106e3d1d686e0ef.jpg"
+    },
+    {
+      "title": "Una brutta Akragas cade a Marineo, il San Giorgio La Piana vince 2-0",
+      "summary": "A Marineo i biancazzurri vengono sconfitti meritatamente dal San Giorgio La Piana per 2-0",
+      "date": "2026-10-18T15:35:30Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/una-brutta-akragas-cade-a-marineo-il-san-giorgio-la-piana-vince-2-0",
+      "img": "/feed-images/5944ac5306f8cd4e.jpg"
+    },
+    {
+      "title": "Un fiume rosa attraversa Agrigento, in oltre 450 per la salute delle donne",
+      "summary": "Grande partecipazione alla seconda Camminata itinerante solidale promossa da Onde Rosa. Dalle testimonianze degli esperti un appello unanime: la diagnosi precoce può salvare la vita",
+      "date": "2026-10-18T15:18:18Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/un-fiume-rosa-attraversa-agrigento-in-oltre-450-per-la-salute-delle-donne",
+      "img": "/feed-images/ab02a5525450fc1b.jpg"
+    },
+    {
+      "title": "Tentano di introdurre in carcere 2 chili di hashish con un drone, due arresti",
+      "summary": "Due persone arrestate, circa due chilogrammi di hashish, alcuni grammi di cocaina e un drone sequestrati",
+      "date": "2026-10-18T14:56:54Z",
+      "link": "https://www.grandangoloagrigento.it/siracusa/tentano-di-introdurre-in-carcere-2-chili-di-hashish-con-un-drone-due-arresti",
+      "img": "/feed-images/a71e409d5e74e374.jpg"
+    },
     {
       "title": "Basket, Agrigento cade 78-76 sul campo della Sangiorgese",
       "summary": "Adesso testa al prossimo appuntamento: domenica 25 ottobre alle 18 la Moncada Energy tornerà sul parquet del PalaMoncada.",
       "date": "2026-10-18T12:52:46Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/basket-agrigento-cade-78-76-sul-campo-della-sangiorgese",
       "img": "/feed-images/dc1cc132298c081f.jpg"
+    },
+    {
+      "title": "Agrigento, una passeggiata in rosa per sensibilizzare sulla prevenzione oncologica",
+      "summary": "Una giornata, quella di oggi, che non deve concludersi ma continuare a camminare sempre, ricordandoci che solo insieme possiamo fare tanto.",
+      "date": "2026-10-18T12:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-una-passeggiata-in-rosa-per-sensibilizzare-sulla-prevenzione-oncologica",
+      "img": "/feed-images/80b93edfe10af511.jpg"
     },
     {
       "title": "Drammatico incidente in moto, morto 38enne",
@@ -147,71 +210,8 @@
       "title": "Aggredisce i carabinieri dopo fuga dalla comunità, 17enne arrestato a Naro",
       "summary": "Alla vista dei carabinieri l’indagato si è scagliato contro gli uomini in divisa.",
       "date": "2026-10-18T05:02:14Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/aggredisce-i-carabinieri-dopo-fuga-dalla-comunita-17enne-arrestato-a-naro",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/aggredisce-i-carabinieri-dopo-fuga-dalla-comunita-17enne-arrestato-a-naro",
       "img": "/feed-images/d3a23c6b89d7a061.jpg"
-    },
-    {
-      "title": "Bersani a Campobello di Licata: “Il ponte? Una roba demenziale, con 13 miliardi si mette in sicurezza la Sicilia”",
-      "summary": "Grandangolo ha intervistato l’ex segretario PD, Pierluigi Bersani, a margine dell’incontro a Campobello di Licata. “Il Ponte? Una roba abbastanza demenziale”. E poi diffida dei “volani” della vecchia…",
-      "date": "2026-10-17T16:00:00Z",
-      "link": "https://www.grandangoloagrigento.it/politica/bersani-a-campobello-di-licata-il-ponte-una-roba-demenziale-con-13-miliardi-si-mette-in-sicurezza-la-sicilia",
-      "img": "/feed-images/10966df339977b96.jpg"
-    },
-    {
-      "title": "Caro carburante, protesta dei trattori anche nell’Agrigentino",
-      "summary": "Protesta degli agricoltori sulla Palermo-Sciacca contro il caro gasolio e il crollo dei prezzi dei prodotti agricoli",
-      "date": "2026-10-17T15:30:13Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/caro-carburante-protesta-dei-trattori-anche-nellagrigentino",
-      "img": "/feed-images/8af23b8bbd8606b5.jpg"
-    },
-    {
-      "title": "Mogli, figli e fratelli di consiglieri e dirigenti nella società dei rifiuti? Esposto anonimo scuote Palma di Montechiaro",
-      "summary": "Un anonimo, che però sembra ben informato alle dinamiche interne, ha presentato un esposto denunciando una “parentopoli” nella società dei rifiuti partecipata dal Comune di Palma di Montechiaro",
-      "date": "2026-10-17T14:37:05Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/mogli-figli-e-fratelli-di-consiglieri-e-dirigenti-nella-societa-dei-rifiuti-esposto-anonimo-scuote-palma-di-montechiaro",
-      "img": "/feed-images/77af42aa118f8f2d.jpg"
-    },
-    {
-      "title": "Fuggono dalla polizia e buttano 10 mila euro in contanti, trovati anche bossoli sotto un’auto: due arresti",
-      "summary": "Che ci sia o meno un collegamento con quanto avvenuto ieri o con i recenti episodi di cronaca verificatisi ad Agrigento è al vaglio degli investigatori della Squadra mobile",
-      "date": "2026-10-17T14:36:39Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/fuggono-dalla-polizia-e-buttano-quasi-10-mila-euro-in-contanti-trovati-anche-bossoli-sotto-unauto-due-arresti",
-      "img": "/feed-images/bd7a494b869f86ed.jpg"
-    },
-    {
-      "title": "Lanciano pietre e rompono vetri della scuola, residente li filma e adesso rischiano il processo",
-      "summary": "Una residente della zona, allertata dai rumori, riprese i protagonisti con un cellulare e chiamò la polizia.",
-      "date": "2026-10-17T14:27:31Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/lanciato-pietre-e-rompono-vetri-della-scuola-residente-li-filma-e-adesso-rischiano-il-processo",
-      "img": "/feed-images/cf530d9ab58d9088.jpg"
-    },
-    {
-      "title": "Menfi, inaugurato il mini autodromo di via Raffaello",
-      "summary": "Un nuovo spazio dedicato allo sport, alla passione e all’aggregazione",
-      "date": "2026-10-17T13:18:30Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/menfi-inaugurato-il-mini-autodromo-di-via-raffaello",
-      "img": "/feed-images/36bd0fc72feebcd4.jpg"
-    },
-    {
-      "title": "Racalmuto e Favara unite nel senso della legalità: scoperta la maxi tela del maestro Patti",
-      "summary": "La tela è stata donata dall’Accademia Comunale di Arte, Cultura e Legalità, coordinata dal Maestro Vincenzo Patti",
-      "date": "2026-10-17T12:35:13Z",
-      "link": "https://www.grandangoloagrigento.it/racalmuto/racalmuto-e-favara-unite-nel-senso-della-legalita-scoperta-la-maxi-tela-del-maestro-patti",
-      "img": "/feed-images/7aa5415bb6989a40.jpg"
-    },
-    {
-      "title": "Caro carburanti, Schifani sente Salvini: “Martedì a Milano ci saranno anche gli autotrasportatori siciliani”",
-      "summary": "Un tavolo istituzionale si svolgerà martedì a Milano",
-      "date": "2026-10-17T12:26:45Z",
-      "link": "https://www.grandangoloagrigento.it/sicilia-by-italpress/caro-carburanti-schifani-sente-salvini-martedi-a-milano-ci-saranno-anche-gli-autotrasportatori-siciliani",
-      "img": "/feed-images/e9d7b663de9ec11d.jpg"
-    },
-    {
-      "title": "Conclusa la nuova campagna di scavo sul monte Adranone: si ricostruisce la storia del sito nell’entroterra agrigentino",
-      "summary": "A condurla, in collaborazione con il Parco, è stato il Winckelmann-Institut della Humboldt-Universität zu Berlin, con la Hochschule für Technik Berlin",
-      "date": "2026-10-17T11:49:00Z",
-      "link": "https://www.grandangoloagrigento.it/sambuca-di-sicilia/conclusa-la-nuova-campagna-di-scavo-sul-monte-adranone-si-ricostruisce-la-storia-del-sito-nellentroterra-agrigentino",
-      "img": "/feed-images/a0a0fda984414073.jpg"
     }
   ]
 }
