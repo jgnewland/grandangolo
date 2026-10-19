@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scarica l'app Grandangolo</title>
+<style>
+  html, body { margin:0; padding:0; background:transparent; }
+  a   { display:block; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+  img { display:block; width:100%; height:auto; border-radius:10px; }
+  a:active img { transform:scale(.985); transition:transform .1s; }
+</style>
+</head>
+<body>
+  <!-- target="_top" apre lo store nella finestra intera, non dentro il riquadro -->
+  <a href="https://www.grandangoloregionale.it/scarica-app/" target="_top" rel="noopener" aria-label="Scarica la nuova app Grandangolo">
+    <img id="gg-app" src="banner-app-mobile.jpg" width="1080" height="360" alt="Scarica la nuova app Grandangolo — Installa gratis">
+  </a>
+  <script>
+    function sendHeight() {
+      parent.postMessage({ ggAppBannerHeight: document.body.scrollHeight }, "*");
+    }
+    window.addEventListener("load", sendHeight);
+    window.addEventListener("resize", sendHeight);
+    document.getElementById("gg-app").addEventListener("load", sendHeight);
+  </script>
+</body>
+</html>
