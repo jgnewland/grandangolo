@@ -584,5 +584,15 @@ const DEFAULT_BASE  = "https://edicola.grandangoloregionale.it/player.html";
   refresh();
 })();
 </script>
+<script>
+/* dati in arrivo dal «Riscrivi articolo» del regionale (#gg=...) */
+(function(){
+  var m=location.hash.match(/[#&]gg=([^&]+)/); if(!m) return;
+  var d; try{ var b=m[1].replace(/-/g,'+').replace(/_/g,'/'); while(b.length%4) b+='='; d=JSON.parse(decodeURIComponent(escape(atob(b)))); }catch(e){ return; }
+  function put(id,v){ var el=document.getElementById(id); if(!el||v==null||v==='') return; el.value=v; el.dispatchEvent(new Event('input',{bubbles:true})); }
+  function applica(){ put('inTop',d.scritta); put('inT1',d.nome); put('inT2',d.ruolo); try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
+  if(document.readyState==='complete') setTimeout(applica,300); else window.addEventListener('load',function(){ setTimeout(applica,300); });
+})();
+</script>
 </body>
 </html>
