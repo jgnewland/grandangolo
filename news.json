@@ -1,10 +1,31 @@
 {
-  "updated": "2026-10-19T00:20:43.422202+00:00",
+  "updated": "2026-10-19T05:02:53.956375+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
-      "title": "Cattolica Eraclea, scontro tra un’auto e una moto da cross: ferito motociclista",
+      "title": "Ladri al teatro di Sciacca, rubato impianto di climatizzazione",
+      "summary": "Il teatro, nelle scorse settimane, era stato già bersaglio dei vandali che lo avevano danneggiato. La questione sicurezza, dunque, si riaccende",
+      "date": "2026-10-19T05:00:37Z",
+      "link": "https://www.grandangoloagrigento.it/sciacca/ladri-al-teatro-di-sciacca-rubato-impianto-di-climatizzazione",
+      "img": "/feed-images/4deccb582f681863.png"
+    },
+    {
+      "title": "Inciampa a causa del marciapiede dissestato, 80enne in ospedale con trauma facciale",
+      "summary": "I medici gli hanno diagnosticato un trauma facciale con probabile rottura del setto nasale. L’episodio riaccende una problematica ormai nota ad Agrigento",
+      "date": "2026-10-19T05:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/inciampa-a-causa-del-marciapiede-dissestato-80enne-in-ospedale-con-trauma-facciale",
+      "img": "/feed-images/71a3b71dd6a09faa.png"
+    },
+    {
+      "title": "Medico “assenteista” lavorava privatamente, contestato danno erariale di 373 mila euro",
+      "summary": "Avrebbe esercitato attività libero professionale non autorizzata presso alcuni studi medici privati anche in giorni e orari in cui figurava in servizio presso l’ospedale di appartenenza",
+      "date": "2026-10-19T04:53:14Z",
+      "link": "https://www.grandangoloagrigento.it/catania/medico-assenteista-lavorava-privatamente-contestato-danno-erariale-di-373-mila-euro",
+      "img": "/feed-images/6c2c8235d8621d8f.jpg"
+    },
+    {
+      "title": "Scontro tra un’auto e una moto da cross: ferito motociclista",
       "summary": "Il centauro è stato trasferito in ospedale in elisoccorso; non risulterebbe in pericolo di vita",
       "date": "2026-10-18T17:47:03Z",
       "link": "https://www.grandangoloagrigento.it/apertura/cattolica-eraclea-scontro-tra-unauto-e-una-moto-da-cross-ferito-motociclista",
@@ -84,7 +105,7 @@
       "title": "Drammatico incidente in moto, morto 38enne",
       "summary": "Ennesima tragedia sulle strade. La vittima è un 38enne",
       "date": "2026-10-18T12:12:31Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/drammatico-incidente-in-moto-morto-38enne",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/drammatico-incidente-in-moto-morto-38enne",
       "img": ""
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-10-18T07:16:48Z",
       "link": "https://www.grandangoloagrigento.it/catania/fuga-in-scooter-per-evitare-il-controllo-denunciato-minorenne",
       "img": "/feed-images/c279c0a1219a54a3.jpg"
-    },
-    {
-      "title": "Sospettato di aver appiccato tre incendi in sei mesi, presunto piromane finisce in carcere",
-      "summary": "È sospettato di avere appiccato tre incendi in meno di sei mesi e per questo motivo è già stato disposto il giudizio immediato nei suoi confronti",
-      "date": "2026-10-18T06:13:54Z",
-      "link": "https://www.grandangoloagrigento.it/sciacca/sospettato-di-aver-appiccato-tre-incendi-in-sei-mesi-presunto-piromane-finisce-in-carcere",
-      "img": ""
-    },
-    {
-      "title": "Molestano clienti di un bar e scoppia la maxi rissa, 7 indagati",
-      "summary": "Tutti sono accusati di rissa. Ad avere la peggio sono stati zio e nipote, soccorsi e trasportati in ospedale",
-      "date": "2026-10-18T05:48:40Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/molestano-clienti-di-un-bar-e-scoppia-la-maxi-rissa-7-indagati",
-      "img": "/feed-images/fc5b0b7a876e8d48.jpg"
-    },
-    {
-      "title": "In ospedale per accertamenti, nello zaino aveva un coltello di 20 centimetri: denunciato",
-      "summary": "In maniera casuale, però, il personale dell’ospedale ha notato nella borsa l’arma da taglio che ha destato non poca preoccupazione tra i presenti",
-      "date": "2026-10-18T05:47:53Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/in-ospedale-per-accertamenti-nello-zaino-aveva-un-coltello-di-20-centimetri-denunciato",
-      "img": "/feed-images/875eadbdbb4eb81c.jpg"
     }
   ]
 }
