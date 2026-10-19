@@ -6,17 +6,25 @@
 <title>Banner Grandangolo</title>
 <style>
   html, body { margin:0; padding:0; background:transparent; }
-  a   { display:block; text-decoration:none; }
+  /* i banner stanno uno sopra l'altro e si alternano con una dissolvenza */
+  .giro { display:grid; }
+  .giro a { grid-area:1/1; display:block; text-decoration:none; opacity:0; visibility:hidden; transition:opacity .8s ease, visibility 0s linear .8s; }
+  .giro a.on { opacity:1; visibility:visible; transition:opacity .8s ease, visibility 0s; }
   img { display:block; width:100%; height:auto; border-radius:8px; }
 </style>
 </head>
 <body>
   <!-- target="_top" apre il sito nella finestra intera, non dentro l'iframe -->
-  <a href="https://www.grandangoloregionale.it/" target="_top" rel="noopener">
-    <img id="gg-banner"
-         src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/09/ChatGPT-Image-7-set-2026-16_38_39-e1788792867827.png"
-         alt="Grandangolo Regionale">
-  </a>
+  <div class="giro" id="giro">
+    <!-- 1) la nuova app: porta all'invito per installarla -->
+    <a class="on" href="https://www.grandangoloregionale.it/?installa=1" target="_top" rel="noopener">
+      <img src="banner-app.jpg" alt="Scarica la nuova app Grandangolo">
+    </a>
+    <!-- 2) Grandangolo Regionale -->
+    <a href="https://www.grandangoloregionale.it/" target="_top" rel="noopener">
+      <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/09/ChatGPT-Image-7-set-2026-16_38_39-e1788792867827.png" alt="Grandangolo Regionale">
+    </a>
+  </div>
 
   <script>
     function sendHeight() {
@@ -25,7 +33,17 @@
     }
     window.addEventListener("load", sendHeight);
     window.addEventListener("resize", sendHeight);
-    document.getElementById("gg-banner").addEventListener("load", sendHeight);
+    document.querySelectorAll("#giro img").forEach(function (im) { im.addEventListener("load", sendHeight); });
+
+    /* ogni 7 secondi passa al banner successivo */
+    var voci = document.querySelectorAll("#giro a"), i = 0;
+    if (voci.length > 1) {
+      setInterval(function () {
+        voci[i].classList.remove("on");
+        i = (i + 1) % voci.length;
+        voci[i].classList.add("on");
+      }, 7000);
+    }
   </script>
 </body>
 </html>
