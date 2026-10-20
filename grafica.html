@@ -123,6 +123,25 @@
   .slidenav button.add{color:var(--lime-soft);border-style:dashed}
   .slidenav .navdot{width:9px;height:9px;border-radius:50%;background:var(--txt-dim);border:0;padding:0}
   .slidenav .navdot.on{background:var(--lime)}
+  .ig-box{border:1px solid rgba(195,214,0,.35);background:linear-gradient(180deg,rgba(195,214,0,.08),rgba(0,0,0,0)),var(--card)}
+  .ig-box>summary{color:var(--lime)}
+  .igq{display:flex;flex-direction:column;gap:8px;max-height:430px;overflow:auto;margin:10px 0;padding-right:2px}
+  .igi{display:grid;grid-template-columns:22px 58px 1fr;gap:9px;align-items:center;background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:7px}
+  .igi.on{border-color:var(--lime)}
+  .igi input{width:18px;height:18px;accent-color:#c3d600;margin:0}
+  .igi img,.igi .ph{width:58px;height:58px;object-fit:cover;border-radius:7px;background:#0a1f14;display:block}
+  .igi b{display:block;font-size:12.5px;line-height:1.3;font-weight:600;max-height:3.9em;overflow:hidden}
+  .igi small{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:10.5px;color:var(--txt-dim);margin-top:3px}
+  .igi .s{background:#0a7d3e;color:#fff;padding:1px 6px;border-radius:99px}
+  .igi .s.r{background:#2b4a8a}
+  .igi .fatto{color:var(--lime);font-weight:600}
+  .igi .st{font-weight:600}
+  .igi a{color:var(--txt-dim)}
+  .igbar{display:flex;gap:8px;align-items:center;font-size:11.5px;color:var(--txt-dim)}
+  .igbar button{background:none;border:0;color:var(--lime-soft);cursor:pointer;font:600 11.5px Inter;padding:0}
+  .ig-acc-who{font-size:12px;color:var(--txt-dim);margin:2px 0 8px}
+  .btn-ig{color:#fff;background:linear-gradient(90deg,#f58529,#dd2a7b 45%,#8134af 80%,#515bd4)}
+  .btn[disabled]{opacity:.55;cursor:wait}
   .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;
     padding:11px 18px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:50}
   .toast.show{opacity:1}
@@ -203,6 +222,25 @@
     </section>
 
     <section class="controls">
+      <details class="acc ig-box" id="igAcc" open>
+        <summary>📸 Instagram · notizie da pubblicare <span class="badge" id="igBadge" style="display:none">0</span></summary>
+        <div class="body">
+          <div id="igSetup" style="display:none">
+            <p class="hint" style="margin-top:2px">Per pubblicare su Instagram incolla qui la tua <b>chiave personale</b>. La crei su WordPress del regionale → menu <b>Instagram</b> → «Crea la mia chiave». Basta farlo una volta.</p>
+            <input type="text" id="igKey" placeholder="Incolla la chiave (es. 3.Ab12…)" autocomplete="off" style="margin-top:6px">
+            <button class="btn btn-green btn-sm" id="igKeySave" style="margin-top:8px">Collega</button>
+          </div>
+          <div id="igMain" style="display:none">
+            <div class="ig-acc-who" id="igWho"></div>
+            <div class="igbar"><span id="igCount">Nessuna selezionata</span><span style="margin-left:auto"></span><button id="igReload">↻ Aggiorna</button><button id="igNone">Deseleziona</button></div>
+            <div class="igq" id="igList"><div class="empty">Carico le notizie…</div></div>
+            <button class="btn btn-ig btn-sm" id="igPubSel" disabled>Pubblica le selezionate su Instagram</button>
+            <p class="hint">Ogni notizia viene impaginata con il <b>tipo di post</b> e il <b>formato</b> scelti qui sotto (Storia 9:16 = pubblicata come storia) e con la didascalia automatica. Con «Apri» la carichi nell'editor per ritoccarla e poi usi «Pubblica questo post».</p>
+            <p class="hint" style="margin-top:4px"><a href="#" id="igKeyChange" style="color:var(--txt-dim)">Cambia chiave</a></p>
+          </div>
+          <p class="warn" id="igWarn"></p>
+        </div>
+      </details>
       <div class="group">
         <label>Tipo di post</label>
         <div class="seg" id="tpl">
@@ -339,6 +377,7 @@
       </details>
 
       <button class="btn btn-lime" id="download" style="margin-top:6px">⤓ Scarica il post</button>
+      <button class="btn btn-ig" id="igPubOne" style="margin-top:10px">📸 Pubblica questo post su Instagram</button>
       <p class="hint">File in alta risoluzione (1080 px). Il carosello e la libreria escono in un unico file .zip.</p>
     </section>
   </div>
@@ -1281,6 +1320,160 @@ if(document.fonts&&document.fonts.ready){
   function put(id,v){ var el=document.getElementById(id); if(!el||v==null||v==='') return; el.value=v; el.dispatchEvent(new Event('input',{bubbles:true})); }
   function applica(){ put('kicker',d.occhiello); put('title',d.titolo); put('summary',d.sommario); if(d.social) setTimeout(function(){ put('caption',d.social); },200); try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
   if(document.readyState==='complete') setTimeout(applica,300); else window.addEventListener('load',function(){ setTimeout(applica,300); });
+})();
+</script>
+<script>
+/* ===== Instagram: coda automatica delle notizie + pubblicazione (tramite grandangoloregionale.it) ===== */
+(function(){
+  const API=window.GG_IG_API||'https://www.grandangoloregionale.it/wp-admin/admin-ajax.php';
+  const KEY='gg_ig_chiave';
+  let notizie=[], sel=new Set(), occupato=false, account=null;
+  const $=id=>document.getElementById(id);
+  const chiave=()=>{try{return localStorage.getItem(KEY)||'';}catch(e){return '';}};
+  const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function avviso(t,col){const w=$('igWarn');w.textContent=t||'';w.style.color=col||'#ffd27a';w.classList.toggle('show',!!t);}
+  async function chiama(azione,dati){
+    const fd=new FormData();fd.append('action',azione);fd.append('chiave',chiave());
+    Object.keys(dati||{}).forEach(k=>fd.append(k,dati[k]));
+    const r=await fetch(API,{method:'POST',body:fd});
+    let j;try{j=await r.json();}catch(e){throw new Error('Il sito del regionale non risponde correttamente (è aggiornato il tema 9.30?).');}
+    if(!j.success)throw new Error(typeof j.data==='string'?j.data:'Errore');
+    return j.data;
+  }
+  function quando(ts){if(!ts)return '';const m=Math.round((Date.now()-ts)/60000);if(m<1)return 'ora';if(m<60)return m+' min fa';if(m<1440)return Math.round(m/60)+' h fa';return new Date(ts).toLocaleDateString('it-IT',{day:'numeric',month:'short'});}
+  function disegna(){
+    const box=$('igList');
+    if(!notizie.length){box.innerHTML='<div class="empty">Nessuna notizia trovata.</div>';conta();return;}
+    box.innerHTML=notizie.map((n,i)=>'<label class="igi'+(sel.has(i)?' on':'')+'" data-i="'+i+'"><input type="checkbox"'+(sel.has(i)?' checked':'')+'>'+
+      (n.img?'<img src="'+esc(n.img)+'" alt="" loading="lazy">':'<span class="ph"></span>')+
+      '<span><b>'+esc(n.title)+'</b><small><span class="s'+(n.sito.indexOf('regionale')>=0?' r':'')+'">'+(n.sito.indexOf('regionale')>=0?'Regionale':'Agrigento')+'</span>'+
+      (n.ts?'<span>'+quando(n.ts)+'</span>':'')+
+      (n.fatto?(typeof n.fatto==='string'?'<a class="fatto" href="'+esc(n.fatto)+'" target="_blank">✓ già su Instagram</a>':'<span class="fatto">✓ già inviata</span>'):'')+
+      '<span class="st" id="igst'+i+'"></span><a href="#" data-apri="'+i+'">Apri</a></small></span></label>').join('');
+    conta();
+  }
+  function conta(){
+    const n=sel.size;$('igCount').textContent=n?(n===1?'1 selezionata':n+' selezionate'):'Nessuna selezionata';
+    $('igPubSel').disabled=!n||occupato;$('igPubSel').textContent=n?('Pubblica '+(n===1?'la selezionata':'le '+n+' selezionate')+' su Instagram'):'Seleziona le notizie da pubblicare';
+    const b=$('igBadge');b.style.display=n?'':'none';b.textContent=n;
+  }
+  async function carica(){
+    $('igList').innerHTML='<div class="empty">Carico le notizie…</div>';avviso('');
+    try{
+      const d=await chiama('grd_ig_stato');
+      account=d.account;notizie=d.notizie||[];sel=new Set();
+      $('igSetup').style.display='none';$('igMain').style.display='block';
+      $('igWho').innerHTML='Collegato come <b>'+esc(d.utente)+'</b> · '+(account?('pubblica su <b>@'+esc(account.username)+'</b>'):'<span style="color:#ffd27a">Instagram non ancora collegato</span>');
+      if(!account)avviso(d.errore||'Un amministratore deve collegare l’account Instagram in WordPress → Instagram.');
+      disegna();
+    }catch(e){
+      if(/chiave/i.test(e.message)){$('igSetup').style.display='block';$('igMain').style.display='none';}
+      else{$('igMain').style.display='block';$('igList').innerHTML='<div class="empty">Non riesco a leggere le notizie.</div>';}
+      avviso(e.message);
+    }
+  }
+  /* foto -> Image pulita per il canvas */
+  function foto(url){return new Promise(ok=>{if(!url)return ok(null);loadCleanImg(url,im=>ok(im),()=>ok(null));});}
+  function jpeg(cvEl){return cvEl.toDataURL('image/jpeg',0.9);}
+  /* imposta l'editor con la notizia (testo + foto) e aspetta che sia pronta */
+  async function imposta(n){
+    const site=n.sito||'grandangoloagrigento.it';
+    state.template='news';selectSeg('tpl','data-t','news');applyTemplateUI();
+    if(n.kicker){state.kicker=n.kicker;$('kicker').value=n.kicker;}
+    state.title=(n.title||'').slice(0,200);state.summary=(n.summary||'').slice(0,180);
+    $('title').value=state.title;$('summary').value=state.summary;
+    $('cT').textContent=state.title.length+'/200';$('cS').textContent=state.summary.length+'/180';
+    state.site=site;selectSeg('site','data-s',site);
+    state.carousel=false;$('carOn').checked=false;state.previewIndex=0;
+    const im=await foto(n.img);
+    state.photo=im;state.posx=.5;state.posy=.5;state.zoom=1;
+    if(im){$('ptools').classList.add('show');$('drop').querySelector('div').innerHTML='<b>Foto importata</b> · clicca per sostituirla';}
+    capTouched=altTouched=false;update();
+    return !!im;
+  }
+  /* immagini del post attualmente nell'editor */
+  async function immaginiCorrenti(){
+    await document.fonts.ready;
+    const tmp=document.createElement('canvas');const out=[];
+    render(tmp,snapshot());out.push(jpeg(tmp));
+    if(state.carousel&&state.format!=='story'){for(let i=0;i<state.slides.length&&out.length<10;i++){render(tmp,slideData(i));out.push(jpeg(tmp));}}
+    render(cv,currentData());
+    return out;
+  }
+  async function invia(link){
+    const imgs=await immaginiCorrenti();
+    return chiama('grd_ig_invia',{immagini:JSON.stringify(imgs),didascalia:$('caption').value,storia:state.format==='story'?'1':'',titolo:state.title||state.quoteText||'',link:link||''});
+  }
+  function blocca(si){occupato=si;$('igPubOne').disabled=si;conta();}
+
+  async function pubblicaSelezionate(){
+    if(occupato||!sel.size)return;
+    if(!account){avviso('Instagram non è ancora collegato: un amministratore deve inserire il token in WordPress → Instagram.');return;}
+    const lista=[...sel].sort((a,b)=>a-b);
+    const tipo=state.format==='story'?'storie':'post';
+    if(!confirm('Pubblicare '+lista.length+' '+tipo+' su @'+account.username+'?\n\nLe grafiche vengono create con il tipo di post e il formato scelti nell’editor.'))return;
+    blocca(true);avviso('');let ok=0,ko=0;
+    for(const i of lista){
+      const n=notizie[i],st=$('igst'+i);
+      try{
+        if(st){st.textContent='⏳ preparo…';st.style.color='var(--lime-soft)';}
+        const haFoto=await imposta(n);
+        if(!haFoto)throw new Error('foto non caricabile');
+        if(st)st.textContent='⏳ pubblico…';
+        const r=await invia(n.link);
+        n.fatto=r.link||1;ok++;sel.delete(i);{const l=document.querySelector('.igi[data-i="'+i+'"]');if(l){l.classList.remove('on');l.querySelector('input').checked=false;}}
+        if(st){st.innerHTML=r.link?'<a href="'+esc(r.link)+'" target="_blank" style="color:var(--lime)">✓ pubblicata</a>':'✓ pubblicata';}
+      }catch(e){ko++;if(st){st.textContent='✕ '+e.message;st.style.color='#ff8a7a';}}
+    }
+    blocca(false);conta();
+    toast(ok+' pubblicat'+(ok===1?'a':'e')+(ko?(' · '+ko+' con errore'):''));
+    if(ko)avviso('Alcune notizie non sono state pubblicate: leggi il motivo accanto a ciascuna. Puoi aprirle nell’editor, sistemarle e usare «Pubblica questo post».');
+  }
+  async function pubblicaQuesto(){
+    if(occupato)return;
+    if(!chiave()){$('igAcc').open=true;$('igSetup').style.display='block';avviso('Prima collega la tua chiave personale qui sopra.');$('igAcc').scrollIntoView({behavior:'smooth'});return;}
+    if(!account){avviso('Instagram non è ancora collegato: un amministratore deve inserire il token in WordPress → Instagram.');$('igAcc').scrollIntoView({behavior:'smooth'});return;}
+    if(!state.photo&&state.template!=='quote'){toast('Aggiungi una foto prima di pubblicare');return;}
+    const quante=state.carousel&&state.format!=='story'?(1+state.slides.length):1;
+    const cosa=state.format==='story'?'questa storia':(quante>1?'questo carosello ('+quante+' immagini)':'questo post');
+    if(!confirm('Pubblicare '+cosa+' su @'+account.username+' con la didascalia che vedi nell’editor?'))return;
+    blocca(true);const b=$('igPubOne'),t=b.textContent;b.textContent='⏳ Pubblico su Instagram…';
+    try{
+      const r=await invia(window.__igLink||'');
+      toast('✓ Pubblicato su Instagram');
+      avviso(r.link?'':'Pubblicato.','var(--lime-soft)');
+      if(r.link){const w=$('igWarn');w.innerHTML='✓ Pubblicato: <a href="'+esc(r.link)+'" target="_blank" style="color:var(--lime)">vedi il post</a>';w.style.color='var(--lime-soft)';w.classList.add('show');$('igAcc').open=true;}
+    }catch(e){avviso('Non pubblicato: '+e.message);$('igAcc').open=true;$('igAcc').scrollIntoView({behavior:'smooth'});}
+    b.textContent=t;blocca(false);
+  }
+
+  $('igList').addEventListener('click',async e=>{
+    const a=e.target.closest('[data-apri]');
+    if(a){e.preventDefault();const n=notizie[+a.dataset.apri];window.__igLink=n.link;toast('Carico la notizia…');const f=await imposta(n);toast(f?'Notizia nell’editor':'Notizia caricata: aggiungi la foto a mano');return;}
+    if(e.target.tagName==='A')return;
+  });
+  $('igList').addEventListener('change',e=>{
+    const l=e.target.closest('.igi');if(!l)return;const i=+l.dataset.i;
+    if(e.target.checked)sel.add(i);else sel.delete(i);l.classList.toggle('on',e.target.checked);conta();
+  });
+  $('igReload').onclick=carica;
+  $('igNone').onclick=()=>{sel.clear();disegna();};
+  $('igPubSel').onclick=pubblicaSelezionate;
+  $('igPubOne').onclick=pubblicaQuesto;
+  $('igKeySave').onclick=()=>{const k=($('igKey').value||'').trim();if(!/^\d+\.[A-Za-z0-9]{20,}$/.test(k)){avviso('La chiave non sembra giusta: copiala per intero da WordPress → Instagram.');return;}try{localStorage.setItem(KEY,k);}catch(e){}$('igKey').value='';carica();};
+  $('igKeyChange').onclick=e=>{e.preventDefault();try{localStorage.removeItem(KEY);}catch(x){}account=null;$('igMain').style.display='none';$('igSetup').style.display='block';avviso('');};
+  /* i campi modificati a mano annullano il link della notizia aperta dalla coda */
+  function avvia(){ if(chiave())carica(); else {$('igSetup').style.display='block';} }
+  /* parte dopo il login */
+  const ov=$('loginOverlay');
+  if(!ov||ov.classList.contains('hidden'))avvia();
+  else new MutationObserver((m,o)=>{if(ov.classList.contains('hidden')){o.disconnect();avvia();}}).observe(ov,{attributes:true,attributeFilter:['class']});
+  /* aggiornamento automatico ogni 5 minuti (senza perdere le spunte) */
+  setInterval(async()=>{
+    if(occupato||!chiave()||$('igMain').style.display==='none')return;
+    try{const d=await chiama('grd_ig_stato');const scelti=new Set([...sel].map(i=>notizie[i]&&notizie[i].link));
+      notizie=d.notizie||[];sel=new Set();notizie.forEach((n,i)=>{if(scelti.has(n.link))sel.add(i);});account=d.account;disegna();}catch(e){}
+  },300000);
 })();
 </script>
 </body>
