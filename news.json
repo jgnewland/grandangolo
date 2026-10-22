@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-22T12:27:06.379865+00:00",
+  "updated": "2026-10-22T17:29:17.831467+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Gioco online, oltre 108 milioni ad Agrigento: i numeri di un mercato in trasformazione",
+      "summary": "Nel corso del 2025 nel solo comune siciliano sono stati giocati online oltre 108 milioni di euro, per la precisione circa 108,35 milioni. Una cifra significativa, che colloca Agrigento al sesto posto…",
+      "date": "2026-10-22T14:03:21Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/gioco-online-oltre-108-milioni-ad-agrigento-i-numeri-di-un-mercato-in-trasformazione",
+      "img": "/feed-images/fecb5c88b76d2cec.jpg"
+    },
     {
       "title": "Ciao Direttore, abbiamo finito le parole.",
       "summary": "Grandangolo rimarrà oscurato in segno di lutto. I funerali saranno celebrati domani 23 Ottobre 2026 alle ore 16 nella Chiesa di San Nicola alle Fontanelle",
@@ -205,13 +212,6 @@
       "date": "2026-10-21T08:58:47Z",
       "link": "https://www.grandangoloagrigento.it/catania/movida-controllati-7-locali-sanzioni-per-20-mila-euro",
       "img": "/feed-images/13c7091788b4c05b.jpg"
-    },
-    {
-      "title": "“Made in Italy- Eccellenze Italiane Experience”, al teatro Pirandello l’evento dedicato al talento imprenditoriale",
-      "summary": "Domenica 25 ottobre, alle 17.30, un appuntamento tra innovazione, storie di successo, imprenditoria femminile e premiazioni. Dalla Sicilia al mondo, riflettori sulle realtà che valorizzano il…",
-      "date": "2026-10-21T08:55:32Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/made-in-italy-eccellenze-italiane-experience-al-teatro-pirandello-levento-dedicato-al-talento-imprenditoriale",
-      "img": "/feed-images/b6c19f12f5b3dd7c.jpg"
     }
   ]
 }
