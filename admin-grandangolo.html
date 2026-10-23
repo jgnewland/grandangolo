@@ -279,6 +279,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
         <div class="card-t" style="margin-bottom:4px">Copertina e acquisto</div>
         <div class="card-s" style="margin-bottom:16px">URL immagini caricate su WordPress.</div>
         <div class="f"><label>URL copertina JPG</label><input type="url" id="nu-cover" placeholder="https://www.grandangoloagrigento.it/wp-content/.../1.jpg"></div>
+        <label class="gg-gratis" style="display:flex;align-items:center;gap:10px;padding:12px 14px;margin-bottom:14px;background:rgba(255,210,63,0.08);border:1px solid rgba(255,210,63,0.35);border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#fff"><input type="checkbox" id="nu-gratis" data-code="nu-code" data-buy="nu-buy" data-gen="nu-gen-btn"> 🎁 Numero GRATUITO <span style="font-weight:400;color:rgba(255,255,255,.65)">— si legge tutto, senza codice e senza acquisto</span></label>
         <div class="f"><label>Link Stripe per acquisto</label><input type="url" id="nu-buy" placeholder="https://buy.stripe.com/..."></div>
         <div class="f"><label>Codice di sblocco</label>
           <div style="display:flex;gap:8px">
@@ -778,6 +779,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
       <div class="f"><label>Anno</label><input type="number" id="m-anno" value="2026"></div>
     </div>
     <div class="f"><label>URL copertina</label><input type="url" id="m-cover"></div>
+    <label class="gg-gratis" style="display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:12px;background:rgba(255,210,63,0.08);border:1px solid rgba(255,210,63,0.35);border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#fff"><input type="checkbox" id="m-gratis" data-code="m-code" data-buy="m-buy"> 🎁 Numero GRATUITO <span style="font-weight:400;color:rgba(255,255,255,.65)">— senza codice e senza acquisto</span></label>
     <div class="f"><label>Link Stripe</label><input type="url" id="m-buy"></div>
     <div class="f"><label>Codice di sblocco</label><input type="text" id="m-code" style="font-family:monospace"></div>
     <div class="f"><label>Pagine JPG (una per riga)</label><textarea id="m-pages" style="min-height:160px;font-family:monospace;font-size:12px;line-height:1.6"></textarea></div>
@@ -2600,6 +2602,31 @@ function buildGrazieHtml(num, data, codice, cover){
 }
 
 }); // end DOMContentLoaded
+</script>
+<script>
+/* Numero GRATUITO: il codice diventa «GRATIS» e il link Stripe si svuota.
+   L'edicola riconosce «GRATIS» e apre il numero intero a tutti. */
+(function(){
+  function el(id){ return document.getElementById(id); }
+  function applica(cb){
+    var code=el(cb.getAttribute('data-code')), buy=el(cb.getAttribute('data-buy')), gen=cb.getAttribute('data-gen')?el(cb.getAttribute('data-gen')):null;
+    if(cb.checked){
+      if(code.value && code.value.toUpperCase()!=='GRATIS') code.setAttribute('data-prima',code.value);
+      if(buy.value) buy.setAttribute('data-prima',buy.value);
+      code.value='GRATIS'; buy.value='';
+    } else if(code.value.toUpperCase()==='GRATIS'){
+      code.value=code.getAttribute('data-prima')||''; buy.value=buy.getAttribute('data-prima')||'';
+    }
+    code.readOnly=cb.checked; buy.disabled=cb.checked; if(gen) gen.disabled=cb.checked;
+    code.style.opacity=buy.style.opacity=cb.checked?'.45':'';
+  }
+  ['nu-gratis','m-gratis'].forEach(function(id){ var cb=el(id); if(cb) cb.addEventListener('change',function(){ applica(cb); }); });
+  /* quando si apre «Modifica numero», la spunta segue il codice salvato */
+  var ov=el('modal-ov');
+  if(ov) new MutationObserver(function(){ if(!ov.classList.contains('open')) return; setTimeout(function(){ var cb=el('m-gratis'); cb.checked=(el('m-code').value||'').trim().toUpperCase()==='GRATIS'; applica(cb); },30); }).observe(ov,{attributes:true,attributeFilter:['class']});
+  /* dopo «Pubblica» il modulo si svuota: tolgo anche la spunta */
+  var pb=el('nu-pubblica-btn'); if(pb) pb.addEventListener('click',function(){ setTimeout(function(){ var cb=el('nu-gratis'); if(cb.checked && !el('nu-title').value){ cb.checked=false; el('nu-code').readOnly=false; el('nu-buy').disabled=false; el('nu-code').style.opacity=el('nu-buy').style.opacity=''; var g=el('nu-gen-btn'); if(g) g.disabled=false; } },1500); });
+})();
 </script>
 </body>
 </html>

@@ -1274,7 +1274,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
 
         // Aggiungi SOLO quelli nuovi (non presenti nell'array esistente)
         /* un numero è «già presente» se ha lo stesso id o lo stesso codice (solo se il codice non è vuoto) */
-        const existingCodes = new Set(window.issues.map(function(i){ return i.unlockCode; }).filter(Boolean));
+        const existingCodes = new Set(window.issues.map(function(i){ return i.unlockCode; }).filter(function(c){ return c && !/^\s*gratis\s*$/i.test(c); }));
         const existingIds = new Set(window.issues.map(function(i){ return i.id; }).filter(Boolean));
         var aggiunti = 0;
         nuovi.forEach(function(n) {
@@ -1293,7 +1293,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
           // Rimuovi isLatest da tutti
           window.issues.forEach(function(i){ i.isLatest = false; });
           // Imposta isLatest sul numero corretto
-          var stesso = function(i){ return (latest.id && i.id === latest.id) || (latest.unlockCode && i.unlockCode === latest.unlockCode); };
+          var stesso = function(i){ return (latest.id && i.id === latest.id) || (!latest.id && latest.unlockCode && i.unlockCode === latest.unlockCode); };
           var found = window.issues.find(stesso);
           if (found) found.isLatest = true;
           // Aggiorna hero card
@@ -3348,5 +3348,45 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
   
 <!-- ═══ /BANNER AUTOPROMOZIONE ═══ -->
 <script async src="https://www.grandangoloregionale.it/wp-admin/admin-ajax.php?action=grd_adv_js&amp;sito=settimanale"></script>
+<script>
+/* ── Numeri GRATUITI: se il codice del numero è «GRATIS» il numero si legge tutto,
+      senza paywall, senza codice e senza acquisto ── */
+(function(){
+  function gratis(i){ return !!i && /^\s*gratis\s*$/i.test(String(i.unlockCode||i.unlock_code||'')); }
+  function patch(){ var l=(window.issues||[]).filter(gratis); l.forEach(function(i){ i._unlocked=true; i._gratis=true; }); return l; }
+  var css=document.createElement('style');
+  css.textContent='.gg-gratis-b{position:absolute;top:10px;right:10px;z-index:3;background:#ffd23f;color:#141310;font:800 11px/1 system-ui,sans-serif;letter-spacing:.12em;padding:6px 9px;border-radius:99px;box-shadow:0 4px 12px rgba(0,0,0,.35);pointer-events:none}';
+  document.head.appendChild(css);
+  function etichette(){
+    var free=patch(); if(!free.length) return;
+    var cov={}; free.forEach(function(i){ if(i.cover) cov[i.cover]=1; });
+    document.querySelectorAll('img').forEach(function(im){
+      var src=im.getAttribute('src')||''; if(!cov[src]) return;
+      var box=im.closest('.edicola-cover-wrap, .hero-card-inner, .promo-cover-card, a, div')||im.parentElement;
+      if(getComputedStyle(box).position==='static') box.style.position='relative';
+      if(!box.querySelector('.gg-gratis-b')){ var b=document.createElement('span'); b.className='gg-gratis-b'; b.textContent='GRATIS'; box.appendChild(b); }
+      var card=im.closest('.edicola-card, .hero-card, [class*=card]')||box;
+      var meta=card.querySelector('.edicola-label-meta'); if(meta&&!meta.__gg){ meta.__gg=1; meta.innerHTML='<span>Numero gratuito</span><span>Leggi tutto, senza codice</span>'; }
+      card.querySelectorAll('.issue-label-latest, #hero-cover-date').forEach(function(t){ if(/1,50/.test(t.textContent)) t.textContent=t.textContent.replace(/€\s?1,50|&euro;1,50/,'GRATIS'); });
+    });
+    document.querySelectorAll('.issue-label-latest').forEach(function(t){ if(/1,50/.test(t.textContent)){ var c=t.closest('[class*=card]')||t.parentElement; var im=c&&c.querySelector('img'); if(im&&cov[im.getAttribute('src')]) t.textContent=t.textContent.replace(/€\s?1,50/,'GRATIS'); } });
+    var hl=(window.issues||[]).find(function(i){return i.isLatest;}), hd=document.getElementById('hero-cover-date');
+    if(hl&&gratis(hl)&&hd&&/COPERTINA DELL'ULTIMA USCITA/.test(hd.textContent)) hd.textContent=hd.textContent.replace("LA COPERTINA DELL'ULTIMA USCITA",'NUMERO GRATUITO · LEGGILO TUTTO');
+  }
+  /* il lettore riceve sempre il numero già sbloccato */
+  function avvolgi(){
+    var f=window.openFlipbook; if(typeof f!=='function'||f.__gg) return;
+    var w=function(issue,p){ patch(); if(gratis(issue)){ issue._unlocked=true; issue._gratis=true; } return f.call(this,issue,p); };
+    w.__gg=1; window.openFlipbook=w;
+  }
+  var t=null;
+  function giro(){ avvolgi(); etichette(); }
+  function presto(){ clearTimeout(t); t=setTimeout(giro,120); }
+  document.addEventListener('DOMContentLoaded',giro); window.addEventListener('load',giro);
+  var n=0, iv=setInterval(function(){ giro(); if(++n>25) clearInterval(iv); },800);
+  try{ new MutationObserver(presto).observe(document.documentElement,{childList:true,subtree:true}); }catch(e){}
+  giro();
+})();
+</script>
 </body>
 </html>
