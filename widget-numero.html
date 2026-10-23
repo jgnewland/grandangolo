@@ -149,7 +149,7 @@ pagesArr,
   ].join('\n');
 }
 function wgGratis(code, html){
-  if(!/^\s*gratis\s*$/i.test(code||"")) return html;
+  if(code && !/^\s*gratis\s*$/i.test(code)) return html;
   return html
     .split("var unlocked = false;").join("var unlocked = true;")
     .split("var cur = 0, unlocked = false;").join("var cur = 0, unlocked = true;")

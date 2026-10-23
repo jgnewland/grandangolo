@@ -562,7 +562,7 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
         <div class="f"><label>URL copertina (prima pagina)</label><input type="url" id="wg-cover" placeholder="https://...jpg"></div>
         <div class="f"><label>Codice di sblocco</label>
           <div style="display:flex;gap:8px">
-            <input type="text" id="wg-code" placeholder="GR22-XXXXX" style="font-family:monospace">
+            <input type="text" id="wg-code" placeholder="GR22-XXXXX · lascia vuoto (o scrivi GRATIS) per un numero gratuito" style="font-family:monospace">
             <button class="ghost" onclick="genCod();document.getElementById('wg-code').value=document.getElementById('cod-val').textContent" style="white-space:nowrap;padding:11px 14px;flex-shrink:0">🔑 Genera</button>
           </div>
         </div>
@@ -1987,7 +1987,7 @@ function showToastW(msg){
 }
 
 function wgGratis(code, html){
-  if(!/^\s*gratis\s*$/i.test(code||"")) return html;
+  if(code && !/^\s*gratis\s*$/i.test(code)) return html;
   return html
     .split("var unlocked = false;").join("var unlocked = true;")
     .split("var cur = 0, unlocked = false;").join("var cur = 0, unlocked = true;")
@@ -2003,7 +2003,8 @@ function generaWidget(){
   var buy=document.getElementById("wg-buy").value.trim();
   var pages=document.getElementById("wg-pages").value.trim().split("\n").map(function(l){ return l.trim(); }).filter(function(l){ return l; });
 
-  if(!numero||!cover||!code||!pages.length){ showRes("wg-res","Compila numero, copertina, codice e pagine.","err"); return; }
+  if(!code || /^\s*gratis\s*$/i.test(code)) code="GRATIS"; /* codice vuoto = numero gratuito */
+  if(!numero||!cover||!pages.length){ showRes("wg-res","Compila numero, copertina e pagine.","err"); return; }
 
   // ── WIDGET SIDEBAR: snippet puro per WordPress ──────────────────
   document.getElementById("wg-code-sidebar").value = wgGratis(code, buildSidebarSnippet(numero, badge, cover, code, buy, pages));

@@ -3351,7 +3351,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
 /* ── Numeri GRATUITI: se il codice del numero è «GRATIS» il numero si legge tutto,
       senza paywall, senza codice e senza acquisto ── */
 (function(){
-  function gratis(i){ return !!i && /^\s*gratis\s*$/i.test(String(i.unlockCode||i.unlock_code||'')); }
+  function gratis(i){ if(!i||i._promoBundle) return false; var c=String(i.unlockCode||i.unlock_code||''); return !c.trim() || /^\s*gratis\s*$/i.test(c); }
   function patch(){ var l=(window.issues||[]).filter(gratis); l.forEach(function(i){ i._unlocked=true; i._gratis=true; }); return l; }
   var css=document.createElement('style');
   css.textContent='.gg-gratis-b{position:absolute;top:10px;right:10px;z-index:3;background:#ffd23f;color:#141310;font:800 11px/1 system-ui,sans-serif;letter-spacing:.12em;padding:6px 9px;border-radius:99px;box-shadow:0 4px 12px rgba(0,0,0,.35);pointer-events:none}';
