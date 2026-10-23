@@ -1986,6 +1986,15 @@ function showToastW(msg){
   setTimeout(function(){ t.remove(); },2200);
 }
 
+function wgGratis(code, html){
+  if(!/^\s*gratis\s*$/i.test(code||"")) return html;
+  return html
+    .split("var unlocked = false;").join("var unlocked = true;")
+    .split("var cur = 0, unlocked = false;").join("var cur = 0, unlocked = true;")
+    .replace("<style>", "<style>\n#ga40-widget #ga40-code-box,#ga40-widget-page #ga40p-acq,#ga40-widget-page .ga40p-code-box,#ga40-buy-overlay,#ga40p-buy-overlay{display:none!important}\n.gg-gratis-nota{margin:10px 0 2px;text-align:center;font:700 12px/1.3 system-ui,sans-serif;color:#ffd23f;letter-spacing:.04em}")
+    .replace('<div id="ga40-code-box">', '<div class="gg-gratis-nota">🎁 Numero gratuito · sfoglialo tutto</div><div id="ga40-code-box">')
+    .replace('<div class="ga40p-code-box">', '<div class="gg-gratis-nota">🎁 Numero gratuito · sfoglialo tutto</div><div class="ga40p-code-box">');
+}
 function generaWidget(){
   var numero=document.getElementById("wg-numero").value.trim();
   var badge=document.getElementById("wg-badge").value.trim()||"Ultima uscita";
@@ -1997,11 +2006,11 @@ function generaWidget(){
   if(!numero||!cover||!code||!pages.length){ showRes("wg-res","Compila numero, copertina, codice e pagine.","err"); return; }
 
   // ── WIDGET SIDEBAR: snippet puro per WordPress ──────────────────
-  document.getElementById("wg-code-sidebar").value = buildSidebarSnippet(numero, badge, cover, code, buy, pages);
+  document.getElementById("wg-code-sidebar").value = wgGratis(code, buildSidebarSnippet(numero, badge, cover, code, buy, pages));
   document.getElementById("wg-out-sidebar").style.display="block";
 
   // ── WIDGET PAGINA INTERNA: snippet incollabile nel blocco HTML di WP ──
-  document.getElementById("wg-code-page").value = buildPageSnippet(numero, badge, cover, code, buy, pages);
+  document.getElementById("wg-code-page").value = wgGratis(code, buildPageSnippet(numero, badge, cover, code, buy, pages));
   document.getElementById("wg-out-page").style.display="block";
   wgCodiceIframe();
 

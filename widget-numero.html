@@ -148,6 +148,15 @@ pagesArr,
 '<\/script>'
   ].join('\n');
 }
+function wgGratis(code, html){
+  if(!/^\s*gratis\s*$/i.test(code||"")) return html;
+  return html
+    .split("var unlocked = false;").join("var unlocked = true;")
+    .split("var cur = 0, unlocked = false;").join("var cur = 0, unlocked = true;")
+    .replace("<style>", "<style>\n#ga40-widget #ga40-code-box,#ga40-widget-page #ga40p-acq,#ga40-widget-page .ga40p-code-box,#ga40-buy-overlay,#ga40p-buy-overlay{display:none!important}\n.gg-gratis-nota{margin:10px 0 2px;text-align:center;font:700 12px/1.3 system-ui,sans-serif;color:#ffd23f;letter-spacing:.04em}")
+    .replace('<div id="ga40-code-box">', '<div class="gg-gratis-nota">🎁 Numero gratuito · sfoglialo tutto</div><div id="ga40-code-box">')
+    .replace('<div class="ga40p-code-box">', '<div class="gg-gratis-nota">🎁 Numero gratuito · sfoglialo tutto</div><div class="ga40p-code-box">');
+}
 function scrivi(html){
   var resize='<script>(function(){var id='+JSON.stringify(Q.get("id")||"")+';function invia(){var w=document.getElementById("ga40-widget-page")||document.body.firstElementChild;var h=Math.ceil(w?w.getBoundingClientRect().bottom+window.scrollY+24:document.body.offsetHeight);try{parent.postMessage({gaWidget:id,h:h},"*");}catch(e){}}'+
     'window.addEventListener("load",invia);window.addEventListener("resize",invia);setInterval(invia,800);document.addEventListener("click",function(){setTimeout(invia,60);});})();<\/script>';
@@ -166,7 +175,7 @@ function scrivi(html){
     var m=(x.title||"").match(/N\.?\s*(\d+)/i);
     var numero=m?("N. "+m[1]+(anno?"/"+anno:"")):(x.title||"");
     var badge=Q.get("badge")||(x.is_latest?"Ultima uscita":(x.subtitle||"Grandangolo Settimanale"));
-    scrivi(buildPageSnippet(numero,badge,x.cover_url||x.pages[0],x.unlock_code||"",x.buy_url||"",x.pages));
+    scrivi(wgGratis(x.unlock_code||"",buildPageSnippet(numero,badge,x.cover_url||x.pages[0],x.unlock_code||"",x.buy_url||"",x.pages)));
   }catch(e){ document.getElementById("attesa").innerHTML='Giornale non disponibile. <a href="https://edicola.grandangoloregionale.it" target="_blank">Vai all\'edicola digitale</a>'; }
 })();
 </script>
