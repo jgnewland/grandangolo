@@ -1,8 +1,22 @@
 {
-  "updated": "2026-10-24T15:45:14.284647+00:00",
+  "updated": "2026-10-24T18:22:53.129140+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Migranti, otto sbarchi a Lampedusa",
+      "summary": "I 315 migranti sono stati accompagnati all’hotspot di contrada Imbriacola",
+      "date": "2026-10-24T17:23:31Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/migranti-otto-sbarchi-a-lampedusa",
+      "img": "/feed-images/6c1602890c34d98f.jpg"
+    },
+    {
+      "title": "Agrigento, protesta contro il caro vita e le guerre: in piazza una ventina di cittadini",
+      "summary": "Sit-in davanti alla Prefettura per chiedere attenzione alle difficoltà economiche e sociali.",
+      "date": "2026-10-24T16:28:21Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-protesta-contro-il-caro-vita-e-le-guerre-in-piazza-una-ventina-di-cittadini",
+      "img": "/feed-images/d8ae614961a998ad.jpg"
+    },
     {
       "title": "Trovato cadavere carbonizzato dentro un’auto, indagini",
       "summary": "Al momento non è chiaro se sia stato un omicidio. Indagano i carabinieri",
@@ -43,7 +57,7 @@
       "summary": "I manifestanti smentiscono di essere stati costretti a mollare dalle forze dell’ordine",
       "date": "2026-10-24T11:10:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/proteste-contro-il-caro-gasolio-i-manifestanti-non-ci-stanno-non-ci-siamo-arresi-e-nessuno-sgombero",
-      "img": "/feed-images/89407ca33fad6025.jpg"
+      "img": "/feed-images/f4118b289358f0b4.jpg"
     },
     {
       "title": "Si rifiuta di sottoporsi all’alcoltest e viene trovato con la droga: arrestato",
@@ -198,20 +212,6 @@
       "date": "2026-10-24T07:42:48Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-la-tradizione-gastronomica-protagonista-per-tutti-i-santi-e-la-commemorazione-dei-defunti",
       "img": "/feed-images/2c0a16e8c24af844.jpg"
-    },
-    {
-      "title": "Lido Oasi in stato di abbandono, Mareamico: “la struttura va messa in sicurezza”",
-      "summary": "Le prossime mareggiate aggrediranno il lido nuovamente e trascineranno in mare quintali di fibrocemento ed eternit",
-      "date": "2026-10-24T07:37:44Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/lido-oasi-in-stato-di-abbandono-mareamico-la-struttura-va-messa-in-sicurezza",
-      "img": "/feed-images/40382b4c87419dfc.jpg"
-    },
-    {
-      "title": "Il TAR Palermo accoglie ricorso di società agrigentina e annulla informativa interdittiva della Prefettura",
-      "summary": "Per effetto della sentenza del TAR, la società potrà continuare la propria attività.",
-      "date": "2026-10-24T07:23:50Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/il-tar-palermo-accoglie-ricorso-di-societa-agrigentina-e-annulla-informativa-interdittiva-della-prefettura",
-      "img": "/feed-images/4c83ad9df3a232ed.jpg"
     }
   ]
 }
