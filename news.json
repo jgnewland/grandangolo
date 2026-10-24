@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-24T18:22:53.129140+00:00",
+  "updated": "2026-10-24T21:02:46.669133+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "L’inchiesta su Lillo Pisano, c’è una “gola profonda” dietro la svolta?",
+      "summary": "Un comunicato della Procura irrompe in un “piatto” sabato mattina di fine ottobre. Ai più attenti non sarà sfuggito un passaggio che potrebbe rappresentare il punto di svolta dell’intera inchiesta",
+      "date": "2026-10-24T18:52:53Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/linchiesta-su-lillo-pisano-ce-una-gola-profonda-dietro-la-svolta",
+      "img": "/feed-images/6abb39df8a7715de.jpg"
+    },
     {
       "title": "Migranti, otto sbarchi a Lampedusa",
       "summary": "I 315 migranti sono stati accompagnati all’hotspot di contrada Imbriacola",
@@ -205,13 +212,6 @@
       "date": "2026-10-24T07:48:01Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/piante-di-marijuana-in-casa-e-droga-pronta-allo-spaccio-arrestati-padre-e-figlio",
       "img": "/feed-images/de9c6a6666c3c1a1.jpg"
-    },
-    {
-      "title": "Agrigento, la tradizione gastronomica protagonista per Tutti i Santi e la Commemorazione dei Defunti",
-      "summary": "Mercoledì 28 ottobre, alle ore 17:30, l’inaugurazione della mostra gastronomica in via Atenea",
-      "date": "2026-10-24T07:42:48Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-la-tradizione-gastronomica-protagonista-per-tutti-i-santi-e-la-commemorazione-dei-defunti",
-      "img": "/feed-images/2c0a16e8c24af844.jpg"
     }
   ]
 }
