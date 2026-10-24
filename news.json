@@ -1,8 +1,36 @@
 {
-  "updated": "2026-10-24T01:58:48.606623+00:00",
+  "updated": "2026-10-24T07:04:25.054304+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "La terra trema ancora in Sicilia, decine di scosse sull’isola",
+      "summary": "Lo sciame sismico ha continuato a far tremare il Tirreno meridionale, davanti alle coste siciliane, tra il palermitano e il Messinese e le Eolie",
+      "date": "2026-10-24T05:43:41Z",
+      "link": "https://www.grandangoloagrigento.it/sicilia/la-terra-trema-ancora-in-sicilia-decine-di-scosse-sullisola",
+      "img": "/feed-images/de373ca6b64ee6ec.jpg"
+    },
+    {
+      "title": "Colpo in un’abitazione al Villaggio Mosè, ladri portano via la cassaforte",
+      "summary": "I ladri hanno utilizzato la temutissima chiave bulgara, l’arnese in grado di aprire porte senza lasciare segni di scasso",
+      "date": "2026-10-24T05:20:21Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/colpo-in-unabitazione-al-villaggio-mose-ladri-portano-via-la-cassaforte",
+      "img": "/feed-images/84a5cd636f978871.png"
+    },
+    {
+      "title": "Truffatori senza pietà, 98enne consegna 6mila euro a finti badante e carabiniere",
+      "summary": "La vittima del raggiro è una pensionata di 98 anni, contattata al telefono da una donna che si è spacciata per la sua (reale) badante",
+      "date": "2026-10-24T05:19:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/truffatori-senza-pieta-98enne-consegna-6mila-euro-a-finti-badante-e-carabiniere",
+      "img": "/feed-images/07e25629eb1d49d5.jpg"
+    },
+    {
+      "title": "Si preparavano a partecipare a manifestazione non autorizzata, 9 fermi preventivi",
+      "summary": "Sono state sequestrate, presso le abitazioni di tre di loro, una mazza metallica di 70 cm, due mefisto neri, un pugnale da sub, un manganello telescopico di metallo, un nunchaku di legno, una pistola…",
+      "date": "2026-10-24T05:13:18Z",
+      "link": "https://www.grandangoloagrigento.it/catania/si-preparavano-a-partecipare-a-manifestazione-non-autorizzata-9-fermi-preventivi",
+      "img": "/feed-images/1ba0593234153246.jpg"
+    },
     {
       "title": "Akragas-Marsala, aperta anche la gradinata: biglietti e informazioni per la gara",
       "summary": "Accese questa sera le luci dello stadio Esseneto per il primo allenamento in notturna dell’Akragas. Domenica alle 20 la sfida contro il Marsala, con apertura anche della gradinata.",
@@ -184,34 +212,6 @@
       "date": "2026-10-21T10:37:41Z",
       "link": "https://www.grandangoloagrigento.it/politica/sit-in-di-controcorrente-davanti-lassessorato-regionale-della-salute-la-vardera-caruso-dimettiti",
       "img": "/feed-images/b9f888fcb863ac50.png"
-    },
-    {
-      "title": "Non si ferma all’Alt, spacca lo scooter sequestrato e insulta i Carabinieri: denunciato",
-      "summary": "Deve rispondere di danneggiamento, minacce e oltraggio",
-      "date": "2026-10-21T10:22:19Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/non-si-ferma-allalt-spacca-lo-scooter-sequestrato-e-insulta-i-carabinieri-denunciato",
-      "img": "/feed-images/9230411381ec91e3.jpg"
-    },
-    {
-      "title": "Appalti “truccati” e mazzette: 14 indagati tra politici, imprenditori e dipendenti comunali",
-      "summary": "Nella lista degli indagati ci sono due imprenditori di Favara, un segretario comunale di Agrigento e il marito (di Canicattì) di una politica locale",
-      "date": "2026-10-21T09:58:42Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/appalti-truccati-e-mazzette-14-indagati-tra-politici-imprenditori-e-dipendenti-comunali",
-      "img": "/feed-images/74700973829c01d3.jpg"
-    },
-    {
-      "title": "Beccati mentre caricano 20 chili di rame, due giovani arrestati",
-      "summary": "Un 26enne e un 29enne devono rispondere di furto aggravato",
-      "date": "2026-10-21T09:25:04Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/beccati-mentre-caricano-20-chili-di-rame-due-giovani-arrestati",
-      "img": "/feed-images/b58038b8b97bf088.jpg"
-    },
-    {
-      "title": "Ultimo weekend delle Vie dei Tesori a Sciacca, sul filo dell’acqua: dal corallo alle sorgenti sulfuree",
-      "summary": "Tre passeggiate tra la memoria del dirigibile Dixmude, la riserva di Capo San Marco e le sorgenti sulfuree. Poi il teatro nel Giardino Scandaglia, la danza a Palazzo Licata Borsellino e i laboratori…",
-      "date": "2026-10-21T09:03:07Z",
-      "link": "https://www.grandangoloagrigento.it/sciacca/ultimo-weekend-delle-vie-dei-tesori-a-sciacca-sul-filo-dellacqua-dal-corallo-alle-sorgenti-sulfuree",
-      "img": "/feed-images/0349dc5d394fe350.jpg"
     }
   ]
 }
