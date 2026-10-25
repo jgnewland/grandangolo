@@ -42,11 +42,12 @@
   </div>
 
   <script>
-    /* ?sito=regionale: il secondo banner (che porterebbe al regionale stesso) diventa «In edicola» con l'ultimo numero */
+    /* banner «In edicola» con l'ultimo numero: su tutti i siti in coda alla rotazione;
+       con ?sito=regionale prende il posto del banner che porterebbe al regionale stesso */
     var Q = new URLSearchParams(location.search);
-    if (Q.get("sito") === "regionale") {
+    {
       var giro = document.getElementById("giro"), vecchio = giro.children[1];
-      if (vecchio) vecchio.remove();
+      if (Q.get("sito") === "regionale" && vecchio) vecchio.remove();
       var K = "sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn";
       fetch("https://xfmiikymagamnexsbrdt.supabase.co/rest/v1/issues?select=id,title,subtitle,cover_url,pages&is_latest=eq.true&status=eq.published&order=sort_order.desc.nullslast,created_at.desc&limit=1", { headers: { apikey: K, Authorization: "Bearer " + K } })
         .then(function (r) { return r.json(); })
