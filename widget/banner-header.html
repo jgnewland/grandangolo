@@ -22,7 +22,7 @@
   .ed-h{font-size:3.1cqw;line-height:1.05;font-weight:700}
   .ed-h i{color:#ffd23f;font-weight:400}
   .ed-t{font:italic 1.35cqw/1.3 Georgia,serif;color:rgba(255,255,255,.75);margin-top:.9cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .ed-cov{position:absolute;right:21cqw;top:-8%;height:122%;width:auto;border-radius:.3cqw;transform:rotate(-6deg);box-shadow:0 1cqw 2.5cqw rgba(0,0,0,.6)}
+  .ed-cov{position:absolute;right:21cqw;top:7%;height:86%;width:auto;border-radius:.3cqw;transform:rotate(-6deg);box-shadow:0 1cqw 2.5cqw rgba(0,0,0,.6)}
   .ed-cov2{right:25cqw;transform:rotate(-14deg);opacity:.5;filter:blur(.08cqw) brightness(.7)}
   .ed-btn{position:absolute;right:3cqw;top:50%;transform:translateY(-50%);background:#ffd23f;color:#141310;font:800 1.55cqw/1 system-ui,sans-serif;padding:1.5cqw 2.2cqw;border-radius:99cqw;white-space:nowrap;box-shadow:0 .5cqw 1.4cqw rgba(0,0,0,.35)}
   .ed-btn small{display:block;font:600 .95cqw/1 system-ui,sans-serif;letter-spacing:.06em;margin-top:.5cqw;opacity:.75;text-align:center}
@@ -64,7 +64,6 @@
             '<div class="ed-txt"><div class="ed-k">In edicola · Grandangolo Settimanale</div>' +
             '<div class="ed-h">Il nuovo numero <i>è uscito</i></div>' +
             '<div class="ed-t">' + esc(x.title) + (x.subtitle ? " · " + esc(x.subtitle) : "") + '</div></div>' +
-            (cov2 ? '<img class="ed-cov ed-cov2" src="' + esc(cov2) + '" alt="">' : '') +
             '<img class="ed-cov" src="' + esc(cov) + '" alt="Copertina">' +
             '<span class="ed-btn">SFOGLIALO ORA →<small>edicola digitale</small></span>' +
             '</div>';
