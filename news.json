@@ -1,8 +1,29 @@
 {
-  "updated": "2026-10-25T14:59:47.448467+00:00",
+  "updated": "2026-10-25T18:20:06.599787+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Ci hai insegnato che un giornalista senza le sue fonti non è nulla, ma soprattutto senza i suoi lettori non esiste",
+      "summary": "Compostezza, schiena dritta, pacatezza e al contempo sempre la scintilla della curiosità: mai paura di chiedere, di pretendere, di immaginare, di indovinare, e soprattutto, di scrivere",
+      "date": "2026-10-25T18:15:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/ci-hai-insegnato-che-un-giornalista-senza-le-sue-fonti-non-e-nulla-ma-soprattutto-senza-i-suoi-lettori-non-esiste",
+      "img": "/feed-images/c99fb87cd01a0a2d.jpg"
+    },
+    {
+      "title": "“Assèttiti cca, tanto vicino a me non ci vuole stare nessuno”",
+      "summary": "“Scriveva, scriveva, scriveva. Con la frenesia e la passione di un ragazzino. Inchieste, processi, storie, con la spasmodica ricerca delle carte. Il suo grido di battaglia, la sua meravigliosa…",
+      "date": "2026-10-25T17:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/assettiti-cca-tanto-vicino-a-me-non-ci-vuole-stare-nessuno",
+      "img": "/feed-images/2575b59bf057ae02.png"
+    },
+    {
+      "title": "Crea (di nuovo) il panico al Pronto soccorso di Licata, arrestato 38enne",
+      "summary": "Anche stamattina è evaso e si è recato al Pronto soccorso creando non pochi disagi all’interno della struttura sanitaria",
+      "date": "2026-10-25T16:36:56Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/crea-di-nuovo-il-panico-al-pronto-soccorso-di-licata-arrestato-38enne",
+      "img": "/feed-images/49e8c07ec7818c7d.jpg"
+    },
     {
       "title": "Colpi di pistola in discoteca, ferito 20enne",
       "summary": "Il ragazzo e’ stato curato all’ospedale San Marco e non e’ in pericolo di vita.",
@@ -35,7 +56,7 @@
       "title": "“Il mio maestro di cronaca e di vita: addio a Franco Castaldo”",
       "summary": "Il commovente ricordo di Elvira Terranova, capo servizio dell’Adnkronos e Cavaliere al merito della Repubblica",
       "date": "2026-10-25T10:10:00Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/il-mio-maestro-di-cronaca-e-di-vita-addio-a-franco-castaldo",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/il-mio-maestro-di-cronaca-e-di-vita-addio-a-franco-castaldo",
       "img": "/feed-images/4069cd0226b1aee0.jpg"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-10-24T15:04:19Z",
       "link": "https://www.grandangoloagrigento.it/primo-piano/trovato-cadavere-carbonizzato-dentro-unauto-indagini",
       "img": "/feed-images/72fa627816b0896d.jpg"
-    },
-    {
-      "title": "Ravanusa, chiuso per 10 giorni locale per motivi di ordine e sicurezza pubblica",
-      "summary": "A firmare il provvedimento è stato il questore di Agrigento, Tommaso Palumbo",
-      "date": "2026-10-24T12:07:48Z",
-      "link": "https://www.grandangoloagrigento.it/primo-piano/ravanusa-chiuso-per-10-giorni-locale-per-motivi-di-ordine-e-sicurezza-pubblica",
-      "img": "/feed-images/a1a54b61206f6e4d.jpg"
-    },
-    {
-      "title": "Truffa e associazione a delinquere: indagati l’onorevole Pisano e due dirigenti",
-      "summary": "I reati contestati agli indagati sono associazione per delinquere, peculato, truffa aggravata ai danni della Regione e del Comune",
-      "date": "2026-10-24T11:32:37Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/truffa-e-associazione-a-delinquere-indagati-lonorevole-pisano-assessore-regionale-e-dirigente-comunale",
-      "img": "/feed-images/8b419e4ae81ad26d.jpg"
-    },
-    {
-      "title": "Agrigento tagliata fuori dall’ex Tabella H: scoppia la guerra delle “mancette”",
-      "summary": "Sodano annuncia la volontà di impugnare le variazione di bilancio della Regione, scatta lo scontro a distanza con l’Mpa.",
-      "date": "2026-10-24T11:31:41Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/agrigento-tagliata-fuori-dallex-tabella-h-scoppia-la-guerra-delle-mancette",
-      "img": "/feed-images/e356771263665517.png"
     }
   ]
 }
