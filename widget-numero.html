@@ -158,17 +158,18 @@ function wgGratis(code, html){
     .replace('<div class="ga40p-code-box">', '<div class="gg-gratis-nota">🎁 Numero gratuito · sfoglialo tutto</div><div class="ga40p-code-box">');
 }
 function scrivi(html){
-  var resize='<script>(function(){var id='+JSON.stringify(Q.get("id")||"")+';function invia(){var w=document.getElementById("ga40-widget-page")||document.body.firstElementChild;var h=Math.ceil(w?w.getBoundingClientRect().bottom+window.scrollY+24:document.body.offsetHeight);try{parent.postMessage({gaWidget:id,h:h},"*");}catch(e){}}'+
+  var resize='<script>(function(){var id='+JSON.stringify(Q.get("id")||"ultimo")+';function invia(){var w=document.getElementById("ga40-widget-page")||document.body.firstElementChild;var h=Math.ceil(w?w.getBoundingClientRect().bottom+window.scrollY+24:document.body.offsetHeight);try{parent.postMessage({gaWidget:id,h:h},"*");}catch(e){}}'+
     'window.addEventListener("load",invia);window.addEventListener("resize",invia);setInterval(invia,800);document.addEventListener("click",function(){setTimeout(invia,60);});})();<\/script>';
   document.open();
   document.write('<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base target="_blank"><style>html,body{margin:0;background:transparent}</style></head><body>'+html+resize+'</body></html>');
   document.close();
 }
 (async function(){
-  var id=Q.get("id");
-  if(!id){ document.getElementById("attesa").textContent="Numero non indicato."; return; }
+  var id=Q.get("id")||"ultimo";
+  /* id=ultimo (o nessun id): sempre l'ultima uscita, si aggiorna da solo a ogni numero nuovo */
+  var filtro = id==="ultimo" ? "is_latest=eq.true&status=eq.published&order=sort_order.desc.nullslast,created_at.desc&limit=1" : "id=eq."+encodeURIComponent(id);
   try{
-    var r=await fetch(SB_URL+"/rest/v1/issues?select=title,subtitle,cover_url,unlock_code,buy_url,pages,anno,is_latest&id=eq."+encodeURIComponent(id),{headers:{apikey:SB_KEY,Authorization:"Bearer "+SB_KEY}});
+    var r=await fetch(SB_URL+"/rest/v1/issues?select=title,subtitle,cover_url,unlock_code,buy_url,pages,anno,is_latest&"+filtro,{headers:{apikey:SB_KEY,Authorization:"Bearer "+SB_KEY}});
     var x=(await r.json())[0];
     if(!x||!x.pages||!x.pages.length) throw new Error("numero non trovato");
     var anno=x.anno||((x.subtitle||"").match(/20\d\d/)||[])[0]||"";
