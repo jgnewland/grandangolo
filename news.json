@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-25T21:02:47.354695+00:00",
+  "updated": "2026-10-25T23:15:19.200931+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Akragas-Marsala, spettacolo all’Esseneto: quattro gol e un pareggio combattuto",
+      "summary": "Finisce 2-2 la sfida tra Akragas e Marsala davanti a quasi 4.000 spettatori. Guadalupo segna due volte per gli ospiti, Giorgio e Cipolla rispondono per i biancazzurri.",
+      "date": "2026-10-25T21:09:30Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/akragas-marsala-spettacolo-allesseneto-quattro-gol-e-un-pareggio-combattuto",
+      "img": "/feed-images/37b51488f1d0f8ef.jpg"
+    },
     {
       "title": "Disability Biodiversity Pride ad Agrigento, Sicurello: “vogliamo una città più accessibile”",
       "summary": "Un’occasione per condividere esperienze, evidenziare criticità, avanzare proposte e costruire insieme una città più accessibile, equa e inclusiva.",
@@ -205,13 +212,6 @@
       "date": "2026-10-24T17:23:31Z",
       "link": "https://www.grandangoloagrigento.it/lampedusa/migranti-otto-sbarchi-a-lampedusa",
       "img": "/feed-images/6c1602890c34d98f.jpg"
-    },
-    {
-      "title": "Il concerto di Achille Lauro nel mirino della Procura, chiesto il carcere per Lillo Pisano: indagato anche Ciulla",
-      "summary": "La Procura di Agrigento ha chiesto il carcere per il deputato Lillo Pisano. Tra i “nuovi” indagati anche l’ex assessore e attuale consigliere comunale Costantino Ciulla",
-      "date": "2026-10-24T17:10:42Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/il-concerto-di-achille-lauro-nel-mirino-della-procura-chiesto-il-carcere-per-lillo-pisano-indagato-anche-ciulla",
-      "img": "/feed-images/8bd0dec3ff0e877e.jpg"
     }
   ]
 }
