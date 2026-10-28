@@ -241,6 +241,24 @@
           <p class="warn" id="igWarn"></p>
         </div>
       </details>
+      <details class="acc" id="wmAcc">
+        <summary>💧 Filigrana foto · carica, applica, scarica</summary>
+        <div class="body">
+          <p class="hint" style="margin-top:2px">Carica una o più foto: ognuna esce con la filigrana <b>Grandangolo esclusiva</b>, alla stessa grandezza dell'originale. Le foto restano sul tuo computer, non vengono caricate da nessuna parte.</p>
+          <input type="file" id="wmFiles" accept="image/*" multiple style="margin-top:6px">
+          <div class="group" style="margin-top:10px"><label>Intensità <b id="wmOpV">100%</b></label><input type="range" id="wmOp" min="20" max="250" value="100" step="5"></div>
+          <div class="group"><label>Grandezza loghi <b id="wmScV">100%</b></label><input type="range" id="wmSc" min="40" max="200" value="100" step="5"></div>
+          <div class="group"><label>Formato di uscita</label>
+            <div class="seg" id="wmFmt"><button data-w="jpg" class="on">JPG</button><button data-w="png">PNG</button></div></div>
+          <div id="wmList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:10px"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <button class="btn btn-lime btn-sm" id="wmAll" disabled>⬇ Scarica tutte (ZIP)</button>
+            <button class="btn btn-sm" id="wmClear" disabled>Svuota</button>
+            <label class="btn btn-sm" style="cursor:pointer">Cambia filigrana<input type="file" id="wmCustom" accept="image/png" style="display:none"></label>
+          </div>
+          <p class="hint" id="wmStat"></p>
+        </div>
+      </details>
       <div class="group">
         <label>Tipo di post</label>
         <div class="seg" id="tpl">
@@ -1474,6 +1492,58 @@ if(document.fonts&&document.fonts.ready){
     try{const d=await chiama('grd_ig_stato');const scelti=new Set([...sel].map(i=>notizie[i]&&notizie[i].link));
       notizie=d.notizie||[];sel=new Set();notizie.forEach((n,i)=>{if(scelti.has(n.link))sel.add(i);});account=d.account;disegna();}catch(e){}
   },300000);
+})();
+</script>
+<script>
+/* Filigrana foto: tutto nel browser, la foto non esce dal computer */
+(function(){
+  const $=id=>document.getElementById(id);
+  let wm=new Image(), wmPronta=false, foto=[], fmt='jpg';
+  wm.onload=()=>{wmPronta=true;ridisegna();}; wm.src='filigrana-esclusiva.png';
+  const op=()=>+$('wmOp').value/100, sc=()=>+$('wmSc').value/100;
+  function applica(img){
+    const W=img.naturalWidth,H=img.naturalHeight,c=document.createElement('canvas');c.width=W;c.height=H;
+    const x=c.getContext('2d');x.drawImage(img,0,0);
+    if(wmPronta){
+      /* il motivo copre la foto: larghezza del motivo = larghezza foto x grandezza, poi si ripete */
+      const tw=Math.max(60,W*0.3875*sc()), th=tw*wm.naturalHeight/wm.naturalWidth; /* il riquadro si ripete senza giunte */
+      const t=document.createElement('canvas');t.width=Math.round(tw);t.height=Math.round(th);t.getContext('2d').drawImage(wm,0,0,t.width,t.height);
+      let a=op(); x.fillStyle=x.createPattern(t,'repeat');
+      while(a>0){x.globalAlpha=Math.min(1,a);x.fillRect(0,0,W,H);a-=1;}
+      x.globalAlpha=1;
+    }
+    return c;
+  }
+  function nome(n){return n.replace(/\.[^.]+$/,'')+'-filigrana.'+fmt;}
+  function blob(c){return new Promise(r=>c.toBlob(r,fmt==='jpg'?'image/jpeg':'image/png',.92));}
+  async function scarica(i){const f=foto[i];const b=await blob(applica(f.img));const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=nome(f.name);a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);}
+  function ridisegna(){
+    const L=$('wmList');L.innerHTML='';
+    foto.forEach((f,i)=>{const c=applica(f.img);const p=document.createElement('canvas');const k=240/Math.max(c.width,c.height);p.width=Math.round(c.width*k);p.height=Math.round(c.height*k);p.getContext('2d').drawImage(c,0,0,p.width,p.height);
+      p.style.cssText='width:100%;border-radius:8px;display:block;background:#000';
+      const d=document.createElement('div');d.style.cssText='background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:6px;font-size:11px';
+      const b=document.createElement('button');b.className='btn btn-green btn-sm';b.style.cssText='width:100%;margin-top:6px';b.textContent='⬇ Scarica';b.onclick=()=>scarica(i);
+      const n=document.createElement('div');n.textContent=f.name;n.style.cssText='margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt-dim)';
+      d.append(p,n,b);L.append(d);});
+    $('wmAll').disabled=$('wmClear').disabled=!foto.length;
+    $('wmStat').textContent=foto.length?foto.length+' foto pronte.':'';
+    $('wmOpV').textContent=$('wmOp').value+'%';$('wmScV').textContent=$('wmSc').value+'%';
+  }
+  function carica(files){[...files].forEach(file=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>{foto.push({name:file.name,img:im});ridisegna();};im.onerror=()=>{$('wmStat').textContent='Non riesco ad aprire '+file.name+' (formato non supportato? usa JPG o PNG).';};im.src=u;});}
+  $('wmFiles').onchange=e=>{carica(e.target.files);e.target.value='';};
+  $('wmOp').oninput=$('wmSc').oninput=()=>{clearTimeout(window._wmT);window._wmT=setTimeout(ridisegna,120);};
+  [...$('wmFmt').children].forEach(b=>b.onclick=()=>{fmt=b.dataset.w;[...$('wmFmt').children].forEach(x=>x.classList.toggle('on',x===b));});
+  $('wmClear').onclick=()=>{foto=[];ridisegna();};
+  $('wmCustom').onchange=e=>{const f=e.target.files[0];if(!f)return;wmPronta=false;wm=new Image();wm.onload=()=>{wmPronta=true;ridisegna();};wm.src=URL.createObjectURL(f);};
+  $('wmAll').onclick=async()=>{
+    if(foto.length===1)return scarica(0);
+    $('wmStat').textContent='Preparo lo ZIP…';const z=new JSZip();
+    for(const f of foto){z.file(nome(f.name),await blob(applica(f.img)));}
+    const b=await z.generateAsync({type:'blob'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='foto-filigrana-'+new Date().toISOString().slice(0,10)+'.zip';a.click();
+    $('wmStat').textContent=foto.length+' foto scaricate nello ZIP.';
+  };
+  /* trascina le foto sul riquadro */
+  const acc=$('wmAcc');acc.addEventListener('dragover',e=>{e.preventDefault();});acc.addEventListener('drop',e=>{e.preventDefault();acc.open=true;carica(e.dataTransfer.files);});
 })();
 </script>
 </body>
