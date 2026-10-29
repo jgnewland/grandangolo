@@ -1,8 +1,22 @@
 {
-  "updated": "2026-10-28T20:34:28.463838+00:00",
+  "updated": "2026-10-29T00:25:13.992129+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Avrebbe finto la paternità di una bambina disabile, ex agente della Polizia Locale condannato",
+      "summary": "L’agrigentino in servizio a Buccinasco nel Milanese è stato condannato a 1anno e 8 mesi di reclusione e al risarcimento di 60mila euro",
+      "date": "2026-10-28T22:07:27Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/avrebbe-finto-la-paternita-di-una-bambina-disabile-ex-agente-della-polizia-locale-condannato",
+      "img": "/feed-images/7e46e1d0d14c5515.jpg"
+    },
+    {
+      "title": "Tumori a pompieri a Lampedusa, Viminale chiede verifiche a commissione medica",
+      "summary": "La valutazione sanitaria è necessaria per ottenere il parere del comitato di verifica per le cause di servizio.",
+      "date": "2026-10-28T21:58:43Z",
+      "link": "https://www.grandangoloagrigento.it/lampedusa/tumori-a-pompieri-a-lampedusa-viminale-chiede-verifiche-a-commissione-medica",
+      "img": "/feed-images/8ba6db1fe4de68ca.jpg"
+    },
     {
       "title": "L’operaio morto sul viadotto Morandi, depositata perizia: “Precipitato dal livello superiore”. Adesso tocca ai Ris",
       "summary": "il corpo è stato rinvenuto due piani di ponteggio al di sotto del livello superiore del viadotto. Adesso resta da capire cosa abbia provocato la caduta",
@@ -198,20 +212,6 @@
       "date": "2026-10-28T05:59:00Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/documenti-di-identita-senza-microchip-denunciati-tre-giovani",
       "img": "/feed-images/574b1517b58b558a.jpg"
-    },
-    {
-      "title": "Aree di recupero, architetti chiedono il riesame delle disposizioni della Soprintendenza",
-      "summary": "Lettera alla Regione dopo le segnalazioni degli iscritti. Sul tavolo ritardi nelle istruttorie, carenza di personale tecnico e criticità applicative",
-      "date": "2026-10-28T05:37:51Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/aree-di-recupero-architetti-chiedono-il-riesame-delle-disposizioni-della-soprintendenza",
-      "img": "/feed-images/e690df9ec62bf11b.jpg"
-    },
-    {
-      "title": "“Si è rivolto alla Stidda agrigentina per ingaggiare un killer”, ex assessore condannato per omicidio",
-      "summary": "La vicenda è legata all’omicidio di Francesco Calcagno, ucciso dal licatese Luigi Cassaro nell’agosto 2017. L’ex assessore si sarebbe rivolto alla stidda di Canicattì per ingaggiare il killer",
-      "date": "2026-10-27T19:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/si-e-rivolto-alla-stidda-agrigentina-per-ingaggiare-un-killer-ex-assessore-condannato-per-omicidio",
-      "img": "/feed-images/f80373a1e8f97d93.jpg"
     }
   ]
 }
