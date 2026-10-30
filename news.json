@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-30T20:21:08.747415+00:00",
+  "updated": "2026-10-30T23:56:18.577037+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "“Eventopoli”: il cerchio magico dell’onorevole Lillo Pisano",
+      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
+      "date": "2026-10-30T22:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/grandangolo-settimanale/eventopoli-il-cerchio-magico-dellonorevole-lillo-pisano",
+      "img": "/feed-images/dce866c35ecb4daf.jpg"
+    },
     {
       "title": "Raffadali, ruba tre bottiglie di alcolici dal supermercato: chiede scusa e viene perdonato",
       "summary": "Il proprietario dell’esercizio commerciale, dopo aver perdonato il 34enne, ha ritirato la querela",
@@ -205,13 +212,6 @@
       "date": "2026-10-30T08:49:57Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/calci-e-pugni-ad-operatore-del-pronto-soccorso-arrestato-55enne",
       "img": "/feed-images/d5f6b36438eaec72.jpg"
-    },
-    {
-      "title": "Crisi idrica in agricoltura, il TAR annulla archiviazione della domanda di contributo ad un’impresa agrigentina",
-      "summary": "Accolto nel merito il ricorso proposto dagli avvocati Francescochristian Schembri e Michele Melfa",
-      "date": "2026-10-30T08:40:32Z",
-      "link": "https://www.grandangoloagrigento.it/giudiziaria/crisi-idrica-in-agricoltura-il-tar-annulla-archiviazione-della-domanda-di-contributo-ad-unimpresa-agrigentina",
-      "img": "/feed-images/4c83ad9df3a232ed.jpg"
     }
   ]
 }
