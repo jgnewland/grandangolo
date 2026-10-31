@@ -49,7 +49,7 @@
       var giro = document.getElementById("giro"), vecchio = giro.children[1];
       if (Q.get("sito") === "regionale" && vecchio) vecchio.remove();
       var K = "sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn";
-      fetch("https://xfmiikymagamnexsbrdt.supabase.co/rest/v1/issues?select=id,title,subtitle,cover_url,pages&is_latest=eq.true&status=eq.published&order=sort_order.desc.nullslast,created_at.desc&limit=1", { headers: { apikey: K, Authorization: "Bearer " + K } })
+      fetch("https://xfmiikymagamnexsbrdt.supabase.co/rest/v1/issues?select=id,title,subtitle,cover_url,pages&is_latest=eq.true&or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte."+new Date().toISOString()+"))&order=sort_order.desc.nullslast,created_at.desc&limit=1", { headers: { apikey: K, Authorization: "Bearer " + K } })
         .then(function (r) { return r.json(); })
         .then(function (d) {
           var x = d && d[0]; if (!x) return;

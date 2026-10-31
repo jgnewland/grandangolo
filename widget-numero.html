@@ -167,7 +167,7 @@ function scrivi(html){
 (async function(){
   var id=Q.get("id")||"ultimo";
   /* id=ultimo (o nessun id): sempre l'ultima uscita, si aggiorna da solo a ogni numero nuovo */
-  var filtro = id==="ultimo" ? "is_latest=eq.true&status=eq.published&order=sort_order.desc.nullslast,created_at.desc&limit=1" : "id=eq."+encodeURIComponent(id);
+  var filtro = id==="ultimo" ? "is_latest=eq.true&or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte."+new Date().toISOString()+"))&order=sort_order.desc.nullslast,created_at.desc&limit=1" : "id=eq."+encodeURIComponent(id);
   try{
     var r=await fetch(SB_URL+"/rest/v1/issues?select=title,subtitle,cover_url,unlock_code,buy_url,pages,anno,is_latest&"+filtro,{headers:{apikey:SB_KEY,Authorization:"Bearer "+SB_KEY}});
     var x=(await r.json())[0];
