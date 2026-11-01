@@ -1,8 +1,22 @@
 {
-  "updated": "2026-11-01T19:51:18.791593+00:00",
+  "updated": "2026-11-01T23:19:46.974681+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Trasferta amara per la Fortitudo Agrigento, terza sconfitta consecutiva a Treviglio",
+      "summary": "I giganti devono trovare velocemente smalto e lucidità per affrontare la prossima partita in casa tra le mura del Palamoncada",
+      "date": "2026-11-01T19:55:24Z",
+      "link": "https://www.grandangoloagrigento.it/sport/trasferta-amara-per-la-fortitudo-agrigento-terza-sconfitta-consecutiva-a-treviglio",
+      "img": "/feed-images/bfda721fc13d5b53.jpg"
+    },
+    {
+      "title": "Gio Alaimo spinge il sogno del cugino Luigi, due favaresi alla Maratona di New York",
+      "summary": "Una storia che parte da Favara e attraversa New York. Luigi ha una paralisi cerebrale dalla nascita e si muove in carrozzina. Sarà Gio a spingerla per tutti i 42 chilometri, in una gara vissuta…",
+      "date": "2026-11-01T19:52:38Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/gio-alaimo-spinge-il-sogno-del-cugino-luigi-due-favaresi-alla-maratona-di-new-york",
+      "img": "/feed-images/83b9a297c50b396e.jpg"
+    },
     {
       "title": "Imprenditore ucciso a colpi di pistola, la vittima è cognato del vescovo La Placa",
       "summary": "A renderlo noto è la diocesi che in un messaggio pubblicato sui social esprime vicinanza al vescovo e alla sua famiglia per la “tragica e prematura scomparsa” del congiunto",
@@ -15,7 +29,7 @@
       "summary": "La squadra di Cammarata continua a mostrare evidenti limiti soprattutto lontano dall’Esseneto",
       "date": "2026-11-01T16:15:22Z",
       "link": "https://www.grandangoloagrigento.it/apertura/eccellenza-lakragas-cade-a-cefalu-il-lascari-vince-1-0",
-      "img": "/feed-images/48619b0ce7f124e0.jpg"
+      "img": "/feed-images/acaa9b57df24d1b2.jpg"
     },
     {
       "title": "L’omicidio di Angelo Castronovo, la difesa rilancia: “Rallo ha alibi di ferro”",
@@ -198,20 +212,6 @@
       "date": "2026-10-31T17:32:01Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/banda-del-buco-prende-di-mira-distributore-di-benzina-portati-via-soldi-danni-alla-cassa",
       "img": "/feed-images/9f5d831378b12e1e.jpg"
-    },
-    {
-      "title": "Rubano due stecche di “Gratta&vinci” e riscuotono 420 euro, denunciati",
-      "summary": "Lo scorso agosto avevano messo a segno un furto in una tabaccheria in via Giovanni XXIII, nel centro di Agrigento, rubando ben due stecche di “Gratta&vinci”",
-      "date": "2026-10-31T16:56:04Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/rubano-due-stecche-di-grattavinci-e-riscuotono-420-euro-denunciati",
-      "img": "/feed-images/a1a54b61206f6e4d.jpg"
-    },
-    {
-      "title": "I furti al Palasport e alla cittadella sanitaria, 25enne ci “ricasca” dopo tre anni: denunciato",
-      "summary": "Il giovane è accusato di aver svuotato le macchinette al Palasport e alla Cittadella sanitaria di Agrigento. Tre anni fa era stato arrestato per furti in negozi, bar e ristoranti",
-      "date": "2026-10-31T16:47:28Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/i-furti-al-palasport-e-alla-cittadella-sanitaria-25enne-ci-ricasca-dopo-tre-anni-denunciato",
-      "img": "/feed-images/41cef9ba0688227b.jpg"
     }
   ]
 }
