@@ -1,8 +1,15 @@
 {
-  "updated": "2026-11-02T20:00:32.979451+00:00",
+  "updated": "2026-11-03T02:17:24.381603+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Akragas-Alcamo, si gioca sabato 7 novembre alle 20: l’Esseneto torna ad accendersi in notturna",
+      "summary": "La decisione comunicata sui canali social della società",
+      "date": "2026-11-02T20:46:23Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-alcamo-sabato-7-novembre-ore-20",
+      "img": "/feed-images/2beb73a29f77d996.jpg"
+    },
     {
       "title": "Attacchi hacker colpiscono i supermercati siciliani, in tilt sistemi di refrigerazione",
       "summary": "L’attacco ha portato alla modifica dei parametri della temperatura surruiscaldando i banchi e provocando un deperimento degli alimenti",
@@ -205,13 +212,6 @@
       "date": "2026-11-02T08:00:00Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/commemorazione-dei-defunti-il-vescovo-damiano-lultima-parola-non-e-la-morte-ma-la-vita-nuova-in-cristo",
       "img": "/feed-images/83aa1e81c98cc397.jpg"
-    },
-    {
-      "title": "Edilizia scolastica e caro trasporti, studenti e Cgil Agrigento in piazza il 20 novembre",
-      "summary": "Le organizzazioni hanno condiviso l’importanza di unire, in un’unica manifestazione, le ragioni della protesta studentesca, in occasione della Giornata internazionale degli studenti",
-      "date": "2026-11-02T07:40:35Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/edilizia-scolastica-e-caro-trasporti-studenti-e-cgil-agrigento-in-piazza-il-20-novembre",
-      "img": "/feed-images/81d6ead616022226.jpg"
     }
   ]
 }
