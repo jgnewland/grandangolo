@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pubblicità</title>
+<style>
+  html,body{margin:0;padding:0;background:transparent;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
+  #w{min-height:10px}
+</style>
+</head>
+<body>
+<!-- Banner nativo Adsterra (unità 32069719) chiuso in un riquadro isolato:
+     la pagina che lo ospita lo carica in un iframe «sandbox» senza permesso di spostare il lettore
+     né di toccare la pagina dell'articolo. Qui dentro, una nuova finestra si apre solo con un tocco vero su un annuncio. -->
+<div id="w">
+  <script async="async" data-cfasync="false" src="https://pl32170218.profitableratecpmnetwork.com/bbd76a1f9e493028ef8df24569eab99e/invoke.js"></script>
+  <div id="container-bbd76a1f9e493028ef8df24569eab99e"></div>
+</div>
+<script>
+(function(){
+  /* nuove finestre solo se il lettore ha appena toccato un annuncio (niente aperture da sole) */
+  var ultimoTocco=0;
+  ['pointerdown','touchstart','mousedown','keydown'].forEach(function(t){ document.addEventListener(t,function(e){ if(e.isTrusted) ultimoTocco=Date.now(); },true); });
+  var apri=window.open;
+  window.open=function(){ if(Date.now()-ultimoTocco>1200) return null; return apri.apply(window,arguments); };
+  /* altezza giusta del riquadro nella pagina che lo ospita */
+  var w=document.getElementById('w'), ultima=0;
+  function invia(){ var h=Math.ceil(w.getBoundingClientRect().height); if(h&&h!==ultima){ ultima=h; try{ parent.postMessage({gaWidget:'adv',h:h},'*'); }catch(e){} } }
+  if(window.ResizeObserver) new ResizeObserver(invia).observe(w);
+  setInterval(invia,1500); window.addEventListener('load',invia);
+})();
+</script>
+</body>
+</html>
