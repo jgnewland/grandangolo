@@ -110,6 +110,12 @@
   .upload:hover{border-color:var(--mint)}
   .pngbtn{all:unset;cursor:pointer;font-family:"Archivo",sans-serif;font-weight:700;font-size:13.5px;padding:12px 18px;border-radius:10px;background:var(--green);color:var(--green-ink);display:inline-flex;align-items:center;gap:8px}
   .pngbtn:hover{filter:brightness(1.08)}
+  .pngbtn[disabled]{opacity:.45;pointer-events:none}
+  .vprog{height:10px;border-radius:99px;background:var(--panel-2);border:1px solid var(--line);overflow:hidden;width:100%}
+  .vprog i{display:block;height:100%;width:0;background:var(--green);transition:width .25s}
+  .vstato{font-size:13px;color:var(--muted);line-height:1.5}
+  .vstato b{color:var(--ink)}
+  .vfile{font-size:12.5px;color:var(--mint);margin-left:8px}
   .pngbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:600}
   .pngbtn.ghost:hover{border-color:var(--mint)}
   .pnghead .step{background:var(--green)!important;color:var(--green-ink)!important;width:auto!important;padding:0 8px}
@@ -237,6 +243,28 @@
     <div class="field" style="gap:12px">
       <button class="pngbtn" id="dlFull">Scarica PNG a schermo intero</button>
       <button class="pngbtn ghost" id="dlCrop">Scarica PNG ritagliato</button>
+    </div>
+  </div>
+
+  <div class="panel" id="vidPanel">
+    <div class="phead pnghead"><span class="step">VIDEO</span><span class="t">Scarica il video completo — con lower third, logo e outro (senza pubblicità)</span></div>
+    <div class="field"><label>Video principale<span class="desc">usa il «Link principale» (se è un file .mp4) oppure carica il file</span></label>
+      <label class="upload">Carica video<input type="file" id="vMainFile" accept="video/*" hidden></label><span class="vfile" id="vMainName"></span>
+    </div>
+    <div class="field"><label>Outro<span class="desc">quello indicato sopra; se non si scarica, carica il file</span></label>
+      <label class="upload">Carica outro<input type="file" id="vOutroFile" accept="video/*" hidden></label><span class="vfile" id="vOutroName"></span>
+      <label class="checkrow"><input type="checkbox" id="vOutroOn" checked> Aggiungi l'outro alla fine</label>
+    </div>
+    <div class="field"><label>Qualità</label>
+      <div class="seg" id="vSeg"><button data-res="1920" class="on">1080p</button><button data-res="1280">720p</button></div>
+    </div>
+    <div class="field" style="gap:12px;flex-wrap:wrap">
+      <button class="pngbtn" id="vGo">🎬 Crea e scarica il video</button>
+      <button class="pngbtn ghost" id="vStop" hidden>Annulla</button>
+    </div>
+    <div class="field" style="flex-direction:column;align-items:stretch;gap:8px">
+      <div class="vprog"><i id="vBar"></i></div>
+      <div class="vstato" id="vStato">Il video si crea mentre scorre: ci mette <b>quanto dura il video</b>. Tieni questa scheda aperta e in primo piano fino alla fine. Funziona con file video (.mp4), non con i link YouTube.</div>
     </div>
   </div>
 
@@ -581,6 +609,93 @@ const DEFAULT_BASE  = "https://edicola.grandangoloregionale.it/player.html";
   document.getElementById('dlCrop').addEventListener('click',pCrop);
   inLogo.addEventListener('input',()=>pLoadLogo(inLogo.value.trim()));
   pLoadLogo(inLogo.value.trim());
+
+  /* ===== scarica il video completo: principale + lower third + logo + outro ===== */
+  const vMainFile=document.getElementById('vMainFile'), vOutroFile=document.getElementById('vOutroFile');
+  const vGo=document.getElementById('vGo'), vStop=document.getElementById('vStop'), vBar=document.getElementById('vBar'), vStato=document.getElementById('vStato');
+  const vOutroOn=document.getElementById('vOutroOn');
+  let vMainBlob=null, vOutroBlob=null, vRes=1920, vAnnulla=false, vRec=null;
+  document.querySelectorAll('#vSeg button').forEach(b=>b.addEventListener('click',()=>{ document.querySelectorAll('#vSeg button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); vRes=+b.dataset.res; }));
+  vMainFile.addEventListener('change',e=>{ const f=e.target.files[0]; vMainBlob=f||null; document.getElementById('vMainName').textContent=f?f.name:''; });
+  vOutroFile.addEventListener('change',e=>{ const f=e.target.files[0]; vOutroBlob=f||null; document.getElementById('vOutroName').textContent=f?f.name:''; });
+  function vMsg(h){ vStato.innerHTML=h; }
+  async function vScarica(url){ /* serve una copia locale, altrimenti il browser non lascia registrare */
+    const r=await fetch(url,{mode:'cors'}); if(!r.ok) throw new Error('http '+r.status); return await r.blob(); }
+  function vElemento(blob){ return new Promise((ok,ko)=>{ const v=document.createElement('video'); v.playsInline=true; v.preload='auto'; v.src=URL.createObjectURL(blob);
+    v.onloadedmetadata=()=>ok(v); v.onerror=()=>ko(new Error('formato')); }); }
+  function vMime(){ const c=['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4;codecs=avc1.42E01F,mp4a.40.2','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+    for(const m of c){ try{ if(window.MediaRecorder&&MediaRecorder.isTypeSupported(m)) return m; }catch(_){} } return ''; }
+  function vContain(ctx,v,W,H){ ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H); const vw=v.videoWidth||W, vh=v.videoHeight||H; const s=Math.min(W/vw,H/vh); const w=vw*s, h=vh*s; ctx.drawImage(v,(W-w)/2,(H-h)/2,w,h); }
+  function vLower(ctx,W,H,t){ /* entra dopo 0,8 s, scorre in 0,45 s; esce dopo «Resta a schermo» (0 = sempre) */
+    if(!inT1.value.trim() && !inTop.value.trim()) return;
+    const t0=0.8, ani=0.45; let a;
+    if(t<t0) return;
+    if(ldDur>0 && t>t0+ani+ldDur){ const u=Math.min(1,(t-(t0+ani+ldDur))/ani); a=1-u; } else a=Math.min(1,(t-t0)/ani);
+    if(a<=0) return;
+    const k=W/1920; const L=pLayout(ctx,k); const bm=Math.round(0.115*H); const oy=(H-bm)-L.groupH; const e=1-Math.pow(1-a,3);
+    ctx.save(); ctx.globalAlpha=e; pDraw(ctx,Math.round(0.021*W)-Math.round((1-e)*40*k),oy,L); ctx.restore(); }
+  function vLogoOk(){ /* un logo preso da un altro sito senza permesso bloccherebbe la registrazione */
+    if(!pngLogoOn.checked||!pngLogoImg||!pngLogoImg.naturalWidth) return true;
+    try{ const c=document.createElement('canvas'); c.width=c.height=4; const x=c.getContext('2d'); x.drawImage(pngLogoImg,0,0,4,4); c.toDataURL(); return true; }catch(_){ return false; } }
+  function vSlug(){ const t=(inT1.value.trim()||inTop.value.trim()||'video').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w\s-]/g,'').trim().replace(/\s+/g,'-').slice(0,50); return 'grandangolo_'+(t||'video'); }
+  function vSuona(v,ac,dest){ /* l'audio va nel file, non dalle casse */
+    try{ const s=ac.createMediaElementSource(v); s.connect(dest); }catch(_){} }
+  async function vCrea(){
+    vAnnulla=false;
+    const mime=vMime(); if(!mime){ vMsg('Questo browser non sa registrare video. Usa <b>Chrome</b> o <b>Edge</b> aggiornati sul computer.'); return; }
+    vGo.disabled=true; vStop.hidden=false; vBar.style.width='0%';
+    let blobMain=vMainBlob, blobOutro=null;
+    try{
+      if(!blobMain){
+        if(!srcMain){ throw new Error('Carica il video principale oppure scrivi il «Link principale».'); }
+        if(srcMain.type==='yt'){ throw new Error('Il «Link principale» è un video YouTube: YouTube non permette di scaricarlo. Carica qui il file del video.'); }
+        vMsg('Scarico il video principale…');
+        try{ blobMain=await vScarica(srcMain.url); }catch(_){ throw new Error('Non riesco a prendere il video dal «Link principale» (il sito che lo ospita non lo permette). Caricalo con <b>Carica video</b>.'); }
+      }
+      if(vOutroOn.checked){
+        if(vOutroBlob) blobOutro=vOutroBlob;
+        else if(srcOutro && srcOutro.type==='file'){ vMsg('Scarico l\'outro…'); try{ blobOutro=await vScarica(srcOutro.url); }catch(_){ throw new Error('Non riesco a prendere l\'outro dal suo indirizzo. Caricalo con <b>Carica outro</b>, oppure togli la spunta «Aggiungi l\'outro».'); } }
+      }
+      await pFonts();
+      const logoOk=vLogoOk();
+      const vm=await vElemento(blobMain); const vo=blobOutro?await vElemento(blobOutro):null;
+      const W=Math.min(vRes, vm.videoWidth>=vm.videoHeight?vRes:Math.round(vRes*9/16)); /* orizzontale: 1920×1080; verticale: 1080 di larghezza */
+      const ratio=(vm.videoHeight&&vm.videoWidth)?vm.videoHeight/vm.videoWidth:9/16;
+      const cw=Math.round(W/2)*2, ch=Math.round(W*ratio/2)*2;
+      const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch; const ctx=cv.getContext('2d');
+      const ac=new (window.AudioContext||window.webkitAudioContext)(); const dest=ac.createMediaStreamDestination();
+      vSuona(vm,ac,dest); if(vo) vSuona(vo,ac,dest);
+      const stream=new MediaStream([...cv.captureStream(30).getVideoTracks(), ...dest.stream.getAudioTracks()]);
+      const pezzi=[]; vRec=new MediaRecorder(stream,{mimeType:mime, videoBitsPerSecond: vRes>=1920?8000000:5000000, audioBitsPerSecond:160000});
+      vRec.ondataavailable=e=>{ if(e.data&&e.data.size) pezzi.push(e.data); };
+      const fine=new Promise(ok=>vRec.onstop=ok);
+      const totale=(vm.duration||0)+(vo?(vo.duration||0):0);
+      let cur=vm, fase='main', base=0;
+      const disegna=()=>{
+        if(fase==='main'){ vContain(ctx,vm,cw,ch); vLower(ctx,cw,ch,vm.currentTime); if(logoOk) pDrawLogo(ctx,cw,ch); }
+        else if(fase==='outro'){ vContain(ctx,vo,cw,ch); }
+        const fatto=base+(cur?cur.currentTime:0); if(totale>0){ vBar.style.width=Math.min(100,fatto/totale*100).toFixed(1)+'%'; vMsg('Sto creando il video… <b>'+Math.floor(fatto)+' s</b> di '+Math.round(totale)+' s. Tieni questa scheda aperta.'); }
+      };
+      let loop=null; const giro=()=>{ disegna(); if(fase!=='fine') loop=requestAnimationFrame(giro); };
+      const suona=v=>new Promise((ok,ko)=>{ v.onended=ok; v.currentTime=0; v.play().catch(ko); });
+      await ac.resume();
+      disegna(); vRec.start(1000); giro();
+      await suona(vm);
+      if(!vAnnulla && vo){ base=vm.duration||0; fase='outro'; cur=vo; disegna(); await suona(vo); }
+      fase='fine'; cancelAnimationFrame(loop);
+      await new Promise(r=>setTimeout(r,300));
+      vRec.stop(); await fine; try{ ac.close(); }catch(_){}
+      if(vAnnulla){ vMsg('Annullato.'); vBar.style.width='0%'; return; }
+      const est=mime.indexOf('mp4')>=0?'mp4':'webm';
+      const file=new Blob(pezzi,{type:mime.split(';')[0]});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(file); a.download=vSlug()+'.'+est; document.body.appendChild(a); a.click(); a.remove();
+      vBar.style.width='100%';
+      vMsg('✓ Fatto: scaricato <b>'+a.download+'</b> ('+(file.size/1048576).toFixed(1)+' MB).'+(logoOk?'':' Il logo non è entrato (è su un altro sito): caricalo con «Carica file» nel riquadro PNG e rifai.')+(est==='webm'?' Questo browser crea file <b>.webm</b>: per WhatsApp e Instagram usa Chrome aggiornato o Safari, che creano .mp4.':''));
+    }catch(err){ vMsg('⚠️ '+(err&&err.message?err.message:'Qualcosa non ha funzionato.')); vBar.style.width='0%'; try{ if(vRec&&vRec.state!=='inactive') vRec.stop(); }catch(_){} }
+    finally{ vGo.disabled=false; vStop.hidden=true; vRec=null; }
+  }
+  vGo.addEventListener('click',vCrea);
+  vStop.addEventListener('click',()=>{ vAnnulla=true; document.querySelectorAll('video').forEach(v=>{ if(v!==video){ try{ v.pause(); v.dispatchEvent(new Event('ended')); }catch(_){} } }); });
 
   refresh();
 })();
