@@ -116,7 +116,7 @@
    CONFIG — parametri nell'URL:
    player.html?pre=...&main=...&outro=...&skip=5&mute=0
               &t1=...&t2=...&ld=6&ts=100&tt=...&logo=...
-   pre/main/outro : link YouTube/ID o URL diretto di un file video.
+   pre/main/outro : link YouTube/ID o URL diretto di un file video. «pre» è facoltativo: senza, il video parte senza pubblicità.
    t1/t2 = lower third, ld = secondi a schermo (0=sempre), ts = dimensione % (100=normale)
    tt = voce sopra il titolo (es. "Servizio di…" o il luogo)
    ========================================================= */
@@ -258,12 +258,13 @@ const CONFIG = {
     },500);
   }
 
-  function canStart(){ return srcPre && srcMain && (!needsYT || ytReady); }
+  function canStart(){ return srcMain && (!needsYT || ytReady); }   /* pre-roll facoltativo: senza, parte subito il video */
   poster.addEventListener('click',()=>{ soundOn=true; if(canStart()) startAd(); });
 
   function startAd(){
     poster.classList.add('hidden');
     if(replay) replay.hidden=true;
+    if(!srcPre){ stage.classList.remove('idle','outro'); playMain(); return; }   /* video senza pubblicità */
     phase='ad';
     stage.classList.remove('idle','outro'); stage.classList.add('ad');
     pill.classList.remove('ready');

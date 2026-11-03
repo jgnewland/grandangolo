@@ -161,8 +161,8 @@
     <div class="phead"><span class="step">1</span><span class="t">Video</span>
       <button class="reset" id="reset">↻ Riavvia anteprima</button></div>
     <div class="field">
-      <label>Link pre-roll<span class="desc">YouTube o file .mp4</span></label>
-      <input type="text" id="inPre" placeholder="https://… (YouTube o file video)">
+      <label>Link pre-roll<span class="desc">facoltativo — vuoto = video senza pubblicità</span></label>
+      <input type="text" id="inPre" placeholder="Vuoto = niente pubblicità · oppure https://… (YouTube o file video)">
     </div>
     <div class="field">
       <label>Link principale<span class="desc">YouTube o file .mp4</span></label>
@@ -343,12 +343,12 @@ const DEFAULT_BASE  = "https://edicola.grandangoloregionale.it/player.html";
     inOutro.classList.toggle('bad', inOutro.value.trim()!=='' && !srcOutro);
 
     if(phase==='idle'){
-      if(srcPre && srcMain){
+      if(srcMain){
         poster.classList.remove('msg'); ptext.hidden=true;
         poster.style.backgroundImage=(srcMain.type==='yt')?'url(https://i.ytimg.com/vi/'+srcMain.id+'/maxresdefault.jpg)':'';
       }else{
         poster.classList.add('msg'); ptext.hidden=false;
-        ptext.textContent='Inserisci i due link qui sotto';
+        ptext.textContent='Inserisci il link del video qui sotto (la pubblicità è facoltativa)';
         poster.style.backgroundImage='';
       }
     }
@@ -389,13 +389,14 @@ const DEFAULT_BASE  = "https://edicola.grandangoloregionale.it/player.html";
 
   function canStart(){
     const needsYT=[srcPre,srcMain,srcOutro].some(s=>s&&s.type==='yt');
-    return srcPre && srcMain && (!needsYT || ytReady);
+    return srcMain && (!needsYT || ytReady);
   }
   poster.addEventListener('click',()=>{ if(canStart()) startAd(); });
 
   function startAd(){
     poster.classList.add('hidden');
     if(replay) replay.hidden=true;
+    if(!srcPre){ stage.classList.remove('idle','outro'); playMain(); return; }   /* video senza pubblicità */
     phase='ad';
     stage.classList.remove('idle','outro'); stage.classList.add('ad');
     pill.classList.remove('ready');
