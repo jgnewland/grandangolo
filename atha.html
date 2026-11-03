@@ -303,6 +303,7 @@
   <p class="progress-line" id="progress">.</p>
   <div class="mast-actions">
     <button class="btn primary" id="exportAll">Esporta PDF</button>
+    <button class="btn" id="exportAllFull">Esporta PDF + schede</button>
     <button class="btn" id="pullCloud">Aggiorna dal cloud</button>
     <button class="btn ghost" id="testConn">Prova connessione</button>
     <button class="btn" id="exportJson">Scarica backup</button>
@@ -970,26 +971,28 @@ function doPrint(title){
   window.print();
   setTimeout(()=>{document.title=prev;$('#print-root').innerHTML='';},400);
 }
-function printChapter(c){
+function printChapter(c,withScheda){
   const root=$('#print-root');root.innerHTML='';
   const ch=document.createElement('div');ch.className='pr-chapter';ch.style.pageBreakBefore='avoid';
   const h=document.createElement('h2');h.textContent=c.titolo;ch.appendChild(h);
-  ch.insertAdjacentHTML('beforeend',schedaHTML(c));
+  if(withScheda)ch.insertAdjacentHTML('beforeend',schedaHTML(c));
   const body=document.createElement('div');body.className='pr-body';bodyParas(c.testo,body);ch.appendChild(body);
   root.appendChild(ch);
   doPrint((data.titolo||'Romanzo')+' - '+c.titolo);
 }
-function printAll(){
+function printAll(withScheda){
   const root=$('#print-root');root.innerHTML='';
   const tp=document.createElement('div');tp.className='pr-titlepage';
   tp.innerHTML=`<h1>${esc(data.titolo||'Senza titolo')}</h1><div class="pr-sub">romanzo di ${esc(data.autore||'')}</div>`;
   root.appendChild(tp);
   [...data.capitoli].sort((a,b)=>a.ordine-b.ordine).forEach(c=>{
+    const hasText=(c.testo||'').trim();
+    if(!withScheda && !hasText)return;
     const ch=document.createElement('div');ch.className='pr-chapter';
     const h=document.createElement('h2');h.textContent=c.titolo;ch.appendChild(h);
-    ch.insertAdjacentHTML('beforeend',schedaHTML(c));
+    if(withScheda)ch.insertAdjacentHTML('beforeend',schedaHTML(c));
     const body=document.createElement('div');body.className='pr-body';
-    if((c.testo||'').trim())bodyParas(c.testo,body);
+    if(hasText)bodyParas(c.testo,body);
     else{const p=document.createElement('p');p.style.fontStyle='italic';p.style.color='#777';p.textContent='[Capitolo ancora da scrivere.]';body.appendChild(p);}
     ch.appendChild(body);root.appendChild(ch);
   });
@@ -1035,7 +1038,8 @@ async function init(){
 
   $('#tab-cap').onclick=()=>{view='capitoli';render();};
   $('#tab-per').onclick=()=>{view='personaggi';render();};
-  $('#exportAll').onclick=printAll;
+  $('#exportAll').onclick=()=>printAll(false);
+  $('#exportAllFull').onclick=()=>printAll(true);
   $('#exportJson').onclick=exportJson;
   $('#importBtn').onclick=()=>$('#importFile').click();
   $('#importFile').onchange=e=>{if(e.target.files[0])importJson(e.target.files[0]);e.target.value='';};
