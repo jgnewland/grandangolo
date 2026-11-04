@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Test Adsterra</title>
+<style>body{font-family:system-ui;margin:20px;max-width:700px}p{line-height:1.6}#log{white-space:pre-wrap;background:#f4f4f4;padding:10px;font:12px monospace}</style>
+<script>
+/* PAGINA DI PROVA: registra se lo script Adsterra prova ad aprire finestre o a spostare la pagina */
+window.__log=[];function L(m){window.__log.push(new Date().toISOString().slice(11,19)+' '+m);var e=document.getElementById('log');if(e)e.textContent=window.__log.join('\n');}
+var _open=window.open;window.open=function(u){L('window.open -> '+u);return _open.apply(window,arguments);};
+var _add=EventTarget.prototype.addEventListener;EventTarget.prototype.addEventListener=function(t,f,o){if(/^(click|mousedown|mouseup|pointerdown|pointerup|touchstart|touchend)$/.test(t)&&(this===document||this===window||this===document.body||this===document.documentElement)){var s=(new Error().stack||'').split('\n').slice(2,4).join(' | ');L('listener '+t+' su '+(this===window?'window':this===document?'document':'body')+' :: '+s.replace(/\s+/g,' ').slice(0,160));}return _add.call(this,t,f,o);};
+window.addEventListener('beforeunload',function(){L('beforeunload (la pagina sta per cambiare)');});
+</script></head><body>
+<h1>Pagina di prova Adsterra (non pubblica)</h1>
+<p>Testo di prova. Toccare questo testo NON deve aprire nessuna finestra. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<p id="area">Altra area di testo cliccabile per la prova.</p>
+<script async="async" data-cfasync="false" src="https://pl26665554.profitableratecpmnetwork.com/db31e2fd8659632e8e6db967c31d2648/invoke.js"></script>
+<div id="container-db31e2fd8659632e8e6db967c31d2648"></div>
+<h3>Registro</h3><div id="log"></div>
+</body></html>
