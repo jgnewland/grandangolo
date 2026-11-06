@@ -493,6 +493,19 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
 .gx-play{display:inline-flex;width:26px;height:26px;border-radius:50%;align-items:center;justify-content:center;background:var(--gx-giallo);color:#111;font-size:11px}
 .hero-card:hover .gx-play{background:#111;color:var(--gx-giallo)}
 #hero-auth-card{border-radius:16px !important}
+/* inserto in omaggio accanto alla copertina */
+.gx-ins{position:absolute;left:-30%;bottom:14%;width:44%;transform:rotate(-7deg);z-index:5;cursor:pointer;transition:transform .2s}
+.gx-ins:hover{transform:rotate(-3deg) translateY(-4px) scale(1.03)}
+.gx-ins img{display:block;width:100%;aspect-ratio:1/1.414;object-fit:cover;border-radius:4px;box-shadow:0 18px 34px rgba(0,0,0,.7),0 0 0 2px rgba(255,255,255,.9)}
+.gx-ins-tag{position:absolute;top:-12px;left:-10px;background:#FFD23F;color:#111;font-weight:800;font-size:11px;line-height:1;letter-spacing:.08em;padding:6px 8px;border-radius:4px;transform:rotate(-9deg);box-shadow:0 4px 10px rgba(0,0,0,.4);white-space:nowrap}
+.hero-card-label{flex-wrap:wrap}
+.gx-ins-cap{display:block;flex:0 0 100%;width:100%;margin-top:10px;font-size:13px;line-height:1.35;color:#FFD23F;font-weight:700}
+.gx-ins-cap em{font-style:italic;color:#fff;font-weight:600}
+.gx-ins-mini{position:absolute;right:7px;top:9%;width:36%;z-index:3;transform:rotate(5deg);cursor:pointer}
+.gx-ins-mini img{display:block;width:100%;aspect-ratio:1/1.414;object-fit:cover;border-radius:3px;box-shadow:0 8px 16px rgba(0,0,0,.6),0 0 0 1.5px #fff}
+.gx-ins-mini span{position:absolute;top:-8px;left:-6px;background:#FFD23F;color:#111;font-weight:800;font-size:8.5px;line-height:1;letter-spacing:.06em;padding:4px 5px;border-radius:3px;transform:rotate(-8deg);white-space:nowrap}
+.gx-ins-lbl{display:block;font-size:11.5px;color:#FFD23F;font-weight:700;margin-top:3px}
+@media(max-width:900px){.gx-ins{left:auto;right:-9%;width:40%;transform:rotate(7deg)}.gx-ins:hover{transform:rotate(3deg)}.gx-ins-tag{transform:rotate(-9deg)}}
 @media(max-width:900px){#hero{grid-template-columns:1fr;gap:22px;margin-top:14px}.hero-card{max-width:300px;margin:0 auto;width:100%;order:-1}}
 
 /* righe di copertine */
@@ -1268,7 +1281,8 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
             buyUrl: r.buy_url || '#',
             unlockCode: r.unlock_code || '',
             isLatest: r.is_latest || false,
-            pages: r.pages || []
+            pages: r.pages || [],
+            inserto: (r.inserto && (r.inserto.titolo || r.inserto.cover)) ? r.inserto : null
           };
         });
 
@@ -1347,6 +1361,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
             card.className = 'edicola-card';
             card.setAttribute('data-search', (issue.title+' '+(issue.subtitle||'')).toLowerCase());
             card.setAttribute('data-code', issue.unlockCode||'');
+            card.setAttribute('data-issue-id', issue.id||'');
             card.innerHTML = '<div class="edicola-cover-wrap"><img src="'+issue.cover+'" alt="'+issue.title+'" loading="lazy">'+(issue.isLatest?'<div class="issue-label-latest">ULTIMA USCITA &middot; &euro;1,50</div>':'')+'</div><div class="edicola-label"><div class="edicola-label-title">'+issue.title+'</div><div class="edicola-label-sub">'+(issue.subtitle||'')+'</div><div class="edicola-label-meta"><span>Prime pagine gratis</span><span>Codice per sbloccare</span></div></div>';
             card.addEventListener('click', function(){ openFlipbook(issue, 0); });
             edicolaRoot.insertBefore(card, edicolaRoot.firstChild);
@@ -3118,8 +3133,50 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     });
   }
 
+  /* ── INSERTO IN OMAGGIO: copertina dell'inserto accanto al numero con cui esce ── */
+  function paginaInserto(i){
+    var ins=i&&i.inserto; if(!ins) return 0;
+    var n=parseInt(ins.pagina,10); if(n>0) return n-1;
+    var k=(i.pages||[]).indexOf(ins.cover); return k>=0?k:0;
+  }
+  function inserti(){
+    var u=ultimo(), card=$('.hero-card');
+    if(card){
+      var vecchio=$('.gx-ins',card), cap=$('.gx-ins-cap');
+      var sig=u&&u.inserto?(u.id+'|'+u.inserto.cover+'|'+u.inserto.titolo):'';
+      if(!sig){ if(vecchio) vecchio.remove(); if(cap) cap.remove(); }
+      else if(!vecchio || vecchio.dataset.sig!==sig){
+        if(vecchio) vecchio.remove(); if(cap) cap.remove();
+        var ins=u.inserto, el=document.createElement('div');
+        el.className='gx-ins'; el.dataset.sig=sig; el.setAttribute('role','button'); el.setAttribute('tabindex','0');
+        el.setAttribute('aria-label','Apri l\'inserto in omaggio: '+(ins.titolo||''));
+        el.innerHTML=(ins.cover?'<img alt="" src="'+esc(ins.cover)+'">':'')+'<span class="gx-ins-tag">IN OMAGGIO</span>';
+        var go=function(e){ e.stopPropagation(); e.preventDefault(); apri(ultimo(), paginaInserto(ultimo())); };
+        el.addEventListener('click', go); el.addEventListener('keydown', function(e){ if(e.key==='Enter') go(e); });
+        card.appendChild(el);
+        var lab=$('.hero-card-label',card);
+        if(lab){ var c=document.createElement('span'); c.className='gx-ins-cap'; c.innerHTML='&#127873; In omaggio con questo numero'+(ins.titolo?': <em>'+esc(ins.titolo)+'</em>':''); lab.appendChild(c); }
+      }
+    }
+    /* sulle copertine dell'edicola: piccola copertina dell'inserto nell'angolo */
+    var perId={}; numeri().forEach(function(i){ if(i.inserto && i.id) perId[i.id]=i; });
+    Array.prototype.forEach.call(document.querySelectorAll('.edicola-card'), function(c){
+      var i=perId[c.getAttribute('data-issue-id')||'']; var w=$('.edicola-cover-wrap',c); if(!w) return;
+      var m=$('.gx-ins-mini',w);
+      if(!i){ if(m) m.remove(); var l0=$('.gx-ins-lbl',c); if(l0) l0.remove(); return; }
+      if(m) return;
+      m=document.createElement('div'); m.className='gx-ins-mini';
+      m.innerHTML=(i.inserto.cover?'<img alt="" loading="lazy" src="'+esc(i.inserto.cover)+'">':'')+'<span>+ INSERTO</span>';
+      m.addEventListener('click', function(e){ e.stopPropagation(); apri(i, paginaInserto(i)); });
+      w.appendChild(m);
+      var lab=$('.edicola-label',c);
+      if(lab && !$('.gx-ins-lbl',c)){ var l=document.createElement('span'); l.className='gx-ins-lbl'; l.textContent='+ In omaggio: '+(i.inserto.titolo||'inserto'); lab.appendChild(l); }
+    });
+  }
+
   function tutto(){
     try{ hero(); }catch(e){}
+    try{ inserti(); }catch(e){}
     try{ comeFunziona(); }catch(e){}
     try{ listino(); }catch(e){}
     try{ anni(); }catch(e){}

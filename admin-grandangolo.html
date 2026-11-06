@@ -292,6 +292,11 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
         <div class="card-t" style="margin-bottom:4px">Pagine del numero (JPG)</div>
         <div class="card-s" style="margin-bottom:16px">Una URL per riga in ordine.</div>
         <div class="f"><label>URL pagine</label><textarea id="nu-pages" style="min-height:180px;font-family:monospace;font-size:12px;line-height:1.6" placeholder="https://.../1.jpg"></textarea></div>
+        <div class="f" style="border:1px dashed rgba(255,210,63,.45);border-radius:10px;padding:10px 12px;margin-top:6px"><label style="color:#FFD23F">&#127873; Inserto in omaggio (facoltativo)</label>
+          <input type="text" id="nu-ins-tit" placeholder="Titolo dell'inserto, es. Autismo nei bambini: una guida per i genitori" style="margin-top:6px">
+          <input type="text" id="nu-ins-cover" placeholder="URL della copertina dell'inserto (la stessa JPG della sua pagina)" style="margin-top:6px">
+          <input type="number" id="nu-ins-pag" min="1" placeholder="Pagina dove comincia (se la lasci vuota la trovo dalla copertina)" style="margin-top:6px">
+          <small style="display:block;opacity:.7;margin-top:6px">Nell'edicola la copertina dell'inserto compare accanto a quella del numero, con «In omaggio con questo numero» e il titolo. Toccandola si apre il giornale alla pagina dell'inserto.</small></div>
         <div style="padding:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:10px">
           <div style="font-size:13px;font-weight:700;margin-bottom:12px">&#9889; Generatore URL rapido</div>
           <div class="row2">
@@ -783,6 +788,11 @@ input[type=checkbox]{width:16px;height:16px;accent-color:#00a651;cursor:pointer}
     <div class="f"><label>Link Stripe</label><input type="url" id="m-buy"></div>
     <div class="f"><label>Codice di sblocco</label><input type="text" id="m-code" style="font-family:monospace"></div>
     <div class="f"><label>Pagine JPG (una per riga)</label><textarea id="m-pages" style="min-height:160px;font-family:monospace;font-size:12px;line-height:1.6"></textarea></div>
+    <div class="f" style="border:1px dashed rgba(255,210,63,.45);border-radius:10px;padding:10px 12px;margin-top:6px"><label style="color:#FFD23F">&#127873; Inserto in omaggio (facoltativo)</label>
+      <input type="text" id="m-ins-tit" placeholder="Titolo dell'inserto, es. Autismo nei bambini: una guida per i genitori" style="margin-top:6px">
+      <input type="text" id="m-ins-cover" placeholder="URL della copertina dell'inserto (la stessa JPG della sua pagina)" style="margin-top:6px">
+      <input type="number" id="m-ins-pag" min="1" placeholder="Pagina dove comincia (se la lasci vuota la trovo dalla copertina)" style="margin-top:6px">
+      <small style="display:block;opacity:.7;margin-top:6px">Nell'edicola la copertina dell'inserto compare accanto a quella del numero, con «In omaggio con questo numero» e il titolo. Toccandola si apre il giornale alla pagina dell'inserto.</small></div>
     <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(0,166,81,0.06);border:1px solid rgba(0,166,81,0.2);border-radius:10px;margin-bottom:14px">
       <input type="checkbox" id="m-latest"><label for="m-latest" style="font-size:13px;font-weight:600;color:#fff;cursor:pointer">&#11088; Segna come ULTIMA USCITA</label>
     </div>
@@ -1035,11 +1045,12 @@ document.getElementById("nu-pubblica-btn").onclick = async function(){
     var payload = {title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,
                    is_latest:latest,anno:anno,sort_order:topOrder,
                    status:status,scheduled_at:scheduled_at};
+    var insN=leggiInserto("nu"); if(insN) payload.inserto=insN;
     var r=await sbPost("/rest/v1/issues", payload);
     if(r.ok){
       var msgs = { now:"\u2713 Numero pubblicato! Appare in cima all'edicola.", draft:"\uD83D\uDCDD Bozza salvata! Non \u00e8 visibile sul sito.", scheduled:"\u23F0 Pubblicazione programmata per "+new Date(scheduledAt).toLocaleString("it-IT")+"." };
       showRes("nu-res", msgs[mode], "ok");
-      ["nu-title","nu-sub","nu-cover","nu-buy","nu-code","nu-pages"].forEach(function(id){ document.getElementById(id).value=""; });
+      ["nu-title","nu-sub","nu-cover","nu-buy","nu-code","nu-pages","nu-ins-tit","nu-ins-cover","nu-ins-pag"].forEach(function(id){ document.getElementById(id).value=""; });
       document.getElementById("nu-latest").checked=false;
       document.getElementById("nu-prev").style.display="none";
       document.getElementById("nu-scheduled-at").value="";
@@ -1096,7 +1107,8 @@ async function loadNumeri(){
             title:r.title, subtitle:r.subtitle||"", cover:r.cover_url||"",
             buyUrl:r.buy_url||"", unlockCode:r.unlock_code, pages:r.pages||[],
             anno:r.anno||2026, isLatest:r.is_latest||false, sbId:r.id, sortOrder:r.sort_order||0,
-            status:r.status||"published", scheduledAt:r.scheduled_at||null
+            status:r.status||"published", scheduledAt:r.scheduled_at||null,
+            inserto:r.inserto||null
           });
         }
       });
@@ -1258,6 +1270,8 @@ function openModal(issue){
   document.getElementById("m-buy").value=issue.buyUrl||"";
   document.getElementById("m-code").value=issue.unlockCode||"";
   document.getElementById("m-pages").value=(issue.pages||[]).join(NL);
+  var ins0=issue.inserto||{}; window._insPrima=!!issue.inserto;
+  document.getElementById("m-ins-tit").value=ins0.titolo||""; document.getElementById("m-ins-cover").value=ins0.cover||""; document.getElementById("m-ins-pag").value=ins0.pagina||"";
   document.getElementById("m-latest").checked=issue.isLatest||false;
   // Stato pubblicazione
   var mStatus = issue.status||"published";
@@ -1268,6 +1282,12 @@ function openModal(issue){
   document.querySelectorAll('input[name="m-pub-mode"]').forEach(function(r){ r.onchange=function(){ document.getElementById("m-sched-box").style.display=this.value==="scheduled"?"block":"none"; }; });
   document.getElementById("m-res").className="res";
   document.getElementById("modal-ov").classList.add("open");
+}
+/* inserto in omaggio: null se i campi sono vuoti */
+function leggiInserto(pre){
+  var t=document.getElementById(pre+"-ins-tit").value.trim(), c=document.getElementById(pre+"-ins-cover").value.trim(), n=parseInt(document.getElementById(pre+"-ins-pag").value,10);
+  if(!t && !c) return null;
+  var o={titolo:t, cover:c}; if(n>0) o.pagina=n; return o;
 }
 function closeModal(){ document.getElementById("modal-ov").classList.remove("open"); editId=null; }
 document.getElementById("modal-x").onclick = closeModal;
@@ -1289,7 +1309,9 @@ document.getElementById("modal-save").onclick = async function(){
   var btn=document.getElementById("modal-save"); btn.disabled=true; btn.textContent="Salvataggio...";
   try {
     if(latest) await sbPatch("/rest/v1/issues?is_latest=eq.true",{is_latest:false});
-    var r=await sbPatch("/rest/v1/issues?id=eq."+editId,{title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno,status:mStatus,scheduled_at:mScheduledAt});
+    var dati={title:t,subtitle:s,cover_url:c||null,buy_url:buy||null,unlock_code:k,pages:pgs,is_latest:latest,anno:anno,status:mStatus,scheduled_at:mScheduledAt};
+    var insM=leggiInserto("m"); if(insM||window._insPrima) dati.inserto=insM;
+    var r=await sbPatch("/rest/v1/issues?id=eq."+editId,dati);
     if(r.ok){ showRes("m-res","Salvato!","ok"); setTimeout(function(){ closeModal(); loadNumeri(); },800); }
     else { var d=await r.json().catch(function(){return{};}); showRes("m-res","Errore: "+JSON.stringify(d),"err"); }
   } catch(e){ showRes("m-res","Errore: "+e.message,"err"); }
