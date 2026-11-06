@@ -1,8 +1,15 @@
 {
-  "updated": "2026-11-06T19:42:29.191090+00:00",
+  "updated": "2026-11-06T23:49:18.889143+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Mafia di Villaseta e Porto Empedocle: 25 condanne",
+      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
+      "date": "2026-11-06T22:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/mafia-di-villaseta-e-porto-empedocle-25-condanne",
+      "img": "/feed-images/0394ee8523d8d84f.jpg"
+    },
     {
       "title": "Auto finisce in una scarpata lungo la SS189: un ferito",
       "summary": "Il sinistro autonomo si è verificato nei pressi del bivio Tumarrano",
@@ -205,13 +212,6 @@
       "date": "2026-11-06T09:25:38Z",
       "link": "https://www.grandangoloagrigento.it/sicilia/scuola-lallarme-della-uil-a-rischio-mille-posti-tra-docenti-e-personale-ata",
       "img": "/feed-images/1309b68405abc546.jpg"
-    },
-    {
-      "title": "Rissa e spray al peperoncino durante serata di Halloween, chiusa discoteca",
-      "summary": "Una rissa scatenatasi nei pressi della postazione bar ed infine la nebulizzazione da parte di ignoti di spray al peperoncino, hanno generato il panico",
-      "date": "2026-11-06T09:23:15Z",
-      "link": "https://www.grandangoloagrigento.it/palermo/rissa-e-spray-al-peperoncino-durante-serata-di-halloween-chiusa-discoteca",
-      "img": "/feed-images/46472088f06e787f.jpg"
     }
   ]
 }
