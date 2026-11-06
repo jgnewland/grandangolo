@@ -3312,6 +3312,44 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       .mf-col .mf-nome{font-size:27px}
       .mf-punti{bottom:4px}
     }
+    /* ── banner «app Grandangolo» (giallo) ── */
+    .mf-app{background:linear-gradient(100deg,#0a0905 0%,#15130a 45%,#0b0a07 100%)!important;border-top-color:rgba(255,210,63,.32)!important}
+    .mf-app::before{background:linear-gradient(90deg,transparent 0%,transparent 35%,#FFD23F 50%,transparent 65%,transparent 100%)!important;background-size:250% 100%!important}
+    .mf-app::after{background:radial-gradient(420px 140px at 12% 100%,rgba(255,210,63,.16),transparent 70%),repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 7px)!important}
+    .mf-app .mf-nome{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#f4f1e8;animation:none}
+    .mf-app .mf-nome em{font-style:italic;color:#FFD23F;font-weight:800}
+    .mf-app .mf-giro{border-left-color:rgba(255,210,63,.3)}
+    .mf-app .mf-giro b{color:#FFD23F}
+    .mf-app .mf-btn{background:#FFD23F;color:#111!important}
+    .mf-tel{position:absolute;left:68px;bottom:12px;width:94px;z-index:2;padding:5px;border-radius:18px;background:#0b0b0b;border:2px solid #3a3a3a;box-shadow:14px 18px 30px rgba(0,0,0,.7);transform:rotate(-4deg);animation:mf-galleggia 5s ease-in-out infinite}
+    .mf-tel img{display:block;width:100%;height:auto;border-radius:13px}
+    .mf-tel i{position:absolute;right:-16px;top:18px;width:34px;height:34px;border-radius:9px;background:url(https://www.grandangoloregionale.it/wp-content/themes/grandangolo/app/store-icona.jpg) center/cover;box-shadow:0 6px 14px rgba(0,0,0,.55),0 0 0 2px #FFD23F;transform:rotate(8deg)}
+    /* ── banner «podcast» (rosso) ── */
+    .mf-pod{background:linear-gradient(100deg,#0d0505 0%,#170909 45%,#0c0606 100%)!important;border-top-color:rgba(227,38,43,.35)!important}
+    .mf-pod::before{background:linear-gradient(90deg,transparent 0%,transparent 35%,#e3262b 50%,transparent 65%,transparent 100%)!important;background-size:250% 100%!important}
+    .mf-pod::after{background:radial-gradient(420px 140px at 12% 100%,rgba(227,38,43,.2),transparent 70%),repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 7px)!important}
+    .mf-pod .mf-kick{color:#ff6b6b}
+    .mf-pod .mf-nome{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#f4f1e8;animation:none;font-size:42px}
+    .mf-pod .mf-nome em{font-style:normal;color:#e3262b}
+    .mf-pod .mf-giro{border-left-color:rgba(227,38,43,.35)}
+    .mf-pod .mf-giro::before{color:rgba(227,38,43,.6)}
+    .mf-pod .mf-giro b{color:#ff6b6b}
+    .mf-pod .mf-btn{background:#1ED760;color:#0b0a0d!important;box-shadow:0 8px 24px rgba(30,215,96,.25)}
+    .mf-disco{position:absolute;left:52px;bottom:14px;width:124px;height:124px;z-index:2}
+    .mf-disco img{position:relative;z-index:2;display:block;width:124px;height:124px;border-radius:4px;box-shadow:14px 18px 30px rgba(0,0,0,.7);transform:rotate(-3deg)}
+    .mf-disco::before{content:"";position:absolute;z-index:1;top:8px;left:44px;width:108px;height:108px;border-radius:50%;background:repeating-radial-gradient(circle,#111 0 2px,#1b1b1b 2px 4px);box-shadow:0 0 0 2px #222;animation:mf-gira 6s linear infinite}
+    .mf-disco::after{content:"";position:absolute;z-index:1;top:52px;left:88px;width:20px;height:20px;border-radius:50%;background:#e3262b}
+    @keyframes mf-gira{to{transform:rotate(360deg)}}
+    .mf-ban.rosso .mf-punti button.on{background:#e3262b}
+    @media (max-width:600px){
+      .mf-tel{left:22px;width:74px;bottom:12px}
+      .mf-tel i{width:26px;height:26px;right:-10px}
+      .mf-disco{left:12px;width:92px;height:92px;bottom:16px}
+      .mf-disco img{width:92px;height:92px}
+      .mf-disco::before{display:none}.mf-disco::after{display:none}
+      .mf-pod .mf-nome{font-size:24px}
+      .mf-app .mf-nome{font-size:30px}
+    }
     @media (prefers-reduced-motion:reduce){.mf-ban,.mf-ban *,.mf-ban *::before,.mf-ban *::after{animation:none!important;transition:none!important}}
   </style>
   <div class="mf-ban" id="mf-ban" role="complementary" aria-label="Autopromozione Grandangolo">
@@ -3352,6 +3390,36 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       </span>
       <span class="mf-btn"><span class="mf-lungo">Sfoglia l'ultimo numero</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
+    <a class="mf-ban__in mf-slide mf-app" href="https://www.grandangoloregionale.it/scarica-app/" target="_blank" rel="noopener" aria-label="Scarica gratis l'app di Grandangolo">
+      <span class="mf-tel" aria-hidden="true"><img src="https://www.grandangoloregionale.it/wp-content/themes/grandangolo/app/store-2.jpg" alt="" loading="lazy" width="94" height="204"><i></i></span>
+      <span class="mf-testo">
+        <span class="mf-kick"><span class="mf-lungo">Novità · </span>Gratis</span>
+        <span class="mf-tit"><span class="mf-nome">Ora è <em>un'app</em></span><span class="mf-sotto">Grandangolo sempre in tasca</span></span>
+        <span class="mf-mob" style="display:none">iPhone e Android, senza store</span>
+      </span>
+      <span class="mf-giro" aria-hidden="true">
+        <span class="on">Le notizie della <b>Sicilia</b> sempre in tasca</span>
+        <span>Un <b>avviso</b> solo quando succede qualcosa di importante</span>
+        <span>Il <b>settimanale</b> da sfogliare quando vuoi</span>
+        <span>Si installa in un tocco, <b>senza passare dagli store</b></span>
+      </span>
+      <span class="mf-btn"><span class="mf-lungo">Installa l'app gratis</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="mf-ban__in mf-slide mf-pod" href="https://open.spotify.com/show/5Y3V7NEUPSSBZVbFhKwj6X" target="_blank" rel="noopener" aria-label="Ascolta su Spotify il podcast Storie di piccola mafia">
+      <span class="mf-disco" aria-hidden="true"><img src="/widget/podcast/copertina-podcast.jpg" alt="" loading="lazy" width="124" height="124"></span>
+      <span class="mf-testo">
+        <span class="mf-kick"><span class="mf-lungo">Il podcast di </span>Grandangolo</span>
+        <span class="mf-tit"><span class="mf-nome">Storie di piccola <em>mafia</em></span><span class="mf-sotto">Dagli archivi di Rai Teche</span></span>
+        <span class="mf-mob" style="display:none">Ora su Spotify</span>
+      </span>
+      <span class="mf-giro" aria-hidden="true">
+        <span class="on">La mafia dei <b>piccoli paesi</b>, raccontata da chi c'era</span>
+        <span>Le inchieste di <b>Mixer</b>, Rai 2, anni '80</span>
+        <span>Con le voci di <b>Enrico Deaglio</b>, <b>Giovanni Minoli</b> e <b>Franco Castaldo</b></span>
+        <span>Ascoltalo gratis su <b>Spotify</b></span>
+      </span>
+      <span class="mf-btn"><span class="mf-lungo">Ascolta su Spotify</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
     <span class="mf-punti" aria-hidden="true"></span>
     <button class="mf-x" type="button" aria-label="Chiudi">✕</button>
   </div>
@@ -3378,6 +3446,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       cur=(n+sl.length)%sl.length;
       sl[cur].classList.add('attivo'); bt[cur].classList.add('on');
       b.classList.toggle('verde', sl[cur].classList.contains('mf-col'));
+      b.classList.toggle('rosso', sl[cur].classList.contains('mf-pod'));
       posa();
     }
     bt.forEach(function(x,j){ x.addEventListener('click',function(e){ e.preventDefault(); vai(j); }); });
