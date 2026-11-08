@@ -1,8 +1,22 @@
 {
-  "updated": "2026-11-08T17:55:06.231458+00:00",
+  "updated": "2026-11-08T21:38:24.613270+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Nell’auto parcheggiata aveva 1.7 chili di marijuana, arrestata ragazza a Licata",
+      "summary": "Vanno per controllare la mamma ristretta ai domiciliari e invece arrestano la figlia sorpresa con oltre 1.6 chili di marijuana",
+      "date": "2026-11-08T19:53:21Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/nellauto-parcheggiata-aveva-1-7-chili-di-marijuana-arrestata-ragazza-a-licata",
+      "img": "/feed-images/6121d2b93ab40aff.jpg"
+    },
+    {
+      "title": "Licata, 85enne investito da un’auto: è caccia al pirata della strada",
+      "summary": "La Polizia è al lavoro per ricostruire l’esatta dinamica dell’incidente e identificare la conducente dell’auto.",
+      "date": "2026-11-08T19:47:47Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/licata-85enne-investito-da-unauto-e-caccia-al-pirata-della-strada",
+      "img": "/feed-images/05bce7beab58fa87.jpg"
+    },
     {
       "title": "Medico aggredito al Pronto soccorso, l’Asp: “Fatto grave e inaccettabile”",
       "summary": "“Rappresenta un fatto grave ed inaccettabile e che colpisce non soltanto il singolo medico, ma il nostro intero servizio sanitario”",
@@ -51,6 +65,13 @@
       "date": "2026-11-08T17:14:24Z",
       "link": "https://www.grandangoloagrigento.it/apertura/mafia-benefici-penitenziari-e-corruzione-patronaggio-interroga-il-sistema-e-richiama-la-societa-civile",
       "img": "/feed-images/1f62d0a34a6a0603.png"
+    },
+    {
+      "title": "Daraxonrasib, dopo il caso di Jessica a Lecco anche la Sicilia si mobilita per Grazia",
+      "summary": "Nelle prossime ore il presidente Schifani, dopo la chiamata con il deputato La Vardera, incontrerà personalmente Grazia",
+      "date": "2026-11-08T17:00:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/daraxonrasib-dopo-il-caso-di-jessica-a-lecco-anche-la-sicilia-si-mobilita-per-grazia",
+      "img": "/feed-images/d8832bb8d9ea26af.jpg"
     },
     {
       "title": "Truffa finto carabiniere ad anziana, 47enne arrestato",
@@ -119,7 +140,7 @@
       "title": "Stidda, no alla liberazione condizionale per il killer Croce Alletto",
       "summary": "Croce Alletto, condannato all’ergastolo, fece parte del temibile gruppo stiddaro che insanguinò l’agrigentino nella guerra di mafia",
       "date": "2026-11-08T09:30:48Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/stidda-no-alla-liberazione-condizionale-per-il-killer-croce-alletto",
+      "link": "https://www.grandangoloagrigento.it/mafia/stidda-no-alla-liberazione-condizionale-per-il-killer-croce-alletto",
       "img": "/feed-images/9bf8d6c354c47eed.png"
     },
     {
@@ -191,27 +212,6 @@
       "date": "2026-11-07T21:07:37Z",
       "link": "https://www.grandangoloagrigento.it/agrigento-notizie/akragas-beffa-allesseneto-lalcamo-vince-al-95-con-lentini",
       "img": "/feed-images/02097ecf1d4d2ef8.jpg"
-    },
-    {
-      "title": "Anche Capitale della Cultura 2025 finisce nel “mirino” della Procura di Agrigento",
-      "summary": "Tra le carte di “Eventopoli” emerge un’altra attività investigativa ancora in corso e che punta dritto alla manifestazione “Capitale della Cultura 2025”",
-      "date": "2026-11-07T16:49:41Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/anche-capitale-della-cultura-2025-finisce-nel-mirino-della-procura-di-agrigento",
-      "img": "/feed-images/d9fdad1477dff085.webp"
-    },
-    {
-      "title": "“Eventopoli”, la pulizia del teatro Pirandello è un affare d’oro: in 3 anni compensi lievitati di 7 volte",
-      "summary": "Una cooperativa ritenuta vicina al “cerchio magico”, per lo stesso servizio di pulizia, sarebbe passata da un compenso di 16 mila euro ad oltre 110 mila euro in soli tre anni",
-      "date": "2026-11-07T16:00:17Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/eventopoli-la-pulizia-del-teatro-pirandello-e-un-affare-doro-in-3-anni-compensi-lievitati-di-7-volte",
-      "img": "/feed-images/4f2c5bf8869e8643.jpg"
-    },
-    {
-      "title": "“Eventopoli” si allarga a macchia d’olio: l’inchiesta della Procura punta anche su altre manifestazioni",
-      "summary": "Anche un altro assessore della giunta Micciché sotto intercettazione: per i magistrati esisteva un “sistema associativo clientelare”",
-      "date": "2026-11-07T15:32:43Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/eventopoli-si-allarga-a-macchia-dolio-linchiesta-della-procura-punta-anche-su-altre-manifestazioni",
-      "img": "/feed-images/1af1eb06f1b1cc47.jpg"
     }
   ]
 }
