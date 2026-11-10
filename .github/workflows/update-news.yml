@@ -188,11 +188,34 @@ jobs:
           print("Scritte", len(final), "notizie.")
           PY
 
+      - name: Copia statica dei numeri dell'edicola (issues.json)
+        continue-on-error: true
+        env:
+          SB_URL: "https://xfmiikymagamnexsbrdt.supabase.co"
+          SB_KEY: "sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn"
+        run: |
+          python3 - <<'PY'
+          import os, json, urllib.request, datetime
+          url = (os.environ["SB_URL"] + "/rest/v1/issues?select=id,title,subtitle,cover_url,buy_url,unlock_code,is_latest,pages,inserto,status,scheduled_at,sort_order,created_at"
+                 "&status=in.(published,scheduled)&order=sort_order.desc.nullslast,created_at.desc")
+          req = urllib.request.Request(url, headers={"apikey": os.environ["SB_KEY"], "Authorization": "Bearer " + os.environ["SB_KEY"]})
+          try:
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  rows = json.loads(r.read().decode("utf-8"))
+          except Exception as e:
+              print("Supabase non risponde, tengo la copia precedente:", e); raise SystemExit(0)
+          if not isinstance(rows, list) or not rows:
+              print("Nessun numero ricevuto, tengo la copia precedente."); raise SystemExit(0)
+          with open("issues.json", "w", encoding="utf-8") as f:
+              json.dump({"updated": datetime.datetime.now(datetime.timezone.utc).isoformat(), "issues": rows}, f, ensure_ascii=False, separators=(",", ":"))
+          print("issues.json:", len(rows), "numeri")
+          PY
+
       - name: Salva nel repository
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add news.json feed-images
+          git add news.json feed-images issues.json 2>/dev/null || git add news.json feed-images
           if git diff --cached --quiet; then
             echo "Nessuna novità."
           else

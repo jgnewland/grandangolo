@@ -1265,10 +1265,29 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
     async function caricaIssuesDaSupabase() {
       try {
         const now = new Date().toISOString();
-        const res = await fetch(SB_URL_SITE + '/rest/v1/issues?or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte.' + now + '))&order=sort_order.desc.nullslast,created_at.desc', {
-          headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY }
-        });
-        const data = await res.json();
+        /* 1) copia statica dei numeri (issues.json, aggiornata ogni 15 minuti da GitHub):
+              non pesa sul database e funziona anche quando Supabase è lento */
+        var data = null;
+        try {
+          const rs = await fetch('/issues.json?v=' + Math.floor(Date.now() / 300000), { cache: 'no-cache' });
+          if (rs.ok) {
+            const js = await rs.json();
+            const lista = Array.isArray(js) ? js : (js && js.issues);
+            if (lista && lista.length) {
+              data = lista.filter(function(r){ return r.status === 'published' || (r.status === 'scheduled' && r.scheduled_at && r.scheduled_at <= now); });
+            }
+          }
+        } catch (e) {}
+        /* 2) riserva: il database, con un tempo massimo di 8 secondi */
+        if (!data || !data.length) {
+          const ctl = ('AbortController' in window) ? new AbortController() : null;
+          if (ctl) setTimeout(function(){ ctl.abort(); }, 8000);
+          const res = await fetch(SB_URL_SITE + '/rest/v1/issues?select=id,title,subtitle,cover_url,buy_url,unlock_code,is_latest,pages,inserto,status,scheduled_at,sort_order,created_at&or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte.' + now + '))&order=sort_order.desc.nullslast,created_at.desc', {
+            headers: { 'apikey': SB_ANON_KEY, 'Authorization': 'Bearer ' + SB_ANON_KEY },
+            signal: ctl ? ctl.signal : undefined
+          });
+          data = await res.json();
+        }
         if (!data || !data.length) return;
 
         // Converti formato Supabase in formato issues
