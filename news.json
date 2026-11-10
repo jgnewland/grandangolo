@@ -1,8 +1,22 @@
 {
-  "updated": "2026-11-09T18:39:49.886405+00:00",
+  "updated": "2026-11-10T01:45:42.571397+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Agrigento, giovane in scooter coinvolto in un incidente: grave in ospedale",
+      "summary": "Restano da chiarire le cause che hanno portato il giovane a perdere il controllo dello scooter.",
+      "date": "2026-11-09T19:18:38Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/agrigento-giovane-in-scooter-coinvolto-in-un-incidente-grave-in-ospedale",
+      "img": "/feed-images/0a109f3bf09e8939.jpg"
+    },
+    {
+      "title": "Autobetoniera precipita nel torrente: le operazioni dei soccorsi dei Vigili del fuoco",
+      "summary": "I soccorritori sono impegnati nelle delicate operazioni di messa in sicurezza definitiva dell’area prima di procedere al successivo recupero del mezzo.",
+      "date": "2026-11-09T19:00:17Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/autobetoniera-precipita-nel-torrente-le-operazioni-dei-soccorsi-dei-vigili-del-fuoco",
+      "img": "/feed-images/ffc0a77d8144ca4b.jpg"
+    },
     {
       "title": "La giunta Sodano approva la Consulta ambientale, Riccobene: “Storico passo per la partecipazione”",
       "summary": "“Questo nuovo strumento aprirà le porte del Comune al confronto strutturato e stabile con le associazioni ambientaliste” dichiara l’assessore Riccobene",
@@ -198,20 +212,6 @@
       "date": "2026-11-09T10:35:21Z",
       "link": "https://www.grandangoloagrigento.it/catania/un-chilo-di-cocaina-e-marijuana-nel-bagagliaio-dellauto-arrestato-39enne",
       "img": "/feed-images/a6ee53400420ab4a.jpg"
-    },
-    {
-      "title": "Rubano carta di credito e spendono 10 mila euro in ristornati e acquisti, denunciati domestica e compagno",
-      "summary": "L’ingegnoso modus operandi messo in atto dalla donna delle pulizie che prestava servizio presso l’abitazione della vittima, con la presunta complicità del compagno",
-      "date": "2026-11-09T10:33:27Z",
-      "link": "https://www.grandangoloagrigento.it/catania/rubano-carta-di-credito-e-spendono-10-mila-euro-in-ristornati-e-acquisti-denunciati-domestica-e-compagno",
-      "img": "/feed-images/da88a0715bba2d8f.jpg"
-    },
-    {
-      "title": "Lotto, vinti 23 mila euro a Villaggio Mosè con tre ambi e un terno",
-      "summary": "Sabato presso il punto vendita in Via Leonardo Sciascia ad Agrigento colpo da 23mila euro con tre ambi e un terno",
-      "date": "2026-11-09T10:29:52Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/lotto-vinti-23-mila-euro-a-villaggio-mose-con-tre-ambi-e-un-terno",
-      "img": "/feed-images/2451d9a8c95aedde.webp"
     }
   ]
 }
