@@ -169,8 +169,22 @@ function scrivi(html){
   /* id=ultimo (o nessun id): sempre l'ultima uscita, si aggiorna da solo a ogni numero nuovo */
   var filtro = id==="ultimo" ? "is_latest=eq.true&or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte."+new Date().toISOString()+"))&order=sort_order.desc.nullslast,created_at.desc&limit=1" : "id=eq."+encodeURIComponent(id);
   try{
-    var r=await fetch(SB_URL+"/rest/v1/issues?select=title,subtitle,cover_url,unlock_code,buy_url,pages,anno,is_latest&"+filtro,{headers:{apikey:SB_KEY,Authorization:"Bearer "+SB_KEY}});
-    var x=(await r.json())[0];
+    /* prima la copia statica issues.json (aggiornata ogni 15 minuti, non pesa sul database) */
+    var x=null;
+    try{
+      var rs=await fetch("/issues.json?v="+Math.floor(Date.now()/300000),{cache:"no-cache"});
+      if(rs.ok){
+        var js=await rs.json(), lista=(js&&js.issues)||[], ora=new Date().toISOString();
+        var visibili=lista.filter(function(r){return r.status==="published"||(r.status==="scheduled"&&r.scheduled_at&&r.scheduled_at<=ora);});
+        if(id==="ultimo"){ x=visibili.filter(function(r){return r.is_latest;})[0]||visibili.filter(function(r){return r.pages&&r.pages.length;})[0]||null; }
+        else { x=lista.filter(function(r){return String(r.id)===String(id);})[0]||null; }
+      }
+    }catch(e2){}
+    /* riserva: il database */
+    if(!x||!x.pages||!x.pages.length){
+      var r=await fetch(SB_URL+"/rest/v1/issues?select=title,subtitle,cover_url,unlock_code,buy_url,pages,anno,is_latest&"+filtro,{headers:{apikey:SB_KEY,Authorization:"Bearer "+SB_KEY}});
+      x=(await r.json())[0];
+    }
     if(!x||!x.pages||!x.pages.length) throw new Error("numero non trovato");
     var anno=x.anno||((x.subtitle||"").match(/20\d\d/)||[])[0]||"";
     var m=(x.title||"").match(/N\.?\s*(\d+)/i);
