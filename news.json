@@ -1,8 +1,15 @@
 {
-  "updated": "2026-11-12T13:03:15.026377+00:00",
+  "updated": "2026-11-12T13:21:22.506953+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Tentata estorsione in un minimarket, arrestato 31enne",
+      "summary": "L’uomo è stato arrestato con l’accusa di tentata estorsione e rifiuto di fornire indicazioni sulla propria identità personale.",
+      "date": "2026-11-12T13:03:43Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/tentata-estorsione-in-un-minimarket-arrestato-31enne",
+      "img": "/feed-images/4b0c5dfa6a36fab4.png"
+    },
     {
       "title": "San Leone, riunione per la messa in sicurezza e la demolizione del lido Oasi",
       "summary": "A lanciare l’allarme sul rischio ambientale è stato Mareamico Agrigento",
@@ -205,13 +212,6 @@
       "date": "2026-11-11T16:46:41Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/favara-evade-dai-domiciliari-e-si-apposta-sotto-casa-dellex-moglie-arrestato-74enne",
       "img": "/feed-images/128fba48a095b0cc.jpg"
-    },
-    {
-      "title": "L’inchiesta sugli autisti della Tua, no al risarcimento richiesto dall’azienda",
-      "summary": "L’azienda che si occupa del trasporto urbano ad Agrigento aveva chiesto un risarcimento nei confronti di alcuni autisti coinvolti (e assolti) in un’inchiesta su una presunta truffa",
-      "date": "2026-11-11T16:28:47Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/linchiesta-sugli-autisti-della-tua-no-al-risarcimento-richiesto-dallazienda",
-      "img": "/feed-images/380abec508cddb30.jpg"
     }
   ]
 }
