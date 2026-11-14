@@ -1,8 +1,15 @@
 {
-  "updated": "2026-11-14T15:55:44.465967+00:00",
+  "updated": "2026-11-14T20:24:06.245011+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Imprenditore ucciso a fucilate, svolta nelle indagini: fermato uno dei suoi dipendenti",
+      "summary": "“Ho perso, a parte il datore di lavoro, anche un amico, perché c’era il rapporto bellissimo quindi”. E’ quanto aveva detto Mauro Ferrarello intervistato qualche giorno dopo il delitto di Gaetano…",
+      "date": "2026-11-14T20:19:15Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/imprenditore-ucciso-a-fucilate-svolta-nelle-indagini-fermato-uno-dei-suoi-dipendenti",
+      "img": "/feed-images/703a55b01096fdba.webp"
+    },
     {
       "title": "Canicattì, cede il balcone mentre stende i panni: grave una donna",
       "summary": "La donna è stata trasferita in codice rosso all’ospedale di Caltanissetta",
@@ -196,22 +203,15 @@
       "title": "Operaio precipita da impalcatura, 34enne trasferito in elisoccorso",
       "summary": "L’uomo è caduto da un’altezza di circa 3 metri e l’impatto con il suolo è stato violento",
       "date": "2026-11-14T06:26:57Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/operaio-precipita-da-impalcatura-34enne-trasferito-in-elisoccorso",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/operaio-precipita-da-impalcatura-34enne-trasferito-in-elisoccorso",
       "img": "/feed-images/5836f10763d95702.jpg"
     },
     {
       "title": "Merce contraffatta al mercato di Favara, scatta il blitz di Finanza e polizia locale",
       "summary": "Blitz congiunto della Guardia di Finanza e della Polizia locale al mercato settimanale di Favara",
       "date": "2026-11-14T06:24:30Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/merce-contraffatta-al-mercato-di-favara-scatta-il-blitz-di-finanza-e-polizia-locale",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/merce-contraffatta-al-mercato-di-favara-scatta-il-blitz-di-finanza-e-polizia-locale",
       "img": "/feed-images/a5e0272b7ff63f45.jpg"
-    },
-    {
-      "title": "Scivola durante raccolta dell’uva, 35enne palmese in ospedale",
-      "summary": "Il bracciante è stato trasferito all’ospedale San Giacomo d’Altopasso dove gli è stata diagnosticata una grave lesione alla gamba",
-      "date": "2026-11-14T06:19:01Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/scivola-durante-raccolta-delluva-35enne-palmese-in-ospedale",
-      "img": "/feed-images/49e8c07ec7818c7d.jpg"
     }
   ]
 }
