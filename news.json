@@ -1,8 +1,15 @@
 {
-  "updated": "2026-11-13T22:21:29.139119+00:00",
+  "updated": "2026-11-14T02:35:03.682068+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Eventopoli, il vaso di Pandora è aperto",
+      "summary": "Il nuovo numero di Grandangolo Settimanale è disponibile per l’acquisto. Clicca su “acquista ora” per ottenere il codice di sblocco o richiedi il tuo abbonamento",
+      "date": "2026-11-13T22:30:00Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/eventopoli-il-vaso-di-pandora-e-aperto",
+      "img": "/feed-images/435d8be43178e34e.jpg"
+    },
     {
       "title": "Canicattì, 18enne si allontana da casa dopo discussione con la madre: rintracciata, sta bene",
       "summary": "La giovane, che si era allontanata dalla sua abitazione staccando il cellulare, è stata rintracciata e sta bene",
@@ -205,13 +212,6 @@
       "date": "2026-11-13T10:41:47Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/trovati-in-possesso-di-droga-pronta-per-essere-spacciata-tre-arresti",
       "img": "/feed-images/b1ab4f4ed80dcb79.jpg"
-    },
-    {
-      "title": "Asp Agrigento, si completa il reclutamento degli psicologi destinati alle Case di Comunità",
-      "summary": "Gli incarichi avranno una durata di sei mesi, con un impegno lavorativo di ventiquattro ore settimanali per ciascun professionista",
-      "date": "2026-11-13T10:38:40Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/asp-agrigento-si-completa-il-reclutamento-degli-psicologi-destinati-alle-case-di-comunita",
-      "img": "/feed-images/a0b5cb6ee33006aa.jpg"
     }
   ]
 }
