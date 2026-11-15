@@ -1,8 +1,15 @@
 {
-  "updated": "2026-11-15T19:47:16.032853+00:00",
+  "updated": "2026-11-15T23:43:18.638990+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Grande vittoria al Palamoncada, la Fortitudo supera Vicenza 106-71",
+      "summary": "Una vittoria bella e di squadra dove tutti hanno contribuito all’importante risultato",
+      "date": "2026-11-15T20:56:27Z",
+      "link": "https://www.grandangoloagrigento.it/sport/grande-vittoria-al-palamoncada-la-fortitudo-supera-vicenza-106-71",
+      "img": "/feed-images/12bcfd95c5cae6c6.jpg"
+    },
     {
       "title": "Pugilato, la licatese Gloria Peritone si conferma campionessa europea EBU dei pesi gallo",
       "summary": "“Questa cintura è ancora nostra”, dichiara Gloria Peritone",
@@ -205,13 +212,6 @@
       "date": "2026-11-15T07:02:03Z",
       "link": "https://www.grandangoloagrigento.it/palermo/in-casa-con-3-chili-di-cocaina-e-due-pistole-con-matricola-abrasa-arrestato-incensurato",
       "img": "/feed-images/28e3944953fc9e56.png"
-    },
-    {
-      "title": "Anziano picchiato e rapinato a villa Bonfiglio, indagata una coppia",
-      "summary": "I due indagati sono accusati di aver preso di mira un pensionato di 85 anni, averlo strattonato, aggredito e derubato del portafoglio all’interno del quale vi erano 300 euro",
-      "date": "2026-11-15T06:59:33Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/anziano-picchiato-e-rapinato-a-villa-bonfiglio-indagata-una-coppia",
-      "img": "/feed-images/54d6a1dc8028388c.png"
     }
   ]
 }
