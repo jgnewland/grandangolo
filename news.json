@@ -1,34 +1,188 @@
 {
-  "updated": "2026-11-15T06:26:31.080214+00:00",
+  "updated": "2026-11-15T14:12:45.376785+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
     {
+      "title": "Le saracinesche delle coscienze",
+      "summary": "di Luigi Patronaggio, Procuratore Generale presso la Corte di appello di Cagliari",
+      "date": "2026-11-15T14:12:30Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/le-saracinesche-delle-coscienze",
+      "img": "/feed-images/0c74a3ad6390d37e.webp"
+    },
+    {
+      "title": "Affari e lavoro, Agrigento ultima nell’indagine sulla qualità della vita 2026",
+      "summary": "Il divario tra le province del Centro-Nord e quelle del Sud e delle Isole resta evidente. La conferma arriva dalla 28ª edizione della ricerca, realizzata con l’Università Sapienza di Roma",
+      "date": "2026-11-15T13:40:22Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/affari-e-lavoro-agrigento-ultima-nellindagine-sulla-qualita-della-vita-2026",
+      "img": "/feed-images/1388e52e7f065400.jpg"
+    },
+    {
+      "title": "Dal taglio solidale all’Hair Spa: cosa si nasconde dietro un gesto di bellezza",
+      "summary": "Ne abbiamo parlato con Morena Formica, proprietaria di un salone di parrucchiera a Porto Empedocle",
+      "date": "2026-11-15T11:33:35Z",
+      "link": "https://www.grandangoloagrigento.it/video/dal-taglio-solidale-allhair-spa-cosa-si-nasconde-dietro-un-gesto-di-bellezza",
+      "img": "/feed-images/d18a37d11b9997dc.jpg"
+    },
+    {
+      "title": "Prossime elezioni regionali, il Governo di Liberazione di De Luca fa tappa ad Agrigento",
+      "summary": "De Luca ha ufficializzato la nomina di Gaetano Cani a portavoce provinciale del progetto politico per Agrigento",
+      "date": "2026-11-15T11:10:59Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/prossime-elezioni-regionali-il-governo-di-liberazione-di-de-luca-fa-tappa-ad-agrigento",
+      "img": "/feed-images/15f0c31e6c8cacf2.jpg"
+    },
+    {
+      "title": "Favara, scomparso un intero gruppo di cani di strada: l’appello di Rifugio Hope",
+      "summary": "L’organizzazione animalista chiede la collaborazione dell’intera comunità per fare luce sulla vicenda.",
+      "date": "2026-11-15T10:55:06Z",
+      "link": "https://www.grandangoloagrigento.it/favara/favara-scomparso-un-intero-gruppo-di-cani-di-strada-lappello-di-rifugio-hope",
+      "img": "/feed-images/83548edca21c1c80.jpg"
+    },
+    {
+      "title": "Aggredisce l’ex fidanzata in strada, 35enne denunciato",
+      "summary": "Ha avvicinato con una scusa l’ex compagna, nei pressi di casa sua, e dopo averla rincorsa per tentare un approccio, l’ha aggredita",
+      "date": "2026-11-15T10:26:25Z",
+      "link": "https://www.grandangoloagrigento.it/catania/aggredisce-lex-fidanzata-in-strada-35enne-denunciato",
+      "img": "/feed-images/5c329f567ed1eb8c.jpg"
+    },
+    {
+      "title": "Grazia riceverà il farmaco salvavita per curarsi: “Il tumore non aspetta”",
+      "summary": "La giovane mamma di Adrano ringrazia La Vardera e il presidente Schifani per essersi subito mobiliato ad acquistare il farmaco negli USA",
+      "date": "2026-11-15T09:37:33Z",
+      "link": "https://www.grandangoloagrigento.it/catania/grazia-ricevera-il-farmaco-salvavita-per-curarsi-il-tumore-non-aspetta",
+      "img": "/feed-images/9c350d0414705eb2.jpg"
+    },
+    {
+      "title": "Scoperta discoteca abusiva, sanzioni per oltre 16 mila euro",
+      "summary": "I controlli hanno riguardato anche un noto club dove sono stati trovati gravi irregolarità in materia di sicurezza",
+      "date": "2026-11-15T09:07:30Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/scoperta-discoteca-abusiva-sanzioni-per-oltre-16-mila-euro",
+      "img": "/feed-images/2f712819955765e3.jpg"
+    },
+    {
+      "title": "Il balcone cede, lei precipita mentre stende biancheria: 32enne sottoposta a intervento",
+      "summary": "La donna, mamma di due figlie, si trova ricoverata all’ospedale Sant’Elia di Caltanissetta dove ieri è arrivata in codice rosso",
+      "date": "2026-11-15T08:34:29Z",
+      "link": "https://www.grandangoloagrigento.it/canicatti/il-balcone-cede-lei-precipita-mentre-stende-biancheria-32enne-sottoposta-a-intervento",
+      "img": "/feed-images/ab89d6140c0c6c70.jpg"
+    },
+    {
+      "title": "Accusa malore durante lite tra due famiglie, morto 54enne",
+      "summary": "Dalle parole si sarebbe presto passato anche alle mani quando, ad un certo punto, l’uomo si è accasciato",
+      "date": "2026-11-15T08:28:19Z",
+      "link": "https://www.grandangoloagrigento.it/messina/accusa-malore-durante-lite-tra-due-famiglie-morto-54enne",
+      "img": "/feed-images/13ba6eb07520d370.jpg"
+    },
+    {
+      "title": "Vede i poliziotti e lancia la droga dal balcone, arrestato 21enne",
+      "summary": "Nel comodino della camera da letto, invece, il 21enne aveva la somma di 350 euro, ritenuta provento dell’attività di spaccio indoor",
+      "date": "2026-11-15T08:24:37Z",
+      "link": "https://www.grandangoloagrigento.it/catania/vede-i-poliziotti-e-lancia-la-droga-dal-balcone-arrestato-21enne",
+      "img": "/feed-images/23e1c0c1f569bac1.png"
+    },
+    {
+      "title": "Controllo del territorio, un arresto per spaccio e due denunce",
+      "summary": "Nell’ambito di un servizio coordinato del territorio, finalizzato al contrasto allo spaccio di droga e dei reati contro il patrimonio",
+      "date": "2026-11-15T07:56:21Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/controllo-del-territorio-un-arresto-per-spaccio-e-due-denunce",
+      "img": "/feed-images/234cd9ac4b3e80e7.png"
+    },
+    {
+      "title": "Tragico schianto tra auto e camion, morta una donna di 55 anni",
+      "summary": "La donna viaggiava a bordo di un’auto che, per cause in via di accertamento, si e’ scontrata con un mezzo pesante",
+      "date": "2026-11-15T07:54:28Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/tragico-schianto-tra-auto-e-camion-morta-una-donna-di-55-anni",
+      "img": "/feed-images/128bedecf5814262.jpg"
+    },
+    {
+      "title": "Controlli antidroga, arrestato pusher con 170 dosi di marijuana",
+      "summary": "Il 22enne, sotto il giubbotto, aveva nascosto una busta di plastica con 71 dosi di marijuana, mentre, nel punto del tetto del garage, dove poco prima era stato visto prelevare una busta, i…",
+      "date": "2026-11-15T07:46:47Z",
+      "link": "https://www.grandangoloagrigento.it/catania/controlli-antidroga-arrestato-pusher-con-170-dosi-di-marijuana",
+      "img": "/feed-images/56da4d37415e69ca.jpg"
+    },
+    {
+      "title": "Furto di gasolio ai danni di un pullman: arrestato un 32enne",
+      "summary": "Il 32enne è stato sorpreso mentre asportava il carburante attraverso un tubo",
+      "date": "2026-11-15T07:45:14Z",
+      "link": "https://www.grandangoloagrigento.it/catania/furto-di-gasolio-ai-danni-di-un-pullman-arrestato-un-32enne",
+      "img": "/feed-images/9bb32efd11cb5f20.jpg"
+    },
+    {
+      "title": "Illeciti durante attività svolta, revocata autorizzazione ad agenzia pratiche auto",
+      "summary": "Adottato il provvedimento di revoca dell’autorizzazione all’esercizio dell’attività di consulenza per la circolazione dei mezzi di trasporto",
+      "date": "2026-11-15T07:43:36Z",
+      "link": "https://www.grandangoloagrigento.it/catania/illeciti-durante-attivita-svolta-revocata-autorizzazione-ad-agenzia-pratiche-auto",
+      "img": "/feed-images/32d1dfc7781a4cca.png"
+    },
+    {
+      "title": "Ubriaca si schianta contro auto in sosta, poi insulta poliziotti e carabinieri: denunciata casalinga",
+      "summary": "All’arrivo delle forze dell’ordine la quarantenne ha cominciato ad insultare tanto i poliziotti quanto i carabinieri: “Pezzi di m..”.",
+      "date": "2026-11-15T07:12:32Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/ubriaca-si-schianta-contro-auto-in-sosta-poi-insulta-poliziotti-e-carabinieri-denunciata-casalinga",
+      "img": "/feed-images/5b51473e2b38f7a0.jpg"
+    },
+    {
+      "title": "Furto alla coop Livatino, solidarietà di Confesercenti e Cgil",
+      "summary": "Nei giorni scorsi la cooperativa ha subito il furto di un trattore e di una seminatrice, mezzi indispensabili per la prosecuzione dell’attività agricola sui terreni confiscati alla mafia",
+      "date": "2026-11-15T07:04:00Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/furto-alla-coop-livatino-solidarieta-di-confesercenti-e-cgil",
+      "img": "/feed-images/03a3ad74e513170e.jpg"
+    },
+    {
+      "title": "In casa con 3 chili di cocaina e due pistole con matricola abrasa, arrestato incensurato",
+      "summary": "Due pistole con matricola abrasa – un semiautomatico calibro 9, completa di caricatore con dieci colpi, e un revolver .357 Magnum",
+      "date": "2026-11-15T07:02:03Z",
+      "link": "https://www.grandangoloagrigento.it/palermo/in-casa-con-3-chili-di-cocaina-e-due-pistole-con-matricola-abrasa-arrestato-incensurato",
+      "img": "/feed-images/28e3944953fc9e56.png"
+    },
+    {
+      "title": "Anziano picchiato e rapinato a villa Bonfiglio, indagata una coppia",
+      "summary": "I due indagati sono accusati di aver preso di mira un pensionato di 85 anni, averlo strattonato, aggredito e derubato del portafoglio all’interno del quale vi erano 300 euro",
+      "date": "2026-11-15T06:59:33Z",
+      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/anziano-picchiato-e-rapinato-a-villa-bonfiglio-indagata-una-coppia",
+      "img": "/feed-images/54d6a1dc8028388c.png"
+    },
+    {
+      "title": "Mafia, definitiva la confisca di tre immobili al figlio dell’ex sindaco Gueli",
+      "summary": "Sal­va­tore Vla­di­miro Gueli, di 60 anni, figlio dell’ex sindaco di Campobello di Licata, coinvolto nell’inchiesta antimafia “Ghost”.",
+      "date": "2026-11-15T06:51:12Z",
+      "link": "https://www.grandangoloagrigento.it/mafia/mafia-definitiva-la-confisca-di-tre-immobili-al-figlio-dellex-sindaco-gueli",
+      "img": ""
+    },
+    {
+      "title": "Truffa del finto carabiniere ad Aragona, disoccupato consegna gioielli per 10 mila euro",
+      "summary": "Il bottino ammonta a circa 10 mila euro. Al via le indagini per risalire ai responsabili",
+      "date": "2026-11-15T06:37:50Z",
+      "link": "https://www.grandangoloagrigento.it/apertura/truffa-del-finto-carabiniere-ad-aragona-disoccupato-consegna-gioielli-per-10-mila-euro",
+      "img": "/feed-images/7c7bf98a04bd5aa9.jpg"
+    },
+    {
       "title": "Imprenditore ucciso a fucilate, svolta nelle indagini: fermato uno dei suoi dipendenti",
       "summary": "“Ho perso, a parte il datore di lavoro, anche un amico, perché c’era il rapporto bellissimo quindi”. E’ quanto aveva detto Mauro Ferrarello intervistato qualche giorno dopo il delitto di Gaetano…",
       "date": "2026-11-14T20:19:15Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/imprenditore-ucciso-a-fucilate-svolta-nelle-indagini-fermato-uno-dei-suoi-dipendenti",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/imprenditore-ucciso-a-fucilate-svolta-nelle-indagini-fermato-uno-dei-suoi-dipendenti",
       "img": "/feed-images/703a55b01096fdba.webp"
     },
     {
       "title": "Canicattì, cede il balcone mentre stende i panni: grave una donna",
       "summary": "La donna è stata trasferita in codice rosso all’ospedale di Caltanissetta",
       "date": "2026-11-14T15:54:59Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/canicatti-cede-il-balcone-mentre-stende-i-panni-grave-una-donna",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/canicatti-cede-il-balcone-mentre-stende-i-panni-grave-una-donna",
       "img": "/feed-images/97f9fb3d304e099d.jpg"
     },
     {
       "title": "Porto Empedocle, 60enne trovato morto in casa: il cane vegliava sul corpo",
       "summary": "Secondo una prima ricostruzione, il decesso sarebbe stato causato da un malore improvviso",
       "date": "2026-11-14T15:41:52Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/porto-empedocle-60enne-trovato-morto-in-casa-il-cane-vegliava-sul-corpo",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/porto-empedocle-60enne-trovato-morto-in-casa-il-cane-vegliava-sul-corpo",
       "img": "/feed-images/0199ba098d4924a6.jpg"
     },
     {
       "title": "Camionista trovato morto nel suo tir: sequestrata la salma",
       "summary": "Al via le indagini per chiarire le cause della morte",
       "date": "2026-11-14T15:35:02Z",
-      "link": "https://www.grandangoloagrigento.it/apertura/camionista-trovato-morto-nel-suo-tir-sequestrata-la-salma",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/camionista-trovato-morto-nel-suo-tir-sequestrata-la-salma",
       "img": "/feed-images/a7e57c10915aa850.jpg"
     },
     {
@@ -58,160 +212,6 @@
       "date": "2026-11-14T11:47:51Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/salute-mentale-ad-agrigento-esperti-e-medici-rilanciano-la-sfida-della-prevenzione-e-dellinclusione",
       "img": "/feed-images/4c79be6bf1c198f4.jpg"
-    },
-    {
-      "title": "Il sudario con i nomi dei bambini di Gaza attraversa le vie di Agrigento",
-      "summary": "L’opera composta da 28 lenzuola matrimoniali, sulle quali sono riportati i nomi di 18.500 bambini uccisi a Gaza",
-      "date": "2026-11-14T11:30:00Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/il-sudario-con-i-nomi-dei-bambini-di-gaza-attraversa-le-vie-di-agrigento",
-      "img": "/feed-images/a4645f8655dc580d.jpg"
-    },
-    {
-      "title": "Caro voli, il Pd propone: “Il volo Palermo-Roma a 50 euro e il Catania-Milano Linate a 75 euro”",
-      "summary": "La proposta è stata elaborata dai parlamentari siciliani Peppe Provenzano, Anthony Barbagallo, Giovanna Iacono, Stefania Marino e Antonio Nicita",
-      "date": "2026-11-14T10:48:20Z",
-      "link": "https://www.grandangoloagrigento.it/politica/caro-voli-il-pd-propone-il-volo-palermo-roma-a-50-euro-e-il-catania-milano-linate-a-75-euro",
-      "img": "/feed-images/f0d43f7ad7453cd4.png"
-    },
-    {
-      "title": "Agrigento, due giornate per ricordare le vittime della strada e promuovere la cultura della sicurezza",
-      "summary": "Il 15 e il 16 novembre",
-      "date": "2026-11-14T10:15:00Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/agrigento-due-giornate-per-ricordare-le-vittime-della-strada-e-promuovere-la-cultura-della-sicurezza",
-      "img": "/feed-images/380b1075a79f5431.jpg"
-    },
-    {
-      "title": "Il procuratore agrigentino Marcello Viola tra i “papabili” per guidare l’Anac",
-      "summary": "L’attuale procuratore di Milano, originario di Cammarata, è tra i “papabili” per guidare l’associazione nazionale anticorruzione",
-      "date": "2026-11-14T10:12:55Z",
-      "link": "https://www.grandangoloagrigento.it/cammarata/il-procuratore-agrigentino-marcello-viola-tra-i-papabili-per-guidare-lanac",
-      "img": "/feed-images/f76afceaced8bd74.jpg"
-    },
-    {
-      "title": "A tutta velocità su un’auto rubata si schianta contro macchina di due anziani: arrestato",
-      "summary": "In un tratto di strada, ha perso il controllo dell’auto andando a sbattere violentemente contro un’utilitaria con a bordo due anziani",
-      "date": "2026-11-14T10:07:48Z",
-      "link": "https://www.grandangoloagrigento.it/catania/a-tutta-velocita-su-unauto-rubata-si-schianta-contro-macchina-di-due-anziani-arrestato",
-      "img": "/feed-images/09e7758cc39e5576.jpg"
-    },
-    {
-      "title": "Crack in un’abitazione, arrestato 20enne",
-      "summary": "All’interno di un giubbotto del giovane appeso al portabiti, nonché materiale vario per il confezionamento, alcuni appunti e la somma di 870 euro",
-      "date": "2026-11-14T09:54:39Z",
-      "link": "https://www.grandangoloagrigento.it/messina/crack-in-unabitazione-arrestato-20enne",
-      "img": "/feed-images/9cd1fec19d346c4e.jpg"
-    },
-    {
-      "title": "Frode sui fondi europei per l’agricoltura, indagati 5 imprenditori",
-      "summary": "Alcuni imprenditori agricoli avrebbero attestato falsamente, mediante contratti di affitto di terreni ritenuti fittizi e stipulati con familiari compiacenti, la disponibilità e la conduzione di fondi…",
-      "date": "2026-11-14T09:52:51Z",
-      "link": "https://www.grandangoloagrigento.it/catania/frode-sui-fondi-europei-per-lagricoltura-indagati-5-imprenditori",
-      "img": "/feed-images/05bbbe3579ec22fe.jpg"
-    },
-    {
-      "title": "Pallavolo Serie B, esordio casalingo per la Scalia volley",
-      "summary": "Domenica 15 Novembre, alle ore 17.30, il Palatenda Roccazzella ospiterà la sfida contro Ecoplast Gela Volley",
-      "date": "2026-11-14T09:50:34Z",
-      "link": "https://www.grandangoloagrigento.it/sport/pallavolo-serie-b-esordio-casalingo-per-la-scalia-volley",
-      "img": "/feed-images/fd08548cdb44498a.jpg"
-    },
-    {
-      "title": "Mafia, incendi attività commerciale che non paga il pizzo: arrestato",
-      "summary": "Il mafioso si sarebbe anche rifiutato di pagare al titolare dell’attività il compenso per un lavoro commissionato ed eseguito",
-      "date": "2026-11-14T09:48:19Z",
-      "link": "https://www.grandangoloagrigento.it/mafia/mafia-incendi-attivita-commerciale-che-non-paga-il-pizzo-arrestato",
-      "img": "/feed-images/291edc1dfa63d993.jpg"
-    },
-    {
-      "title": "Evade dai domiciliari, denunciato un 34enne",
-      "summary": "La pattuglia lo ha rintracciato poco dopo in una viuzza poco distante dalla sua abitazione mentre cercava di fare rientro, sperando di non essere visto",
-      "date": "2026-11-14T09:15:41Z",
-      "link": "https://www.grandangoloagrigento.it/catania/evade-dai-domiciliari-denunciato-un-34enne",
-      "img": "/feed-images/1e514fbc6689ba64.jpg"
-    },
-    {
-      "title": "Furti di energia elettrica, 5 persone denunciate",
-      "summary": "Le verifiche hanno consentito di quantificare il danno economico subito dal gestore della rete in oltre 36.000 euro complessivi",
-      "date": "2026-11-14T09:14:16Z",
-      "link": "https://www.grandangoloagrigento.it/catania/furti-di-energia-elettrica-5-persone-denunciate",
-      "img": "/feed-images/5bfaffcae493eb8e.jpg"
-    },
-    {
-      "title": "Furto di cavi di rame da una colonnina di ricarica elettrica: identificato il responsabile",
-      "summary": "Asportati dalla colonnina di ricarica per veicoli elettrici installata presso l’impianto e riconducibile alla rete Enel, con danni stimati in circa 5.000 euro",
-      "date": "2026-11-14T09:12:21Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/furto-di-cavi-di-rame-da-una-colonnina-di-ricarica-elettrica-identificato-il-responsabile",
-      "img": "/feed-images/81dc4bacf20a2b53.jpg"
-    },
-    {
-      "title": "Stretta sui parcheggiatori abusivi, arrestato un 25enne e bloccato un 53enne",
-      "summary": "Davanti al categorico rifiuto del turista, il 53enne ha tirato fuori una chiave e ha cominciato a rigare e a danneggiare l’auto che era stata presa a noleggio",
-      "date": "2026-11-14T09:09:41Z",
-      "link": "https://www.grandangoloagrigento.it/catania/stretta-sui-parcheggiatori-abusivi-arrestato-un-25enne-e-bloccato-un-53enne",
-      "img": "/feed-images/5cca237647f47cde.jpg"
-    },
-    {
-      "title": "Akragas, Cammarata e Ledesma presentano la sfida al Kamarat: “Vogliamo tornare a fare risultato”",
-      "summary": "Vigilia di campionato per l’Akragas, attesa dalla delicata trasferta di Cammarata",
-      "date": "2026-11-14T09:07:54Z",
-      "link": "https://www.grandangoloagrigento.it/sport/akragas-cammarata-e-ledesma-presentano-la-sfida-al-kamarat-vogliamo-tornare-a-fare-risultato",
-      "img": "/feed-images/6438b0d5df389298.jpg"
-    },
-    {
-      "title": "Angelino Alfano non è più il presidente del gruppo San Donato",
-      "summary": "L’ex ministro lascia la presidenza del consiglio di amministrazione a Marco Rotelli, secondogenito del fondatore Giuseppe Rotelli, sancendo il ritorno diretto della famiglia proprietaria",
-      "date": "2026-11-14T08:32:04Z",
-      "link": "https://www.grandangoloagrigento.it/agrigento-notizie/angelino-alfano-non-e-piu-il-presidente-del-gruppo-san-donato",
-      "img": "/feed-images/5803f0a5d2c22eb6.jpg"
-    },
-    {
-      "title": "Stalking e maltrattamenti, 49enne arrestato a Palma di Montechiaro",
-      "summary": "Secondo quanto ricostruito il 49enne, già noto alle forze dell’ordine, si sarebbe reso protagonista di gravi condotte e di violazioni delle prescrizioni imposte dall’Autorità giudiziaria",
-      "date": "2026-11-14T08:16:05Z",
-      "link": "https://www.grandangoloagrigento.it/palma-di-montechiaro/stalking-e-maltrattamenti-49enne-arrestato-a-palma-di-montechiaro",
-      "img": "/feed-images/f2bcc58e12eb3638.jpg"
-    },
-    {
-      "title": "Perseguita una donna per un amore non corrisposto, 60enne a processo per stalking",
-      "summary": "Più volte l’uomo si sarebbe appostato davanti al bar dove lavorava la donna, in un’altra occasione avrebbe estratto anche un coltellino e, ancora, l’avrebbe minacciata di morte",
-      "date": "2026-11-14T08:04:21Z",
-      "link": "https://www.grandangoloagrigento.it/ribera/perseguita-una-donna-per-un-amore-non-corrisposto-60enne-a-processo-per-stalking",
-      "img": "/feed-images/84796f8de12b6c5f.jpg"
-    },
-    {
-      "title": "“Atti sessuali con la nipotina di 5 anni”, il processo ad un 72enne è da rifare",
-      "summary": "La Corte di appello ha trasmesso gli atti alla Corte di assise di Agrigento che adesso diventa competente",
-      "date": "2026-11-14T07:59:14Z",
-      "link": "https://www.grandangoloagrigento.it/sciacca/atti-sessuali-con-la-nipotina-di-5-anni-il-processo-ad-un-72enne-e-da-rifare",
-      "img": "/feed-images/7f51b4b7d41e915d.jpg"
-    },
-    {
-      "title": "Accesso agli atti negato dall’Asp di Agrigento: il Tar ordina consegna documenti ad ex primario di Canicattì",
-      "summary": "Il Tribunale ha annullato il silenzio-diniego e ha condannato l’ASP di Agrigento ad ostendere la documentazione richiesta",
-      "date": "2026-11-14T07:53:02Z",
-      "link": "https://www.grandangoloagrigento.it/canicatti/accesso-agli-atti-negato-dallasp-di-agrigento-il-tar-ordina-consegna-documenti-ad-ex-primario-di-canicatti",
-      "img": "/feed-images/20bac6e06d3f7f9b.png"
-    },
-    {
-      "title": "Porto Empedocle, Marilù Caci si dimette da vicesindaco: al suo posto Picone",
-      "summary": "Ratificate le dimissioni “irrevocabili” dell’ormai suoi vice, il primo cittadino ha nominato Giuseppe Picone nuovo vicesindaco",
-      "date": "2026-11-14T07:41:08Z",
-      "link": "https://www.grandangoloagrigento.it/porto-empedocle/porto-empedocle-marilu-caci-si-dimette-da-vicesindaco-al-suo-posto-picone",
-      "img": "/feed-images/369efb325edad25c.jpg"
-    },
-    {
-      "title": "Operaio precipita da impalcatura, 34enne trasferito in elisoccorso",
-      "summary": "L’uomo è caduto da un’altezza di circa 3 metri e l’impatto con il suolo è stato violento",
-      "date": "2026-11-14T06:26:57Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/operaio-precipita-da-impalcatura-34enne-trasferito-in-elisoccorso",
-      "img": "/feed-images/5836f10763d95702.jpg"
-    },
-    {
-      "title": "Merce contraffatta al mercato di Favara, scatta il blitz di Finanza e polizia locale",
-      "summary": "Blitz congiunto della Guardia di Finanza e della Polizia locale al mercato settimanale di Favara",
-      "date": "2026-11-14T06:24:30Z",
-      "link": "https://www.grandangoloagrigento.it/ultime-notizie/merce-contraffatta-al-mercato-di-favara-scatta-il-blitz-di-finanza-e-polizia-locale",
-      "img": "/feed-images/a5e0272b7ff63f45.jpg"
     }
   ]
 }
