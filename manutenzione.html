@@ -38,6 +38,12 @@ footer{margin-top:44px;color:var(--muted);font-size:13px;line-height:1.6;border-
 footer a{color:#b0ffcf}
 @media (max-width:860px){.grid{grid-template-columns:1fr;gap:28px;margin-top:28px}.giornale iframe{height:760px}}
 </style>
+<script>
+/* se la manutenzione è stata spenta, torna all'edicola */
+(function(){var s=document.createElement("script");s.src="/manutenzione.js?c="+Date.now();s.onload=function(){};
+window.__ggCheck=function(){};document.head.appendChild(s);
+var t=setInterval(function(){if(typeof window.GG_MANUTENZIONE!=="undefined"){clearInterval(t);if(!window.GG_MANUTENZIONE){location.replace("/");}}},200);})();
+</script>
 </head>
 <body>
 <div class="wrap">
