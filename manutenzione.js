@@ -4,7 +4,7 @@
    Per vedere comunque l'edicola durante i lavori: edicola.grandangoloregionale.it/?anteprima=1 */
 window.GG_MANUTENZIONE = false;
 (function () {
-  if (!window.GG_MANUTENZIONE) return;
+  if (!window.GG_MANUTENZIONE || /manutenzione\.html$/.test(location.pathname)) return;
   try {
     var q = location.search;
     if (/[?&]anteprima=1/.test(q)) { sessionStorage.setItem('gg_anteprima', '1'); return; }
