@@ -49,8 +49,17 @@
       var giro = document.getElementById("giro"), vecchio = giro.children[1];
       if (Q.get("sito") === "regionale" && vecchio) vecchio.remove();
       var K = "sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn";
-      fetch("https://xfmiikymagamnexsbrdt.supabase.co/rest/v1/issues?select=id,title,subtitle,cover_url,pages&is_latest=eq.true&or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte."+new Date().toISOString()+"))&order=sort_order.desc.nullslast,created_at.desc&limit=1", { headers: { apikey: K, Authorization: "Bearer " + K } })
-        .then(function (r) { return r.json(); })
+      /* prima la copia statica issues.json (non pesa sul database), poi il database come riserva */
+      var ora = new Date().toISOString();
+      fetch("/issues.json?v=" + Math.floor(Date.now() / 300000), { cache: "no-cache" })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (js) {
+          var l = ((js && js.issues) || []).filter(function (r) { return r.is_latest && (r.status === "published" || (r.status === "scheduled" && r.scheduled_at && r.scheduled_at <= ora)); });
+          if (!l.length) throw 0; return l.slice(0, 1);
+        })
+        .catch(function () {
+          return fetch("https://xfmiikymagamnexsbrdt.supabase.co/rest/v1/issues?select=id,title,subtitle,cover_url,pages&is_latest=eq.true&or=(status.eq.published,and(status.eq.scheduled,scheduled_at.lte."+ora+"))&order=sort_order.desc.nullslast,created_at.desc&limit=1", { headers: { apikey: K, Authorization: "Bearer " + K } }).then(function (r) { return r.json(); });
+        })
         .then(function (d) {
           var x = d && d[0]; if (!x) return;
           var cov = x.cover_url || (x.pages && x.pages[0]); if (!cov) return;
