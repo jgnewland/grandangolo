@@ -279,7 +279,7 @@
 </div>
 
 <script>
-const DEFAULT_LOGO  = "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logo.png";
+const DEFAULT_LOGO  = "https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logonew2.png";
 const DEFAULT_OUTRO = "https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4";
 const DEFAULT_BASE  = "https://edicola.grandangoloregionale.it/player.html";
 
@@ -598,7 +598,30 @@ const DEFAULT_BASE  = "https://edicola.grandangoloregionale.it/player.html";
   function pRender(ctx,W,H){ ctx.clearRect(0,0,W,H); const k=W/1920; const L=pLayout(ctx,k); const bm=Math.round(0.115*H); const oy=(H-bm)-L.groupH; pDraw(ctx,Math.round(0.021*W),oy,L); pDrawLogo(ctx,W,H); }
   function pSlug(){ const t=(inT1.value.trim()||inTop.value.trim()||'lower-third').toLowerCase().replace(/[^\w\s-]/g,'').replace(/\s+/g,'-').slice(0,40); return 'lower-third_'+(t||'grandangolo'); }
   function pTaint(){ alert('Non riesco a includere il logo perche e su un altro dominio (blocco di sicurezza del browser). Usa "Carica file" per caricare il file del logo, oppure togli la spunta "Includi logo".'); }
-  function pDownload(canvas,name){ try{ canvas.toBlob(b=>{ if(!b){pTaint();return;} const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1500); },'image/png'); }catch(e){ pTaint(); } }
+  /* su telefono (iPhone, app di Facebook/WhatsApp…) il download diretto spesso non parte:
+     uso la condivisione di sistema («Salva immagine») e, in ogni caso, mostro il PNG da salvare tenendolo premuto */
+  const pMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  function pMostra(url,name){
+    let o=document.getElementById('pngOverlay');
+    if(!o){ o=document.createElement('div'); o.id='pngOverlay'; o.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.86);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px;box-sizing:border-box';
+      o.addEventListener('click',e=>{ if(e.target===o) o.remove(); }); document.body.appendChild(o); }
+    o.innerHTML='<div style="color:#fff;font:600 15px Archivo,sans-serif;text-align:center;max-width:520px">'+(pMobile?'Tieni premuto sull\'immagine e scegli <b>«Salva immagine»</b> (o «Aggiungi a Foto»). Lo sfondo resta trasparente.':'Se il download non è partito, clicca col tasto destro sull\'immagine e scegli «Salva immagine con nome».')+'</div>'+
+      '<img src="'+url+'" alt="'+name+'" style="max-width:100%;max-height:62vh;background:repeating-conic-gradient(#555 0 25%,#777 0 50%) 0 0/20px 20px;border-radius:8px">'+
+      '<div style="display:flex;gap:10px"><a href="'+url+'" download="'+name+'" style="background:#1fb069;color:#04150c;font:700 14px Archivo,sans-serif;padding:11px 16px;border-radius:10px;text-decoration:none">Scarica il PNG</a><button type="button" style="all:unset;cursor:pointer;color:#fff;border:1px solid #fff5;padding:11px 16px;border-radius:10px;font:600 14px Archivo,sans-serif" onclick="this.closest(\'#pngOverlay\').remove()">Chiudi</button></div>';
+  }
+  function pDownload(canvas,name){
+    try{
+      canvas.toBlob(async b=>{
+        if(!b){pTaint();return;}
+        const url=URL.createObjectURL(b);
+        if(pMobile && navigator.canShare){
+          try{ const f=new File([b],name,{type:'image/png'}); if(navigator.canShare({files:[f]})){ await navigator.share({files:[f],title:name}); pMostra(url,name); return; } }catch(_){}
+        }
+        const a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+        if(pMobile) pMostra(url,name);
+      },'image/png');
+    }catch(e){ pTaint(); }
+  }
   async function pFonts(){ try{ await Promise.all([document.fonts.load('700 48px "Archivo"'),document.fonts.load('600 22px "Archivo"')]); await document.fonts.ready; }catch(_){} }
   async function pFull(){ await pFonts(); const W=pngRes,H=Math.round(pngRes*9/16); const c=document.createElement('canvas'); c.width=W; c.height=H; pRender(c.getContext('2d'),W,H); pDownload(c,pSlug()+'_'+W+'x'+H+'.png'); }
   async function pCrop(){ await pFonts(); const oc=document.createElement('canvas'); const octx=oc.getContext('2d'); const L=pLayout(octx,1); const pad=6; oc.width=Math.max(2,Math.ceil(L.groupW)+pad*2); oc.height=Math.max(2,Math.ceil(L.groupH)+pad*2); pDraw(octx,pad,pad,L); pDownload(oc,pSlug()+'_ritagliato.png'); }
