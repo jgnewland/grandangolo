@@ -49,16 +49,8 @@
 <body>
   <!-- target="_top" apre il sito nella finestra intera, non dentro l'iframe -->
   <div class="giro" id="giro">
-    <!-- 1) la nuova app: porta all'invito per installarla -->
-    <a class="on" href="https://www.grandangoloregionale.it/scarica-app/" target="_top" rel="noopener">
-      <img src="banner-app.jpg" alt="Scarica la nuova app Grandangolo">
-    </a>
-    <!-- 2) Grandangolo Regionale -->
-    <a href="https://www.grandangoloregionale.it/" target="_top" rel="noopener">
-      <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/09/ChatGPT-Image-7-set-2026-16_38_39-e1788792867827.png" alt="Grandangolo Regionale">
-    </a>
-    <!-- 3) il podcast «La Mafia, la Stidda» di Franco Castaldo -->
-    <a href="https://www.grandangoloregionale.it/podcast/#la-mafia-la-stidda" target="_top" rel="noopener" aria-label="La Mafia, la Stidda: un podcast di Franco Castaldo">
+    <!-- 1) il podcast «La Mafia, la Stidda» di Franco Castaldo -->
+    <a class="on" href="https://www.grandangoloregionale.it/podcast/#la-mafia-la-stidda" target="_top" rel="noopener" aria-label="La Mafia, la Stidda: un podcast di Franco Castaldo">
       <div class="st">
         <img class="st-rit" src="podcast/stidda-ritratto.jpg" alt="">
         <div class="st-tit"><span class="st-y">La Mafia</span><span class="st-v">,</span><span class="st-y st-y--2">La Stidda</span></div>
@@ -73,6 +65,14 @@
         </div>
       </div>
     </a>
+    <!-- 2) la nuova app: porta all'invito per installarla -->
+    <a href="https://www.grandangoloregionale.it/scarica-app/" target="_top" rel="noopener">
+      <img src="banner-app.jpg" alt="Scarica la nuova app Grandangolo">
+    </a>
+    <!-- 3) Grandangolo Regionale -->
+    <a href="https://www.grandangoloregionale.it/" target="_top" rel="noopener">
+      <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/09/ChatGPT-Image-7-set-2026-16_38_39-e1788792867827.png" alt="Grandangolo Regionale">
+    </a>
   </div>
 
   <script>
@@ -82,7 +82,7 @@
        con ?sito=regionale prende il posto del banner che porterebbe al regionale stesso */
     var Q = new URLSearchParams(location.search);
     {
-      var giro = document.getElementById("giro"), vecchio = giro.children[1];
+      var giro = document.getElementById("giro"), vecchio = giro.querySelector('a[href="https://www.grandangoloregionale.it/"]');
       if (Q.get("sito") === "regionale" && vecchio) vecchio.remove();
       var K = "sb_publishable_Jvo-HpzTxLDp4wJlKhcuDw_nLdGlJXn";
       /* prima la copia statica issues.json (non pesa sul database), poi il database come riserva */
