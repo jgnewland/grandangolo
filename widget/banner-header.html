@@ -26,21 +26,23 @@
   .ed-cov2{right:25cqw;transform:rotate(-14deg);opacity:.5;filter:blur(.08cqw) brightness(.7)}
   .ed-btn{position:absolute;right:3cqw;top:50%;transform:translateY(-50%);background:#ffd23f;color:#141310;font:800 1.55cqw/1 system-ui,sans-serif;padding:1.5cqw 2.2cqw;border-radius:99cqw;white-space:nowrap;box-shadow:0 .5cqw 1.4cqw rgba(0,0,0,.35)}
   .ed-btn small{display:block;font:600 .95cqw/1 system-ui,sans-serif;letter-spacing:.06em;margin-top:.5cqw;opacity:.75;text-align:center}
-  /* banner «La Mafia, la Stidda» — podcast (stessa grafica della copertina) */
-  .st{position:relative;aspect-ratio:2046/297;border-radius:8px;overflow:hidden;container-type:inline-size;background:linear-gradient(100deg,#fbfbf9 0%,#eeeee9 62%);font-family:Anton,Impact,sans-serif;color:#0E3B24}
-  .st::before{content:"";position:absolute;left:-10%;right:-10%;bottom:-71%;height:84%;border-radius:50%;background:linear-gradient(90deg,#0b5a32,#7fd34e 55%,#0b5a32);transform:rotate(-2deg);opacity:.95}
-  .st-rit{position:absolute;left:0;top:0;height:100%;width:auto;border-radius:0;-webkit-mask-image:linear-gradient(90deg,#000 70%,transparent);mask-image:linear-gradient(90deg,#000 70%,transparent)}
-  .st-k{position:absolute;left:17.5cqw;top:12%;font:700 1.05cqw/1 Inter,system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#B3262A}
-  .st-t{position:absolute;left:17.5cqw;top:23%;font-size:5.6cqw;line-height:1;text-transform:uppercase;white-space:nowrap}
-  .st-t i{font-style:normal;color:#B3262A;font-size:3.6cqw;margin:0 .5cqw}
-  .st-s{position:absolute;left:17.5cqw;top:63%;display:flex;align-items:baseline;gap:1.2cqw;white-space:nowrap}
-  .st-s span{font:1.25cqw/1 'Special Elite',Courier,monospace;color:#1E1E1C}
-  .st-s b{font-weight:400;font-size:2.35cqw;line-height:1;text-transform:uppercase;letter-spacing:.02em}
-  .st-dx{position:absolute;right:0;top:0;bottom:0;width:30cqw;background:#0E3B24;clip-path:polygon(9% 0,100% 0,100% 100%,0 100%);display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding-right:3cqw;gap:.8cqw;color:#fff}
-  .st-dx::before{content:"";position:absolute;left:4.2%;top:0;bottom:0;width:.5cqw;background:#B3262A;transform:skewX(-16.5deg);transform-origin:top}
-  .st-d{font-size:3.1cqw;line-height:1;text-transform:uppercase;letter-spacing:.01em}
-  .st-p{font:1.15cqw/1.2 'Special Elite',Courier,monospace;color:#d7e6dc;text-align:right}
-  .st-btn{margin-top:.5cqw;background:#ffd23f;color:#141310;font:800 1.35cqw/1 Inter,system-ui,sans-serif;letter-spacing:.04em;padding:1.1cqw 2cqw;border-radius:99cqw;white-space:nowrap}
+  /* banner «La Mafia, la Stidda» — stessa grafica della copertina ufficiale */
+  .st{position:relative;aspect-ratio:2046/297;border-radius:8px;overflow:hidden;container-type:inline-size;font-family:Anton,Impact,sans-serif;color:#fff;
+      background:radial-gradient(70% 160% at 55% 40%,#2a2a28 0%,#121211 60%,#0a0a09 100%)}
+  .st::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,rgba(0,0,0,.08) 0 2px,transparent 2px 5px)}
+  .st-rit{position:absolute;left:0;top:0;height:100%;width:auto;border-radius:0;-webkit-mask-image:linear-gradient(90deg,#000 72%,transparent);mask-image:linear-gradient(90deg,#000 72%,transparent)}
+  .st-tit{position:absolute;left:15.5cqw;top:13%;display:flex;align-items:flex-start;gap:.3cqw}
+  .st-y{background:#FFE11E;color:#111;font-size:3.7cqw;line-height:1;padding:.5cqw 1cqw .35cqw;text-transform:uppercase;white-space:nowrap}
+  .st-y--2{margin-top:-.6cqw}
+  .st-v{font-size:4.2cqw;line-height:.6;color:#FFE11E;margin:0 -.2cqw;align-self:flex-end}
+  .st-sub{position:absolute;left:15.5cqw;top:55%;font-size:1.35cqw;line-height:1.15;text-transform:uppercase;letter-spacing:.03em;font-style:italic;color:#fff;transform:skewX(-6deg)}
+  .st-di{position:absolute;left:15.5cqw;top:79%;font-size:1.5cqw;line-height:1;text-transform:uppercase;letter-spacing:.04em;color:#111;background:#FFE11E;padding:.35cqw .7cqw}
+  .st-pol{position:absolute;left:53.5cqw;top:11%;height:72%;width:auto;aspect-ratio:249/205;background:#f2f0ea;padding:.55cqw .55cqw 1.6cqw;border-radius:.2cqw;transform:rotate(2.5deg);box-shadow:0 .8cqw 2cqw rgba(0,0,0,.7);box-sizing:content-box;object-fit:cover}
+  .st-dx{position:absolute;right:2.6cqw;top:0;bottom:0;width:24cqw;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:.75cqw;text-align:right}
+  .st-logo{width:8.5cqw;height:auto;border-radius:0}
+  .st-d{font-size:3cqw;line-height:1;text-transform:uppercase;color:#fff}
+  .st-p{font:600 1.05cqw/1.25 Inter,system-ui,sans-serif;color:#cfcac0;letter-spacing:.02em}
+  .st-btn{background:#FFE11E;color:#111;font:800 1.35cqw/1 Inter,system-ui,sans-serif;letter-spacing:.04em;padding:1.05cqw 2cqw;border-radius:99cqw;white-space:nowrap}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap">
 </head>
@@ -56,15 +58,17 @@
       <img src="https://www.grandangoloagrigento.it/wp-content/uploads/sites/3/2026/09/ChatGPT-Image-7-set-2026-16_38_39-e1788792867827.png" alt="Grandangolo Regionale">
     </a>
     <!-- 3) il podcast «La Mafia, la Stidda» di Franco Castaldo -->
-    <a href="https://www.grandangoloregionale.it/podcast/#la-mafia-la-stidda" target="_top" rel="noopener" aria-label="La Mafia, la Stidda: il podcast del best seller di Franco Castaldo">
+    <a href="https://www.grandangoloregionale.it/podcast/#la-mafia-la-stidda" target="_top" rel="noopener" aria-label="La Mafia, la Stidda: un podcast di Franco Castaldo">
       <div class="st">
         <img class="st-rit" src="podcast/stidda-ritratto.jpg" alt="">
-        <div class="st-k">Il nuovo podcast di Grandangolo</div>
-        <div class="st-t">La Mafia,<i>la</i>&ldquo;Stidda&rdquo;</div>
-        <div class="st-s"><span>un audiolibro podcast del best seller di</span><b>Franco Castaldo</b></div>
+        <div class="st-tit"><span class="st-y">La Mafia</span><span class="st-v">,</span><span class="st-y st-y--2">La Stidda</span></div>
+        <div class="st-sub">I delitti, i rapporti con la politica,<br>l'imprenditoria e l'informazione</div>
+        <div class="st-di">Un podcast di Franco Castaldo</div>
+        <img class="st-pol" src="podcast/stidda-scena.jpg" alt="">
         <div class="st-dx">
+          <img class="st-logo" src="podcast/grandangolo-podcasts.png" alt="Grandangolo Podcasts">
           <div class="st-d" id="st-d">Dall'11 dicembre</div>
-          <div class="st-p">gratis su Spotify<br>e su tutte le piattaforme</div>
+          <div class="st-p">Gratis su Spotify, Apple, YouTube Music,<br>Amazon Music e tutte le piattaforme</div>
           <span class="st-btn" id="st-b">SCOPRI IL PODCAST →</span>
         </div>
       </div>
