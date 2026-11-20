@@ -42,6 +42,7 @@
   .st-logo{width:8.5cqw;height:auto;border-radius:0}
   .st-d{font-size:3cqw;line-height:1;text-transform:uppercase;color:#fff}
   .st-p{font:600 1.05cqw/1.25 Inter,system-ui,sans-serif;color:#cfcac0;letter-spacing:.02em}
+  .st-btn[hidden]{display:none}
   .st-btn{background:#FFE11E;color:#111;font:800 1.35cqw/1 Inter,system-ui,sans-serif;letter-spacing:.04em;padding:1.05cqw 2cqw;border-radius:99cqw;white-space:nowrap}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap">
@@ -50,7 +51,7 @@
   <!-- target="_top" apre il sito nella finestra intera, non dentro l'iframe -->
   <div class="giro" id="giro">
     <!-- 1) il podcast «La Mafia, la Stidda» di Franco Castaldo -->
-    <a class="on" href="https://www.grandangoloregionale.it/podcast/#la-mafia-la-stidda" target="_top" rel="noopener" aria-label="La Mafia, la Stidda: un podcast di Franco Castaldo">
+    <a class="on" id="st-a" data-href="https://www.grandangoloregionale.it/podcast/#la-mafia-la-stidda" target="_top" rel="noopener" style="cursor:default" aria-label="La Mafia, la Stidda: un podcast di Franco Castaldo">
       <div class="st">
         <img class="st-rit" src="podcast/stidda-ritratto.jpg" alt="">
         <div class="st-tit"><span class="st-y">La Mafia</span><span class="st-v">,</span><span class="st-y st-y--2">La Stidda</span></div>
@@ -61,7 +62,7 @@
           <img class="st-logo" src="podcast/grandangolo-podcasts.png" alt="Grandangolo Podcasts">
           <div class="st-d" id="st-d">Dall'11 dicembre</div>
           <div class="st-p">Gratis su Spotify, Apple, YouTube Music,<br>Amazon Music e tutte le piattaforme</div>
-          <span class="st-btn" id="st-b">SCOPRI IL PODCAST →</span>
+          <span class="st-btn" id="st-b" hidden>ASCOLTALO ORA →</span>
         </div>
       </div>
     </a>
@@ -76,8 +77,13 @@
   </div>
 
   <script>
-    /* dall'11 dicembre 2026 il banner del podcast dice «ora disponibile» */
-    if (Date.now() >= Date.parse("2026-12-11T00:00:00+01:00")) { document.getElementById("st-d").textContent = "Ora disponibile"; document.getElementById("st-b").textContent = "ASCOLTALO ORA →"; }
+        /* fino all'uscita il banner del podcast non è cliccabile e non ha il tasto */
+    if (Date.now() >= Date.parse("2026-12-11T00:00:00+01:00")) {
+      var stA = document.getElementById("st-a");
+      stA.href = stA.getAttribute("data-href"); stA.style.cursor = "";
+      document.getElementById("st-d").textContent = "Ora disponibile";
+      document.getElementById("st-b").hidden = false;
+    }
     /* banner «In edicola» con l'ultimo numero: su tutti i siti in coda alla rotazione;
        con ?sito=regionale prende il posto del banner che porterebbe al regionale stesso */
     var Q = new URLSearchParams(location.search);
