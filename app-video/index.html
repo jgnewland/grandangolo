@@ -2520,7 +2520,8 @@ function swCanvas(k, w, h) { let c = SW[k]; if (!c) { c = SW[k] = document.creat
 function swFx(ctx, el, bw, bh, fx, blurPx) {
   const M = colorMatrix(fx); if (!M && blurPx < .3) return null;
   const tr = ctx.getTransform ? ctx.getTransform() : { a: 1, b: 0 }, sc = Math.hypot(tr.a, tr.b) || 1;
-  const w = clamp(Math.round(bw * sc), 2, 1920), hh = clamp(Math.round(bh * sc), 2, 1920);
+  const cap = P.playing ? 540 : 1920, f0 = Math.min(1, cap / Math.max(bw * sc, bh * sc));
+  const w = clamp(Math.round(bw * sc * f0), 2, 1920), hh = clamp(Math.round(bh * sc * f0), 2, 1920);
   const A = swCanvas('a', w, hh), g = A.getContext('2d', { willReadFrequently: true });
   g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, w, hh);
   if (blurPx >= .3) { // sfocatura: rimpicciolisco e ringrandisco
@@ -2845,11 +2846,15 @@ function syncVideos(t) {
     if (soon) { if (!v.paused) v.pause(); if (Math.abs(v.currentTime - c.offset) > .05 && !v.seeking) v.currentTime = c.offset; continue; }
     const st = srcTime(c, t);
     if (st >= (v.duration || 1e9) - .04) { if (!v.paused) v.pause(); continue; }
-    if (v.playbackRate !== c.speed) v.playbackRate = c.speed;
     if (v._g) { const loc = t - c.start, fi = c.fadeIn > 0 ? clamp(loc / c.fadeIn, 0, 1) : 1, fo = c.fadeOut > 0 ? clamp((c.dur - loc) / c.fadeOut, 0, 1) : 1; v._g.gain.value = (c.mute || tr.mute) ? 0 : dbToG(c.vol) * dbToG(tr.vol) * dbToG(proj.masterDb) * fi * fo; }
     if (!started) continue;
-    if (v.paused) { if (Math.abs(v.currentTime - st) > .08) v.currentTime = st; v.play().catch(() => { }); }
-    else if (Math.abs(v.currentTime - st) > .35) v.currentTime = st;
+    if (v.paused) { if (Math.abs(v.currentTime - st) > .08) v.currentTime = st; v._rate = c.speed; v.playbackRate = c.speed; v.play().catch(() => { }); v._seekAt = performance.now(); continue; }
+    if (v.seeking) continue;
+    // riallineamento morbido: niente salti, il video accelera o rallenta di poco
+    const d = st - v.currentTime, now = performance.now();
+    if (Math.abs(d) > 1.5 && now - (v._seekAt || 0) > 2500) { v.currentTime = st; v._seekAt = now; continue; }
+    const want = Math.abs(d) < .03 ? c.speed : c.speed * (1 + clamp(d * .6, -.12, .12));
+    if (Math.abs((v._rate || 0) - want) > .01) { v._rate = want; v.playbackRate = want; }
   }
   releaseVids(t);
 }
