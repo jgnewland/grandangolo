@@ -1,8 +1,15 @@
 {
-  "updated": "2026-11-22T20:19:54.482188+00:00",
+  "updated": "2026-11-23T01:00:46.067447+00:00",
   "source": "https://www.grandangoloagrigento.it/feed",
   "count": 30,
   "items": [
+    {
+      "title": "Premio Empedocle, consegnati i riconoscimenti al cardinale Aveline, lo storico Merlo e lo scienziato Gaglio",
+      "summary": "A premiare il cardinale Aveline il prefetto di Agrigento, Salvatore Caccamo",
+      "date": "2026-11-22T21:01:28Z",
+      "link": "https://www.grandangoloagrigento.it/ultime-notizie/premio-empedocle-consegnati-i-riconoscimenti-al-cardinale-aveline-lo-storico-merlo-e-lo-scienziato-gaglio",
+      "img": "/feed-images/a055ed7abfb5974f.jpg"
+    },
     {
       "title": "Un mafioso moderno",
       "summary": "L’atto di accusa dei pm a Carmelo Vetro: “Un mafioso moderno che ha una chiara strategia di invisibilità”",
@@ -205,13 +212,6 @@
       "date": "2026-11-21T15:30:38Z",
       "link": "https://www.grandangoloagrigento.it/ultime-notizie/migranti-bimba-sola-a-lampedusa-sono-venuta-in-italia-per-andare-a-scuola",
       "img": "/feed-images/9072cbaa456948cc.jpg"
-    },
-    {
-      "title": "CastrumFavara: Renato Mancini nuovo allenatore, Tino Longo torna direttore sportivo",
-      "summary": "Dopo la rinuncia di mister Di Benedetto la società ha definito il nuovo assetto tecnico e dirigenziale",
-      "date": "2026-11-21T15:06:07Z",
-      "link": "https://www.grandangoloagrigento.it/sport/castrumfavara-renato-mancini-nuovo-allenatore-tino-longo-torna-direttore-sportivo",
-      "img": "/feed-images/7372bd1533c9d16a.jpg"
     }
   ]
 }
