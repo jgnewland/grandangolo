@@ -2263,7 +2263,7 @@ const clipOf = id => proj.clips.find(c => c.id === id);
 const selClip = () => S.sel ? clipOf(S.sel) : null;
 const projDur = () => proj.clips.reduce((m, c) => Math.max(m, c.start + c.dur), 0);
 const srcDur = c => { const s = sources.get(c.src); return s && isFinite(s.duration) ? s.duration : Infinity; };
-const hasAudio = c => { if (c.type === 'audio') return true; if (c.type !== 'video') return false; const s = sources.get(c.src); return !!(s && s.audioBuf); };
+const hasAudio = c => { if (c.type === 'audio') return true; if (c.type !== 'video') return false; const s = sources.get(c.src); return !!(s && (s.audioBuf || s.elAudio)); };
 const clipName = c => c.type === 'text' ? (c.text.content.split('\n')[0] || 'Testo') : (sources.get(c.src)?.name || c.name || 'clip');
 const projJSON = () => JSON.stringify(proj, (k, v) => k[0] === '_' ? undefined : v);
 
@@ -2294,11 +2294,25 @@ function AC() {
   if (!ac) { const C = window.AudioContext || window.webkitAudioContext; try { ac = new C({ latencyHint: 'playback', sampleRate: 48000 }); } catch { ac = new C(); } }
   return ac;
 }
-function decodeAudio(ab) {
+function decodeWith(ctx, ab) { return new Promise((res, rej) => { const p = ctx.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); }); }
+async function decodeAudio(ab) {
   const O = window.OfflineAudioContext || window.webkitOfflineAudioContext;
-  const oc = new O(2, 1, 48000);
-  return new Promise((res, rej) => { const p = oc.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); });
+  try { return await decodeWith(new O(2, 1, 48000), ab.slice(0)); }
+  catch (e) { return await decodeWith(AC(), ab); } // secondo tentativo con il contesto normale
 }
+/* iPhone: fa suonare l'audio anche con l'interruttore del silenzioso attivo */
+try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch { }
+const SILENT_WAV = 'data:audio/wav;base64,UklGRmQGAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YUAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+let unlocked = false;
+function unlockAudio() {
+  if (unlocked) return; unlocked = true;
+  try { const a = AC(); a.resume(); const b = a.createBuffer(1, 1, a.sampleRate), s = a.createBufferSource(); s.buffer = b; s.connect(a.destination); s.start(0); } catch { }
+  try { const el = new Audio(SILENT_WAV); el.loop = true; el.setAttribute('playsinline', ''); el.volume = 0.01; el.play().catch(() => { }); window.__silentEl = el; } catch { }
+}
+['touchend', 'pointerup', 'click', 'keydown'].forEach(ev => document.addEventListener(ev, unlockAudio, { capture: true, passive: true }));
+/* audio letto direttamente dal video, quando il telefono non riesce a «estrarlo» */
+let elBusNode = null;
+function elBus() { if (!elBusNode) { elBusNode = AC().createGain(); elBusNode.connect(AC().destination); } return elBusNode; }
 function calcPeaks(buf) {
   const per = 200, step = Math.floor(buf.sampleRate / per), n = Math.ceil(buf.length / step), out = new Float32Array(n);
   const chs = []; for (let c = 0; c < Math.min(2, buf.numberOfChannels); c++) chs.push(buf.getChannelData(c));
@@ -2350,7 +2364,7 @@ async function loadSource(s) {
     const m = await videoMeta(s.url);
     s.w = m.w; s.h = m.h; s.duration = m.duration;
     try { s.audioBuf = await decodeAudio(await s.blob.arrayBuffer()); s.peaks = calcPeaks(s.audioBuf); if (!isFinite(s.duration)) s.duration = s.audioBuf.duration; }
-    catch { s.audioBuf = null; }
+    catch { s.audioBuf = null; s.elAudio = true; }
     s.thumbs = []; genThumbs(s, m.v);
   } else if (s.type === 'image') {
     const img = new Image(); img.src = s.url; await img.decode();
@@ -2473,7 +2487,57 @@ function addFromLib(srcId, trackId, time, noCommit) {
 }
 
 /* ================= disegno dei fotogrammi ================= */
-const HAS_FILTER = typeof CanvasRenderingContext2D !== 'undefined' && 'filter' in CanvasRenderingContext2D.prototype;
+/* i filtri «nativi» del canvas (ctx.filter) non esistono su Safari/iPhone: lo verifico davvero */
+const HAS_FILTER = (() => {
+  try {
+    const c = document.createElement('canvas'); c.width = c.height = 2; const g = c.getContext('2d', { willReadFrequently: true });
+    if (!('filter' in g)) return false;
+    g.filter = 'grayscale(1)'; g.fillStyle = '#ff0000'; g.fillRect(0, 0, 2, 2);
+    const d = g.getImageData(0, 0, 1, 1).data; return Math.abs(d[0] - d[1]) < 30;
+  } catch { return false; }
+})();
+/* filtri calcolati a mano (matrice di colore + sfocatura), usati quando ctx.filter manca */
+function mMul(A, B) { // affini 3x4: risultato = A·B
+  const R = new Array(12);
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) R[i * 4 + j] = A[i * 4] * B[j] + A[i * 4 + 1] * B[4 + j] + A[i * 4 + 2] * B[8 + j];
+    R[i * 4 + 3] = A[i * 4] * B[3] + A[i * 4 + 1] * B[7] + A[i * 4 + 2] * B[11] + A[i * 4 + 3];
+  }
+  return R;
+}
+function colorMatrix(fx) {
+  let M = null; const add = X => { M = M ? mMul(X, M) : X; };
+  if (fx.bright) { const b = 1 + fx.bright / 100; add([b, 0, 0, 0, 0, b, 0, 0, 0, 0, b, 0]); }
+  if (fx.contrast) { const c = 1 + fx.contrast / 100, o = 127.5 * (1 - c); add([c, 0, 0, o, 0, c, 0, o, 0, 0, c, o]); }
+  if (fx.sat) { const s = Math.max(0, 1 + fx.sat / 100); add([.213 + .787 * s, .715 - .715 * s, .072 - .072 * s, 0, .213 - .213 * s, .715 + .285 * s, .072 - .072 * s, 0, .213 - .213 * s, .715 - .715 * s, .072 + .928 * s, 0]); }
+  if (fx.hue) { const a = fx.hue * Math.PI / 180, C = Math.cos(a), S = Math.sin(a); add([.213 + C * .787 - S * .213, .715 - C * .715 - S * .715, .072 - C * .072 + S * .928, 0, .213 - C * .213 + S * .143, .715 + C * .285 + S * .140, .072 - C * .072 - S * .283, 0, .213 - C * .213 - S * .787, .715 - C * .715 + S * .715, .072 + C * .928 + S * .072, 0]); }
+  if (fx.sepia) { const a = 1 - Math.min(1, fx.sepia / 100); add([.393 + .607 * a, .769 - .769 * a, .189 - .189 * a, 0, .349 - .349 * a, .686 + .314 * a, .168 - .168 * a, 0, .272 - .272 * a, .534 - .534 * a, .131 + .869 * a, 0]); }
+  if (fx.gray) { const a = 1 - Math.min(1, fx.gray / 100); add([.2126 + .7874 * a, .7152 - .7152 * a, .0722 - .0722 * a, 0, .2126 - .2126 * a, .7152 + .2848 * a, .0722 - .0722 * a, 0, .2126 - .2126 * a, .7152 - .7152 * a, .0722 + .9278 * a, 0]); }
+  return M;
+}
+const SW = { a: null, b: null };
+function swCanvas(k, w, h) { let c = SW[k]; if (!c) { c = SW[k] = document.createElement('canvas'); } if (c.width !== w || c.height !== h) { c.width = w; c.height = h; } return c; }
+function swFx(ctx, el, bw, bh, fx, blurPx) {
+  const M = colorMatrix(fx); if (!M && blurPx < .3) return null;
+  const tr = ctx.getTransform ? ctx.getTransform() : { a: 1, b: 0 }, sc = Math.hypot(tr.a, tr.b) || 1;
+  const w = clamp(Math.round(bw * sc), 2, 1920), hh = clamp(Math.round(bh * sc), 2, 1920);
+  const A = swCanvas('a', w, hh), g = A.getContext('2d', { willReadFrequently: true });
+  g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, w, hh);
+  if (blurPx >= .3) { // sfocatura: rimpicciolisco e ringrandisco
+    const f = Math.max(1, blurPx / 2), sw = Math.max(1, Math.round(w / f)), sh = Math.max(1, Math.round(hh / f));
+    const B = swCanvas('b', sw, sh), gb = B.getContext('2d'); gb.imageSmoothingQuality = 'high'; gb.clearRect(0, 0, sw, sh); gb.drawImage(el, 0, 0, sw, sh);
+    g.imageSmoothingQuality = 'high'; g.drawImage(B, 0, 0, w, hh);
+  } else g.drawImage(el, 0, 0, w, hh);
+  if (M) {
+    const im = g.getImageData(0, 0, w, hh), d = im.data, [a0, a1, a2, a3, b0, b1, b2, b3, c0, c1, c2, c3] = M;
+    for (let i = 0; i < d.length; i += 4) {
+      const r = d[i], gg = d[i + 1], b = d[i + 2];
+      d[i] = a0 * r + a1 * gg + a2 * b + a3; d[i + 1] = b0 * r + b1 * gg + b2 * b + b3; d[i + 2] = c0 * r + c1 * gg + c2 * b + c3;
+    }
+    g.putImageData(im, 0, 0);
+  }
+  return A;
+}
 const vids = new Map(); // id clip -> <video>
 function vidFor(c) {
   let v = vids.get(c.id);
@@ -2482,6 +2546,7 @@ function vidFor(c) {
   if (!v && s) {
     v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v._src = c.src;
     v.setAttribute('playsinline', ''); v.src = s.url;
+    if (s.elAudio) { try { v.muted = false; const src = AC().createMediaElementSource(v), g = AC().createGain(); g.gain.value = 0; src.connect(g); g.connect(elBus()); v._g = g; } catch (e) { v.muted = true; } }
     v.addEventListener('seeked', requestDraw); v.addEventListener('loadeddata', requestDraw);
     $('#vids').append(v); vids.set(c.id, v);
   }
@@ -2661,7 +2726,10 @@ function drawClip(ctx, c, t, k) {
       const mw = s.w || 16, mh = s.h || 9;
       const f = c.fit === 'cover' ? Math.max(W / mw, H / mh) : Math.min(W / mw, H / mh);
       bw = mw * f; bh = mh * f; c._b = { w: bw, h: bh };
-      if (el && (c.type !== 'video' || el.readyState >= 2)) ctx.drawImage(el, -bw / 2, -bh / 2, bw, bh);
+      if (el && (c.type !== 'video' || el.readyState >= 2)) {
+        const sw = HAS_FILTER ? null : swFx(ctx, el, bw, bh, c.fx, blur * k * s2);
+        ctx.drawImage(sw || el, -bw / 2, -bh / 2, bw, bh);
+      }
     }
     if (HAS_FILTER) ctx.filter = 'none';
     const fx = c.fx;
@@ -2754,7 +2822,7 @@ function pause() {
   if (!P.playing) return;
   S.playhead = Math.min(curT(), projDur()); P.playing = false;
   if (P.graph) P.graph.stop(); P.graph = null; cancelAnimationFrame(P.raf);
-  for (const v of vids.values()) v.pause();
+  for (const v of vids.values()) { v.pause(); if (v._g) v._g.gain.value = 0; }
   playUI(false); seekPreview(); updPH(); renderTimecode();
 }
 const togglePlay = () => P.playing ? pause() : play();
@@ -2778,6 +2846,7 @@ function syncVideos(t) {
     const st = srcTime(c, t);
     if (st >= (v.duration || 1e9) - .04) { if (!v.paused) v.pause(); continue; }
     if (v.playbackRate !== c.speed) v.playbackRate = c.speed;
+    if (v._g) { const loc = t - c.start, fi = c.fadeIn > 0 ? clamp(loc / c.fadeIn, 0, 1) : 1, fo = c.fadeOut > 0 ? clamp((c.dur - loc) / c.fadeOut, 0, 1) : 1; v._g.gain.value = (c.mute || tr.mute) ? 0 : dbToG(c.vol) * dbToG(tr.vol) * dbToG(proj.masterDb) * fi * fo; }
     if (!started) continue;
     if (v.paused) { if (Math.abs(v.currentTime - st) > .08) v.currentTime = st; v.play().catch(() => { }); }
     else if (Math.abs(v.currentTime - st) > .35) v.currentTime = st;
@@ -3205,6 +3274,7 @@ async function exportDialog() {
 function exportSize(res) { const short = Math.min(proj.w, proj.h), k = res / short; return [Math.round(proj.w * k / 2) * 2, Math.round(proj.h * k / 2) * 2]; }
 function exportBitrate(W, H, fps, q) { const base = W * H * fps; return Math.round(base * ({ hi: .19, mid: .11, lo: .055 }[q])); }
 async function exportMP4({ res, q, from, to }) {
+  if (proj.clips.some(c => c.type === 'video' && !c.mute && sources.get(c.src)?.elAudio && c.start < to && c.start + c.dur > from)) return exportRealtime({ res, q, from, to });
   EX.cancel = false;
   const fps = proj.fps, [W, H] = exportSize(res), bitrate = exportBitrate(W, H, fps, q);
   const vcfg = await pickVideoCodec(W, H, fps, bitrate);
@@ -3277,6 +3347,7 @@ async function exportRealtime({ res, q, from, to }) {
   // pre-posiziona i video
   S.playhead = from; await prepareFrame(from); drawFrame(cx, from, W, H);
   const c0 = a.currentTime + .25, graph = buildAudio(a, dest, from, c0, to);
+  const bus = elBus(); bus.connect(dest);
   P.playing = true; P.t0 = from; P.c0 = c0;
   rec.start(500);
   await new Promise(res => {
@@ -3288,7 +3359,7 @@ async function exportRealtime({ res, q, from, to }) {
     };
     step();
   });
-  P.playing = false; graph.stop(); for (const v of vids.values()) v.pause();
+  P.playing = false; graph.stop(); try { bus.disconnect(dest); } catch { } for (const v of vids.values()) { v.pause(); if (v._g) v._g.gain.value = 0; }
   await new Promise(r => { rec.onstop = r; rec.stop(); });
   ui.close(); seekPreview();
   if (EX.cancel) { toast('Esportazione annullata'); return; }
