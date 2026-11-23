@@ -157,12 +157,59 @@ body{touch-action:manipulation}
   #emptyHint strong{font-size:16px}
   #toast{bottom:120px}
 }
+
+#toolbar,#side,.thead,#rows,#rulerRow,#tabs{-webkit-user-select:none;user-select:none}
+@media (min-width:761px) and (max-width:1750px){#bHome .t,#bStop .t,#bUndo .t,#bRedo .t,#bZoomOut .t,#bZoomIn .t,#bHelp .t,#bNew .t,#bOpen .t,#bSave .t,#bDup .t,#bDel .t{display:none}}
+/* side panel: library + effects */
+#main{display:flex;min-height:0;min-width:0}
+#scroller{flex:1;min-width:0}
+#side{width:258px;flex:none;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+#side.hide{display:none}
+.stabs{display:flex;gap:4px;padding:6px;border-bottom:1px solid var(--line);align-items:center}
+.stabs button{flex:1;min-height:30px;font-size:12px;padding:3px 6px;justify-content:center}
+.stabs button.on{background:var(--panel3);border-color:var(--accent);color:var(--accent);font-weight:600}
+.stabs .sclose{flex:none;display:none}
+.spane{flex:1;overflow:auto;padding:8px}
+.shint{font-size:12px;margin:6px 2px}
+#libList{list-style:none;margin:8px 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.li{display:grid;grid-template-columns:22px 1fr auto;gap:2px 6px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:6px}
+.li .grip{cursor:grab;touch-action:none;color:var(--muted);display:flex;align-items:center;justify-content:center;grid-row:1/3;height:100%}
+.li .grip svg{width:16px;height:16px}
+.li .nm{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.li .du{font-size:11px;color:var(--muted)}
+.li canvas{grid-column:2/3;width:100%;height:22px;display:block}
+.li .acts{display:flex;gap:4px;grid-row:1/3;grid-column:3}
+.li .acts button{min-height:30px;padding:2px 8px;font-size:13px}
+.li.used .du::after{content:" · in uso";color:var(--ok)}
+.fxg h4{margin:12px 2px 6px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.fxi{display:flex;align-items:center;gap:8px;width:100%;justify-content:flex-start;margin-bottom:5px;min-height:38px;text-align:left;white-space:normal;line-height:1.2}
+.fxi small{color:var(--muted);font-size:11px;display:block;font-weight:400}
+.fxi .ic{width:24px;height:24px;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--panel3);color:var(--accent)}
+.fxi .ic svg{width:15px;height:15px}
+#ghost{position:fixed;pointer-events:none;z-index:80;background:var(--accent);color:#1d1400;font-weight:600;padding:6px 10px;border-radius:7px;font-size:12px;box-shadow:0 6px 20px rgba(0,0,0,.5);display:none;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lane.drop,.clip.drop{outline:2px dashed var(--accent);outline-offset:-2px}
+.newlane{display:none;position:sticky;left:var(--hw);width:min(560px,60vw);height:52px;margin:8px 0;border:2px dashed var(--line);border-radius:8px;color:var(--muted);align-items:center;padding-left:14px;font-size:13px}
+body.dragging .newlane{display:flex}
+.newlane.drop{border-color:var(--accent);color:var(--accent)}
+.tgrip{cursor:grab;touch-action:none;color:var(--muted);display:flex;align-items:center;padding:0 1px;flex:none}
+.tgrip svg{width:14px;height:14px}
+.row.dragtrack{opacity:.45}
+#trackDrop{position:absolute;left:0;height:3px;background:var(--accent);z-index:8;display:none;pointer-events:none;width:100%}
+@media (max-width:760px){
+  #side{position:fixed;left:0;top:0;bottom:0;width:min(86vw,330px);z-index:45;box-shadow:8px 0 30px rgba(0,0,0,.6);transform:translateX(-105%);transition:transform .2s;display:flex}
+  #side.open{transform:none}
+  .stabs .sclose{display:inline-flex}
+  .tgrip svg{width:16px;height:16px}
+}
 </style>
 </head>
 <body>
 <div id="app">
   <div id="toolbar" role="toolbar" aria-label="Comandi principali">
     <div id="brand">Montaggio Audio<small>multitraccia</small></div>
+    <div class="grp">
+      <button id="bLib" class="on" title="Mostra o nascondi il pannello File ed Effetti" aria-label="Libreria"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="7" height="16" rx="1"/><path d="M14 6h7M14 12h7M14 18h7"/></svg><span class="t">Libreria</span></button>
+    </div>
     <div class="grp">
       <button id="bPlay" title="Riproduci / Pausa (Spazio)" aria-label="Riproduci"><svg id="icPlay" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg><svg id="icPause" style="display:none" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg><span class="t">Riproduci</span></button>
       <button id="bStop" title="Stop e torna al punto di partenza" aria-label="Stop"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h12v12H6z"/></svg><span class="t">Stop</span></button>
@@ -201,13 +248,30 @@ body{touch-action:manipulation}
     <button id="bExport" class="primary" title="Esporta il montaggio in MP3 o WAV (Ctrl+E)" aria-label="Esporta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M4 15v4h16v-4"/></svg><span class="t">Esporta</span></button>
   </div>
 
+  <div id="main">
+  <aside id="side" aria-label="File importati, effetti e transizioni">
+    <div class="stabs" role="tablist"><button type="button" data-s="libPane" class="on">File</button><button type="button" data-s="fxPane">Effetti e transizioni</button><button type="button" class="sclose" id="sideClose" aria-label="Chiudi il pannello">&times;</button></div>
+    <div id="libPane" class="spane">
+      <button id="libAdd" class="primary" style="width:100%;justify-content:center">+ Aggiungi file</button>
+      <label class="chk" style="font-size:12px"><input type="checkbox" id="libAuto" checked> Mettili subito sulla timeline</label>
+      <ul id="libList"></ul>
+      <p class="muted shint" id="libHint">Trascina un file (dalla maniglia a sinistra) sulla traccia e nel punto dove lo vuoi, oppure premi <b>+</b> per metterlo sulla traccia selezionata, al cursore.</p>
+    </div>
+    <div id="fxPane" class="spane" hidden>
+      <p class="muted shint">Seleziona una clip o una traccia e tocca un effetto. Col mouse puoi anche trascinarlo sopra la clip o la traccia.</p>
+      <div id="fxList"></div>
+    </div>
+  </aside>
   <div id="scroller">
     <div id="content">
       <div id="rulerRow"><div id="corner"><span>Tracce</span><span id="durLbl"></span></div><canvas id="ruler" aria-label="Righello del tempo: clicca per spostare il cursore"></canvas></div>
       <div id="rows"></div>
+      <div class="newlane" id="newLane">+ Rilascia qui per creare una nuova traccia</div>
+      <div id="trackDrop"></div>
       <div id="playhead"></div>
       <div id="emptyHint"><strong>Trascina qui i tuoi file audio</strong>MP3, WAV, OGG, M4A, FLAC… oppure usa <b>Importa audio</b>. Puoi anche registrare la voce con <b>Registra</b>.</div>
     </div>
+  </div>
   </div>
 
   <div id="inspector">
@@ -244,7 +308,7 @@ body{touch-action:manipulation}
 
 <dialog id="helpDlg">
   <h2>Come si usa</h2>
-  <p class="muted" style="margin-top:0"><b>Ogni file importato va su una nuova traccia</b>, una sopra l'altra: così voce e musica suonano insieme. Per mettere un file in coda su una traccia esistente, trascinalo su quella traccia. Il pulsante con l'onda accanto a M e S apre la <b>linea del volume</b>: tocca per aggiungere punti, trascinali per alzare o abbassare (doppio clic per eliminarli). Nel pannello Traccia trovi <b>Abbassa sotto la voce</b>, che lo fa da solo. Sul telefono: tocca una clip per selezionarla, poi trascinala; allarga due dita per lo zoom.</p><p class="muted">Trascina le clip per spostarle, anche da una traccia all'altra. Trascina i bordi per accorciarle. I quadratini bianchi in alto regolano le dissolvenze. Clicca sul righello o su uno spazio vuoto per spostare il cursore. <b>Ctrl + rotella</b> fa lo zoom.</p>
+  <p class="muted" style="margin-top:0"><b>Ogni file importato va su una nuova traccia</b>, una sopra l'altra: così voce e musica suonano insieme. Per mettere un file in coda su una traccia esistente, trascinalo su quella traccia. Il pulsante con l'onda accanto a M e S apre la <b>linea del volume</b>: tocca per aggiungere punti, trascinali per alzare o abbassare (doppio clic per eliminarli). Nel pannello Traccia trovi <b>Abbassa sotto la voce</b>, che lo fa da solo. Sul telefono: tocca una clip per selezionarla, poi trascinala; allarga due dita per lo zoom.</p><p class="muted">A sinistra c'è il pannello <b>Libreria</b>: in <b>File</b> trovi tutti i file importati, da trascinare sulla traccia che vuoi; in <b>Effetti e transizioni</b> tocchi un effetto per applicarlo alla clip o alla traccia selezionata. Per spostare una traccia sopra o sotto le altre, trascinala dalla maniglia a puntini accanto al nome. Per sovrapporre due pezzi, trascina una clip sulla traccia che vuoi, o sotto l'ultima traccia per crearne una nuova.</p><p class="muted">Trascina le clip per spostarle, anche da una traccia all'altra. Trascina i bordi per accorciarle. I quadratini bianchi in alto regolano le dissolvenze. Clicca sul righello o su uno spazio vuoto per spostare il cursore. <b>Ctrl + rotella</b> fa lo zoom.</p>
   <dl class="keys">
     <dt><kbd>Spazio</kbd></dt><dd>Riproduci / pausa</dd>
     <dt><kbd>S</kbd></dt><dd>Taglia la clip al cursore</dd>
@@ -265,6 +329,7 @@ body{touch-action:manipulation}
 
 <div id="restore" role="status"><span id="restoreTxt">C'è un montaggio salvato.</span><button id="restoreYes" class="primary">Riprendi</button><button id="restoreNo">Ignora</button></div>
 <dialog id="askDlg"><p id="askTxt" style="margin:0 0 6px;font-size:14px"></p><menu><button type="button" id="askNo">Annulla</button><button type="button" id="askYes" class="primary">Conferma</button></menu></dialog>
+<div id="ghost"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="busy"><span id="busyTxt">Carico…</span></div>
 
@@ -914,6 +979,7 @@ async function importFiles(files, track, time) {
   const list = [...files].filter(f => (f.type && f.type.startsWith('audio/')) || AUDIO_RE.test(f.name));
   if (!list.length) { toast('Nessun file audio riconosciuto.'); return; }
   const ac = getCtx(), wasEmpty = !projectEnd(), before = snapshot();
+  const place = !!track || $('#libAuto').checked;
   const at0 = time != null ? time : state.playhead; let at = at0, added = 0;
   const sel = trackById(state.selTrack); let free = !track && sel && !sel.clips.length ? sel : null;
   for (let i = 0; i < list.length; i++) {
@@ -922,6 +988,7 @@ async function importFiles(files, track, time) {
       const bytes = await f.arrayBuffer(); const buffer = await ac.decodeAudioData(bytes.slice(0));
       const src = addSource({ name: f.name, mime: f.type || 'audio/mpeg', bytes, buffer });
       const label = src.name.replace(/\.[a-z0-9]+$/i, '').slice(0, 28);
+      if (!place) { added++; continue; }
       let t, start;
       if (track) { t = track; start = at; }                       /* dropped on a track: in coda */
       else {                                                      /* otherwise: a new track, one above the other */
@@ -934,6 +1001,7 @@ async function importFiles(files, track, time) {
     } catch (e) { toast(`Non riesco a leggere ${f.name}`); }
   }
   unbusy();
+  if (added && !place) { render(); scheduleAutosave(); toast(added === 1 ? 'File aggiunto alla libreria' : `${added} file aggiunti alla libreria`); return; }
   if (added) { pushUndo(before); afterEdit(); if (wasEmpty) fitZoom(); toast(added === 1 ? 'File importato' : `${added} file importati, uno per traccia`); }
 }
 
@@ -1000,7 +1068,7 @@ function render() {
   rowsEl.textContent = '';
   for (const t of state.tracks) rowsEl.appendChild(buildRow(t));
   $('#emptyHint').hidden = state.tracks.some(t => t.clips.length);
-  sizeCanvases(); drawAll(); renderInspector(); updateButtons(); updateTime();
+  sizeCanvases(); drawAll(); renderInspector(); updateButtons(); updateTime(); renderLib();
   const e = projectEnd(); $('#durLbl').textContent = e ? fmt(e, 0) : ''; $('#mDur').textContent = fmt(e, 1);
 }
 function sizeCanvases() {
@@ -1074,7 +1142,7 @@ const ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strok
 function buildRow(t) {
   const row = document.createElement('div'); row.className = 'row' + (t.id === state.selTrack ? ' selt' : ''); row.dataset.t = t.id;
   const h = document.createElement('div'); h.className = 'thead'; h.style.setProperty('--c', t.color);
-  h.innerHTML = `<div class="tl1"><input class="tname" type="text" aria-label="Nome della traccia"><button class="ib del" title="Elimina la traccia" aria-label="Elimina la traccia">${ICON_X}</button></div>
+  h.innerHTML = `<div class="tl1"><span class="tgrip" title="Trascina per spostare la traccia sopra o sotto"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></span><input class="tname" type="text" aria-label="Nome della traccia"><button class="ib del" title="Elimina la traccia" aria-label="Elimina la traccia">${ICON_X}</button></div>
     <div class="tl2"><button class="ms m${t.mute ? ' on' : ''}" title="Silenzia la traccia" aria-pressed="${t.mute}">M</button><button class="ms s${t.solo ? ' on' : ''}" title="Ascolta solo questa traccia" aria-pressed="${t.solo}">S</button><button class="autob${state.autoEdit === t.id ? ' on' : ''}${t.auto.length ? ' has' : ''}" title="Linea del volume: alza e abbassa il volume nel tempo" aria-label="Linea del volume" aria-pressed="${state.autoEdit === t.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h5l4 8h9"/><circle cx="8" cy="8" r="1.5"/><circle cx="12" cy="16" r="1.5"/></svg></button><button class="fxb${hasTrackFx(t) ? ' act' : ''}" title="Effetti della traccia">Effetti</button><span class="tvol"></span></div>
     <div class="tl3"><label>Vol <input type="range" class="vol" min="-40" max="12" step="0.5" aria-label="Volume della traccia"></label><label>Pan <input type="range" class="pan" min="-1" max="1" step="0.05" aria-label="Bilanciamento sinistra destra"></label></div>`;
   const nm = h.querySelector('.tname'); nm.value = t.name;
@@ -1182,7 +1250,7 @@ function renderInspector() {
   if (!t) { tp.innerHTML = '<h3>Effetti della traccia</h3><p class="muted">Seleziona una traccia per regolarne gli effetti.</p>'; return; }
   const f = t.fx, lv = () => { applyLive(); const r = rowsEl.querySelector(`.row[data-t="${t.id}"] .fxb`); if (r) r.classList.toggle('act', hasTrackFx(t)); };
   const h = document.createElement('h3'); h.innerHTML = 'Effetti · <b></b>'; h.querySelector('b').textContent = t.name; tp.appendChild(h);
-  const pr = document.createElement('label'); pr.className = 'nf'; pr.innerHTML = '<span style="min-width:110px">Preimpostazione</span><select><option value="">Scegli…</option><option value="voce">Voce podcast</option><option value="narratore">Narratore audiolibro</option><option value="musica">Musica di sottofondo</option><option value="telefono">Voce al telefono</option><option value="ricordo">Ricordo (eco e riverbero)</option><option value="none">Nessun effetto</option></select>';
+  const pr = document.createElement('label'); pr.className = 'nf'; pr.innerHTML = '<span style="min-width:110px">Preimpostazione</span><select><option value="">Scegli…</option><option value="voce">Voce podcast</option><option value="narratore">Narratore audiolibro</option><option value="musica">Musica di sottofondo</option><option value="telefono">Voce al telefono</option><option value="ricordo">Ricordo (eco e riverbero)</option><option value="radio">Radio d\'epoca</option><option value="none">Nessun effetto</option></select>';
   const ps = pr.querySelector('select'); ps.onchange = () => { if (ps.value) edit(() => applyPreset(t, ps.value)); }; tp.appendChild(pr);
   const hdrSync = () => { const r = rowsEl.querySelector(`.row[data-t="${t.id}"]`); if (r) { r.querySelector('.vol').value = t.volDb; r.querySelector('.pan').value = t.pan; r.querySelector('.tvol').textContent = fDb(t.volDb); } };
   tp.appendChild(rangeRow('Volume traccia', -40, 12, 0.5, () => t.volDb, v => { t.volDb = v; applyLive(); hdrSync(); }, fDb, 0));
@@ -1229,6 +1297,7 @@ function applyPreset(t, p) {
     musica: { low: 0, mid: -4, high: -1 },
     telefono: { hp: true, low: -12, mid: 8, high: -12, comp: true },
     ricordo: { hp: true, high: -3, reverb: 0.45, echo: 0.3 },
+    radio: { hp: true, low: -8, mid: 6, high: -6, comp: true },
     none: {}
   };
   t.fx = { ...base, ...(P[p] || {}) };
@@ -1256,6 +1325,7 @@ rowsEl.addEventListener('pointerdown', e => {
   const snaps = [0, state.playhead];
   for (const tt of state.tracks) for (const k of tt.clips) if (k !== c) snaps.push(k.start, clipEnd(k));
   drag = { mode, t, c, el: clipEl, x0: e.clientX, orig: { ...c }, before: snapshot(), snaps, moved: false };
+  if (mode === 'move') document.body.classList.add('dragging');
   clipEl.setPointerCapture(e.pointerId); clipEl.classList.add('dragging');
   e.preventDefault();
 });
@@ -1274,6 +1344,7 @@ window.addEventListener('pointermove', e => {
     const s1 = snapTime(ns, e.altKey), s2 = snapTime(ns + orig.duration, e.altKey) - orig.duration;
     ns = Math.abs(s1 - ns) <= Math.abs(s2 - ns) ? s1 : s2; c.start = Math.max(0, ns);
     const under = document.elementFromPoint(e.clientX, e.clientY), lane = under && under.closest('.lane');
+    const nl = $('#newLane'); drag.toNew = !!(under && under.closest('#newLane')); nl.classList.toggle('drop', drag.toNew);
     if (lane && lane.dataset.t !== drag.t.id) {
       const nt = trackById(lane.dataset.t);
       if (nt) { const old = drag.t; old.clips = old.clips.filter(k => k !== c); nt.clips.push(c); drag.t = nt; lane.appendChild(drag.el); drag.el.style.setProperty('--c', nt.color); drawLane(old); state.selTrack = nt.id; }
@@ -1294,9 +1365,11 @@ window.addEventListener('pointermove', e => {
 });
 window.addEventListener('pointerup', () => {
   if (!drag) return; const d = drag; drag = null; d.el.classList.remove('dragging');
+  document.body.classList.remove('dragging'); $('#newLane').classList.remove('drop');
+  if (d.moved && d.toNew) { const nt = newTrack(); d.t.clips = d.t.clips.filter(k => k !== d.c); nt.clips.push(d.c); state.tracks.push(nt); state.selTrack = nt.id; }
   if (d.moved) { lastDragEnd = Date.now(); pushUndo(d.before); afterEdit(); }
 });
-window.addEventListener('pointercancel', () => { if (drag) { drag.el.classList.remove('dragging'); if (drag.moved) { pushUndo(drag.before); afterEdit(); } drag = null; } if (autoDrag) { autoDrag = null; render(); } });
+window.addEventListener('pointercancel', () => { document.body.classList.remove('dragging'); if (drag) { drag.el.classList.remove('dragging'); if (drag.moved) { pushUndo(drag.before); afterEdit(); } drag = null; } if (autoDrag) { autoDrag = null; render(); } });
 let lastDragEnd = 0;
 rowsEl.addEventListener('click', e => {
   if (Date.now() - lastDragEnd < 350) return;
@@ -1477,12 +1550,12 @@ function blobToB64(blob) { return new Promise((res, rej) => { const r = new File
 function usedSourceIds() { const s = new Set(); for (const t of state.tracks) for (const c of t.clips) s.add(c.src); return s; }
 function projectMeta() { return { tracks: state.tracks, pps: state.pps, masterDb: state.masterDb, limiter: state.limiter, name: state.name, playhead: state.playhead }; }
 async function saveProject() {
-  if (!projectEnd() && !state.tracks.length) return toast('Il progetto è vuoto.');
+  if (!projectEnd() && !state.tracks.length && !sources.size) return toast('Il progetto è vuoto.');
   busy('Salvo il progetto…');
   try {
     const parts = ['{"app":"montaggio-audio","version":1,"project":', JSON.stringify(projectMeta()), ',"sources":['];
     let first = true;
-    for (const id of usedSourceIds()) {
+    for (const id of sources.keys()) {
       const s = sources.get(id); if (!s) continue;
       const b64 = await blobToB64(new Blob([s.bytes], { type: s.mime }));
       parts.push((first ? '' : ',') + JSON.stringify({ id: s.id, name: s.name, mime: s.mime }).slice(0, -1) + ',"data":"', b64, '"}'); first = false;
@@ -1539,8 +1612,8 @@ const savedSrc = new Set(); let asT = 0;
 function scheduleAutosave() { clearTimeout(asT); asT = setTimeout(autosave, 1500); }
 async function autosave() {
   try {
-    for (const id of usedSourceIds()) { const s = sources.get(id); if (s && !savedSrc.has(id)) { await DB.put('src', id, { id, name: s.name, mime: s.mime, bytes: s.bytes }); savedSrc.add(id); } }
-    await DB.put('kv', 'project', { ...projectMeta(), srcIds: [...usedSourceIds()], savedAt: Date.now() });
+    for (const id of sources.keys()) { const s = sources.get(id); if (s && !savedSrc.has(id)) { await DB.put('src', id, { id, name: s.name, mime: s.mime, bytes: s.bytes }); savedSrc.add(id); } }
+    await DB.put('kv', 'project', { ...projectMeta(), srcIds: [...sources.keys()], savedAt: Date.now() });
     const d = new Date(); $('#saved').textContent = `Salvato automaticamente alle ${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`;
   } catch (e) { $('#saved').textContent = ''; }
 }
@@ -1605,6 +1678,214 @@ window.addEventListener('keydown', e => {
 new ResizeObserver(() => { const w = Math.max(200, scroller.clientWidth - HW); if (w !== viewW) render(); }).observe(scroller);
 window.addEventListener('beforeunload', () => { if (projectEnd()) autosave(); });
 
+/* ---------- side panel: library ---------- */
+const side = $('#side');
+function sideMobile() { return mqMobile.matches; }
+function toggleSide(force) {
+  if (sideMobile()) { const o = force != null ? force : !side.classList.contains('open'); side.classList.toggle('open', o); $('#bLib').classList.toggle('on', o); }
+  else { const show = force != null ? force : side.classList.contains('hide'); side.classList.toggle('hide', !show); $('#bLib').classList.toggle('on', show); render(); }
+}
+$('#bLib').onclick = () => toggleSide();
+$('#sideClose').onclick = () => toggleSide(false);
+document.querySelectorAll('.stabs button[data-s]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.stabs button[data-s]').forEach(x => x.classList.toggle('on', x === b));
+  $('#libPane').hidden = b.dataset.s !== 'libPane'; $('#fxPane').hidden = b.dataset.s !== 'fxPane';
+});
+$('#libAdd').onclick = () => $('#fileIn').click();
+function usesOf(id) { let n = 0; for (const t of state.tracks) for (const c of t.clips) if (c.src === id) n++; return n; }
+function renderLib() {
+  const ul = $('#libList'); ul.textContent = '';
+  $('#libHint').hidden = false;
+  if (!sources.size) { const li = document.createElement('li'); li.className = 'muted shint'; li.textContent = 'Nessun file ancora. Premi "+ Aggiungi file" o trascinali qui.'; ul.appendChild(li); return; }
+  for (const s of sources.values()) {
+    const li = document.createElement('li'); li.className = 'li' + (usesOf(s.id) ? ' used' : ''); li.dataset.s = s.id;
+    li.innerHTML = `<span class="grip" title="Trascina sulla timeline">${'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>'}</span><span class="nm"></span><span class="acts"><button type="button" class="ladd" title="Metti sulla traccia selezionata, al cursore" aria-label="Aggiungi alla timeline">+</button><button type="button" class="ldel" title="Togli dalla libreria" aria-label="Togli dalla libreria">${ICON_X}</button></span><span class="du"></span><canvas aria-hidden="true"></canvas>`;
+    li.querySelector('.nm').textContent = s.name; li.querySelector('.nm').title = s.name;
+    li.querySelector('.du').textContent = fmt(s.buffer.duration, 1);
+    li.querySelector('.ladd').onclick = () => addFromLib(s.id, null, null);
+    li.querySelector('.ldel').onclick = async () => {
+      const n = usesOf(s.id);
+      if (n && !(await ask(`"${s.name}" è usato in ${n} clip sulla timeline. Toglierlo dalla libreria elimina anche quelle clip. Continuare?`))) return;
+      edit(() => { for (const t of state.tracks) t.clips = t.clips.filter(c => c.src !== s.id); if (state.selClip && !findClip(state.selClip)) state.selClip = null; });
+      sources.delete(s.id); savedSrc.delete(s.id); render(); scheduleAutosave();
+    };
+    ul.appendChild(li);
+    const cv = li.querySelector('canvas');
+    requestAnimationFrame(() => {
+      const w = cv.clientWidth || 160, h = 22, d = DPR(); cv.width = w * d; cv.height = h * d;
+      const g = cv.getContext('2d'); g.scale(d, d); g.fillStyle = '#8f9196';
+      const pk = s.peaks, n = pk.max.length, step = n / w;
+      for (let x = 0; x < w; x++) { let mx = 0; for (let i = Math.floor(x * step); i < Math.min(n, Math.floor((x + 1) * step) + 1); i++) mx = Math.max(mx, pk.max[i], -pk.min[i]); const hh = Math.max(1, mx * h); g.fillRect(x, (h - hh) / 2, 1, hh); }
+    });
+  }
+}
+function addFromLib(srcId, track, time) {
+  const src = sources.get(srcId); if (!src) return;
+  edit(() => {
+    let t = track || trackById(state.selTrack);
+    if (!t) { t = newTrack(src.name.replace(/\.[a-z0-9]+$/i, '').slice(0, 28)); state.tracks.push(t); }
+    const c = newClip(src, time != null ? time : state.playhead); t.clips.push(c); state.selClip = c.id; state.selTrack = t.id;
+  });
+  toast('Aggiunto alla timeline');
+}
+
+/* ---------- side panel: effects and transitions ---------- */
+const IC = {
+  fin: '<path d="M3 20L21 4M3 20h18"/>', fout: '<path d="M3 4l18 16M3 20h18"/>', xf: '<path d="M3 18C9 18 9 6 21 6M3 6c12 0 12 12 18 12"/>',
+  both: '<path d="M3 20l5-14h8l5 14"/>', cut: '<path d="M12 3v18M6 8l-3 4 3 4M18 8l3 4-3 4"/>', none: '<path d="M3 12h18"/>',
+  norm: '<path d="M4 18V6M20 18V6M8 12h8"/>', rev: '<path d="M9 14L4 9l5-5M4 9h11a5 5 0 010 10h-3"/>', up: '<path d="M12 19V5M5 12l7-7 7 7"/>', down: '<path d="M12 5v14M19 12l-7 7-7-7"/>',
+  voice: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/>', music: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+  phone: '<path d="M5 4h4l2 5-3 2a11 11 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/>', radio: '<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M7 8l10-5M7 14h4"/><circle cx="16" cy="14" r="2"/>',
+  echo: '<path d="M4 12h3M9 8v8M13 5v14M17 9v6M21 11v2"/>', room: '<path d="M3 21V9l9-6 9 6v12z"/><path d="M9 21v-6h6v6"/>', hp: '<path d="M3 18h5l6-12h7"/>', comp: '<path d="M4 6h16M4 18h16M8 10h8M8 14h8"/>',
+  duck: '<path d="M3 8h5l4 8h9"/>', line: '<path d="M3 16l5-6 4 3 4-6 5 4"/>', reset: '<path d="M4 12a8 8 0 1 0 3-6.2L4 8M4 3v5h5"/>'
+};
+const fadeTo = (c, fi, fo) => { if (fi != null) c.fadeIn = Math.min(fi, c.duration - (fo != null ? Math.min(fo, c.duration / 2) : c.fadeOut)); if (fo != null) c.fadeOut = Math.min(fo, c.duration - c.fadeIn); };
+const FX = [
+  { g: 'Transizioni (sulla clip)', items: [
+    { ic: 'fin', name: 'Dissolvenza in entrata', sub: '1 secondo', on: 'clip', run: c => fadeTo(c, 1, null) },
+    { ic: 'fin', name: 'Dissolvenza in entrata lenta', sub: '3 secondi', on: 'clip', run: c => fadeTo(c, 3, null) },
+    { ic: 'fout', name: 'Dissolvenza in uscita', sub: '1 secondo', on: 'clip', run: c => fadeTo(c, null, 1) },
+    { ic: 'fout', name: 'Dissolvenza in uscita lenta', sub: '3 secondi', on: 'clip', run: c => fadeTo(c, null, 3) },
+    { ic: 'xf', name: 'Dissolvenza incrociata', sub: 'con la clip precedente sulla stessa traccia', on: 'clip', special: 'xf' },
+    { ic: 'both', name: 'Entrata e uscita morbide', sub: 'mezzo secondo per lato', on: 'clip', run: c => { c.fadeIn = 0; c.fadeOut = 0; fadeTo(c, 0.5, 0.5); } },
+    { ic: 'cut', name: 'Taglio pulito', sub: 'evita i "click" tra due pezzi', on: 'clip', run: c => { c.fadeIn = 0; c.fadeOut = 0; fadeTo(c, 0.02, 0.02); c.shape = 'linear'; } },
+    { ic: 'none', name: 'Togli le dissolvenze', sub: '', on: 'clip', run: c => { c.fadeIn = 0; c.fadeOut = 0; } }
+  ] },
+  { g: 'Effetti sulla clip', items: [
+    { ic: 'norm', name: 'Normalizza', sub: 'porta il picco a −1 dB', on: 'clip', special: 'norm' },
+    { ic: 'up', name: 'Alza il volume', sub: '+3 dB', on: 'clip', run: c => { c.gainDb = clamp(c.gainDb + 3, -24, 24); } },
+    { ic: 'down', name: 'Abbassa il volume', sub: '−3 dB', on: 'clip', run: c => { c.gainDb = clamp(c.gainDb - 3, -24, 24); } },
+    { ic: 'down', name: 'Da sottofondo', sub: '−12 dB', on: 'clip', run: c => { c.gainDb = clamp(c.gainDb - 12, -24, 24); } },
+    { ic: 'rev', name: 'Inverti', sub: 'riproduce al contrario', on: 'clip', special: 'rev' }
+  ] },
+  { g: 'Effetti sulla traccia', items: [
+    { ic: 'voice', name: 'Voce podcast', sub: 'pulita, presente, uniforme', on: 'track', run: t => applyPreset(t, 'voce') },
+    { ic: 'voice', name: 'Narratore audiolibro', sub: 'calda, con un filo di ambiente', on: 'track', run: t => applyPreset(t, 'narratore') },
+    { ic: 'music', name: 'Musica di sottofondo', sub: 'più bassa e meno invadente', on: 'track', run: t => applyPreset(t, 'musica') },
+    { ic: 'phone', name: 'Voce al telefono', sub: '', on: 'track', run: t => applyPreset(t, 'telefono') },
+    { ic: 'radio', name: "Radio d'epoca", sub: 'come una vecchia registrazione', on: 'track', run: t => applyPreset(t, 'radio') },
+    { ic: 'echo', name: 'Ricordo', sub: 'eco e riverbero, per i flashback', on: 'track', run: t => applyPreset(t, 'ricordo') },
+    { ic: 'room', name: 'Riverbero sala', sub: 'si aggiunge agli altri effetti', on: 'track', run: t => { t.fx.reverb = 0.45; } },
+    { ic: 'echo', name: 'Eco', sub: 'si aggiunge agli altri effetti', on: 'track', run: t => { t.fx.echo = 0.4; } },
+    { ic: 'hp', name: 'Anti-rimbombo', sub: 'taglia i bassi sotto 90 Hz', on: 'track', run: t => { t.fx.hp = true; } },
+    { ic: 'comp', name: 'Compressore', sub: 'livella i volumi della voce', on: 'track', run: t => { t.fx.comp = true; } },
+    { ic: 'reset', name: 'Nessun effetto', sub: 'azzera gli effetti della traccia', on: 'track', run: t => applyPreset(t, 'none') }
+  ] },
+  { g: 'Volume nel tempo', items: [
+    { ic: 'duck', name: 'Abbassa sotto la voce', sub: 'apre le opzioni della traccia di sottofondo', on: 'track', special: 'duck' },
+    { ic: 'line', name: 'Linea del volume', sub: 'disegna tu dove sale e scende', on: 'track', special: 'line' }
+  ] }
+];
+function fxTarget(item, dropClip, dropTrack) {
+  if (item.on === 'clip') { const f = dropClip ? findClip(dropClip) : selected(); return f ? { clip: f.c, track: f.t } : null; }
+  const t = dropTrack ? trackById(dropTrack) : (dropClip ? (findClip(dropClip) || {}).t : null) || trackById(state.selTrack) || (selected() || {}).t;
+  return t ? { track: t } : null;
+}
+function applyFx(item, dropClip, dropTrack) {
+  const tg = fxTarget(item, dropClip, dropTrack);
+  if (!tg) { toast(item.on === 'clip' ? 'Seleziona prima una clip sulla timeline.' : 'Seleziona prima una traccia.'); return; }
+  if (item.on === 'clip') { state.selClip = tg.clip.id; state.selTrack = tg.track.id; }
+  else state.selTrack = tg.track.id;
+  if (item.special === 'xf') { refreshSelection(); crossfade(); return; }
+  if (item.special === 'norm') { refreshSelection(); normalizeClip(); return; }
+  if (item.special === 'rev') { refreshSelection(); reverseClip(); return; }
+  if (item.special === 'duck') { refreshSelection(); setTab('trackPane', true); const d = document.querySelector('#trackPane .duck'); if (d) d.scrollIntoView({ block: 'center' }); else toast('Serve almeno un\'altra traccia con della voce.'); if (sideMobile()) toggleSide(false); return; }
+  if (item.special === 'line') { toggleAutoEdit(tg.track); if (sideMobile()) toggleSide(false); return; }
+  edit(() => item.run(item.on === 'clip' ? tg.clip : tg.track));
+  applyLive();
+  toast(`${item.name}: applicato a "${item.on === 'clip' ? tg.clip.name : tg.track.name}"`);
+}
+function renderFxList() {
+  const box = $('#fxList'); box.textContent = '';
+  FX.forEach((grp, gi) => {
+    const g = document.createElement('div'); g.className = 'fxg'; g.innerHTML = '<h4></h4>'; g.querySelector('h4').textContent = grp.g;
+    grp.items.forEach((it, ii) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'fxi'; b.dataset.fx = gi + ':' + ii;
+      b.innerHTML = `<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[it.ic] || ''}</svg></span><span><span class="fxn"></span><small></small></span>`;
+      b.querySelector('.fxn').textContent = it.name; b.querySelector('small').textContent = it.sub;
+      g.appendChild(b);
+    });
+    box.appendChild(g);
+  });
+}
+renderFxList();
+function fxItem(key) { const [g, i] = key.split(':').map(Number); return FX[g].items[i]; }
+
+/* ---------- drag from the side panel (files and effects) ---------- */
+let pdrag = null;
+const ghost = $('#ghost');
+function clearDropMarks() { document.querySelectorAll('.drop').forEach(x => x.classList.remove('drop')); }
+side.addEventListener('pointerdown', e => {
+  if (e.button !== 0) return;
+  const grip = e.target.closest('.li .grip'), fx = e.target.closest('.fxi');
+  if (grip) { pdrag = { kind: 'file', id: grip.closest('.li').dataset.s, x0: e.clientX, y0: e.clientY, on: false, label: sources.get(grip.closest('.li').dataset.s).name }; e.preventDefault(); }
+  else if (fx && e.pointerType !== 'touch') { pdrag = { kind: 'fx', id: fx.dataset.fx, x0: e.clientX, y0: e.clientY, on: false, label: fxItem(fx.dataset.fx).name, btn: fx }; }
+});
+side.addEventListener('click', e => {
+  const fx = e.target.closest('.fxi'); if (!fx) return;
+  if (fx.dataset.dragged) { delete fx.dataset.dragged; return; }
+  applyFx(fxItem(fx.dataset.fx));
+});
+function dropTargetAt(x, y) {
+  const el = document.elementFromPoint(x, y); if (!el) return {};
+  const clip = el.closest('.clip'), lane = el.closest('.lane'), nl = el.closest('#newLane'), row = el.closest('.row');
+  return { clip, lane, nl, row, el };
+}
+window.addEventListener('pointermove', e => {
+  if (!pdrag) return;
+  if (!pdrag.on) {
+    if (Math.hypot(e.clientX - pdrag.x0, e.clientY - pdrag.y0) < 6) return;
+    pdrag.on = true; ghost.textContent = pdrag.label; ghost.style.display = 'block';
+    if (pdrag.kind === 'file') document.body.classList.add('dragging');
+    if (sideMobile()) toggleSide(false);
+  }
+  ghost.style.left = (e.clientX + 14) + 'px'; ghost.style.top = (e.clientY + 12) + 'px';
+  clearDropMarks();
+  const d = dropTargetAt(e.clientX, e.clientY);
+  if (pdrag.kind === 'file') { if (d.nl) d.nl.classList.add('drop'); else if (d.lane) d.lane.classList.add('drop'); }
+  else { const it = fxItem(pdrag.id); if (it.on === 'clip' && d.clip) d.clip.classList.add('drop'); else if (it.on === 'track' && (d.lane || d.row)) (d.lane || d.row.querySelector('.lane')).classList.add('drop'); }
+});
+window.addEventListener('pointerup', e => {
+  if (!pdrag) return; const p = pdrag; pdrag = null;
+  const d = p.on ? dropTargetAt(e.clientX, e.clientY) : {};
+  ghost.style.display = 'none'; clearDropMarks(); document.body.classList.remove('dragging');
+  if (!p.on) return;
+  if (p.btn) p.btn.dataset.dragged = '1';
+  if (p.kind === 'file') {
+    if (d.nl) { const src = sources.get(p.id); edit(() => { const t = newTrack(src.name.replace(/\.[a-z0-9]+$/i, '').slice(0, 28)); state.tracks.push(t); state.selTrack = t.id; }); addFromLib(p.id, trackById(state.selTrack), state.playhead); }
+    else if (d.lane) { const t = trackById(d.lane.dataset.t); let time = Math.max(0, (e.clientX - d.lane.getBoundingClientRect().left) / state.pps); addFromLib(p.id, t, time); }
+  } else {
+    const it = fxItem(p.id);
+    if (it.on === 'clip' && d.clip) applyFx(it, d.clip.dataset.c, null);
+    else if (it.on === 'track' && (d.lane || d.row)) applyFx(it, null, (d.lane || d.row).dataset.t);
+  }
+});
+window.addEventListener('pointercancel', () => { if (pdrag) { pdrag = null; ghost.style.display = 'none'; clearDropMarks(); document.body.classList.remove('dragging'); } });
+
+/* ---------- reorder tracks by dragging the grip ---------- */
+let tdrag = null;
+rowsEl.addEventListener('pointerdown', e => {
+  const g = e.target.closest('.tgrip'); if (!g || e.button !== 0) return;
+  const row = g.closest('.row'); tdrag = { id: row.dataset.t, row, to: null }; row.classList.add('dragtrack');
+  g.setPointerCapture(e.pointerId); e.preventDefault(); e.stopPropagation();
+}, true);
+window.addEventListener('pointermove', e => {
+  if (!tdrag) return;
+  const rows = [...rowsEl.querySelectorAll('.row')]; let idx = rows.length;
+  for (let i = 0; i < rows.length; i++) { const r = rows[i].getBoundingClientRect(); if (e.clientY < r.top + r.height / 2) { idx = i; break; } }
+  tdrag.to = idx;
+  const line = $('#trackDrop'), cr = content.getBoundingClientRect();
+  const y = idx < rows.length ? rows[idx].getBoundingClientRect().top : rows[rows.length - 1].getBoundingClientRect().bottom;
+  line.style.top = (y - cr.top - 1) + 'px'; line.style.display = 'block';
+});
+window.addEventListener('pointerup', () => {
+  if (!tdrag) return; const d = tdrag; tdrag = null; d.row.classList.remove('dragtrack'); $('#trackDrop').style.display = 'none';
+  if (d.to == null) return;
+  const from = state.tracks.findIndex(t => t.id === d.id); let to = d.to; if (to > from) to--;
+  if (to === from) return;
+  edit(() => { const [t] = state.tracks.splice(from, 1); state.tracks.splice(to, 0, t); });
+});
+
 /* mobile panels */
 const insp = $('#inspector'); let tab = 'clipPane';
 function setTab(p, open) {
@@ -1626,7 +1907,8 @@ scroller.addEventListener('touchmove', e => {
   cancelAnimationFrame(pinchRaf); pinchRaf = requestAnimationFrame(() => setZoom(pinch ? pinch.pps * f : state.pps, (pinch ? pinch.cx : r.left) - r.left - HW));
 }, { passive: false });
 scroller.addEventListener('touchend', e => { if (e.touches.length < 2) pinch = null; });
-mqMobile.addEventListener('change', () => render());
+mqMobile.addEventListener('change', () => { side.classList.remove('open'); $('#bLib').classList.toggle('on', !sideMobile() && !side.classList.contains('hide')); render(); });
+if (sideMobile()) $('#bLib').classList.remove('on');
 
 render(); drawMeter(0); checkRestore();
 </script>
