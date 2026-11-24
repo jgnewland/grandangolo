@@ -4387,7 +4387,7 @@ const BRAND = {
   outroUrl: 'https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4',
 };
 /* --- lower third: stesso disegno del player e del generatore pre-roll --- */
-function gl3K() { return proj.w >= proj.h ? proj.w / 1920 : proj.w / 1080 * .95; }
+function gl3K() { return proj.w >= proj.h ? proj.w / 1920 : proj.w / 1080 * 1.4; }
 function gl3Layout(ctx, tx, k) {
   const LS = v => { try { ctx.letterSpacing = v; } catch (_) { } };
   const sc = (tx.size || 100) / 100;
