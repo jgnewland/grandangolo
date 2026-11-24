@@ -4220,7 +4220,7 @@ async function ensureGrandangoloKit() {
   let k = KIT.list.find(x => x.id === 'k-grandangolo');
   if (!k) { k = Object.assign(newKit('Grandangolo'), { id: 'k-grandangolo', l3: L3_GRANDANGOLO() }); KIT.list.unshift(k); KIT.active = k.id; await kitsSave(); }
   if (!k.files.logo) for (const u of ['logo-grandangolo.png', '../logo-grandangolo.png']) { try { let b = await fetchBlob(new URL(u, location.href).href, 20000); if (b && b.size > 500) { b = await trimTransparent(b); await kitFilePut(k, 'logo', b, 'Logo Grandangolo.png'); break; } } catch { } }
-  if (!k.files.outro) for (const u of ['outro-grandangolo.mp4']) { try { const b = await fetchBlob(new URL(u, location.href).href, 60000); if (b && b.size > 5000) { await kitFilePut(k, 'outro', new Blob([b], { type: 'video/mp4' }), 'Outro Grandangolo.mp4'); break; } } catch { } }
+  if (!k.files.outro) for (const u of ['outro-grandangolo.mp4', 'https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4']) { try { const b = await fetchBlob(new URL(u, location.href).href, 60000); if (b && b.size > 5000) { await kitFilePut(k, 'outro', new Blob([b], { type: 'video/mp4' }), 'Outro Grandangolo.mp4'); break; } } catch { } }
 }
 
 /* --- risorse del kit come file della libreria --- */
