@@ -1,0 +1,46 @@
+{
+ "version": "1.1.0",
+ "date": "2026-11-24",
+ "notes": [
+  "Aggiornamenti automatici dal sito"
+ ],
+ "minShell": "1.1.0",
+ "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
+ "files": [
+  {
+   "path": "NWLcut.html",
+   "sha256": "af3f3c7e86d24cb8e1d26bba0aaabba25caa3ffe5a73f5e3e3794f9b08152027",
+   "size": 314307
+  },
+  {
+   "path": "NWLtono.html",
+   "sha256": "aa45d608b297472bc5e432fb5c113eee5b7d8c946a7db3b7640ba365865f72a0",
+   "size": 279258
+  },
+  {
+   "path": "launcher.html",
+   "sha256": "5e8c557d808d31e76d71050e2099b6c1ec12a91681eeaf077778511b33757c06",
+   "size": 6023
+  },
+  {
+   "path": "versione.json",
+   "sha256": "aa3bbf7b3112fddfcabf8916223c063318e7a012efaba8f2d11b999028e5c435",
+   "size": 20
+  },
+  {
+   "path": "icone/newland.png",
+   "sha256": "49c59b8fa232bdb75cfb31fce425c63fc69c76849fd7f84ae190d3d8299ff05e",
+   "size": 255400
+  },
+  {
+   "path": "icone/nwlcut.png",
+   "sha256": "97197c37e10a7bf0feca6c02e9dd2e7d2c0981c4c76f35cbf1ccec5fd04190a1",
+   "size": 12566
+  },
+  {
+   "path": "icone/nwltono.png",
+   "sha256": "cfca36e53ff5756e81290e7c419c7e3beec51921e2a64df3765528ff5dca7a58",
+   "size": 11835
+  }
+ ]
+}
