@@ -157,6 +157,15 @@ body.dragging .newlane{border-color:#6b7380;color:var(--text);background:#1b1e23
 #cutMenu .cmgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
 #cutMenu .cmgrid button{flex-direction:column;gap:2px;min-height:54px;padding:4px 2px;font-size:10.5px;white-space:normal;line-height:1.1}
 #cutMenu .cmgrid i{font-style:normal;font-size:18px}
+#tracks{user-select:none;-webkit-user-select:none}
+#marq{position:absolute;z-index:9;display:none;border:1.5px dashed var(--mint);background:rgba(118,227,170,.10);border-radius:4px;pointer-events:none}
+.clip.msel{outline:2px solid var(--mint);outline-offset:-1px;box-shadow:0 0 0 3px rgba(118,227,170,.25)}
+.tvol{flex:none;min-height:22px;height:22px;padding:0 7px;font-size:11px;font-family:"JetBrains Mono",monospace;border-radius:6px;background:#0f1813;color:var(--mint);cursor:ew-resize}
+.tvol.low{color:#ffd34d}
+#volPop{position:fixed;z-index:130;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:300px;box-shadow:0 14px 40px rgba(0,0,0,.6)}
+#volPop .vh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#volPop .vbig{font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--mint);text-align:center;margin:4px 0 2px}
+#volPop input[type=range]{height:28px}
 #ghost{position:fixed;z-index:100;pointer-events:none;background:var(--panel3);border:1px solid var(--accent);border-radius:7px;padding:5px 9px;font-size:12px;display:none;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 #snapLine{position:absolute;top:0;bottom:0;width:1px;background:var(--accent);z-index:7;display:none;pointer-events:none}
 
@@ -333,6 +342,7 @@ svg.auto .ahint{fill:#ffd34d;font:600 11px Inter,sans-serif;pointer-events:none}
       <button id="bSplit" title="Taglia la clip al cursore (S)">✂ <span class="tb-l">Taglia</span></button>
       <button id="bDup" title="Duplica (D)">⧉ <span class="tb-l">Duplica</span></button>
       <button id="bDel" title="Elimina (Canc)">🗑 <span class="tb-l">Elimina</span></button>
+      <button id="bSelAll" title="Seleziona tutte le clip (Ctrl+A). Puoi anche trascinare un riquadro sullo spazio vuoto della timeline">⬚ <span class="tb-l">Seleziona tutto</span></button>
       <button id="bDetach" title="Separa l'audio del video su una traccia audio">♪ <span class="tb-l">Separa audio</span></button>
       <span class="sep"></span>
       <button id="bSnap" class="on" title="Calamita: aggancia ai bordi delle clip e al cursore">🧲</button>
@@ -351,6 +361,7 @@ svg.auto .ahint{fill:#ffd34d;font:600 11px Inter,sans-serif;pointer-events:none}
         <div class="newlane" id="newBot">＋ Trascina qui file, clip o elementi della libreria per creare una nuova traccia</div>
         <div id="ph"></div>
         <div id="snapLine"></div>
+        <div id="marq"></div>
         <div id="trackDrop"></div>
       </div>
     </div>
@@ -2926,13 +2937,13 @@ function duckPts(tr) {
   return pts;
 }
 function buildAudio(A, dest, from, t0, until = Infinity) {
-  const nodes = [], master = A.createGain(); master.gain.value = dbToG(proj.masterDb);
+  const nodes = [], tgs = {}, master = A.createGain(); master.gain.value = dbToG(proj.masterDb);
   const lim = A.createDynamicsCompressor();
   lim.threshold.value = -1.5; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = .003; lim.release.value = .12;
   master.connect(lim); lim.connect(dest);
   for (const tr of proj.tracks) {
     if (tr.mute) continue;
-    const tg = A.createGain(); tg.gain.value = dbToG(tr.vol);
+    const tg = A.createGain(); tg.gain.value = tr.vol <= -40 ? 0 : dbToG(tr.vol); tgs[tr.id] = tg;
     const ap = autoPts(tr); if (ap) applyEnv(tg.gain, ap, from, t0);
     if (tr.duck && tr.kind === 'audio') { const dg = A.createGain(); applyEnv(dg.gain, duckPts(tr).map(([t, v]) => [t, v / dbToG(tr.vol)]), from, t0); tg.connect(dg); dg.connect(master); }
     else tg.connect(master);
@@ -2949,7 +2960,7 @@ function buildAudio(A, dest, from, t0, until = Infinity) {
       src.start(at, off, Math.max(0.001, Math.min(buf.duration - off, len))); nodes.push(src);
     }
   }
-  return { stop() { for (const n of nodes) { try { n.stop(); } catch { } } try { master.disconnect(); lim.disconnect(); } catch { } } };
+  return { tg: tgs, stop() { for (const n of nodes) { try { n.stop(); } catch { } } try { master.disconnect(); lim.disconnect(); } catch { } } };
 }
 
 /* ================= riproduzione ================= */
@@ -3211,12 +3222,10 @@ function renderTimeline() {
       if (n && await ask('Eliminare la traccia «' + tr.name + '»?', `Contiene ${n} clip che verranno tolte dalla timeline (i file restano nella libreria).`, [['Annulla', 0], ['Elimina', 1, 'primary']]) !== 1) return;
       proj.clips = proj.clips.filter(c => c.track !== tr.id); proj.tracks = proj.tracks.filter(t => t !== tr); if (S.selTrack === tr.id) S.selTrack = null; if (S.sel && !clipOf(S.sel)) S.sel = null; commit(); renderAll(); seekPreview();
     }));
-    const vol = h('input', { type: 'range', min: -30, max: 6, step: .5, value: tr.vol, title: 'Volume traccia', oninput: e => { tr.vol = +e.target.value; volL.textContent = (tr.vol > 0 ? '+' : '') + tr.vol + ' dB'; }, onchange: () => { commit(); if (P.playing) { pause(); play(); } } });
-    const volL = h('span', { style: 'min-width:44px;text-align:right' }, (tr.vol > 0 ? '+' : '') + tr.vol + ' dB');
+    const volB = h('button', { class: 'tvol' + (tr.vol < -0.01 ? ' low' : ''), 'data-tvol': tr.id, title: 'Volume della traccia: clic per regolarlo, oppure rotellina del mouse / trascina a destra e sinistra' }, fmtVol(tr.vol));
     const head = h('div', { class: 'thead', style: `--c:${TCOL[tr.kind]}` },
-      h('div', { class: 'tl1' }, h('span', { class: 'grip', title: 'Trascina per spostare la traccia sopra o sotto', 'data-grip': tr.id }, '⋮⋮'), name),
-      h('div', { class: 'tl1' }, btns),
-      h('div', { class: 'tl2' }, h('span', {}, isV ? '♪' : 'Vol'), vol, volL));
+      h('div', { class: 'tl1' }, h('span', { class: 'grip', title: 'Trascina per spostare la traccia sopra o sotto', 'data-grip': tr.id }, '⋮⋮'), name, volB),
+      h('div', { class: 'tl1' }, btns));
     head.addEventListener('pointerdown', e => { if (e.target.closest('button,input,.grip')) return; S.selTrack = tr.id; markSel(); });
     const lane = h('div', { class: 'lane', style: `width:${W}px`, 'data-lane': tr.id });
     for (const c of proj.clips) if (c.track === tr.id) lane.append(clipEl(c, tr));
@@ -3285,11 +3294,16 @@ function repaintClipsOf(srcId) {
   for (const c of proj.clips) if (c.src === srcId) { const e = TRK.querySelector(`[data-c="${c.id}"]`); if (e) paintClip(c, e); }
   requestDraw();
 }
+S.multi = new Set();
 function markSel() {
-  for (const e of TRK.querySelectorAll('.clip')) e.classList.toggle('sel', e.dataset.c === S.sel);
+  for (const id of [...S.multi]) if (!clipOf(id)) S.multi.delete(id);
+  if (S.sel && !S.multi.has(S.sel)) S.multi = new Set([S.sel]);
+  if (!S.sel && S.multi.size === 1) S.multi = new Set();
+  for (const e of TRK.querySelectorAll('.clip')) { e.classList.toggle('sel', e.dataset.c === S.sel); e.classList.toggle('msel', S.multi.size > 1 && S.multi.has(e.dataset.c)); }
   for (const r of TRK.querySelectorAll('.trow')) r.classList.toggle('selT', r.dataset.t === S.selTrack);
 }
-function select(id) {
+function select(id, keepMulti) {
+  if (!keepMulti) S.multi = new Set(id ? [id] : []);
   S.sel = id; const c = selClip(); if (c) S.selTrack = c.track;
   markSel(); renderInspector(); requestDraw(); updButtons();
 }
@@ -3414,24 +3428,39 @@ TRK.addEventListener('pointerdown', e => {
   const ce = e.target.closest('.clip');
   if (!ce) {
     const lane = e.target.closest('.lane'); if (!lane) return;
-    D = { mode: 'tap', x0: e.clientX, y0: e.clientY, lane, track: lane.dataset.lane, pt: e.pointerType }; return;
+    D = { mode: 'tap', x0: e.clientX, y0: e.clientY, lane, track: lane.dataset.lane, pt: e.pointerType }; if (e.pointerType === 'mouse') e.preventDefault(); return;
   }
   const c = clipOf(ce.dataset.c); if (!c) return; const tr = trackOf(c.track);
-  if (e.pointerType === 'touch' && c.id !== S.sel) { D = { mode: 'tapsel', id: c.id, x0: e.clientX, y0: e.clientY }; return; }
-  if (c.id !== S.sel) select(c.id);
+  if (e.shiftKey || e.ctrlKey || e.metaKey) {
+    if (S.multi.has(c.id) && S.multi.size > 1) { S.multi.delete(c.id); if (S.sel === c.id) S.sel = [...S.multi][0]; }
+    else { if (S.sel && !S.multi.size) S.multi.add(S.sel); S.multi.add(c.id); S.sel = c.id; }
+    markSel(); renderInspector(); requestDraw(); updButtons(); return;
+  }
+  if (e.pointerType === 'touch' && c.id !== S.sel && !S.multi.has(c.id)) { D = { mode: 'tapsel', id: c.id, x0: e.clientX, y0: e.clientY }; return; }
+  if (!(S.multi.size > 1 && S.multi.has(c.id))) { if (c.id !== S.sel) select(c.id); }
+  else { S.sel = c.id; markSel(); renderInspector(); }
   if (tr.lock) return;
   if (P.playing) pause();
   const mode = e.target.classList.contains('trim') ? (e.target.classList.contains('l') ? 'tl' : 'tr') : 'move';
   D = { mode, id: c.id, x0: e.clientX, y0: e.clientY, start: c.start, dur: c.dur, off: c.offset, track: c.track, el: ce, moved: false, cands: snapCands(c.id) };
+  if (mode === 'move' && S.multi.size > 1 && S.multi.has(c.id)) { D.group = [...S.multi].map(clipOf).filter(x => x && !trackOf(x.track).lock).map(x => ({ c: x, s: x.start, el: TRK.querySelector(`[data-c="${x.id}"]`) })); D.cands = snapCands(); D.cands = D.cands.filter(t => !D.group.some(g => Math.abs(g.s - t) < 1e-6 || Math.abs(g.s + g.c.dur - t) < 1e-6)); }
   ce.setPointerCapture(e.pointerId); e.preventDefault();
 });
 window.addEventListener('pointermove', e => {
   if (!D) return;
+  if (D.mode === 'tap' && D.pt === 'mouse' && Math.hypot(e.clientX - D.x0, e.clientY - D.y0) > 6) { D.mode = 'marq'; D.add = e.shiftKey || e.ctrlKey || e.metaKey; D.base = D.add ? new Set(S.multi) : new Set(); }
+  if (D.mode === 'marq') { marquee(D, e); return; }
   if (D.mode === 'tap' || D.mode === 'tapsel') { if (Math.hypot(e.clientX - D.x0, e.clientY - D.y0) > 8) D = null; return; }
   const c = clipOf(D.id); if (!c) return;
   if (!D.moved && Math.hypot(e.clientX - D.x0, e.clientY - D.y0) < 4) return;
   if (!D.moved) { D.moved = true; if (D.mode === 'move') { $('#newBot').textContent = kindForClip(c) === 'video' ? '＋ Rilascia qui per una nuova traccia video (in primo piano)' : '＋ Rilascia qui per una nuova traccia audio'; document.body.classList.add('dragging'); } }
   const dx = (e.clientX - D.x0) / S.pps;
+  if (D.mode === 'move' && D.group) { // sposto tutte le clip selezionate insieme, solo nel tempo
+    let d = dx; const minS = Math.min(...D.group.map(g => g.s)); if (minS + d < 0) d = -minS;
+    const sn = snapT(D.start + d, D.cands); if (sn !== null) d = sn - D.start;
+    for (const g of D.group) { g.c.start = Math.max(0, g.s + d); if (g.el) g.el.style.left = g.c.start * S.pps + 'px'; }
+    showSnap(sn); return;
+  }
   if (D.mode === 'move') {
     let ns = Math.max(0, D.start + dx);
     const a = snapT(ns, D.cands), b = snapT(ns + c.dur, D.cands);
@@ -3468,6 +3497,12 @@ window.addEventListener('pointermove', e => {
 window.addEventListener('pointerup', e => {
   if (!D) return; const d = D; D = null;
   document.body.classList.remove('dragging'); showSnap(null);
+  if (d.mode === 'marq') {
+    $('#marq').style.display = 'none'; S.sel = [...S.multi].pop() || null; if (S.sel) S.selTrack = clipOf(S.sel).track;
+    markSel(); renderInspector(); requestDraw(); updButtons();
+    if (S.multi.size > 1) toast(S.multi.size + ' clip selezionate: Canc per eliminarle, oppure trascinale insieme');
+    return;
+  }
   if (d.mode === 'tap') {
     const r = d.lane.getBoundingClientRect(); S.selTrack = d.track; S.sel = null; markSel(); renderInspector(); updButtons();
     setPlayhead((e.clientX - r.left) / S.pps); return;
@@ -3483,7 +3518,17 @@ window.addEventListener('pointerup', e => {
   }
   if (d.moved) { commit(); renderAll(); seekPreview(); }
 });
-window.addEventListener('pointercancel', () => { resetNewLbl(); if (D && D.moved) { commit(); renderAll(); } D = null; document.body.classList.remove('dragging'); showSnap(null); });
+function marquee(d, e) {
+  const cr = $('#content').getBoundingClientRect(), m = $('#marq');
+  const x1 = Math.min(d.x0, e.clientX), x2 = Math.max(d.x0, e.clientX), y1 = Math.min(d.y0, e.clientY), y2 = Math.max(d.y0, e.clientY);
+  Object.assign(m.style, { display: 'block', left: x1 - cr.left + 'px', top: y1 - cr.top + 'px', width: x2 - x1 + 'px', height: y2 - y1 + 'px' });
+  S.multi = new Set(d.base);
+  for (const el of TRK.querySelectorAll('.clip')) { const r = el.getBoundingClientRect(); if (r.right > x1 && r.left < x2 && r.bottom > y1 && r.top < y2 && !el.classList.contains('locked')) S.multi.add(el.dataset.c); }
+  S.sel = S.multi.has(S.sel) ? S.sel : ([...S.multi][0] || null);
+  markSel();
+  const sr = SC.getBoundingClientRect(); if (e.clientX > sr.right - 30) SC.scrollLeft += 12; else if (e.clientX < sr.left + hwPx() + 20) SC.scrollLeft -= 12;
+}
+window.addEventListener('pointercancel', () => { $('#marq').style.display = 'none'; resetNewLbl(); if (D && D.moved) { commit(); renderAll(); } D = null; document.body.classList.remove('dragging'); showSnap(null); });
 
 /* riordino tracce con la maniglia */
 let TD = null;
@@ -3526,7 +3571,25 @@ function doSplit() {
   else for (const x of [...proj.clips]) { const tr = trackOf(x.track); if (!tr.lock && t > x.start && t < x.start + x.dur && splitAt(x, t)) n++; }
   if (n) { commit(); renderAll(); toast(n === 1 ? 'Clip tagliata' : n + ' clip tagliate'); } else toast('Metti il cursore rosso sopra una clip per tagliarla');
 }
+function selectAll() {
+  S.multi = new Set(proj.clips.filter(c => !trackOf(c.track).lock).map(c => c.id)); S.sel = [...S.multi][0] || null;
+  markSel(); renderInspector(); requestDraw(); updButtons(); toast(S.multi.size + ' clip selezionate: Canc per eliminarle');
+}
+function clearSel() { S.multi = new Set(); S.sel = null; markSel(); renderInspector(); requestDraw(); updButtons(); }
+function doDeleteMany(ids) {
+  const set = new Set(ids.filter(id => { const c = clipOf(id); return c && !trackOf(c.track).lock; }));
+  if (!set.size) { toast('Nessuna clip eliminabile (tracce bloccate?)'); return; }
+  for (const id of set) { const v = vids.get(id); if (v) { v.removeAttribute('src'); v.load(); v.remove(); vids.delete(id); } }
+  proj.clips = proj.clips.filter(c => !set.has(c.id)); S.multi = new Set(); S.sel = null;
+  commit(); renderAll(); seekPreview(); toast(set.size === 1 ? 'Clip eliminata' : set.size + ' clip eliminate (Ctrl+Z per annullare)');
+}
+async function deleteAllClips() {
+  if (!proj.clips.length) return;
+  if (await ask('Svuotare la timeline?', `Elimino tutte le ${proj.clips.length} clip. I file restano nella libreria e puoi annullare con Ctrl+Z.`, [['Annulla', 0], ['Elimina tutto', 1, 'primary']]) !== 1) return;
+  doDeleteMany(proj.clips.map(c => c.id));
+}
 function doDelete(ripple) {
+  if (S.multi.size > 1) return doDeleteMany([...S.multi]);
   const c = selClip(); if (!c) return;
   if (trackOf(c.track).lock) { toast('La traccia è bloccata'); return; }
   proj.clips = proj.clips.filter(x => x !== c);
@@ -3585,6 +3648,45 @@ function previewCut(c) {
   const a = Math.max(0, c.start - .6), d = (c.tin.type !== 'none' ? c.tin.dur : .2) + 1.2;
   setPlayhead(a); play(); clearTimeout(previewCut.t); previewCut.t = setTimeout(() => { if (P.playing) pause(); }, d * 1000);
 }
+
+/* volume della traccia: pulsante con i dB, finestrella con il cursore grande, rotellina e trascinamento */
+const fmtVol = v => (v <= -40 ? 'muto' : (v > 0 ? '+' : '') + (+v).toFixed(1).replace('.0', '') + ' dB');
+function setTrackVol(tr, v, live) {
+  tr.vol = clamp(Math.round(v * 2) / 2, -40, 12);
+  for (const b of $$(`[data-tvol="${tr.id}"]`)) { b.textContent = fmtVol(tr.vol); b.classList.toggle('low', tr.vol < -.01); }
+  const big = $('#volPop .vbig'); if (big && $('#volPop').dataset.t === tr.id) big.textContent = fmtVol(tr.vol);
+  if (P.playing && P.graph && P.graph.tg && P.graph.tg[tr.id]) {
+    if (tr.auto && tr.auto.length) { clearTimeout(setTrackVol.t); setTrackVol.t = setTimeout(() => { if (P.playing) { pause(); play(); } }, 250); }
+    else P.graph.tg[tr.id].gain.setTargetAtTime(tr.vol <= -40 ? 0 : dbToG(tr.vol), AC().currentTime, .03);
+  }
+  if (!live) commitSoon();
+}
+function openVolPop(tr, btn) {
+  closeVolPop();
+  const r = btn.getBoundingClientRect();
+  const sl = h('input', { type: 'range', min: -40, max: 12, step: .5, value: tr.vol, oninput: e => setTrackVol(tr, +e.target.value, true), onchange: () => commitSoon() });
+  const q = (lbl, v) => h('button', { onclick: () => { setTrackVol(tr, v); sl.value = tr.vol; } }, lbl);
+  const m = h('div', { id: 'volPop', 'data-t': tr.id },
+    h('div', { class: 'vh' }, h('b', {}, 'Volume «' + tr.name + '»'), h('button', { class: 'ghost', onclick: closeVolPop }, '✕')),
+    h('div', { class: 'vbig' }, fmtVol(tr.vol)), sl,
+    h('div', { class: 'row2', style: 'justify-content:space-between' }, q('−6', tr.vol - 6), q('−3', tr.vol - 3), q('0 dB', 0), q('+3', tr.vol + 3), q('+6', tr.vol + 6)),
+    h('div', { class: 'row2' }, q('Muto', -40), h('button', { onclick: () => { tr.autoShow = true; closeVolPop(); commit(); renderAll(); } }, '〰 Alza e abbassa nel tempo')),
+    h('p', { class: 'hint', style: 'margin:6px 0 0' }, 'Vale per tutta la traccia. Per cambiare il volume solo in certi punti usa 〰.'));
+  document.body.append(m);
+  m.style.left = clamp(r.left, 6, innerWidth - 312) + 'px'; m.style.top = clamp(r.bottom + 6, 6, innerHeight - m.offsetHeight - 6) + 'px';
+  setTimeout(() => document.addEventListener('pointerdown', volOutside, true), 0);
+}
+function volOutside(e) { if (!e.target.closest('#volPop')) closeVolPop(); }
+function closeVolPop() { const m = $('#volPop'); if (m) m.remove(); document.removeEventListener('pointerdown', volOutside, true); }
+let VD = null;
+TRK.addEventListener('pointerdown', e => {
+  const b = e.target.closest('[data-tvol]'); if (!b) return;
+  e.stopPropagation(); e.preventDefault(); b.setPointerCapture(e.pointerId);
+  VD = { tr: trackOf(b.dataset.tvol), b, x0: e.clientX, v0: trackOf(b.dataset.tvol).vol, moved: false };
+}, true);
+TRK.addEventListener('pointermove', e => { if (!VD) return; const dx = e.clientX - VD.x0; if (Math.abs(dx) > 4) VD.moved = true; if (VD.moved) setTrackVol(VD.tr, VD.v0 + dx / 6, true); });
+TRK.addEventListener('pointerup', e => { if (!VD) return; const d = VD; VD = null; if (d.moved) commitSoon(); else openVolPop(d.tr, d.b); });
+TRK.addEventListener('wheel', e => { const b = e.target.closest('[data-tvol]'); if (!b || e.ctrlKey) return; e.preventDefault(); const tr = trackOf(b.dataset.tvol); setTrackVol(tr, tr.vol + (e.deltaY < 0 ? 1 : -1)); }, { passive: false });
 
 /* ================= volume nel tempo (automazione per traccia) ================= */
 const AMIN = -40, AMAX = 6;
@@ -4553,6 +4655,16 @@ function renderInspector() {
   const c = selClip();
   INS.append(h('div', { id: 'sheetHead' }, h('b', {}, c ? 'Modifica clip' : 'Progetto'), h('button', { onclick: closeInspector }, 'Chiudi ✕')));
   if (!c) return renderProjectPanel();
+  if (S.multi.size > 1) {
+    const cs = [...S.multi].map(clipOf).filter(Boolean), dur = cs.reduce((a, x) => a + x.dur, 0);
+    INS.append(h('h3', {}, '⬚ ' + cs.length + ' clip selezionate'));
+    INS.append(h('p', { class: 'hint' }, `In tutto ${fmtDur(dur)} di clip. Trascinane una per spostarle tutte insieme; Maiusc+clic o Ctrl+clic aggiunge o toglie una clip dalla selezione.`));
+    INS.append(h('div', { class: 'row2' },
+      h('button', { class: 'primary', onclick: () => doDeleteMany([...S.multi]) }, '🗑 Elimina le ' + cs.length + ' clip'),
+      h('button', { onclick: clearSel }, 'Deseleziona')));
+    INS.append(h('div', { class: 'row2' }, h('button', { class: 'ghost', onclick: deleteAllClips }, 'Svuota tutta la timeline…')));
+    return;
+  }
   const tr = trackOf(c.track), s = sources.get(c.src);
   const icon = { video: '🎬', image: '🖼', audio: '🎵', text: 'T' }[c.type];
   INS.append(h('h3', {}, icon + ' ', h('span', { style: 'flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap' }, clipName(c))));
@@ -4681,6 +4793,7 @@ function renderProjectPanel() {
     h('div', { class: 'row2' }, h('label', {}, 'Bande cinema'), segBtns([[0, 'No'], [1.85, '1,85:1'], [2.39, '2,39:1']], () => proj.bars || 0, v => proj.bars = v))));
   openSec.add('proj');
   const n = proj.clips.length, d = projDur();
+  if (proj.clips.length) INS.append(h('div', { class: 'row2' }, h('button', { onclick: selectAll }, '⬚ Seleziona tutte le clip'), h('button', { class: 'ghost', onclick: deleteAllClips }, 'Svuota la timeline…')));
   INS.append(sec('info', 'Riepilogo', h('p', { class: 'hint' }, `${n} clip su ${proj.tracks.length} tracce · durata ${fmtTC(d)} · ${proj.w}×${proj.h} px`)));
   INS.append(sec('keys', 'Scorciatoie da tastiera', h('div', { class: 'hint', html: 'Spazio: play/pausa<br>S: taglia al cursore<br>Canc: elimina clip<br>D: duplica · Ctrl+C / Ctrl+V: copia e incolla<br>Ctrl+Z / Ctrl+Y: annulla e ripristina<br>← →: un fotogramma (con Maiusc: 1 secondo)<br>Home / Fine: inizio e fine<br>+ / −: zoom timeline · Ctrl+rotella: zoom<br>Ctrl+S: salva il progetto' })));
 }
@@ -5039,6 +5152,7 @@ $('#bNextF').onclick = () => stepFrame(1);
 $('#bGuides').onclick = () => { S.guides = !S.guides; $('#bGuides').classList.toggle('on', S.guides); requestDraw(); };
 $('#bEdit').onclick = () => { INS.classList.toggle('open'); };
 $('#bFull').onclick = () => { const v = $('#stage'); if (document.fullscreenElement) document.exitFullscreen(); else (v.requestFullscreen || v.webkitRequestFullscreen)?.call(v); };
+$('#bSelAll').onclick = selectAll;
 $('#bSplit').onclick = doSplit; $('#bDup').onclick = doDuplicate; $('#bDel').onclick = () => doDelete(false); $('#bDetach').onclick = doDetach;
 $('#bSnap').onclick = () => { S.snap = !S.snap; $('#bSnap').classList.toggle('on', S.snap); };
 $('#bAddV').onclick = () => { const t = addTrack('video', undefined, 0); S.selTrack = t.id; commit(); renderAll(); };
@@ -5079,6 +5193,7 @@ document.addEventListener('keydown', e => {
   if (mod && (k === 's' || k === 'S')) { e.preventDefault(); saveProject(); return; }
   if (mod && (k === 'c' || k === 'C')) { doCopy(); return; }
   if (mod && (k === 'v' || k === 'V')) { doPaste(); return; }
+  if (mod && (k === 'a' || k === 'A')) { e.preventDefault(); selectAll(); return; }
   if (mod) return;
   if (k === ' ') { e.preventDefault(); if (tg.blur) tg.blur(); togglePlay(); }
   else if (k === 's' || k === 'S') doSplit();
@@ -5090,7 +5205,7 @@ document.addEventListener('keydown', e => {
   else if (k === 'End') setPlayhead(projDur());
   else if (k === '+' || k === '=') setZoom(S.pps * 1.4);
   else if (k === '-') setZoom(S.pps / 1.4);
-  else if (k === 'Escape') { S.sel = null; markSel(); renderInspector(); requestDraw(); updButtons(); }
+  else if (k === 'Escape') { clearSel(); }
 });
 window.addEventListener('beforeunload', e => { if (REC.on) { e.preventDefault(); e.returnValue = ''; } });
 
