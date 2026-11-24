@@ -208,6 +208,20 @@ header{display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--p
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <script>
+/* ================= collegamento tra le app della suite (stessa origine: sito o programma installato) ================= */
+const NWLX = {
+  open() { return NWLX.p || (NWLX.p = new Promise(res => { try { const r = indexedDB.open('nwl-scambio', 1); r.onupgradeneeded = () => r.result.createObjectStore('inbox', { keyPath: 'id' }); r.onsuccess = () => res(r.result); r.onerror = () => res(null); } catch { res(null); } })); },
+  async tx(mode, fn) { const d = await NWLX.open(); if (!d) return null; return new Promise(res => { try { const t = d.transaction('inbox', mode), r = fn(t.objectStore('inbox')); t.oncomplete = () => res(r && r.result); t.onerror = t.onabort = () => res(null); } catch { res(null); } }); },
+  chan: (() => { try { return new BroadcastChannel('nwl-suite'); } catch { return null; } })(),
+};
+async function nwlSend(blob, name, from) {
+  await NWLX.tx('readwrite', st => st.put({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, from, type: blob.type || '', blob, date: Date.now() }));
+  try { NWLX.chan && NWLX.chan.postMessage({ kind: 'inbox' }); } catch { }
+  return true;
+}
+const nwlInbox = async () => (await NWLX.tx('readonly', st => st.getAll())) || [];
+const nwlTake = id => NWLX.tx('readwrite', st => st.delete(id));
+
 /* ================= NWLlive — regia televisiva di Newland Studio ================= */
 'use strict';
 const W = 1920, H = 1080, FPS = 30;
@@ -1574,9 +1588,10 @@ async function toggleRec() {
   const ext = mime.includes('mp4') ? 'mp4' : 'webm';
   const fname = (P.name || 'Diretta').replace(/[^\w\- àèéìòù]/g, '') + ' ' + stamp() + '.' + ext;
   let writer = null;
+  let fh = null;
   if (window.showSaveFilePicker) {
     try {
-      const fh = await showSaveFilePicker({ suggestedName: fname, types: [{ description: 'Video', accept: { [ext === 'mp4' ? 'video/mp4' : 'video/webm']: ['.' + ext] } }] });
+      fh = await showSaveFilePicker({ suggestedName: fname, types: [{ description: 'Video', accept: { [ext === 'mp4' ? 'video/mp4' : 'video/webm']: ['.' + ext] } }] });
       writer = await fh.createWritable();
     } catch (e) { if (e.name === 'AbortError') return; writer = null; }
   }
@@ -1585,8 +1600,8 @@ async function toggleRec() {
   rec.ondataavailable = e => { if (!e.data.size) return; if (writer) chain = chain.then(() => writer.write(e.data)); else chunks.push(e.data); };
   rec.onstop = async () => {
     await chain;
-    if (writer) { await writer.close(); toast('Registrazione salvata: ' + fname, 4000); }
-    else { const b = new Blob(chunks, { type: mime }), a = h('a', { href: URL.createObjectURL(b), download: fname }); document.body.append(a); a.click(); a.remove(); toast('Registrazione scaricata', 4000); }
+    if (writer) { await writer.close(); let sent = false; try { const f = await fh.getFile(); if (f.size < 1.5e9) sent = await nwlSend(f, fname, 'NWLlive'); } catch { } toast('Registrazione salvata: ' + fname + (sent ? ' — la trovi anche in NWLcut, pronta da montare' : ''), 5000); }
+    else { const b = new Blob(chunks, { type: mime }), a = h('a', { href: URL.createObjectURL(b), download: fname }); document.body.append(a); a.click(); a.remove(); let sent = false; try { if (b.size < 1.5e9) sent = await nwlSend(b, fname, 'NWLlive'); } catch { } toast('Registrazione scaricata' + (sent ? ' — la trovi anche in NWLcut' : ''), 5000); }
   };
   rec.start(1000);
   R.recording = { rec, t0: Date.now() };

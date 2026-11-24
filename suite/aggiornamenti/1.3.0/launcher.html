@@ -12,29 +12,29 @@ html,body{margin:0;height:100%;background:var(--navy);color:#eef1ff;font:15px/1.
 .mesh i:nth-child(1){width:460px;height:460px;right:-80px;top:-120px;background:radial-gradient(circle,#1d3bff,transparent 65%)}
 .mesh i:nth-child(2){width:360px;height:360px;right:120px;bottom:-160px;background:radial-gradient(circle,rgba(180,251,11,.45),transparent 65%)}
 .mesh i:nth-child(3){width:360px;height:360px;left:-120px;bottom:-140px;background:radial-gradient(circle,rgba(64,214,255,.35),transparent 65%)}
-main{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:34px 40px 26px}
+main{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:30px 32px 22px}
 header{display:flex;align-items:center;gap:16px}
 header img{width:54px;height:54px}
 h1{margin:0;font-weight:900;font-size:26px;letter-spacing:.02em;line-height:1}
 h1 small{display:block;font-size:11px;letter-spacing:.32em;color:var(--muted);font-weight:700;margin-top:6px}
 .sub{color:var(--muted);margin:26px 0 18px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
-.apps{display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1}
-.app{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:26px;display:flex;flex-direction:column;cursor:pointer;transition:transform .18s,border-color .18s,background .18s;overflow:hidden}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1}
+.app{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;cursor:pointer;transition:transform .18s,border-color .18s,background .18s;overflow:hidden}
 .app:hover{transform:translateY(-3px);border-color:var(--ac);background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03))}
 .app::before{content:"";position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--ac),transparent 65%);opacity:.2}
-.cut{--ac:var(--lime)}.tono{--ac:var(--cyan)}
+.cut{--ac:var(--lime)}.tono{--ac:var(--cyan)}.live{--ac:#ff3b5c}.live .btn{color:#fff}
 .top{display:flex;gap:16px;align-items:center}
-.top img{width:76px;height:76px;border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.top img{width:64px;height:64px;border-radius:17px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
 .cat{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);font-weight:800}
-h2{margin:2px 0 0;font-size:28px;font-weight:900;letter-spacing:-.01em}
-.app p{color:#c4ccec;margin:16px 0 0;flex:1}
+h2{margin:2px 0 0;font-size:24px;font-weight:900;letter-spacing:-.01em}
+.app p{color:#c4ccec;margin:14px 0 0;flex:1;font-size:13.5px}
 .btn{align-self:flex-start;margin-top:18px;border:0;border-radius:999px;padding:12px 26px;font:700 15px inherit;font-family:inherit;background:var(--ac);color:#04100a;cursor:pointer;box-shadow:0 10px 26px color-mix(in srgb,var(--ac) 35%,transparent)}
 .btn:hover{filter:brightness(1.08)}
 footer{display:flex;justify-content:space-between;color:var(--muted);font-size:12.5px;margin-top:18px}
 footer a{color:var(--muted)}
 .upd{display:flex;align-items:center;gap:10px}
 .upd .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
-.upd[data-s=uptodate] .dot,.upd[data-s=ready] .dot{background:var(--lime);box-shadow:0 0 0 4px rgba(180,251,11,.15)}
+.upd[data-s=store] .dot,.upd[data-s=uptodate] .dot,.upd[data-s=ready] .dot{background:var(--lime);box-shadow:0 0 0 4px rgba(180,251,11,.15)}
 .upd[data-s=checking] .dot,.upd[data-s=downloading] .dot{background:var(--cyan);animation:pl 1s infinite}
 .upd[data-s=error] .dot,.upd[data-s=setup] .dot{background:#ffb547}
 @keyframes pl{50%{opacity:.3}}
@@ -59,12 +59,17 @@ kbd{font:600 11px inherit;font-family:inherit;border:1px solid var(--line);borde
       <p>Montaggio audio multitraccia per podcast e audiolibri: voci, musica, volumi, effetti voce. Esporta in MP3 e WAV.</p>
       <button class="btn">Apri NWLtono</button>
     </div>
+    <div class="app live" data-k="live">
+      <div class="top"><img src="icone/nwllive.png" alt=""><div><div class="cat">Diretta</div><h2>NWLlive</h2></div></div>
+      <p>Regia televisiva: green screen e studio virtuale, camere virtuali, inviati in collegamento, servizi, grafica, diretta su YouTube e Facebook.</p>
+      <button class="btn">Apri NWLlive</button>
+    </div>
   </div>
   <footer><span class="upd" id="upd" data-s="idle"><i class="dot"></i><span id="updMsg">Versione aggiornata automaticamente dal sito</span><button id="updBtn">Cerca aggiornamenti</button></span><span>© Newland Studio · versione <b id="v">1.0.0</b> · <a href="https://edicola.grandangoloregionale.it/suite/" target="_blank">sito</a></span></footer>
 </main>
 <script>
 document.querySelectorAll('.app').forEach(function (el) { el.onclick = function () { window.suite.open(el.dataset.k); }; });
-addEventListener('keydown', function (e) { if (e.key === '1') suite.open('cut'); if (e.key === '2') suite.open('tono'); });
+addEventListener('keydown', function (e) { if (e.key === '1') suite.open('cut'); if (e.key === '2') suite.open('tono'); if (e.key === '3') suite.open('live'); });
 suite.version().then(function (v) { document.getElementById('v').textContent = v; });
 var U = document.getElementById('upd'), UM = document.getElementById('updMsg'), UB = document.getElementById('updBtn');
 suite.onUpdate(function (s) {
@@ -72,7 +77,7 @@ suite.onUpdate(function (s) {
   document.getElementById('v').textContent = s.current;
   UB.disabled = s.state === 'checking' || s.state === 'downloading';
   UB.style.display = UB.disabled ? 'none' : '';
-  UB.textContent = s.state === 'setup' ? 'Scarica il nuovo programma' : 'Cerca aggiornamenti';
+  UB.textContent = s.state === 'setup' ? 'Scarica il nuovo programma' : s.store ? 'Apri lo Store' : 'Cerca aggiornamenti';
 });
 UB.onclick = function () { if (U.dataset.s === 'setup') suite.openSetup(); else suite.checkUpdates(); };
 </script>

@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NWLlive — Newland Studio</title>
+<meta name="theme-color" content="#0a0610">
+<link rel="icon" href="icone/nwllive.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07060c;--p1:#0f0d18;--p2:#16131f;--p3:#1e1a2a;--line:rgba(255,255,255,.09);--tx:#ece9f6;--mu:#968fae;--red:#ff3b5c;--red2:#ff7a8f;--grn:#21d07a;--yel:#ffc23d;--cy:#40d6ff;--lime:#b4fb0b}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font:13px/1.4 Inter,system-ui,"Segoe UI",sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.app{display:grid;grid-template-rows:48px minmax(0,56fr) minmax(0,44fr);height:100%}
+/* barra */
+header{display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--p1);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:9px;margin-right:6px}
+.brand img{width:28px;height:28px;border-radius:8px}
+.brand b{font:800 15px Archivo,sans-serif;letter-spacing:.02em;display:block;line-height:1}
+.brand small{display:block;font-size:9.5px;letter-spacing:.24em;color:var(--mu);font-weight:700;text-transform:uppercase}
+.hb{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line);background:var(--p2);font-weight:600;white-space:nowrap}
+.hb:hover{background:var(--p3)}
+.hb.on{border-color:var(--red);background:rgba(255,59,92,.16);color:#fff}
+.hb.rec.on{background:var(--red);color:#fff;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.72}}
+.hb svg{width:15px;height:15px}
+.sp{flex:1}
+.clock{font:700 15px ui-monospace,Consolas,monospace;color:#fff;padding:0 8px}
+.pname{background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 8px;width:170px;font-weight:600}
+.pname:hover,.pname:focus{border-color:var(--line);background:var(--p2);outline:none}
+/* monitor */
+.mon{display:grid;grid-template-columns:1fr 120px 1fr;gap:10px;padding:10px;min-height:0}
+.screen{display:flex;flex-direction:column;min-height:0;min-width:0}
+.screen .lab{display:flex;align-items:center;gap:8px;padding:0 2px 6px;font:700 11px Archivo,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.screen .lab i{width:9px;height:9px;border-radius:50%}
+.screen.pv .lab i{background:var(--grn)} .screen.pg .lab i{background:var(--red)}
+.screen .lab span{color:var(--mu);letter-spacing:.04em;text-transform:none;font:600 12px Inter,sans-serif}
+.frame{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#000;border-radius:8px;overflow:hidden}
+.screen.pv .frame{box-shadow:0 0 0 2px var(--grn)}
+.screen.pg .frame{box-shadow:0 0 0 2px var(--red)}
+.frame canvas{max-width:100%;max-height:100%;aspect-ratio:16/9;display:block;background:#000}
+.frame .ed{position:absolute;inset:0;pointer-events:none}
+.trans{display:flex;flex-direction:column;gap:8px;align-items:stretch;justify-content:center}
+.tbtn{height:46px;border-radius:10px;border:1px solid var(--line);background:var(--p2);font:800 14px Archivo,sans-serif;letter-spacing:.08em}
+.tbtn.cut{background:#2a1520;border-color:#5a2434}
+.tbtn.auto{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 8px 24px rgba(255,59,92,.3)}
+.tbtn:hover{filter:brightness(1.15)}
+.tbtn.ftb{height:38px;font-size:12px;background:#111;border-color:#333}
+.tbtn.ftb.on{background:#000;border-color:#fff;color:#fff;animation:blink 1s infinite}
+.tbar{position:relative;height:96px;display:flex;justify-content:center}
+.tbar input{writing-mode:vertical-lr;direction:rtl;width:34px;height:96px;accent-color:var(--red)}
+.trans select,.trans input[type=number]{background:var(--p2);border:1px solid var(--line);border-radius:8px;padding:6px;width:100%}
+.trans small{color:var(--mu);font-size:11px;text-align:center}
+/* parte bassa */
+.low{display:grid;grid-template-columns:minmax(0,1fr) 360px 290px;gap:10px;padding:0 10px 10px;min-height:0}
+.box{background:var(--p1);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.box>.hd{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.box>.hd b{font:700 11px Archivo,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);margin-right:auto}
+.box>.bd{flex:1;overflow:auto;padding:10px;min-height:0}
+.tabs{display:flex;gap:4px}
+.tabs button{border:0;background:transparent;color:var(--mu);font-weight:700;padding:5px 10px;border-radius:7px;font-size:12px}
+.tabs button.on{background:var(--p3);color:#fff}
+.sb{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:7px;border:1px solid var(--line);background:var(--p2);font-weight:600;font-size:12px;white-space:nowrap}
+.sb:hover{background:var(--p3)}
+.sb.pri{background:var(--red);border-color:var(--red);color:#fff}
+.sb.ok{background:#123b26;border-color:#1d6b43;color:#bff5d6}
+.sb.dan{color:#ff9aa9}
+.grp{font:700 10.5px Archivo,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);margin:2px 0 8px;display:flex;align-items:center;gap:8px}
+.grp::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:14px}
+.tile{position:relative;background:var(--p2);border:2px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;user-select:none}
+.tile canvas{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.tile .nm{display:flex;align-items:center;gap:6px;padding:5px 8px;font-weight:600;font-size:12px}
+.tile .nm span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile .nm em{font-style:normal;font-size:10px;color:var(--mu);border:1px solid var(--line);border-radius:5px;padding:0 4px}
+.tile .k{position:absolute;left:6px;top:6px;font:800 11px ui-monospace,monospace;background:rgba(0,0,0,.65);padding:1px 6px;border-radius:5px}
+.tile .st{position:absolute;right:6px;top:6px;font:800 10px Archivo,sans-serif;letter-spacing:.1em;padding:2px 6px;border-radius:5px;display:none}
+.tile.inpv{border-color:var(--grn)} .tile.inpv .st.p{display:block;background:var(--grn);color:#02140a}
+.tile.inpg{border-color:var(--red)} .tile.inpg .st.g{display:block;background:var(--red);color:#fff}
+.tile.inpv.inpg .st.p{display:none}
+.tile.sel{outline:2px dashed rgba(255,255,255,.45);outline-offset:2px}
+.tile.add{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;min-height:110px;border:2px dashed var(--line);background:transparent;color:var(--mu);font-weight:600}
+.tile.add:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.tile .wait{position:absolute;inset:0 0 auto 0;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;color:var(--mu);padding:8px}
+.tile .bar{position:absolute;left:0;right:0;bottom:27px;height:3px;background:rgba(255,255,255,.12)}
+.tile .bar i{display:block;height:100%;background:var(--cy);width:0}
+/* form */
+.f{display:grid;gap:4px;margin-bottom:10px}
+.f>label,.lbl{font-size:11.5px;color:var(--mu);font-weight:600}
+.f input[type=text],.f input[type=number],.f select,.f textarea,.inp{width:100%;background:var(--p2);border:1px solid var(--line);border-radius:7px;padding:7px 9px;outline:none}
+.f textarea{resize:vertical;min-height:52px}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:rgba(255,59,92,.6)}
+.row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.row>*{min-width:0}
+.rng{display:grid;grid-template-columns:86px 1fr 42px;align-items:center;gap:8px;margin-bottom:6px}
+.rng span{font-size:11.5px;color:var(--mu);font-weight:600}
+.rng input{width:100%;accent-color:var(--red)}
+.rng output{font:600 11px ui-monospace,monospace;text-align:right;color:#cfc9e2}
+.chk{display:flex;align-items:center;gap:7px;font-weight:600;margin:4px 0 8px;cursor:pointer}
+.chk input{accent-color:var(--red);width:15px;height:15px}
+.hint{color:var(--mu);font-size:12px;line-height:1.5;margin:0 0 10px}
+.card{background:var(--p2);border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px}
+.lay{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;background:var(--p2);border:1px solid var(--line);margin-bottom:5px;cursor:pointer}
+.lay.on{border-color:var(--red)}
+.lay span{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:600}
+.lay button{border:0;background:transparent;color:var(--mu);padding:2px 5px;border-radius:5px}
+.lay button:hover{background:var(--p3);color:#fff}
+.preset{display:flex;gap:6px;align-items:center;padding:6px 8px;background:var(--p2);border:1px solid var(--line);border-radius:8px;margin-bottom:5px;cursor:pointer}
+.preset:hover{border-color:rgba(255,255,255,.25)}
+.preset div{flex:1;min-width:0}
+.preset b{display:block;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preset small{color:var(--mu);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.preset button{border:0;background:transparent;color:var(--mu)}
+.onair{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:8px;border:1px solid #5a2434;background:#2a1520;font-weight:800;letter-spacing:.06em;font-size:12px}
+.onair.on{background:var(--red);border-color:var(--red);color:#fff}
+/* mixer */
+.mix{display:flex;gap:6px;height:100%;overflow-x:auto;padding-bottom:4px}
+.ch{flex:0 0 58px;display:flex;flex-direction:column;align-items:center;gap:5px;background:var(--p2);border:1px solid var(--line);border-radius:9px;padding:6px 4px}
+.ch.master{background:#1d1222;border-color:#4a2234}
+.ch .cn{font-size:10.5px;font-weight:700;text-align:center;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch .fd{flex:1;display:flex;gap:4px;align-items:stretch;min-height:60px}
+.ch input[type=range]{writing-mode:vertical-lr;direction:rtl;width:18px;accent-color:#d9d4ea}
+.vu{width:8px;background:#0a0910;border-radius:3px;position:relative;overflow:hidden}
+.vu i{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(0deg,#21d07a 0,#21d07a 65%,#ffc23d 80%,#ff3b5c 95%);height:0}
+.ch .db{font:600 10px ui-monospace,monospace;color:var(--mu)}
+.ch button{width:100%;border:1px solid var(--line);background:var(--p1);border-radius:5px;font-size:10px;font-weight:800;padding:3px 0}
+.ch button.m.on{background:var(--red);color:#fff;border-color:var(--red)}
+.ch button.a.on{background:#123b26;color:#bff5d6;border-color:#1d6b43}
+/* finestre */
+.modal{position:fixed;inset:0;background:rgba(3,2,8,.7);display:none;align-items:center;justify-content:center;z-index:50;backdrop-filter:blur(4px)}
+.modal.on{display:flex}
+.dlg{background:var(--p1);border:1px solid var(--line);border-radius:16px;width:min(560px,94vw);max-height:90vh;overflow:auto;padding:20px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.dlg h3{margin:0 0 4px;font:800 19px Archivo,sans-serif}
+.dlg .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.qr{background:#fff;border-radius:10px;padding:10px;width:max-content;margin:8px auto}
+.link{font:12px ui-monospace,monospace;background:var(--p2);border:1px solid var(--line);border-radius:8px;padding:8px;word-break:break-all;user-select:all}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.choice{display:flex;gap:10px;align-items:center;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--p2);text-align:left}
+.choice:hover{border-color:rgba(255,59,92,.6)}
+.choice .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--p3);font-size:18px;flex:none}
+.choice b{display:block}.choice small{color:var(--mu)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:#22192e;border:1px solid var(--line);padding:10px 16px;border-radius:10px;opacity:0;transition:.25s;z-index:60;pointer-events:none;font-weight:600}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.chat{display:flex;flex-direction:column;gap:4px;max-height:120px;overflow:auto;margin:6px 0}
+.chat div{font-size:12px;background:var(--p2);border-radius:7px;padding:5px 8px}
+.chat div b{color:var(--cy)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--mu)}
+.dot.ok{background:var(--grn)} .dot.ko{background:var(--red)} .dot.wt{background:var(--yel)}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:#2a2537;border-radius:9px}::-webkit-scrollbar-track{background:transparent}
+@media (max-width:1300px){.low{grid-template-columns:minmax(0,1fr) 320px 230px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><img src="icone/nwllive.png" alt=""><div><small>Newland Studio</small><b>NWLlive</b></div></div>
+    <input class="pname" id="pname" value="Diretta" title="Nome del progetto">
+    <button class="hb" id="bSave" title="Salva il progetto (Ctrl+S)">Salva</button>
+    <button class="hb" id="bProj">Progetto ▾</button>
+    <div class="sp"></div>
+    <span class="clock" id="clock">00:00:00</span>
+    <button class="hb" id="bOut" title="Apri l'uscita programma da mettere a tutto schermo su un secondo monitor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Uscita</button>
+    <button class="hb rec" id="bRec" title="Registra il programma (R)"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="7"/></svg><span>REC</span></button>
+    <button class="hb" id="bLive" title="Diretta su YouTube / Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12a7 7 0 0 1 14 0M8.5 12a3.5 3.5 0 0 1 7 0"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>DIRETTA</span></button>
+    <button class="hb" id="bHelp" title="Guida rapida">?</button>
+  </header>
+
+  <section class="mon">
+    <div class="screen pv"><div class="lab"><i></i>Anteprima<span id="pvName"></span></div><div class="frame" id="pvFrame"><canvas id="pv" width="960" height="540"></canvas></div></div>
+    <div class="trans">
+      <button class="tbtn cut" id="bCut" title="Stacco netto (C)">CUT</button>
+      <button class="tbtn auto" id="bAuto" title="Transizione (Spazio)">AUTO</button>
+      <div class="tbar"><input type="range" id="tbar" min="0" max="1000" value="0" title="Leva di transizione"></div>
+      <select id="tType" title="Tipo di transizione"><option value="fade">Dissolvenza</option><option value="wipe">Tendina</option><option value="slide">Scorrimento</option><option value="zoom">Zoom</option><option value="dip">Passa per nero</option><option value="cut">Stacco</option></select>
+      <input type="number" id="tDur" min="0.1" max="5" step="0.1" value="0.6" title="Durata (secondi)">
+      <small>secondi</small>
+      <button class="tbtn ftb" id="bFtb" title="Dissolvenza a nero (B)">FTB</button>
+    </div>
+    <div class="screen pg"><div class="lab"><i></i>Programma<span id="pgName"></span></div><div class="frame"><canvas id="pg" width="1920" height="1080"></canvas></div></div>
+  </section>
+
+  <section class="low">
+    <div class="box">
+      <div class="hd"><b>Scene e ingressi</b>
+        <button class="sb" id="bAddScene">+ Scena</button>
+        <button class="sb pri" id="bAddInput">+ Ingresso</button>
+      </div>
+      <div class="bd" id="grid"></div>
+    </div>
+    <div class="box">
+      <div class="hd"><div class="tabs" id="rtabs"><button data-t="prop" class="on">Proprietà</button><button data-t="gfx">Grafica</button><button data-t="show">Scaletta</button><button data-t="remote">Inviati</button></div></div>
+      <div class="bd" id="rpane"></div>
+    </div>
+    <div class="box">
+      <div class="hd"><b>Audio</b><label class="chk" style="margin:0;font-size:11.5px" title="Ascolta il programma dalle casse o dalle cuffie"><input type="checkbox" id="mon">Ascolto</label></div>
+      <div class="bd" style="padding:8px"><div class="mix" id="mix"></div></div>
+    </div>
+  </section>
+</div>
+
+<div class="modal" id="modal"><div class="dlg" id="dlg"></div></div>
+<div class="toast" id="toast"></div>
+<input type="file" id="fileIn" hidden>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script>
+/* ================= collegamento tra le app della suite (stessa origine: sito o programma installato) ================= */
+const NWLX = {
+  open() { return NWLX.p || (NWLX.p = new Promise(res => { try { const r = indexedDB.open('nwl-scambio', 1); r.onupgradeneeded = () => r.result.createObjectStore('inbox', { keyPath: 'id' }); r.onsuccess = () => res(r.result); r.onerror = () => res(null); } catch { res(null); } })); },
+  async tx(mode, fn) { const d = await NWLX.open(); if (!d) return null; return new Promise(res => { try { const t = d.transaction('inbox', mode), r = fn(t.objectStore('inbox')); t.oncomplete = () => res(r && r.result); t.onerror = t.onabort = () => res(null); } catch { res(null); } }); },
+  chan: (() => { try { return new BroadcastChannel('nwl-suite'); } catch { return null; } })(),
+};
+async function nwlSend(blob, name, from) {
+  await NWLX.tx('readwrite', st => st.put({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, from, type: blob.type || '', blob, date: Date.now() }));
+  try { NWLX.chan && NWLX.chan.postMessage({ kind: 'inbox' }); } catch { }
+  return true;
+}
+const nwlInbox = async () => (await NWLX.tx('readonly', st => st.getAll())) || [];
+const nwlTake = id => NWLX.tx('readwrite', st => st.delete(id));
+
+/* ================= NWLlive — regia televisiva di Newland Studio ================= */
+'use strict';
+const W = 1920, H = 1080, FPS = 30;
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const uid = p => (p || 'x') + Math.random().toString(36).slice(2, 9);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const dbToGain = db => db <= -60 ? 0 : Math.pow(10, db / 20);
+const gainToDb = g => g <= 0.001 ? -60 : 20 * Math.log10(g);
+const now = () => performance.now() / 1000;
+function toast(msg, ms) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), ms || 2600);
+}
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (attrs || {})) {
+    const v = attrs[k];
+    if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+    else if (k === 'class') e.className = v;
+    else if (k === 'html') e.innerHTML = v;
+    else if (k === 'style') e.style.cssText = v;
+    else if (v !== false && v != null) e.setAttribute(k, v === true ? '' : v);
+  }
+  for (const c of kids.flat()) if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+
+/* ---------- stato del progetto ---------- */
+const P = {
+  name: 'Diretta',
+  room: null,                 // codice stanza per gli inviati
+  inputs: [],                 // ingressi
+  scenes: [],                 // scene composte
+  trans: { type: 'fade', dur: 0.6 },
+  ovl: {
+    lt: { on: false, kicker: 'In diretta', title: 'Nome e cognome', sub: 'Ruolo', auto: 0, presets: [] },
+    logo: { on: true, pos: 'tr', size: 1, media: null },
+    ticker: { on: false, label: "ULTIM'ORA", text: 'Scrivi qui le notizie che scorrono in basso', speed: 120 },
+    clock: { on: false },
+    live: { on: true, text: 'DIRETTA' },
+  },
+  audio: { master: 0, limiter: true },
+  ice: '',                    // server TURN facoltativi (JSON)
+};
+/* stato della regia (non salvato) */
+const R = {
+  pv: null, pg: null,          // id della sorgente in anteprima / programma ("s:<id>" scena, "i:<id>" ingresso)
+  tr: null,                    // transizione in corso {from,to,t0,dur,type,manual,p}
+  sel: null,                   // elemento selezionato nelle proprietà ("i:..", "s:..")
+  selLayer: null,
+  ltAnim: { v: 0, target: 0 },
+  lastPg: null,
+  recording: null,
+  rtab: 'prop',
+};
+const inp = id => P.inputs.find(i => i.id === id);
+const scn = id => P.scenes.find(s => s.id === id);
+
+/* ---------- archivio locale: file multimediali ---------- */
+const DB = (() => {
+  let dbp = null;
+  const open = () => dbp || (dbp = new Promise((res, rej) => {
+    const r = indexedDB.open('nwllive', 1);
+    r.onupgradeneeded = () => { r.result.createObjectStore('media'); r.result.createObjectStore('kv'); };
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  }));
+  const op = (store, mode, fn) => open().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(store, mode), st = tx.objectStore(store), q = fn(st);
+    tx.oncomplete = () => res(q && q.result); tx.onerror = () => rej(tx.error);
+  }));
+  return {
+    put: (k, v, s = 'media') => op(s, 'readwrite', st => st.put(v, k)),
+    get: (k, s = 'media') => op(s, 'readonly', st => st.get(k)),
+    del: (k, s = 'media') => op(s, 'readwrite', st => st.delete(k)),
+  };
+})();
+
+function serialize() {
+  return JSON.stringify({
+    v: 1, name: P.name, room: P.room, trans: P.trans, ovl: P.ovl, audio: P.audio, ice: P.ice, bg: P.bg || null,
+    inputs: P.inputs.map(i => { const o = {}; for (const k in i) if (!k.startsWith('_')) o[k] = i[k]; return o; }),
+    scenes: P.scenes, pv: R.pv, pg: R.pg, show: P.show, rundown: P.rundown, fg: P.fg || null,
+  });
+}
+let saveT = null;
+function dirty() { clearTimeout(saveT); saveT = setTimeout(saveLocal, 800); }
+function saveLocal() { try { localStorage.setItem('nwllive-project', serialize()); } catch (e) { console.warn(e); } }
+
+/* ================= Ingressi ================= */
+const TYPES = {
+  camera: { lab: 'Telecamera', ic: '🎥', tag: 'CAM' },
+  remote: { lab: 'Inviato', ic: '📡', tag: 'LIVE' },
+  video: { lab: 'Servizio / video', ic: '🎞️', tag: 'VTR' },
+  image: { lab: 'Immagine', ic: '🖼️', tag: 'IMG' },
+  vset: { lab: 'Studio virtuale', ic: '🏙️', tag: 'SET' },
+  color: { lab: 'Colore', ic: '🎨', tag: 'COL' },
+  screen: { lab: 'Schermo del PC', ic: '🖥️', tag: 'PC' },
+  mic: { lab: 'Microfono', ic: '🎙️', tag: 'MIC' },
+  vcam: { lab: 'Camera virtuale', ic: '🎬', tag: 'VCAM' },
+};
+const KEY0 = () => ({ on: false, color: '#00b140', sim: 0.40, smooth: 0.08, spill: 0.10 });
+function newInput(type, o) {
+  const i = Object.assign({
+    id: uid('i'), type, name: TYPES[type].lab, key: KEY0(), crop: { l: 0, t: 0, r: 0, b: 0 }, flip: false,
+    aud: { db: 0, mute: false, afv: type === 'video' || type === 'remote' }, num: 0,
+  }, o || {});
+  const same = P.inputs.filter(x => x.type === type).length;
+  if (!o || !o.name) i.name = TYPES[type].lab + (type === 'vset' || type === 'color' ? '' : ' ' + (same + 1));
+  P.inputs.push(i); renumber();
+  return i;
+}
+function renumber() { P.inputs.forEach((x, n) => x.num = n + 1); }
+function hasVideo(i) { return i.type !== 'mic'; }
+function hasAudio(i) { return (i.type === 'camera' && i.adev) || i.type === 'mic' || i.type === 'video' || i.type === 'remote' || (i.type === 'screen' && i._stream && i._stream.getAudioTracks().length); }
+
+/* ---------- apertura ---------- */
+async function openInput(i) {
+  closeInput(i, true);
+  i._status = 'wait';
+  try {
+    if (i.type === 'camera') {
+      const v = { width: { ideal: i.w || 1920 }, height: { ideal: i.h || 1080 }, frameRate: { ideal: 30 } };
+      if (i.dev) v.deviceId = { exact: i.dev };
+      let st;
+      try { st = await navigator.mediaDevices.getUserMedia({ video: v, audio: false }); }
+      catch (e) { if (i.dev) { delete v.deviceId; st = await navigator.mediaDevices.getUserMedia({ video: v, audio: false }); } else throw e; }
+      if (i.adev) {
+        try {
+          const a = await navigator.mediaDevices.getUserMedia({ audio: audioConstraints(i.adev) });
+          a.getAudioTracks().forEach(t => st.addTrack(t));
+        } catch (e) { toast('Microfono di ' + i.name + ' non disponibile'); }
+      }
+      attachStream(i, st);
+    } else if (i.type === 'mic') {
+      const st = await navigator.mediaDevices.getUserMedia({ audio: audioConstraints(i.adev) });
+      i._stream = st; i._status = 'ok'; audioAttach(i);
+    } else if (i.type === 'screen') {
+      if (!i._gesture) { i._status = 'click'; return; }
+      const st = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: true });
+      st.getVideoTracks()[0].addEventListener('ended', () => { i._status = 'click'; i._el = null; refreshGrid(); });
+      attachStream(i, st);
+    } else if (i.type === 'remote') {
+      i._status = 'remote';        // si attiva quando l'inviato si collega
+    } else if (i.type === 'video') {
+      const b = await DB.get(i.id);
+      if (!b) { i._status = 'missing'; return; }
+      const el = document.createElement('video');
+      el.playsInline = true; el.preload = 'auto'; el.crossOrigin = 'anonymous';
+      el.src = URL.createObjectURL(b); el.loop = !!i.loop;
+      el.addEventListener('ended', () => onVideoEnded(i));
+      await new Promise(r => { el.onloadeddata = r; el.onerror = r; setTimeout(r, 6000); });
+      i._el = el; i._status = 'ok'; audioAttach(i);
+    } else if (i.type === 'image') {
+      const b = await DB.get(i.id);
+      if (!b) { i._status = 'missing'; return; }
+      const img = new Image(); img.src = URL.createObjectURL(b);
+      await img.decode().catch(() => { });
+      i._el = img; i._status = 'ok';
+    } else if (i.type === 'vset') {
+      i._el = drawVirtualSet(i.style || 'notte'); i._status = 'ok';
+    } else if (i.type === 'vcam') {
+      i._status = 'ok';
+    } else if (i.type === 'color') {
+      const c = document.createElement('canvas'); c.width = 64; c.height = 36;
+      const g = c.getContext('2d'); g.fillStyle = i.color || '#000'; g.fillRect(0, 0, 64, 36);
+      i._el = c; i._status = 'ok';
+    }
+  } catch (e) {
+    console.warn('ingresso', i.name, e);
+    i._status = e && e.name === 'NotAllowedError' ? 'denied' : 'error';
+  }
+  refreshGrid(); refreshMixer();
+}
+function audioConstraints(dev) {
+  const a = { echoCancellation: false, noiseSuppression: false, autoGainControl: false };
+  if (dev && dev !== 'default' && dev !== '1') a.deviceId = { exact: dev };
+  return a;
+}
+function attachStream(i, st) {
+  i._stream = st;
+  if (st.getVideoTracks().length) {
+    const el = document.createElement('video');
+    el.muted = true; el.playsInline = true; el.autoplay = true; el.srcObject = st;
+    el.play().catch(() => { });
+    i._el = el;
+  }
+  i._status = 'ok';
+  audioAttach(i);
+}
+function closeInput(i, keepRemote) {
+  if (i._stream && i.type !== 'remote') i._stream.getTracks().forEach(t => t.stop());
+  if (i._el && i._el.tagName === 'VIDEO') { try { i._el.pause(); } catch (_) { } if (i._el.src && i._el.src.startsWith('blob:')) URL.revokeObjectURL(i._el.src); }
+  if (i._el && i._el.tagName === 'IMG' && i._el.src.startsWith('blob:')) URL.revokeObjectURL(i._el.src);
+  audioDetach(i);
+  if (i._keyer) { i._keyer.dispose(); i._keyer = null; }
+  if (!keepRemote || i.type !== 'remote') { i._stream = null; }
+  i._el = null;
+}
+async function removeInput(i) {
+  if (!confirm('Eliminare l\'ingresso «' + i.name + '»?')) return;
+  closeInput(i);
+  if (i.type === 'remote') remoteDrop(i);
+  P.inputs = P.inputs.filter(x => x !== i);
+  P.scenes.forEach(s => s.layers = s.layers.filter(l => l.inp !== i.id));
+  if (R.pv === 'i:' + i.id) R.pv = null;
+  if (R.pg === 'i:' + i.id) R.pg = null;
+  if (R.sel === 'i:' + i.id) R.sel = null;
+  DB.del(i.id).catch(() => { });
+  renumber(); refreshAll(); dirty();
+}
+
+/* dimensioni naturali di un elemento */
+function natSize(el) {
+  if (!el) return [0, 0];
+  if (el.tagName === 'VIDEO') return [el.videoWidth, el.videoHeight];
+  if (el.tagName === 'IMG') return [el.naturalWidth, el.naturalHeight];
+  return [el.width, el.height];
+}
+/* fotogramma pronto da disegnare (con chroma key se attivo) */
+function frameOf(i) {
+  if (!i || !i._el || i.type === 'vcam') return null;
+  const [w, hh] = natSize(i._el);
+  if (!w || !hh) return null;
+  if (i.key && i.key.on) {
+    if (!i._keyer) i._keyer = makeKeyer();
+    if (i._keyer) {
+      if (i._keyer.frame !== R.frame) { i._keyer.render(i._el, w, hh, i.key); i._keyer.frame = R.frame; }
+      return { el: i._keyer.canvas, w, h: hh };
+    }
+  }
+  return { el: i._el, w, h: hh };
+}
+
+/* ---------- servizi (video) ---------- */
+function onVideoEnded(i) {
+  if (siglaEnded(i)) return;
+  if (i.loop) return;
+  if (i.ret && (R.pg === 'i:' + i.id || (R.pg && R.pg.startsWith('s:') && sceneUses(scn(R.pg.slice(2)), i.id)))) {
+    const back = R.lastPg && R.lastPg !== R.pg ? R.lastPg : null;
+    if (back) { setPreview(back); doTransition(); toast('Fine servizio: torno a ' + srcName(back)); }
+  }
+}
+function videoControl(i, act) {
+  const el = i._el; if (!el || el.tagName !== 'VIDEO') return;
+  if (act === 'play') el.play().catch(() => { });
+  else if (act === 'pause') el.pause();
+  else if (act === 'restart') { el.currentTime = 0; }
+  else if (act === 'toggle') el.paused ? el.play().catch(() => { }) : el.pause();
+}
+
+/* ---------- studio virtuale disegnato ---------- */
+function drawVirtualSet(style) {
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d');
+  const pal = {
+    notte: ['#050a1f', '#0d1f4a', '#1fb069', '#40d6ff'],
+    verde: ['#04130c', '#0b3a25', '#1fb069', '#76e3aa'],
+    rosso: ['#140409', '#3d0a18', '#ff3b5c', '#ffb0bd'],
+    neutro: ['#0b0b0e', '#2a2a33', '#9aa0b4', '#e8e8f0'],
+  }[style] || ['#050a1f', '#0d1f4a', '#1fb069', '#40d6ff'];
+  // fondo
+  let gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, pal[0]); gr.addColorStop(.62, pal[1]); gr.addColorStop(1, pal[0]);
+  g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  // pannelli luminosi verticali
+  for (let k = 0; k < 9; k++) {
+    const x = 120 + k * 210, w = 130;
+    const lg = g.createLinearGradient(0, 80, 0, 640); lg.addColorStop(0, 'rgba(255,255,255,0)'); lg.addColorStop(.5, hexA(pal[3], .10)); lg.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = lg; g.fillRect(x, 80, w, 560);
+    g.fillStyle = hexA(pal[3], .22); g.fillRect(x, 80, w, 2); g.fillRect(x, 638, w, 2);
+  }
+  // grande schermo dietro
+  g.save(); g.shadowColor = hexA(pal[2], .6); g.shadowBlur = 60;
+  g.fillStyle = hexA(pal[1], .9); roundRect(g, 1180, 150, 600, 340, 18); g.fill(); g.restore();
+  g.strokeStyle = hexA(pal[2], .9); g.lineWidth = 4; roundRect(g, 1180, 150, 600, 340, 18); g.stroke();
+  const sg = g.createLinearGradient(1180, 150, 1780, 490); sg.addColorStop(0, hexA(pal[2], .35)); sg.addColorStop(1, hexA(pal[3], .08));
+  g.fillStyle = sg; roundRect(g, 1190, 160, 580, 320, 12); g.fill();
+  // pavimento in prospettiva
+  const fy = 720;
+  gr = g.createLinearGradient(0, fy, 0, H); gr.addColorStop(0, hexA(pal[1], .95)); gr.addColorStop(1, '#000');
+  g.fillStyle = gr; g.fillRect(0, fy, W, H - fy);
+  g.strokeStyle = hexA(pal[3], .13); g.lineWidth = 2;
+  for (let k = -14; k <= 14; k++) { g.beginPath(); g.moveTo(W / 2 + k * 60, fy); g.lineTo(W / 2 + k * 320, H); g.stroke(); }
+  for (let k = 0; k < 9; k++) { const y = fy + Math.pow(k / 8, 1.8) * (H - fy); g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
+  // linea d'orizzonte luminosa
+  g.fillStyle = pal[2]; g.fillRect(0, fy - 3, W, 6);
+  g.save(); g.globalAlpha = .5; g.shadowColor = pal[2]; g.shadowBlur = 40; g.fillRect(0, fy - 2, W, 4); g.restore();
+  // alone centrale
+  const rg = g.createRadialGradient(W / 2, 560, 50, W / 2, 560, 900); rg.addColorStop(0, 'rgba(255,255,255,.10)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = rg; g.fillRect(0, 0, W, H);
+  return c;
+}
+function hexA(hex, a) { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; }
+function roundRect(g, x, y, w, hh, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + hh, r); g.arcTo(x + w, y + hh, x, y + hh, r); g.arcTo(x, y + hh, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+
+/* ---------- elenco dispositivi ---------- */
+async function listDevices() {
+  try { return await navigator.mediaDevices.enumerateDevices(); } catch (e) { return []; }
+}
+async function ensureLabels() {
+  const d = await listDevices();
+  if (d.some(x => x.label)) return d;
+  try { const s = await navigator.mediaDevices.getUserMedia({ video: true, audio: true }); s.getTracks().forEach(t => t.stop()); }
+  catch (e) { try { const s = await navigator.mediaDevices.getUserMedia({ audio: true }); s.getTracks().forEach(t => t.stop()); } catch (_) { } }
+  return listDevices();
+}
+
+/* ================= Chroma key (green screen) in WebGL ================= */
+const KEY_VS = 'attribute vec2 p;varying vec2 uv;void main(){uv=vec2((p.x+1.)/2.,1.-(p.y+1.)/2.);gl_Position=vec4(p,0.,1.);}';
+const KEY_FS = `precision mediump float;varying vec2 uv;uniform sampler2D t;uniform vec2 kc;uniform float sim,smo,spl;
+vec2 cbcr(vec3 c){return vec2(dot(c,vec3(-.168736,-.331264,.5))+.5,dot(c,vec3(.5,-.418688,-.081312))+.5);}
+void main(){vec4 c=texture2D(t,uv);float d=distance(cbcr(c.rgb),kc);float b=d-sim;
+float a=pow(clamp(b/max(smo,.0001),0.,1.),1.5);float s=pow(clamp(b/max(spl,.0001),0.,1.),1.5);
+float g=dot(c.rgb,vec3(.2126,.7152,.0722));vec3 o=mix(vec3(g),c.rgb,s);gl_FragColor=vec4(o,c.a*a);}`;
+function makeKeyer() {
+  const canvas = document.createElement('canvas');
+  const gl = canvas.getContext('webgl', { premultipliedAlpha: false, preserveDrawingBuffer: true, alpha: true });
+  if (!gl) { toast('Il chroma key richiede WebGL'); return null; }
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.warn(gl.getShaderInfoLog(s)); return s; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, KEY_VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, KEY_FS));
+  gl.linkProgram(pr); gl.useProgram(pr);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+  [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(p => gl.texParameteri(gl.TEXTURE_2D, p, gl.CLAMP_TO_EDGE));
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  const U = n => gl.getUniformLocation(pr, n);
+  const uk = U('kc'), us = U('sim'), um = U('smo'), up = U('spl');
+  // copia 2D del risultato: una sola lettura dalla scheda video per fotogramma, poi si disegna ovunque senza costi
+  const out = document.createElement('canvas'), og = out.getContext('2d');
+  return {
+    canvas: out, frame: -1,
+    render(el, w, hh, k) {
+      if (canvas.width !== w || canvas.height !== hh) { canvas.width = w; canvas.height = hh; out.width = w; out.height = hh; gl.viewport(0, 0, w, hh); }
+      try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, el); } catch (e) { return; }
+      const n = parseInt((k.color || '#00b140').slice(1), 16), r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
+      gl.uniform2f(uk, -.168736 * r - .331264 * g + .5 * b + .5, .5 * r - .418688 * g - .081312 * b + .5);
+      gl.uniform1f(us, k.sim); gl.uniform1f(um, k.smooth); gl.uniform1f(up, k.spill);
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      og.clearRect(0, 0, w, hh); og.drawImage(canvas, 0, 0);
+    },
+    dispose() { const e = gl.getExtension('WEBGL_lose_context'); if (e) e.loseContext(); }
+  };
+}
+/* campiona il colore del fondo dal fotogramma (clic sull'anteprima) */
+function sampleColor(i, nx, ny) {
+  const el = i._el; const [w, hh] = natSize(el); if (!w) return null;
+  const c = document.createElement('canvas'); c.width = 9; c.height = 9;
+  const g = c.getContext('2d'); g.drawImage(el, nx * w - 4, ny * hh - 4, 9, 9, 0, 0, 9, 9);
+  const d = g.getImageData(0, 0, 9, 9).data; let r = 0, gg = 0, b = 0;
+  for (let k = 0; k < d.length; k += 4) { r += d[k]; gg += d[k + 1]; b += d[k + 2]; }
+  const n = d.length / 4, hx = v => Math.round(v / n).toString(16).padStart(2, '0');
+  return '#' + hx(r) + hx(gg) + hx(b);
+}
+
+/* ================= Scene, disegno, transizioni, grafica ================= */
+function newScene(name, layers) {
+  const s = { id: uid('s'), name: name || 'Scena ' + (P.scenes.length + 1), layers: layers || [] };
+  P.scenes.push(s); return s;
+}
+function newLayer(inpId, o) { return Object.assign({ id: uid('l'), inp: inpId, x: 0, y: 0, w: 1, h: 1, fit: 'cover', op: 1, bd: 0, bc: '#ffffff', r: 0 }, o || {}); }
+function sceneUses(s, id) { return !!s && s.layers.some(l => l.inp === id); }
+function srcName(src) {
+  if (!src) return '';
+  const o = src.startsWith('s:') ? scn(src.slice(2)) : inp(src.slice(2));
+  return o ? o.name : '';
+}
+function defaultBg() { return P.inputs.find(i => i.id === P.bg) || P.inputs.find(i => i.type === 'vset'); }
+/* livelli di una sorgente: scena composta o ingresso singolo */
+function srcLayers(src) {
+  if (!src) return [];
+  if (src.startsWith('s:')) { const s = scn(src.slice(2)); return s ? s.layers : []; }
+  const i = inp(src.slice(2)); if (!i) return [];
+  const ver = i.key.on + '|' + (P.bg || '') + '|' + (P.fg || '');
+  if (i._implicit && i._implicit.v === ver) return i._implicit.l;
+  const l = [];
+  if (i.key.on) {
+    const bg = defaultBg(); if (bg && bg !== i) l.push(newLayer(bg.id));
+    l.push(newLayer(i.id, { fit: 'contain' }));
+    const fg = P.fg && inp(P.fg); if (fg) l.push(newLayer(fg.id, { fit: 'cover' }));
+  }
+  else l.push(newLayer(i.id, { fit: i.type === 'image' ? 'contain' : 'cover' }));
+  i._implicit = { v: ver, l };
+  return l;
+}
+/* ingressi visibili in una sorgente (per audio e riproduzione) */
+function srcInputs(src, depth) {
+  const set = new Set(); depth = depth || 0;
+  for (const l of srcLayers(src)) {
+    set.add(l.inp);
+    const x = inp(l.inp);
+    if (x && x.type === 'vcam' && x.src && depth < 3) for (const y of srcInputs(x.src, depth + 1)) set.add(y);
+  }
+  return set;
+}
+
+function drawLayer(g, L, cw, ch, air) {
+  const i = inp(L.inp); if (!i) return;
+  if (i.type === 'vcam') { g.save(); g.globalAlpha *= L.op ?? 1; drawVcam(g, L, i, cw, ch, air); g.restore(); return; }
+  const dx = L.x * cw, dy = L.y * ch, dw = L.w * cw, dh = L.h * ch;
+  const fr = frameOf(i);
+  if (!fr) {
+    if (air || !hasVideo(i)) return;
+    g.save(); g.fillStyle = '#14111c'; g.fillRect(dx, dy, dw, dh);
+    g.fillStyle = '#6d6688'; g.font = `600 ${Math.max(10, dh * .06)}px Inter,sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText(i.name + ' — ' + statusText(i), dx + dw / 2, dy + dh / 2, dw * .9); g.restore();
+    return;
+  }
+  const c = i.crop || {};
+  let sx = fr.w * (c.l || 0), sy = fr.h * (c.t || 0), sw = fr.w * (1 - (c.l || 0) - (c.r || 0)), sh = fr.h * (1 - (c.t || 0) - (c.b || 0));
+  if (sw < 2 || sh < 2) return;
+  let rx = dx, ry = dy, rw = dw, rh = dh;
+  const sa = sw / sh, da = dw / dh;
+  if (L.fit === 'cover') {
+    if (sa > da) { const nw = sh * da; sx += (sw - nw) / 2; sw = nw; } else { const nh = sw / da; sy += (sh - nh) / 2; sh = nh; }
+  } else if (L.fit === 'contain') {
+    if (sa > da) { rh = dw / sa; ry = dy + (dh - rh) / 2; } else { rw = dh * sa; rx = dx + (dw - rw) / 2; }
+    // persona in green screen: appoggiata in basso
+    if (i.key.on) ry = dy + dh - rh;
+  }
+  g.save();
+  g.globalAlpha *= L.op ?? 1;
+  const rad = (L.r || 0) * ch / 1080;
+  if (rad > 0) { roundRect(g, dx, dy, dw, dh, rad); g.clip(); }
+  if (i.flip) { g.translate(rx + rw / 2, 0); g.scale(-1, 1); g.translate(-(rx + rw / 2), 0); }
+  try { g.drawImage(fr.el, sx, sy, sw, sh, rx, ry, rw, rh); } catch (_) { }
+  g.restore();
+  if (L.bd > 0) {
+    g.save(); g.strokeStyle = L.bc || '#fff'; g.lineWidth = L.bd * ch / 1080;
+    if (rad > 0) { roundRect(g, dx, dy, dw, dh, rad); g.stroke(); } else g.strokeRect(dx, dy, dw, dh);
+    g.restore();
+  }
+}
+function statusText(i) {
+  return { wait: 'apertura…', click: 'clicca per condividere', remote: 'in attesa di collegamento', missing: 'file mancante', denied: 'permesso negato', error: 'non disponibile' }[i._status] || 'nessun segnale';
+}
+function drawSrc(g, src, cw, ch, air) {
+  g.fillStyle = '#000'; g.fillRect(0, 0, cw, ch);
+  for (const L of srcLayers(src)) drawLayer(g, L, cw, ch, air);
+}
+
+/* ---------- transizioni ---------- */
+const bufA = document.createElement('canvas'), bufB = document.createElement('canvas');
+bufA.width = bufB.width = W; bufA.height = bufB.height = H;
+const gA = bufA.getContext('2d'), gB = bufB.getContext('2d');
+const ease = p => p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+function trProgress() {
+  const t = R.tr; if (!t) return 1;
+  if (t.manual) return t.p;
+  return clamp((now() - t.t0) / t.dur, 0, 1);
+}
+function drawProgram(g) {
+  const t = R.tr;
+  if (!t) { drawSrc(g, R.pg, W, H, true); return; }
+  const p = ease(trProgress());
+  if (t.type === 'dip') {
+    if (p < .5) { drawSrc(g, t.from, W, H, true); g.fillStyle = `rgba(0,0,0,${p * 2})`; g.fillRect(0, 0, W, H); }
+    else { drawSrc(g, t.to, W, H, true); g.fillStyle = `rgba(0,0,0,${(1 - p) * 2})`; g.fillRect(0, 0, W, H); }
+    return;
+  }
+  drawSrc(gA, t.from, W, H, true); drawSrc(gB, t.to, W, H, true);
+  g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
+  if (t.type === 'fade') { g.drawImage(bufA, 0, 0); g.globalAlpha = p; g.drawImage(bufB, 0, 0); g.globalAlpha = 1; }
+  else if (t.type === 'wipe') {
+    g.drawImage(bufA, 0, 0); const x = p * W;
+    g.save(); g.beginPath(); g.rect(0, 0, x, H); g.clip(); g.drawImage(bufB, 0, 0); g.restore();
+    if (p > 0 && p < 1) { g.fillStyle = '#ff3b5c'; g.fillRect(x - 4, 0, 8, H); }
+  } else if (t.type === 'slide') { g.drawImage(bufA, -p * W, 0); g.drawImage(bufB, W - p * W, 0); }
+  else if (t.type === 'zoom') {
+    g.drawImage(bufA, 0, 0); const s = 1.25 - .25 * p;
+    g.save(); g.globalAlpha = p; g.translate(W / 2, H / 2); g.scale(s, s); g.drawImage(bufB, -W / 2, -H / 2); g.restore();
+  } else g.drawImage(bufB, 0, 0);
+}
+function setPreview(src) { R.pv = src; refreshTally(); videoCue(src); }
+function videoCue(src) {
+  // un servizio messo in anteprima si prepara all'inizio (se non è già in onda)
+  for (const id of srcInputs(src)) {
+    const i = inp(id); if (!i || i.type !== 'video' || !i._el) continue;
+    if (!srcInputs(R.pg).has(id) && i.restart !== false) { i._el.pause(); i._el.currentTime = 0; }
+  }
+}
+function doTransition(type, dur) {
+  if (!R.pv || R.tr) return;
+  if (R.pv === R.pg) { toast('Anteprima e programma sono uguali'); return; }
+  type = type || P.trans.type; dur = dur ?? P.trans.dur;
+  startTake(R.pv);
+  if (type === 'cut' || dur <= 0.02) { finishTake(R.pg, R.pv); return; }
+  R.tr = { from: R.pg, to: R.pv, t0: now(), dur, type, manual: false, p: 0 };
+}
+function doCut() { if (!R.pv || R.tr) return; if (R.pv === R.pg) return; startTake(R.pv); finishTake(R.pg, R.pv); }
+function startTake(to) {
+  vcamOnTake(to);
+  for (const id of srcInputs(to)) {
+    const i = inp(id); if (i && i.type === 'video' && i._el && i._el.paused) i._el.play().catch(() => { });
+  }
+}
+function finishTake(from, to) {
+  R.tr = null;
+  if (from) R.lastPg = from;
+  R.pg = to; R.pv = from || to;
+  const live = srcInputs(R.pg);
+  for (const i of P.inputs) if (i.type === 'video' && i._el && !live.has(i.id) && !i._el.paused && !srcInputs(R.pv).has(i.id)) i._el.pause();
+  $('#tbar').value = 0;
+  refreshTally(); remoteTally(); dirty();
+}
+function tickTransition() {
+  if (R.tr && !R.tr.manual && trProgress() >= 1) finishTake(R.tr.from, R.tr.to);
+}
+
+/* ---------- grafica in sovrimpressione ---------- */
+const proj = { w: W, h: H };
+const BRAND = { green: '#1fb069', mint: '#76e3aa' };
+function gl3Layout(ctx, tx, k) {
+  const LS = v => { try { ctx.letterSpacing = v; } catch (_) { } };
+  const sc = (tx.size || 100) / 100;
+  const titleSize = 48 * k * sc, subSize = 22 * k * sc, kickSize = 22 * k * sc;
+  const accentW = 8 * k, bodyPadX = 34 * k, topPad = 18 * k, kickPadX = 22 * k, kickPadY = 10 * k, kickBorder = 8 * k, gap = 8 * k;
+  const maxBodyW = Math.min(1250 * k, proj.w * .9);
+  const title = (tx.content || '').trim(), sub = (tx.sub || '').trim(), kicker = (tx.kicker || '').trim();
+  LS('0px'); ctx.font = `700 ${titleSize}px "Archivo",sans-serif`;
+  const lines = [];
+  if (title) for (const para of title.split('\n')) { let cur = ''; for (const w of para.split(/\s+/).filter(Boolean)) { const t2 = cur ? cur + ' ' + w : w; if (ctx.measureText(t2).width > maxBodyW - bodyPadX * 2 && cur) { lines.push(cur); cur = w; } else cur = t2; } if (cur) lines.push(cur); }
+  let titleW = 0; lines.forEach(l => titleW = Math.max(titleW, ctx.measureText(l).width));
+  LS(1.5 * k + 'px'); ctx.font = `600 ${subSize}px "Archivo",sans-serif`;
+  const subW = sub ? ctx.measureText(sub.toUpperCase()).width : 0;
+  const bodyW = Math.max(titleW, subW) + bodyPadX * 2, titleLineH = titleSize * 1.14, titleBlockH = lines.length * titleLineH;
+  const subGap = sub ? 10 * k : 0, subLineH = sub ? subSize * 1.2 : 0, botPad = topPad + (sub ? 20 * k : 0);
+  const hasBar = !!(title || sub), barH = hasBar ? topPad + titleBlockH + subGap + subLineH + botPad : 0;
+  let kickH = 0, kickBodyW = 0;
+  if (kicker) { LS(1.6 * k + 'px'); ctx.font = `600 ${kickSize}px "Archivo",sans-serif`; kickBodyW = kickBorder + ctx.measureText(kicker.toUpperCase()).width + kickPadX * 2; kickH = kickPadY * 2 + kickSize * 1.2; }
+  LS('0px');
+  const hasKick = !!kicker, groupW = Math.max(hasBar ? accentW + bodyW : 0, kickBodyW), groupH = (hasKick ? kickH : 0) + (hasKick && hasBar ? gap : 0) + barH;
+  return { titleSize, subSize, kickSize, accentW, bodyPadX, topPad, kickPadX, kickPadY, kickBorder, gap, lines, titleLineH, titleBlockH, subGap, bodyW, barH, kickH, kickBodyW, groupW, groupH, sub, kicker, hasBar, hasKick, k };
+}
+function gl3Paint(ctx, ox, oy, L) {
+  const LS = v => { try { ctx.letterSpacing = v; } catch (_) { } };
+  let y = oy;
+  if (L.hasKick) {
+    ctx.fillStyle = BRAND.green; ctx.fillRect(ox, y, L.kickBorder, L.kickH);
+    const g = ctx.createLinearGradient(ox + L.kickBorder, 0, ox + L.kickBodyW, 0); g.addColorStop(0, 'rgba(7,17,12,.95)'); g.addColorStop(1, 'rgba(7,17,12,.55)');
+    ctx.fillStyle = g; ctx.fillRect(ox + L.kickBorder, y, L.kickBodyW - L.kickBorder, L.kickH);
+    ctx.fillStyle = BRAND.mint; LS(1.6 * L.k + 'px'); ctx.font = `600 ${L.kickSize}px "Archivo",sans-serif`; ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle'; ctx.fillText(L.kicker.toUpperCase(), ox + L.kickBorder + L.kickPadX, y + L.kickH / 2); LS('0px');
+    y += L.kickH + (L.hasBar ? L.gap : 0);
+  }
+  if (L.hasBar) {
+    const barW = L.accentW + L.bodyW;
+    ctx.fillStyle = BRAND.green; ctx.fillRect(ox, y, L.accentW, L.barH);
+    const g2 = ctx.createLinearGradient(ox + L.accentW, 0, ox + barW, 0); g2.addColorStop(0, 'rgba(7,17,12,.94)'); g2.addColorStop(1, 'rgba(7,17,12,.72)');
+    ctx.fillStyle = g2; ctx.fillRect(ox + L.accentW, y, L.bodyW, L.barH);
+    const tx = ox + L.accentW + L.bodyPadX; ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic'; ctx.fillStyle = '#fff'; LS('0px'); ctx.font = `700 ${L.titleSize}px "Archivo",sans-serif`;
+    let ty = y + L.topPad + L.titleSize * .9; for (const line of L.lines) { ctx.fillText(line, tx, ty); ty += L.titleLineH; }
+    if (L.sub) { const sb = y + L.topPad + L.titleBlockH + L.subGap + L.subSize * .9; ctx.fillStyle = BRAND.mint; LS(1.5 * L.k + 'px'); ctx.font = `600 ${L.subSize}px "Archivo",sans-serif`; ctx.fillText(L.sub.toUpperCase(), tx, sb); LS('0px'); }
+  }
+}
+let logoImg = null, logoKey = null;
+function ensureLogo() {
+  const want = P.ovl.logo.media ? 'own' : 'gl';
+  if (logoKey === want) return;
+  logoKey = want; logoImg = null;
+  if (want === 'own') DB.get('logo', 'kv').then(b => { if (b) { const im = new Image(); im.onload = () => logoImg = im; im.src = URL.createObjectURL(b); } });
+  else { const im = new Image(); im.onload = () => logoImg = im; im.src = location.protocol.startsWith('http') ? '../../logo-grandangolo.png.png' : 'logo-grandangolo.png'; }
+}
+const TICK_H = 62;
+function drawOverlays(g, dt) {
+  const O = P.ovl, k = 1;
+  const LS = v => { try { g.letterSpacing = v; } catch (_) { } };
+  // logo in alto a destra
+  if (O.logo.on) {
+    ensureLogo();
+    if (logoImg) {
+      const s = O.logo.size || 1, lh = 70 * s, lw = logoImg.naturalWidth / logoImg.naturalHeight * lh;
+      const pos = O.logo.pos || 'tr', mx = 56, my = 46;
+      const x = pos.includes('l') ? mx : W - mx - lw, y = pos.includes('b') ? H - my - lh - (O.ticker.on ? TICK_H : 0) : my;
+      g.save(); g.shadowColor = 'rgba(0,0,0,.45)'; g.shadowBlur = 14; g.drawImage(logoImg, x, y, lw, lh); g.restore();
+    }
+  }
+  // bollino DIRETTA e orologio
+  let lx = 56;
+  if (O.live.on) {
+    g.save(); g.font = '800 26px "Archivo",sans-serif'; LS('2px');
+    const txt = (O.live.text || 'DIRETTA').toUpperCase(), tw = g.measureText(txt).width, bw = tw + 66, by = 46;
+    g.fillStyle = '#e8143c'; g.fillRect(lx, by, bw, 50);
+    const pulse = .55 + .45 * Math.abs(Math.sin(now() * 2.4));
+    g.fillStyle = `rgba(255,255,255,${pulse})`; g.beginPath(); g.arc(lx + 25, by + 25, 8, 0, Math.PI * 2); g.fill();
+    g.fillStyle = '#fff'; g.textBaseline = 'middle'; g.fillText(txt, lx + 44, by + 27); LS('0px'); g.restore();
+    lx += bw;
+  }
+  if (O.clock.on) {
+    const d = new Date(), txt = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    g.save(); g.font = '700 26px "Archivo",sans-serif';
+    const bw = g.measureText(txt).width + 34;
+    g.fillStyle = 'rgba(7,17,12,.86)'; g.fillRect(lx, 46, bw, 50);
+    g.fillStyle = '#fff'; g.textBaseline = 'middle'; g.fillText(txt, lx + 17, 72); g.restore();
+  }
+  // barra delle notizie che scorre
+  if (O.ticker.on) {
+    const y = H - TICK_H;
+    g.save(); g.fillStyle = 'rgba(7,17,12,.92)'; g.fillRect(0, y, W, TICK_H);
+    g.font = '800 26px "Archivo",sans-serif'; LS('2px');
+    const lab = (O.ticker.label || '').toUpperCase(), labW = lab ? g.measureText(lab).width + 60 : 0;
+    g.font = '600 28px "Archivo",sans-serif'; LS('0px');
+    const txt = tickerText() + '   •   ';
+    const tw = Math.max(200, g.measureText(txt).width);
+    R.tickX = ((R.tickX || 0) + (O.ticker.speed || 120) * dt) % tw;
+    g.save(); g.beginPath(); g.rect(labW, y, W - labW, TICK_H); g.clip();
+    g.fillStyle = '#fff'; g.textBaseline = 'middle';
+    for (let x = labW - R.tickX; x < W; x += tw) g.fillText(txt, x, y + TICK_H / 2 + 1);
+    g.restore();
+    if (lab) { g.fillStyle = BRAND.green; g.fillRect(0, y, labW, TICK_H); g.fillStyle = '#04130c'; g.font = '800 26px "Archivo",sans-serif'; LS('2px'); g.textBaseline = 'middle'; g.fillText(lab, 30, y + TICK_H / 2 + 1); LS('0px'); }
+    g.fillStyle = BRAND.green; g.fillRect(0, y - 4, W, 4);
+    g.restore();
+  }
+  // sottopancia (lower third Grandangolo)
+  const A = R.ltAnim, lt = O.lt;
+  A.target = lt.on ? 1 : 0;
+  if (lt.on && lt.auto > 0 && R.ltOnAt && now() - R.ltOnAt > lt.auto) { lt.on = false; refreshGfxButtons(); }
+  const sp = dt / .55;
+  A.v = A.target > A.v ? Math.min(1, A.v + sp) : Math.max(0, A.v - sp);
+  if (A.v > 0) {
+    const L = gl3Layout(g, { content: lt.title, sub: lt.sub, kicker: lt.kicker, size: 100 }, 1);
+    const eo = p => 1 - Math.pow(1 - p, 3);
+    const ox = .021 * W + 20, bottom = Math.min(.885 * H, H - (O.ticker.on ? TICK_H + 34 : 80));
+    const off = -(1 - eo(A.v)) * (L.groupW + ox) * 1.03;
+    g.save(); g.globalAlpha = clamp(A.v / .8, 0, 1); gl3Paint(g, ox + off, bottom - L.groupH, L); g.restore();
+  }
+}
+
+/* ================= Audio: mixer, segue-video, ritorno agli inviati ================= */
+const AC = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 'interactive' });
+const AU = {};
+(function buildMaster() {
+  AU.bus = AC.createGain();
+  AU.master = AC.createGain();
+  AU.lim = AC.createDynamicsCompressor();
+  AU.lim.threshold.value = -3; AU.lim.knee.value = 0; AU.lim.ratio.value = 20; AU.lim.attack.value = .002; AU.lim.release.value = .12;
+  AU.an = AC.createAnalyser(); AU.an.fftSize = 1024;
+  AU.out = AC.createMediaStreamDestination();
+  AU.mon = AC.createGain(); AU.mon.gain.value = 0;
+  AU.bus.connect(AU.master); AU.master.connect(AU.lim); AU.lim.connect(AU.an); AU.an.connect(AU.out); AU.an.connect(AU.mon); AU.mon.connect(AC.destination);
+})();
+const resumeAudio = () => { if (AC.state !== 'running') AC.resume().catch(() => { }); };
+addEventListener('pointerdown', resumeAudio, true); addEventListener('keydown', resumeAudio, true);
+
+function audioAttach(i) {
+  audioDetach(i);
+  let src = null;
+  try {
+    if (i.type === 'video' && i._el) {
+      if (!i._el._srcNode) i._el._srcNode = AC.createMediaElementSource(i._el);
+      src = i._el._srcNode;
+    } else if (i._stream && i._stream.getAudioTracks().length) {
+      const ms = new MediaStream(i._stream.getAudioTracks());
+      if (i.type === 'remote') { // Chrome: l'audio WebRTC arriva a WebAudio solo se è anche collegato a un elemento
+        const a = new Audio(); a.muted = true; a.srcObject = ms; a.play().catch(() => { }); i._aEl = a;
+      }
+      src = AC.createMediaStreamSource(ms);
+    }
+  } catch (e) { console.warn('audio', i.name, e); }
+  if (!src) return;
+  const gain = AC.createGain(), afv = AC.createGain(), an = AC.createAnalyser();
+  an.fftSize = 512; an.smoothingTimeConstant = 0;
+  gain.gain.value = dbToGain(i.aud.db); afv.gain.value = 0;
+  src.connect(gain); gain.connect(afv); afv.connect(an); an.connect(AU.bus);
+  i._a = { src, gain, afv, an, buf: new Float32Array(512), peak: 0 };
+  rebuildMinus();
+}
+function audioDetach(i) {
+  if (!i._a) return;
+  try { i._a.src.disconnect(); i._a.gain.disconnect(); i._a.afv.disconnect(); i._a.an.disconnect(); } catch (_) { }
+  if (i._aEl) { i._aEl.srcObject = null; i._aEl = null; }
+  i._a = null;
+  rebuildMinus();
+}
+/* volume di ogni ingresso: sempre, oppure solo quando è in onda (segue il video) */
+function tickAudio() {
+  const live = srcInputs(R.pg);
+  if (R.tr) for (const id of srcInputs(R.tr.to)) live.add(id);
+  const t = AC.currentTime;
+  for (const i of P.inputs) {
+    if (!i._a) continue;
+    const on = i.aud.mute ? 0 : (i.aud.afv ? (live.has(i.id) ? 1 : 0) : 1);
+    if (i._a.on !== on) { i._a.afv.gain.setTargetAtTime(on, t, .06); i._a.on = on; }
+  }
+  AU.master.gain.setTargetAtTime(dbToGain(P.audio.master) * (1 - (R.ftbV || 0)), t, .03);
+}
+function peakOf(an, buf) {
+  an.getFloatTimeDomainData(buf); let m = 0;
+  for (let k = 0; k < buf.length; k++) { const v = Math.abs(buf[k]); if (v > m) m = v; }
+  return m;
+}
+const mBuf = new Float32Array(1024);
+function tickMeters() {
+  for (const i of P.inputs) {
+    if (!i._a || !i._mEl) continue;
+    const p = peakOf(i._a.an, i._a.buf); i._a.peak = Math.max(p, i._a.peak * .86);
+    i._mEl.style.height = clamp((gainToDb(i._a.peak) + 60) / 60 * 100, 0, 100) + '%';
+  }
+  if (AU.mEl) { const p = peakOf(AU.an, mBuf); AU.peak = Math.max(p, (AU.peak || 0) * .86); AU.mEl.style.height = clamp((gainToDb(AU.peak) + 60) / 60 * 100, 0, 100) + '%'; }
+}
+/* ritorno audio per ogni inviato: tutto il programma tranne la sua voce */
+const MINUS = new Map();
+function minusFor(remoteId) {
+  if (!MINUS.has(remoteId)) {
+    const bus = AC.createGain(), dest = AC.createMediaStreamDestination();
+    bus.connect(dest); MINUS.set(remoteId, { bus, dest });
+    rebuildMinus();
+  }
+  return MINUS.get(remoteId);
+}
+function rebuildMinus() {
+  for (const i of P.inputs) if (i._a) { for (const [, m] of MINUS) { try { i._a.an.disconnect(m.bus); } catch (_) { } } }
+  for (const [rid, m] of MINUS) for (const i of P.inputs) if (i._a && i.id !== rid) i._a.an.connect(m.bus);
+}
+function minusDrop(remoteId) {
+  const m = MINUS.get(remoteId); if (!m) return;
+  for (const i of P.inputs) if (i._a) { try { i._a.an.disconnect(m.bus); } catch (_) { } }
+  m.bus.disconnect(); MINUS.delete(remoteId);
+}
+
+/* ---------- pannello mixer ---------- */
+const FADER_MIN = -60, FADER_MAX = 10;
+function faderToDb(v) { return v <= 0 ? -60 : FADER_MIN + (FADER_MAX - FADER_MIN) * Math.pow(v / 1000, .55); }
+function dbToFader(db) { return db <= FADER_MIN ? 0 : Math.round(Math.pow((db - FADER_MIN) / (FADER_MAX - FADER_MIN), 1 / .55) * 1000); }
+const fmtDb = db => db <= -59.9 ? '-∞' : (db > 0 ? '+' : '') + db.toFixed(1);
+function refreshMixer() {
+  const box = $('#mix'); box.innerHTML = '';
+  for (const i of P.inputs) {
+    if (!hasAudio(i) && !i._a) continue;
+    const vu = h('div', { class: 'vu' }, h('i')); i._mEl = vu.firstChild;
+    const db = h('div', { class: 'db' }, fmtDb(i.aud.db));
+    const fd = h('input', { type: 'range', min: 0, max: 1000, value: dbToFader(i.aud.db), title: 'Volume di ' + i.name });
+    fd.oninput = () => { i.aud.db = faderToDb(+fd.value); db.textContent = fmtDb(i.aud.db); if (i._a) i._a.gain.gain.setTargetAtTime(dbToGain(i.aud.db), AC.currentTime, .02); dirty(); };
+    fd.ondblclick = () => { i.aud.db = 0; fd.value = dbToFader(0); fd.oninput(); };
+    const m = h('button', { class: 'm' + (i.aud.mute ? ' on' : ''), title: 'Muto' }, 'M');
+    m.onclick = () => { i.aud.mute = !i.aud.mute; m.classList.toggle('on', i.aud.mute); dirty(); };
+    const a = h('button', { class: 'a' + (i.aud.afv ? ' on' : ''), title: 'Segue il video: si sente solo quando è in onda' }, 'AFV');
+    a.onclick = () => { i.aud.afv = !i.aud.afv; a.classList.toggle('on', i.aud.afv); dirty(); };
+    box.append(h('div', { class: 'ch' }, h('div', { class: 'cn', title: i.name }, i.num + ' ' + i.name), h('div', { class: 'fd' }, fd, vu), db, m, a));
+  }
+  const vu = h('div', { class: 'vu' }, h('i')); AU.mEl = vu.firstChild;
+  const db = h('div', { class: 'db' }, fmtDb(P.audio.master));
+  const fd = h('input', { type: 'range', min: 0, max: 1000, value: dbToFader(P.audio.master), title: 'Volume generale' });
+  fd.oninput = () => { P.audio.master = faderToDb(+fd.value); db.textContent = fmtDb(P.audio.master); dirty(); };
+  fd.ondblclick = () => { P.audio.master = 0; fd.value = dbToFader(0); fd.oninput(); };
+  box.append(h('div', { class: 'ch master' }, h('div', { class: 'cn' }, 'MASTER'), h('div', { class: 'fd' }, fd, vu), db));
+}
+
+/* ================= Inviati in collegamento (WebRTC) ================= */
+const RT = { peer: null, state: 'off', conns: new Map(), calls: new Map(), chat: [] };
+const peerId = room => 'nwllive-' + room + '-regia';
+function roomCode() { const a = 'abcdefghjkmnpqrstuvwxyz23456789'; let s = ''; for (let k = 0; k < 6; k++) s += a[Math.floor(Math.random() * a.length)]; return s; }
+/* server di segnalazione: quello pubblico di PeerJS, oppure uno nostro (?peer=host:porta) */
+function peerOpts() {
+  const ps = new URLSearchParams(location.search).get('peer');
+  if (!ps) return {};
+  const [host, port] = ps.split(':');
+  return { host, port: +(port || 443), path: '/', secure: !/^(localhost|127\.|192\.168\.)/.test(host) };
+}
+function iceServers() {
+  const base = [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' }];
+  try { const x = P.ice ? JSON.parse(P.ice) : []; return base.concat(Array.isArray(x) ? x : [x]); } catch (_) { return base; }
+}
+function inviatoBase() {
+  return location.protocol.startsWith('http') ? new URL('inviato.html', location.href).href : 'https://edicola.grandangoloregionale.it/suite/live/inviato.html';
+}
+function inviatoLink(name) { if (!P.room || !RT.peer) remoteStart(); const ps = new URLSearchParams(location.search).get('peer'); return inviatoBase() + '?r=' + P.room + (name ? '&n=' + encodeURIComponent(name) : '') + (ps ? '&peer=' + encodeURIComponent(ps) : ''); }
+
+function remoteStart() {
+  if (typeof Peer === 'undefined') { RT.state = 'nolib'; refreshRemotePane(); return; }
+  if (!P.room) { P.room = roomCode(); dirty(); }
+  if (RT.peer) { try { RT.peer.destroy(); } catch (_) { } }
+  RT.state = 'wait';
+  const peer = new Peer(peerId(P.room), Object.assign({ config: { iceServers: iceServers() }, debug: 1 }, peerOpts()));
+  RT.peer = peer;
+  peer.on('open', () => { RT.state = 'ok'; refreshRemotePane(); });
+  peer.on('disconnected', () => { RT.state = 'wait'; refreshRemotePane(); setTimeout(() => { if (!peer.destroyed) peer.reconnect(); }, 1500); });
+  peer.on('error', e => {
+    console.warn('peer', e.type, e);
+    if (e.type === 'unavailable-id') { RT.state = 'busy'; toast('La stanza degli inviati è già aperta in un\'altra finestra di regia'); }
+    else if (e.type === 'network' || e.type === 'server-error' || e.type === 'socket-error') { RT.state = 'net'; setTimeout(() => { if (RT.peer === peer) remoteStart(); }, 5000); }
+    refreshRemotePane();
+  });
+  peer.on('connection', conn => {
+    const name = (conn.metadata && conn.metadata.name || 'Inviato').slice(0, 40);
+    conn.on('open', () => {
+      const i = remoteInput(name);
+      RT.conns.set(i.id, conn); conn._iid = i.id;
+      sendTally(i); refreshRemotePane();
+      chatAdd('Sistema', name + ' è entrato in collegamento');
+    });
+    conn.on('data', d => {
+      if (!d || typeof d !== 'object') return;
+      if (d.t === 'msg') chatAdd(name, String(d.text || '').slice(0, 500));
+    });
+    conn.on('close', () => { if (RT.conns.get(conn._iid) === conn) RT.conns.delete(conn._iid); refreshRemotePane(); });
+  });
+  peer.on('call', call => {
+    const name = (call.metadata && call.metadata.name || 'Inviato').slice(0, 40);
+    const i = remoteInput(name);
+    const old = RT.calls.get(i.id); if (old && old !== call) { try { old.close(); } catch (_) { } }
+    RT.calls.set(i.id, call);
+    call.answer(minusFor(i.id).dest.stream);
+    call.on('stream', st => {
+      if (i._stream === st) return;
+      i._stream = st; attachStream(i, st);
+      // qualità: preferisce la fluidità alla risoluzione quando la rete cala
+      try { call.peerConnection.getReceivers().forEach(r => { if (r.track && r.track.kind === 'video') r.playoutDelayHint = 0.15; }); } catch (_) { }
+      toast('📡 ' + name + ' in collegamento'); refreshAll();
+    });
+    const gone = () => {
+      if (RT.calls.get(i.id) !== call) return;
+      RT.calls.delete(i.id); closeInput(i); i._status = 'remote'; refreshAll();
+      chatAdd('Sistema', name + ' ha chiuso il collegamento');
+    };
+    call.on('close', gone); call.on('error', gone);
+    call.peerConnection && call.peerConnection.addEventListener('connectionstatechange', () => {
+      const s = call.peerConnection.connectionState; i._net = s;
+      if (s === 'failed') gone();
+      refreshRemotePane();
+    });
+  });
+}
+/* ingresso dell'inviato: lo stesso nome riprende sempre lo stesso ingresso (e le scene che lo usano) */
+function remoteInput(name) {
+  let i = P.inputs.find(x => x.type === 'remote' && x.rname === name);
+  if (!i) {
+    i = newInput('remote', { name, rname: name }); i._status = 'remote';
+    autoScenesForRemote(i);
+    refreshAll(); dirty();
+  }
+  return i;
+}
+function autoScenesForRemote(i) {
+  const bg = defaultBg(), cam = P.inputs.find(x => x.type === 'camera' && x.key.on);
+  const L = [];
+  if (bg) L.push(newLayer(bg.id));
+  if (cam) L.push(newLayer(cam.id, { x: 0, y: 0, w: .58, h: 1, fit: 'contain' }));
+  L.push(newLayer(i.id, { x: .5, y: .17, w: .44, h: .44, bd: 6, bc: '#1fb069', r: 10 }));
+  newScene('Doppia · ' + i.name, L);
+}
+function remoteDrop(i) {
+  const c = RT.calls.get(i.id); if (c) { try { c.close(); } catch (_) { } RT.calls.delete(i.id); }
+  const d = RT.conns.get(i.id); if (d) { try { d.close(); } catch (_) { } RT.conns.delete(i.id); }
+  minusDrop(i.id);
+}
+function sendTally(i) {
+  const c = RT.conns.get(i.id); if (!c || !c.open) return;
+  const s = srcInputs(R.pg).has(i.id) ? 'air' : srcInputs(R.pv).has(i.id) ? 'pv' : 'off';
+  if (c._tally === s) return; c._tally = s;
+  try { c.send({ t: 'tally', s }); } catch (_) { }
+}
+function remoteTally() { for (const i of P.inputs) if (i.type === 'remote') sendTally(i); }
+function remoteSend(i, text) {
+  const c = RT.conns.get(i.id); if (!c || !c.open) { toast(i.name + ' non è collegato'); return; }
+  c.send({ t: 'msg', text }); chatAdd('Regia → ' + i.name, text);
+}
+function chatAdd(who, text) {
+  RT.chat.push({ who, text, at: new Date() }); if (RT.chat.length > 80) RT.chat.shift();
+  if (R.rtab === 'remote') refreshRemotePane();
+  else if (who !== 'Sistema' && !who.startsWith('Regia')) toast('💬 ' + who + ': ' + text, 4000);
+}
+
+/* ================= Interfaccia ================= */
+const TILES = new Map();   // sorgente -> canvas miniatura
+function refreshAll() { refreshGrid(); refreshPane(); refreshMixer(); refreshTally(); }
+
+/* ---------- griglia scene e ingressi ---------- */
+function tileFor(src, label, tag, num, extra) {
+  let cv = TILES.get(src);
+  if (!cv) { cv = document.createElement('canvas'); cv.width = 320; cv.height = 180; TILES.set(src, cv); }
+  const t = h('div', { class: 'tile', 'data-src': src },
+    cv, h('span', { class: 'st p' }, 'ANTEPRIMA'), h('span', { class: 'st g' }, 'IN ONDA'),
+    num ? h('span', { class: 'k' }, num) : null,
+    extra || null,
+    h('div', { class: 'nm' }, h('span', { title: label }, label), tag ? h('em', {}, tag) : null));
+  t.onclick = e => {
+    const id = src.slice(2), i = src.startsWith('i:') ? inp(id) : null;
+    if (i && i.type === 'screen' && i._status === 'click') { i._gesture = true; openInput(i); }
+    if (i && i.type === 'mic') { select(src); return; }
+    setPreview(src); select(src);
+  };
+  t.ondblclick = () => { if (src.startsWith('i:') && inp(src.slice(2)).type === 'mic') return; setPreview(src); doTransition(); };
+  t.oncontextmenu = e => { e.preventDefault(); select(src); };
+  return t;
+}
+function refreshGrid() {
+  const g = $('#grid'); if (!g) return;
+  const st = g.scrollTop; g.innerHTML = '';
+  g.append(h('div', { class: 'grp' }, 'Scene'));
+  const sg = h('div', { class: 'grid' });
+  P.scenes.forEach((s, n) => sg.append(tileFor('s:' + s.id, s.name, s.layers.length + ' livelli', n < 9 ? 'F' + (n + 1) : '')));
+  sg.append(h('button', { class: 'tile add', onclick: addScene }, h('b', { style: 'font-size:20px' }, '+'), 'Nuova scena'));
+  g.append(sg);
+  g.append(h('div', { class: 'grp' }, 'Ingressi'));
+  const ig = h('div', { class: 'grid' });
+  for (const i of P.inputs) {
+    let extra = null;
+    if (!i._el && hasVideo(i) && i.type !== 'vcam') extra = h('div', { class: 'wait' }, (TYPES[i.type].ic + ' ') + statusText(i));
+    if (i.type === 'mic') extra = h('div', { class: 'wait' }, '🎙️ Solo audio');
+    if (i.type === 'video') { const b = h('div', { class: 'bar' }, h('i')); i._bar = b.firstChild; extra = [extra, b]; }
+    const tag = TYPES[i.type].tag + (i.key.on ? ' · KEY' : '');
+    ig.append(tileFor('i:' + i.id, i.name, tag, i.num <= 9 ? String(i.num) : '', [extra].flat().filter(Boolean)));
+  }
+  ig.append(h('button', { class: 'tile add', onclick: addInputDialog }, h('b', { style: 'font-size:20px' }, '+'), 'Aggiungi ingresso'));
+  g.append(ig);
+  g.scrollTop = st;
+  for (const k of [...TILES.keys()]) if (!g.querySelector(`[data-src="${k}"]`)) TILES.delete(k);
+  refreshTally();
+}
+function refreshTally() {
+  $$('#grid .tile[data-src]').forEach(t => {
+    const s = t.dataset.src;
+    t.classList.toggle('inpv', s === R.pv); t.classList.toggle('inpg', s === R.pg); t.classList.toggle('sel', s === R.sel);
+  });
+  $('#pvName').textContent = srcName(R.pv); $('#pgName').textContent = srcName(R.pg);
+  remoteTally();
+}
+function select(src) { R.sel = src; R.selLayer = null; if (R.rtab !== 'prop') setTab('prop'); else refreshPane(); refreshTally(); }
+
+/* ---------- pannello di destra ---------- */
+function setTab(t) { R.rtab = t; $$('#rtabs button').forEach(b => b.classList.toggle('on', b.dataset.t === t)); refreshPane(); }
+function refreshPane() {
+  if (R.rtab === 'gfx') return gfxPane();
+  if (R.rtab === 'remote') return refreshRemotePane();
+  if (R.rtab === 'show') return showPane();
+  const box = $('#rpane'); box.innerHTML = '';
+  if (!R.sel) { box.append(h('p', { class: 'hint' }, 'Clicca una scena o un ingresso per vederne le proprietà. Un clic lo mette in anteprima, il doppio clic lo manda in onda.')); return; }
+  if (R.sel.startsWith('s:')) scenePane(box, scn(R.sel.slice(2))); else inputPane(box, inp(R.sel.slice(2)));
+}
+function field(label, el) { return h('div', { class: 'f' }, h('label', {}, label), el); }
+function rng(label, min, max, step, val, fmt, on) {
+  const o = h('output', {}, fmt(val));
+  const r = h('input', { type: 'range', min, max, step, value: val });
+  r.oninput = () => { o.textContent = fmt(+r.value); on(+r.value); dirty(); };
+  return h('div', { class: 'rng' }, h('span', {}, label), r, o);
+}
+function chk(label, val, on, title) {
+  const c = h('input', { type: 'checkbox' }); c.checked = !!val;
+  c.onchange = () => { on(c.checked); dirty(); };
+  return h('label', { class: 'chk', title: title || '' }, c, label);
+}
+const pct = v => Math.round(v * 100) + '%';
+
+function inputPane(box, i) {
+  if (!i) return;
+  const name = h('input', { type: 'text', value: i.name });
+  name.onchange = () => { if (i.type === 'remote') { toast('Il nome dell\'inviato è quello con cui si collega'); name.value = i.name; return; } i.name = name.value.trim() || i.name; refreshGrid(); refreshMixer(); dirty(); };
+  box.append(h('div', { class: 'grp' }, TYPES[i.type].ic + ' ' + TYPES[i.type].lab + ' · ' + i.num), field('Nome', name));
+
+  if (i.type === 'camera' || i.type === 'mic') {
+    const vs = h('select'), as = h('select');
+    as.append(h('option', { value: '' }, i.type === 'mic' ? 'Microfono predefinito' : 'Nessun audio'));
+    ensureLabels().then(devs => {
+      vs.innerHTML = ''; as.innerHTML = ''; as.append(h('option', { value: '' }, i.type === 'mic' ? 'Microfono predefinito' : 'Nessun audio'));
+      devs.filter(d => d.kind === 'videoinput').forEach((d, n) => vs.append(h('option', { value: d.deviceId }, d.label || 'Telecamera ' + (n + 1))));
+      devs.filter(d => d.kind === 'audioinput').forEach((d, n) => as.append(h('option', { value: d.deviceId }, d.label || 'Microfono ' + (n + 1))));
+      vs.value = i.dev || (vs.options[0] && vs.options[0].value) || ''; as.value = i.adev || '';
+    });
+    vs.onchange = () => { i.dev = vs.value; openInput(i); dirty(); };
+    as.onchange = () => { i.adev = as.value || (i.type === 'mic' ? 'default' : ''); openInput(i); dirty(); };
+    if (i.type === 'camera') {
+      box.append(field('Telecamera o scheda di acquisizione', vs));
+      const rs = h('select', {}, h('option', { value: '1920x1080' }, '1080p (Full HD)'), h('option', { value: '1280x720' }, '720p'), h('option', { value: '3840x2160' }, '4K'));
+      rs.value = (i.w || 1920) + 'x' + (i.h || 1080);
+      rs.onchange = () => { const [a, b] = rs.value.split('x').map(Number); i.w = a; i.h = b; openInput(i); dirty(); };
+      box.append(field('Risoluzione', rs));
+      box.append(field('Audio della telecamera', as));
+      box.append(chk('Specchia l\'immagine', i.flip, v => i.flip = v));
+    } else box.append(field('Microfono', as));
+  }
+  if (i.type === 'vcam') { vcamPane(box, i); box.append(h('div', { class: 'row', style: 'margin-top:14px' }, h('button', { class: 'sb dan', onclick: () => removeInput(i) }, 'Elimina'))); return; }
+  if (i.type === 'screen') box.append(h('button', { class: 'sb pri', onclick: () => { i._gesture = true; openInput(i); } }, i._el ? 'Cambia schermo o finestra' : 'Condividi schermo'), h('div', { style: 'height:10px' }));
+  if (i.type === 'vset') {
+    const s = h('select', {}, ...[['notte', 'Blu notte'], ['verde', 'Verde Grandangolo'], ['rosso', 'Rosso'], ['neutro', 'Grigio neutro']].map(([v, l]) => h('option', { value: v }, l)));
+    s.value = i.style || 'notte'; s.onchange = () => { i.style = s.value; openInput(i); dirty(); };
+    box.append(field('Stile dello studio', s));
+  }
+  if (i.type === 'color') {
+    const c = h('input', { type: 'color', value: i.color || '#000000', class: 'inp', style: 'height:36px;padding:2px' });
+    c.oninput = () => { i.color = c.value; openInput(i); dirty(); };
+    box.append(field('Colore', c));
+  }
+  if (i.type === 'video' || i.type === 'image') {
+    box.append(h('button', { class: 'sb', onclick: () => pickFile(i.type === 'video' ? 'video/*' : 'image/*', false, async f => { await DB.put(i.id, f[0]); i.file = f[0].name; openInput(i); dirty(); }) }, 'Sostituisci file'), h('div', { style: 'height:8px' }));
+    if (i.file) box.append(h('p', { class: 'hint' }, 'File: ' + i.file));
+  }
+  if (i.type === 'video') {
+    const el = i._el;
+    box.append(h('div', { class: 'row', style: 'margin-bottom:10px' },
+      h('button', { class: 'sb', onclick: () => videoControl(i, 'restart') }, '⏮ Inizio'),
+      h('button', { class: 'sb', onclick: () => videoControl(i, 'toggle') }, '⏯ Play/Pausa'),
+      el ? h('span', { class: 'hint', style: 'margin:0' }, 'Durata ' + fmtTime(el.duration)) : null));
+    box.append(chk('Ripeti in loop', i.loop, v => { i.loop = v; if (i._el) i._el.loop = v; }));
+    box.append(chk('Riparte dall\'inizio quando lo metti in anteprima', i.restart !== false, v => i.restart = v));
+    box.append(chk('Alla fine torna in automatico alla scena precedente', i.ret, v => i.ret = v, 'Utile per i servizi: finito il video, si torna allo studio'));
+  }
+  if (i.type === 'remote') {
+    const ok = !!i._el;
+    box.append(h('p', { class: 'hint' }, ok ? '🟢 Collegato' + (i._el.videoWidth ? ' · ' + i._el.videoWidth + '×' + i._el.videoHeight : '') : '⚪ In attesa: invia il link all\'inviato.'));
+    box.append(h('button', { class: 'sb pri', onclick: () => linkDialog(i.rname) }, 'Link e QR per ' + i.name), h('div', { style: 'height:10px' }));
+  }
+  if (['vset', 'image', 'video', 'color'].includes(i.type)) {
+    box.append(chk('Usa come sfondo dietro il green screen', P.bg === i.id || (!P.bg && defaultBg() === i), v => { P.bg = v ? i.id : null; P.inputs.forEach(x => x._implicit = null); refreshPane(); }));
+  }
+  if (hasVideo(i) && ['camera', 'remote', 'video', 'screen', 'image'].includes(i.type)) {
+    box.append(h('div', { class: 'grp', style: 'margin-top:12px' }, 'Green screen (chroma key)'));
+    box.append(chk('Rimuovi il fondo verde', i.key.on, v => { i.key.on = v; i._implicit = null; refreshPane(); refreshGrid(); }));
+    if (i.key.on) {
+      const col = h('input', { type: 'color', value: i.key.color, style: 'width:44px;height:30px;border:0;background:none;padding:0' });
+      col.oninput = () => { i.key.color = col.value; dirty(); };
+      box.append(h('div', { class: 'row', style: 'margin-bottom:8px' }, h('span', { class: 'lbl' }, 'Colore del fondo'), col,
+        h('button', { class: 'sb', onclick: () => pickKeyColor(i, col) }, '🎯 Prendilo dall\'immagine'),
+        h('button', { class: 'sb', onclick: () => { i.key.color = '#00b140'; col.value = '#00b140'; } }, 'Verde'),
+        h('button', { class: 'sb', onclick: () => { i.key.color = '#0047bb'; col.value = '#0047bb'; } }, 'Blu')));
+      box.append(rng('Tolleranza', 0.05, 1, 0.005, i.key.sim, v => v.toFixed(2), v => i.key.sim = v));
+      box.append(rng('Morbidezza', 0.001, 0.4, 0.001, i.key.smooth, v => v.toFixed(3), v => i.key.smooth = v));
+      box.append(rng('Riflessi verdi', 0.001, 0.6, 0.001, i.key.spill, v => v.toFixed(3), v => i.key.spill = v));
+    }
+    box.append(h('div', { class: 'grp', style: 'margin-top:12px' }, 'Ritaglio'));
+    box.append(h('p', { class: 'hint' }, 'Taglia i bordi: utile per togliere luci, supporti o il bordo del telo verde.'));
+    [['l', 'Sinistra'], ['r', 'Destra'], ['t', 'Sopra'], ['b', 'Sotto']].forEach(([k, l]) => box.append(rng(l, 0, .45, .005, i.crop[k] || 0, pct, v => i.crop[k] = v)));
+  }
+  box.append(h('div', { class: 'row', style: 'margin-top:14px' },
+    hasVideo(i) ? h('button', { class: 'sb', onclick: () => { const s = newScene(i.name, [defaultBg() && i.key.on ? newLayer(defaultBg().id) : null, newLayer(i.id, { fit: i.key.on ? 'contain' : 'cover' })].filter(Boolean)); refreshGrid(); select('s:' + s.id); dirty(); } }, 'Crea scena') : null,
+    h('button', { class: 'sb dan', onclick: () => removeInput(i) }, 'Elimina')));
+}
+function fmtTime(s) { if (!isFinite(s)) return '--:--'; s = Math.round(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+
+/* ---------- scena: livelli e posizioni ---------- */
+const LAYOUTS = [
+  ['Pieno', { x: 0, y: 0, w: 1, h: 1 }],
+  ['Metà sin.', { x: 0, y: 0, w: .5, h: 1 }],
+  ['Metà des.', { x: .5, y: 0, w: .5, h: 1 }],
+  ['Riquadro des.', { x: .5, y: .17, w: .44, h: .44 }],
+  ['Riquadro sin.', { x: .06, y: .17, w: .44, h: .44 }],
+  ['Piccolo alto', { x: .7, y: .06, w: .26, h: .26 }],
+  ['Piccolo basso', { x: .7, y: .62, w: .26, h: .26 }],
+  ['Doppia sin.', { x: .03, y: .2, w: .455, h: .455 }],
+  ['Doppia des.', { x: .515, y: .2, w: .455, h: .455 }],
+];
+function scenePane(box, s) {
+  if (!s) return;
+  const name = h('input', { type: 'text', value: s.name });
+  name.onchange = () => { s.name = name.value.trim() || s.name; refreshGrid(); dirty(); };
+  box.append(h('div', { class: 'grp' }, '🎬 Scena'), field('Nome', name));
+  box.append(h('p', { class: 'hint' }, 'I livelli in basso stanno dietro. Seleziona un livello e trascinalo nell\'anteprima; la rotellina lo ingrandisce.'));
+  const list = h('div');
+  [...s.layers].reverse().forEach(L => {
+    const i = inp(L.inp), n = s.layers.indexOf(L);
+    const row = h('div', { class: 'lay' + (R.selLayer === L.id ? ' on' : '') },
+      h('span', {}, (i ? TYPES[i.type].ic + ' ' + i.name : '—')),
+      h('button', { title: 'Più avanti', onclick: e => { e.stopPropagation(); if (n < s.layers.length - 1) { s.layers.splice(n, 1); s.layers.splice(n + 1, 0, L); refreshPane(); dirty(); } } }, '▲'),
+      h('button', { title: 'Più dietro', onclick: e => { e.stopPropagation(); if (n > 0) { s.layers.splice(n, 1); s.layers.splice(n - 1, 0, L); refreshPane(); dirty(); } } }, '▼'),
+      h('button', { title: 'Togli', onclick: e => { e.stopPropagation(); s.layers.splice(n, 1); R.selLayer = null; refreshPane(); refreshGrid(); dirty(); } }, '✕'));
+    row.onclick = () => { R.selLayer = L.id; if (R.pv !== 's:' + s.id) setPreview('s:' + s.id); refreshPane(); };
+    list.append(row);
+  });
+  box.append(list);
+  const add = h('select', {}, h('option', { value: '' }, '+ Aggiungi un ingresso alla scena…'), ...P.inputs.filter(hasVideo).map(i => h('option', { value: i.id }, i.num + ' · ' + i.name)));
+  add.onchange = () => { if (!add.value) return; const i = inp(add.value); const L = newLayer(add.value, s.layers.length ? { x: .5, y: .17, w: .44, h: .44, bd: 6, bc: '#1fb069', r: 10 } : {}); if (i && i.key.on) Object.assign(L, { x: 0, y: 0, w: 1, h: 1, bd: 0, r: 0, fit: 'contain' }); s.layers.push(L); R.selLayer = L.id; refreshPane(); refreshGrid(); dirty(); };
+  box.append(h('div', { class: 'f', style: 'margin-top:6px' }, add));
+  const L = s.layers.find(l => l.id === R.selLayer);
+  if (L) {
+    box.append(h('div', { class: 'grp', style: 'margin-top:12px' }, 'Posizione del livello'));
+    const pr = h('div', { class: 'row', style: 'margin-bottom:10px' });
+    LAYOUTS.forEach(([n, v]) => pr.append(h('button', { class: 'sb', onclick: () => { Object.assign(L, v); refreshPane(); dirty(); } }, n)));
+    box.append(pr);
+    box.append(rng('Orizzontale', -.5, 1, .005, L.x, pct, v => L.x = v));
+    box.append(rng('Verticale', -.5, 1, .005, L.y, pct, v => L.y = v));
+    box.append(rng('Larghezza', .05, 1.5, .005, L.w, pct, v => L.w = v));
+    box.append(rng('Altezza', .05, 1.5, .005, L.h, pct, v => L.h = v));
+    const fit = h('select', {}, h('option', { value: 'cover' }, 'Riempi il riquadro'), h('option', { value: 'contain' }, 'Mostra tutto'), h('option', { value: 'stretch' }, 'Deforma per adattare'));
+    fit.value = L.fit; fit.onchange = () => { L.fit = fit.value; dirty(); };
+    box.append(field('Adattamento', fit));
+    box.append(rng('Opacità', 0, 1, .01, L.op ?? 1, pct, v => L.op = v));
+    box.append(rng('Bordo', 0, 20, 1, L.bd || 0, v => v + ' px', v => L.bd = v));
+    box.append(rng('Angoli', 0, 60, 1, L.r || 0, v => v + ' px', v => L.r = v));
+    const bc = h('input', { type: 'color', value: L.bc || '#ffffff', style: 'width:44px;height:28px;border:0;background:none' });
+    bc.oninput = () => { L.bc = bc.value; dirty(); };
+    box.append(h('div', { class: 'row' }, h('span', { class: 'lbl' }, 'Colore del bordo'), bc,
+      h('button', { class: 'sb', onclick: () => { L.bc = '#1fb069'; bc.value = '#1fb069'; dirty(); } }, 'Verde Grandangolo')));
+  }
+  box.append(h('div', { class: 'row', style: 'margin-top:14px' },
+    h('button', { class: 'sb', onclick: () => makeStudioCams('s:' + s.id) }, '🎬 Crea camere virtuali'),
+    h('button', { class: 'sb', onclick: () => { const c = newScene(s.name + ' (copia)', JSON.parse(JSON.stringify(s.layers)).map(l => Object.assign(l, { id: uid('l') }))); refreshGrid(); select('s:' + c.id); dirty(); } }, 'Duplica'),
+    h('button', { class: 'sb dan', onclick: () => { if (!confirm('Eliminare la scena «' + s.name + '»?')) return; P.scenes = P.scenes.filter(x => x !== s); if (R.pv === 's:' + s.id) R.pv = null; if (R.pg === 's:' + s.id) R.pg = null; R.sel = null; refreshAll(); dirty(); } }, 'Elimina scena')));
+}
+function addScene() {
+  const bg = defaultBg();
+  const s = newScene(null, bg ? [newLayer(bg.id)] : []);
+  refreshGrid(); setPreview('s:' + s.id); select('s:' + s.id); dirty();
+}
+
+/* trascinamento nell'anteprima: sposta e ridimensiona i livelli, oppure muove la camera virtuale */
+(function previewDrag() {
+  const cv = $('#pv'); let drag = null;
+  const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height, r]; };
+  const curScene = () => R.pv && R.pv.startsWith('s:') && R.sel === R.pv ? scn(R.pv.slice(2)) : null;
+  const curVcam = () => { if (!R.pv || R.pv !== R.sel || !R.pv.startsWith('i:')) return null; const i = inp(R.pv.slice(2)); return i && i.type === 'vcam' ? i : null; };
+  const HS = 14; // maniglie (pixel a schermo)
+  function corner(L, x, y, r) {
+    const tx = HS / r.width, ty = HS / r.height;
+    const cs = [['nw', L.x, L.y], ['ne', L.x + L.w, L.y], ['sw', L.x, L.y + L.h], ['se', L.x + L.w, L.y + L.h]];
+    for (const [k, cx, cy] of cs) if (Math.abs(x - cx) < tx && Math.abs(y - cy) < ty) return k;
+    return null;
+  }
+  cv.addEventListener('pointerdown', e => {
+    const [x, y, r] = pos(e);
+    const vc = curVcam();
+    if (vc) { vc._anim = null; drag = { vc, x, y, s: { ...(vc.shot || SHOT0()) } }; cv.setPointerCapture(e.pointerId); return; }
+    const s = curScene(); if (!s) return;
+    const sel = s.layers.find(l => l.id === R.selLayer);
+    const c = sel && corner(sel, x, y, r);
+    if (c) { drag = { L: sel, mode: c, x, y, o: { x: sel.x, y: sel.y, w: sel.w, h: sel.h } }; cv.setPointerCapture(e.pointerId); return; }
+    const hit = [...s.layers].reverse().find(L => x >= L.x && x <= L.x + L.w && y >= L.y && y <= L.y + L.h);
+    if (!hit) return;
+    R.selLayer = hit.id; drag = { L: hit, mode: 'move', x, y, o: { x: hit.x, y: hit.y, w: hit.w, h: hit.h } };
+    cv.setPointerCapture(e.pointerId); refreshPane();
+  });
+  cv.addEventListener('pointermove', e => {
+    const [x, y, r] = pos(e);
+    if (!drag) {
+      const s = curScene(), sel = s && s.layers.find(l => l.id === R.selLayer), c = sel && corner(sel, x, y, r);
+      cv.style.cursor = curVcam() ? 'grab' : c ? (c === 'nw' || c === 'se' ? 'nwse-resize' : 'nesw-resize') : s ? 'move' : '';
+      return;
+    }
+    if (drag.vc) { // panoramica: trascino l'immagine
+      const z = drag.s.z;
+      drag.vc.shot = clampShot({ z, x: drag.s.x - (x - drag.x) / z, y: drag.s.y - (y - drag.y) / z });
+      return;
+    }
+    const L = drag.L, o = drag.o, dx = x - drag.x, dy = y - drag.y;
+    if (drag.mode === 'move') {
+      let nx = o.x + dx, ny = o.y + dy;
+      if (!e.shiftKey) { const sn = v => Math.abs(v) < .012 ? 0 : v; nx = sn(nx); ny = sn(ny); if (Math.abs(nx + L.w - 1) < .012) nx = 1 - L.w; if (Math.abs(ny + L.h - 1) < .012) ny = 1 - L.h; if (Math.abs(nx + L.w / 2 - .5) < .01) nx = .5 - L.w / 2; }
+      L.x = nx; L.y = ny; return;
+    }
+    // ridimensionamento dall'angolo, con proporzioni bloccate (Maiusc = libero)
+    const ax = drag.mode.includes('w') ? o.x + o.w : o.x, ay = drag.mode.includes('n') ? o.y + o.h : o.y;
+    let w = Math.max(.03, Math.abs(x - ax)), hh = Math.max(.03, Math.abs(y - ay));
+    if (!e.shiftKey) { const k = Math.max(w / o.w, hh / o.h); w = o.w * k; hh = o.h * k; }
+    L.w = w; L.h = hh; L.x = drag.mode.includes('w') ? ax - w : ax; L.y = drag.mode.includes('n') ? ay - hh : ay;
+  });
+  const end = () => { if (drag) { drag = null; refreshPane(); dirty(); } };
+  cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+  cv.addEventListener('wheel', e => {
+    const vc = curVcam();
+    if (vc) { e.preventDefault(); vc._anim = null; const s = vc.shot || SHOT0(); vc.shot = clampShot({ ...s, z: s.z * (e.deltaY < 0 ? 1.05 : 1 / 1.05) }); dirty(); clearTimeout(cv._wt); cv._wt = setTimeout(refreshPane, 250); return; }
+    const s = curScene(); if (!s) return; const L = s.layers.find(l => l.id === R.selLayer); if (!L) return;
+    e.preventDefault(); const f = e.deltaY < 0 ? 1.03 : 1 / 1.03, cx = L.x + L.w / 2, cy = L.y + L.h / 2;
+    L.w = clamp(L.w * f, .03, 3); L.h = clamp(L.h * f, .03, 3); L.x = cx - L.w / 2; L.y = cy - L.h / 2; dirty();
+    clearTimeout(cv._wt); cv._wt = setTimeout(refreshPane, 250);
+  }, { passive: false });
+})();
+
+/* campionatore del colore del green screen */
+function pickKeyColor(i, colEl) {
+  const fr = i._el; const [w, hh] = natSize(fr);
+  if (!w) { toast('L\'ingresso non ha ancora immagine'); return; }
+  const c = h('canvas', { width: 960, height: Math.round(960 * hh / w), style: 'width:100%;border-radius:10px;cursor:crosshair;display:block' });
+  c.getContext('2d').drawImage(fr, 0, 0, c.width, c.height);
+  modal(h('div', {}, h('h3', {}, 'Clicca sul fondo verde'), h('p', { class: 'hint' }, 'Scegli un punto del telo, vicino alla persona ma senza toccarla.'), c,
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Annulla'))));
+  c.onclick = e => {
+    const r = c.getBoundingClientRect(), col = sampleColor(i, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+    if (col) { i.key.color = col; colEl.value = col; dirty(); toast('Colore del fondo: ' + col); }
+    closeModal();
+  };
+}
+
+/* ---------- finestre di dialogo ---------- */
+function modal(content) { const d = $('#dlg'); d.innerHTML = ''; d.append(content); $('#modal').classList.add('on'); }
+function closeModal() { $('#modal').classList.remove('on'); }
+$('#modal').addEventListener('pointerdown', e => { if (e.target.id === 'modal') closeModal(); });
+function pickFile(accept, multiple, cb) {
+  const f = $('#fileIn'); f.accept = accept; f.multiple = !!multiple; f.value = '';
+  f.onchange = () => { if (f.files.length) cb([...f.files]); };
+  f.click();
+}
+function addInputDialog() {
+  const ch = (t, sub, fn) => h('button', { class: 'choice', onclick: () => { closeModal(); fn(); } }, h('span', { class: 'ic' }, TYPES[t].ic), h('span', {}, h('b', {}, TYPES[t].lab), h('small', {}, sub)));
+  modal(h('div', {},
+    h('h3', {}, 'Aggiungi un ingresso'), h('p', { class: 'hint' }, 'Ogni ingresso compare nella griglia: un clic lo mette in anteprima.'),
+    h('div', { class: 'choices' },
+      ch('camera', 'Webcam, videocamera HDMI, scheda di acquisizione', cameraDialog),
+      ch('remote', 'Collegamento esterno via link', () => linkDialog()),
+      ch('video', 'Servizi e filmati da mandare in onda', () => pickFile('video/*', true, async fs => { for (const f of fs) { const i = newInput('video', { name: f.name.replace(/\.[^.]+$/, ''), file: f.name, restart: true, ret: true }); await DB.put(i.id, f); await openInput(i); } refreshAll(); dirty(); })),
+      ch('image', 'Grafiche, foto, cartelli', () => pickFile('image/*', true, async fs => { for (const f of fs) { const i = newInput('image', { name: f.name.replace(/\.[^.]+$/, ''), file: f.name }); await DB.put(i.id, f); await openInput(i); } refreshAll(); dirty(); })),
+      ch('vcam', 'Zoom e movimenti su una scena', () => { const i = newInput('vcam', { src: R.pv || (P.scenes[0] && 's:' + P.scenes[0].id), shot: SHOT0() }); openInput(i); refreshAll(); select('i:' + i.id); setPreview('i:' + i.id); dirty(); }),
+      h('button', { class: 'choice', onclick: () => { closeModal(); customStudioDialog(); } }, h('span', { class: 'ic' }, '🏛️'), h('span', {}, h('b', {}, 'Il tuo studio'), h('small', {}, 'Sfondo e scrivania personalizzati'))),
+      ch('vset', 'Sfondo pronto per il green screen', () => { const i = newInput('vset', { style: 'notte' }); openInput(i); refreshAll(); dirty(); }),
+      ch('screen', 'Presentazioni, siti, una finestra', () => { const i = newInput('screen'); i._gesture = true; openInput(i); refreshAll(); dirty(); }),
+      ch('mic', 'Microfono da studio, mixer audio', () => { const i = newInput('mic', { adev: 'default', aud: { db: 0, mute: false, afv: false } }); openInput(i); refreshAll(); dirty(); }),
+      ch('color', 'Fondo a tinta unita', () => { const i = newInput('color', { color: '#000000' }); openInput(i); refreshAll(); dirty(); })),
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Chiudi'))));
+}
+async function cameraDialog() {
+  const vs = h('select', { class: 'inp' }, h('option', {}, 'Cerco le telecamere…')), as = h('select', { class: 'inp' });
+  const green = h('input', { type: 'checkbox' });
+  modal(h('div', {}, h('h3', {}, '🎥 Nuova telecamera'),
+    field('Telecamera o scheda di acquisizione', vs), field('Audio', as),
+    h('label', { class: 'chk' }, green, 'Riprende un giornalista davanti al green screen'),
+    h('p', { class: 'hint' }, 'Le videocamere collegate con HDMI tramite una scheda di acquisizione compaiono qui come telecamere.'),
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Annulla'), h('button', {
+      class: 'sb pri', onclick: async () => {
+        closeModal();
+        const i = newInput('camera', { dev: vs.value, adev: as.value, aud: { db: 0, mute: false, afv: false } });
+        if (green.checked) {
+          i.key.on = true;
+          let bg = defaultBg(); if (!bg) { bg = newInput('vset', { style: 'notte' }); openInput(bg); }
+          const st = P.scenes.find(s => s.name === 'Studio') || newScene('Studio', [newLayer(bg.id)]);
+          st.layers.push(newLayer(i.id, { fit: 'contain' }));
+        }
+        await openInput(i); refreshAll(); dirty();
+      }
+    }, 'Aggiungi'))));
+  const devs = await ensureLabels();
+  vs.innerHTML = ''; as.innerHTML = '';
+  const cams = devs.filter(d => d.kind === 'videoinput');
+  cams.forEach((d, n) => vs.append(h('option', { value: d.deviceId }, d.label || 'Telecamera ' + (n + 1))));
+  if (!cams.length) vs.append(h('option', { value: '' }, 'Nessuna telecamera trovata'));
+  as.append(h('option', { value: '' }, 'Nessun audio (uso un microfono separato)'));
+  devs.filter(d => d.kind === 'audioinput').forEach((d, n) => as.append(h('option', { value: d.deviceId }, d.label || 'Microfono ' + (n + 1))));
+  const used = new Set(P.inputs.filter(x => x.type === 'camera').map(x => x.dev));
+  const free = cams.find(d => !used.has(d.deviceId)); if (free) vs.value = free.deviceId;
+}
+function qrSvg(text) {
+  if (typeof qrcode === 'undefined') return null;
+  const q = qrcode(0, 'M'); q.addData(text); q.make();
+  const d = h('div', { class: 'qr', html: q.createSvgTag({ cellSize: 5, margin: 2, scalable: false }) });
+  return d;
+}
+function linkDialog(name) {
+  if (!RT.peer) remoteStart();
+  const nm = h('input', { type: 'text', class: 'inp', value: name || '', placeholder: 'Es. Mario Rossi da Licata' });
+  const out = h('div');
+  const draw = () => {
+    const link = inviatoLink(nm.value.trim());
+    out.innerHTML = '';
+    out.append(h('div', { class: 'link' }, link));
+    const q = qrSvg(link); if (q) out.append(q);
+    out.append(h('div', { class: 'row', style: 'justify-content:center' },
+      h('button', { class: 'sb', onclick: () => { navigator.clipboard.writeText(link).then(() => toast('Link copiato')); } }, 'Copia link'),
+      h('a', { class: 'sb', href: 'https://wa.me/?text=' + encodeURIComponent('Collegamento in diretta: ' + link), target: '_blank' }, 'Invia su WhatsApp')));
+  };
+  nm.oninput = draw;
+  modal(h('div', {}, h('h3', {}, '📡 Collegamento per un inviato'),
+    h('p', { class: 'hint' }, 'L\'inviato apre il link dal telefono o dal computer, sceglie telecamera e microfono e si collega. Compare tra gli ingressi con il suo nome e sente l\'audio della diretta in cuffia.'),
+    field('Nome dell\'inviato (facoltativo, compare in regia)', nm), out,
+    h('div', { class: 'acts' }, name ? null : h('button', { class: 'sb', onclick: () => { const n = nm.value.trim(); if (!n) { toast('Scrivi il nome'); return; } remoteInput(n); closeModal(); } }, 'Prepara già l\'ingresso'), h('button', { class: 'sb pri', onclick: closeModal }, 'Fatto'))));
+  draw();
+}
+
+/* ---------- grafica ---------- */
+function gfxPane() {
+  const box = $('#rpane'); box.innerHTML = '';
+  const O = P.ovl, lt = O.lt;
+  const onBtn = (on, fn, label) => { const b = h('button', { class: 'onair' + (on ? ' on' : ''), onclick: fn }, on ? '● IN ONDA' : (label || 'MANDA IN ONDA')); return b; };
+  box.append(h('div', { class: 'grp' }, 'Sottopancia'));
+  const k = h('input', { type: 'text', value: lt.kicker }), t = h('textarea', {}, lt.title), s = h('input', { type: 'text', value: lt.sub });
+  k.oninput = () => { lt.kicker = k.value; dirty(); }; t.oninput = () => { lt.title = t.value; dirty(); }; s.oninput = () => { lt.sub = s.value; dirty(); };
+  box.append(field('Occhiello (in alto, piccolo)', k), field('Titolo / Nome', t), field('Sottotitolo / Ruolo', s));
+  const au = h('select', {}, ...[[0, 'Resta finché non lo tolgo'], [5, 'Esce dopo 5 secondi'], [8, 'Esce dopo 8 secondi'], [12, 'Esce dopo 12 secondi']].map(([v, l]) => h('option', { value: v }, l)));
+  au.value = lt.auto || 0; au.onchange = () => { lt.auto = +au.value; dirty(); };
+  box.append(field('Durata', au));
+  box.append(h('div', { class: 'row', style: 'margin-bottom:10px' }, onBtn(lt.on, () => toggleLT(), null), h('button', { class: 'sb', onclick: () => { lt.presets.push({ kicker: lt.kicker, title: lt.title, sub: lt.sub }); gfxPane(); dirty(); } }, '+ Salva tra i pronti')));
+  if (lt.presets.length) {
+    box.append(h('div', { class: 'lbl', style: 'margin:4px 0 6px' }, 'Sottopancia pronti — clic per caricare, ▶ per mandare in onda'));
+    lt.presets.forEach((p, n) => box.append(h('div', { class: 'preset', onclick: () => { Object.assign(lt, { kicker: p.kicker, title: p.title, sub: p.sub }); gfxPane(); dirty(); } },
+      h('div', {}, h('b', {}, p.title || '—'), h('small', {}, [p.kicker, p.sub].filter(Boolean).join(' · '))),
+      h('button', { title: 'Manda in onda', onclick: e => { e.stopPropagation(); Object.assign(lt, { kicker: p.kicker, title: p.title, sub: p.sub }); if (!lt.on) toggleLT(); else gfxPane(); } }, '▶'),
+      h('button', { title: 'Elimina', onclick: e => { e.stopPropagation(); lt.presets.splice(n, 1); gfxPane(); dirty(); } }, '✕'))));
+  }
+  box.append(h('div', { class: 'grp', style: 'margin-top:14px' }, 'Barra delle notizie'));
+  const tl = h('input', { type: 'text', value: O.ticker.label }), tt = h('textarea', {}, O.ticker.text);
+  tl.oninput = () => { O.ticker.label = tl.value; dirty(); }; tt.oninput = () => { O.ticker.text = tt.value; dirty(); };
+  box.append(field('Etichetta', tl), field('Testo (una notizia per riga)', tt));
+  rssPane(box);
+  box.append(rng('Velocità', 40, 300, 5, O.ticker.speed, v => v, v => O.ticker.speed = v));
+  box.append(h('div', { class: 'row', style: 'margin-bottom:10px' }, onBtn(O.ticker.on, () => { O.ticker.on = !O.ticker.on; gfxPane(); dirty(); })));
+  box.append(h('div', { class: 'grp', style: 'margin-top:14px' }, 'Logo, diretta, orologio'));
+  box.append(chk('Logo in sovrimpressione', O.logo.on, v => O.logo.on = v));
+  const lp = h('select', {}, h('option', { value: 'tr' }, 'In alto a destra'), h('option', { value: 'tl' }, 'In alto a sinistra'), h('option', { value: 'br' }, 'In basso a destra'), h('option', { value: 'bl' }, 'In basso a sinistra'));
+  lp.value = O.logo.pos; lp.onchange = () => { O.logo.pos = lp.value; dirty(); };
+  box.append(field('Posizione del logo', lp));
+  box.append(rng('Grandezza', .5, 2.5, .05, O.logo.size || 1, pct, v => O.logo.size = v));
+  box.append(h('div', { class: 'row', style: 'margin-bottom:10px' },
+    h('button', { class: 'sb', onclick: () => pickFile('image/*', false, async f => { await DB.put('logo', f[0], 'kv'); O.logo.media = true; logoKey = null; dirty(); toast('Logo caricato'); }) }, 'Carica un altro logo'),
+    O.logo.media ? h('button', { class: 'sb', onclick: () => { O.logo.media = null; logoKey = null; dirty(); gfxPane(); } }, 'Torna al logo Grandangolo') : null));
+  box.append(chk('Bollino «DIRETTA»', O.live.on, v => O.live.on = v));
+  const lv = h('input', { type: 'text', value: O.live.text }); lv.oninput = () => { O.live.text = lv.value; dirty(); };
+  box.append(field('Testo del bollino', lv));
+  box.append(chk('Orologio', O.clock.on, v => O.clock.on = v));
+}
+function toggleLT() {
+  const lt = P.ovl.lt; lt.on = !lt.on; if (lt.on) R.ltOnAt = now();
+  refreshGfxButtons(); dirty();
+}
+function refreshGfxButtons() { if (R.rtab === 'gfx') gfxPane(); }
+
+/* ---------- inviati ---------- */
+function refreshRemotePane() {
+  if (R.rtab !== 'remote') return;
+  const box = $('#rpane'); box.innerHTML = '';
+  const st = { off: ['', 'Non attivo'], wait: ['wt', 'Collegamento al servizio…'], ok: ['ok', 'Pronto a ricevere inviati'], busy: ['ko', 'Stanza già aperta in un\'altra regia'], net: ['ko', 'Nessuna connessione a internet, riprovo…'], nolib: ['ko', 'Servizio collegamenti non caricato (serve internet)'] }[RT.state] || ['', ''];
+  box.append(h('div', { class: 'row', style: 'margin-bottom:10px' }, h('span', { class: 'dot ' + st[0] }), h('b', {}, st[1]), h('span', { class: 'sp' }), P.room ? h('span', { class: 'hint', style: 'margin:0' }, 'Stanza ' + P.room) : null));
+  if (RT.state === 'off') box.append(h('button', { class: 'sb pri', onclick: remoteStart }, 'Attiva i collegamenti'));
+  box.append(h('button', { class: 'sb pri', onclick: () => linkDialog() }, '+ Link per un nuovo inviato'), h('div', { style: 'height:12px' }));
+  const rem = P.inputs.filter(i => i.type === 'remote');
+  if (!rem.length) box.append(h('p', { class: 'hint' }, 'Nessun inviato ancora. Manda il link: appena si collega compare tra gli ingressi, insieme a una scena «Doppia» già pronta.'));
+  for (const i of rem) {
+    const live = !!i._el, conn = RT.conns.get(i.id), msg = h('input', { type: 'text', class: 'inp', placeholder: 'Messaggio per ' + i.name });
+    const send = () => { const v = msg.value.trim(); if (v) { remoteSend(i, v); msg.value = ''; } };
+    msg.onkeydown = e => { if (e.key === 'Enter') send(); };
+    const air = srcInputs(R.pg).has(i.id);
+    box.append(h('div', { class: 'card' },
+      h('div', { class: 'row', style: 'margin-bottom:8px' }, h('span', { class: 'dot ' + (live ? (air ? 'ko' : 'ok') : conn ? 'wt' : '') }), h('b', { style: 'flex:1' }, i.name),
+        h('span', { class: 'hint', style: 'margin:0' }, live ? (air ? 'IN ONDA' : (i._net === 'connected' || !i._net ? 'collegato' : i._net)) : conn ? 'si sta collegando' : 'non collegato')),
+      h('div', { class: 'row' }, msg, h('button', { class: 'sb', onclick: send }, 'Invia')),
+      h('div', { class: 'row', style: 'margin-top:8px' },
+        h('button', { class: 'sb', onclick: () => { setPreview('i:' + i.id); } }, 'In anteprima'),
+        h('button', { class: 'sb', onclick: () => linkDialog(i.rname) }, 'Link e QR'),
+        h('button', { class: 'sb', onclick: () => quick(i) }, 'Messaggi rapidi'))));
+  }
+  if (RT.chat.length) {
+    box.append(h('div', { class: 'grp', style: 'margin-top:8px' }, 'Messaggi'));
+    const c = h('div', { class: 'chat' }, ...RT.chat.slice(-30).map(m => h('div', {}, h('b', {}, m.who + ': '), m.text)));
+    box.append(c); setTimeout(() => c.scrollTop = c.scrollHeight);
+  }
+  const det = h('details', { style: 'margin-top:14px' }, h('summary', { class: 'lbl', style: 'cursor:pointer' }, 'Impostazioni avanzate (server TURN)'));
+  const ta = h('textarea', { class: 'inp', style: 'min-height:70px;font:11px ui-monospace,monospace', placeholder: '[{"urls":"turn:turn.esempio.it:3478","username":"…","credential":"…"}]' }, P.ice || '');
+  det.append(h('p', { class: 'hint' }, 'Serve solo se un inviato non riesce a collegarsi da reti molto chiuse (alcune aziende o hotel). Incolla qui i dati di un server TURN.'), ta,
+    h('button', { class: 'sb', style: 'margin-top:6px', onclick: () => { P.ice = ta.value.trim(); dirty(); remoteStart(); toast('Impostazioni salvate'); } }, 'Salva e riavvia'));
+  box.append(det);
+}
+function quick(i) {
+  modal(h('div', {}, h('h3', {}, 'Messaggio rapido a ' + i.name),
+    h('div', { class: 'choices', style: 'margin-top:10px' }, ...['Pronti tra 30 secondi', 'Pronti tra 10 secondi', 'Sei in onda!', 'Stringi, chiudiamo', 'Non ti sentiamo: controlla il microfono', 'Chiudi pure, grazie'].map(t =>
+      h('button', { class: 'choice', onclick: () => { remoteSend(i, t); closeModal(); } }, h('b', {}, t)))),
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Chiudi'))));
+}
+
+/* ================= Uscite: registrazione, secondo schermo, diretta ================= */
+const PGC = $('#pg');
+let PG_STREAM = null;
+function programStream() {
+  if (!PG_STREAM) PG_STREAM = PGC.captureStream(FPS);
+  return new MediaStream([...PG_STREAM.getVideoTracks(), ...AU.out.stream.getAudioTracks()]);
+}
+function recMime() {
+  const c = ['video/mp4;codecs=avc1.640028,mp4a.40.2', 'video/mp4;codecs=avc1,mp4a.40.2', 'video/mp4', 'video/webm;codecs=h264,opus', 'video/webm;codecs=vp9,opus', 'video/webm'];
+  return c.find(m => window.MediaRecorder && MediaRecorder.isTypeSupported(m)) || '';
+}
+function stamp() { const d = new Date(), p = n => String(n).padStart(2, '0'); return d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '-' + p(d.getHours()) + p(d.getMinutes()); }
+async function toggleRec() {
+  if (R.recording) return stopRec();
+  resumeAudio();
+  const mime = recMime(); if (!mime) { toast('Questo browser non può registrare'); return; }
+  const ext = mime.includes('mp4') ? 'mp4' : 'webm';
+  const fname = (P.name || 'Diretta').replace(/[^\w\- àèéìòù]/g, '') + ' ' + stamp() + '.' + ext;
+  let writer = null;
+  let fh = null;
+  if (window.showSaveFilePicker) {
+    try {
+      fh = await showSaveFilePicker({ suggestedName: fname, types: [{ description: 'Video', accept: { [ext === 'mp4' ? 'video/mp4' : 'video/webm']: ['.' + ext] } }] });
+      writer = await fh.createWritable();
+    } catch (e) { if (e.name === 'AbortError') return; writer = null; }
+  }
+  const rec = new MediaRecorder(programStream(), { mimeType: mime, videoBitsPerSecond: 10e6, audioBitsPerSecond: 192e3 });
+  const chunks = []; let chain = Promise.resolve();
+  rec.ondataavailable = e => { if (!e.data.size) return; if (writer) chain = chain.then(() => writer.write(e.data)); else chunks.push(e.data); };
+  rec.onstop = async () => {
+    await chain;
+    if (writer) { await writer.close(); let sent = false; try { const f = await fh.getFile(); if (f.size < 1.5e9) sent = await nwlSend(f, fname, 'NWLlive'); } catch { } toast('Registrazione salvata: ' + fname + (sent ? ' — la trovi anche in NWLcut, pronta da montare' : ''), 5000); }
+    else { const b = new Blob(chunks, { type: mime }), a = h('a', { href: URL.createObjectURL(b), download: fname }); document.body.append(a); a.click(); a.remove(); let sent = false; try { if (b.size < 1.5e9) sent = await nwlSend(b, fname, 'NWLlive'); } catch { } toast('Registrazione scaricata' + (sent ? ' — la trovi anche in NWLcut' : ''), 5000); }
+  };
+  rec.start(1000);
+  R.recording = { rec, t0: Date.now() };
+  $('#bRec').classList.add('on');
+}
+function stopRec() {
+  if (!R.recording) return;
+  R.recording.rec.stop(); R.recording = null;
+  $('#bRec').classList.remove('on'); $('#bRec span').textContent = 'REC';
+}
+let outWin = null;
+function openOutput() {
+  if (outWin && !outWin.closed) { outWin.focus(); return; }
+  outWin = window.open('', 'nwllive-uscita', 'width=960,height=560');
+  if (!outWin) { toast('Il browser ha bloccato la finestra: consenti i popup'); return; }
+  outWin.document.write('<!DOCTYPE html><title>NWLlive — Uscita programma</title><style>html,body{margin:0;height:100%;background:#000;overflow:hidden;cursor:none}video{width:100%;height:100%;object-fit:contain}#h{position:fixed;top:10px;left:50%;transform:translateX(-50%);color:#fff;font:14px sans-serif;background:rgba(0,0,0,.7);padding:8px 14px;border-radius:8px;transition:opacity 1s}</style><video autoplay muted playsinline></video><div id="h">Doppio clic per il tutto schermo · trascina la finestra sul secondo schermo</div><script>document.ondblclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();setTimeout(()=>document.getElementById("h").style.opacity=0,4000)<\/script>');
+  outWin.document.close();
+  const v = outWin.document.querySelector('video');
+  if (!PG_STREAM) PG_STREAM = PGC.captureStream(FPS);
+  v.srcObject = new MediaStream(PG_STREAM.getVideoTracks());
+  v.play().catch(() => { });
+  $('#bOut').classList.add('on');
+  const chk = setInterval(() => { if (!outWin || outWin.closed) { clearInterval(chk); $('#bOut').classList.remove('on'); } }, 1000);
+}
+/* ---------- progetto ---------- */
+function projectMenu() {
+  const act = (ic, t, sub, fn) => h('button', { class: 'choice', onclick: () => { closeModal(); fn(); } }, h('span', { class: 'ic' }, ic), h('span', {}, h('b', {}, t), h('small', {}, sub)));
+  modal(h('div', {}, h('h3', {}, 'Progetto'),
+    h('p', { class: 'hint' }, 'Il progetto si salva da solo in questo browser. Esportalo per spostarlo su un altro computer (i file video e le immagini vanno ricaricati).'),
+    h('div', { class: 'choices' },
+      act('💾', 'Esporta progetto', 'Scene, grafica, sottopancia pronti', exportProject),
+      act('📂', 'Importa progetto', 'Da un file .nwllive', importProject),
+      act('✨', 'Nuovo progetto', 'Riparte con lo studio vuoto', () => { if (confirm('Cominciare un nuovo progetto? Quello attuale verrà sostituito.')) { localStorage.removeItem('nwllive-project'); location.reload(); } }),
+      act('⌨️', 'Scorciatoie da tastiera', 'Comandi rapidi della regia', helpDialog)),
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Chiudi'))));
+}
+function exportProject() {
+  const b = new Blob([serialize()], { type: 'application/json' });
+  const a = h('a', { href: URL.createObjectURL(b), download: (P.name || 'progetto') + '.nwllive' }); document.body.append(a); a.click(); a.remove();
+}
+function importProject() {
+  pickFile('.nwllive,application/json', false, async f => {
+    try { const j = JSON.parse(await f[0].text()); if (!j.inputs) throw 0; localStorage.setItem('nwllive-project', JSON.stringify(j)); location.reload(); }
+    catch (e) { toast('File di progetto non valido'); }
+  });
+}
+function helpDialog() {
+  const r = (k, t) => h('div', { class: 'row', style: 'margin-bottom:6px' }, h('span', { class: 'link', style: 'padding:3px 8px;min-width:110px;text-align:center' }, k), h('span', {}, t));
+  modal(h('div', {}, h('h3', {}, 'Come si usa NWLlive'),
+    h('p', { class: 'hint' }, 'Clicca una scena o un ingresso: va in ANTEPRIMA (verde). Premi AUTO o la barra spaziatrice: passa IN ONDA (rosso) con la transizione scelta. CUT fa uno stacco netto. Il doppio clic su una miniatura la manda subito in onda.'),
+    r('Spazio / Invio', 'Transizione dall\'anteprima al programma'), r('C', 'Stacco netto'), r('1 … 9', 'Ingresso in anteprima'), r('F1 … F9', 'Scena in anteprima'),
+    r('L', 'Sottopancia dentro / fuori'), r('T', 'Barra delle notizie dentro / fuori'), r('N', 'Prossimo elemento della scaletta in anteprima'), r('B', 'Dissolvenza a nero (FTB)'), r('R', 'Avvia / ferma la registrazione'), r('Ctrl + S', 'Salva'),
+    h('p', { class: 'hint', style: 'margin-top:10px' }, 'Camere virtuali: in una scena premi «Crea camere virtuali» per avere Totale, Mezzo busto e Primo piano del giornalista. Selezionane una e trascina nell\'anteprima per inquadrare; la rotellina fa lo zoom. Il movimento dolly può partire da solo quando la camera va in onda.'),
+    h('p', { class: 'hint', style: 'margin-top:10px' }, 'Green screen: aggiungi la telecamera spuntando «davanti al green screen», poi in Proprietà usa «Prendilo dall\'immagine» per scegliere il colore del telo e regola la tolleranza.'),
+    h('div', { class: 'acts' }, h('button', { class: 'sb pri', onclick: closeModal }, 'Chiudi'))));
+}
+
+/* ================= Camere virtuali: zoom, panoramica, dolly ================= */
+/* Una camera virtuale inquadra una scena (o un ingresso) con zoom e spostamento,
+   come una telecamera robotizzata: più camere virtuali sullo stesso studio = regia multicamera. */
+const SHOT0 = () => ({ z: 1, x: .5, y: .5 });
+const easeIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+let VDEPTH = 0;
+function clampShot(s) {
+  const z = clamp(s.z, 1, 6), hw = .5 / z;
+  return { z, x: clamp(s.x, hw, 1 - hw), y: clamp(s.y, hw, 1 - hw) };
+}
+function lerpShot(a, b, p) { return { z: a.z * Math.pow(b.z / a.z, p), x: a.x + (b.x - a.x) * p, y: a.y + (b.y - a.y) * p }; }
+/* inquadratura del momento (con movimento in corso o «respiro») */
+function vcamShot(i) {
+  let s = i.shot || SHOT0();
+  const a = i._anim;
+  if (a) {
+    const p = clamp((now() - a.t0) / a.dur, 0, 1);
+    s = lerpShot(a.from, a.to, easeIO(p));
+    if (p >= 1) { i._anim = null; i.shot = clampShot(a.to); s = i.shot; if (R.sel === 'i:' + i.id && R.rtab === 'prop') refreshPane(); }
+  }
+  if (i.breathe) {
+    const t = now() / 9;
+    s = { z: s.z * (1 + .025 * Math.sin(t)), x: s.x + .006 * Math.sin(t * .7), y: s.y + .004 * Math.cos(t * .9) };
+  }
+  return clampShot(s);
+}
+function drawVcam(g, L, i, cw, ch, air) {
+  const dx = L.x * cw, dy = L.y * ch, dw = L.w * cw, dh = L.h * ch;
+  if (!i.src || VDEPTH > 2 || (i.src === 'i:' + i.id)) return;
+  const s = vcamShot(i);
+  VDEPTH++;
+  g.save();
+  g.beginPath(); g.rect(dx, dy, dw, dh); g.clip();
+  g.translate(dx + dw / 2 - s.x * s.z * dw, dy + dh / 2 - s.y * s.z * dh);
+  g.scale(s.z * dw / cw, s.z * dh / ch);
+  try { drawSrc(g, i.src, cw, ch, air); } finally { g.restore(); VDEPTH--; }
+}
+/* avvia un movimento di macchina verso un'inquadratura */
+function vcamMove(i, to, dur, from) {
+  i._anim = { from: from || vcamShot(i), to: clampShot(to), t0: now(), dur: Math.max(.05, dur) };
+}
+/* quando una camera virtuale va in onda può partire il suo movimento (dolly) */
+function vcamOnTake(srcTo) {
+  for (const id of srcInputs(srcTo)) {
+    const i = inp(id);
+    if (i && i.type === 'vcam' && i.dolly && i.dolly.auto) vcamDolly(i);
+  }
+}
+function vcamDolly(i) {
+  const d = i.dolly || {}; const a = d.from || SHOT0(), b = d.to || i.shot || SHOT0();
+  vcamMove(i, b, d.dur || 6, clampShot(a));
+}
+/* posizione del giornalista nella sorgente: la telecamera con green screen (o la prima telecamera) */
+function presenterRect(src) {
+  const layers = srcLayers(src);
+  let best = null;
+  for (const L of layers) {
+    const x = inp(L.inp); if (!x) continue;
+    if (x.type === 'camera' || x.type === 'remote') {
+      const score = (x.key.on ? 2 : 1) + (x.type === 'camera' ? .5 : 0);
+      if (!best || score > best.score) best = { L, score, i: x };
+    }
+  }
+  if (!best) return null;
+  const L = best.L, x = best.i, fr = frameOf(x);
+  let r = { x: L.x, y: L.y, w: L.w, h: L.h };
+  if (fr && L.fit === 'contain') { // area realmente occupata dall'immagine
+    const sa = fr.w / fr.h, da = (L.w * W) / (L.h * H);
+    if (sa > da) { const nh = L.w * W / sa / H; r = { x: L.x, y: L.y + L.h - nh, w: L.w, h: nh }; }
+    else { const nw = L.h * H * sa / W; r = { x: L.x + (L.w - nw) / 2, y: L.y, w: nw, h: L.h }; }
+  }
+  return r;
+}
+const SHOT_PRESETS = [
+  ['Totale', () => SHOT0()],
+  ['Piano americano', r => r && { z: 1 / (r.h * .82), x: r.x + r.w / 2, y: r.y + r.h * .40 }],
+  ['Mezzo busto', r => r && { z: 1 / (r.h * .56), x: r.x + r.w / 2, y: r.y + r.h * .30 }],
+  ['Primo piano', r => r && { z: 1 / (r.h * .34), x: r.x + r.w / 2, y: r.y + r.h * .19 }],
+];
+function shotPreset(i, name) {
+  const p = SHOT_PRESETS.find(x => x[0] === name); if (!p) return null;
+  const s = p[1](presenterRect(i.src));
+  return s ? clampShot(s) : null;
+}
+/* crea in un colpo le camere virtuali tipiche di uno studio */
+function makeStudioCams(src) {
+  const base = srcName(src);
+  const made = [];
+  const defs = [
+    ['Totale', { dur: 8, fromZ: 1.15 }],
+    ['Mezzo busto', { dur: 6, from: 'Piano americano' }],
+    ['Primo piano', { dur: 5, from: 'Mezzo busto' }],
+  ];
+  for (const [nm, d] of defs) {
+    const i = newInput('vcam', { name: base + ' · ' + nm, src, shot: SHOT0() });
+    const s = shotPreset(i, nm) || SHOT0(); i.shot = s;
+    const from = d.from ? (shotPreset(i, d.from) || SHOT0()) : clampShot({ z: d.fromZ, x: .5, y: .5 });
+    i.dolly = { auto: false, dur: d.dur, from: nm === 'Totale' ? clampShot({ z: 1.15, x: s.x, y: s.y }) : from, to: s };
+    if (nm === 'Totale') i.dolly = { auto: false, dur: 8, from: clampShot({ z: 1.12, x: .5, y: .45 }), to: SHOT0() };
+    made.push(i);
+  }
+  refreshAll(); dirty();
+  toast('Create 3 camere virtuali: Totale, Mezzo busto, Primo piano');
+  return made;
+}
+
+/* ---------- pannello proprietà della camera virtuale ---------- */
+function vcamPane(box, i) {
+  const srcSel = h('select', {}, h('option', { value: '' }, 'Scegli cosa inquadrare…'),
+    h('optgroup', { label: 'Scene' }, ...P.scenes.map(s => h('option', { value: 's:' + s.id }, s.name))),
+    h('optgroup', { label: 'Ingressi' }, ...P.inputs.filter(x => hasVideo(x) && x.id !== i.id && x.type !== 'vcam').map(x => h('option', { value: 'i:' + x.id }, x.num + ' · ' + x.name))));
+  srcSel.value = i.src || '';
+  srcSel.onchange = () => { i.src = srcSel.value; dirty(); refreshPane(); };
+  box.append(field('Inquadra', srcSel));
+  if (!i.src) return;
+  box.append(h('p', { class: 'hint' }, 'Metti la camera in anteprima, poi trascina nell\'anteprima per spostare l\'inquadratura e usa la rotellina per lo zoom.'));
+  const pr = h('div', { class: 'row', style: 'margin-bottom:10px' });
+  for (const [nm] of SHOT_PRESETS) pr.append(h('button', {
+    class: 'sb', onclick: () => {
+      const s = shotPreset(i, nm); if (!s) { toast('Nessun giornalista trovato nella scena: inquadra a mano'); return; }
+      if (srcInputs(R.pg).has(i.id)) vcamMove(i, s, 1.2); else { i.shot = s; i._anim = null; }
+      dirty(); setTimeout(refreshPane, 50);
+    }
+  }, nm));
+  box.append(pr);
+  const s = i.shot || SHOT0();
+  box.append(rng('Zoom', 1, 6, .01, s.z, v => v.toFixed(2) + '×', v => { i.shot = clampShot({ ...i.shot, z: v }); }));
+  box.append(rng('Orizzontale', 0, 1, .002, s.x, pct, v => { i.shot = clampShot({ ...i.shot, x: v }); }));
+  box.append(rng('Verticale', 0, 1, .002, s.y, pct, v => { i.shot = clampShot({ ...i.shot, y: v }); }));
+  // inquadrature salvate
+  i.shots = i.shots || [];
+  box.append(h('div', { class: 'grp', style: 'margin-top:12px' }, 'Inquadrature salvate'));
+  const sl = h('div');
+  i.shots.forEach((sh, n) => sl.append(h('div', { class: 'preset', onclick: () => { if (srcInputs(R.pg).has(i.id)) vcamMove(i, sh, i.moveDur || 2); else i.shot = clampShot(sh); dirty(); refreshPane(); } },
+    h('div', {}, h('b', {}, sh.name || 'Inquadratura ' + (n + 1)), h('small', {}, 'zoom ' + sh.z.toFixed(2) + '×  — clic: in onda si muove con dolly')),
+    h('button', { title: 'Elimina', onclick: e => { e.stopPropagation(); i.shots.splice(n, 1); dirty(); refreshPane(); } }, '✕'))));
+  box.append(sl);
+  box.append(h('div', { class: 'row', style: 'margin-bottom:8px' }, h('button', { class: 'sb', onclick: () => { const nm = prompt('Nome dell\'inquadratura', 'Inquadratura ' + (i.shots.length + 1)); if (nm === null) return; i.shots.push({ ...clampShot(i.shot || SHOT0()), name: nm }); dirty(); refreshPane(); } }, '+ Salva l\'inquadratura attuale')));
+  box.append(rng('Durata dolly', .3, 15, .1, i.moveDur || 2, v => v.toFixed(1) + ' s', v => i.moveDur = v));
+  // movimento di macchina
+  i.dolly = i.dolly || { auto: false, dur: 6, from: SHOT0(), to: clampShot(i.shot || SHOT0()) };
+  const d = i.dolly;
+  box.append(h('div', { class: 'grp', style: 'margin-top:12px' }, 'Movimento di macchina (dolly)'));
+  box.append(h('p', { class: 'hint' }, 'Imposta il punto di partenza e quello di arrivo, poi avvialo a mano o fallo partire da solo quando la camera va in onda.'));
+  box.append(h('div', { class: 'row', style: 'margin-bottom:8px' },
+    h('button', { class: 'sb', onclick: () => { d.from = clampShot(i.shot || SHOT0()); dirty(); toast('Partenza del movimento salvata'); } }, 'Questa è la partenza'),
+    h('button', { class: 'sb', onclick: () => { d.to = clampShot(i.shot || SHOT0()); dirty(); toast('Arrivo del movimento salvato'); } }, 'Questo è l\'arrivo')));
+  box.append(rng('Durata', 1, 30, .5, d.dur || 6, v => v.toFixed(1) + ' s', v => d.dur = v));
+  box.append(chk('Parte da solo quando va in onda', d.auto, v => d.auto = v));
+  box.append(chk('Movimento lento continuo («respiro» della camera)', i.breathe, v => i.breathe = v));
+  box.append(h('div', { class: 'row', style: 'margin-bottom:8px' },
+    h('button', { class: 'sb pri', onclick: () => vcamDolly(i) }, '▶ Avvia movimento'),
+    h('button', { class: 'sb', onclick: () => { i._anim = null; } }, '■ Ferma'),
+    h('button', { class: 'sb', onclick: () => vcamMove(i, d.from || SHOT0(), Math.min(3, d.dur || 3)) }, '⟲ Torna alla partenza')));
+}
+
+/* ================= Conduzione: studio personalizzato, sigle, scaletta, conto alla rovescia, nero ================= */
+P.show = P.show || { open: null, close: null, after: null };
+P.rundown = P.rundown || [];
+P.ovl.cd = P.ovl.cd || { on: false, end: 0, mins: 5, text: 'La diretta inizia tra', autoSigla: true };
+R.ftbV = 0; R.ftb = false; R.rdIdx = -1;
+
+/* ---------- il tuo studio: sfondo + scrivania davanti al giornalista ---------- */
+function customStudioDialog() {
+  let bgF = null, fgF = null;
+  const bgL = h('span', { class: 'hint', style: 'margin:0' }, 'nessun file'), fgL = h('span', { class: 'hint', style: 'margin:0' }, 'facoltativo');
+  modal(h('div', {}, h('h3', {}, '🏛️ Il tuo studio'),
+    h('p', { class: 'hint' }, 'Carica lo sfondo del tuo studio (foto o video in 16:9) e, se vuoi, l\'elemento in primo piano: un bancone o una scrivania in PNG con lo sfondo trasparente. Il giornalista in green screen comparirà tra i due.'),
+    h('div', { class: 'card' }, h('b', {}, 'Sfondo dello studio'), h('div', { class: 'row', style: 'margin-top:8px' }, h('button', { class: 'sb', onclick: () => pickFile('image/*,video/*', false, f => { bgF = f[0]; bgL.textContent = bgF.name; }) }, 'Scegli immagine o video'), bgL)),
+    h('div', { class: 'card' }, h('b', {}, 'Primo piano (scrivania, bancone)'), h('div', { class: 'row', style: 'margin-top:8px' }, h('button', { class: 'sb', onclick: () => pickFile('image/png,image/webp', false, f => { fgF = f[0]; fgL.textContent = fgF.name; }) }, 'Scegli PNG trasparente'), fgL)),
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Annulla'), h('button', {
+      class: 'sb pri', onclick: async () => {
+        if (!bgF) { toast('Scegli lo sfondo dello studio'); return; }
+        closeModal();
+        const isV = bgF.type.startsWith('video');
+        const bg = newInput(isV ? 'video' : 'image', { name: 'Studio · sfondo', file: bgF.name, loop: true, restart: false, aud: { db: -60, mute: true, afv: false } });
+        await DB.put(bg.id, bgF); await openInput(bg);
+        if (isV && bg._el) { bg._el.loop = true; bg._el.muted = true; bg._el.play().catch(() => { }); }
+        let fg = null;
+        if (fgF) { fg = newInput('image', { name: 'Studio · primo piano', file: fgF.name }); await DB.put(fg.id, fgF); await openInput(fg); }
+        P.bg = bg.id; P.fg = fg ? fg.id : null;
+        applyStudio(bg, fg);
+        refreshAll(); dirty(); toast('Studio personalizzato pronto');
+      }
+    }, 'Crea lo studio'))));
+}
+function applyStudio(bg, fg) {
+  let st = P.scenes.find(s => s.name === 'Studio');
+  const presenters = P.inputs.filter(x => x.type === 'camera' && x.key.on);
+  if (!st) st = newScene('Studio', []);
+  const keep = st.layers.filter(l => { const x = inp(l.inp); return x && (x.type === 'camera' || x.type === 'remote' || x.type === 'vcam'); });
+  st.layers = [newLayer(bg.id)].concat(keep.length ? keep : presenters.map(p => newLayer(p.id, { fit: 'contain' })));
+  if (fg) st.layers.push(newLayer(fg.id));
+  P.inputs.forEach(x => x._implicit = null);
+}
+
+/* ---------- dissolvenza a nero ---------- */
+function toggleFTB(force) {
+  R.ftb = force != null ? force : !R.ftb;
+  const b = $('#bFtb'); if (b) b.classList.toggle('on', R.ftb);
+}
+function tickFTB(dt) { const t = R.ftb ? 1 : 0; R.ftbV = t > R.ftbV ? Math.min(1, R.ftbV + dt / 1) : Math.max(0, R.ftbV - dt / 1); }
+function drawFTB(g) { if (R.ftbV > 0) { g.fillStyle = `rgba(0,0,0,${R.ftbV})`; g.fillRect(0, 0, W, H); } }
+
+/* ---------- conto alla rovescia ---------- */
+function startCountdown(mins) { const c = P.ovl.cd; c.mins = mins; c.end = Date.now() + mins * 60000; c.on = true; dirty(); refreshPane(); }
+function drawCountdown(g) {
+  const c = P.ovl.cd; if (!c.on) return;
+  let left = Math.max(0, Math.round((c.end - Date.now()) / 1000));
+  if (left <= 0) { c.on = false; dirty(); if (c.autoSigla && P.show.open) runSigla('open'); if (R.rtab === 'show') refreshPane(); return; }
+  const mm = String(Math.floor(left / 60)).padStart(2, '0'), ss = String(left % 60).padStart(2, '0');
+  const bw = 760, bh = 250, x = (W - bw) / 2, y = H - bh - 150;
+  g.save();
+  g.fillStyle = 'rgba(7,17,12,.88)'; g.fillRect(x, y, bw, bh);
+  g.fillStyle = BRAND.green; g.fillRect(x, y, 10, bh);
+  g.fillStyle = BRAND.mint; g.font = '600 34px "Archivo",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  try { g.letterSpacing = '3px'; } catch (_) { }
+  g.fillText((c.text || '').toUpperCase(), W / 2 + 5, y + 62);
+  try { g.letterSpacing = '0px'; } catch (_) { }
+  g.fillStyle = '#fff'; g.font = '800 130px "Archivo",sans-serif'; g.fillText(mm + ':' + ss, W / 2 + 5, y + 160);
+  g.restore();
+}
+
+/* ---------- sigle ---------- */
+function runSigla(kind) {
+  const id = P.show[kind], i = id && inp(id);
+  if (!i || !i._el) { toast(kind === 'open' ? 'Scegli prima la sigla d\'apertura' : 'Scegli prima la sigla di chiusura'); return; }
+  if (R.ftb) toggleFTB(false);
+  i._then = kind === 'open' ? (P.show.after || (P.scenes[0] && 's:' + P.scenes[0].id)) : 'FTB';
+  i._el.loop = false; i._el.currentTime = 0;
+  setPreview('i:' + i.id); doTransition('fade', .4);
+  toast(kind === 'open' ? '▶ Sigla d\'apertura in onda' : '▶ Sigla di chiusura in onda');
+}
+function siglaEnded(i) {
+  const then = i._then; if (!then) return false;
+  i._then = null;
+  if (then === 'FTB') { toggleFTB(true); return true; }
+  setPreview(then); doTransition();
+  return true;
+}
+
+/* ---------- scaletta ---------- */
+function rdTake(n) {
+  const it = P.rundown[n]; if (!it) return;
+  R.rdIdx = n; setPreview(it.src); doTransition();
+  if (it.lt && (it.lt.title || it.lt.sub)) setTimeout(() => { Object.assign(P.ovl.lt, { kicker: it.lt.kicker || '', title: it.lt.title || '', sub: it.lt.sub || '' }); if (!P.ovl.lt.on) { P.ovl.lt.auto = P.ovl.lt.auto || 8; toggleLT(); } }, 1200);
+  if (R.rtab === 'show') refreshPane();
+}
+function rdNext() {
+  if (!P.rundown.length) { toast('La scaletta è vuota'); return; }
+  const n = Math.min(P.rundown.length - 1, R.rdIdx + 1);
+  R.rdIdx = n; setPreview(P.rundown[n].src); select(P.rundown[n].src); setTab('show');
+  toast('In anteprima: ' + (P.rundown[n].title || srcName(P.rundown[n].src)));
+}
+function srcOptions(sel, withEmpty) {
+  const s = h('select', {}, withEmpty ? h('option', { value: '' }, withEmpty) : null,
+    h('optgroup', { label: 'Scene' }, ...P.scenes.map(x => h('option', { value: 's:' + x.id }, x.name))),
+    h('optgroup', { label: 'Ingressi' }, ...P.inputs.filter(hasVideo).map(x => h('option', { value: 'i:' + x.id }, x.num + ' · ' + x.name))));
+  s.value = sel || ''; return s;
+}
+function showPane() {
+  const box = $('#rpane'); box.innerHTML = '';
+  // sigle
+  box.append(h('div', { class: 'grp' }, 'Sigle'));
+  const vids = P.inputs.filter(x => x.type === 'video');
+  const vSel = (key, label) => { const s = h('select', {}, h('option', { value: '' }, '— nessuna —'), ...vids.map(v => h('option', { value: v.id }, v.name))); s.value = P.show[key] || ''; s.onchange = () => { P.show[key] = s.value || null; dirty(); }; return field(label, s); };
+  if (!vids.length) box.append(h('p', { class: 'hint' }, 'Carica la sigla come «Servizio / video» (pulsante + Ingresso), poi sceglila qui.'));
+  box.append(vSel('open', 'Sigla d\'apertura'));
+  const af = srcOptions(P.show.after, 'Dopo la sigla: prima scena'); af.onchange = () => { P.show.after = af.value || null; dirty(); };
+  box.append(field('Dopo la sigla d\'apertura vai a', af));
+  box.append(vSel('close', 'Sigla di chiusura (alla fine dissolve a nero)'));
+  box.append(h('div', { class: 'row', style: 'margin-bottom:12px' },
+    h('button', { class: 'sb pri', onclick: () => runSigla('open') }, '▶ Sigla d\'apertura'),
+    h('button', { class: 'sb', onclick: () => runSigla('close') }, '▶ Sigla di chiusura')));
+  // conto alla rovescia
+  const c = P.ovl.cd;
+  box.append(h('div', { class: 'grp' }, 'Conto alla rovescia prima della diretta'));
+  const mi = h('input', { type: 'number', class: 'inp', min: 1, max: 120, value: c.mins || 5, style: 'width:80px' });
+  const tx = h('input', { type: 'text', value: c.text }); tx.oninput = () => { c.text = tx.value; dirty(); };
+  box.append(field('Testo', tx));
+  box.append(h('div', { class: 'row', style: 'margin-bottom:6px' }, mi, h('span', { class: 'hint', style: 'margin:0' }, 'minuti'),
+    c.on ? h('button', { class: 'onair on', onclick: () => { c.on = false; dirty(); showPane(); } }, '● IN ONDA — FERMA') : h('button', { class: 'onair', onclick: () => startCountdown(+mi.value || 5) }, 'AVVIA')));
+  box.append(chk('Allo zero parte la sigla d\'apertura', c.autoSigla, v => c.autoSigla = v));
+  // scaletta
+  box.append(h('div', { class: 'grp', style: 'margin-top:10px' }, 'Scaletta'));
+  box.append(h('p', { class: 'hint' }, 'L\'ordine della trasmissione. «Prossimo» (tasto N) mette in anteprima l\'elemento successivo; ▶ lo manda in onda con il suo sottopancia.'));
+  const list = h('div');
+  P.rundown.forEach((it, n) => {
+    const cur = n === R.rdIdx, onAir = R.pg === it.src;
+    list.append(h('div', { class: 'preset', style: cur ? 'border-color:var(--grn)' : '', onclick: () => { R.rdIdx = n; setPreview(it.src); showPane(); } },
+      h('span', { style: 'font:800 12px ui-monospace,monospace;color:' + (onAir ? 'var(--red)' : cur ? 'var(--grn)' : 'var(--mu)') + ';width:20px' }, String(n + 1)),
+      h('div', {}, h('b', {}, it.title || srcName(it.src)), h('small', {}, srcName(it.src) + (it.lt && it.lt.title ? ' · sottopancia: ' + it.lt.title : ''))),
+      h('button', { title: 'In onda', onclick: e => { e.stopPropagation(); rdTake(n); } }, '▶'),
+      h('button', { title: 'Modifica', onclick: e => { e.stopPropagation(); rdEdit(n); } }, '✎'),
+      h('button', { title: 'Su', onclick: e => { e.stopPropagation(); if (n > 0) { P.rundown.splice(n - 1, 0, P.rundown.splice(n, 1)[0]); dirty(); showPane(); } } }, '↑'),
+      h('button', { title: 'Elimina', onclick: e => { e.stopPropagation(); P.rundown.splice(n, 1); dirty(); showPane(); } }, '✕')));
+  });
+  box.append(list);
+  box.append(h('div', { class: 'row', style: 'margin-top:6px' },
+    h('button', { class: 'sb', onclick: () => rdEdit(-1) }, '+ Aggiungi'),
+    h('button', { class: 'sb pri', onclick: rdNext }, 'Prossimo ▸ (N)')));
+}
+function rdEdit(n) {
+  const it = n >= 0 ? P.rundown[n] : { id: uid('r'), src: R.pv || '', title: '', lt: { kicker: '', title: '', sub: '' } };
+  it.lt = it.lt || { kicker: '', title: '', sub: '' };
+  const src = srcOptions(it.src, 'Scegli scena o ingresso…'), ti = h('input', { type: 'text', value: it.title, placeholder: 'Es. Apertura, Servizio sul porto, Collegamento da Licata' });
+  const k = h('input', { type: 'text', value: it.lt.kicker }), t = h('input', { type: 'text', value: it.lt.title }), s = h('input', { type: 'text', value: it.lt.sub });
+  modal(h('div', {}, h('h3', {}, n >= 0 ? 'Modifica elemento' : 'Nuovo elemento in scaletta'),
+    field('Cosa va in onda', src), field('Titolo in scaletta', ti),
+    h('div', { class: 'grp', style: 'margin-top:8px' }, 'Sottopancia (facoltativo)'),
+    field('Occhiello', k), field('Titolo / Nome', t), field('Sottotitolo / Ruolo', s),
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Annulla'), h('button', {
+      class: 'sb pri', onclick: () => {
+        if (!src.value) { toast('Scegli cosa va in onda'); return; }
+        Object.assign(it, { src: src.value, title: ti.value.trim(), lt: { kicker: k.value.trim(), title: t.value.trim(), sub: s.value.trim() } });
+        if (n < 0) P.rundown.push(it);
+        closeModal(); dirty(); showPane();
+      }
+    }, 'Salva'))));
+}
+
+/* ================= Notizie dal feed RSS nella barra che scorre ================= */
+P.ovl.ticker.rss = P.ovl.ticker.rss || { on: false, url: 'https://www.grandangoloagrigento.it/feed/', every: 5, max: 12 };
+R.rss = []; R.rssAt = 0; R.rssMsg = '';
+const decodeHtml = s => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value.replace(/\s+/g, ' ').trim(); };
+async function getText(url) {
+  if (window.nwlNative && window.nwlNative.fetchText) return window.nwlNative.fetchText(url);
+  const r = await fetch(url, { cache: 'no-store' }); if (!r.ok) throw new Error('HTTP ' + r.status); return r.text();
+}
+async function feedTitles(url) {
+  try {
+    const xml = new DOMParser().parseFromString(await getText(url), 'text/xml');
+    const items = [...xml.querySelectorAll('item > title, entry > title')].map(n => decodeHtml(n.textContent || '')).filter(Boolean);
+    if (items.length) return items;
+    throw new Error('feed vuoto');
+  } catch (e) {
+    // i siti WordPress permettono la lettura degli ultimi articoli anche dal browser
+    const u = new URL(url);
+    const r = await fetch(u.origin + '/wp-json/wp/v2/posts?per_page=15&_fields=title', { cache: 'no-store' });
+    if (!r.ok) throw e;
+    const j = await r.json();
+    return j.map(p => decodeHtml(p.title && p.title.rendered || '')).filter(Boolean);
+  }
+}
+async function rssRefresh(manual) {
+  const c = P.ovl.ticker.rss; if (!c.url) return;
+  R.rssMsg = 'Aggiorno…'; if (R.rtab === 'gfx' && manual) gfxPane();
+  const urls = c.url.split(/[\s,]+/).filter(Boolean);
+  const all = [];
+  for (const u of urls) { try { all.push(...await feedTitles(u)); } catch (e) { console.warn('rss', u, e); } }
+  R.rssAt = Date.now();
+  if (all.length) { R.rss = all.slice(0, c.max || 12); R.rssMsg = R.rss.length + ' titoli · aggiornato alle ' + new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }); }
+  else R.rssMsg = 'Feed non raggiungibile: controlla l\'indirizzo';
+  if (R.rtab === 'gfx') gfxPane();
+}
+setInterval(() => { const c = P.ovl.ticker.rss; if (c.on && Date.now() - R.rssAt > (c.every || 5) * 60000) rssRefresh(); }, 20000);
+function tickerText() {
+  const O = P.ovl.ticker, c = O.rss;
+  const parts = [];
+  if (c && c.on && R.rss.length) parts.push(...R.rss);
+  if (O.text && O.text.trim() && !(c && c.on && c.only)) parts.push(...O.text.split('\n'));
+  return parts.map(s => s.trim()).filter(Boolean).join('   •   ');
+}
+function rssPane(box) {
+  const c = P.ovl.ticker.rss;
+  box.append(chk('Prendi le notizie da un feed RSS', c.on, v => { c.on = v; if (v) rssRefresh(true); else gfxPane(); }));
+  if (!c.on) return;
+  const u = h('textarea', { style: 'min-height:44px' }, c.url); u.onchange = () => { c.url = u.value.trim(); dirty(); rssRefresh(true); };
+  box.append(field('Indirizzo del feed (anche più di uno, uno per riga)', u));
+  const ev = h('select', {}, ...[[2, 'ogni 2 minuti'], [5, 'ogni 5 minuti'], [10, 'ogni 10 minuti'], [30, 'ogni 30 minuti']].map(([v, l]) => h('option', { value: v }, l)));
+  ev.value = c.every || 5; ev.onchange = () => { c.every = +ev.value; dirty(); };
+  const mx = h('select', {}, ...[5, 8, 12, 20].map(v => h('option', { value: v }, v + ' titoli'))); mx.value = c.max || 12; mx.onchange = () => { c.max = +mx.value; dirty(); rssRefresh(true); };
+  box.append(h('div', { class: 'row', style: 'margin-bottom:8px' }, ev, mx, h('button', { class: 'sb', onclick: () => rssRefresh(true) }, '⟳ Aggiorna ora')));
+  box.append(chk('Solo le notizie del feed (ignora il testo scritto sopra)', c.only, v => c.only = v));
+  if (R.rssMsg) box.append(h('p', { class: 'hint' }, R.rssMsg));
+}
+
+/* ================= Diretta su YouTube, Facebook e server RTMP ================= */
+/* Nel programma Windows (Newland Suite) il segnale del programma viene codificato da ffmpeg e inviato
+   ai server delle piattaforme. Nel browser la diretta non è possibile: resta la registrazione. */
+const NATIVE = window.nwlNative && window.nwlNative.stream ? window.nwlNative : null;
+const STORE_URL = 'https://apps.microsoft.com/detail/9P0J5V07BXNZ';
+const DEST_TYPES = {
+  youtube: { name: 'YouTube', server: 'rtmp://a.rtmp.youtube.com/live2', help: 'YouTube Studio → Crea → Trasmetti dal vivo → «Chiave stream»' },
+  facebook: { name: 'Facebook', server: 'rtmps://live-api-s.facebook.com:443/rtmp/', help: 'Facebook → Crea video in diretta → Software di streaming → «Chiave stream»' },
+  custom: { name: 'Server RTMP', server: 'rtmp://', help: 'Indirizzo del server e chiave forniti dalla piattaforma' },
+};
+const QUALITY = {
+  '1080p6': { lab: '1080p · 6 Mbps (consigliata per YouTube)', w: 1920, h: 1080, v: 6000 },
+  '1080p45': { lab: '1080p · 4,5 Mbps', w: 1920, h: 1080, v: 4500 },
+  '720p4': { lab: '720p · 4 Mbps (consigliata per Facebook)', w: 1280, h: 720, v: 4000 },
+  '720p25': { lab: '720p · 2,5 Mbps (rete lenta)', w: 1280, h: 720, v: 2500 },
+};
+const ST = { live: false, stopping: false, rec: null, t0: 0, chain: Promise.resolve(), status: null, retries: 0, enc: null };
+function destCfg() {
+  try { const c = JSON.parse(localStorage.getItem('nwllive-dest') || 'null'); if (c && c.dests) return c; } catch (_) { }
+  return { dests: [{ id: uid('d'), type: 'youtube', name: 'YouTube Grandangolo', server: DEST_TYPES.youtube.server, key: '', on: true }], quality: '1080p6' };
+}
+function saveDest(c) { try { localStorage.setItem('nwllive-dest', JSON.stringify(c)); } catch (_) { } }
+const destUrl = d => d.server.replace(/\/+$/, '') + '/' + d.key.trim();
+
+function liveDialog() {
+  if (!NATIVE) {
+    modal(h('div', {}, h('h3', {}, '📡 Diretta su YouTube e Facebook'),
+      h('p', { class: 'hint' }, 'Il browser non può inviare il segnale ai server di YouTube e Facebook. La diretta parte dal programma Newland Suite per Windows, dal Microsoft Store: stessa regia, con il pulsante DIRETTA attivo.'),
+      h('p', { class: 'hint' }, 'Da qui puoi comunque fare la regia, registrare il programma (REC) e mandarlo su un secondo schermo (Uscita).'),
+      h('div', { class: 'acts' }, h('a', { class: 'sb', href: STORE_URL, target: '_blank' }, 'Newland Suite sul Microsoft Store'), h('button', { class: 'sb pri', onclick: closeModal }, 'Ho capito'))));
+    return;
+  }
+  if (ST.live) return liveStatusDialog();
+  const cfg = destCfg();
+  const list = h('div');
+  const draw = () => {
+    list.innerHTML = '';
+    cfg.dests.forEach((d, n) => {
+      const T = DEST_TYPES[d.type] || DEST_TYPES.custom;
+      const on = h('input', { type: 'checkbox' }); on.checked = d.on; on.onchange = () => { d.on = on.checked; saveDest(cfg); };
+      const nm = h('input', { type: 'text', class: 'inp', value: d.name }); nm.oninput = () => { d.name = nm.value; saveDest(cfg); };
+      const sv = h('input', { type: 'text', class: 'inp', value: d.server }); sv.oninput = () => { d.server = sv.value.trim(); saveDest(cfg); };
+      const ky = h('input', { type: 'password', class: 'inp', value: d.key, placeholder: 'Incolla qui la chiave stream', autocomplete: 'off' }); ky.oninput = () => { d.key = ky.value.trim(); saveDest(cfg); };
+      const show = h('button', { class: 'sb', onclick: () => { ky.type = ky.type === 'password' ? 'text' : 'password'; } }, '👁');
+      list.append(h('div', { class: 'card' },
+        h('div', { class: 'row', style: 'margin-bottom:8px' }, h('label', { class: 'chk', style: 'margin:0' }, on, h('b', {}, T.name)), h('span', { class: 'sp', style: 'flex:1' }),
+          h('button', { class: 'sb dan', onclick: () => { cfg.dests.splice(n, 1); saveDest(cfg); draw(); } }, 'Togli')),
+        field('Nome', nm), d.type === 'custom' || d.type === 'facebook' || true ? field('Server', sv) : null,
+        h('div', { class: 'f' }, h('label', {}, 'Chiave stream'), h('div', { class: 'row', style: 'flex-wrap:nowrap' }, ky, show)),
+        h('p', { class: 'hint', style: 'margin:0' }, T.help)));
+    });
+    list.append(h('div', { class: 'row' }, ...Object.entries(DEST_TYPES).map(([k, T]) => h('button', { class: 'sb', onclick: () => { cfg.dests.push({ id: uid('d'), type: k, name: T.name, server: T.server, key: '', on: true }); saveDest(cfg); draw(); } }, '+ ' + T.name))));
+  };
+  draw();
+  const q = h('select', { class: 'inp' }, ...Object.entries(QUALITY).map(([k, v]) => h('option', { value: k }, v.lab)));
+  q.value = cfg.quality || '1080p6'; q.onchange = () => { cfg.quality = q.value; saveDest(cfg); };
+  const encInfo = h('div', { class: 'hint' }, 'Controllo la scheda video…');
+  const probe = () => NATIVE.stream.probe().then(p => {
+    ST.enc = p; encInfo.innerHTML = '';
+    if (p && p.ok) encInfo.textContent = 'Codifica: ' + encName(p.best);
+    else if (p && p.need === 'download' && NATIVE.stream.install) {
+      const bar = h('div', { style: 'height:6px;background:var(--p2);border-radius:6px;overflow:hidden;margin-top:6px;display:none' }, h('i', { style: 'display:block;height:100%;width:0;background:var(--red)' }));
+      const btn = h('button', { class: 'sb pri', onclick: async () => {
+        btn.disabled = true; btn.textContent = 'Scarico…'; bar.style.display = 'block';
+        NATIVE.stream.onInstall(v => { bar.firstChild.style.width = Math.round(v * 100) + '%'; btn.textContent = 'Scarico… ' + Math.round(v * 100) + '%'; });
+        const r = await NATIVE.stream.install();
+        if (r && r.ok) { toast('Componente per la diretta installato'); probe(); }
+        else { btn.disabled = false; btn.textContent = 'Riprova'; toast('Scaricamento non riuscito: ' + ((r && r.error) || 'rete')); }
+      } }, 'Scarica il componente per la diretta (67 MB)');
+      encInfo.append(h('p', { class: 'hint', style: 'margin:0 0 6px' }, 'Per la prima diretta serve il codificatore video. Si scarica una volta sola da edicola.grandangoloregionale.it e viene verificato prima dell\'uso.'), btn, bar);
+    } else encInfo.textContent = 'Codificatore non disponibile: ' + ((p && p.error) || 'reinstalla Newland Suite');
+  }).catch(() => { encInfo.textContent = 'Codificatore non disponibile'; });
+  probe();
+  modal(h('div', {}, h('h3', {}, '📡 Vai in diretta'),
+    h('p', { class: 'hint' }, 'Va in onda tutto quello che vedi nel riquadro PROGRAMMA, con grafica e audio. Le chiavi restano solo su questo computer.'),
+    list, field('Qualità', q), encInfo,
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Chiudi'), h('button', {
+      class: 'sb pri', onclick: () => {
+        if (!ST.enc || !ST.enc.ok) { toast('Prima scarica il componente per la diretta'); return; }
+        const ds = cfg.dests.filter(d => d.on && d.key && /^rtmps?:\/\//.test(d.server));
+        if (!ds.length) { toast('Inserisci almeno una chiave stream'); return; }
+        closeModal(); startLive(ds, QUALITY[cfg.quality] || QUALITY['1080p6']);
+      }
+    }, '● AVVIA LA DIRETTA'))));
+}
+const encName = e => ({ h264_nvenc: 'scheda video NVIDIA', h264_qsv: 'scheda video Intel', h264_amf: 'scheda video AMD', libx264: 'processore' }[e] || e);
+function liveStatusDialog() {
+  const s = ST.status || {};
+  modal(h('div', {}, h('h3', {}, '● In diretta da ' + fmtTime((Date.now() - ST.t0) / 1000)),
+    h('p', { class: 'hint' }, 'Destinazioni: ' + ST.dests.map(d => d.name).join(', ')),
+    h('p', { class: 'hint' }, 'Velocità di invio: ' + (s.kbps ? Math.round(s.kbps) + ' kbps' : '—') + ' · fotogrammi al secondo: ' + (s.fps || '—') + (s.speed ? ' · tempo reale ' + s.speed + '×' : '')),
+    s.speed && parseFloat(s.speed) < .95 ? h('p', { class: 'hint', style: 'color:#ffc23d' }, '⚠ Il computer o la rete non tengono il passo: abbassa la qualità alla prossima diretta.') : null,
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Chiudi'), h('button', { class: 'sb pri', onclick: () => { if (confirm('Chiudere la diretta?')) { closeModal(); stopLive(); } } }, '■ CHIUDI LA DIRETTA'))));
+}
+function liveMime() {
+  return ['video/webm;codecs=h264,opus', 'video/webm;codecs=vp8,opus', 'video/webm'].find(m => MediaRecorder.isTypeSupported(m));
+}
+async function startLive(dests, q) {
+  resumeAudio();
+  ST.dests = dests; ST.q = q; ST.stopping = false;
+  const r = await NATIVE.stream.start({ urls: dests.map(destUrl), w: q.w, h: q.h, vbr: q.v, abr: 160, fps: FPS, encoder: ST.enc && ST.enc.best });
+  if (!r || !r.ok) { toast('Diretta non partita: ' + ((r && r.error) || 'errore')); return; }
+  const rec = new MediaRecorder(programStream(), { mimeType: liveMime(), videoBitsPerSecond: 16e6, audioBitsPerSecond: 256e3 });
+  ST.chain = Promise.resolve();
+  rec.ondataavailable = e => { if (!e.data.size) return; ST.chain = ST.chain.then(() => e.data.arrayBuffer()).then(b => NATIVE.stream.write(new Uint8Array(b))).catch(() => { }); };
+  rec.start(250);
+  ST.rec = rec; ST.live = true; if (!ST.t0 || !ST.retries) ST.t0 = Date.now();
+  liveButton();
+  toast('● Sei in diretta su ' + dests.map(d => d.name).join(' e '), 4000);
+}
+function stopLive() {
+  ST.stopping = true; ST.live = false; ST.retries = 0;
+  try { ST.rec && ST.rec.state !== 'inactive' && ST.rec.stop(); } catch (_) { }
+  ST.rec = null;
+  setTimeout(() => NATIVE && NATIVE.stream.stop(), 400);
+  liveButton(); toast('Diretta chiusa');
+}
+if (NATIVE) NATIVE.stream.onStatus(s => {
+  ST.status = s;
+  if ((s.state === 'ended' || s.state === 'error') && ST.live && !ST.stopping) {
+    // la connessione è caduta: riprovo da solo
+    try { ST.rec && ST.rec.state !== 'inactive' && ST.rec.stop(); } catch (_) { }
+    ST.rec = null; ST.live = false; ST.retries++;
+    const wait = Math.min(15, 2 + ST.retries * 2);
+    toast('⚠ Diretta interrotta (' + (s.msg || 'rete') + '): riprovo tra ' + wait + ' s', 5000);
+    liveButton(true);
+    setTimeout(() => { if (!ST.stopping) startLive(ST.dests, ST.q); }, wait * 1000);
+  }
+  liveButton();
+});
+function liveButton(retrying) {
+  const b = $('#bLive'), sp = b.querySelector('span');
+  b.classList.toggle('on', ST.live || !!retrying); b.classList.toggle('rec', ST.live);
+  if (!ST.live && !retrying) sp.textContent = 'DIRETTA';
+}
+setInterval(() => {
+  if (!ST.live) return;
+  const s = ST.status || {}, sp = $('#bLive span');
+  sp.textContent = 'LIVE ' + fmtTime((Date.now() - ST.t0) / 1000) + (s.kbps ? ' · ' + (s.kbps / 1000).toFixed(1) + ' Mb' : '');
+}, 1000);
+addEventListener('beforeunload', e => { if (ST.live) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ================= Avvio e ciclo di disegno ================= */
+const pvC = $('#pv'), pvG = pvC.getContext('2d'), pgG = PGC.getContext('2d', { alpha: false });
+R.frame = 0;
+let lastT = now(), tileIdx = 0;
+function frame() {
+  const t = now(), dt = Math.min(.1, t - lastT); lastT = t; R.frame++;
+  tickTransition(); tickAudio();
+  drawProgram(pgG); drawOverlays(pgG, dt); drawCountdown(pgG); tickFTB(dt); drawFTB(pgG);
+  drawSrc(pvG, R.pv, pvC.width, pvC.height, false);
+  if (R.sel && R.sel === R.pv && R.sel.startsWith('s:')) {
+    const s = scn(R.sel.slice(2)), L = s && s.layers.find(l => l.id === R.selLayer);
+    if (L) {
+      const X = L.x * pvC.width, Y = L.y * pvC.height, Wd = L.w * pvC.width, Hd = L.h * pvC.height;
+      pvG.save(); pvG.strokeStyle = '#ffc23d'; pvG.setLineDash([8, 6]); pvG.lineWidth = 2; pvG.strokeRect(X, Y, Wd, Hd);
+      pvG.setLineDash([]); pvG.fillStyle = '#ffc23d';
+      for (const [cx, cy] of [[X, Y], [X + Wd, Y], [X, Y + Hd], [X + Wd, Y + Hd]]) pvG.fillRect(cx - 6, cy - 6, 12, 12);
+      pvG.restore();
+    }
+  }
+  // miniature: poche per volta
+  const keys = [...TILES.keys()];
+  if (keys.length) for (let n = 0; n < 3; n++) {
+    const k = keys[tileIdx++ % keys.length], cv = TILES.get(k), g = cv.getContext('2d');
+    drawSrc(g, k, cv.width, cv.height, false);
+  }
+  tickMeters();
+  if (R.frame % 10 === 0) {
+    for (const i of P.inputs) if (i._bar && i._el && i._el.duration) i._bar.style.width = (i._el.currentTime / i._el.duration * 100) + '%';
+    const d = new Date(), p = n => String(n).padStart(2, '0');
+    $('#clock').textContent = p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+    if (R.recording) { const s = Math.floor((Date.now() - R.recording.t0) / 1000); $('#bRec span').textContent = 'REC ' + Math.floor(s / 60) + ':' + p(s % 60); }
+  }
+}
+/* il timer in un worker non rallenta quando la finestra è in secondo piano (registrazione e uscita continuano) */
+(function startLoop() {
+  // il worker manda un battito alla volta e aspetta che il fotogramma sia finito: niente code se il PC rallenta
+  const run = () => { try { frame(); } catch (e) { console.error(e); } };
+  try {
+    const src = `let t=0,iv=${(1000 / FPS).toFixed(2)};onmessage=()=>{const d=performance.now()-t;setTimeout(()=>{t=performance.now();postMessage(0)},Math.max(1,iv-d))};postMessage(0)`;
+    const w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+    w.onmessage = () => { run(); w.postMessage(0); };
+  } catch (e) { setInterval(run, 1000 / FPS); }
+})();
+
+/* ---------- comandi ---------- */
+$('#bAuto').onclick = () => doTransition();
+$('#bCut').onclick = doCut;
+$('#bFtb').onclick = () => toggleFTB();
+$('#tType').value = P.trans.type; $('#tDur').value = P.trans.dur;
+$('#tType').onchange = e => { P.trans.type = e.target.value; dirty(); };
+$('#tDur').onchange = e => { P.trans.dur = clamp(+e.target.value || .6, .1, 5); dirty(); };
+$('#tbar').addEventListener('input', e => {
+  const v = +e.target.value / 1000;
+  if (!R.tr) {
+    if (v <= 0 || !R.pv || R.pv === R.pg) { e.target.value = 0; return; }
+    startTake(R.pv);
+    R.tr = { from: R.pg, to: R.pv, t0: now(), dur: 1, type: P.trans.type === 'cut' ? 'fade' : P.trans.type, manual: true, p: v };
+  }
+  if (!R.tr.manual) return;
+  R.tr.p = v;
+  if (v >= 1) finishTake(R.tr.from, R.tr.to);
+  else if (v <= 0) { R.tr = null; }
+});
+$('#bAddInput').onclick = addInputDialog;
+$('#bAddScene').onclick = addScene;
+$('#bRec').onclick = toggleRec;
+$('#bOut').onclick = openOutput;
+$('#bLive').onclick = liveDialog;
+$('#bProj').onclick = projectMenu;
+$('#bHelp').onclick = helpDialog;
+$('#bSave').onclick = () => { saveLocal(); toast('Progetto salvato'); };
+$('#pname').onchange = e => { P.name = e.target.value.trim() || 'Diretta'; dirty(); };
+$('#mon').onchange = e => { AU.mon.gain.setTargetAtTime(e.target.checked ? 1 : 0, AC.currentTime, .05); };
+$$('#rtabs button').forEach(b => b.onclick = () => setTab(b.dataset.t));
+addEventListener('keydown', e => {
+  const tg = e.target.tagName;
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); saveLocal(); toast('Progetto salvato'); return; }
+  if (tg === 'INPUT' || tg === 'TEXTAREA' || tg === 'SELECT' || $('#modal').classList.contains('on')) { if (e.key === 'Escape') closeModal(); return; }
+  const k = e.key;
+  if (k === ' ' || k === 'Enter') { e.preventDefault(); doTransition(); }
+  else if (k === 'c' || k === 'C') doCut();
+  else if (k === 'l' || k === 'L') toggleLT();
+  else if (k === 't' || k === 'T') { P.ovl.ticker.on = !P.ovl.ticker.on; refreshGfxButtons(); dirty(); }
+  else if (k === 'r' || k === 'R') toggleRec();
+  else if (k === 'n' || k === 'N') rdNext();
+  else if (k === 'b' || k === 'B') toggleFTB();
+  else if (/^[1-9]$/.test(k)) { const i = P.inputs[+k - 1]; if (i && hasVideo(i)) { setPreview('i:' + i.id); select('i:' + i.id); } }
+  else if (/^F[1-9]$/.test(k)) { e.preventDefault(); const s = P.scenes[+k.slice(1) - 1]; if (s) { setPreview('s:' + s.id); select('s:' + s.id); } }
+});
+addEventListener('beforeunload', e => { saveLocal(); if (R.recording) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- caricamento ---------- */
+function loadProject() {
+  let j = null;
+  try { j = JSON.parse(localStorage.getItem('nwllive-project') || 'null'); } catch (_) { }
+  if (j && j.inputs) {
+    Object.assign(P, { name: j.name || 'Diretta', room: j.room || null, trans: j.trans || P.trans, ice: j.ice || '', audio: j.audio || P.audio, bg: j.bg || null, fg: j.fg || null, show: j.show || P.show, rundown: j.rundown || [] });
+    if (j.ovl) for (const k in P.ovl) Object.assign(P.ovl[k], j.ovl[k] || {});
+    P.inputs = j.inputs.map(i => Object.assign({ key: KEY0(), crop: { l: 0, t: 0, r: 0, b: 0 }, aud: { db: 0, mute: false, afv: false } }, i));
+    P.scenes = j.scenes || [];
+    R.pv = j.pv || null; R.pg = j.pg || null;
+    return false;
+  }
+  // primo avvio: studio virtuale e scene di partenza
+  const bg = newInput('vset', { name: 'Studio virtuale', style: 'notte' });
+  const st = newScene('Studio', [newLayer(bg.id)]);
+  R.pg = 's:' + st.id; R.pv = 's:' + st.id;
+  return true;
+}
+function welcome() {
+  const act = (ic, t, sub, fn) => h('button', { class: 'choice', onclick: () => { closeModal(); fn(); } }, h('span', { class: 'ic' }, ic), h('span', {}, h('b', {}, t), h('small', {}, sub)));
+  modal(h('div', {}, h('h3', {}, 'Benvenuto in NWLlive'),
+    h('p', { class: 'hint' }, 'La regia è pronta con uno studio virtuale. Tre passi per la prima diretta:'),
+    h('div', { class: 'choices' },
+      act('🎥', '1. Telecamera dello studio', 'Con il giornalista davanti al green screen', cameraDialog),
+      act('📡', '2. Link per gli inviati', 'Si collegano dal telefono', () => { setTab('remote'); linkDialog(); }),
+      act('🎞️', '3. Servizi da mandare in onda', 'Carica i video', () => pickFile('video/*', true, async fs => { for (const f of fs) { const i = newInput('video', { name: f.name.replace(/\.[^.]+$/, ''), file: f.name, restart: true, ret: true }); await DB.put(i.id, f); await openInput(i); } refreshAll(); dirty(); })),
+      act('⌨️', 'Come si usa', 'Anteprima, programma e scorciatoie', helpDialog)),
+    h('div', { class: 'acts' }, h('button', { class: 'sb pri', onclick: closeModal }, 'Comincia'))));
+}
+(async function init() {
+  const first = loadProject();
+  $('#pname').value = P.name; $('#tType').value = P.trans.type; $('#tDur').value = P.trans.dur;
+  refreshAll();
+  for (const i of P.inputs) openInput(i);
+  remoteStart();   // gli inviati possono collegarsi in qualsiasi momento
+  if (first) { saveLocal(); welcome(); }
+  if (document.fonts) document.fonts.load('700 48px "Archivo"').catch(() => { });
+  window.NWL = { P, R, inp, scn, setPreview, doTransition, doCut, finishTake, toggleLT, remoteStart, RT, AU, frameOf, openInput, newInput, newScene, newLayer, refreshAll, DB };
+})();
+
+</script>
+</body>
+</html>

@@ -304,6 +304,7 @@ html,body{background:radial-gradient(1000px 560px at 90% -10%,rgba(64,214,255,.0
     <label class="f" id="exKbpsRow">Qualità MP3 <select id="exKbps"><option value="96">96 kbps (solo voce, leggero)</option><option value="128">128 kbps (podcast parlato)</option><option value="192" selected>192 kbps (consigliato)</option><option value="256">256 kbps</option><option value="320">320 kbps (musica, massima)</option></select></label>
     <label class="f">Canali <select id="exCh"><option value="2">Stereo</option><option value="1">Mono (voce, file più leggero)</option></select></label>
     <label class="chk"><input type="checkbox" id="exNorm" checked> Normalizza: porta il picco a −1 dB</label>
+    <label class="chk"><input type="checkbox" id="exToCut" checked> Manda anche a NWLcut (lo trovi pronto da montare)</label>
     <progress id="exProg" max="1" value="0" hidden></progress>
     <p id="exMsg"></p>
     <menu><button type="button" id="exCancel">Chiudi</button><button type="button" id="exGo" class="primary">Esporta</button></menu>
@@ -1510,6 +1511,7 @@ async function doExport() {
       h.setUint32(24, sr, true); h.setUint32(28, sr * ch * 2, true); h.setUint16(32, ch * 2, true); h.setUint16(34, 16, true); ws(36, 'data'); h.setUint32(40, bytes, true);
       blob = new Blob([h, ...parts], { type: 'audio/wav' });
     }
+    if (document.getElementById('exToCut')?.checked) { try { await nwlSend(blob, `${name}.${enc ? 'mp3' : 'wav'}`, 'NWLtono'); } catch (e) { console.warn(e); } }
     const ok = await download(blob, `${name}.${enc ? 'mp3' : 'wav'}`);
     prog.value = 1; msg.textContent = ok ? `Fatto: ${name}.${enc ? 'mp3' : 'wav'} (${(blob.size / 1048576).toFixed(1)} MB)` + (ONLINE ? ', dentro un file .zip: aprilo per estrarlo.' : ' è nella cartella Download.') : 'File non salvato.';
   } catch (e) { msg.textContent = 'Esportazione non riuscita: ' + (e && e.message ? e.message : e); }
@@ -1915,6 +1917,20 @@ mqMobile.addEventListener('change', () => { side.classList.remove('open'); $('#b
 if (sideMobile()) $('#bLib').classList.remove('on');
 
 render(); drawMeter(0); checkRestore();
+</script>
+<script>/* ================= collegamento tra le app della suite (stessa origine: sito o programma installato) ================= */
+const NWLX = {
+  open() { return NWLX.p || (NWLX.p = new Promise(res => { try { const r = indexedDB.open('nwl-scambio', 1); r.onupgradeneeded = () => r.result.createObjectStore('inbox', { keyPath: 'id' }); r.onsuccess = () => res(r.result); r.onerror = () => res(null); } catch { res(null); } })); },
+  async tx(mode, fn) { const d = await NWLX.open(); if (!d) return null; return new Promise(res => { try { const t = d.transaction('inbox', mode), r = fn(t.objectStore('inbox')); t.oncomplete = () => res(r && r.result); t.onerror = t.onabort = () => res(null); } catch { res(null); } }); },
+  chan: (() => { try { return new BroadcastChannel('nwl-suite'); } catch { return null; } })(),
+};
+async function nwlSend(blob, name, from) {
+  await NWLX.tx('readwrite', st => st.put({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, from, type: blob.type || '', blob, date: Date.now() }));
+  try { NWLX.chan && NWLX.chan.postMessage({ kind: 'inbox' }); } catch { }
+  return true;
+}
+const nwlInbox = async () => (await NWLX.tx('readonly', st => st.getAll())) || [];
+const nwlTake = id => NWLX.tx('readwrite', st => st.delete(id));
 </script>
 </body>
 </html>
