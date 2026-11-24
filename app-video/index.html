@@ -2614,9 +2614,11 @@ function drawBlurBg(ctx, act, W, H) {
   const c = act.find(x => x.type === 'video' || x.type === 'image'); if (!c) return;
   const s = sources.get(c.src); if (!s) return;
   const el = c.type === 'video' ? vidFor(c) : s.img; if (!el || (c.type === 'video' && el.readyState < 2)) return;
-  const f = Math.max(W / s.w, H / s.h), bw = s.w * f * 1.08, bh = s.h * f * 1.08;
+  const r9 = (((c.r90 || 0) % 360) + 360) % 360, side = r9 % 180 !== 0, ew = side ? s.h : s.w, eh = side ? s.w : s.h;
+  const f = Math.max(W / ew, H / eh), bw = s.w * f * 1.08, bh = s.h * f * 1.08;
   const sw = Math.max(8, Math.round(W / 24)), sh = Math.max(8, Math.round(H / 24)), B = swCanvas('bg', sw, sh), g = B.getContext('2d');
-  g.drawImage(el, (sw - bw / 24) / 2, (sh - bh / 24) / 2, bw / 24, bh / 24);
+  g.setTransform(1, 0, 0, 1, sw / 2, sh / 2); if (r9) g.rotate(r9 * Math.PI / 180);
+  g.drawImage(el, -bw / 48, -bh / 48, bw / 24, bh / 24); g.setTransform(1, 0, 0, 1, 0, 0);
   ctx.save(); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(B, 0, 0, W, H); ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(0, 0, W, H); ctx.restore();
 }
 function drawBars(ctx, W, H) {
@@ -2774,16 +2776,20 @@ function drawClip(ctx, c, t, k) {
     else {
       const s = sources.get(c.src); if (!s) { ctx.restore(); return; }
       const el = c.type === 'video' ? vidFor(c) : s.img;
-      const mw = s.w || 16, mh = s.h || 9;
-      const f = c.fit === 'cover' ? Math.max(W / mw, H / mh) : Math.min(W / mw, H / mh);
-      bw = mw * f; bh = mh * f; c._b = { w: bw, h: bh };
+      const mw = s.w || 16, mh = s.h || 9, r9 = (((c.r90 || 0) % 360) + 360) % 360, side = r9 % 180 !== 0;
+      const ew = side ? mh : mw, eh = side ? mw : mh; // misure dopo la rotazione di 90°
+      const f = c.fit === 'cover' ? Math.max(W / ew, H / eh) : Math.min(W / ew, H / eh);
+      bw = ew * f; bh = eh * f; c._b = { w: bw, h: bh };
+      const dw = mw * f, dh = mh * f;
       if (el && (c.type !== 'video' || el.readyState >= 2)) {
-        const img = useSW ? (swFx(ctx, el, bw, bh, c.fx, blur * k * s2) || el) : el;
+        const img = useSW ? (swFx(ctx, el, dw, dh, c.fx, blur * k * s2) || el) : el;
+        if (r9) { ctx.save(); ctx.rotate(r9 * Math.PI / 180); }
         if (glitch > .01) { // effetto glitch: fasce spostate e canali sfasati
           const n = 9, seed = Math.floor(t * 24), iw = img.videoWidth || img.naturalWidth || img.width, ih = img.videoHeight || img.naturalHeight || img.height;
-          for (let i = 0; i < n; i++) { const r = Math.sin((seed + 1) * (i + 3) * 12.9898) * 43758.5453 % 1, off = (r - .5) * 2 * glitch * bw * .12; ctx.drawImage(img, 0, ih * i / n, iw, ih / n, -bw / 2 + off, -bh / 2 + bh * i / n, bw, bh / n + 1); }
-          ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha *= .35 * glitch; ctx.fillStyle = 'rgba(255,0,60,1)'; ctx.fillRect(-bw / 2 + glitch * 14, -bh / 2, bw, bh); ctx.restore();
-        } else ctx.drawImage(img, -bw / 2, -bh / 2, bw, bh);
+          for (let i = 0; i < n; i++) { const r = Math.sin((seed + 1) * (i + 3) * 12.9898) * 43758.5453 % 1, off = (r - .5) * 2 * glitch * dw * .12; ctx.drawImage(img, 0, ih * i / n, iw, ih / n, -dw / 2 + off, -dh / 2 + dh * i / n, dw, dh / n + 1); }
+          ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha *= .35 * glitch; ctx.fillStyle = 'rgba(255,0,60,1)'; ctx.fillRect(-dw / 2 + glitch * 14, -dh / 2, dw, dh); ctx.restore();
+        } else ctx.drawImage(img, -dw / 2, -dh / 2, dw, dh);
+        if (r9) ctx.restore();
       }
     }
     if (HAS_FILTER) ctx.filter = 'none';
@@ -4011,8 +4017,10 @@ function paintClipTL(c, e, H) {
   const g = cnv.getContext('2d'); g.scale(W / wpx, dpr);
   const s = sources.get(c.src);
   if ((c.type === 'video' || c.type === 'image') && s && s.thumbs && s.thumbs.find(Boolean)) {
-    const t0 = s.thumbs.find(Boolean), tw = Math.max(14, H * t0.width / t0.height);
-    for (let x = 0; x < wpx; x += tw) { const im = thumbAt(s, c.type === 'video' ? c.offset + ((x + tw / 2) / S.pps) * c.speed : 0); if (im) g.drawImage(im, x, 0, tw, H); }
+    const t0 = s.thumbs.find(Boolean), r9 = (((c.r90 || 0) % 360) + 360) % 360, side = r9 % 180 !== 0;
+    const tw = Math.max(14, H * (side ? t0.height / t0.width : t0.width / t0.height));
+    for (let x = 0; x < wpx; x += tw) { const im = thumbAt(s, c.type === 'video' ? c.offset + ((x + tw / 2) / S.pps) * c.speed : 0); if (!im) continue;
+      if (!r9) g.drawImage(im, x, 0, tw, H); else { g.save(); g.translate(x + tw / 2, H / 2); g.rotate(r9 * Math.PI / 180); const iw = side ? H : tw, ih = side ? tw : H; g.drawImage(im, -iw / 2, -ih / 2, iw, ih); g.restore(); } }
   }
   if (c.type === 'audio' && s && s.peaks) {
     const pk = s.peaks, mid = H / 2 + 5, hh = H - 16;
@@ -4805,7 +4813,7 @@ function renderTools() {
   if (c.type === 'video' || c.type === 'audio') T2.push(tool('speed', 'Velocità', () => speedSheet(c.id)));
   if (c.type === 'image' || c.type === 'text') T2.push(tool('clock', 'Durata', () => durationSheet(c.id)));
   if (hasAudio(c)) T2.push(tool(c.mute ? 'mute' : 'vol', 'Volume', () => volumeSheet(c.id)));
-  if (c.type === 'video' || c.type === 'image') T2.push(tool('spark', 'Animazioni', () => animSheet(c.id)), tool('filter', 'Filtri', () => filtersSheet(c.id)), tool('adjust', 'Regola', () => adjustSheet(c.id)), tool('frame', 'Inquadra', () => frameSheet(c.id)));
+  if (c.type === 'video' || c.type === 'image') T2.push(tool('rotate', 'Ruota', () => rotate90(c)), tool('spark', 'Animazioni', () => animSheet(c.id)), tool('filter', 'Filtri', () => filtersSheet(c.id)), tool('adjust', 'Regola', () => adjustSheet(c.id)), tool('frame', 'Inquadra', () => frameSheet(c.id)));
   if (c.type === 'video' && hasAudio(c) && !c.mute) T2.push(tool('extract', 'Estrai audio', doDetach));
   if (c.type === 'audio') T2.push(tool('duck', 'Sottofondo', () => volumeSheet(c.id)));
   if (c.type === 'text') T2.push(tool('frame', 'Posizione', () => frameSheet(c.id)));
@@ -5017,6 +5025,14 @@ function subsSheet() {
     h('div', { class: 'lbl' }, 'Stile'), chips(Object.entries(SUB_STYLES).map(([k, v]) => [k, v.name.replace(/ \(.*/, '')]), () => o.style, v => o.style = v),
     h('div', { class: 'btnrow' }, h('button', { class: 'btn pri', onclick: async () => { closeSheet(); try { await autoSubs(o); } catch (e) { console.error(e); busyClose(); await ask('Sottotitoli non riusciti', 'Non sono riuscito a completare la trascrizione: ' + (e && e.message || e) + '. Serve internet la prima volta, per scaricare il modello.'); } } }, svgI('cc'), 'Crea i sottotitoli'),
       h('button', { class: 'btn', onclick: () => { closeSheet(); exportSRT(); } }, 'Scarica .SRT'))), { tall: true });
+}
+
+/* ruota di 90° in senso orario (anche le altre parti dello stesso video, se erano girate uguali) */
+function rotate90(c) {
+  const before = c.r90 || 0; let n = 0;
+  for (const x of proj.clips) if (x === c || (x.src === c.src && (x.r90 || 0) === before && (x.type === 'video' || x.type === 'image'))) { x.r90 = (before + 90) % 360; x.rot = 0; n++; }
+  commit(); renderTL(); requestDraw(); seekPreview();
+  toast('Ruotato di ' + ((before + 90) % 360 || 360) + '°' + (n > 1 ? ' (' + n + ' parti dello stesso video)' : '') + ' · tocca ancora per continuare');
 }
 
 </script>
