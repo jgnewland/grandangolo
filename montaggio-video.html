@@ -267,6 +267,7 @@ svg.auto .ahint{fill:#ffd34d;font:600 11px Inter,sans-serif;pointer-events:none}
   #transport button{padding:4px 8px}
 }
 </style>
+
 </head>
 <body>
 <div id="app">
@@ -291,6 +292,7 @@ svg.auto .ahint{fill:#ffd34d;font:600 11px Inter,sans-serif;pointer-events:none}
       <option value="4:5">4:5 post</option>
     </select>
     <span class="grow"></span>
+    <button id="bInstall" style="display:none" title="Installa Montaggio Video sul computer, come un programma">⤓ <span class="tb-l">Installa</span></button>
     <button id="bMenu" title="Progetto: nuovo, apri, salva">Progetto ▾</button>
     <button id="bExport" class="primary" title="Esporta il video">⤓ Esporta</button>
   </div>
@@ -5234,6 +5236,14 @@ commit();
 afterProjectChange();
 restoreAutosave();
 window.__mv = { get proj() { return proj; }, sources, exportRealtime, generateBrand, GEN, setFormat, changeFormat, cutTransition, applyToAllCuts, S, P, importFiles, exportMP4, renderMix, setPlayhead, drawFrame, addTextPreset, applyTransition, applyEffect, select, doSplit, undo, redo, saveProject, openProjectFile, readZip };
+
+/* app installata sul computer: i file .mvideo si aprono con doppio clic */
+if ('launchQueue' in window) launchQueue.setConsumer(async p => { for (const fh of (p.files || [])) { try { const f = await fh.getFile(); if (/\.mvideo$/i.test(f.name)) { openProjectFile(f); break; } } catch (e) { console.warn(e); } } });
+/* pulsante «Installa» quando il browser lo permette */
+let installEvt = null;
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; const b = $('#bInstall'); if (b) b.style.display = ''; });
+addEventListener('appinstalled', () => { installEvt = null; const b = $('#bInstall'); if (b) b.style.display = 'none'; toast('Montaggio Video installato: lo trovi tra i programmi del computer'); });
+if ($('#bInstall')) $('#bInstall').onclick = async () => { if (!installEvt) return; installEvt.prompt(); try { await installEvt.userChoice; } catch { } installEvt = null; $('#bInstall').style.display = 'none'; };
 
 </script>
 </body>
