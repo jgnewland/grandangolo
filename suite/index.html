@@ -63,6 +63,7 @@ nav .btn{padding:10px 18px;font-size:14px}
 .t1{width:210px;height:210px;left:4%;top:120px;transform:rotate(-8deg);animation:bob 7s ease-in-out infinite}
 .t2{width:250px;height:250px;left:36%;top:20px;z-index:2;animation:bob 8s ease-in-out infinite .6s}
 .t3{width:200px;height:200px;left:62%;top:200px;transform:rotate(9deg);animation:bob 7.5s ease-in-out infinite 1.2s}
+.t4{width:150px;height:150px;left:34%;top:290px;z-index:3;transform:rotate(7deg);animation:bob 6.5s ease-in-out infinite .3s}
 @keyframes bob{50%{translate:0 -14px}}
 .glow{position:absolute;left:30%;top:60%;width:300px;height:120px;background:radial-gradient(ellipse,rgba(180,251,11,.35),transparent 70%);filter:blur(20px)}
 /* sezioni */
@@ -71,7 +72,9 @@ section{padding:84px 0}
 .sh h2{font-size:clamp(30px,4vw,48px);font-weight:800;line-height:1.05;margin-top:10px}
 .sh p{color:var(--muted);max-width:520px;margin:0}
 /* schede app */
-.apps{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.app.live{--ac:#ff3b5c}
+.app .new{position:absolute;right:18px;top:18px;font:800 11px Archivo,sans-serif;letter-spacing:.14em;background:#ff3b5c;color:#fff;padding:4px 9px;border-radius:999px}
 .app{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:var(--r);padding:30px;overflow:hidden;transition:transform .25s,border-color .25s}
 .app:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.2)}
 .app::before{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--ac),transparent 65%);opacity:.22}
@@ -84,6 +87,7 @@ section{padding:84px 0}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
 .chips span{font-size:13px;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#dfe5ff}
 .app .acts{display:flex;gap:10px;flex-wrap:wrap}
+.app.live .btn.pri{background:#ff3b5c;color:#fff;box-shadow:0 10px 30px rgba(255,59,92,.3)}
 .app.tono .btn.pri{background:var(--cyan);color:#001826;box-shadow:0 10px 30px rgba(64,214,255,.25)}
 /* passi per dispositivo */
 .tabs{display:inline-flex;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:5px;gap:4px;margin-bottom:26px}
@@ -128,9 +132,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 .modal ol{padding-left:22px;margin:14px 0 20px}.modal li{margin:10px 0}
 .k{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#1a2660;vertical-align:middle}
 @media (min-width:700px){.modal{align-items:center}.modal .card{border-radius:26px}}
+@media (max-width:1100px){.apps{grid-template-columns:1fr 1fr}}
 @media (max-width:900px){
   .hero{padding:46px 0 30px}.hero .grid{grid-template-columns:1fr}.show{height:300px;order:-1}
-  .t1{width:140px;height:140px;left:2%;top:90px}.t2{width:170px;height:170px;left:30%;top:10px}.t3{width:136px;height:136px;left:64%;top:120px}
+  .t1{width:140px;height:140px;left:2%;top:90px}.t2{width:170px;height:170px;left:30%;top:10px}.t3{width:136px;height:136px;left:64%;top:120px}.t4{width:96px;height:96px;left:38%;top:190px}
   .apps,.pack{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.feat{grid-template-columns:1fr 1fr}
   nav .links{display:none}.pack{padding:28px}section{padding:60px 0}
 }
@@ -150,7 +155,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <div>
       <span class="eyebrow">Newland Studio presenta</span>
       <h1>Newland<span class="s">Studio Suite</span></h1>
-      <p class="lead">Due app creative per raccontare storie: <b>NWLcut</b> per montare i video, <b>NWLtono</b> per l'audio. Funzionano su iPhone, Android e computer, anche senza internet. I tuoi file restano tuoi.</p>
+      <p class="lead">Tre app creative per raccontare storie: <b>NWLcut</b> per montare i video, <b>NWLtono</b> per l'audio, <b>NWLlive</b> per la regia in diretta. Funzionano su iPhone, Android e computer, anche senza internet. I tuoi file restano tuoi.</p>
       <div class="cta" id="heroCta"></div>
       <div class="dev"><i></i><span id="devTxt">Riconosco il tuo dispositivo…</span></div>
     </div>
@@ -159,12 +164,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <div class="tile t1"><img src="assets/tono-512.png" alt=""></div>
       <div class="tile t2"><img src="assets/newland-512.png" alt=""></div>
       <div class="tile t3"><img src="assets/cut-512.png" alt=""></div>
+      <div class="tile t4"><img src="assets/live-512.png" alt=""></div>
     </div>
   </div>
 </header>
 
 <section id="app"><div class="wrap">
-  <div class="sh"><div><span class="eyebrow">Le app</span><h2>Tutto quello che serve<br>per montare.</h2></div><p>Ogni app si installa da sola, con la sua icona, e si aggiorna in automatico quando esce una versione nuova.</p></div>
+  <div class="sh"><div><span class="eyebrow">Le app</span><h2>Tutto quello che serve<br>per montare e andare in diretta.</h2></div><p>Ogni app si installa da sola, con la sua icona, e si aggiorna in automatico quando esce una versione nuova.</p></div>
   <div class="apps">
     <article class="app cut">
       <div class="top"><img src="assets/cut-192.png" alt="NWLcut"><div><span class="cat">Video</span><h3>NWLcut</h3></div></div>
@@ -177,6 +183,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <p>Montaggio audio multitraccia per podcast e audiolibri: voci e musica sovrapposte, volumi e dissolvenze, effetti voce, musica che si abbassa da sola sotto il parlato. Esporta in MP3 e WAV.</p>
       <div class="chips"><span>Podcast</span><span>Audiolibri</span><span>Effetti voce</span><span>Registrazione</span><span>MP3 · WAV</span></div>
       <div class="acts" id="tonoActs"></div>
+    </article>
+    <article class="app live">
+      <span class="new">NUOVO · IN PROVA</span>
+      <div class="top"><img src="assets/live-192.png" alt="NWLlive"><div><span class="cat">Diretta</span><h3>NWLlive</h3></div></div>
+      <p>Regia televisiva in diretta: studio con green screen e studio virtuale, inviati collegati dal telefono con un link, messa in onda dei servizi, sottopancia e barra delle notizie, mixer audio, registrazione.</p>
+      <div class="chips"><span>Green screen</span><span>Inviati via link</span><span>Anteprima · Programma</span><span>Grafica Grandangolo</span><span>Registrazione</span></div>
+      <div class="acts" id="liveActs"></div>
     </article>
   </div>
 </div></section>
@@ -244,7 +257,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   var names = { ios: (/iPad/i.test(ua) || navigator.maxTouchPoints > 1 && !/iPhone/.test(ua)) && !/iPhone/.test(ua) ? 'iPad' : 'iPhone', android: 'Android', pc: /Mac/i.test(navigator.platform) ? 'Mac' : 'computer' };
   var APPS = {
     cut: { name: 'NWLcut', url: dev === 'pc' ? 'cut/' : 'cutm/', icon: 'assets/cut-192.png' },
-    tono: { name: 'NWLtono', url: 'tono/', icon: 'assets/tono-192.png' }
+    tono: { name: 'NWLtono', url: 'tono/', icon: 'assets/tono-192.png' },
+    live: { name: 'NWLlive', url: 'live/', icon: 'assets/live-192.png' }
   };
   var dl = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
   var op = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M19 14v6H4V5h6"/></svg>';
@@ -273,7 +287,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     b.innerHTML = '<button class="btn pri">' + dl + label + '</button><a class="btn sec" href="' + a.url + '">' + op + 'Apri ora</a>';
     b.querySelector('button').onclick = function () { inst(k); };
   }
-  acts('cut', 'cutActs'); acts('tono', 'tonoActs');
+  acts('cut', 'cutActs'); acts('tono', 'tonoActs'); acts('live', 'liveActs');
+  if (dev !== 'pc') { var ln = document.createElement('p'); ln.className = 'note'; ln.style.margin = '12px 0 0'; ln.textContent = 'La regia è pensata per il computer. Gli inviati si collegano dal telefono con il link che ricevono dalla regia.'; document.getElementById('liveActs').after(ln); }
 
   var hc = document.getElementById('heroCta');
   hc.innerHTML = '<button class="btn pri" id="hcCut">' + dl + 'Installa NWLcut</button><button class="btn cy" id="hcTono">' + dl + 'Installa NWLtono</button>' +
