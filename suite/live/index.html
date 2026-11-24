@@ -2077,13 +2077,29 @@ function liveDialog() {
   draw();
   const q = h('select', { class: 'inp' }, ...Object.entries(QUALITY).map(([k, v]) => h('option', { value: k }, v.lab)));
   q.value = cfg.quality || '1080p6'; q.onchange = () => { cfg.quality = q.value; saveDest(cfg); };
-  const encInfo = h('p', { class: 'hint' }, 'Controllo la scheda video…');
-  NATIVE.stream.probe().then(p => { ST.enc = p; encInfo.textContent = p && p.ok ? 'Codifica: ' + encName(p.best) : 'Codificatore non disponibile: ' + ((p && p.error) || 'reinstalla Newland Suite'); }).catch(() => { encInfo.textContent = 'Codificatore non disponibile'; });
+  const encInfo = h('div', { class: 'hint' }, 'Controllo la scheda video…');
+  const probe = () => NATIVE.stream.probe().then(p => {
+    ST.enc = p; encInfo.innerHTML = '';
+    if (p && p.ok) encInfo.textContent = 'Codifica: ' + encName(p.best);
+    else if (p && p.need === 'download' && NATIVE.stream.install) {
+      const bar = h('div', { style: 'height:6px;background:var(--p2);border-radius:6px;overflow:hidden;margin-top:6px;display:none' }, h('i', { style: 'display:block;height:100%;width:0;background:var(--red)' }));
+      const btn = h('button', { class: 'sb pri', onclick: async () => {
+        btn.disabled = true; btn.textContent = 'Scarico…'; bar.style.display = 'block';
+        NATIVE.stream.onInstall(v => { bar.firstChild.style.width = Math.round(v * 100) + '%'; btn.textContent = 'Scarico… ' + Math.round(v * 100) + '%'; });
+        const r = await NATIVE.stream.install();
+        if (r && r.ok) { toast('Componente per la diretta installato'); probe(); }
+        else { btn.disabled = false; btn.textContent = 'Riprova'; toast('Scaricamento non riuscito: ' + ((r && r.error) || 'rete')); }
+      } }, 'Scarica il componente per la diretta (67 MB)');
+      encInfo.append(h('p', { class: 'hint', style: 'margin:0 0 6px' }, 'Per la prima diretta serve il codificatore video. Si scarica una volta sola da edicola.grandangoloregionale.it e viene verificato prima dell\'uso.'), btn, bar);
+    } else encInfo.textContent = 'Codificatore non disponibile: ' + ((p && p.error) || 'reinstalla Newland Suite');
+  }).catch(() => { encInfo.textContent = 'Codificatore non disponibile'; });
+  probe();
   modal(h('div', {}, h('h3', {}, '📡 Vai in diretta'),
     h('p', { class: 'hint' }, 'Va in onda tutto quello che vedi nel riquadro PROGRAMMA, con grafica e audio. Le chiavi restano solo su questo computer.'),
     list, field('Qualità', q), encInfo,
     h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Chiudi'), h('button', {
       class: 'sb pri', onclick: () => {
+        if (!ST.enc || !ST.enc.ok) { toast('Prima scarica il componente per la diretta'); return; }
         const ds = cfg.dests.filter(d => d.on && d.key && /^rtmps?:\/\//.test(d.server));
         if (!ds.length) { toast('Inserisci almeno una chiave stream'); return; }
         closeModal(); startLive(ds, QUALITY[cfg.quality] || QUALITY['1080p6']);

@@ -1,0 +1,6 @@
+{
+ "file": "ffmpeg-win64.exe.gz",
+ "sha256": "60040c633742e8c0d3b697ab5e86ad804ec5ca1b287e1851aa2a9684c612d216",
+ "gzSize": 67473806,
+ "source": "https://github.com/BtbN/FFmpeg-Builds (ffmpeg-master-latest-win64-gpl), licenza GPL v3"
+}

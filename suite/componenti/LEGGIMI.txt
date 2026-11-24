@@ -1,0 +1,4 @@
+Questo programma include FFmpeg (https://ffmpeg.org), usato da NWLlive per inviare la diretta a YouTube, Facebook e ai server RTMP.
+FFmpeg è distribuito con licenza GNU GPL versione 3 (vedi LICENSE.txt), in questa compilazione:
+https://github.com/BtbN/FFmpeg-Builds (ffmpeg-master-latest-win64-gpl).
+Il codice sorgente di FFmpeg e delle librerie incluse è disponibile su https://ffmpeg.org e https://github.com/BtbN/FFmpeg-Builds.
