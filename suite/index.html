@@ -106,6 +106,10 @@ section{padding:84px 0}
 .file img{width:42px;height:42px;border-radius:11px}
 .file .ic{width:42px;height:42px;border-radius:11px;background:#1a2660;display:grid;place-items:center;font-size:20px}
 .file b{display:block;font-size:15px}.file small{color:var(--muted)}
+.verify{margin-top:16px;font-size:13.5px;color:var(--muted);position:relative;z-index:1}
+.verify summary{cursor:pointer;color:#dfe5ff;font-weight:600}
+.verify p{margin:8px 0}
+.verify code{display:inline-block;font:12px/1.5 ui-monospace,Consolas,monospace;background:rgba(3,7,28,.7);border:1px solid var(--line);border-radius:8px;padding:6px 9px;color:var(--lime);word-break:break-all;user-select:all}
 .note{font-size:13.5px;color:var(--muted);margin-top:14px}
 /* caratteristiche */
 .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -205,6 +209,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <p><b>Programma per Windows:</b> un installer .exe che mette NWLcut e NWLtono sul desktop e nel menu Start, come programmi veri, anche senza browser.<br>Oppure il pacchetto .zip leggero, da estrarre e aprire con doppio clic.</p>
       <a class="btn pri" href="Newland-Studio-Suite-Setup.exe" download id="exeBtn" style="margin:0 10px 10px 0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Scarica per Windows <span style="opacity:.6;font-weight:600">· .exe 72 MB · v1.1</span></a>
       <a class="btn sec" href="Newland-Studio-Suite.zip" download id="zipBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Pacchetto .zip <span style="opacity:.6;font-weight:600" id="zipSize"></span></a>
+      <details class="verify"><summary>Verifica che il file sia originale</summary>
+        <p>Impronta SHA-256 dell'installer:</p><code id="sha">…</code>
+        <p>Su Windows apri «Prompt dei comandi» nella cartella Download e scrivi:<br><code>certutil -hashfile Newland-Studio-Suite-Setup.exe SHA256</code><br>Se il risultato è uguale, il file è esattamente quello pubblicato qui, senza modifiche.</p>
+      </details>
       <div class="note" id="zipNote">Windows 10 e 11. Si aggiorna da solo: le novità arrivano dal sito in pochi secondi, senza reinstallare. Al primo avvio Windows può mostrare «Windows ha protetto il PC»: clicca «Ulteriori informazioni» e poi «Esegui comunque».</div>
     </div>
     <div class="files">
@@ -282,6 +290,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   tabs.forEach(function (t) { t.onclick = function () { tab(t.dataset.d); }; });
   tab(dev);
   if (dev !== 'pc') document.getElementById('zipNote').textContent = 'Il programma .exe e il pacchetto sono per il computer. Sul ' + names[dev] + ' installa le app con i pulsanti qui sopra.';
+  fetch('Newland-Studio-Suite-Setup.exe.sha256', { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (t) { var h = (t.match(/[0-9a-f]{64}/i) || [''])[0]; document.getElementById('sha').textContent = h ? h.toUpperCase() : 'non disponibile'; }).catch(function () {});
   fetch('Newland-Studio-Suite.zip', { method: 'HEAD' }).then(function (r) { var n = +r.headers.get('content-length'); if (n) document.getElementById('zipSize').textContent = '· ' + (n / 1048576).toFixed(1).replace('.', ',') + ' MB'; }).catch(function () {});
 })();
 </script>
