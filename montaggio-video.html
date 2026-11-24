@@ -4,29 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Montaggio Video — Grandangolo</title>
-<meta name="theme-color" content="#111215">
+<meta name="theme-color" content="#0f1512">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;700;800&family=Oswald:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Anton&family=Bebas+Neue&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;700;800&family=Oswald:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#111215;--panel:#1a1c20;--panel2:#24272c;--panel3:#2c3036;--line:#30343b;
-  --text:#ece9e3;--muted:#a3a5aa;--accent:#e3a63c;--red:#e5493e;--ok:#5cb870;--blue:#4f8fd6;
+  --bg:#0c110e;--panel:#131b17;--panel2:#1a2620;--panel3:#223129;--line:#26392f;
+  --text:#eef4f0;--muted:#8aa89a;--accent:#1fb069;--ink:#03220f;--mint:#76e3aa;--red:#ff5a52;--ok:#1fb069;--blue:#4f8fd6;
+  --r:10px;--shadow:0 10px 30px rgba(0,0,0,.35);
   --hw:168px;--th:74px;--rh:26px;--tlh:40vh
 }
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:13px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:radial-gradient(1100px 600px at 85% -15%,rgba(118,227,170,.07),transparent 60%),radial-gradient(900px 520px at -10% 110%,rgba(31,176,105,.08),transparent 55%),var(--bg);color:var(--text);font:13px/1.4 "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;-webkit-tap-highlight-color:transparent}
 button,select,input,textarea{font:inherit;color:inherit}
-button{background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:5px 10px;min-height:32px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
-button:hover{border-color:#50555e;background:var(--panel3)}
+button{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:5px 11px;min-height:32px;font-family:"Archivo","Inter",sans-serif;font-weight:500;letter-spacing:.01em;transition:background .15s,border-color .15s,color .15s,transform .1s;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+button:hover{border-color:#3a5546;background:var(--panel3)}
+button:active{transform:translateY(1px)}
 button:disabled{opacity:.4;cursor:default}
-button.on{background:var(--accent);border-color:var(--accent);color:#1d1400}
-button.primary{background:var(--accent);border-color:var(--accent);color:#1d1400;font-weight:600}
+button.on{background:rgba(31,176,105,.18);border-color:var(--accent);color:var(--mint)}
+button.primary{background:linear-gradient(180deg,#26c477,#1a9c5c);border-color:#1fb069;color:var(--ink);font-weight:700;box-shadow:0 4px 14px rgba(31,176,105,.25)}
+button.primary:hover{background:linear-gradient(180deg,#2fd383,#1fb069);border-color:#2fd383}
 button.rec{background:var(--red);border-color:var(--red);color:#fff}
 button.ghost{background:transparent;border-color:transparent}
 button.ghost:hover{background:var(--panel3)}
 button svg{width:16px;height:16px;flex:none}
-select,input[type=number],input[type=text],textarea{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:4px 7px;min-height:30px}
+select,input[type=number],input[type=text],input[type=url],textarea{background:#0f1813;border:1px solid var(--line);border-radius:8px;padding:4px 8px;min-height:30px}
+select:focus,input:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(31,176,105,.15)}
 textarea{width:100%;resize:vertical;min-height:70px}
 input[type=range]{accent-color:var(--accent);width:100%;min-width:0}
 input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px}
@@ -36,9 +40,11 @@ input[type=color]{width:38px;height:30px;padding:0 2px;border:1px solid var(--li
 #app{display:flex;flex-direction:column;height:100%;height:100dvh}
 
 /* toolbar */
-#toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:7px 10px;background:var(--panel);border-bottom:1px solid var(--line)}
-#brand{font-weight:700;letter-spacing:.02em;margin-right:4px;display:flex;align-items:center;gap:7px}
-#brand i{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}
+#toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 12px;background:linear-gradient(180deg,rgba(19,27,23,.96),rgba(15,22,18,.96));border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(118,227,170,.04)}
+#brand{display:flex;align-items:center;gap:9px;margin-right:6px;line-height:1}
+#brand svg{width:26px;height:26px;flex:none}
+#brand b{display:block;font-family:"Archivo",sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em}
+#brand small{display:block;font-family:"Archivo",sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);margin-bottom:3px}
 #pname{width:170px}
 .sep{width:1px;height:24px;background:var(--line);margin:0 2px}
 .grow{flex:1}
@@ -49,10 +55,10 @@ input[type=color]{width:38px;height:30px;padding:0 2px;border:1px solid var(--li
 #side.hide{display:none}
 .stabs{display:flex;gap:2px;padding:6px 6px 0;border-bottom:1px solid var(--line)}
 .stabs button{flex:1;border-radius:7px 7px 0 0;border-bottom:none;min-height:30px;padding:4px 4px;font-size:12px}
-.stabs button.on{background:var(--panel3);color:var(--text);border-color:var(--line)}
+.stabs button.on{background:var(--panel3);color:var(--mint);border-color:var(--line);box-shadow:inset 0 2px 0 var(--accent)}
 .spane{flex:1;overflow:auto;padding:8px;display:none}
 .spane.on{display:block}
-.spane h4{margin:12px 2px 6px;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.spane h4{margin:14px 2px 7px;font-family:"Archivo",sans-serif;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.16em;color:var(--mint)}
 .spane h4:first-child{margin-top:2px}
 .libitem{display:flex;align-items:center;gap:7px;padding:5px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);margin-bottom:6px;touch-action:pan-y}
 .libitem .lthumb{width:64px;height:38px;flex:none;border-radius:4px;background:#000 center/cover no-repeat;position:relative;overflow:hidden}
@@ -70,20 +76,20 @@ input[type=color]{width:38px;height:30px;padding:0 2px;border:1px solid var(--li
 .drop-hint{border:1px dashed var(--line);border-radius:8px;padding:12px;text-align:center;color:var(--muted);font-size:12px}
 
 #stage{flex:1;min-width:0;display:flex;flex-direction:column;background:#0b0c0e}
-#viewer{flex:1;min-height:0;position:relative;overflow:hidden}
+#viewer{flex:1;min-height:0;position:relative;overflow:hidden;background:radial-gradient(600px 300px at 50% 40%,rgba(31,176,105,.06),transparent 70%),#080c0a}
 #cv,#ov{position:absolute;left:0;top:0}
-#cv{background:#000;box-shadow:0 0 0 1px #2a2d33}
+#cv{background:#000;box-shadow:0 0 0 1px #24372d,0 18px 50px rgba(0,0,0,.55);border-radius:4px}
 #ov{touch-action:none}
 #emptyMsg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);pointer-events:none;padding:20px}
 #emptyMsg b{color:var(--text)}
 #transport{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--panel);border-top:1px solid var(--line);flex-wrap:wrap}
-#tc{font-variant-numeric:tabular-nums;font-family:ui-monospace,Consolas,monospace;font-size:13px;padding:0 6px}
+#tc{font-variant-numeric:tabular-nums;font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:13px;padding:4px 10px;background:#0b120e;border:1px solid var(--line);border-radius:8px;color:var(--mint)}
 #bPlay{min-width:46px}
 
 #insp{width:310px;flex:none;background:var(--panel);border-left:1px solid var(--line);overflow:auto;padding:10px 12px}
-#insp h3{margin:2px 0 8px;font-size:14px;display:flex;align-items:center;gap:8px}
+#insp h3{margin:4px 0 6px;font-family:"Archivo",sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:-.005em}
 #insp details{border-top:1px solid var(--line);padding:6px 0}
-#insp summary{cursor:pointer;font-weight:600;padding:4px 0;list-style:none;display:flex;align-items:center;gap:6px}
+#insp summary{cursor:pointer;font-family:"Archivo",sans-serif;font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint);padding:6px 0;list-style:none;display:flex;align-items:center;gap:6px}
 #insp summary::before{content:"▸";color:var(--muted);transition:transform .15s}
 #insp details[open] summary::before{transform:rotate(90deg)}
 .row{display:grid;grid-template-columns:88px 1fr 58px;align-items:center;gap:7px;margin:5px 0}
@@ -116,13 +122,13 @@ input[type=color]{width:38px;height:30px;padding:0 2px;border:1px solid var(--li
 .tname{flex:1;min-width:0;border:1px solid transparent;background:transparent;border-radius:5px;padding:1px 4px;min-height:22px;height:22px;font-weight:600;font-size:12px}
 .tname:hover,.tname:focus{border-color:var(--line);background:var(--panel2)}
 .thead .tb{min-height:22px;height:22px;padding:0 6px;font-size:11px;border-radius:5px}
-.thead .tb.on{background:var(--accent);border-color:var(--accent);color:#1d1400}
+.thead .tb.on{background:rgba(31,176,105,.2);border-color:var(--accent);color:var(--mint)}
 .thead .tb.warn{background:var(--red);border-color:var(--red);color:#fff}
 .thead .tl2{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
 .thead .tl2 input{height:16px}
 .tkind{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .lane{position:relative;flex:none;background:repeating-linear-gradient(90deg,transparent 0 99px,#1c1e22 99px 100px)}
-.clip{position:absolute;top:3px;bottom:3px;border-radius:6px;background:var(--cc);border:1px solid rgba(255,255,255,.14);overflow:hidden;cursor:grab;touch-action:pan-x pan-y;user-select:none;-webkit-user-select:none}
+.clip{position:absolute;top:4px;bottom:4px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.35);background:var(--cc);border:1px solid rgba(255,255,255,.14);overflow:hidden;cursor:grab;touch-action:pan-x pan-y;user-select:none;-webkit-user-select:none}
 .clip.sel{outline:2px solid #fff;outline-offset:0;z-index:2;touch-action:none}
 .clip.locked{opacity:.75;cursor:default}
 .clip canvas{position:absolute;left:0;top:0;height:100%;pointer-events:none}
@@ -135,11 +141,11 @@ input[type=color]{width:38px;height:30px;padding:0 2px;border:1px solid var(--li
 .clip .tri{position:absolute;top:0;width:0;height:0;pointer-events:none}
 .clip .fadeS{position:absolute;top:0;bottom:0;pointer-events:none}
 .clip .trmark{position:absolute;bottom:2px;font-size:10px;background:rgba(0,0,0,.6);border-radius:3px;padding:0 3px;pointer-events:none}
-#ph{position:absolute;top:0;bottom:0;width:2px;background:var(--red);z-index:8;pointer-events:none}
+#ph{position:absolute;top:0;bottom:0;width:2px;background:var(--red);z-index:8;pointer-events:none;box-shadow:0 0 8px rgba(255,90,82,.5)}
 #ph::before{content:"";position:absolute;top:0;left:-6px;border:7px solid transparent;border-top:9px solid var(--red)}
 .newlane{display:flex;height:50px;text-align:center;padding:0 10px;font-size:12px;align-items:center;justify-content:center;border:2px dashed #3d4550;margin:4px 6px;border-radius:8px;color:var(--muted);position:sticky;left:6px;width:calc(min(100vw,100%) - 12px)}
 body.dragging .newlane{border-color:#6b7380;color:var(--text);background:#1b1e23;bottom:4px;z-index:9;box-shadow:0 -6px 18px rgba(0,0,0,.5)}
-.newlane.hot{border-color:var(--accent)!important;color:var(--accent)!important;background:#2a2412!important}
+.newlane.hot{border-color:var(--accent)!important;color:var(--mint)!important;background:#12291d!important}
 #trackDrop{position:absolute;left:0;right:0;height:3px;background:var(--accent);z-index:9;display:none;pointer-events:none}
 #trackDrop.ins{height:4px;box-shadow:0 0 10px var(--accent)}
 .clip.dropTarget{outline:2px dashed var(--accent);outline-offset:-2px}
@@ -155,9 +161,9 @@ body.dragging .newlane{border-color:#6b7380;color:var(--text);background:#1b1e23
 #snapLine{position:absolute;top:0;bottom:0;width:1px;background:var(--accent);z-index:7;display:none;pointer-events:none}
 
 /* dialogs, toast */
-dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:18px 20px;width:min(480px,94vw)}
+dialog{background:linear-gradient(180deg,#16211b,#121a16);color:var(--text);border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.6);padding:18px 20px;width:min(480px,94vw)}
 dialog::backdrop{background:rgba(0,0,0,.6)}
-dialog h2{margin:0 0 10px;font-size:17px}
+dialog h2{margin:0 0 10px;font-family:"Archivo",sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em}
 dialog .btns{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap}
 #prog{height:10px;background:var(--panel3);border-radius:5px;overflow:hidden;margin:12px 0 6px}
 #prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s}
@@ -177,16 +183,49 @@ dialog.big[open]{display:flex}
 #ipStage audio{width:92%;margin:10px 0 16px}
 .ipaudio{padding:30px 10px 6px;color:var(--muted)}
 #ipBar{position:relative;height:16px;background:var(--panel3);border-radius:8px;cursor:pointer;margin-top:4px}
-#ipSel{position:absolute;top:0;bottom:0;background:rgba(227,166,60,.55);border-radius:8px}
+#ipSel{position:absolute;top:0;bottom:0;background:rgba(31,176,105,.6);border-radius:8px}
 #ipPos{position:absolute;top:-3px;bottom:-3px;width:2px;background:#fff}
 .ipfoot{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
 @media (max-width:760px){.ipbody{flex-direction:column}#ipList{width:auto;max-height:22vh}}
-#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#2d3138;border:1px solid var(--line);padding:9px 15px;border-radius:9px;z-index:200;display:none;max-width:92vw;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+
+button.brandbtn{background:linear-gradient(135deg,#0e8f5b,#1fb069 55%,#8cc63f);border-color:#2fd383;color:#03220f;font-weight:700}
+button.brandbtn:hover{filter:brightness(1.08)}
+.fxitem.brand{background:linear-gradient(90deg,rgba(31,176,105,.18),rgba(31,176,105,.04));border-color:#2c6b4b}
+.fxitem.brand .grip{color:var(--accent);font-size:16px}
+dialog.wide{width:min(1040px,96vw)}
+.gen{display:flex;gap:18px;align-items:flex-start}
+.genL{flex:1;min-width:0;max-height:66vh;overflow:auto;padding-right:6px}
+.genR{width:min(440px,42%);flex:none;position:sticky;top:0}
+.genR canvas{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);box-shadow:0 12px 32px rgba(0,0,0,.45);background:#000;display:block}
+.gen .eyebrow{font-family:"Archivo",sans-serif;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:11px;color:var(--mint);margin:0 0 4px}
+.gen h3{font-family:"Archivo",sans-serif;font-size:19px;margin:0 0 12px;letter-spacing:-.01em}
+.gfield{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.gfield label{font-size:11.5px;color:var(--muted);font-weight:500}
+.gfield input,.gfield select{width:100%;min-height:34px}
+.grow3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gcheck{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:13px}
+.gsep{margin:14px 0 2px;padding-top:10px;border-top:1px solid var(--line);font-family:"Archivo",sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mint)}
+@media (max-width:760px){.gen{flex-direction:column-reverse}.genR{width:100%;position:static}.genL{max-height:none}}
+
+svg.auto{position:absolute;left:0;top:1px;z-index:5;overflow:visible;cursor:crosshair;touch-action:none}
+svg.auto.passive{pointer-events:none;z-index:2}
+svg.auto .abg{fill:rgba(8,14,11,.35)}
+svg.auto .a0{stroke:rgba(118,227,170,.25);stroke-dasharray:4 4}
+svg.auto .aline{fill:none;stroke:#ffd34d;stroke-width:2;filter:drop-shadow(0 1px 2px rgba(0,0,0,.8))}
+svg.auto.passive .aline{stroke:rgba(255,211,77,.7);stroke-width:1.5}
+svg.auto .apt{fill:#ffd34d;stroke:#1a1200;stroke-width:2;cursor:grab}
+svg.auto .apt:hover{r:8}
+svg.auto .ahint{fill:#ffd34d;font:600 11px Inter,sans-serif;pointer-events:none}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#173024;color:#eef4f0;border:1px solid var(--line);padding:9px 15px;border-radius:9px;z-index:200;display:none;max-width:92vw;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 [data-m]{display:none}
 #fileIn,#projIn{display:none}
 #vids{position:fixed;left:-9999px;top:0;width:2px;height:2px;overflow:hidden}
 .lbl{display:inline}
 
+@media (min-width:761px) and (max-width:1640px){
+  #bText .tb-l,#bRec .tb-l,#bSubs .tb-l,#bSide .tb-l{display:none}
+  #pname{width:130px}
+}
 @media (min-width:761px) and (max-width:1250px){
   #insp{width:270px}
   #side{width:240px}
@@ -223,7 +262,7 @@ dialog.big[open]{display:flex}
 <body>
 <div id="app">
   <div id="toolbar">
-    <div id="brand"><i></i><span>Montaggio Video</span></div>
+    <div id="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="none" stroke="#0e8f5b" stroke-width="4.5" stroke-dasharray="70 30" transform="rotate(-30 20 20)"/><circle cx="20" cy="20" r="16" fill="none" stroke="#8cc63f" stroke-width="4.5" stroke-dasharray="22 79" transform="rotate(200 20 20)"/><circle cx="20" cy="20" r="9.5" fill="none" stroke="#3dbb7e" stroke-width="3" stroke-dasharray="40 60" transform="rotate(150 20 20)"/><circle cx="20" cy="20" r="3.4" fill="#76e3aa"/></svg><span><small>Grandangolo Studio</small><b>Montaggio Video</b></span></div>
     <button id="bSide" title="Libreria, testi, transizioni, effetti">☰ <span class="tb-l">Libreria</span></button>
     <input id="pname" type="text" value="Nuovo video" aria-label="Nome del progetto">
     <span class="sep"></span>
@@ -231,6 +270,7 @@ dialog.big[open]{display:flex}
     <button id="bText" title="Aggiungi un testo">T <span class="tb-l">Testo</span></button>
     <button id="bRec" title="Registra la voce mentre guardi il video">● <span class="tb-l">Registra</span></button>
     <button id="bSubs" title="Sottotitoli automatici dalla voce">CC <span class="tb-l">Sottotitoli</span></button>
+    <button id="bGen" class="brandbtn" title="Pre-roll, outro, logo e lower third Grandangolo in un colpo">★ <span class="tb-l">Grandangolo</span></button>
     <span class="sep"></span>
     <button id="bUndo" title="Annulla (Ctrl+Z)">↶</button>
     <button id="bRedo" title="Ripristina (Ctrl+Y)">↷</button>
@@ -2289,8 +2329,8 @@ const safeName = s => (s || 'video').replace(/[\\/:*?"<>|]+/g, '').trim() || 'vi
 
 /* ================= stato ================= */
 const FORMATS = { '16:9': [1920, 1080], '9:16': [1080, 1920], '1:1': [1080, 1080], '4:5': [1080, 1350] };
-const TCOL = { video: '#4f8fd6', audio: '#5cb870' };
-const CCOL = { video: '#2f5d8f', image: '#6a4f93', audio: '#2f7347', text: '#8f6a22' };
+const TCOL = { video: '#1fb069', audio: '#76e3aa' };
+const CCOL = { video: '#1d5a40', image: '#3f4f7a', audio: '#1f6157', text: '#7a6526', l3: '#0f7a4a', logo: '#2d4a3a' };
 function mkTrack(kind, name) { return { id: uid('t'), kind, name, vol: 0, mute: false, hide: false, lock: false, duck: false }; }
 function newProject() {
   return {
@@ -2725,6 +2765,7 @@ function rrect(ctx, x, y, w, h, r) {
 }
 function hexA(hex, a) { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; }
 function drawText(ctx, c, local, k) {
+  if (c.text.kind === 'gl3') return drawGL3(ctx, c, local);
   const tx = c.text; ensureFont(tx);
   const L = layoutText(ctx, tx), size = L.size, pad = size * (tx.pad ?? .35);
   ctx.font = textFont(tx, size); ctx.textBaseline = 'middle';
@@ -2748,7 +2789,7 @@ function drawText(ctx, c, local, k) {
   // fondo
   if (tx.bg === 'box' || tx.bg === 'bar') {
     ctx.save(); ctx.fillStyle = hexA(tx.bgColor, tx.bgOpacity); rrect(ctx, x0, y0, bw, bh, tx.bg === 'bar' ? 0 : size * .18); ctx.fill();
-    if (tx.bg === 'bar') { ctx.fillStyle = tx.accent || '#e3a63c'; ctx.fillRect(x0 - size * .22, y0, size * .22, bh); }
+    if (tx.bg === 'bar') { ctx.fillStyle = tx.accent || '#1fb069'; ctx.fillRect(x0 - size * .22, y0, size * .22, bh); }
     ctx.restore();
   }
   let used = 0, wordsUsed = 0;
@@ -2891,8 +2932,10 @@ function buildAudio(A, dest, from, t0, until = Infinity) {
   master.connect(lim); lim.connect(dest);
   for (const tr of proj.tracks) {
     if (tr.mute) continue;
-    const tg = A.createGain(); tg.gain.value = dbToG(tr.vol); tg.connect(master);
-    if (tr.duck && tr.kind === 'audio') applyEnv(tg.gain, duckPts(tr), from, t0);
+    const tg = A.createGain(); tg.gain.value = dbToG(tr.vol);
+    const ap = autoPts(tr); if (ap) applyEnv(tg.gain, ap, from, t0);
+    if (tr.duck && tr.kind === 'audio') { const dg = A.createGain(); applyEnv(dg.gain, duckPts(tr).map(([t, v]) => [t, v / dbToG(tr.vol)]), from, t0); tg.connect(dg); dg.connect(master); }
+    else tg.connect(master);
     for (const c of proj.clips) {
       if (c.track !== tr.id || c.mute || !hasAudio(c)) continue;
       const end = c.start + c.dur; if (end <= from || c.start >= until) continue;
@@ -3008,9 +3051,9 @@ function drawPreview(t) {
   $('#emptyMsg').style.display = proj.clips.length ? 'none' : 'flex';
 }
 function clipCorners(c) {
-  const b = c._b || { w: 200, h: 100 }, hw = b.w * c.scale / 2, hh = b.h * c.scale / 2, r = c.rot * Math.PI / 180;
+  const b = c._b || { w: 200, h: 100 }, hw = b.w / 2, hh = b.h / 2, ox = b.ox || 0, oy = b.oy || 0, s = c.scale, r = c.rot * Math.PI / 180;
   const cx = c.x * proj.w, cy = c.y * proj.h, co = Math.cos(r), si = Math.sin(r);
-  return [[-hw, -hh], [hw, -hh], [hw, hh], [-hw, hh]].map(([x, y]) => [cx + x * co - y * si, cy + x * si + y * co]);
+  return [[-hw, -hh], [hw, -hh], [hw, hh], [-hw, hh]].map(([x, y]) => { x = (x + ox) * s; y = (y + oy) * s; return [cx + x * co - y * si, cy + x * si + y * co]; });
 }
 const OVL = { guideX: false, guideY: false };
 function drawOverlay(t) {
@@ -3019,17 +3062,17 @@ function drawOverlay(t) {
   if (S.guides) {
     ovx.strokeStyle = 'rgba(255,255,255,.35)'; ovx.lineWidth = 1; ovx.setLineDash([4, 4]);
     for (const f of [1 / 3, 2 / 3]) { ovx.beginPath(); ovx.moveTo(ov.width * f, 0); ovx.lineTo(ov.width * f, ov.height); ovx.moveTo(0, ov.height * f); ovx.lineTo(ov.width, ov.height * f); ovx.stroke(); }
-    ovx.strokeStyle = 'rgba(227,166,60,.7)'; ovx.strokeRect(ov.width * .05, ov.height * .05, ov.width * .9, ov.height * .9);
+    ovx.strokeStyle = 'rgba(118,227,170,.7)'; ovx.strokeRect(ov.width * .05, ov.height * .05, ov.width * .9, ov.height * .9);
     ovx.setLineDash([]);
   }
-  ovx.strokeStyle = '#e3a63c'; ovx.lineWidth = 1.5 * dpr;
+  ovx.strokeStyle = '#76e3aa'; ovx.lineWidth = 1.5 * dpr;
   if (OVL.guideX) { ovx.beginPath(); ovx.moveTo(ov.width / 2, 0); ovx.lineTo(ov.width / 2, ov.height); ovx.stroke(); }
   if (OVL.guideY) { ovx.beginPath(); ovx.moveTo(0, ov.height / 2); ovx.lineTo(ov.width, ov.height / 2); ovx.stroke(); }
   const c = selClip();
   if (!c || c.type === 'audio' || t < c.start || t >= c.start + c.dur || (c.text && c.text.anim === 'scroll')) return;
   const tr = trackOf(c.track); if (!tr || tr.hide) return;
   const pts = clipCorners(c).map(([x, y]) => [x * k, y * k]);
-  ovx.strokeStyle = '#e3a63c'; ovx.lineWidth = 1.5 * dpr; ovx.setLineDash([6 * dpr, 4 * dpr]);
+  ovx.strokeStyle = '#76e3aa'; ovx.lineWidth = 1.5 * dpr; ovx.setLineDash([6 * dpr, 4 * dpr]);
   ovx.beginPath(); pts.forEach((p, i) => i ? ovx.lineTo(...p) : ovx.moveTo(...p)); ovx.closePath(); ovx.stroke(); ovx.setLineDash([]);
   if (tr.lock) return;
   const hs = (coarse ? 9 : 6) * dpr;
@@ -3048,7 +3091,7 @@ function inClip(c, x, y) {
   const b = c._b; if (!b) return false;
   const r = -c.rot * Math.PI / 180, dx = x - c.x * proj.w, dy = y - c.y * proj.h;
   const lx = (dx * Math.cos(r) - dy * Math.sin(r)) / c.scale, ly = (dx * Math.sin(r) + dy * Math.cos(r)) / c.scale;
-  return Math.abs(lx) <= b.w / 2 && Math.abs(ly) <= b.h / 2;
+  return Math.abs(lx - (b.ox || 0)) <= b.w / 2 && Math.abs(ly - (b.oy || 0)) <= b.h / 2;
 }
 const OD = { mode: null, ptrs: new Map() };
 ov.addEventListener('pointerdown', e => {
@@ -3161,6 +3204,7 @@ function renderTimeline() {
     if (isV) btns.push(tb(tr.hide ? '◌' : '👁', tr.hide, tr.hide ? 'Traccia nascosta: clic per mostrarla' : 'Nascondi questa traccia', () => tr.hide = !tr.hide, true));
     btns.push(tb(tr.mute ? '🔇' : '🔊', tr.mute, tr.mute ? 'Audio spento: clic per riattivare' : 'Spegni l\'audio della traccia', () => tr.mute = !tr.mute, true));
     if (!isV) btns.push(tb('⬇', tr.duck, 'Abbassa automaticamente questa traccia (musica) quando parla qualcuno sulle altre tracce', () => tr.duck = !tr.duck));
+    btns.push(tb('〰', tr.autoShow, tr.autoShow ? 'Chiudi il volume nel tempo (i punti restano attivi)' : 'Volume nel tempo: alza e abbassa questa traccia dove vuoi', () => tr.autoShow = !tr.autoShow));
     btns.push(tb(tr.lock ? '🔒' : '🔓', tr.lock, tr.lock ? 'Traccia bloccata' : 'Blocca la traccia (non si sposta per sbaglio)', () => tr.lock = !tr.lock));
     btns.push(tb('×', false, 'Elimina traccia', async () => {
       const n = proj.clips.filter(c => c.track === tr.id).length;
@@ -3180,6 +3224,8 @@ function renderTimeline() {
       const has = c.tin.type !== 'none';
       lane.append(h('button', { class: 'cutbtn' + (has ? ' has' : ''), style: `left:${c.start * S.pps}px`, title: has ? 'Transizione: ' + (TRANS.find(x => x[0] === c.tin.type) || ['', c.tin.type])[1] + ' — clic per cambiarla' : 'Aggiungi una transizione tra queste due clip', 'data-cut': c.id, onpointerdown: e => e.stopPropagation(), onclick: e => { e.stopPropagation(); openCutMenu(c.id, e.currentTarget); } }, has ? '⋈' : '+'));
     }
+    if (tr.autoShow) lane.append(autoOverlay(tr, W));
+    else if (tr.auto && tr.auto.length) lane.append(autoOverlay(tr, W, true));
     TRK.append(h('div', { class: 'trow' + (S.selTrack === tr.id ? ' selT' : ''), 'data-t': tr.id, style: `width:${W + hwPx()}px` }, head, lane));
   }
   $('#rulerRow').style.width = (W + hwPx()) + 'px';
@@ -3540,6 +3586,84 @@ function previewCut(c) {
   setPlayhead(a); play(); clearTimeout(previewCut.t); previewCut.t = setTimeout(() => { if (P.playing) pause(); }, d * 1000);
 }
 
+/* ================= volume nel tempo (automazione per traccia) ================= */
+const AMIN = -40, AMAX = 6;
+function autoDb(tr, t) {
+  const a = tr.auto; if (!a || !a.length) return 0;
+  if (t <= a[0].t) return a[0].db;
+  for (let i = 1; i < a.length; i++) if (t <= a[i].t) { const p = a[i - 1], q = a[i]; return q.t - p.t < 1e-6 ? q.db : p.db + (q.db - p.db) * (t - p.t) / (q.t - p.t); }
+  return a[a.length - 1].db;
+}
+/* punti di guadagno per l'audio (in dB lineare tra i punti, campionato ogni 0,1 s) */
+function autoPts(tr) {
+  const a = tr.auto; if (!a || !a.length) return null;
+  const base = dbToG(tr.vol), g = db => db <= AMIN + .01 ? 0 : base * dbToG(db), pts = [[-1, g(a[0].db)]];
+  for (let i = 0; i < a.length; i++) {
+    pts.push([a[i].t, g(a[i].db)]);
+    if (i + 1 < a.length) { const d = a[i + 1].t - a[i].t, n = Math.min(60, Math.ceil(d / .1)); for (let k = 1; k < n; k++) { const tt = a[i].t + d * k / n; pts.push([tt, g(autoDb(tr, tt))]); } }
+  }
+  return pts;
+}
+const dbY = (db, H) => 4 + (1 - (clamp(db, AMIN, AMAX) - AMIN) / (AMAX - AMIN)) * (H - 8);
+const yDb = (y, H) => clamp(AMAX - (y - 4) / (H - 8) * (AMAX - AMIN), AMIN, AMAX);
+const fmtDb = d => d <= AMIN + .01 ? 'muto' : (d > 0 ? '+' : '') + d.toFixed(1) + ' dB';
+function autoOverlay(tr, W, passive) {
+  const H = Math.max(10, thPx() - 2), NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'auto' + (passive ? ' passive' : '')); svg.setAttribute('width', W); svg.setAttribute('height', H); svg.dataset.auto = tr.id;
+  const a = tr.auto || [];
+  const mk = (tag, at) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); svg.append(e); return e; };
+  if (!passive) { mk('rect', { x: 0, y: 0, width: W, height: H, class: 'abg' }); mk('line', { x1: 0, x2: W, y1: dbY(0, H), y2: dbY(0, H), class: 'a0' }); }
+  const pts = a.length ? [[0, a[0].db], ...a.map(p => [p.t, p.db]), [W / S.pps, a[a.length - 1].db]] : [[0, 0], [W / S.pps, 0]];
+  mk('polyline', { points: pts.map(([t, d]) => `${(t * S.pps).toFixed(1)},${dbY(d, H).toFixed(1)}`).join(' '), class: 'aline' });
+  if (!passive) a.forEach((p, i) => { const c = mk('circle', { cx: p.t * S.pps, cy: dbY(p.db, H), r: 6, class: 'apt' }); c.dataset.i = i; const tt = document.createElementNS(NS, 'title'); tt.textContent = fmtTC(p.t) + ' · ' + fmtDb(p.db) + ' — trascina per spostare, doppio clic per togliere'; c.append(tt); });
+  if (!passive && !a.length) { const t = mk('text', { x: Math.max(8, SC.scrollLeft + 8), y: 14, class: 'ahint' }); t.textContent = 'Clicca sulla linea per aggiungere un punto, poi trascinalo in su o in giù'; }
+  return svg;
+}
+let AD = null;
+TRK.addEventListener('pointerdown', e => {
+  const svg = e.target.closest && e.target.closest('svg.auto:not(.passive)'); if (!svg) return;
+  e.stopPropagation(); e.preventDefault();
+  const tr = trackOf(svg.dataset.auto); if (!tr || tr.lock) return; if (P.playing) pause();
+  tr.auto = tr.auto || [];
+  const r = svg.getBoundingClientRect(), H = r.height, x = e.clientX - r.left, y = e.clientY - r.top;
+  let i = e.target.dataset && e.target.dataset.i !== undefined ? +e.target.dataset.i : -1;
+  if (i < 0) { // nuovo punto sulla linea nel punto cliccato
+    const t = Math.max(0, x / S.pps), db = Math.abs(dbY(autoDb(tr, t), H) - y) < 14 ? autoDb(tr, t) : yDb(y, H);
+    tr.auto.push({ t, db: Math.round(db * 2) / 2 }); tr.auto.sort((p, q) => p.t - q.t); i = tr.auto.findIndex(p => p.t === t);
+    if (tr.auto.length === 1) { const p0 = tr.auto[0]; } 
+  }
+  AD = { tr, i, svg, r, moved: false, x0: e.clientX, y0: e.clientY };
+  svg.setPointerCapture(e.pointerId); redrawAuto(tr); autoTip(e, tr.auto[i]);
+}, true);
+TRK.addEventListener('pointermove', e => {
+  if (!AD) return; const { tr, r } = AD, p = tr.auto[AD.i]; if (!p) return;
+  if (!AD.moved && Math.hypot(e.clientX - AD.x0, e.clientY - AD.y0) < 3) return; AD.moved = true;
+  let t = Math.max(0, (e.clientX - r.left) / S.pps); const prev = tr.auto[AD.i - 1], next = tr.auto[AD.i + 1];
+  if (prev) t = Math.max(t, prev.t + .01); if (next) t = Math.min(t, next.t - .01);
+  if (S.snap) { const sn = snapT(t, snapCands()); if (sn !== null && (!prev || sn > prev.t) && (!next || sn < next.t)) t = sn; }
+  let db = yDb(e.clientY - r.top, r.height); if (Math.abs(db) < .8) db = 0; db = Math.round(db * 2) / 2;
+  p.t = t; p.db = db; redrawAuto(tr); autoTip(e, p);
+});
+const autoEnd = () => { if (!AD) return; AD = null; $('#ghost').style.display = 'none'; commit(); };
+TRK.addEventListener('pointerup', autoEnd); TRK.addEventListener('pointercancel', autoEnd);
+TRK.addEventListener('dblclick', e => {
+  const c = e.target.closest && e.target.closest('svg.auto circle.apt'); if (!c) return;
+  const tr = trackOf(c.closest('svg').dataset.auto); tr.auto.splice(+c.dataset.i, 1); redrawAuto(tr); commit();
+});
+TRK.addEventListener('contextmenu', e => {
+  const c = e.target.closest && e.target.closest('svg.auto circle.apt'); if (!c) return; e.preventDefault();
+  const tr = trackOf(c.closest('svg').dataset.auto); tr.auto.splice(+c.dataset.i, 1); redrawAuto(tr); commit();
+});
+function redrawAuto(tr) { const old = TRK.querySelector(`svg.auto[data-auto="${tr.id}"]`); if (!old) return; old.replaceWith(autoOverlay(tr, +old.getAttribute('width'), old.classList.contains('passive'))); }
+function autoTip(e, p) { if (!p) return; const g = $('#ghost'); g.style.display = 'block'; g.textContent = fmtTC(p.t) + ' · ' + fmtDb(p.db); g.style.left = e.clientX + 14 + 'px'; g.style.top = e.clientY - 30 + 'px'; }
+/* scorciatoie: abbassa/alza la traccia in un tratto (dalla clip selezionata) */
+function autoDuckRange(tr, a, b, db, ramp = .4) {
+  tr.auto = (tr.auto || []).filter(p => p.t < a - ramp - 1e-3 || p.t > b + ramp + 1e-3);
+  const before = autoDb(tr, a - ramp), after = autoDb(tr, b + ramp);
+  tr.auto.push({ t: Math.max(0, a - ramp), db: before }, { t: a, db }, { t: b, db }, { t: b + ramp, db: after });
+  tr.auto.sort((p, q) => p.t - q.t); tr.autoShow = true;
+}
+
 /* ================= pannello laterale ================= */
 function setSideTab(tab) {
   $$('.stabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
@@ -3597,7 +3721,7 @@ document.addEventListener('pointermove', e => {
   const p = PD.payload;
   if (p.kind === 'src' || p.kind === 'text') {
     const kind = p.kind === 'text' ? 'video' : (sources.get(p.id)?.type === 'audio' ? 'audio' : 'video');
-    const s = sources.get(p.id), dur = p.kind === 'text' ? (TEXTS.find(x => x.id === p.id)?.dur || 4) : (s.type === 'image' ? 5 : s.duration * ((p.out ?? s.duration) - (p.in || 0)) / s.duration);
+    const s = sources.get(p.id), dur = p.kind === 'text' ? (TEXTS.find(x => x.id === p.id)?.dur || 6) : (s.type === 'image' ? 5 : s.duration * ((p.out ?? s.duration) - (p.in || 0)) / s.duration);
     PD.plan = planDrop(e.clientX, e.clientY, kind, dur); PD.kindT = kind;
     gh.textContent = (PD.label || '') + '  ' + showPlan(PD.plan);
   } else {
@@ -3632,7 +3756,7 @@ document.addEventListener('pointerup', e => {
 });
 
 /* --- testi pronti --- */
-const TX0 = () => ({ content: 'Titolo', font: 'Oswald', size: 110, color: '#ffffff', weight: 700, italic: false, align: 'center', bg: 'none', bgColor: '#000000', bgOpacity: .6, outline: 0, outlineColor: '#000000', shadow: true, boxW: .86, lineH: 1.15, anim: 'none', upper: false, letter: 0, pad: .35, accent: '#e3a63c' });
+const TX0 = () => ({ content: 'Titolo', font: 'Oswald', size: 110, color: '#ffffff', weight: 700, italic: false, align: 'center', bg: 'none', bgColor: '#000000', bgOpacity: .6, outline: 0, outlineColor: '#000000', shadow: true, boxW: .86, lineH: 1.15, anim: 'none', upper: false, letter: 0, pad: .35, accent: '#1fb069' });
 const TEXTS = [
   { id: 'title', name: 'Titolo grande', d: 'Al centro, con ombra', dur: 4, set: { content: 'Titolo', size: 120 }, tin: 'fade', tout: 'fade' },
   { id: 'titlebox', name: 'Titolo su fondo scuro', d: 'Riquadro semitrasparente', dur: 4, set: { content: 'La Mafia, la Stidda', size: 96, bg: 'box', bgOpacity: .62 }, tin: 'zoom', tout: 'fade' },
@@ -3641,12 +3765,13 @@ const TEXTS = [
   { id: 'quote', name: 'Citazione', d: 'Corsivo elegante tra virgolette', dur: 6, set: { content: '«Scrivi qui la citazione»', size: 72, font: 'Playfair Display', weight: 400, italic: true, boxW: .75 }, tin: 'fade', tout: 'fade' },
   { id: 'type', name: 'Macchina da scrivere', d: 'Lettere che compaiono una a una', dur: 6, set: { content: 'Agrigento, 1989', size: 70, font: 'Special Elite', weight: 400, anim: 'type' }, tin: 'none', tout: 'fade' },
   { id: 'place', name: 'Luogo e data', d: 'Piccolo, in basso a sinistra', dur: 4, set: { content: 'AGRIGENTO — 3 NOVEMBRE 1989', size: 40, font: 'Special Elite', weight: 400, align: 'left', boxW: .6, letter: 4 }, x: .34, y: .9, tin: 'fade', tout: 'fade' },
-  { id: 'date', name: 'Annuncio data', d: 'Grande, con fondo colorato', dur: 4, set: { content: 'DALL\'11 DICEMBRE', size: 96, font: 'Anton', weight: 400, bg: 'box', bgColor: '#e3a63c', bgOpacity: 1, color: '#111111', shadow: false, letter: 3 }, y: .78, tin: 'zoom', tout: 'fade' },
+  { id: 'date', name: 'Annuncio data', d: 'Grande, con fondo colorato', dur: 4, set: { content: 'DALL\'11 DICEMBRE', size: 96, font: 'Anton', weight: 400, bg: 'box', bgColor: '#1fb069', bgOpacity: 1, color: '#03220f', shadow: false, letter: 3 }, y: .78, tin: 'zoom', tout: 'fade' },
   { id: 'breaking', name: 'Fascia notizia', d: 'Banda rossa in basso', dur: 6, set: { content: 'ULTIM\'ORA — Scrivi qui il titolo della notizia', size: 46, font: 'Oswald', weight: 700, align: 'left', bg: 'bar', bgColor: '#b3261e', bgOpacity: .95, accent: '#ffffff', boxW: .9, shadow: false }, x: .5, y: .86, tin: 'slideL', tout: 'fade' },
   { id: 'credits', name: 'Titoli di coda', d: 'Scorrono dal basso verso l\'alto', dur: 14, set: { content: 'Regia\nGABRIELE TERRANOVA\n\nSegreteria di produzione\nIrene Milisenda\n\nDirettore Responsabile\nGiuseppe Castaldo\n\nSi ringrazia tutta la redazione di Grandangolo\n\nUna produzione\nEdizioni Grandangolo', size: 54, font: 'Montserrat', weight: 700, anim: 'scroll', lineH: 1.35 } },
   { id: 'words', name: 'Parola per parola', d: 'Le parole entrano una alla volta', dur: 5, set: { content: 'Una storia vera, raccontata da chi c\'era', size: 80, font: 'Bebas Neue', weight: 400, anim: 'words', letter: 2 }, tout: 'fade' },
 ];
 function addTextPreset(id, trackId, time) {
+  if (id === 'gl3') { const c = addGL3(trackId, time); S.sel = c.id; S.selTrack = c.track; commit(); renderAll(); seekPreview(); if (S.playhead < c.start + 1 || S.playhead >= c.start + c.dur) setPlayhead(c.start + 1.2); return c; }
   const p = TEXTS.find(x => x.id === id) || TEXTS[0];
   let tr = trackId ? trackOf(trackId) : null;
   if (!tr || tr.kind !== 'video' || tr.lock) {
@@ -3666,6 +3791,9 @@ function addTextPreset(id, trackId, time) {
 }
 function renderTexts() {
   const P2 = $('#pane-txt'); P2.innerHTML = '';
+  P2.append(h('h4', {}, 'Grandangolo'));
+  P2.append(h('div', { class: 'fxitem brand', 'data-pdrag': JSON.stringify({ kind: 'text', id: 'gl3' }), 'data-plabel': 'Lower third Grandangolo', onclick: () => { addTextPreset('gl3'); closeSideMobile(); } }, h('span', { class: 'grip', 'data-tdrag': 'gl3' }, '▍'), h('div', { class: 'fxn' }, 'Lower third Grandangolo', h('small', {}, 'Voce sopra, titolo e sottotitolo, come nel player'))));
+  P2.append(h('div', { class: 'fxitem brand', onclick: () => { closeSideMobile(); genDialog(); } }, h('span', { class: 'grip' }, '★'), h('div', { class: 'fxn' }, 'Confezione completa', h('small', {}, 'Pre-roll, video, outro, logo e lower third'))));
   P2.append(h('h4', {}, 'Clic per aggiungere al cursore, o trascina sulla timeline'));
   for (const t of TEXTS) {
     const it = h('div', { class: 'fxitem', 'data-pdrag': JSON.stringify({ kind: 'text', id: t.id }), 'data-plabel': t.name, onclick: () => { addTextPreset(t.id); closeSideMobile(); } },
@@ -4149,6 +4277,248 @@ function applySubStyleToAll(src) {
   textCache.clear(); commit(); renderAll(); toast('Stile copiato su ' + n + ' sottotitoli');
 }
 
+/* ================= Grandangolo: lower third, logo, pre-roll e outro ================= */
+const BRAND = {
+  green: '#1fb069', mint: '#76e3aa',
+  logoUrl: 'https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logonew2.png',
+  logoLocal: 'logo-grandangolo.png.png', // copia sul sito edicola (stesso dominio)
+  outroUrl: 'https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4',
+};
+/* --- lower third: stesso disegno del player e del generatore pre-roll --- */
+function gl3K() { return proj.w >= proj.h ? proj.w / 1920 : proj.w / 1080 * .95; }
+function gl3Layout(ctx, tx, k) {
+  const LS = v => { try { ctx.letterSpacing = v; } catch (_) { } };
+  const sc = (tx.size || 100) / 100;
+  const titleSize = 48 * k * sc, subSize = 22 * k * sc, kickSize = 22 * k * sc;
+  const accentW = 8 * k, bodyPadX = 34 * k, topPad = 18 * k, kickPadX = 22 * k, kickPadY = 10 * k, kickBorder = 8 * k, gap = 8 * k;
+  const maxBodyW = Math.min(1250 * k, proj.w * .9);
+  const title = (tx.content || '').trim(), sub = (tx.sub || '').trim(), kicker = (tx.kicker || '').trim();
+  LS('0px'); ctx.font = `700 ${titleSize}px "Archivo",sans-serif`;
+  const lines = [];
+  if (title) for (const para of title.split('\n')) { let cur = ''; for (const w of para.split(/\s+/).filter(Boolean)) { const t2 = cur ? cur + ' ' + w : w; if (ctx.measureText(t2).width > maxBodyW - bodyPadX * 2 && cur) { lines.push(cur); cur = w; } else cur = t2; } if (cur) lines.push(cur); }
+  let titleW = 0; lines.forEach(l => titleW = Math.max(titleW, ctx.measureText(l).width));
+  LS(1.5 * k + 'px'); ctx.font = `600 ${subSize}px "Archivo",sans-serif`;
+  const subW = sub ? ctx.measureText(sub.toUpperCase()).width : 0;
+  const bodyW = Math.max(titleW, subW) + bodyPadX * 2, titleLineH = titleSize * 1.14, titleBlockH = lines.length * titleLineH;
+  const subGap = sub ? 10 * k : 0, subLineH = sub ? subSize * 1.2 : 0, botPad = topPad + (sub ? 20 * k : 0);
+  const hasBar = !!(title || sub), barH = hasBar ? topPad + titleBlockH + subGap + subLineH + botPad : 0;
+  let kickH = 0, kickBodyW = 0;
+  if (kicker) { LS(1.6 * k + 'px'); ctx.font = `600 ${kickSize}px "Archivo",sans-serif`; kickBodyW = kickBorder + ctx.measureText(kicker.toUpperCase()).width + kickPadX * 2; kickH = kickPadY * 2 + kickSize * 1.2; }
+  LS('0px');
+  const hasKick = !!kicker, groupW = Math.max(hasBar ? accentW + bodyW : 0, kickBodyW), groupH = (hasKick ? kickH : 0) + (hasKick && hasBar ? gap : 0) + barH;
+  return { titleSize, subSize, kickSize, accentW, bodyPadX, topPad, kickPadX, kickPadY, kickBorder, gap, lines, titleLineH, titleBlockH, subGap, bodyW, barH, kickH, kickBodyW, groupW, groupH, sub, kicker, hasBar, hasKick, k };
+}
+function gl3Paint(ctx, ox, oy, L) {
+  const LS = v => { try { ctx.letterSpacing = v; } catch (_) { } };
+  let y = oy;
+  if (L.hasKick) {
+    ctx.fillStyle = BRAND.green; ctx.fillRect(ox, y, L.kickBorder, L.kickH);
+    const g = ctx.createLinearGradient(ox + L.kickBorder, 0, ox + L.kickBodyW, 0); g.addColorStop(0, 'rgba(7,17,12,.95)'); g.addColorStop(1, 'rgba(7,17,12,.55)');
+    ctx.fillStyle = g; ctx.fillRect(ox + L.kickBorder, y, L.kickBodyW - L.kickBorder, L.kickH);
+    ctx.fillStyle = BRAND.mint; LS(1.6 * L.k + 'px'); ctx.font = `600 ${L.kickSize}px "Archivo",sans-serif`; ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle'; ctx.fillText(L.kicker.toUpperCase(), ox + L.kickBorder + L.kickPadX, y + L.kickH / 2); LS('0px');
+    y += L.kickH + (L.hasBar ? L.gap : 0);
+  }
+  if (L.hasBar) {
+    const barW = L.accentW + L.bodyW;
+    ctx.fillStyle = BRAND.green; ctx.fillRect(ox, y, L.accentW, L.barH);
+    const g2 = ctx.createLinearGradient(ox + L.accentW, 0, ox + barW, 0); g2.addColorStop(0, 'rgba(7,17,12,.94)'); g2.addColorStop(1, 'rgba(7,17,12,.72)');
+    ctx.fillStyle = g2; ctx.fillRect(ox + L.accentW, y, L.bodyW, L.barH);
+    const tx = ox + L.accentW + L.bodyPadX; ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic'; ctx.fillStyle = '#fff'; LS('0px'); ctx.font = `700 ${L.titleSize}px "Archivo",sans-serif`;
+    let ty = y + L.topPad + L.titleSize * .9; for (const line of L.lines) { ctx.fillText(line, tx, ty); ty += L.titleLineH; }
+    if (L.sub) { const sb = y + L.topPad + L.titleBlockH + L.subGap + L.subSize * .9; ctx.fillStyle = BRAND.mint; LS(1.5 * L.k + 'px'); ctx.font = `600 ${L.subSize}px "Archivo",sans-serif`; ctx.fillText(L.sub.toUpperCase(), tx, sb); LS('0px'); }
+  }
+}
+/* disegno nella timeline: la clip è ancorata in basso a sinistra (c.x, c.y), entra da sinistra ed esce */
+function drawGL3(ctx, c, local) {
+  ensureFont({ font: 'Archivo', weight: 700, italic: false });
+  const tx = c.text, L = gl3Layout(ctx, tx, gl3K());
+  c._b = { w: Math.max(20, L.groupW), h: Math.max(20, L.groupH), ox: L.groupW / 2, oy: -L.groupH / 2 };
+  const dIn = .55, out = c.dur - local;
+  const eo = p => 1 - Math.pow(1 - p, 3);
+  let off = 0, a = 1;
+  const travel = L.groupW * 1.03 + c.x * proj.w;
+  if (local < dIn) { off = -(1 - eo(clamp(local / dIn, 0, 1))) * travel; a = clamp(local / .45, 0, 1); }
+  else if (out < dIn) { off = -(1 - eo(clamp(out / dIn, 0, 1))) * travel; a = clamp(out / .45, 0, 1); }
+  ctx.save(); ctx.globalAlpha *= a; gl3Paint(ctx, off, -L.groupH, L); ctx.restore();
+}
+function gl3Defaults() { return Object.assign(TX0(), { kind: 'gl3', content: 'Titolo della notizia', sub: 'Sottotitolo', kicker: 'Servizio di', size: 100, font: 'Archivo', shadow: false }); }
+function addGL3(trackId, time, dur, fields) {
+  const t0 = time ?? S.playhead, d = dur || 6;
+  let tr = trackId ? trackOf(trackId) : null;
+  if (!tr) tr = visualTracks().find(t => !t.lock && !isSubTrack(t) && trackFree(t, t0, t0 + d)) || addTrack('video', 'Grafica', 0);
+  const c = mkClip('text', null, tr.id, t0, d);
+  c.text = Object.assign(gl3Defaults(), fields || {}); c.x = .021; c.y = .885; c.name = 'Lower third Grandangolo';
+  proj.clips.push(c); return c;
+}
+
+/* --- risorse del brand: logo e outro, ricordati nel browser --- */
+async function brandGet(key) { return await dbDo('kv', 'readonly', st => st.get('brand:' + key)); }
+async function brandPut(key, v) { return await dbDo('kv', 'readwrite', st => st.put(v, 'brand:' + key)); }
+async function fetchBlob(url, ms = 60000) {
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), ms);
+  try { const r = await fetch(url, { mode: 'cors', signal: ctl.signal }); if (!r.ok) throw new Error('HTTP ' + r.status); return await r.blob(); } finally { clearTimeout(t); }
+}
+function trimTransparent(blob) {
+  return new Promise(res => {
+    const img = new Image(); img.onload = () => {
+      const s = Math.min(1, 1600 / img.naturalWidth), w = Math.round(img.naturalWidth * s), h2 = Math.round(img.naturalHeight * s);
+      const c = h('canvas'); c.width = w; c.height = h2; const g = c.getContext('2d'); g.drawImage(img, 0, 0, w, h2);
+      const d = g.getImageData(0, 0, w, h2).data; let x0 = w, y0 = h2, x1 = 0, y1 = 0;
+      for (let y = 0; y < h2; y += 2) for (let x = 0; x < w; x += 2) if (d[(y * w + x) * 4 + 3] > 12) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      if (x1 <= x0) return res(blob);
+      const o = h('canvas'); o.width = x1 - x0 + 4; o.height = y1 - y0 + 4; o.getContext('2d').drawImage(c, x0 - 2, y0 - 2, o.width, o.height, 0, 0, o.width, o.height);
+      o.toBlob(b => res(b || blob), 'image/png');
+    };
+    img.onerror = () => res(blob); img.src = URL.createObjectURL(blob);
+  });
+}
+/* restituisce l'id della sorgente in libreria per il logo / l'outro, caricandoli se serve */
+async function brandSource(kind, ui) {
+  const existing = [...sources.values()].find(s => s.brand === kind); if (existing) return existing.id;
+  let rec = await brandGet(kind);
+  if (!rec) {
+    let blob = null, name = kind === 'logo' ? 'Logo Grandangolo.png' : 'Outro Grandangolo.mp4';
+    const tries = kind === 'logo' ? [BRAND.logoUrl, new URL(BRAND.logoLocal, location.href).href, '/' + BRAND.logoLocal] : [BRAND.outroUrl];
+    for (const u of tries) { try { ui && ui(kind === 'logo' ? 'Scarico il logo…' : 'Scarico l\'outro…'); blob = await fetchBlob(u); if (blob && blob.size > 500) break; blob = null; } catch (e) { console.warn('brand', u, e); } }
+    if (blob && kind === 'logo') blob = await trimTransparent(blob);
+    if (!blob) return null;
+    rec = { blob, name }; await brandPut(kind, rec);
+  }
+  const s = await addSourceFromBlob(rec.blob, rec.name); s.brand = kind; renderLib(); return s.id;
+}
+async function brandSetFile(kind, file) {
+  let blob = file; if (kind === 'logo') blob = await trimTransparent(file);
+  await brandPut(kind, { blob, name: kind === 'logo' ? 'Logo Grandangolo.png' : file.name });
+  for (const s of [...sources.values()]) if (s.brand === kind) s.brand = null;
+  toast(kind === 'logo' ? 'Logo salvato: lo userò sempre' : 'Outro salvato: lo userò sempre');
+}
+function pickFile(accept) { return new Promise(res => { const i = h('input', { type: 'file', accept, style: 'display:none' }); i.onchange = () => { res(i.files[0] || null); i.remove(); }; document.body.append(i); i.click(); }); }
+
+/* --- il generatore --- */
+const GEN = JSON.parse(localStorage.getItem('mv_gen') || 'null') || { kicker: 'Servizio di', title: '', sub: '', size: 100, delay: 1, stay: 6, logo: true, adTag: true, pre: '', outro: 'brand', main: 'timeline', fades: true };
+function saveGen() { try { localStorage.setItem('mv_gen', JSON.stringify(GEN)); } catch { } }
+let genPrevImg = null;
+function genPreview() {
+  const cv2 = $('#genCv'); if (!cv2) return; const g = cv2.getContext('2d'), W = cv2.width, H = cv2.height;
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  if (genPrevImg) { const f = Math.max(W / genPrevImg.w, H / genPrevImg.h); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.drawImage(genPrevImg.el, (W - genPrevImg.w * f) / 2, (H - genPrevImg.h * f) / 2, genPrevImg.w * f, genPrevImg.h * f); }
+  else { const gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, '#1c3a2b'); gr.addColorStop(1, '#0a120e'); g.fillStyle = gr; g.fillRect(0, 0, W, H); }
+  const s = W / proj.w; g.save(); g.scale(s, s);
+  const tx = Object.assign(gl3Defaults(), { kicker: GEN.kicker, content: GEN.title || 'Titolo della notizia', sub: GEN.sub, size: GEN.size });
+  const L = gl3Layout(g, tx, gl3K()); gl3Paint(g, .021 * proj.w, .885 * proj.h - L.groupH, L);
+  if (GEN.logo && genPrevImg && genPrevImg.logo) { const lg = genPrevImg.logo, lh = .058 * proj.h, lw = lh * lg.naturalWidth / lg.naturalHeight; g.globalAlpha = .92; g.drawImage(lg, proj.w - .021 * proj.w - lw, .04 * proj.h, lw, lh); g.globalAlpha = 1; }
+  g.restore();
+}
+async function genDialog() {
+  if (P.playing) pause();
+  const vids0 = [...sources.values()].filter(s => s.type === 'video' && !s.brand);
+  const sel = (id, opts, v, on) => h('select', { id, onchange: e => { on(e.target.value); } }, opts.map(([a, b]) => h('option', { value: a, selected: a === v }, b)));
+  const inp = (id, ph, key) => h('input', { type: 'text', id, placeholder: ph, value: GEN[key] || '', oninput: e => { GEN[key] = e.target.value; genPreview(); } });
+  const num = (id, key, min, max, step) => h('input', { type: 'number', id, min, max, step, value: GEN[key], style: 'width:72px', oninput: e => { GEN[key] = +e.target.value; genPreview(); } });
+  if (!proj.clips.length && GEN.main === 'timeline') GEN.main = vids0[0]?.id || 'timeline';
+  const body = h('div', { class: 'gen' },
+    h('div', { class: 'genL' },
+      h('p', { class: 'eyebrow' }, 'Confezione Grandangolo'),
+      h('h3', {}, 'Pre-roll → video → outro, con lower third e logo'),
+      h('div', { class: 'gfield' }, h('label', {}, 'Video principale'), sel('gMain', [['timeline', proj.clips.length ? 'Il montaggio che c\'è ora sulla timeline' : '— importa prima un video —'], ...vids0.map(s => [s.id, '🎬 ' + s.name])], GEN.main, v => { GEN.main = v; loadGenFrame(); })),
+      h('div', { class: 'gfield' }, h('label', {}, 'Pre-roll (pubblicità iniziale)'), sel('gPre', [['', 'Nessun pre-roll'], ...vids0.map(s => [s.id, '🎬 ' + s.name]), ['__file', '＋ Scegli un file…']], GEN.pre, async v => { if (v === '__file') { const f = await pickFile('video/*'); if (f) { const s = await addSourceFromBlob(f, f.name); renderLib(); GEN.pre = s.id; const o = h('option', { value: s.id, selected: true }, '🎬 ' + s.name); $('#gPre').insertBefore(o, $('#gPre').lastChild); $('#gPre').value = s.id; } else $('#gPre').value = GEN.pre; } else GEN.pre = v; })),
+      h('label', { class: 'gcheck' }, h('input', { type: 'checkbox', checked: GEN.adTag, onchange: e => GEN.adTag = e.target.checked }), ' Etichetta «Annuncio» sul pre-roll'),
+      h('div', { class: 'gfield' }, h('label', {}, 'Outro (chiusura)'), sel('gOutro', [['brand', 'Outro Grandangolo (predefinito)'], ['', 'Nessun outro'], ...vids0.map(s => [s.id, '🎬 ' + s.name])], GEN.outro, v => GEN.outro = v)),
+      h('div', { class: 'gsep' }, 'Lower third'),
+      h('div', { class: 'gfield' }, h('label', {}, 'Voce sopra il titolo'), inp('gKick', 'Servizio di… / luogo', 'kicker')),
+      h('div', { class: 'gfield' }, h('label', {}, 'Riga 1 — titolo o nome'), inp('gT1', 'es. Mario Rossi', 'title')),
+      h('div', { class: 'gfield' }, h('label', {}, 'Riga 2 — sottotitolo'), inp('gT2', 'es. Sindaco di Agrigento', 'sub')),
+      h('div', { class: 'grow3' },
+        h('div', { class: 'gfield' }, h('label', {}, 'Dimensione %'), num('gSize', 'size', 60, 160, 5)),
+        h('div', { class: 'gfield' }, h('label', {}, 'Entra dopo (s)'), num('gDelay', 'delay', 0, 120, .5)),
+        h('div', { class: 'gfield' }, h('label', {}, 'Resta (s, 0 = sempre)'), num('gStay', 'stay', 0, 600, 1))),
+      h('label', { class: 'gcheck' }, h('input', { type: 'checkbox', checked: GEN.logo, onchange: e => { GEN.logo = e.target.checked; genPreview(); } }), ' Logo in alto a destra sul video principale'),
+      h('label', { class: 'gcheck' }, h('input', { type: 'checkbox', checked: GEN.fades, onchange: e => GEN.fades = e.target.checked }), ' Passaggi morbidi tra pre-roll, video e outro'),
+      h('div', { class: 'row2', style: 'margin-top:6px' },
+        h('button', { class: 'ghost', onclick: async () => { const f = await pickFile('image/*'); if (f) { await brandSetFile('logo', f); loadGenLogo(true); } } }, 'Cambia logo…'),
+        h('button', { class: 'ghost', onclick: async () => { const f = await pickFile('video/*'); if (f) await brandSetFile('outro', f); } }, 'Cambia outro…'))),
+    h('div', { class: 'genR' }, h('canvas', { id: 'genCv', width: proj.w >= proj.h ? 640 : 360, height: proj.w >= proj.h ? Math.round(640 * proj.h / proj.w) : Math.round(360 * proj.h / proj.w) }),
+      h('p', { class: 'hint' }, 'Anteprima dal vivo. Il lower third entra da sinistra e poi esce, come nel player del sito. Tutto resta modificabile sulla timeline.')));
+  const d = $('#dlg'); d.classList.add('wide');
+  loadGenFrame(); loadGenLogo(); setTimeout(genPreview, 30);
+  if (document.fonts) document.fonts.load('700 40px "Archivo"').then(genPreview).catch(() => { });
+  const r = await ask('Genera con Grandangolo', body, [['Annulla', 0], ['Genera il montaggio', 1, 'primary']]);
+  d.classList.remove('wide'); saveGen();
+  if (r === 1) await generateBrand();
+}
+async function loadGenFrame() {
+  genPrevImg = genPrevImg && genPrevImg.logo ? { logo: genPrevImg.logo } : null;
+  let s = GEN.main !== 'timeline' ? sources.get(GEN.main) : null;
+  if (!s) { const c = proj.clips.find(c => c.type === 'video' || c.type === 'image'); s = c && sources.get(c.src); }
+  if (!s) { genPreview(); return; }
+  if (s.type === 'image') { genPrevImg = Object.assign(genPrevImg || {}, { el: s.img, w: s.w, h: s.h }); genPreview(); return; }
+  const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.src = s.url;
+  try { await once(v, 'loadeddata'); await seekTo(v, Math.min(2, s.duration / 3)); genPrevImg = Object.assign(genPrevImg || {}, { el: v, w: v.videoWidth, h: v.videoHeight }); } catch { }
+  genPreview();
+}
+async function loadGenLogo(force) {
+  let rec = await brandGet('logo');
+  if (!rec || force) { try { const id = await brandSource('logo'); rec = id && { blob: sources.get(id).blob }; } catch { } }
+  if (!rec) return;
+  const img = new Image(); img.onload = () => { genPrevImg = Object.assign(genPrevImg || {}, { logo: img }); genPreview(); }; img.src = URL.createObjectURL(rec.blob);
+}
+async function generateBrand() {
+  const ui = progUI('Genero il montaggio Grandangolo'); const say = t => ui.set(.1, t);
+  try {
+    // 1) tolgo quanto generato prima
+    if (proj.gen) { const pd = proj.gen.preDur || 0; proj.clips = proj.clips.filter(c => !c.gen); if (pd) for (const c of proj.clips) c.start = Math.max(0, c.start - pd); proj.tracks = proj.tracks.filter(t => !t.gen || proj.clips.some(c => c.track === t.id)); proj.gen = null; }
+    const mainTr = mainVideoTrack() || addTrack('video', 'Video');
+    // 2) video principale
+    if (GEN.main !== 'timeline') {
+      const s = sources.get(GEN.main); if (!s) throw new Error('Scegli il video principale');
+      const c = addFromLib(s.id, mainTr.id, projDur(), true); c.gen = false;
+    }
+    if (!proj.clips.length) throw new Error('Non c\'è nessun video sulla timeline: importalo prima o sceglilo nel menu «Video principale».');
+    const fade = GEN.fades ? .4 : 0;
+    // 3) pre-roll
+    let preDur = 0;
+    if (GEN.pre && sources.get(GEN.pre)) {
+      const s = sources.get(GEN.pre); preDur = s.duration;
+      for (const c of proj.clips) c.start += preDur;
+      const c = mkClip('video', s.id, mainTr.id, 0, preDur); c.gen = true; c.fit = 'contain'; if (fade) c.tout = { type: 'black', dur: fade };
+      proj.clips.push(c);
+      if (GEN.adTag) { const tr = addTrack('video', 'Etichetta', 0); tr.gen = true; const t = mkClip('text', null, tr.id, 0, preDur); t.gen = true; t.text = Object.assign(TX0(), { content: 'ANNUNCIO', font: 'Archivo', weight: 600, size: 22, color: BRAND.mint, bg: 'box', bgColor: '#000000', bgOpacity: .55, shadow: false, letter: 14, pad: .45, boxW: .4 }); t.x = .06; t.y = .065; proj.clips.push(t); ensureFont(t.text); }
+    }
+    proj.gen = { preDur };
+    const mainA = preDur, mainB = projDur();
+    const firstMain = proj.clips.filter(c => !c.gen && c.start >= mainA - 1e-3 && (c.type === 'video' || c.type === 'image')).sort((a, b) => a.start - b.start)[0];
+    if (fade && preDur && firstMain) firstMain.tin = { type: 'black', dur: fade };
+    // 4) outro
+    if (GEN.outro) {
+      const id = GEN.outro === 'brand' ? await brandSource('outro', say) : GEN.outro;
+      if (!id) { ui.close(); const r = await ask('Outro non raggiungibile', 'Non riesco a scaricare l\'outro dal sito (il server non lo permette al browser). Sceglilo una volta dal tuo computer: lo ricorderò per tutte le prossime volte.', [['Salta l\'outro', 0], ['Scegli il file dell\'outro…', 1, 'primary']]); if (r === 1) { const f = await pickFile('video/*'); if (f) { await brandSetFile('outro', f); return generateBrand(); } } }
+      else { const s = sources.get(id); const c = mkClip('video', id, mainTr.id, mainB, s.duration); c.gen = true; if (fade) c.tin = { type: 'black', dur: fade }; proj.clips.push(c); const lastMain = proj.clips.filter(x => !x.gen && x.track === mainTr.id).sort((a, b) => b.start - a.start)[0]; if (fade && lastMain) lastMain.tout = { type: 'black', dur: fade }; }
+    }
+    // 5) logo sul principale
+    if (GEN.logo) {
+      const id = await brandSource('logo', say);
+      if (id) {
+        const s = sources.get(id), tr = addTrack('video', 'Logo', 0); tr.gen = true;
+        const c = mkClip('image', id, tr.id, mainA, mainB - mainA); c.gen = true; c.fit = 'contain';
+        const f = Math.min(proj.w / s.w, proj.h / s.h), bh = s.h * f, lh = .058 * proj.h, sc = lh / bh, lw = s.w * f * sc;
+        c.scale = sc; c.x = (proj.w - .021 * proj.w - lw / 2) / proj.w; c.y = (.04 * proj.h + lh / 2) / proj.h; c.opacity = .92; c.tin = { type: 'fade', dur: .5 }; c.tout = { type: 'fade', dur: .4 };
+        proj.clips.push(c);
+      } else toast('Logo non raggiungibile dal sito: usa «Cambia logo…» una volta e lo ricorderò', 7000);
+    }
+    // 6) lower third
+    if ((GEN.title || GEN.sub || GEN.kicker).trim()) {
+      const tr = addTrack('video', 'Lower third', 0); tr.gen = true;
+      const st = mainA + (+GEN.delay || 0), dur = GEN.stay > 0 ? Math.min(+GEN.stay + 1.1, mainB - st) : mainB - st;
+      if (dur > .5) { const c = addGL3(tr.id, st, dur, { kicker: GEN.kicker, content: GEN.title, sub: GEN.sub, size: GEN.size }); c.gen = true; }
+    }
+    proj.gen = { preDur };
+    ui.close(); S.sel = null; commit(); renderAll(); setPlayhead(mainA + (+GEN.delay || 0) + 1.2);
+    toast('Montaggio Grandangolo pronto: controlla l\'anteprima e poi «Esporta».', 6000);
+  } catch (e) { console.error(e); ui.close(); await ask('Non riesco a generare', String(e.message || e)); }
+}
+
 /* ================= pannello proprietà ================= */
 const INS = $('#insp');
 const openSec = new Set(['testo', 'pos', 'audio']);
@@ -4190,7 +4560,13 @@ function renderInspector() {
   const visual = c.type !== 'audio';
 
   if (c.type === 'text' && isSubTrack(tr)) INS.append(h('div', { class: 'row2' }, h('button', { onclick: () => applySubStyleToAll(c), title: 'Carattere, colori, posizione e fondo uguali per tutti i sottotitoli' }, '⇉ Copia questo stile su tutti i sottotitoli')));
-  if (c.type === 'text') {
+  if (c.type === 'text' && c.text.kind === 'gl3') {
+    const tx = c.text, f = (lbl, key, ph) => h('div', { class: 'gfield' }, h('label', {}, lbl), h('input', { type: 'text', value: tx[key] || '', placeholder: ph, oninput: e => { tx[key] = e.target.value; requestDraw(); }, onchange: () => { commit(); renderTimeline(); } }));
+    INS.append(sec('testo', 'Lower third Grandangolo',
+      f('Voce sopra il titolo', 'kicker', 'Servizio di… / luogo'), f('Riga 1 — titolo o nome', 'content', 'Titolo'), f('Riga 2 — sottotitolo', 'sub', 'Sottotitolo'),
+      rng('Dimensione', () => tx.size, v => tx.size = v, 60, 160, 5, '%', { def: 100 }),
+      h('p', { class: 'hint' }, 'Entra da sinistra e alla fine esce da solo, come nel player del sito. Allunga o accorcia la clip per decidere quanto resta a schermo.')));
+  } else if (c.type === 'text') {
     const tx = c.text;
     const ta = h('textarea', { rows: 3, oninput: e => { tx.content = e.target.value; textCache.clear(); requestDraw(); const el = TRK.querySelector(`[data-c="${c.id}"] .cl span:last-child`); if (el) el.textContent = 'T  ' + clipName(c); }, onchange: () => commit() }, tx.content);
     const fonts = ['Oswald', 'Montserrat', 'Bebas Neue', 'Anton', 'Playfair Display', 'Lora', 'Special Elite', 'Arial', 'Georgia', 'Times New Roman', 'Courier New', 'Impact', 'Verdana', 'Trebuchet MS'];
@@ -4208,7 +4584,7 @@ function renderInspector() {
       rng('Interlinea', () => tx.lineH, v => { tx.lineH = v; textCache.clear(); }, .8, 2.5, .05, '', { def: 1.15 }),
       rng('Spaziatura', () => tx.letter || 0, v => { tx.letter = v; textCache.clear(); }, -5, 40, 1, '', { def: 0 }),
       h('div', { class: 'row2' }, h('label', {}, 'Fondo'), segBtns([['none', 'Nessuno'], ['box', 'Riquadro'], ['lines', 'Per riga'], ['bar', 'Fascia']], () => tx.bg, v => tx.bg = v, renderInspector)),
-      tx.bg !== 'none' ? h('div', {}, h('div', { class: 'row2' }, h('label', {}, 'Colore fondo'), col(() => tx.bgColor, v => tx.bgColor = v), tx.bg === 'bar' ? [h('label', {}, 'Barretta'), col(() => tx.accent || '#e3a63c', v => tx.accent = v)] : null),
+      tx.bg !== 'none' ? h('div', {}, h('div', { class: 'row2' }, h('label', {}, 'Colore fondo'), col(() => tx.bgColor, v => tx.bgColor = v), tx.bg === 'bar' ? [h('label', {}, 'Barretta'), col(() => tx.accent || '#1fb069', v => tx.accent = v)] : null),
         rng('Opacità fondo', () => Math.round(tx.bgOpacity * 100), v => tx.bgOpacity = v / 100, 0, 100, 1, '%'),
         rng('Margine', () => tx.pad ?? .35, v => tx.pad = v, 0, 1.5, .05)) : null,
       h('div', { class: 'row2' }, h('label', {}, h('input', { type: 'checkbox', checked: tx.shadow, onchange: e => { tx.shadow = e.target.checked; commit(); requestDraw(); } }), ' Ombra'), h('label', {}, 'Contorno'), col(() => tx.outlineColor || '#000000', v => tx.outlineColor = v)),
@@ -4245,7 +4621,13 @@ function renderInspector() {
       rng('Entrata morbida', () => c.fadeIn, v => c.fadeIn = Math.min(v, c.dur / 2), 0, 10, .1, 's', { def: 0, audio: true, tl: true }),
       rng('Uscita morbida', () => c.fadeOut, v => c.fadeOut = Math.min(v, c.dur / 2), 0, 10, .1, 's', { def: 0, audio: true, tl: true }),
       h('div', { class: 'row2' }, h('label', {}, h('input', { type: 'checkbox', checked: c.mute, onchange: e => { c.mute = e.target.checked; commit(); renderTimeline(); if (P.playing) { pause(); play(); } } }), ' Audio spento'),
-        c.type === 'video' && !c.mute ? h('button', { onclick: doDetach }, '♪ Separa audio') : null)));
+        c.type === 'video' && !c.mute ? h('button', { onclick: doDetach }, '♪ Separa audio') : null),
+      h('div', { class: 'gsep' }, 'Volume nel tempo'),
+      h('p', { class: 'hint' }, 'Ogni traccia ha la sua linea gialla del volume: premi 〰 accanto al nome della traccia, clicca sulla linea per mettere un punto e trascinalo su o giù. Doppio clic su un punto per toglierlo.'),
+      h('div', { class: 'row2' },
+        h('button', { onclick: () => { tr.autoShow = !tr.autoShow; commit(); renderAll(); } }, tr.autoShow ? 'Chiudi la linea di «' + tr.name + '»' : '〰 Apri la linea di «' + tr.name + '»'),
+        h('button', { title: 'Mentre suona questa clip, le altre tracce con audio si abbassano di 14 dB (con rampe morbide)', onclick: () => { let n = 0; for (const t2 of proj.tracks) if (t2 !== tr && proj.clips.some(x => x.track === t2.id && hasAudio(x))) { autoDuckRange(t2, c.start, c.start + c.dur, -14); n++; } commit(); renderAll(); toast(n ? 'Abbassate ' + n + ' tracce mentre suona questa clip' : 'Non ci sono altre tracce con audio'); } }, '⬇ Abbassa le altre tracce qui'),
+        tr.auto && tr.auto.length ? h('button', { class: 'ghost', onclick: () => { tr.auto = []; commit(); renderAll(); } }, 'Azzera i punti') : null)));
   }
 
   if (visual) {
@@ -4642,6 +5024,7 @@ $('#bSide').onclick = () => toggleSide();
 $('#bText').onclick = () => { if (isMobile()) { toggleSide(true); setSideTab('txt'); } else { addTextPreset('title'); } };
 $('#bRec').onclick = () => REC.on ? stopRec() : startRec();
 $('#bSubs').onclick = subsDialog;
+$('#bGen').onclick = genDialog;
 $('#srtIn').onchange = e => { const f = e.target.files[0]; if (f) importSRT(f); e.target.value = ''; };
 $('#bUndo').onclick = undo; $('#bRedo').onclick = redo;
 $('#selFormat').onchange = e => changeFormat(e.target.value);
@@ -4720,7 +5103,7 @@ $('#zoom').value = z2v(S.pps);
 commit();
 afterProjectChange();
 restoreAutosave();
-window.__mv = { get proj() { return proj; }, sources, exportRealtime, setFormat, changeFormat, cutTransition, applyToAllCuts, S, P, importFiles, exportMP4, renderMix, setPlayhead, drawFrame, addTextPreset, applyTransition, applyEffect, select, doSplit, undo, redo, saveProject, openProjectFile, readZip };
+window.__mv = { get proj() { return proj; }, sources, exportRealtime, generateBrand, GEN, setFormat, changeFormat, cutTransition, applyToAllCuts, S, P, importFiles, exportMP4, renderMix, setPlayhead, drawFrame, addTextPreset, applyTransition, applyEffect, select, doSplit, undo, redo, saveProject, openProjectFile, readZip };
 
 </script>
 </body>
