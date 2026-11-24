@@ -287,7 +287,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   tabs.forEach(function (t) { t.onclick = function () { tab(t.dataset.d); }; });
   tab(dev);
   if (dev !== 'pc') document.getElementById('zipNote').textContent = 'Il pacchetto è per il computer. Sul ' + names[dev] + ' installa le app con i pulsanti qui sopra.';
-  fetch('Newland-Studio-Suite-Setup.exe.sha256', { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (t) { var h = (t.match(/[0-9a-f]{64}/i) || [''])[0]; document.getElementById('sha').textContent = h ? h.toUpperCase() : 'non disponibile'; }).catch(function () {});
   fetch('Newland-Studio-Suite.zip', { method: 'HEAD' }).then(function (r) { var n = +r.headers.get('content-length'); if (n) document.getElementById('zipSize').textContent = '· ' + (n / 1048576).toFixed(1).replace('.', ',') + ' MB'; }).catch(function () {});
 })();
 </script>
