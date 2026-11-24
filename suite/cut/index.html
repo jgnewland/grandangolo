@@ -266,6 +266,38 @@ svg.auto .ahint{fill:#ffd34d;font:600 11px Inter,sans-serif;pointer-events:none}
   #transport{padding:5px 6px;gap:4px}
   #transport button{padding:4px 8px}
 }
+/* menu tasto destro */
+#ctxMenu,#ctxMenu .csub{position:fixed;z-index:140;min-width:230px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:5px;box-shadow:0 14px 40px rgba(0,0,0,.6);font-size:13px}
+#ctxMenu .csub{position:absolute;left:100%;top:-6px;display:none;max-height:70vh;overflow:auto}
+#ctxMenu.left .csub{left:auto;right:100%}
+#ctxMenu .citem{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:30px;padding:4px 10px;border:0;border-radius:6px;background:none;color:var(--text);text-align:left;cursor:pointer;position:relative;font-size:13px}
+#ctxMenu .citem:hover:not([disabled]),#ctxMenu .hassub:focus-within{background:rgba(255,255,255,.08)}
+#ctxMenu .hassub:hover>.csub{display:block}
+#ctxMenu .citem[disabled]{opacity:.4;cursor:default}
+#ctxMenu .citem.on{color:var(--accent);font-weight:600}
+#ctxMenu .citem.danger{color:var(--red)}
+#ctxMenu kbd{font:11px inherit;color:var(--muted)}
+#ctxMenu i{font-style:normal;color:var(--muted)}
+#ctxMenu .csep{height:1px;background:var(--line);margin:4px 6px}
+/* anteprime filtri, preset velocità, curve */
+.fxgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin-bottom:8px}
+.fxtile{display:flex;flex-direction:column;gap:3px;cursor:pointer;user-select:none;font-size:11px;line-height:1.15;color:var(--text)}
+.fxtile canvas{width:100%;aspect-ratio:16/9;border-radius:6px;border:2px solid transparent;background:#000;display:block}
+.fxtile:hover canvas{border-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.chips button{flex-direction:column;min-height:36px;padding:3px 8px;font-size:12px;line-height:1.1}
+.chips button small{font-size:9.5px;color:var(--muted)}
+.chips button.on{border-color:var(--accent);color:var(--accent)}
+.rampgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px}
+.rampgrid button{flex-direction:column;gap:1px;min-height:48px;padding:3px;font-size:10.5px;white-space:normal;line-height:1.1}
+.rampgrid button.on{border-color:var(--accent);color:var(--accent)}
+.rampsvg{display:inline-flex;flex:none}
+/* novità */
+.news{display:flex;flex-direction:column;gap:10px;max-width:520px}
+.newsit{display:flex;gap:12px;align-items:flex-start}
+.newsit .ni{flex:none;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--panel2);font-size:18px}
+.newsit b{display:block;margin-bottom:2px}
+.newsit p{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
 </style>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
@@ -303,6 +335,7 @@ dialog{background:linear-gradient(180deg,#0d1640,#0a1233)!important}
       <option value="4:5">4:5 post</option>
     </select>
     <span class="grow"></span>
+    <button id="bNews" title="Le novità di questa versione">✦ <span class="tb-l">Novità</span></button>
     <button id="bInstall" style="display:none" title="Installa Montaggio Video sul computer, come un programma">⤓ <span class="tb-l">Installa</span></button>
     <button id="bMenu" title="Progetto: nuovo, apri, salva">Progetto ▾</button>
     <button id="bExport" class="primary" title="Esporta il video">⤓ Esporta</button>
@@ -356,7 +389,7 @@ dialog{background:linear-gradient(180deg,#0d1640,#0a1233)!important}
       <button id="bDup" title="Duplica (D)">⧉ <span class="tb-l">Duplica</span></button>
       <button id="bDel" title="Elimina (Canc)">🗑 <span class="tb-l">Elimina</span></button>
       <button id="bSelAll" title="Seleziona tutte le clip (Ctrl+A). Puoi anche trascinare un riquadro sullo spazio vuoto della timeline">⬚ <span class="tb-l">Seleziona tutto</span></button>
-      <button id="bDetach" title="Separa l'audio del video su una traccia audio">♪ <span class="tb-l">Separa audio</span></button>
+      <button id="bDetach" title="Separa l'audio del video su una traccia audio">♪ <span class="tb-l">Estrai audio</span></button>
       <span class="sep"></span>
       <button id="bSnap" class="on" title="Calamita: aggancia ai bordi delle clip e al cursore">🧲</button>
       <button id="bZoomOut" title="Riduci zoom">−</button>
@@ -2735,10 +2768,20 @@ function drawBlurBg(ctx, act, W, H) {
   g.drawImage(el, -bw / 48, -bh / 48, bw / 24, bh / 24); g.setTransform(1, 0, 0, 1, 0, 0);
   ctx.save(); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(B, 0, 0, W, H); ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(0, 0, W, H); ctx.restore();
 }
-function drawBars(ctx, W, H) {
-  const ratio = proj.bars; if (!ratio || proj.h >= proj.w) return; // le bande hanno senso solo in orizzontale
-  const target = W / ratio; if (target >= H) return; const bar = (H - target) / 2;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, bar); ctx.fillRect(0, H - bar, W, bar); ctx.restore();
+/* bande cinema: su tutto il progetto (proj.bars) o solo su alcune clip (c.bars), con entrata/uscita animata */
+function barsAt(t) {
+  let ratio = proj.bars || 0, k = 1;
+  if (proj.bars && proj.barsAnim) { const end = projDur(); k = Math.min(clamp(t / .8, 0, 1), clamp((end - t) / .8, 0, 1)); }
+  for (const c of proj.clips) if (c.bars && t >= c.start && t < c.start + c.dur && !trackOf(c.track)?.hide) {
+    const kk = c.barsAnim === false ? 1 : Math.min(clamp((t - c.start) / .6, 0, 1), clamp((c.start + c.dur - t) / .6, 0, 1));
+    if (!ratio || c.bars > ratio) { ratio = c.bars; k = kk; }
+  }
+  return [ratio, ease(k)];
+}
+function drawBars(ctx, W, H, t = 0) {
+  const [ratio, k] = barsAt(t); if (!ratio || k <= 0) return;
+  const target = W / ratio; if (target >= H) return; const bar = (H - target) / 2 * k;
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = proj.barsOpacity ?? 1; ctx.fillStyle = proj.barsColor || '#000'; ctx.fillRect(0, 0, W, bar); ctx.fillRect(0, H - bar, W, bar); ctx.restore();
 }
 /* disegna il fotogramma al tempo t su ctx di dimensione W×H */
 function drawFrame(ctx, t, W, H) {
@@ -2752,7 +2795,7 @@ function drawFrame(ctx, t, W, H) {
     try { drawClip(ctx, c, t, k); } catch (e) { console.warn(e); }
     ctx.restore();
   }
-  drawBars(ctx, W, H);
+  drawBars(ctx, W, H, t);
 }
 function textFont(tx, size) { return `${tx.italic ? 'italic ' : ''}${tx.weight || 700} ${size}px "${tx.font}", "Helvetica Neue", Arial, sans-serif`; }
 const fontReq = new Set();
@@ -2916,7 +2959,18 @@ function drawClip(ctx, c, t, k) {
   for (const [col, a] of over) { ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = col; ctx.fillRect(0, 0, W, H); ctx.restore(); }
 }
 /* tempo del file sorgente per una clip al tempo t della timeline */
-const srcTime = (c, t) => c.offset + (t - c.start) * c.speed;
+/* curve di velocità (rampe): punti [p 0..1, moltiplicatore], interpolati in linea */
+const rampV = (r, p) => { if (p <= r[0][0]) return r[0][1]; for (let i = 1; i < r.length; i++) { const [p1, v1] = r[i]; if (p <= p1) { const [p0, v0] = r[i - 1]; return v0 + (v1 - v0) * (p - p0) / ((p1 - p0) || 1); } } return r[r.length - 1][1]; };
+const rampF = (r, p) => { let s = 0; for (let i = 1; i < r.length; i++) { const [p0, v0] = r[i - 1], [p1, v1] = r[i]; if (p <= p0) break; const q = Math.min(p, p1), vq = v0 + (v1 - v0) * (q - p0) / ((p1 - p0) || 1); s += (v0 + vq) / 2 * (q - p0); } return s; };
+const effSpeed = c => c.ramp ? c.speed * rampF(c.ramp, 1) : c.speed;
+const speedAt = (c, t) => c.ramp ? c.speed * rampV(c.ramp, clamp((t - c.start) / c.dur, 0, 1)) : c.speed;
+const srcTime = (c, t) => c.ramp ? c.offset + c.speed * c.dur * rampF(c.ramp, clamp((t - c.start) / c.dur, 0, 1)) : c.offset + (t - c.start) * c.speed;
+/* pezzo di curva tra p0 e p1, rinormalizzato su 0..1 */
+function sliceRamp(r, p0, p1) {
+  const out = [[0, rampV(r, p0)]];
+  for (const [p, v] of r) if (p > p0 + 1e-6 && p < p1 - 1e-6) out.push([(p - p0) / (p1 - p0), v]);
+  out.push([1, rampV(r, p1)]); return out;
+}
 
 /* ================= audio: grafo di mixaggio ================= */
 const VIS_FADES = ['fade', 'black', 'white', 'zoom', 'zoomOut', 'blur', 'circle', 'wipeL', 'wipeR', 'slideL', 'slideR', 'slideU', 'slideD'];
@@ -2971,9 +3025,13 @@ function buildAudio(A, dest, from, t0, until = Infinity) {
       const end = c.start + c.dur; if (end <= from || c.start >= until) continue;
       const buf = sources.get(c.src)?.audioBuf; if (!buf) continue;
       const a = Math.max(from, c.start), local0 = a - c.start, at = t0 + (a - from);
-      const off = c.offset + local0 * c.speed; if (off >= buf.duration) continue;
-      const len = (Math.min(end, until) - a) * c.speed;
-      const src = A.createBufferSource(); src.buffer = buf; src.playbackRate.value = c.speed;
+      const off = srcTime(c, a); if (off >= buf.duration) continue;
+      const len = srcTime(c, Math.min(end, until)) - off;
+      const src = A.createBufferSource(); src.buffer = buf; src.playbackRate.value = speedAt(c, a);
+      if (c.ramp) { // rampa di velocità: la stessa curva sul playbackRate
+        const pr = src.playbackRate; pr.setValueAtTime(speedAt(c, a), at);
+        for (const [p] of c.ramp) { const tp = c.start + p * c.dur; if (tp > a + 1e-4 && tp <= Math.min(end, until)) pr.linearRampToValueAtTime(speedAt(c, tp), t0 + (tp - from)); }
+      }
       const g = A.createGain(); applyEnv(g.gain, envPoints(c).map(([t, v]) => [c.start + t, v]), a, at);
       src.connect(g); g.connect(tg);
       src.start(at, off, Math.max(0.001, Math.min(buf.duration - off, len))); nodes.push(src);
@@ -3022,10 +3080,10 @@ function syncVideos(t) {
     if (soon) { if (!v.paused) v.pause(); if (Math.abs(v.currentTime - c.offset) > .05 && !v.seeking) v.currentTime = c.offset; continue; }
     const st = srcTime(c, t);
     if (st >= (v.duration || 1e9) - .04) { if (!v.paused) v.pause(); continue; }
-    if (v.playbackRate !== c.speed) v.playbackRate = c.speed;
+    const rate = clamp(Math.round(speedAt(c, t) * 40) / 40, .0625, 16); if (Math.abs(v.playbackRate - rate) > .001) v.playbackRate = rate;
     if (!started) continue;
     if (v.paused) { if (Math.abs(v.currentTime - st) > .08) v.currentTime = st; v.play().catch(() => { }); }
-    else if (Math.abs(v.currentTime - st) > .35) v.currentTime = st;
+    else if (Math.abs(v.currentTime - st) > (c.ramp ? .2 : .35)) v.currentTime = st;
   }
   releaseVids(t);
 }
@@ -3038,6 +3096,7 @@ function seekPreview() {
     if (Math.abs(v.currentTime - st) > .0005) { try { v.currentTime = st; } catch { } }
   }
   releaseVids(t); requestDraw();
+  clearTimeout(seekPreview.fx); seekPreview.fx = setTimeout(refreshFxThumbs, 350);
 }
 function setPlayhead(t, keepPlaying) {
   t = clamp(t, 0, Math.max(projDur(), 0));
@@ -3262,7 +3321,9 @@ function renderTimeline() {
 function clipEl(c, tr) {
   const wpx = Math.max(4, c.dur * S.pps);
   const badges = [];
-  if (c.speed !== 1) badges.push(h('span', { class: 'badge' }, c.speed + '×'));
+  if (c.ramp) badges.push(h('span', { class: 'badge' }, '⤳ ' + ((RAMPS.find(r => r[0] === c.rampId) || [, 'Curva'])[1])));
+  else if (c.speed !== 1) badges.push(h('span', { class: 'badge' }, c.speed + '×'));
+  if (c.bars) badges.push(h('span', { class: 'badge', title: 'Barre cinema ' + c.bars + ':1' }, '▬'));
   if (c.mute && c.type !== 'text' && c.type !== 'image') badges.push(h('span', { class: 'badge' }, '🔇'));
   if (Object.values(c.fx).some(v => v) || c.kb !== 'none') badges.push(h('span', { class: 'badge' }, 'fx'));
   const e = h('div', { class: 'clip' + (c.id === S.sel ? ' sel' : '') + (tr.lock ? ' locked' : ''), 'data-c': c.id, style: `left:${c.start * S.pps}px;width:${wpx}px;--cc:${CCOL[c.type]}`, title: clipName(c) },
@@ -3282,7 +3343,7 @@ function paintClip(c, e) {
   if ((c.type === 'video' || c.type === 'image') && s && s.thumbs && s.thumbs.length) {
     const t0 = s.thumbs.find(Boolean); const tw = Math.max(12, H * t0.width / t0.height);
     for (let x = 0; x < wpx; x += tw) {
-      const tt = c.type === 'video' ? c.offset + ((x + tw / 2) / S.pps) * c.speed : 0;
+      const tt = c.type === 'video' ? srcTime(c, c.start + (x + tw / 2) / S.pps) : 0;
       const im = thumbAt(s, tt); if (im) g.drawImage(im, x, 0, tw, H);
     }
     g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(0, 0, wpx, 16);
@@ -3293,7 +3354,7 @@ function paintClip(c, e) {
     g.fillStyle = c.mute ? 'rgba(255,255,255,.25)' : c.type === 'audio' ? 'rgba(200,255,215,.85)' : 'rgba(160,240,190,.8)';
     const env = envPoints(c), gmax = Math.max(1, dbToG(c.vol));
     for (let x = 0; x < wpx; x++) {
-      const a = (c.offset + x / S.pps * c.speed) * pk.per, b = (c.offset + (x + 1) / S.pps * c.speed) * pk.per;
+      const a = srcTime(c, c.start + x / S.pps) * pk.per, b = srcTime(c, c.start + (x + 1) / S.pps) * pk.per;
       let m = 0; for (let i = Math.floor(a); i <= Math.min(pk.data.length - 1, Math.ceil(b)); i++) if (pk.data[i] > m) m = pk.data[i];
       m *= interp(env, x / S.pps) / gmax;
       const hgt = Math.max(.5, m * hh); g.fillRect(x, mid - hgt / 2, 1, hgt);
@@ -3324,7 +3385,7 @@ function markSel() {
 function select(id, keepMulti) {
   if (!keepMulti) S.multi = new Set(id ? [id] : []);
   S.sel = id; const c = selClip(); if (c) S.selTrack = c.track;
-  markSel(); renderInspector(); requestDraw(); updButtons();
+  markSel(); renderInspector(); requestDraw(); updButtons(); clearTimeout(select.fx); select.fx = setTimeout(refreshFxThumbs, 80);
 }
 
 /* righello */
@@ -3501,13 +3562,13 @@ window.addEventListener('pointermove', e => {
   } else if (D.mode === 'tl') {
     let ns = D.start + dx; const sn = snapT(ns, D.cands); if (sn !== null) ns = sn; showSnap(sn);
     const media = c.type === 'video' || c.type === 'audio';
-    const lo = media ? Math.max(0, D.start - D.off / c.speed) : 0;
+    const lo = media ? Math.max(0, D.start - D.off / effSpeed(c)) : 0;
     ns = clamp(ns, lo, D.start + D.dur - .1);
-    c.start = ns; c.dur = D.dur - (ns - D.start); if (media) c.offset = Math.max(0, D.off + (ns - D.start) * c.speed);
+    c.start = ns; c.dur = D.dur - (ns - D.start); if (media) c.offset = Math.max(0, D.off + (ns - D.start) * effSpeed(c));
     D.el.style.left = c.start * S.pps + 'px'; D.el.style.width = c.dur * S.pps + 'px';
   } else if (D.mode === 'tr') {
     let ne = D.start + D.dur + dx; const sn = snapT(ne, D.cands); if (sn !== null) ne = sn; showSnap(sn);
-    const max = (c.type === 'video' || c.type === 'audio') ? D.start + (srcDur(c) - c.offset) / c.speed : Infinity;
+    const max = (c.type === 'video' || c.type === 'audio') ? D.start + (srcDur(c) - c.offset) / effSpeed(c) : Infinity;
     c.dur = clamp(ne, D.start + .1, max) - c.start;
     D.el.style.width = c.dur * S.pps + 'px';
   }
@@ -3580,7 +3641,8 @@ function dropEmpty(id) {
 function splitAt(c, t) {
   if (t <= c.start + .04 || t >= c.start + c.dur - .04) return null;
   const b = JSON.parse(JSON.stringify(c, (k, v) => k[0] === '_' ? undefined : v)); b.id = uid('c');
-  b.start = t; b.dur = c.start + c.dur - t; if (c.type === 'video' || c.type === 'audio') b.offset = c.offset + (t - c.start) * c.speed;
+  b.start = t; b.dur = c.start + c.dur - t; if (c.type === 'video' || c.type === 'audio') b.offset = srcTime(c, t);
+  if (c.ramp) { const pc = (t - c.start) / c.dur; b.ramp = sliceRamp(c.ramp, pc, 1); c.ramp = sliceRamp(c.ramp, 0, pc); }
   c.dur = t - c.start; c.tout = { type: 'none', dur: c.tout.dur }; c.fadeOut = 0; b.tin = { type: 'none', dur: b.tin.dur }; b.fadeIn = 0;
   proj.clips.push(b); return b;
 }
@@ -3635,7 +3697,7 @@ function doDetach() {
   const c = selClip(); if (!c || c.type !== 'video' || !hasAudio(c)) return;
   let tr = proj.tracks.find(t => t.kind === 'audio' && !t.lock && trackFree(t, c.start, c.start + c.dur)) || addTrack('audio');
   const a = mkClip('audio', c.src, tr.id, c.start, c.dur);
-  Object.assign(a, { offset: c.offset, speed: c.speed, vol: c.vol, fadeIn: c.fadeIn, fadeOut: c.fadeOut });
+  Object.assign(a, { offset: c.offset, speed: c.speed, ramp: c.ramp ? JSON.parse(JSON.stringify(c.ramp)) : undefined, rampId: c.rampId, vol: c.vol, fadeIn: c.fadeIn, fadeOut: c.fadeOut });
   proj.clips.push(a); c.mute = true; S.sel = a.id; commit(); renderAll();
   toast('Audio separato: ora puoi spostarlo e modificarlo a parte');
 }
@@ -3706,6 +3768,107 @@ TRK.addEventListener('pointerdown', e => {
 TRK.addEventListener('pointermove', e => { if (!VD) return; const dx = e.clientX - VD.x0; if (Math.abs(dx) > 4) VD.moved = true; if (VD.moved) setTrackVol(VD.tr, VD.v0 + dx / 6, true); });
 TRK.addEventListener('pointerup', e => { if (!VD) return; const d = VD; VD = null; if (d.moved) commitSoon(); else openVolPop(d.tr, d.b); });
 TRK.addEventListener('wheel', e => { const b = e.target.closest('[data-tvol]'); if (!b || e.ctrlKey) return; e.preventDefault(); const tr = trackOf(b.dataset.tvol); setTrackVol(tr, tr.vol + (e.deltaY < 0 ? 1 : -1)); }, { passive: false });
+
+/* ================= menu col tasto destro ================= */
+function closeCtx() { const m = $('#ctxMenu'); if (m) m.remove(); document.removeEventListener('pointerdown', ctxOutside, true); }
+function ctxOutside(e) { if (!e.target.closest('#ctxMenu')) closeCtx(); }
+function openCtx(x, y, items) {
+  closeCtx();
+  const m = h('div', { id: 'ctxMenu', role: 'menu' });
+  const build = (list, into) => {
+    for (const it of list) {
+      if (!it) continue;
+      if (it === '-') { into.append(h('div', { class: 'csep' })); continue; }
+      if (it.sub) {
+        const sm = h('div', { class: 'csub' }); build(it.sub, sm);
+        into.append(h('div', { class: 'citem hassub', role: 'menuitem', tabindex: -1 }, h('span', {}, it.label), h('i', {}, '▸'), sm));
+        continue;
+      }
+      into.append(h('button', { class: 'citem' + (it.danger ? ' danger' : '') + (it.on ? ' on' : ''), role: 'menuitem', disabled: it.disabled || null, onclick: ev => { ev.stopPropagation(); closeCtx(); it.run(); } }, h('span', {}, it.label), it.key ? h('kbd', {}, it.key) : null));
+    }
+  };
+  build(items, m); document.body.append(m);
+  const r = m.getBoundingClientRect();
+  m.style.left = Math.max(4, Math.min(x, innerWidth - r.width - 6)) + 'px';
+  m.style.top = Math.max(4, Math.min(y, innerHeight - r.height - 6)) + 'px';
+  if (x + r.width + 200 > innerWidth) m.classList.add('left');
+  setTimeout(() => document.addEventListener('pointerdown', ctxOutside, true), 0);
+}
+addEventListener('keydown', e => { if (e.key === 'Escape' && $('#ctxMenu')) { closeCtx(); e.stopPropagation(); } }, true);
+addEventListener('blur', closeCtx); addEventListener('resize', closeCtx);
+
+function clipCtxItems(c, at) {
+  const media = c.type === 'video' || c.type === 'audio', visual = c.type !== 'audio';
+  const inside = at > c.start + .04 && at < c.start + c.dur - .04;
+  const run = f => () => { f(); };
+  return [
+    { label: '✂ Taglia qui', key: 'S', disabled: !inside, run: () => { if (splitAt(c, at)) { commit(); renderAll(); seekPreview(); toast('Clip tagliata'); } } },
+    { label: '⇤ Taglia via la parte prima', disabled: !inside, run: () => { const b = splitAt(c, at); if (b) { proj.clips = proj.clips.filter(x => x !== c); S.sel = b.id; commit(); renderAll(); seekPreview(); } } },
+    { label: '⇥ Taglia via la parte dopo', disabled: !inside, run: () => { const b = splitAt(c, at); if (b) { proj.clips = proj.clips.filter(x => x !== b); commit(); renderAll(); seekPreview(); } } },
+    '-',
+    { label: 'Copia', key: 'Ctrl+C', run: doCopy },
+    { label: 'Incolla al cursore', key: 'Ctrl+V', disabled: !clipboard, run: doPaste },
+    { label: 'Duplica', key: 'D', run: doDuplicate },
+    '-',
+    media ? { label: '⏩ Velocità', sub: [...SPEEDS.map(([v, n, d]) => ({ label: d + ' · ' + n, on: !c.ramp && Math.abs(c.speed - v) < 1e-3, run: () => applyEffect(c, 'speed:' + v) })), '-', ...RAMPS.map(([id, n]) => ({ label: '⤳ ' + n, on: c.rampId === id && !!c.ramp, run: () => applyEffect(c, 'ramp:' + id) }))] } : null,
+    c.type === 'video' && hasAudio(c) && !c.mute ? { label: '♪ Estrai l\'audio in una traccia', run: doDetach } : null,
+    hasAudio(c) ? { label: c.mute ? '🔊 Riattiva l\'audio' : '🔇 Togli l\'audio', run: () => applyEffect(c, 'mute:1') } : null,
+    hasAudio(c) ? { label: 'Audio', sub: [{ label: 'Entrata e uscita morbide', run: () => applyEffect(c, 'fades:1') }, { label: 'Da sottofondo (−14 dB)', run: () => applyEffect(c, 'vol:-14') }, { label: 'Volume normale', run: () => applyEffect(c, 'vol:0') }, { label: 'Più forte (+6 dB)', run: () => applyEffect(c, 'vol:6') }] } : null,
+    c.type === 'video' ? { label: '❄ Fermo immagine (2 s)', disabled: !(at >= c.start && at < c.start + c.dur), run: () => freezeFrame(c, at) } : null,
+    visual ? { label: '🎞 Filtro', sub: [...CINE.map(([id, n]) => ({ label: n, run: () => applyEffect(c, 'cine:' + id) })), '-', ...LOOKS.map(([id, n]) => ({ label: n, run: () => applyEffect(c, 'look:' + id) }))] } : null,
+    visual ? { label: '▬ Barre cinematografiche', sub: [[2.76, 'Ultra 2,76:1'], [2.39, 'Cinemascope 2,39:1'], [2, 'Univisium 2:1'], [1.85, 'Panoramico 1,85:1']].map(([v, n]) => ({ label: n, on: c.bars === v, run: () => applyEffect(c, 'cbars:' + v) })).concat(c.bars ? ['-', { label: 'Togli le barre', run: () => applyEffect(c, 'cbars:0') }] : []) } : null,
+    c.type !== 'text' && visual ? { label: '↻ Ruota di 90°', run: () => rotate90(c) } : null,
+    visual ? { label: '⇋ Specchia', run: () => applyEffect(c, 'flip:1') } : null,
+    visual ? { label: 'Togli effetti colore', run: () => applyEffect(c, 'look:none') } : null,
+    '-',
+    { label: '⚙ Proprietà…', run: () => { select(c.id); openInspector(); } },
+    { label: '🗑 Elimina', key: 'Canc', danger: true, run: () => doDelete(false) },
+    { label: '🗑 Elimina e chiudi il buco', danger: true, run: () => doDelete(true) },
+  ].map(it => it && it.run && !it.sub ? Object.assign(it, { run: run(it.run) }) : it);
+}
+TRK.addEventListener('contextmenu', e => {
+  const ce = e.target.closest('.clip'), lane = e.target.closest('.lane');
+  if (!ce && !lane) return;
+  e.preventDefault();
+  const r = (lane || ce.parentElement).getBoundingClientRect(), at = Math.max(0, (e.clientX - r.left) / S.pps);
+  if (ce) {
+    const c = clipOf(ce.dataset.c); if (!c) return;
+    if (!(S.multi.size > 1 && S.multi.has(c.id))) select(c.id);
+    if (S.multi.size > 1) return openCtx(e.clientX, e.clientY, [
+      { label: '🗑 Elimina le ' + S.multi.size + ' clip', danger: true, run: () => doDeleteMany([...S.multi]) },
+      { label: 'Deseleziona', run: clearSel }]);
+    return openCtx(e.clientX, e.clientY, clipCtxItems(c, at));
+  }
+  const tr = trackOf(lane.closest('.trow')?.dataset.t);
+  openCtx(e.clientX, e.clientY, [
+    { label: '▶ Porta qui il cursore', run: () => setPlayhead(at) },
+    { label: 'Incolla qui', disabled: !clipboard, run: () => { setPlayhead(at); if (tr) S.selTrack = tr.id; doPaste(); } },
+    { label: 'Seleziona tutte le clip', run: selectAll },
+    tr ? { label: tr.mute ? '🔊 Riattiva la traccia' : '🔇 Silenzia la traccia', run: () => { tr.mute = !tr.mute; commit(); renderAll(); if (P.playing) { pause(); play(); } } } : null,
+    tr ? { label: tr.lock ? '🔓 Sblocca la traccia' : '🔒 Blocca la traccia', run: () => { tr.lock = !tr.lock; commit(); renderAll(); } } : null,
+  ]);
+});
+/* tasto destro anche sull'anteprima: agisce sulla clip selezionata */
+$('#cv').addEventListener('contextmenu', e => { const c = selClip(); if (!c) return; e.preventDefault(); openCtx(e.clientX, e.clientY, clipCtxItems(c, S.playhead)); });
+
+/* fermo immagine: congela il fotogramma per 2 secondi e sposta in avanti il resto della traccia */
+async function freezeFrame(c, at, len = 2) {
+  const v = vidFor(c), s = sources.get(c.src); if (!v || !s) return;
+  const st = clamp(srcTime(c, at), 0, Math.max(0, (v.duration || 0) - .05));
+  try { if (v.readyState < 1) await once(v, 'loadedmetadata', 'error', 8000); if (!v.paused) v.pause(); await seekTo(v, st); } catch { }
+  const cv = h('canvas'); cv.width = s.w; cv.height = s.h; cv.getContext('2d').drawImage(v, 0, 0, s.w, s.h);
+  const blob = await new Promise(r => cv.toBlob(r, 'image/jpeg', .93)); if (!blob) { toast('Non riesco a catturare il fotogramma'); return; }
+  const src = await addSourceFromBlob(blob, 'Fermo immagine ' + fmtTC(at) + '.jpg');
+  const tAt = clamp(at, c.start, c.start + c.dur), b = tAt > c.start + .04 && tAt < c.start + c.dur - .04 ? splitAt(c, tAt) : null;
+  const cut = b ? tAt : (tAt <= c.start + .04 ? c.start : c.start + c.dur);
+  // sposta in avanti il resto della traccia e l'audio estratto dallo stesso video (così resta in sincrono)
+  for (const x of [...proj.clips]) if (x !== c && x.track !== c.track && x.src === c.src && x.type === 'audio' && x.start < cut - .04 && x.start + x.dur > cut + .04) splitAt(x, cut);
+  for (const x of proj.clips) if (x !== c && x.start >= cut - 1e-3 && (x.track === c.track || (x.src === c.src && x.type === 'audio'))) x.start += len;
+  const fz = mkClip('image', src.id, c.track, cut, len);
+  Object.assign(fz, { x: c.x, y: c.y, scale: c.scale, rot: c.rot, fit: c.fit, flipH: c.flipH, r90: c.r90, fx: JSON.parse(JSON.stringify(c.fx)), bars: c.bars, kb: 'zoomin' });
+  proj.clips.push(fz); S.sel = fz.id; commit(); renderAll(); renderLib(); seekPreview();
+  toast('Fermo immagine di ' + len + ' s inserito (con un leggero zoom: puoi toglierlo dagli effetti)');
+}
 
 /* ================= volume nel tempo (automazione per traccia) ================= */
 const AMIN = -40, AMAX = 6;
@@ -3789,6 +3952,7 @@ function autoDuckRange(tr, a, b, db, ramp = .4) {
 function setSideTab(tab) {
   $$('.stabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
   $$('.spane').forEach(p => p.classList.toggle('on', p.id === 'pane-' + tab));
+  if (tab === 'fx') setTimeout(refreshFxThumbs, 30);
 }
 $$('.stabs button').forEach(b => b.onclick = () => setSideTab(b.dataset.tab));
 function toggleSide(force) {
@@ -3980,6 +4144,7 @@ function applyToAllCuts(type, dur) {
 }
 function applyTransition(c, type, where = 'in', dur) {
   if (!c) { toast('Seleziona prima una clip'); return; }
+  if (id === 'detach') { if (S.sel !== c.id) select(c.id); doDetach(); return; }
   if (trackOf(c.track).lock) { toast('La traccia è bloccata'); return; }
   if (type === 'cross') {
     if (!prevClip(c)) { toast('Non c\'è una clip prima di questa sulla stessa traccia: uso la dissolvenza semplice'); type = 'fade'; }
@@ -4032,14 +4197,80 @@ const LOOKS = [
   ['none', 'Togli effetti colore', {}],
 ];
 const MOVES = [['zoomin', 'Zoom lento in avanti', 'Effetto Ken Burns, ottimo per le foto'], ['zoomout', 'Zoom lento indietro', ''], ['panL', 'Panoramica verso sinistra', ''], ['panR', 'Panoramica verso destra', ''], ['panU', 'Panoramica verso l\'alto', ''], ['none', 'Nessun movimento', '']];
-const SPEEDS = [['.25', 'Super rallentatore', '0,25×'], ['.5', 'Rallentatore', '0,5×'], ['1', 'Velocità normale', '1×'], ['1.5', 'Un po\' più veloce', '1,5×'], ['2', 'Veloce', '2×'], ['4', 'Molto veloce', '4×']];
+const SPEEDS = [['.1', 'Moviola estrema', '0,1×'], ['.25', 'Super rallentatore', '0,25×'], ['.5', 'Rallentatore', '0,5×'], ['.75', 'Leggermente lento', '0,75×'], ['1', 'Velocità normale', '1×'], ['1.5', 'Un po\' più veloce', '1,5×'], ['2', 'Veloce', '2×'], ['4', 'Molto veloce', '4×'], ['8', 'Timelapse', '8×'], ['16', 'Iperlapse', '16×']];
+/* curve di velocità in stile CapCut: [id, nome, descrizione, punti (posizione 0..1, moltiplicatore)] */
+const RAMPS = [
+  ['montaggio', 'Montaggio', 'Veloce, lento, veloce: ritmo da videoclip', [[0, 1], [.2, 3], [.45, .45], [.6, .45], [.8, 3], [1, 1]]],
+  ['eroe', 'Momento eroe', 'Corre veloce e si ferma quasi del tutto nel momento clou', [[0, 2.2], [.3, 2.2], [.42, .25], [.68, .25], [.8, 2.2], [1, 2.2]]],
+  ['proiettile', 'Proiettile', 'Il tempo rallenta di colpo come in «Matrix»', [[0, 3], [.35, 3], [.45, .15], [.75, .15], [.85, 3], [1, 3]]],
+  ['scatto', 'A scatto', 'Accelerate improvvise alternate a tratti lenti', [[0, .6], [.22, .6], [.3, 4], [.42, 4], [.5, .6], [.72, .6], [.8, 4], [.92, 4], [1, .6]]],
+  ['flashin', 'Flash in', 'Entra velocissimo e poi rallenta al normale', [[0, 5], [.3, 1], [1, 1]]],
+  ['flashout', 'Flash out', 'Normale e poi scappa via velocissimo', [[0, 1], [.7, 1], [1, 5]]],
+  ['rallenta', 'Rallenta alla fine', 'Chiude in moviola, per un finale d\'effetto', [[0, 1], [.55, 1], [1, .25]]],
+  ['accelera', 'Accelera', 'Parte lento e prende velocità', [[0, .4], [1, 3.5]]],
+  ['bullet2', 'Tempo sospeso', 'Lento al centro, normale ai lati', [[0, 1], [.35, 1], [.5, .2], [.65, 1], [1, 1]]],
+];
 function setSpeed(c, sp) {
   if (c.type !== 'video' && c.type !== 'audio') { toast('La velocità si cambia su video e audio'); return; }
-  const srcLen = c.dur * c.speed; c.speed = sp;
-  c.dur = Math.min(srcLen / sp, (srcDur(c) - c.offset) / sp);
+  const avg = c.ramp ? rampF(c.ramp, 1) : 1, srcLen = c.dur * c.speed * avg; c.speed = sp;
+  c.dur = Math.max(.1, Math.min(srcLen / (sp * avg), (srcDur(c) - c.offset) / (sp * avg)));
+}
+/* applica (o toglie) una curva mantenendo lo stesso pezzo di girato */
+function setRamp(c, id) {
+  if (!c || (c.type !== 'video' && c.type !== 'audio')) { toast('Le curve di velocità valgono per video e audio'); return false; }
+  const srcLen = c.dur * effSpeed(c), r = RAMPS.find(x => x[0] === id);
+  if (!r) { delete c.ramp; delete c.rampId; c.speed = 1; }
+  else { c.ramp = r[3].map(p => [...p]); c.rampId = id; c.speed = 1; }
+  c.dur = Math.max(.1, Math.min(srcLen, srcDur(c) - c.offset) / effSpeed(c));
+  return true;
+}
+/* disegnino della curva */
+function rampSvg(r, w = 64, hh = 26) {
+  const mx = Math.log(6), y = v => hh / 2 - Math.log(v) / mx * (hh / 2 - 2);
+  const d = r.map(([p, v], i) => (i ? 'L' : 'M') + (p * w).toFixed(1) + ' ' + y(v).toFixed(1)).join(' ');
+  return h('span', { class: 'rampsvg', html: `<svg width="${w}" height="${hh}" viewBox="0 0 ${w} ${hh}"><line x1="0" x2="${w}" y1="${hh / 2}" y2="${hh / 2}" stroke="#555" stroke-dasharray="2 2"/><path d="${d}" fill="none" stroke="#f5a623" stroke-width="2"/></svg>` });
+}
+/* --- anteprima dei filtri sul fotogramma attuale --- */
+let fxSample = null;
+function sampleImg() {
+  if (fxSample) return fxSample;
+  const c = h('canvas'); c.width = 320; c.height = 180; const g = c.getContext('2d');
+  let gr = g.createLinearGradient(0, 0, 0, 120); gr.addColorStop(0, '#3a78c2'); gr.addColorStop(1, '#f2c48d'); g.fillStyle = gr; g.fillRect(0, 0, 320, 180);
+  g.fillStyle = '#ffd36b'; g.beginPath(); g.arc(240, 70, 22, 0, 7); g.fill();
+  gr = g.createLinearGradient(0, 110, 0, 180); gr.addColorStop(0, '#4f7d3a'); gr.addColorStop(1, '#2b3f1f'); g.fillStyle = gr; g.fillRect(0, 115, 320, 65);
+  g.fillStyle = '#c98b6b'; g.beginPath(); g.arc(110, 82, 20, 0, 7); g.fill(); g.fillStyle = '#b8352e'; g.fillRect(88, 104, 44, 60);
+  g.fillStyle = '#2a2a2a'; g.beginPath(); g.arc(110, 74, 20, Math.PI, 0); g.fill();
+  return fxSample = c;
+}
+function fxBase() {
+  const sel = selClip(), t = S.playhead;
+  const ok = c => c && (c.type === 'video' || c.type === 'image') && sources.get(c.src);
+  if (ok(sel)) return [sel, clamp(t, sel.start, sel.start + sel.dur - .01)];
+  const a = activeVisual(t).filter(ok).pop(); if (a) return [a, t];
+  const f = proj.clips.find(ok); return f ? [f, f.start] : [null, 0];
+}
+function fxThumb(cv, fx, bars) {
+  const W = cv.width, H = cv.height, g = cv.getContext('2d');
+  const [c, t] = fxBase();
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
+  const s = c && sources.get(c.src), el = c && (c.type === 'video' ? vidFor(c) : s.img);
+  const clone = Object.assign({}, c || mkClip('image', '__fx', '', 0, 1), { fx: Object.assign(FX0(), fx), tin: { type: 'none', dur: 0 }, tout: { type: 'none', dur: 0 }, qfx: 'none', kb: 'none', x: .5, y: .5, scale: 1, rot: 0, opacity: 1, fit: 'cover' });
+  let tmp = false;
+  if (!c || !el || (c.type === 'video' && el.readyState < 2)) { const im = sampleImg(); sources.set('__fx', { id: '__fx', type: 'image', img: im, w: im.width, h: im.height }); clone.type = 'image'; clone.src = '__fx'; clone.r90 = 0; tmp = true; }
+  try { g.save(); g.setTransform(W / proj.w, 0, 0, H / proj.h, 0, 0); drawClip(g, clone, c ? t : 0, W / proj.w); g.restore(); } catch (e) { console.warn(e); }
+  if (tmp) sources.delete('__fx');
+  if (bars) { const target = W / bars, bh = (H - target) / 2; if (bh > 0) { g.fillStyle = '#000'; g.fillRect(0, 0, W, bh); g.fillRect(0, H - bh, W, bh); } }
+}
+let fxThumbJob = 0;
+function refreshFxThumbs() {
+  const P2 = $('#pane-fx'); if (!P2 || !P2.offsetParent) return;
+  const list = [...P2.querySelectorAll('canvas.fxthumb')]; const job = ++fxThumbJob; let i = 0;
+  const step = () => { if (job !== fxThumbJob) return; const t0 = performance.now(); while (i < list.length && performance.now() - t0 < 12) { const cv = list[i++]; fxThumb(cv, JSON.parse(cv.dataset.fx), +cv.dataset.bars || 0); } if (i < list.length) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
 }
 function applyEffect(c, id) {
-  if (id.startsWith('bars:')) { proj.bars = +id.split(':')[1]; commit(); requestDraw(); renderInspector(); toast(proj.bars ? 'Bande cinema attive' : 'Bande tolte'); return; }
+  if (id.startsWith('bars:')) { proj.bars = +id.split(':')[1]; commit(); requestDraw(); renderInspector(); toast(proj.bars ? 'Bande cinema attive su tutto il video' : 'Bande tolte'); return; }
+  if (id.startsWith('cbars:')) { if (!c) { toast('Seleziona prima una clip'); return; } const v = +id.split(':')[1]; if (v) c.bars = v; else delete c.bars; commit(); renderAll(); seekPreview(); toast(v ? 'Bande cinema su questa clip, con entrata e uscita animate' : 'Bande tolte dalla clip'); return; }
   if (!c) { toast('Seleziona prima una clip'); return; }
   if (trackOf(c.track).lock) { toast('La traccia è bloccata'); return; }
   const [kind, val] = id.split(':');
@@ -4052,7 +4283,8 @@ function applyEffect(c, id) {
   else if (kind === 'q') { if (c.type === 'audio') { toast('Gli effetti veloci valgono per video, foto e testi'); return; } c.qfx = val; }
   else if (kind === 'bars') { proj.bars = +val; }
   else if (kind === 'kb') { if (c.type === 'audio') return; c.kb = val; }
-  else if (kind === 'speed') setSpeed(c, +val);
+  else if (kind === 'speed') { if (c.ramp) setRamp(c, null); setSpeed(c, +val); }
+  else if (kind === 'ramp') { if (!setRamp(c, val)) return; }
   else if (kind === 'fit') { c.fit = val; c.scale = 1; c.x = c.y = .5; c.rot = 0; }
   else if (kind === 'flip') c.flipH = !c.flipH;
   else if (kind === 'rot90') { rotate90(c); return; }
@@ -4064,25 +4296,31 @@ function applyEffect(c, id) {
 }
 function renderFx() {
   const P2 = $('#pane-fx'); P2.innerHTML = '';
-  P2.append(h('p', { class: 'hint' }, 'Seleziona una clip e tocca un effetto. Col mouse puoi trascinarlo sopra una clip.'));
-  const item = (id, n, d) => h('div', { class: 'fxitem', 'data-pdrag': JSON.stringify({ kind: 'fx', id }), 'data-plabel': n, onclick: () => applyEffect(selClip(), id) }, h('div', { class: 'fxn' }, n, d ? h('small', {}, d) : null));
-  P2.append(h('h4', {}, 'Filtri cinematografici'));
-  CINE.forEach(([id, n, , d]) => P2.append(item('cine:' + id, n, d)));
-  P2.append(item('bars:2.39', 'Bande cinema (2,39:1)', 'Strisce nere sopra e sotto, su tutto il video'), item('bars:1.85', 'Bande leggere (1,85:1)', ''), item('bars:0', 'Togli le bande', ''));
+  P2.append(h('p', { class: 'hint' }, 'Seleziona una clip e tocca un effetto: le anteprime mostrano il fotogramma sotto il cursore rosso. Col mouse puoi trascinarlo sopra una clip.'));
+  const item = (id, n, d, pre) => h('div', { class: 'fxitem', 'data-pdrag': JSON.stringify({ kind: 'fx', id }), 'data-plabel': n, onclick: () => applyEffect(selClip(), id) }, pre || null, h('div', { class: 'fxn' }, n, d ? h('small', {}, d) : null));
+  const thumb = (fx, bars) => h('canvas', { class: 'fxthumb', width: 96, height: 54, 'data-fx': JSON.stringify(fx || {}), 'data-bars': bars || 0 });
+  const tile = (id, n, fx, bars) => h('div', { class: 'fxtile', title: n, 'data-pdrag': JSON.stringify({ kind: 'fx', id }), 'data-plabel': n, onclick: () => applyEffect(selClip(), id) }, thumb(fx, bars), h('span', {}, n));
+  P2.append(h('h4', {}, 'Filtri cinematografici'), h('div', { class: 'fxgrid' }, CINE.map(([id, n, f]) => tile('cine:' + id, n, f, f.bars))));
+  P2.append(h('h4', {}, 'Colore e atmosfera'), h('div', { class: 'fxgrid' }, LOOKS.map(([id, n, f]) => tile('look:' + id, n, f))));
+  P2.append(h('h4', {}, 'Barre cinematografiche'));
+  P2.append(h('div', { class: 'fxgrid' }, [[2.76, 'Ultra 2,76:1'], [2.39, 'Cinemascope 2,39:1'], [2, 'Univisium 2:1'], [1.85, 'Panoramico 1,85:1']].map(([v, n]) => tile('cbars:' + v, n, {}, v))));
+  P2.append(h('p', { class: 'hint' }, 'Le miniature sopra mettono le bande solo sulla clip selezionata (entrano e escono scorrendo). Per tutto il video:'),
+    h('div', { class: 'row2' }, h('button', { onclick: () => applyEffect(null, 'bars:2.39') }, 'Su tutto il video'), h('button', { class: 'ghost', onclick: () => { applyEffect(selClip(), 'cbars:0'); } }, 'Togli dalla clip'), h('button', { class: 'ghost', onclick: () => applyEffect(null, 'bars:0') }, 'Togli da tutto')));
+  P2.append(h('h4', {}, 'Velocità: preset'));
+  P2.append(h('div', { class: 'chips' }, SPEEDS.map(([v, n, d]) => h('button', { title: n, 'data-pdrag': JSON.stringify({ kind: 'fx', id: 'speed:' + v }), 'data-plabel': n, onclick: () => applyEffect(selClip(), 'speed:' + v) }, h('b', {}, d), h('small', {}, n)))));
+  P2.append(h('h4', {}, 'Velocità: curve (come CapCut)'));
+  RAMPS.forEach(([id, n, d, r]) => P2.append(item('ramp:' + id, n, d, rampSvg(r))));
+  P2.append(item('ramp:none', 'Togli la curva', 'Torna a velocità costante', null));
   P2.append(h('h4', {}, 'Effetti veloci'));
   QFX.forEach(([id, n, d]) => P2.append(item('q:' + id, n, d)));
-  P2.append(h('h4', {}, 'Colore e atmosfera'));
-  LOOKS.forEach(([id, n]) => P2.append(item('look:' + id, n)));
   P2.append(h('h4', {}, 'Movimento (foto e video)'));
   MOVES.forEach(([id, n, d]) => P2.append(item('kb:' + id, n, d)));
   P2.append(h('h4', {}, 'Inquadratura'));
   P2.append(item('fit:cover', 'Riempi lo schermo', 'Taglia i bordi, niente bande nere'), item('fit:contain', 'Mostra tutto', 'Con le bande se serve'), item('pip', 'Riquadro piccolo (PiP)', 'In basso a destra, sopra un altro video'), item('flip:1', 'Specchia', 'Ribalta orizzontalmente'), item('rot90:1', 'Ruota di 90°', 'Per i video girati di lato'));
-  P2.append(h('h4', {}, 'Velocità'));
-  SPEEDS.forEach(([v, n, d]) => P2.append(item('speed:' + v, n, d)));
   P2.append(h('h4', {}, 'Audio'));
-  P2.append(item('fades:1', 'Entrata e uscita morbide', 'Dissolvenza audio di 1 secondo'), item('vol:-14', 'Da sottofondo', 'Volume −14 dB, per la musica'), item('vol:0', 'Volume normale', '0 dB'), item('vol:6', 'Più forte', '+6 dB'), item('mute:1', 'Muto / riattiva', 'Spegne l\'audio della clip'));
+  P2.append(item('fades:1', 'Entrata e uscita morbide', 'Dissolvenza audio di 1 secondo'), item('vol:-14', 'Da sottofondo', 'Volume −14 dB, per la musica'), item('vol:0', 'Volume normale', '0 dB'), item('vol:6', 'Più forte', '+6 dB'), item('mute:1', 'Muto / riattiva', 'Spegne l\'audio della clip'), item('detach', 'Estrai l\'audio in una traccia', 'Copia il sonoro del video su una traccia audio e spegne quello del video'));
+  setTimeout(refreshFxThumbs, 30);
 }
-
 function rotate90(c) {
   const before = c.r90 || 0; let n = 0;
   for (const x of proj.clips) if (x === c || (x.src === c.src && (x.r90 || 0) === before && (x.type === 'video' || x.type === 'image'))) { x.r90 = (before + 90) % 360; x.rot = 0; n++; }
@@ -4749,10 +4987,15 @@ function renderInspector() {
   // tempo e velocità
   const timeSec = sec('tempo', 'Durata e velocità',
     rng('Inizio', () => +c.start.toFixed(2), v => c.start = v, 0, Math.max(60, Math.ceil(projDur() + 10)), .01, 's', { tl: true, retl: true }),
-    rng('Durata', () => +c.dur.toFixed(2), v => { const max = (c.type === 'video' || c.type === 'audio') ? (srcDur(c) - c.offset) / c.speed : 3600; c.dur = clamp(v, .1, max); }, .1, Math.max(30, Math.ceil(c.dur * 2)), .01, 's', { tl: true, retl: true, hardMax: 3600 }));
+    rng('Durata', () => +c.dur.toFixed(2), v => { const max = (c.type === 'video' || c.type === 'audio') ? (srcDur(c) - c.offset) / effSpeed(c) : 3600; c.dur = clamp(v, .1, max); }, .1, Math.max(30, Math.ceil(c.dur * 2)), .01, 's', { tl: true, retl: true, hardMax: 3600 }));
   if (c.type === 'video' || c.type === 'audio') timeSec.append(
-    rng('Velocità', () => c.speed, v => setSpeed(c, v), .25, 4, .05, '×', { def: 1, retl: true, audio: true }),
-    h('p', { class: 'hint' }, 'Cambiando velocità cambia anche il tono della voce.'));
+    rng(c.ramp ? 'Velocità di base' : 'Velocità', () => c.speed, v => setSpeed(c, v), .1, 8, .05, '×', { def: 1, retl: true, audio: true, hardMax: 16 }),
+    h('div', { class: 'gsep' }, 'Preset'),
+    h('div', { class: 'chips' }, SPEEDS.map(([v, n, d]) => h('button', { class: !c.ramp && Math.abs(c.speed - v) < 1e-3 ? 'on' : '', title: n, onclick: () => applyEffect(c, 'speed:' + v) }, d))),
+    h('div', { class: 'gsep' }, 'Curve di velocità'),
+    h('div', { class: 'rampgrid' }, RAMPS.map(([id, n, d, r]) => h('button', { class: c.rampId === id && c.ramp ? 'on' : '', title: d, onclick: () => applyEffect(c, 'ramp:' + id) }, rampSvg(r, 56, 22), h('span', {}, n)))),
+    c.ramp ? h('button', { class: 'ghost', onclick: () => applyEffect(c, 'ramp:none') }, 'Togli la curva') : null,
+    h('p', { class: 'hint' }, 'Le curve tengono lo stesso pezzo di girato e ne cambiano il ritmo. Cambiando velocità cambia anche il tono della voce.'));
   INS.append(timeSec);
 
   if (hasAudio(c)) {
@@ -4761,7 +5004,7 @@ function renderInspector() {
       rng('Entrata morbida', () => c.fadeIn, v => c.fadeIn = Math.min(v, c.dur / 2), 0, 10, .1, 's', { def: 0, audio: true, tl: true }),
       rng('Uscita morbida', () => c.fadeOut, v => c.fadeOut = Math.min(v, c.dur / 2), 0, 10, .1, 's', { def: 0, audio: true, tl: true }),
       h('div', { class: 'row2' }, h('label', {}, h('input', { type: 'checkbox', checked: c.mute, onchange: e => { c.mute = e.target.checked; commit(); renderTimeline(); if (P.playing) { pause(); play(); } } }), ' Audio spento'),
-        c.type === 'video' && !c.mute ? h('button', { onclick: doDetach }, '♪ Separa audio') : null),
+        c.type === 'video' && !c.mute ? h('button', { onclick: doDetach, title: 'Copia il sonoro su una traccia audio e spegne quello del video' }, '♪ Estrai audio nella traccia') : null),
       h('div', { class: 'gsep' }, 'Volume nel tempo'),
       h('p', { class: 'hint' }, 'Ogni traccia ha la sua linea gialla del volume: premi 〰 accanto al nome della traccia, clicca sulla linea per mettere un punto e trascinalo su o giù. Doppio clic su un punto per toglierlo.'),
       h('div', { class: 'row2' },
@@ -4775,6 +5018,7 @@ function renderInspector() {
     INS.append(sec('colore', 'Colore ed effetti',
       HAS_FILTER ? null : h('p', { class: 'hint' }, 'Attenzione: questo browser non applica luminosità, contrasto e simili. Usa Chrome, Edge o Firefox aggiornati.'),
       h('div', { class: 'seg', style: 'margin:4px 0 8px' }, LOOKS.map(([id, n]) => h('button', { onclick: () => applyEffect(c, 'look:' + id) }, n))),
+      h('div', { class: 'row2' }, h('label', {}, 'Barre cinema su questa clip'), segBtns([[0, 'No'], [1.85, '1,85'], [2, '2:1'], [2.39, '2,39'], [2.76, '2,76']], () => c.bars || 0, v => { if (v) c.bars = v; else delete c.bars; }, renderTimeline)),
       rng('Luminosità', () => fx.bright, v => fx.bright = v, -100, 100, 1, '', { def: 0 }),
       rng('Contrasto', () => fx.contrast, v => fx.contrast = v, -100, 100, 1, '', { def: 0 }),
       rng('Saturazione', () => fx.sat, v => fx.sat = v, -100, 100, 1, '', { def: 0 }),
@@ -4818,7 +5062,10 @@ function renderProjectPanel() {
     h('div', { class: 'row2' }, h('label', {}, 'Colore di sfondo'), h('input', { type: 'color', value: proj.bg, oninput: e => { proj.bg = e.target.value; requestDraw(); }, onchange: commit })),
     rng('Volume generale', () => proj.masterDb, v => proj.masterDb = v, -20, 12, .5, 'dB', { def: 0, audio: true }),
     h('label', { class: 'row2' }, h('input', { type: 'checkbox', checked: !!proj.bgBlur, onchange: e => { proj.bgBlur = e.target.checked; commit(); requestDraw(); } }), ' Sfondo sfocato al posto delle bande nere'),
-    h('div', { class: 'row2' }, h('label', {}, 'Bande cinema'), segBtns([[0, 'No'], [1.85, '1,85:1'], [2.39, '2,39:1']], () => proj.bars || 0, v => proj.bars = v))));
+    h('div', { class: 'row2' }, h('label', {}, 'Barre cinema'), segBtns([[0, 'No'], [1.85, '1,85'], [2, '2:1'], [2.39, '2,39'], [2.76, '2,76']], () => proj.bars || 0, v => proj.bars = v)),
+    h('div', { class: 'row2' }, h('label', {}, 'Colore barre'), h('input', { type: 'color', value: proj.barsColor || '#000000', oninput: e => { proj.barsColor = e.target.value; requestDraw(); }, onchange: commit }),
+      h('label', {}, h('input', { type: 'checkbox', checked: !!proj.barsAnim, onchange: e => { proj.barsAnim = e.target.checked; commit(); requestDraw(); } }), ' Entrano e escono scorrendo')),
+    rng('Opacità barre', () => Math.round((proj.barsOpacity ?? 1) * 100), v => proj.barsOpacity = v / 100, 20, 100, 1, '%', { def: 100 })));
   openSec.add('proj');
   const n = proj.clips.length, d = projDur();
   if (proj.clips.length) INS.append(h('div', { class: 'row2' }, h('button', { onclick: selectAll }, '⬚ Seleziona tutte le clip'), h('button', { class: 'ghost', onclick: deleteAllClips }, 'Svuota la timeline…')));
@@ -5246,7 +5493,7 @@ $('#zoom').value = z2v(S.pps);
 commit();
 afterProjectChange();
 restoreAutosave();
-window.__mv = { get proj() { return proj; }, sources, exportRealtime, generateBrand, GEN, setFormat, changeFormat, cutTransition, applyToAllCuts, S, P, importFiles, exportMP4, renderMix, setPlayhead, drawFrame, addTextPreset, applyTransition, applyEffect, select, doSplit, undo, redo, saveProject, openProjectFile, readZip };
+window.__mv = { setRamp, setSpeed, srcTime, freezeFrame, openCtx, clipCtxItems, showNews, refreshFxThumbs, get proj() { return proj; }, sources, exportRealtime, generateBrand, GEN, setFormat, changeFormat, cutTransition, applyToAllCuts, S, P, importFiles, exportMP4, renderMix, setPlayhead, drawFrame, addTextPreset, applyTransition, applyEffect, select, doSplit, undo, redo, saveProject, openProjectFile, readZip };
 
 /* app installata sul computer: i file .mvideo si aprono con doppio clic */
 if ('launchQueue' in window) launchQueue.setConsumer(async p => { for (const fh of (p.files || [])) { try { const f = await fh.getFile(); if (/\.mvideo$/i.test(f.name)) { openProjectFile(f); break; } } catch (e) { console.warn(e); } } });
@@ -5255,6 +5502,27 @@ let installEvt = null;
 addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; const b = $('#bInstall'); if (b) b.style.display = ''; });
 addEventListener('appinstalled', () => { installEvt = null; const b = $('#bInstall'); if (b) b.style.display = 'none'; toast('Montaggio Video installato: lo trovi tra i programmi del computer'); });
 if ($('#bInstall')) $('#bInstall').onclick = async () => { if (!installEvt) return; installEvt.prompt(); try { await installEvt.userChoice; } catch { } installEvt = null; $('#bInstall').style.display = 'none'; };
+
+/* ================= novità: si aprono da sole la prima volta dopo un aggiornamento ================= */
+const APP_VER = '1.2.1';
+const NOVITA = [
+  ['1.2.1', [
+    ['🖱', 'Menu col tasto destro', 'Sulle clip, sulle tracce e sull\'anteprima: taglia qui, copia, duplica, velocità, filtri, barre, estrai audio, fermo immagine, elimina. Sul telefono tieni premuto.'],
+    ['🎞', 'Anteprima dei filtri', 'In «Effetti» ogni filtro mostra una miniatura sul fotogramma sotto il cursore rosso, così vedi il risultato prima di applicarlo.'],
+    ['▬', 'Barre cinematografiche', 'Quattro formati (2,76 · 2,39 · 2:1 · 1,85), su una sola clip con entrata e uscita animate oppure su tutto il video, con colore e opacità. Funzionano anche nei video verticali.'],
+    ['⏩', 'Velocità come CapCut', 'Preset da 0,1× a 16× (moviola, rallentatore, timelapse) e curve di velocità: Montaggio, Momento eroe, Proiettile, A scatto, Flash in/out, Accelera, Rallenta alla fine.'],
+    ['♪', 'Estrai l\'audio nella traccia', 'Il sonoro del video va su una traccia audio a parte, pronto da spostare, tagliare o abbassare.'],
+    ['❄', 'Fermo immagine', 'Congela il fotogramma per 2 secondi e fa spazio sulla traccia.'],
+  ]],
+];
+function showNews(ver = APP_VER) {
+  const rel = NOVITA.find(n => n[0] === ver) || NOVITA[0];
+  const body = h('div', { class: 'news' }, rel[1].map(([i, t, d]) => h('div', { class: 'newsit' }, h('span', { class: 'ni' }, i), h('div', {}, h('b', {}, t), h('p', {}, d)))));
+  try { localStorage.setItem('nwlcut.novita', APP_VER); } catch { }
+  return ask('Novità della versione ' + rel[0], body, [['Ho capito', 'ok', 'primary']]);
+}
+if ($('#bNews')) $('#bNews').onclick = () => showNews();
+try { if (localStorage.getItem('nwlcut.novita') !== APP_VER && !/[?&]nonews\b/.test(location.search)) setTimeout(() => { if (!$('#dlg').open) showNews(); }, 900); } catch { }
 
 </script>
 <style>

@@ -1,18 +1,16 @@
 {
- "version": "1.2.0",
+ "version": "1.2.1",
  "date": "2026-11-24",
  "notes": [
-  "Nuova app NWLlive: regia televisiva in diretta",
-  "Diretta su YouTube e Facebook",
-  "Camere virtuali, sigle, scaletta, notizie RSS"
+  "NWLcut: menu col tasto destro, anteprima dei filtri, barre cinematografiche, preset e curve di velocità, estrai audio, fermo immagine"
  ],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "af3f3c7e86d24cb8e1d26bba0aaabba25caa3ffe5a73f5e3e3794f9b08152027",
-   "size": 314307
+   "sha256": "f05d672a56a4b21c482c3e91abdf2667d57166fdeddb75ab3b6415d755ff92c7",
+   "size": 339403
   },
   {
    "path": "NWLlive.html",
@@ -36,7 +34,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "0b867ba04c494e144813dd5e46f14bc4d05cbe3fc786cdd8fd60a9be803da667",
+   "sha256": "189bd7fea4017c51846836bb8ca96f856f8fcd8bd8ade852a1ad163f548d6805",
    "size": 20
   },
   {
