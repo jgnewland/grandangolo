@@ -193,7 +193,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   <div class="pane" data-d="pc"><div class="steps">
     <div class="step"><div class="n">1</div><h4>Usa Chrome o Edge</h4><p>Su Windows o Mac, clicca «Installa» sotto l'app che ti serve.</p></div>
     <div class="step"><div class="n">2</div><h4>Conferma</h4><p>Clicca «Installa» nella barra che compare in basso, o l'icona di installazione nella barra degli indirizzi.</p></div>
-    <div class="step"><div class="n">3</div><h4>Nei tuoi programmi</h4><p>Lo trovi nel menu Start (o nel Launchpad del Mac), con la sua finestra. Si aggiorna da solo.</p></div>
+    <div class="step"><div class="n">3</div><h4>Nei tuoi programmi</h4><p>Lo trovi nel menu Start (o nel Launchpad del Mac), con la sua finestra. Su Windows puoi anche usare il programma .exe qui sotto.</p></div>
   </div></div>
 </div></section>
 
@@ -202,15 +202,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <div>
       <span class="eyebrow">Download</span>
       <h2>Tutta la suite<br>in un pacchetto.</h2>
-      <p>Un unico file .zip con NWLcut, NWLcut per telefono e NWLtono. Estrai la cartella e fai doppio clic: funziona anche senza internet, ovunque tu sia.</p>
-      <a class="btn pri" href="Newland-Studio-Suite.zip" download id="zipBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Scarica la suite <span style="opacity:.6;font-weight:600" id="zipSize"></span></a>
-      <div class="note" id="zipNote">Consigliato per il computer. Sul telefono è meglio installare le app dalla pagina.</div>
+      <p><b>Programma per Windows:</b> un installer .exe che mette NWLcut e NWLtono sul desktop e nel menu Start, come programmi veri, anche senza browser.<br>Oppure il pacchetto .zip leggero, da estrarre e aprire con doppio clic.</p>
+      <a class="btn pri" href="Newland-Studio-Suite-Setup.exe" download id="exeBtn" style="margin:0 10px 10px 0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Scarica per Windows <span style="opacity:.6;font-weight:600">· .exe 72 MB</span></a>
+      <a class="btn sec" href="Newland-Studio-Suite.zip" download id="zipBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Pacchetto .zip <span style="opacity:.6;font-weight:600" id="zipSize"></span></a>
+      <div class="note" id="zipNote">Windows 10 e 11. Al primo avvio Windows può mostrare «Windows ha protetto il PC»: clicca «Ulteriori informazioni» e poi «Esegui comunque».</div>
     </div>
     <div class="files">
       <div class="file"><img src="assets/cut-192.png" alt=""><div><b>NWLcut</b><small>Montaggio video · computer</small></div></div>
       <div class="file"><img src="assets/cut-192.png" alt=""><div><b>NWLcut telefono</b><small>Montaggio video · iPhone e Android</small></div></div>
       <div class="file"><img src="assets/tono-192.png" alt=""><div><b>NWLtono</b><small>Montaggio audio multitraccia</small></div></div>
-      <div class="file"><div class="ic">📄</div><div><b>LEGGIMI</b><small>Come si usa, in due righe</small></div></div>
+      <div class="file"><img src="assets/newland-192.png" alt=""><div><b>Newland Studio Suite.exe</b><small>Programma per Windows con le due app</small></div></div>
     </div>
   </div>
 </div></section>
@@ -271,7 +272,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 
   var hc = document.getElementById('heroCta');
   hc.innerHTML = '<button class="btn pri" id="hcCut">' + dl + 'Installa NWLcut</button><button class="btn cy" id="hcTono">' + dl + 'Installa NWLtono</button>' +
-    (dev === 'pc' ? '<a class="btn sec" href="Newland-Studio-Suite.zip" download>Scarica il pacchetto</a>' : '');
+    (dev === 'pc' ? (/Win/i.test(navigator.platform) || /Windows/i.test(ua) ? '<a class="btn sec" href="Newland-Studio-Suite-Setup.exe" download>Scarica per Windows (.exe)</a>' : '<a class="btn sec" href="Newland-Studio-Suite.zip" download>Scarica il pacchetto</a>') : '');
   document.getElementById('hcCut').onclick = function () { inst('cut'); };
   document.getElementById('hcTono').onclick = function () { inst('tono'); };
 
@@ -280,7 +281,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   function tab(d) { tabs.forEach(function (t) { t.classList.toggle('on', t.dataset.d === d); }); panes.forEach(function (p) { p.classList.toggle('on', p.dataset.d === d); }); }
   tabs.forEach(function (t) { t.onclick = function () { tab(t.dataset.d); }; });
   tab(dev);
-  if (dev !== 'pc') document.getElementById('zipNote').textContent = 'Il pacchetto è pensato per il computer. Sul ' + names[dev] + ' è meglio installare le app qui sopra.';
+  if (dev !== 'pc') document.getElementById('zipNote').textContent = 'Il programma .exe e il pacchetto sono per il computer. Sul ' + names[dev] + ' installa le app con i pulsanti qui sopra.';
   fetch('Newland-Studio-Suite.zip', { method: 'HEAD' }).then(function (r) { var n = +r.headers.get('content-length'); if (n) document.getElementById('zipSize').textContent = '· ' + (n / 1048576).toFixed(1).replace('.', ',') + ' MB'; }).catch(function () {});
 })();
 </script>
