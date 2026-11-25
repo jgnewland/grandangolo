@@ -298,6 +298,43 @@ svg.auto .ahint{fill:#ffd34d;font:600 11px Inter,sans-serif;pointer-events:none}
 .newsit .ni{flex:none;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--panel2);font-size:18px}
 .newsit b{display:block;margin-bottom:2px}
 .newsit p{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
+/* kit */
+.kitq{min-width:min(560px,86vw)}
+.kitgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:10px 0}
+.kq{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:10px;min-height:96px;text-align:left;white-space:normal}
+.kq i{font-style:normal;font-size:22px;color:var(--accent)}
+.kq small{color:var(--muted);font-size:11px;line-height:1.2}
+.kq canvas{width:100%;aspect-ratio:16/9;border-radius:6px}
+.kq[disabled]{opacity:.45}
+.kitassets{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.kitassets>button{font-size:12px}
+.kas{display:inline-flex;align-items:center;gap:4px;padding:2px 2px 2px 9px;border:1px solid var(--line);border-radius:16px;font-size:12px}
+.kas button{min-height:22px;padding:0 6px}
+.kited{display:flex;gap:18px;align-items:flex-start}
+.kitL{flex:1;min-width:0;max-height:68vh;overflow:auto;padding-right:6px}
+.kitR{width:min(420px,40vw);position:sticky;top:0}
+.kitprev{width:100%;border-radius:10px;display:block;background:#000}
+.kitbtns{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.kstyles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.kst{display:flex;flex-direction:column;gap:3px;padding:4px;font-size:11.5px;min-height:0}
+.kst canvas{width:100%;aspect-ratio:16/9;border-radius:5px;display:block}
+.kst.on{border-color:var(--accent);color:var(--accent)}
+.kcols{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0}
+.kcol{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.kcol input{width:34px;height:26px;padding:0;border:0;background:none}
+.kfile{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}
+.kfile b{min-width:110px;font-size:13px}
+.kfile .hint{flex:1;min-width:120px;margin:0}
+@media (max-width:760px){.kited{flex-direction:column-reverse}.kitR{width:100%;position:static}.kitL{max-height:none}}
+.blrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px;border:1px solid var(--line);border-radius:8px;margin:6px 0}
+.blrow.on{border-color:#ffd23f}.blrow b{cursor:pointer;min-width:34px}.blrow input[type=range]{width:90px}
+button.kfon{border-color:#ffd23f;color:#ffd23f}
+.exfmts{display:flex;flex-wrap:wrap;gap:10px}.exfmts label{display:flex;align-items:center;gap:4px;font-size:13px}
+.subed{min-width:min(760px,90vw)}.subed input[type=text]{flex:1;min-width:120px}
+.sublist{max-height:56vh;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-top:8px;padding-right:4px}
+.subrow{display:flex;gap:6px;align-items:flex-start}.subrow textarea{flex:1;min-height:44px;resize:vertical}.subrow button{min-height:30px;padding:2px 8px;font-variant-numeric:tabular-nums}
+#inboxBar{position:fixed;left:14px;bottom:14px;z-index:130;background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:10px 12px;box-shadow:0 14px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:6px;max-width:min(420px,92vw);font-size:13px}
+#inboxBar .inr{display:flex;align-items:center;gap:6px}#inboxBar .inr span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#inboxBar button{min-height:28px;padding:2px 10px;font-size:12px}
 </style>
 
 <style id="nwlTheme">:root{--bg:#040922;--panel:#0a1233;--panel2:#0f1a46;--panel3:#162258;--line:#1e2b63;--text:#eef1ff;--muted:#8f9bc8;--accent:#b4fb0b;--ink:#0a1400;--mint:#d2ff63}
@@ -321,7 +358,7 @@ dialog{background:linear-gradient(180deg,#0d1640,#0a1233)!important}
     <button id="bText" title="Aggiungi un testo">T <span class="tb-l">Testo</span></button>
     <button id="bRec" title="Registra la voce mentre guardi il video">● <span class="tb-l">Registra</span></button>
     <button id="bSubs" title="Sottotitoli automatici dalla voce">CC <span class="tb-l">Sottotitoli</span></button>
-    <button id="bGen" class="brandbtn" title="Pre-roll, outro, logo e lower third Grandangolo in un colpo">★ <span class="tb-l">Grandangolo</span></button>
+    <button id="bGen" class="brandbtn" title="Il tuo kit: lower third, logo, sigla, outro e confezione completa">★ <span class="tb-l">Kit</span></button>
     <span class="sep"></span>
     <button id="bUndo" title="Annulla (Ctrl+Z)">↶</button>
     <button id="bRedo" title="Ripristina (Ctrl+Y)">↷</button>
@@ -2330,6 +2367,20 @@ if (typeof module === "object" && typeof module.exports === "object") Object.ass
 
 </script>
 <script>
+/* ================= collegamento tra le app della suite (stessa origine: sito o programma installato) ================= */
+const NWLX = {
+  open() { return NWLX.p || (NWLX.p = new Promise(res => { try { const r = indexedDB.open('nwl-scambio', 1); r.onupgradeneeded = () => r.result.createObjectStore('inbox', { keyPath: 'id' }); r.onsuccess = () => res(r.result); r.onerror = () => res(null); } catch { res(null); } })); },
+  async tx(mode, fn) { const d = await NWLX.open(); if (!d) return null; return new Promise(res => { try { const t = d.transaction('inbox', mode), r = fn(t.objectStore('inbox')); t.oncomplete = () => res(r && r.result); t.onerror = t.onabort = () => res(null); } catch { res(null); } }); },
+  chan: (() => { try { return new BroadcastChannel('nwl-suite'); } catch { return null; } })(),
+};
+async function nwlSend(blob, name, from) {
+  await NWLX.tx('readwrite', st => st.put({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, from, type: blob.type || '', blob, date: Date.now() }));
+  try { NWLX.chan && NWLX.chan.postMessage({ kind: 'inbox' }); } catch { }
+  return true;
+}
+const nwlInbox = async () => (await NWLX.tx('readonly', st => st.getAll())) || [];
+const nwlTake = id => NWLX.tx('readwrite', st => st.delete(id));
+
 'use strict';
 /* ================= utilità ================= */
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
@@ -2371,7 +2422,7 @@ function ask(title, body, buttons = [['OK', 'ok', 'primary']]) {
     const b = $('#dlgB'); b.innerHTML = ''; if (typeof body === 'string') b.append(h('p', { style: 'margin:0;color:var(--muted)' }, body)); else if (body) b.append(body);
     const bb = $('#dlgBtns'); bb.innerHTML = '';
     for (const [label, val, cls] of buttons) bb.append(h('button', { class: cls || '', onclick: () => { d.close(); res(val); } }, label));
-    d.onclose = () => res(d.returnValue === 'x' ? null : undefined);
+    d.onclose = () => { if (d.open) return; res(d.returnValue === 'x' ? null : undefined); }; // un «close» arrivato in ritardo dal dialogo precedente non chiude questo
     d.oncancel = e => { e.preventDefault(); d.close(); res(null); };
     d.showModal();
   });
@@ -2758,7 +2809,7 @@ function activeVisual(t) {
 function drawBlurBg(ctx, act, W, H) {
   const c = act.find(x => x.type === 'video' || x.type === 'image'); if (!c) return;
   const s = sources.get(c.src); if (!s) return;
-  const el = c.type === 'video' ? vidFor(c) : s.img; if (!el || (c.type === 'video' && el.readyState < 2)) return;
+  const el = c.type === 'video' ? (exfEl(c) || vidFor(c)) : s.img; if (!el || (c.type === 'video' && el.readyState < 2)) return;
   const r9 = (((c.r90 || 0) % 360) + 360) % 360, side = r9 % 180 !== 0, ew = side ? s.h : s.w, eh = side ? s.w : s.h;
   const f = Math.max(W / ew, H / eh), bw = s.w * f * 1.08, bh = s.h * f * 1.08;
   const sw = Math.max(8, Math.round(W / 24)), sh = Math.max(8, Math.round(H / 24)), B = swCanvas('bg', sw, sh), g = B.getContext('2d');
@@ -2789,6 +2840,7 @@ function drawFrame(ctx, t, W, H) {
   const act = activeVisual(t);
   if (proj.bgBlur) drawBlurBg(ctx, act, W, H);
   for (const c of act) {
+    if (needsLayer(c)) { try { drawLayered(ctx, c, t, W, H, k); } catch (e) { console.warn(e); } continue; }
     ctx.save(); ctx.setTransform(k, 0, 0, H / proj.h, 0, 0);
     try { drawClip(ctx, c, t, k); } catch (e) { console.warn(e); }
     ctx.restore();
@@ -2832,7 +2884,7 @@ function rrect(ctx, x, y, w, h, r) {
 }
 function hexA(hex, a) { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; }
 function drawText(ctx, c, local, k) {
-  if (c.text.kind === 'gl3') return drawGL3(ctx, c, local);
+  if (c.text.kind === 'gl3' || c.text.kind === 'l3') return drawGL3(ctx, c, local);
   const tx = c.text; ensureFont(tx);
   const L = layoutText(ctx, tx), size = L.size, pad = size * (tx.pad ?? .35);
   ctx.font = textFont(tx, size); ctx.textBaseline = 'middle';
@@ -2851,6 +2903,38 @@ function drawText(ctx, c, local, k) {
     else { const words = L.lines.join(' ').split(/\s+/).filter(Boolean).length; limit = Math.floor(words * p + (p > 0 ? 1 : 0)); }
   }
   const x0 = -bw / 2, y0 = -bh / 2;
+  if (tx.anim === 'karaoke' || tx.anim === 'pop') { // parola evidenziata a tempo / una parola alla volta
+    const words = []; L.lines.forEach((ln, li) => ln.split(/\s+/).filter(Boolean).forEach(w => words.push({ w, li })));
+    const tot = words.reduce((a2, w) => a2 + w.w.length + 1, 0) || 1, span = c.dur * .96; let acc = 0;
+    for (const w of words) { w.a = acc / tot * span; acc += w.w.length + 1; w.b = acc / tot * span; }
+    const cur = words.findIndex(w => local >= w.a && local < w.b), hl = tx.hl || '#ffd200';
+    ctx.save(); ctx.textAlign = 'left';
+    if (tx.anim === 'pop') {
+      const w = words[cur < 0 ? (local < 0 ? 0 : words.length - 1) : cur]; if (!w) { ctx.restore(); return; }
+      const txt = tx.upper ? w.w.toUpperCase() : w.w, ww = ctx.measureText(txt).width, p = clamp((local - w.a) / .12, 0, 1), sc = .7 + .3 * (1 - Math.pow(1 - p, 3)) + .06 * Math.sin(p * Math.PI);
+      c._b = { w: ww + pad * 2, h: L.lh + pad * 2 };
+      ctx.scale(sc, sc);
+      if (tx.outline > 0) { ctx.lineJoin = 'round'; ctx.lineWidth = tx.outline * size / 40; ctx.strokeStyle = tx.outlineColor || '#000'; ctx.strokeText(txt, -ww / 2, 0); }
+      if (tx.shadow) { ctx.shadowColor = 'rgba(0,0,0,.65)'; ctx.shadowBlur = size * .14 * k; }
+      ctx.fillStyle = cur >= 0 && words.length > 1 && (cur % 2) ? hl : tx.color; ctx.fillText(txt, -ww / 2, 0); ctx.restore(); return;
+    }
+    const sp = ctx.measureText(' ').width;
+    L.lines.forEach((ln, li) => {
+      const ws = words.filter(w => w.li === li), y = y0 + pad + L.lh * (li + .5);
+      const widths = ws.map(w => ctx.measureText(w.w).width), lw = widths.reduce((a2, b2) => a2 + b2, 0) + sp * Math.max(0, ws.length - 1);
+      let x = tx.align === 'left' ? x0 + pad : tx.align === 'right' ? -x0 - pad - lw : -lw / 2;
+      ws.forEach((w, i) => {
+        const on = words.indexOf(w) === cur;
+        if (on && tx.hlBox) { ctx.save(); ctx.fillStyle = hl; rrect(ctx, x - size * .12, y - L.lh * .48, widths[i] + size * .24, L.lh * .96, size * .14); ctx.fill(); ctx.restore(); }
+        ctx.save();
+        if (tx.shadow) { ctx.shadowColor = 'rgba(0,0,0,.65)'; ctx.shadowBlur = size * .14 * k; ctx.shadowOffsetY = size * .04 * k; }
+        if (tx.outline > 0 && !(on && tx.hlBox)) { ctx.lineJoin = 'round'; ctx.lineWidth = tx.outline * size / 40; ctx.strokeStyle = tx.outlineColor || '#000'; ctx.strokeText(w.w, x, y); ctx.shadowColor = 'transparent'; }
+        ctx.fillStyle = on ? (tx.hlBox ? (tx.hlText || '#000') : hl) : tx.color; ctx.fillText(w.w, x, y); ctx.restore();
+        x += widths[i] + sp;
+      });
+    });
+    ctx.restore(); return;
+  }
   const ax = tx.align === 'left' ? x0 + pad : tx.align === 'right' ? -x0 - pad : 0;
   ctx.textAlign = tx.align || 'center';
   // fondo
@@ -2878,7 +2962,8 @@ function drawText(ctx, c, local, k) {
 }
 function drawClip(ctx, c, t, k) {
   const W = proj.w, H = proj.h, local = t - c.start, d = c.dur;
-  let alpha = c.opacity, dx = 0, dy = 0, sc = 1, rot = 0, glitch = 0, blur = (c.fx.blur || 0), clipR = null, over = [];
+  const KV = kfAt(c, local);
+  let alpha = KV.opacity, dx = 0, dy = 0, sc = 1, rot = 0, glitch = 0, blur = (c.fx.blur || 0), clipR = null, over = [];
   const ap = (type, p, dir) => {
     if (p >= 1 || type === 'none') return; const q = ease(p);
     switch (type) {
@@ -2922,22 +3007,23 @@ function drawClip(ctx, c, t, k) {
     ctx.save();
     if (clipR) { ctx.beginPath(); if (clipR[0] === 'r') ctx.rect(clipR[1], clipR[2], clipR[3], clipR[4]); else ctx.arc(clipR[1], clipR[2], Math.max(0, clipR[3]), 0, Math.PI * 2); ctx.clip(); }
     ctx.globalAlpha = alpha;
-    ctx.translate(c.x * W + dx, c.y * H + dy); ctx.rotate((c.rot + rot) * Math.PI / 180);
-    const s2 = c.scale * sc; ctx.scale(s2 * (c.flipH ? -1 : 1), s2);
+    ctx.translate(KV.x * W + dx, KV.y * H + dy); ctx.rotate((KV.rot + rot) * Math.PI / 180);
+    const s2 = KV.scale * sc; ctx.scale(s2 * (c.flipH ? -1 : 1), s2);
     const useSW = !HAS_FILTER || c.fx.teal || c.fx.matte || c.fx.tint;
     if (HAS_FILTER && !(useSW && c.type !== 'text')) ctx.filter = filterStr(c.fx, blur * k * s2);
     let bw, bh;
     if (c.type === 'text') { drawText(ctx, c, local, k); bw = c._b.w; bh = c._b.h; }
     else {
       const s = sources.get(c.src); if (!s) { ctx.restore(); return; }
-      const el = c.type === 'video' ? vidFor(c) : s.img;
+      const el = c.type === 'video' ? (exfEl(c) || vidFor(c)) : s.img;
       const mw = s.w || 16, mh = s.h || 9, r9 = (((c.r90 || 0) % 360) + 360) % 360, side = r9 % 180 !== 0;
       const ew = side ? mh : mw, eh = side ? mw : mh; // misure dopo la rotazione di 90°
       const f = c.fit === 'cover' ? Math.max(W / ew, H / eh) : Math.min(W / ew, H / eh);
       bw = ew * f; bh = eh * f; c._b = { w: bw, h: bh };
       const dw = mw * f, dh = mh * f;
       if (el && (c.type !== 'video' || el.readyState >= 2)) {
-        const img = useSW ? (swFx(ctx, el, dw, dh, c.fx, blur * k * s2) || el) : el;
+        const src0 = c.key && c.key.on && c.type === 'video' ? (keyFrame(c, el) || el) : c.key && c.key.on && c.type === 'image' ? (keyFrame(c, el) || el) : el;
+        const img = useSW ? (swFx(ctx, src0, dw, dh, c.fx, blur * k * s2) || src0) : src0;
         if (r9) { ctx.save(); ctx.rotate(r9 * Math.PI / 180); }
         if (glitch > .01) { // effetto glitch: fasce spostate e canali sfasati
           const n = 9, seed = Math.floor(t * 24), iw = img.videoWidth || img.naturalWidth || img.width, ih = img.videoHeight || img.naturalHeight || img.height;
@@ -2968,6 +3054,315 @@ function sliceRamp(r, p0, p1) {
   const out = [[0, rampV(r, p0)]];
   for (const [p, v] of r) if (p > p0 + 1e-6 && p < p1 - 1e-6) out.push([(p - p0) / (p1 - p0), v]);
   out.push([1, rampV(r, p1)]); return out;
+}
+
+/* ================= fotogrammi chiave, maschere, fusioni, chroma key ================= */
+/* --- fotogrammi chiave: istantanee di posizione, grandezza, rotazione e opacità --- */
+const KF_P = ['x', 'y', 'scale', 'rot', 'opacity'];
+const kfEase = p => p * p * (3 - 2 * p);
+function kfAt(c, local) {
+  const K = c.kf;
+  if (!K || !K.length) return { x: c.x, y: c.y, scale: c.scale, rot: c.rot, opacity: c.opacity };
+  if (local <= K[0].t) return K[0];
+  const L = K[K.length - 1]; if (local >= L.t) return L;
+  let i = 1; while (K[i].t < local) i++;
+  const a = K[i - 1], b = K[i], p = kfEase((local - a.t) / Math.max(1e-6, b.t - a.t)), o = {};
+  for (const k of KF_P) o[k] = a[k] + (b[k] - a[k]) * p;
+  return o;
+}
+const kfLocal = c => clamp(S.playhead - c.start, 0, c.dur);
+const kfHere = c => c.kf && c.kf.find(k => Math.abs(k.t - kfLocal(c)) < .5 / proj.fps);
+function kfSnap(c, t) { const o = { t }; for (const k of KF_P) o[k] = c[k]; return o; }
+/* porta i valori della clip a quelli del tempo t (così l'anteprima e le maniglie restano giuste) */
+function kfSync(t) { for (const c of proj.clips) if (c.kf && c.kf.length && t >= c.start - .001 && t <= c.start + c.dur + .001) { const v = kfAt(c, clamp(t - c.start, 0, c.dur)); for (const k of KF_P) c[k] = v[k]; } }
+/* dopo una modifica: se la clip è animata, la modifica diventa (o aggiorna) la chiave al cursore */
+function kfTouch(c) {
+  if (!c || !c.kf || !c.kf.length) return;
+  const t = kfLocal(c), ex = c.kf.find(k => Math.abs(k.t - t) < .5 / proj.fps);
+  if (ex) Object.assign(ex, kfSnap(c, ex.t)); else { c.kf.push(kfSnap(c, t)); c.kf.sort((a, b) => a.t - b.t); }
+}
+function kfToggle(c) {
+  const ex = kfHere(c);
+  if (ex) { c.kf = c.kf.filter(k => k !== ex); if (!c.kf.length) delete c.kf; toast('Chiave tolta'); }
+  else { if (!c.kf) c.kf = []; c.kf.push(kfSnap(c, kfLocal(c))); c.kf.sort((a, b) => a.t - b.t); toast(c.kf.length === 1 ? 'Prima chiave: ora sposta il cursore, cambia posizione o grandezza e si crea la seconda' : 'Chiave aggiunta'); }
+  commit(); renderTimeline(); renderInspector(); requestDraw();
+}
+function kfJump(c, dir) {
+  if (!c.kf) return; const t = kfLocal(c);
+  const k = dir > 0 ? c.kf.find(k => k.t > t + .01) : [...c.kf].reverse().find(k => k.t < t - .01);
+  if (k) setPlayhead(c.start + k.t + .0001);
+}
+function kfSplit(c, b, cut) { // cut = tempo locale della divisione
+  if (!c.kf) return;
+  const mid = kfAt(c, cut), A = c.kf.filter(k => k.t < cut - 1e-4), B = c.kf.filter(k => k.t > cut + 1e-4).map(k => Object.assign({}, k, { t: k.t - cut }));
+  c.kf = [...A, Object.assign({}, mid, { t: cut })]; b.kf = [Object.assign({}, mid, { t: 0 }), ...B];
+}
+/* movimenti pronti fatti con le chiavi */
+const KF_PRESETS = [
+  ['zoomin', 'Avvicinamento', c => [[0, {}], [1, { scale: c.scale * 1.25 }]]],
+  ['zoomout', 'Allontanamento', c => [[0, { scale: c.scale * 1.25 }], [1, {}]]],
+  ['entrasx', 'Entra da sinistra', c => [[0, { x: -.5, opacity: 0 }], [.15, {}], [1, {}]]],
+  ['entradx', 'Entra da destra', c => [[0, { x: 1.5, opacity: 0 }], [.15, {}], [1, {}]]],
+  ['sale', 'Sale dal basso', c => [[0, { y: 1.4 }], [.15, {}], [1, {}]]],
+  ['giro', 'Giro completo', c => [[0, { rot: c.rot - 180, scale: c.scale * .2, opacity: 0 }], [.2, {}], [1, {}]]],
+  ['respiro', 'Respiro', c => [[0, {}], [.5, { scale: c.scale * 1.08 }], [1, {}]]],
+];
+function kfPreset(c, id) {
+  const p = KF_PRESETS.find(x => x[0] === id); if (!c || !p) return;
+  const base = kfSnap(c, 0); c.kf = p[2](c).map(([f, o]) => Object.assign({}, base, o, { t: f * c.dur }));
+  commit(); renderAll(); seekPreview(); toast('Movimento «' + p[1] + '» con ' + c.kf.length + ' chiavi: le puoi modificare una per una');
+}
+
+/* --- chroma key (fondo verde o blu), sulla scheda video --- */
+const KEY_VS = 'attribute vec2 p;varying vec2 uv;void main(){uv=vec2((p.x+1.)/2.,1.-(p.y+1.)/2.);gl_Position=vec4(p,0.,1.);}';
+const KEY_FS = `precision mediump float;varying vec2 uv;uniform sampler2D t;uniform vec2 kc;uniform float sim,smo,spl;
+vec2 cbcr(vec3 c){return vec2(dot(c,vec3(-.168736,-.331264,.5))+.5,dot(c,vec3(.5,-.418688,-.081312))+.5);}
+void main(){vec4 c=texture2D(t,uv);float d=distance(cbcr(c.rgb),kc);float b=d-sim;
+float a=pow(clamp(b/max(smo,.0001),0.,1.),1.5);float s=pow(clamp(b/max(spl,.0001),0.,1.),1.5);
+float g=dot(c.rgb,vec3(.2126,.7152,.0722));vec3 o=mix(vec3(g),c.rgb,s);gl_FragColor=vec4(o,c.a*a);}`;
+let KEYER = null;
+function keyerInit() {
+  if (KEYER !== null) return KEYER;
+  const canvas = document.createElement('canvas'), gl = canvas.getContext('webgl', { premultipliedAlpha: false, preserveDrawingBuffer: true, alpha: true });
+  if (!gl) { KEYER = false; return false; }
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, KEY_VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, KEY_FS)); gl.linkProgram(pr); gl.useProgram(pr);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+  [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(p => gl.texParameteri(gl.TEXTURE_2D, p, gl.CLAMP_TO_EDGE));
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  const U = n => gl.getUniformLocation(pr, n);
+  KEYER = { gl, canvas, uk: U('kc'), us: U('sim'), um: U('smo'), up: U('spl'), outs: new Map() };
+  return KEYER;
+}
+function keyFrame(c, el) {
+  const K = keyerInit(); if (!K) return null;
+  const s = sources.get(c.src), cap = P.playing ? 960 : 1920;
+  const f = Math.min(1, cap / Math.max(s.w, s.h)), w = Math.max(2, Math.round(s.w * f)), hh = Math.max(2, Math.round(s.h * f));
+  const { gl, canvas } = K;
+  if (canvas.width !== w || canvas.height !== hh) { canvas.width = w; canvas.height = hh; gl.viewport(0, 0, w, hh); }
+  try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, el); } catch (e) { return null; }
+  const k = c.key, n = parseInt((k.color || '#00b140').slice(1), 16), r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
+  gl.uniform2f(K.uk, -.168736 * r - .331264 * g + .5 * b + .5, .5 * r - .418688 * g - .081312 * b + .5);
+  gl.uniform1f(K.us, k.sim ?? .12); gl.uniform1f(K.um, k.smooth ?? .08); gl.uniform1f(K.up, k.spill ?? .1);
+  gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  let out = K.outs.get(c.id); if (!out) { out = document.createElement('canvas'); K.outs.set(c.id, out); if (K.outs.size > 12) K.outs.delete(K.outs.keys().next().value); }
+  if (out.width !== w || out.height !== hh) { out.width = w; out.height = hh; }
+  const og = out.getContext('2d'); og.clearRect(0, 0, w, hh); og.drawImage(canvas, 0, 0); return out;
+}
+const KEY_DEF = () => ({ on: true, color: '#00b140', sim: .12, smooth: .08, spill: .1 });
+
+/* --- maschere e fusioni: la clip si disegna su un livello a parte --- */
+const BLENDS = [['source-over', 'Normale'], ['multiply', 'Moltiplica'], ['screen', 'Schermo'], ['overlay', 'Sovrapponi'], ['soft-light', 'Luce soffusa'], ['darken', 'Scurisci'], ['lighten', 'Schiarisci'], ['color-dodge', 'Colore brucia'], ['difference', 'Differenza']];
+const MASKS = [['none', 'Nessuna'], ['rect', 'Rettangolo'], ['ellipse', 'Cerchio'], ['linear', 'Lineare'], ['band', 'Fascia']];
+const MASK_DEF = shape => ({ shape, cx: 0, cy: 0, w: shape === 'ellipse' ? .6 : .7, h: shape === 'ellipse' ? .6 : .6, rot: 0, feather: .08, round: 0, invert: false });
+const needsLayer = c => (c.mask && c.mask.shape !== 'none') || (c.blend && c.blend !== 'source-over') || (c.blur && c.blur.length);
+const LAYERS = {};
+function layerCv(k, W, H) { let c = LAYERS[k]; if (!c) c = LAYERS[k] = document.createElement('canvas'); if (c.width !== W || c.height !== H) { c.width = W; c.height = H; } return c; }
+function drawLayered(ctx, c, t, W, H, k) {
+  const L = layerCv('l', W, H), g = L.getContext('2d');
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; if (HAS_FILTER) g.filter = 'none'; g.clearRect(0, 0, W, H);
+  g.save(); g.setTransform(k, 0, 0, H / proj.h, 0, 0); drawClip(g, c, t, k); g.restore();
+  if (c.blur && c.blur.length) drawBlurBoxes(g, c, t, W, H);
+  if (c.mask && c.mask.shape !== 'none' && c._b) applyMask(g, c, t, W, H);
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = c.blend || 'source-over'; ctx.drawImage(L, 0, 0); ctx.restore();
+}
+function clipXf(c, t, W, H) { // trasformazione della clip (senza effetti di transizione)
+  const V = kfAt(c, clamp(t - c.start, 0, c.dur)), sx = W / proj.w, sy = H / proj.h;
+  return { V, sx, sy, apply(g) { g.translate(V.x * W, V.y * H); g.rotate(V.rot * Math.PI / 180); g.scale(V.scale * sx * (c.flipH ? -1 : 1), V.scale * sy); } };
+}
+function applyMask(g, c, t, W, H) {
+  const m = c.mask, b = c._b, X = clipXf(c, t, W, H), M = layerCv('m', W, H), mg = M.getContext('2d');
+  mg.setTransform(1, 0, 0, 1, 0, 0); mg.clearRect(0, 0, W, H); if (HAS_FILTER) mg.filter = 'none';
+  const fe = (m.feather || 0) * Math.min(b.w, b.h) * X.V.scale * X.sx;
+  if (HAS_FILTER && fe > .5) mg.filter = `blur(${fe.toFixed(1)}px)`;
+  mg.save(); X.apply(mg); mg.translate((b.ox || 0) + m.cx * b.w, (b.oy || 0) + m.cy * b.h); mg.rotate((m.rot || 0) * Math.PI / 180);
+  mg.fillStyle = '#fff'; const w = m.w * b.w, hh = m.h * b.h, big = Math.hypot(b.w, b.h) * 4;
+  mg.beginPath();
+  if (m.shape === 'ellipse') mg.ellipse(0, 0, w / 2, hh / 2, 0, 0, Math.PI * 2);
+  else if (m.shape === 'rect') { const r = (m.round || 0) * Math.min(w, hh) / 2; if (mg.roundRect) mg.roundRect(-w / 2, -hh / 2, w, hh, r); else mg.rect(-w / 2, -hh / 2, w, hh); }
+  else if (m.shape === 'linear') mg.rect(-big, 0, big * 2, big);
+  else if (m.shape === 'band') mg.rect(-big, -hh / 2, big * 2, hh);
+  mg.fill(); mg.restore(); if (HAS_FILTER) mg.filter = 'none';
+  g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = m.invert ? 'destination-out' : 'destination-in'; g.drawImage(M, 0, 0); g.restore();
+}
+
+/* ================= oscura volti e targhe (con inseguimento) ================= */
+/* ogni riquadro: { id, kind: 'blur'|'pixel'|'black', shape: 'rect'|'ellipse', amount, pts: [{t, u, v, w, h}] }
+   u, v = centro, w, h = misure: tutto in frazioni del fotogramma del video (0..1), t = secondi dall'inizio della clip */
+const BLUR_KINDS = [['blur', 'Sfocato'], ['pixel', 'Pixel'], ['black', 'Nero']];
+function boxAt(z, t) {
+  const P2 = z.pts; if (!P2 || !P2.length) return null;
+  if (z.from !== undefined && (t < z.from || t > z.to)) return null;
+  if (t <= P2[0].t) return P2[0]; const L = P2[P2.length - 1]; if (t >= L.t) return L;
+  let i = 1; while (P2[i].t < t) i++;
+  const a = P2[i - 1], b = P2[i], p = (t - a.t) / Math.max(1e-6, b.t - a.t);
+  return { u: a.u + (b.u - a.u) * p, v: a.v + (b.v - a.v) * p, w: a.w + (b.w - a.w) * p, h: a.h + (b.h - a.h) * p };
+}
+function drawBlurBoxes(g, c, t, W, H) {
+  const b = c._b; if (!b) return; const X = clipXf(c, t, W, H), local = t - c.start;
+  for (const z of c.blur) {
+    const r = boxAt(z, local); if (!r) continue;
+    const lx = -b.w / 2 + r.u * b.w, ly = -b.h / 2 + r.v * b.h, lw = r.w * b.w, lh = r.h * b.h;
+    // riquadro nel fotogramma finale
+    const m = new DOMMatrix(); m.translateSelf(X.V.x * W, X.V.y * H); m.rotateSelf(X.V.rot); m.scaleSelf(X.V.scale * X.sx * (c.flipH ? -1 : 1), X.V.scale * X.sy);
+    const pts = [[lx - lw / 2, ly - lh / 2], [lx + lw / 2, ly - lh / 2], [lx + lw / 2, ly + lh / 2], [lx - lw / 2, ly + lh / 2]].map(([x, y]) => m.transformPoint(new DOMPoint(x, y)));
+    const x0 = Math.max(0, Math.floor(Math.min(...pts.map(p => p.x)))), y0 = Math.max(0, Math.floor(Math.min(...pts.map(p => p.y))));
+    const x1 = Math.min(W, Math.ceil(Math.max(...pts.map(p => p.x)))), y1 = Math.min(H, Math.ceil(Math.max(...pts.map(p => p.y))));
+    const bw = x1 - x0, bh = y1 - y0; if (bw < 2 || bh < 2) continue;
+    const T = layerCv('t', bw, bh), tg = T.getContext('2d'); tg.setTransform(1, 0, 0, 1, 0, 0); tg.clearRect(0, 0, bw, bh); if (HAS_FILTER) tg.filter = 'none';
+    const amt = z.amount ?? .6;
+    if (z.kind === 'black') { tg.fillStyle = '#000'; tg.fillRect(0, 0, bw, bh); }
+    else if (z.kind === 'pixel') {
+      const cells = Math.max(3, Math.round(16 - amt * 12)), sw = Math.max(1, Math.round(bw / (bw / cells))), sh = Math.max(1, Math.round(bh / (bw / cells)));
+      const S2 = layerCv('s', sw, sh), sg = S2.getContext('2d'); sg.imageSmoothingEnabled = true; sg.clearRect(0, 0, sw, sh); sg.drawImage(g.canvas, x0, y0, bw, bh, 0, 0, sw, sh);
+      tg.imageSmoothingEnabled = false; tg.drawImage(S2, 0, 0, sw, sh, 0, 0, bw, bh); tg.imageSmoothingEnabled = true;
+    } else {
+      const px = Math.max(4, Math.min(bw, bh) * (.08 + amt * .25));
+      if (HAS_FILTER) { tg.filter = `blur(${px.toFixed(1)}px)`; tg.drawImage(g.canvas, x0 - px, y0 - px, bw + px * 2, bh + px * 2, -px, -px, bw + px * 2, bh + px * 2); tg.filter = 'none'; tg.filter = `blur(${(px / 2).toFixed(1)}px)`; tg.drawImage(T, 0, 0); tg.filter = 'none'; }
+      else { const f = Math.max(2, Math.round(px / 2)), S2 = layerCv('s', Math.max(1, Math.round(bw / f)), Math.max(1, Math.round(bh / f))), sg = S2.getContext('2d'); sg.drawImage(g.canvas, x0, y0, bw, bh, 0, 0, S2.width, S2.height); tg.drawImage(S2, 0, 0, bw, bh); }
+    }
+    g.save(); g.setTransform(1, 0, 0, 1, 0, 0);
+    g.beginPath(); g.setTransform(m); if (z.shape === 'ellipse') g.ellipse(lx, ly, lw / 2, lh / 2, 0, 0, Math.PI * 2); else g.rect(lx - lw / 2, ly - lh / 2, lw, lh);
+    g.setTransform(1, 0, 0, 1, 0, 0); g.clip(); g.drawImage(T, x0, y0); g.restore();
+  }
+}
+
+/* --- fotogrammi del video, piccoli, per analizzarli --- */
+async function frameSampler(c, W0 = 320) {
+  const s = sources.get(c.src); if (!s) throw new Error('File non trovato');
+  if (c.type === 'image') { const cv = h('canvas'); const f = W0 / s.w; cv.width = W0; cv.height = Math.round(s.h * f); cv.getContext('2d', { willReadFrequently: true }).drawImage(s.img, 0, 0, cv.width, cv.height); return { cv, at: async () => cv, close() { } }; }
+  const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v.src = s.url;
+  await once(v, 'loadedmetadata', 'error', 20000);
+  const f = W0 / v.videoWidth, cv = h('canvas'); cv.width = W0; cv.height = Math.round(v.videoHeight * f); const g = cv.getContext('2d', { willReadFrequently: true });
+  return { cv, async at(local) { await seekTo(v, clamp(srcTime(c, c.start + local), 0, v.duration - .02)); g.drawImage(v, 0, 0, cv.width, cv.height); return cv; }, close() { v.removeAttribute('src'); v.load(); } };
+}
+
+/* --- inseguimento di un riquadro (targa, oggetto) per confronto di immagini --- */
+function grayOf(cv) { const d = cv.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, cv.width, cv.height).data, n = cv.width * cv.height, o = new Float32Array(n); for (let i = 0; i < n; i++) o[i] = d[i * 4] * .299 + d[i * 4 + 1] * .587 + d[i * 4 + 2] * .114; return o; }
+function matchBox(G, W, H, T, tw, th, cx, cy, rad) {
+  let best = Infinity, bx = cx, by = cy; const step = tw * th > 900 ? 2 : 1;
+  for (let y = Math.max(0, cy - rad); y <= Math.min(H - th, cy + rad); y++) for (let x = Math.max(0, cx - rad); x <= Math.min(W - tw, cx + rad); x++) {
+    let s = 0; for (let j = 0; j < th; j += step) { const r = (y + j) * W + x, tr = j * tw; for (let i = 0; i < tw; i += step) s += Math.abs(G[r + i] - T[tr + i]); if (s >= best) break; }
+    if (s < best) { best = s; bx = x; by = y; }
+  }
+  return [bx, by];
+}
+async function trackBox(c, z, ui) {
+  const fs = await frameSampler(c, 320), fps = 12, W = fs.cv.width, H = fs.cv.height;
+  try {
+    const t0 = kfLocal(c), start = boxAt(z, t0); if (!start) return;
+    let tw = Math.max(6, Math.round(start.w * W)), th = Math.max(6, Math.round(start.h * H));
+    const run = async dir => {
+      let x = Math.round(start.u * W - tw / 2), y = Math.round(start.v * H - th / 2), T = null; const out = [];
+      for (let t = t0, i = 0; dir > 0 ? t <= c.dur : t >= 0; t += dir / fps, i++) {
+        if (EX.cancel) break;
+        const G = grayOf(await fs.at(t));
+        if (!T) { T = new Float32Array(tw * th); for (let j = 0; j < th; j++) for (let k = 0; k < tw; k++) T[j * tw + k] = G[(clamp(y + j, 0, H - 1)) * W + clamp(x + k, 0, W - 1)]; }
+        else {
+          [x, y] = matchBox(G, W, H, T, tw, th, x, y, Math.max(6, Math.round(Math.max(tw, th) * .6)));
+          for (let j = 0; j < th; j++) for (let k = 0; k < tw; k++) T[j * tw + k] = T[j * tw + k] * .85 + G[(y + j) * W + x + k] * .15; // il modello si aggiorna piano
+        }
+        out.push({ t, u: (x + tw / 2) / W, v: (y + th / 2) / H, w: start.w, h: start.h });
+        ui && ui.set(dir > 0 ? .5 * (t - t0) / Math.max(.01, c.dur - t0) + .5 : .5 * (t0 - t) / Math.max(.01, t0), 'Seguo il movimento…');
+      }
+      return out;
+    };
+    const fwd = await run(1), back = c.type === 'video' ? await run(-1) : [];
+    z.pts = smoothPts([...back.reverse(), ...fwd.slice(1)].sort((a, b) => a.t - b.t));
+  } finally { fs.close(); }
+}
+function smoothPts(P2) { // media mobile per togliere il tremolio
+  return P2.map((p, i) => { const a = P2.slice(Math.max(0, i - 2), i + 3), n = a.length, o = { t: p.t }; for (const k of ['u', 'v', 'w', 'h']) o[k] = a.reduce((s, q) => s + q[k], 0) / n; return o; });
+}
+
+/* --- volti: rilevatore leggero, scaricato solo la prima volta che serve --- */
+let FACE = null;
+function loadScript(url) { return new Promise((res, rej) => { const s = document.createElement('script'); s.src = url; s.onload = res; s.onerror = () => { s.remove(); rej(new Error('non trovato')); }; document.head.append(s); }); }
+async function faceInit(ui) {
+  if (FACE) return FACE;
+  const bases = ['componenti/volti/', '../componenti/volti/', '../../componenti/volti/', 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/dist/'];
+  for (const b of bases) {
+    try {
+      ui && ui.set(.02, 'Preparo il riconoscimento dei volti…');
+      if (!window.faceapi) await loadScript(b + 'face-api.js');
+      const model = b.startsWith('http') ? b.replace('/dist/', '/model/') : b;
+      await faceapi.nets.tinyFaceDetector.loadFromUri(model);
+      FACE = faceapi; return FACE;
+    } catch (e) { console.warn('volti', b, e); }
+  }
+  throw new Error('Non riesco a caricare il riconoscimento dei volti: serve la connessione la prima volta.');
+}
+/* un fotogramma: intero + a riquadri ingranditi, per trovare anche i volti piccoli e lontani */
+async function facesIn(fa, cv) {
+  const W = cv.width, H = cv.height, out = [], tmp = facesIn.tmp || (facesIn.tmp = h('canvas'));
+  const opt = new fa.TinyFaceDetectorOptions({ inputSize: 608, scoreThreshold: .35 });
+  const add = (d, x, y, f) => { const bx = d.box, r = { x: x + bx.x / f, y: y + bx.y / f, w: bx.width / f, h: bx.height / f, s: d.score };
+    const dup = out.find(o => { const ix = Math.max(0, Math.min(o.x + o.w, r.x + r.w) - Math.max(o.x, r.x)), iy = Math.max(0, Math.min(o.y + o.h, r.y + r.h) - Math.max(o.y, r.y)); return ix * iy > .3 * Math.min(o.w * o.h, r.w * r.h); });
+    if (!dup) out.push(r); else if (r.s > dup.s) Object.assign(dup, r); };
+  for (const d of await fa.detectAllFaces(cv, opt)) add(d, 0, 0, 1);
+  const nx = 3, ny = 2, tw = W / nx * 1.3, th = H / ny * 1.3;
+  for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) {
+    const x = clamp(i * W / nx - tw * .15, 0, W - tw), y = clamp(j * H / ny - th * .15, 0, H - th), f = 640 / tw;
+    tmp.width = 640; tmp.height = Math.round(th * f); tmp.getContext('2d').drawImage(cv, x, y, tw, th, 0, 0, tmp.width, tmp.height);
+    for (const d of await fa.detectAllFaces(tmp, opt)) add(d, x, y, f);
+  }
+  return out.map(r => ({ u: (r.x + r.w / 2) / W, v: (r.y + r.h / 2) / H, w: r.w / W * 1.35, h: r.h / H * 1.45 }));
+}
+async function findFaces(c, ui) {
+  const fa = await faceInit(ui), fs = await frameSampler(c, 1280), fps = c.type === 'video' ? 4 : 1;
+  const tracks = [];
+  try {
+    for (let t = 0; t <= c.dur + 1e-6; t += 1 / fps) {
+      if (EX.cancel) break;
+      const cv = await fs.at(Math.min(t, c.dur - .01));
+      for (const f of await facesIn(fa, cv)) {
+        const cur = Object.assign({ t }, f);
+        let best = null, bd = 1e9;
+        for (const tr of tracks) { const l = tr.pts[tr.pts.length - 1]; if (t - l.t > 1.2 || l.t === t) continue; const dd = Math.hypot(l.u - cur.u, l.v - cur.v); if (dd < Math.max(l.w, l.h) * 1.2 && dd < bd) { bd = dd; best = tr; } }
+        if (best) best.pts.push(cur); else tracks.push({ pts: [cur] });
+      }
+      ui && ui.set(Math.min(.98, t / Math.max(.01, c.dur)), 'Cerco i volti… (' + tracks.length + ' trovati)');
+      if (c.type === 'image') break;
+    }
+  } finally { fs.close(); }
+  const keep = tracks.filter(tr => c.type === 'image' || tr.pts.length >= 2);
+  return keep.map(tr => ({ id: uid('z'), kind: 'blur', shape: 'ellipse', amount: .6, pts: smoothPts(tr.pts), ...(c.type === 'video' ? { from: Math.max(0, tr.pts[0].t - .3), to: tr.pts[tr.pts.length - 1].t + .3 } : {}) }));
+}
+async function blurFaces(c) {
+  if (!c || (c.type !== 'video' && c.type !== 'image')) { toast('Seleziona un video o una foto'); return; }
+  EX.cancel = false; const ui = progUI('Oscuro i volti');
+  try {
+    const zs = await findFaces(c, ui); ui.close();
+    if (!zs.length) { toast('Non ho trovato volti in questa clip. Puoi aggiungere un riquadro a mano.', 6000); return; }
+    c.blur = [...(c.blur || []), ...zs]; commit(); renderAll(); seekPreview();
+    toast(zs.length === 1 ? 'Un volto oscurato: controllalo scorrendo il video' : zs.length + ' volti oscurati: controllali scorrendo il video', 6000);
+  } catch (e) { ui.close(); console.error(e); await ask('Volti non oscurati', String(e.message || e)); }
+}
+function addBlurBox(c, kind = 'blur') {
+  if (!c) return; const t = kfLocal(c);
+  const z = { id: uid('z'), kind, shape: 'rect', amount: .6, pts: [{ t, u: .5, v: .6, w: .22, h: .09 }] };
+  c.blur = [...(c.blur || []), z]; S.blurEdit = z.id; commit(); renderAll(); seekPreview();
+  toast('Trascina il riquadro nell\'anteprima sopra la targa (gli angoli lo ridimensionano), poi «Segui il movimento»', 7000);
+  return z;
+}
+async function followBox(c, z) {
+  EX.cancel = false; const ui = progUI('Seguo il movimento');
+  try { await trackBox(c, z, ui); ui.close(); commit(); renderAll(); seekPreview(); toast('Fatto: il riquadro segue il movimento. Scorri il video per controllare.', 6000); }
+  catch (e) { ui.close(); console.error(e); toast('Inseguimento non riuscito: ' + e.message, 6000); }
+}
+/* modifica di un riquadro al cursore (dall'anteprima o dai cursori) */
+function boxSet(c, z, o) {
+  const t = kfLocal(c), cur = boxAt(z, t) || { u: .5, v: .5, w: .2, h: .1 }, n = Object.assign({ t }, cur, o);
+  if (z.pts.length <= 1) { z.pts = [n]; return; }
+  const ex = z.pts.find(p => Math.abs(p.t - t) < .5 / proj.fps); if (ex) Object.assign(ex, n); else { z.pts.push(n); z.pts.sort((a, b) => a.t - b.t); }
+}
+function boxFrame(c, z, t) { // rettangolo del riquadro in coordinate del progetto, per disegnarlo e prenderlo col mouse
+  const b = c._b, r = boxAt(z, t - c.start); if (!b || !r) return null;
+  const m = new DOMMatrix(); m.translateSelf(c.x * proj.w, c.y * proj.h); m.rotateSelf(c.rot); m.scaleSelf(c.scale * (c.flipH ? -1 : 1), c.scale);
+  const lx = -b.w / 2 + r.u * b.w, ly = -b.h / 2 + r.v * b.h, lw = r.w * b.w, lh = r.h * b.h;
+  return { m, pts: [[lx - lw / 2, ly - lh / 2], [lx + lw / 2, ly - lh / 2], [lx + lw / 2, ly + lh / 2], [lx - lw / 2, ly + lh / 2]].map(([x, y]) => { const p = m.transformPoint(new DOMPoint(x, y)); return [p.x, p.y]; }), b, r };
 }
 
 /* ================= audio: grafo di mixaggio ================= */
@@ -3063,7 +3458,7 @@ function loop() {
   if (!P.playing) return;
   const t = curT(), end = projDur();
   if (t >= end) { pause(); S.playhead = end; updPH(); if (REC.on) stopRec(); return; }
-  S.playhead = t; syncVideos(t); drawPreview(t); updPH(true); renderTimecode();
+  S.playhead = t; kfSync(t); syncVideos(t); drawPreview(t); updPH(true); renderTimecode();
   P.raf = requestAnimationFrame(loop);
 }
 function syncVideos(t) {
@@ -3086,7 +3481,7 @@ function syncVideos(t) {
   releaseVids(t);
 }
 function seekPreview() {
-  const t = S.playhead;
+  const t = S.playhead; kfSync(t);
   for (const c of activeVisual(t)) {
     if (c.type !== 'video') continue;
     const v = vidFor(c); if (!v) continue;
@@ -3161,6 +3556,8 @@ function drawOverlay(t) {
   const pts = clipCorners(c).map(([x, y]) => [x * k, y * k]);
   ovx.strokeStyle = '#76e3aa'; ovx.lineWidth = 1.5 * dpr; ovx.setLineDash([6 * dpr, 4 * dpr]);
   ovx.beginPath(); pts.forEach((p, i) => i ? ovx.lineTo(...p) : ovx.moveTo(...p)); ovx.closePath(); ovx.stroke(); ovx.setLineDash([]);
+  if (c.blur && c.blur.length) for (const z of c.blur) { const fr = boxFrame(c, z, t); if (!fr) continue; const on = S.blurEdit === z.id; ovx.strokeStyle = on ? '#ffd23f' : 'rgba(255,210,63,.6)'; ovx.setLineDash(on ? [] : [4 * dpr, 3 * dpr]); ovx.beginPath(); fr.pts.forEach((p, i) => i ? ovx.lineTo(p[0] * k, p[1] * k) : ovx.moveTo(p[0] * k, p[1] * k)); ovx.closePath(); ovx.stroke(); ovx.setLineDash([]); if (on && !tr.lock) { ovx.fillStyle = '#ffd23f'; for (const p of fr.pts) ovx.fillRect(p[0] * k - 5 * dpr, p[1] * k - 5 * dpr, 10 * dpr, 10 * dpr); } }
+  ovx.strokeStyle = '#76e3aa';
   if (tr.lock) return;
   const hs = (coarse ? 9 : 6) * dpr;
   ovx.fillStyle = '#fff';
@@ -3183,8 +3580,23 @@ function inClip(c, x, y) {
 const OD = { mode: null, ptrs: new Map() };
 ov.addEventListener('pointerdown', e => {
   const t = S.playhead; const [x, y] = evProj(e); const tol = (coarse ? 18 : 10) * proj.w / PV.cssW;
+  if (S.pickKey) { // prende il colore del fondo per il chroma key
+    const c = clipOf(S.pickKey); S.pickKey = null;
+    if (c && c.key) { c.key.on = false; drawPreview(t); const r = ov.getBoundingClientRect(), px = Math.round((e.clientX - r.left) / r.width * cv.width), py = Math.round((e.clientY - r.top) / r.height * cv.height);
+      const d = cvx.getImageData(Math.max(0, px - 2), Math.max(0, py - 2), 5, 5).data; let R = 0, G = 0, B = 0; for (let i = 0; i < d.length; i += 4) { R += d[i]; G += d[i + 1]; B += d[i + 2]; }
+      const n = d.length / 4, hx = v => Math.round(v / n).toString(16).padStart(2, '0'); c.key.color = '#' + hx(R) + hx(G) + hx(B); c.key.on = true; commit(); renderInspector(); requestDraw(); toast('Colore del fondo preso: ' + c.key.color); }
+    return;
+  }
   OD.ptrs.set(e.pointerId, [x, y]);
   let c = selClip();
+  if (c && c.blur && c.blur.length && !P.playing && OD.ptrs.size === 1 && t >= c.start && t < c.start + c.dur && !trackOf(c.track).lock) {
+    for (const z of c.blur) {
+      const fr = boxFrame(c, z, t); if (!fr) continue;
+      const corner = fr.pts.some(p => Math.hypot(x - p[0], y - p[1]) < tol * 1.3), inv = fr.m.inverse(), lp = inv.transformPoint(new DOMPoint(x, y));
+      const lx = -fr.b.w / 2 + fr.r.u * fr.b.w, ly = -fr.b.h / 2 + fr.r.v * fr.b.h, inside = Math.abs(lp.x - lx) <= fr.r.w * fr.b.w / 2 && Math.abs(lp.y - ly) <= fr.r.h * fr.b.h / 2;
+      if ((S.blurEdit === z.id && corner) || inside) { S.blurEdit = z.id; ov.setPointerCapture(e.pointerId); Object.assign(OD, { mode: corner && S.blurEdit === z.id ? 'bscale' : 'bmove', id: c.id, zid: z.id, x0: x, y0: y, moved: false, fr }); e.preventDefault(); requestDraw(); return; }
+    }
+  }
   if (OD.ptrs.size === 2 && c && OD.mode) { const ps = [...OD.ptrs.values()]; OD.mode = 'pinch'; OD.d0 = Math.hypot(ps[0][0] - ps[1][0], ps[0][1] - ps[1][1]); OD.s0 = c.scale; return; }
   if (P.playing) pause();
   const editable = c2 => c2 && c2.type !== 'audio' && t >= c2.start && t < c2.start + c2.dur && !trackOf(c2.track).lock && !(c2.text && c2.text.anim === 'scroll');
@@ -3208,18 +3620,24 @@ ov.addEventListener('pointermove', e => {
   if (!OD.mode) { if (!coarse) { const [x, y] = evProj(e); const c = selClip(); let cur = 'default'; if (c && c.type !== 'audio') { const rh = rotHandle(c); const tol = 10 * proj.w / PV.cssW; if (Math.hypot(x - rh[0], y - rh[1]) < tol * 1.4) cur = 'grab'; else if (clipCorners(c).some(p => Math.hypot(x - p[0], y - p[1]) < tol * 1.4)) cur = 'nwse-resize'; else if (inClip(c, x, y)) cur = 'move'; } ov.style.cursor = cur; } return; }
   const c = clipOf(OD.id); if (!c) return;
   const [x, y] = evProj(e); OD.moved = true;
-  if (OD.mode === 'pinch') { const ps = [...OD.ptrs.values()]; if (ps.length < 2) return; const d = Math.hypot(ps[0][0] - ps[1][0], ps[0][1] - ps[1][1]); c.scale = clamp(OD.s0 * d / Math.max(1, OD.d0), .05, 12); }
+  if (OD.mode === 'bmove' || OD.mode === 'bscale') {
+    const z = (c.blur || []).find(q => q.id === OD.zid); if (!z) return; const fr = OD.fr, inv = fr.m.inverse(), p = inv.transformPoint(new DOMPoint(x, y)), p0 = inv.transformPoint(new DOMPoint(OD.x0, OD.y0));
+    if (OD.mode === 'bmove') boxSet(c, z, { u: fr.r.u + (p.x - p0.x) / fr.b.w, v: fr.r.v + (p.y - p0.y) / fr.b.h });
+    else { const lx = -fr.b.w / 2 + fr.r.u * fr.b.w, ly = -fr.b.h / 2 + fr.r.v * fr.b.h; boxSet(c, z, { w: clamp(2 * Math.abs(p.x - lx) / fr.b.w, .02, 1), h: clamp(2 * Math.abs(p.y - ly) / fr.b.h, .02, 1) }); }
+    requestDraw(); return;
+  }
+  if (OD.mode === 'pinch') { const ps = [...OD.ptrs.values()]; if (ps.length < 2) return; const d = Math.hypot(ps[0][0] - ps[1][0], ps[0][1] - ps[1][1]); c.scale = clamp(OD.s0 * d / Math.max(1, OD.d0), .05, 12); kfTouch(c); }
   else if (OD.mode === 'move') {
     let nx = OD.cx + (x - OD.x0) / proj.w, ny = OD.cy + (y - OD.y0) / proj.h;
     OVL.guideX = Math.abs(nx - .5) < .012; OVL.guideY = Math.abs(ny - .5) < .012;
     if (OVL.guideX) nx = .5; if (OVL.guideY) ny = .5;
-    c.x = nx; c.y = ny;
+    c.x = nx; c.y = ny; kfTouch(c);
   } else if (OD.mode === 'scale') {
-    const d = Math.hypot(x - c.x * proj.w, y - c.y * proj.h); c.scale = clamp(OD.s0 * d / Math.max(1, OD.d0), .05, 12);
+    const d = Math.hypot(x - c.x * proj.w, y - c.y * proj.h); c.scale = clamp(OD.s0 * d / Math.max(1, OD.d0), .05, 12); kfTouch(c);
   } else if (OD.mode === 'rot') {
     let a = OD.r0 + (Math.atan2(y - c.y * proj.h, x - c.x * proj.w) - OD.a0) * 180 / Math.PI;
     a = ((a + 540) % 360) - 180; for (const s of [-180, -90, 0, 90, 180]) if (Math.abs(a - s) < 4) a = s;
-    c.rot = Math.round(a * 10) / 10;
+    c.rot = Math.round(a * 10) / 10; kfTouch(c);
   }
   requestDraw(); syncInspector();
 });
@@ -3403,6 +3821,7 @@ function drawRuler() {
     const lab = st < 1 ? fmtTC(t).slice(3) : fmtDur(t); g.fillText(lab, x + 3, 11);
   }
   g.stroke();
+  if (proj.beats) { g.fillStyle = '#ffd23f'; for (const b of proj.beats) if (b >= t0 && b <= t1) { const x = (b - t0) * S.pps; g.beginPath(); g.moveTo(x, hgt - 7); g.lineTo(x + 3, hgt - 3.5); g.lineTo(x, hgt); g.lineTo(x - 3, hgt - 3.5); g.fill(); } }
 }
 function updPH(follow) {
   const x = hwPx() + S.playhead * S.pps; $('#ph').style.left = x - 1 + 'px';
@@ -3490,7 +3909,7 @@ function execPlan(pl, kind) {
   return null;
 }
 /* aggancio (calamita) */
-function snapCands(except) { const a = [0, S.playhead]; for (const c of proj.clips) if (c.id !== except) a.push(c.start, c.start + c.dur); return a; }
+function snapCands(except) { const a = [0, S.playhead, ...(proj.beats || [])]; for (const c of proj.clips) if (c.id !== except) a.push(c.start, c.start + c.dur); return a; }
 function snapT(t, cands) {
   if (!S.snap) return null; const tol = 8 / S.pps; let best = null;
   for (const x of cands) if (Math.abs(x - t) < tol && (best === null || Math.abs(x - t) < Math.abs(best - t))) best = x;
@@ -3641,6 +4060,8 @@ function splitAt(c, t) {
   const b = JSON.parse(JSON.stringify(c, (k, v) => k[0] === '_' ? undefined : v)); b.id = uid('c');
   b.start = t; b.dur = c.start + c.dur - t; if (c.type === 'video' || c.type === 'audio') b.offset = srcTime(c, t);
   if (c.ramp) { const pc = (t - c.start) / c.dur; b.ramp = sliceRamp(c.ramp, pc, 1); c.ramp = sliceRamp(c.ramp, 0, pc); }
+  if (c.kf) kfSplit(c, b, t - c.start);
+  if (c.blur) b.blur = c.blur.map(z => Object.assign({}, z, { pts: z.pts.map(p => Object.assign({}, p, { t: p.t - (t - c.start) })) }));
   c.dur = t - c.start; c.tout = { type: 'none', dur: c.tout.dur }; c.fadeOut = 0; b.tin = { type: 'none', dur: b.tin.dur }; b.fadeIn = 0;
   proj.clips.push(b); return b;
 }
@@ -3810,6 +4231,11 @@ function clipCtxItems(c, at) {
     '-',
     media ? { label: '⏩ Velocità', sub: [...SPEEDS.map(([v, n, d]) => ({ label: d + ' · ' + n, on: !c.ramp && Math.abs(c.speed - v) < 1e-3, run: () => applyEffect(c, 'speed:' + v) })), '-', ...RAMPS.map(([id, n]) => ({ label: '⤳ ' + n, on: c.rampId === id && !!c.ramp, run: () => applyEffect(c, 'ramp:' + id) }))] } : null,
     c.type === 'video' && hasAudio(c) && !c.mute ? { label: '♪ Estrai l\'audio in una traccia', run: doDetach } : null,
+    hasAudio(c) ? { label: '✨ Pulisci la voce', run: () => cleanVoice(c) } : null,
+    hasAudio(c) ? { label: '⏸ Togli le pause', run: () => removePauses(c) } : null,
+    media ? { label: '⇆ Al contrario', run: () => reverseClip(c) } : null,
+    c.type === 'audio' ? { label: '♫ Segna i battiti', run: () => markBeats(c) } : null,
+    c.type !== 'audio' && c.type !== 'text' ? { label: '🙂 Oscura i volti', run: () => blurFaces(c) } : null,
     hasAudio(c) ? { label: c.mute ? '🔊 Riattiva l\'audio' : '🔇 Togli l\'audio', run: () => applyEffect(c, 'mute:1') } : null,
     hasAudio(c) ? { label: 'Audio', sub: [{ label: 'Entrata e uscita morbide', run: () => applyEffect(c, 'fades:1') }, { label: 'Da sottofondo (−14 dB)', run: () => applyEffect(c, 'vol:-14') }, { label: 'Volume normale', run: () => applyEffect(c, 'vol:0') }, { label: 'Più forte (+6 dB)', run: () => applyEffect(c, 'vol:6') }] } : null,
     c.type === 'video' ? { label: '❄ Fermo immagine (2 s)', disabled: !(at >= c.start && at < c.start + c.dur), run: () => freezeFrame(c, at) } : null,
@@ -4046,11 +4472,11 @@ const TEXTS = [
   { id: 'lower', name: 'Sottopancia', d: 'Nome e ruolo in basso a sinistra', dur: 5, set: { content: 'Nome Cognome\nRuolo', size: 50, align: 'left', bg: 'bar', bgOpacity: .78, boxW: .5, font: 'Montserrat', weight: 700, shadow: false }, x: .3, y: .82, tin: 'wipeL', tout: 'fade' },
   { id: 'sub', name: 'Didascalia / sottotitolo', d: 'Testo in basso su fondo nero', dur: 4, set: { content: 'Scrivi qui la frase', size: 48, bg: 'lines', bgOpacity: .72, font: 'Montserrat', weight: 700, shadow: false, boxW: .8 }, y: .88, tin: 'fade', tout: 'fade' },
   { id: 'quote', name: 'Citazione', d: 'Corsivo elegante tra virgolette', dur: 6, set: { content: '«Scrivi qui la citazione»', size: 72, font: 'Playfair Display', weight: 400, italic: true, boxW: .75 }, tin: 'fade', tout: 'fade' },
-  { id: 'type', name: 'Macchina da scrivere', d: 'Lettere che compaiono una a una', dur: 6, set: { content: 'Agrigento, 1989', size: 70, font: 'Special Elite', weight: 400, anim: 'type' }, tin: 'none', tout: 'fade' },
-  { id: 'place', name: 'Luogo e data', d: 'Piccolo, in basso a sinistra', dur: 4, set: { content: 'AGRIGENTO — 3 NOVEMBRE 1989', size: 40, font: 'Special Elite', weight: 400, align: 'left', boxW: .6, letter: 4 }, x: .34, y: .9, tin: 'fade', tout: 'fade' },
+  { id: 'type', name: 'Macchina da scrivere', d: 'Lettere che compaiono una a una', dur: 6, set: { content: 'Roma, 1989', size: 70, font: 'Special Elite', weight: 400, anim: 'type' }, tin: 'none', tout: 'fade' },
+  { id: 'place', name: 'Luogo e data', d: 'Piccolo, in basso a sinistra', dur: 4, set: { content: 'ROMA — 3 NOVEMBRE 1989', size: 40, font: 'Special Elite', weight: 400, align: 'left', boxW: .6, letter: 4 }, x: .34, y: .9, tin: 'fade', tout: 'fade' },
   { id: 'date', name: 'Annuncio data', d: 'Grande, con fondo colorato', dur: 4, set: { content: 'DALL\'11 DICEMBRE', size: 96, font: 'Anton', weight: 400, bg: 'box', bgColor: '#1fb069', bgOpacity: 1, color: '#03220f', shadow: false, letter: 3 }, y: .78, tin: 'zoom', tout: 'fade' },
   { id: 'breaking', name: 'Fascia notizia', d: 'Banda rossa in basso', dur: 6, set: { content: 'ULTIM\'ORA — Scrivi qui il titolo della notizia', size: 46, font: 'Oswald', weight: 700, align: 'left', bg: 'bar', bgColor: '#b3261e', bgOpacity: .95, accent: '#ffffff', boxW: .9, shadow: false }, x: .5, y: .86, tin: 'slideL', tout: 'fade' },
-  { id: 'credits', name: 'Titoli di coda', d: 'Scorrono dal basso verso l\'alto', dur: 14, set: { content: 'Regia\nGABRIELE TERRANOVA\n\nSegreteria di produzione\nIrene Milisenda\n\nDirettore Responsabile\nGiuseppe Castaldo\n\nSi ringrazia tutta la redazione di Grandangolo\n\nUna produzione\nEdizioni Grandangolo', size: 54, font: 'Montserrat', weight: 700, anim: 'scroll', lineH: 1.35 } },
+  { id: 'credits', name: 'Titoli di coda', d: 'Scorrono dal basso verso l\'alto', dur: 14, set: { content: 'Regia\nNOME COGNOME\n\nMontaggio\nNome Cognome\n\nGrazie a\nTutta la redazione', size: 54, font: 'Montserrat', weight: 700, anim: 'scroll', lineH: 1.35 } },
   { id: 'words', name: 'Parola per parola', d: 'Le parole entrano una alla volta', dur: 5, set: { content: 'Una storia vera, raccontata da chi c\'era', size: 80, font: 'Bebas Neue', weight: 400, anim: 'words', letter: 2 }, tout: 'fade' },
 ];
 function addTextPreset(id, trackId, time) {
@@ -4074,9 +4500,11 @@ function addTextPreset(id, trackId, time) {
 }
 function renderTexts() {
   const P2 = $('#pane-txt'); P2.innerHTML = '';
-  P2.append(h('h4', {}, 'Grandangolo'));
-  P2.append(h('div', { class: 'fxitem brand', 'data-pdrag': JSON.stringify({ kind: 'text', id: 'gl3' }), 'data-plabel': 'Lower third Grandangolo', onclick: () => { addTextPreset('gl3'); closeSideMobile(); } }, h('span', { class: 'grip', 'data-tdrag': 'gl3' }, '▍'), h('div', { class: 'fxn' }, 'Lower third Grandangolo', h('small', {}, 'Voce sopra, titolo e sottotitolo, come nel player'))));
-  P2.append(h('div', { class: 'fxitem brand', onclick: () => { closeSideMobile(); genDialog(); } }, h('span', { class: 'grip' }, '★'), h('div', { class: 'fxn' }, 'Confezione completa', h('small', {}, 'Pre-roll, video, outro, logo e lower third'))));
+  const kit = typeof kitNow === 'function' ? kitNow() : null;
+  P2.append(h('h4', {}, kit ? 'Il tuo kit · ' + kit.name : 'Il tuo kit'));
+  P2.append(h('div', { class: 'fxitem brand', 'data-pdrag': JSON.stringify({ kind: 'text', id: 'gl3' }), 'data-plabel': 'Lower third', onclick: () => { addTextPreset('gl3'); closeSideMobile(); } }, h('span', { class: 'grip', 'data-tdrag': 'gl3' }, '▍'), h('div', { class: 'fxn' }, 'Lower third', h('small', {}, 'Con lo stile del kit: clic o trascina'))));
+  P2.append(h('div', { class: 'fxitem brand', onclick: () => { closeSideMobile(); genDialog(); } }, h('span', { class: 'grip' }, '★'), h('div', { class: 'fxn' }, 'Confezione completa', h('small', {}, 'Sigla, video, outro, logo e lower third'))));
+  P2.append(h('div', { class: 'row2' }, h('button', { onclick: () => kitQuick() }, '★ Apri il kit'), h('button', { onclick: () => kitEditor() }, '✎ Modifica kit')));
   P2.append(h('h4', {}, 'Clic per aggiungere al cursore, o trascina sulla timeline'));
   for (const t of TEXTS) {
     const it = h('div', { class: 'fxitem', 'data-pdrag': JSON.stringify({ kind: 'text', id: t.id }), 'data-plabel': t.name, onclick: () => { addTextPreset(t.id); closeSideMobile(); } },
@@ -4196,7 +4624,7 @@ const LOOKS = [
 ];
 const MOVES = [['zoomin', 'Zoom lento in avanti', 'Effetto Ken Burns, ottimo per le foto'], ['zoomout', 'Zoom lento indietro', ''], ['panL', 'Panoramica verso sinistra', ''], ['panR', 'Panoramica verso destra', ''], ['panU', 'Panoramica verso l\'alto', ''], ['none', 'Nessun movimento', '']];
 const SPEEDS = [['.1', 'Moviola estrema', '0,1×'], ['.25', 'Super rallentatore', '0,25×'], ['.5', 'Rallentatore', '0,5×'], ['.75', 'Leggermente lento', '0,75×'], ['1', 'Velocità normale', '1×'], ['1.5', 'Un po\' più veloce', '1,5×'], ['2', 'Veloce', '2×'], ['4', 'Molto veloce', '4×'], ['8', 'Timelapse', '8×'], ['16', 'Iperlapse', '16×']];
-/* curve di velocità in stile CapCut: [id, nome, descrizione, punti (posizione 0..1, moltiplicatore)] */
+/* curve di velocità: [id, nome, descrizione, punti (posizione 0..1, moltiplicatore)] */
 const RAMPS = [
   ['montaggio', 'Montaggio', 'Veloce, lento, veloce: ritmo da videoclip', [[0, 1], [.2, 3], [.45, .45], [.6, .45], [.8, 3], [1, 1]]],
   ['eroe', 'Momento eroe', 'Corre veloce e si ferma quasi del tutto nel momento clou', [[0, 2.2], [.3, 2.2], [.42, .25], [.68, .25], [.8, 2.2], [1, 2.2]]],
@@ -4306,7 +4734,7 @@ function renderFx() {
     h('div', { class: 'row2' }, h('button', { onclick: () => applyEffect(null, 'bars:2.39') }, 'Su tutto il video'), h('button', { class: 'ghost', onclick: () => { applyEffect(selClip(), 'cbars:0'); } }, 'Togli dalla clip'), h('button', { class: 'ghost', onclick: () => applyEffect(null, 'bars:0') }, 'Togli da tutto')));
   P2.append(h('h4', {}, 'Velocità: preset'));
   P2.append(h('div', { class: 'chips' }, SPEEDS.map(([v, n, d]) => h('button', { title: n, 'data-pdrag': JSON.stringify({ kind: 'fx', id: 'speed:' + v }), 'data-plabel': n, onclick: () => applyEffect(selClip(), 'speed:' + v) }, h('b', {}, d), h('small', {}, n)))));
-  P2.append(h('h4', {}, 'Velocità: curve (come CapCut)'));
+  P2.append(h('h4', {}, 'Velocità: curve'));
   RAMPS.forEach(([id, n, d, r]) => P2.append(item('ramp:' + id, n, d, rampSvg(r))));
   P2.append(item('ramp:none', 'Togli la curva', 'Torna a velocità costante', null));
   P2.append(h('h4', {}, 'Effetti veloci'));
@@ -4474,6 +4902,10 @@ const SUB_STYLES = {
   classico: { name: 'Classico (fondo nero)', set: { font: 'Montserrat', weight: 700, size: 46, color: '#ffffff', bg: 'lines', bgColor: '#000000', bgOpacity: .72, shadow: false, outline: 0, boxW: .82, lineH: 1.2 } },
   social: { name: 'Social (grande, contorno)', set: { font: 'Montserrat', weight: 800, size: 62, color: '#ffffff', bg: 'none', outline: 6, outlineColor: '#000000', shadow: true, upper: true, boxW: .84, lineH: 1.1 } },
   giallo: { name: 'Giallo con contorno', set: { font: 'Montserrat', weight: 800, size: 56, color: '#ffd200', bg: 'none', outline: 5, outlineColor: '#000000', shadow: true, boxW: .84, lineH: 1.1 } },
+  karaoke: { name: 'Karaoke (parola evidenziata)', set: { font: 'Montserrat', weight: 800, size: 60, color: '#ffffff', bg: 'none', outline: 6, outlineColor: '#000000', shadow: true, upper: true, boxW: .84, lineH: 1.15, anim: 'karaoke', hl: '#ffd200' } },
+  box: { name: 'Parola nel riquadro colorato', set: { font: 'Montserrat', weight: 800, size: 58, color: '#ffffff', bg: 'none', outline: 5, outlineColor: '#000000', shadow: true, upper: true, boxW: .84, lineH: 1.25, anim: 'karaoke', hl: '#ffd200', hlBox: true, hlText: '#111111' } },
+  parola: { name: 'Una parola alla volta', set: { font: 'Anton', weight: 400, size: 110, color: '#ffffff', bg: 'none', outline: 7, outlineColor: '#000000', shadow: true, upper: true, boxW: .9, lineH: 1.1, anim: 'pop', hl: '#ffd200' } },
+  kit: { name: 'Colori del kit', set: { font: 'Archivo', weight: 800, size: 58, color: '#ffffff', bg: 'none', outline: 5, outlineColor: '#000000', shadow: true, upper: true, boxW: .84, lineH: 1.25, anim: 'karaoke', hlBox: true, hlText: '#ffffff', kit: true } },
   film: { name: 'Cinema (corsivo, discreto)', set: { font: 'Lora', weight: 400, italic: true, size: 46, color: '#f4f1ea', bg: 'none', outline: 0, shadow: true, boxW: .8, lineH: 1.2 } },
 };
 const SUB_TRACK = 'Sottotitoli';
@@ -4545,6 +4977,7 @@ function subTrack(create) {
 function makeSubClip(tr, a, b, text, style) {
   const c = mkClip('text', null, tr.id, a, Math.max(.3, b - a));
   c.text = Object.assign(TX0(), SUB_STYLES[style].set, { content: text });
+  if (c.text.kit && typeof kitNow === 'function') { c.text.hl = kitNow().l3.accent; delete c.text.kit; }
   c.x = .5; c.y = proj.h > proj.w ? .74 : .87;
   proj.clips.push(c); ensureFont(c.text); return c;
 }
@@ -4565,6 +4998,7 @@ async function subsDialog() {
     h('div', { class: 'row2' }, h('label', { style: 'width:120px' }, 'Stile'), h('select', { id: 'sbStyle' }, Object.entries(SUB_STYLES).map(([k, v]) => h('option', { value: k }, v.name)))),
     subTrack() ? h('label', { class: 'row2' }, h('input', { type: 'checkbox', id: 'sbReplace', checked: true }), ' Sostituisci i sottotitoli che ci sono già') : null,
     h('div', { class: 'row2', style: 'margin-top:10px;border-top:1px solid var(--line);padding-top:10px' },
+      subTrack() ? h('button', { onclick: () => { $('#dlg').close(); setTimeout(subsEditor, 30); } }, '✎ Correggi le frasi') : null,
       h('button', { onclick: () => { $('#dlg').close(); $('#srtIn').click(); } }, 'Importa un file .SRT'),
       h('button', { onclick: () => { $('#dlg').close(); exportSRT(); } }, 'Scarica i sottotitoli in .SRT')));
   const r = await ask('Sottotitoli automatici', body, [['Annulla', 0], ['Crea i sottotitoli', 1, 'primary']]);
@@ -4642,88 +5076,84 @@ function applySubStyleToAll(src) {
   textCache.clear(); commit(); renderAll(); toast('Stile copiato su ' + n + ' sottotitoli');
 }
 
-/* ================= Grandangolo: lower third, logo, pre-roll e outro ================= */
-const BRAND = {
-  green: '#1fb069', mint: '#76e3aa',
-  logoUrl: 'https://www.grandangoloagrigento.it/wp-content/themes/grandangolo-agrigento/img/logonew2.png',
-  logoLocal: 'logo-grandangolo.png.png', // copia sul sito edicola (stesso dominio)
-  outroUrl: 'https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4',
-};
-/* --- lower third: stesso disegno del player e del generatore pre-roll --- */
-function gl3K() { return proj.w >= proj.h ? proj.w / 1920 : proj.w / 1080 * 1.4; }
-function gl3Layout(ctx, tx, k) {
-  const LS = v => { try { ctx.letterSpacing = v; } catch (_) { } };
-  const sc = (tx.size || 100) / 100;
-  const titleSize = 48 * k * sc, subSize = 22 * k * sc, kickSize = 22 * k * sc;
-  const accentW = 8 * k, bodyPadX = 34 * k, topPad = 18 * k, kickPadX = 22 * k, kickPadY = 10 * k, kickBorder = 8 * k, gap = 8 * k;
-  const maxBodyW = Math.min(1250 * k, proj.w * .9);
-  const title = (tx.content || '').trim(), sub = (tx.sub || '').trim(), kicker = (tx.kicker || '').trim();
-  LS('0px'); ctx.font = `700 ${titleSize}px "Archivo",sans-serif`;
-  const lines = [];
-  if (title) for (const para of title.split('\n')) { let cur = ''; for (const w of para.split(/\s+/).filter(Boolean)) { const t2 = cur ? cur + ' ' + w : w; if (ctx.measureText(t2).width > maxBodyW - bodyPadX * 2 && cur) { lines.push(cur); cur = w; } else cur = t2; } if (cur) lines.push(cur); }
-  let titleW = 0; lines.forEach(l => titleW = Math.max(titleW, ctx.measureText(l).width));
-  LS(1.5 * k + 'px'); ctx.font = `600 ${subSize}px "Archivo",sans-serif`;
-  const subW = sub ? ctx.measureText(sub.toUpperCase()).width : 0;
-  const bodyW = Math.max(titleW, subW) + bodyPadX * 2, titleLineH = titleSize * 1.14, titleBlockH = lines.length * titleLineH;
-  const subGap = sub ? 10 * k : 0, subLineH = sub ? subSize * 1.2 : 0, botPad = topPad + (sub ? 20 * k : 0);
-  const hasBar = !!(title || sub), barH = hasBar ? topPad + titleBlockH + subGap + subLineH + botPad : 0;
-  let kickH = 0, kickBodyW = 0;
-  if (kicker) { LS(1.6 * k + 'px'); ctx.font = `600 ${kickSize}px "Archivo",sans-serif`; kickBodyW = kickBorder + ctx.measureText(kicker.toUpperCase()).width + kickPadX * 2; kickH = kickPadY * 2 + kickSize * 1.2; }
-  LS('0px');
-  const hasKick = !!kicker, groupW = Math.max(hasBar ? accentW + bodyW : 0, kickBodyW), groupH = (hasKick ? kickH : 0) + (hasKick && hasBar ? gap : 0) + barH;
-  return { titleSize, subSize, kickSize, accentW, bodyPadX, topPad, kickPadX, kickPadY, kickBorder, gap, lines, titleLineH, titleBlockH, subGap, bodyW, barH, kickH, kickBodyW, groupW, groupH, sub, kicker, hasBar, hasKick, k };
-}
-function gl3Paint(ctx, ox, oy, L) {
-  const LS = v => { try { ctx.letterSpacing = v; } catch (_) { } };
-  let y = oy;
-  if (L.hasKick) {
-    ctx.fillStyle = BRAND.green; ctx.fillRect(ox, y, L.kickBorder, L.kickH);
-    const g = ctx.createLinearGradient(ox + L.kickBorder, 0, ox + L.kickBodyW, 0); g.addColorStop(0, 'rgba(7,17,12,.95)'); g.addColorStop(1, 'rgba(7,17,12,.55)');
-    ctx.fillStyle = g; ctx.fillRect(ox + L.kickBorder, y, L.kickBodyW - L.kickBorder, L.kickH);
-    ctx.fillStyle = BRAND.mint; LS(1.6 * L.k + 'px'); ctx.font = `600 ${L.kickSize}px "Archivo",sans-serif`; ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle'; ctx.fillText(L.kicker.toUpperCase(), ox + L.kickBorder + L.kickPadX, y + L.kickH / 2); LS('0px');
-    y += L.kickH + (L.hasBar ? L.gap : 0);
-  }
-  if (L.hasBar) {
-    const barW = L.accentW + L.bodyW;
-    ctx.fillStyle = BRAND.green; ctx.fillRect(ox, y, L.accentW, L.barH);
-    const g2 = ctx.createLinearGradient(ox + L.accentW, 0, ox + barW, 0); g2.addColorStop(0, 'rgba(7,17,12,.94)'); g2.addColorStop(1, 'rgba(7,17,12,.72)');
-    ctx.fillStyle = g2; ctx.fillRect(ox + L.accentW, y, L.bodyW, L.barH);
-    const tx = ox + L.accentW + L.bodyPadX; ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic'; ctx.fillStyle = '#fff'; LS('0px'); ctx.font = `700 ${L.titleSize}px "Archivo",sans-serif`;
-    let ty = y + L.topPad + L.titleSize * .9; for (const line of L.lines) { ctx.fillText(line, tx, ty); ty += L.titleLineH; }
-    if (L.sub) { const sb = y + L.topPad + L.titleBlockH + L.subGap + L.subSize * .9; ctx.fillStyle = BRAND.mint; LS(1.5 * L.k + 'px'); ctx.font = `600 ${L.subSize}px "Archivo",sans-serif`; ctx.fillText(L.sub.toUpperCase(), tx, sb); LS('0px'); }
-  }
-}
-/* disegno nella timeline: la clip è ancorata in basso a sinistra (c.x, c.y), entra da sinistra ed esce */
-function drawGL3(ctx, c, local) {
-  ensureFont({ font: 'Archivo', weight: 700, italic: false });
-  const tx = c.text, L = gl3Layout(ctx, tx, gl3K());
-  c._b = { w: Math.max(20, L.groupW), h: Math.max(20, L.groupH), ox: L.groupW / 2, oy: -L.groupH / 2 };
-  const dIn = .55, out = c.dur - local;
-  const eo = p => 1 - Math.pow(1 - p, 3);
-  let off = 0, a = 1;
-  const travel = L.groupW * 1.03 + c.x * proj.w;
-  if (local < dIn) { off = -(1 - eo(clamp(local / dIn, 0, 1))) * travel; a = clamp(local / .45, 0, 1); }
-  else if (out < dIn) { off = -(1 - eo(clamp(out / dIn, 0, 1))) * travel; a = clamp(out / .45, 0, 1); }
-  ctx.save(); ctx.globalAlpha *= a; gl3Paint(ctx, off, -L.groupH, L); ctx.restore();
-}
-function gl3Defaults() { return Object.assign(TX0(), { kind: 'gl3', content: 'Titolo della notizia', sub: 'Sottotitolo', kicker: 'Servizio di', size: 100, font: 'Archivo', shadow: false }); }
-function addGL3(trackId, time, dur, fields) {
-  const t0 = time ?? S.playhead, d = dur || 6;
-  let tr = trackId ? trackOf(trackId) : null;
-  if (!tr) tr = visualTracks().find(t => !t.lock && !isSubTrack(t) && trackFree(t, t0, t0 + d)) || addTrack('video', 'Grafica', 0);
-  const c = mkClip('text', null, tr.id, t0, d);
-  c.text = Object.assign(gl3Defaults(), fields || {}); c.x = .021; c.y = .885; c.name = 'Lower third Grandangolo';
-  proj.clips.push(c); return c;
+/* correzione veloce: tutti i sottotitoli in un elenco */
+async function subsEditor() {
+  if (P.playing) pause();
+  const tr = subTrack(); const list = tr ? proj.clips.filter(c => c.track === tr.id && c.type === 'text').sort((a, b) => a.start - b.start) : [];
+  if (!list.length) { toast('Non ci sono sottotitoli: creali con «CC»'); return; }
+  const rows = list.map(c => h('div', { class: 'subrow' },
+    h('button', { class: 'ghost', title: 'Vai a questa frase', onclick: () => { setPlayhead(c.start + .05); select(c.id); } }, fmtTC(c.start).slice(3, 8)),
+    h('textarea', { rows: 2, oninput: e => { c.text.content = e.target.value; textCache.clear(); requestDraw(); }, onfocus: () => { setPlayhead(c.start + .05); }, onchange: () => commit() }, c.text.content),
+    h('button', { class: 'ghost', title: 'Togli questa frase', onclick: e => { proj.clips = proj.clips.filter(x => x !== c); e.target.closest('.subrow').remove(); commit(); renderTimeline(); requestDraw(); } }, '✕')));
+  const fnd = h('input', { type: 'text', placeholder: 'Trova (es. un nome scritto male)' }), rep = h('input', { type: 'text', placeholder: 'Sostituisci con' });
+  const body = h('div', { class: 'subed' },
+    h('div', { class: 'row2' }, fnd, rep, h('button', { onclick: () => { const a = fnd.value; if (!a) return; let n = 0; const re = new RegExp(a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'); for (const c of list) { const v = c.text.content.replace(re, () => { n++; return rep.value; }); c.text.content = v; } rows.forEach((r, i) => r.querySelector('textarea').value = list[i].text.content); textCache.clear(); commit(); requestDraw(); toast(n + ' sostituzioni'); } }, 'Sostituisci tutto')),
+    h('div', { class: 'row2' }, h('label', {}, 'Stile per tutti'), h('select', { onchange: e => { const st = SUB_STYLES[e.target.value]; for (const c of list) { const keep = c.text.content; c.text = Object.assign(TX0(), st.set, { content: keep }); if (c.text.kit && typeof kitNow === 'function') { c.text.hl = kitNow().l3.accent; delete c.text.kit; } ensureFont(c.text); } textCache.clear(); commit(); requestDraw(); } }, h('option', { value: '' }, '— scegli —'), Object.entries(SUB_STYLES).map(([k, v]) => h('option', { value: k }, v.name)))),
+    h('div', { class: 'sublist' }, rows));
+  const d = $('#dlg'); d.classList.add('wide');
+  await ask('Correggi i sottotitoli (' + list.length + ' frasi)', body, [['Fatto', 1, 'primary']]);
+  d.classList.remove('wide'); commit(); renderTimeline();
 }
 
-/* --- risorse del brand: logo e outro, ricordati nel browser --- */
-async function brandGet(key) { return await dbDo('kv', 'readonly', st => st.get('brand:' + key)); }
-async function brandPut(key, v) { return await dbDo('kv', 'readwrite', st => st.put(v, 'brand:' + key)); }
+/* ================= Kit grafico: lower third, logo, sigla, outro e risorse ================= */
+const EDITION = window.NWL_EDITION || 'public';
+const L3_STYLES = [
+  ['classic', 'Classico', 'Fascia con barra laterale e occhiello sopra'],
+  ['box', 'Riquadro', 'Box arrotondato, pulito'],
+  ['breaking', 'Ultim\'ora', 'Etichetta colorata e fascia del titolo'],
+  ['minimal', 'Minimale', 'Solo testo, con una linea sotto'],
+  ['split', 'Due toni', 'Titolo sul colore, sottotitolo sullo scuro'],
+  ['tag', 'Nome e ruolo', 'Per le interviste: nome grande, ruolo sotto'],
+];
+const L3_ANIMS = [['slide', 'Scorre'], ['wipe', 'Si apre'], ['fade', 'Dissolve'], ['pop', 'Rimbalza']];
+const L3_FONTS = ['Archivo', 'Inter', 'Oswald', 'Montserrat', 'Bebas Neue', 'Anton', 'Playfair Display', 'Lora'];
+const L3_BASE = () => ({ style: 'classic', accent: '#2f7cf6', accent2: '#9cc4ff', bg: '#0b1220', bgA: .92, color: '#ffffff', font: 'Archivo', anim: 'slide', pos: 'bl', size: 100, label: 'ULTIM\'ORA' });
+const L3_GRANDANGOLO = () => ({ style: 'classic', accent: '#1fb069', accent2: '#76e3aa', bg: '#07110c', bgA: .94, color: '#ffffff', font: 'Archivo', anim: 'slide', pos: 'bl', size: 100, label: 'ULTIM\'ORA' });
+const L3_PRESETS = [ // stili pronti da cui partire
+  ['Blu notte', { style: 'classic', accent: '#2f7cf6', accent2: '#9cc4ff', bg: '#0b1220' }],
+  ['Rosso cronaca', { style: 'breaking', accent: '#d7261e', accent2: '#ffd0cc', bg: '#ffffff', color: '#111111', bgA: .97 }],
+  ['Oro', { style: 'tag', accent: '#e0a526', accent2: '#ffd98a', bg: '#141007' }],
+  ['Bianco', { style: 'box', accent: '#111111', accent2: '#555555', bg: '#ffffff', color: '#111111', bgA: .95 }],
+  ['Verde', { style: 'split', accent: '#1a9b5c', accent2: '#a6f0c9', bg: '#08140e' }],
+  ['Viola', { style: 'minimal', accent: '#9b6bff', accent2: '#d8c7ff', bg: '#000000' }],
+];
+const newKit = (name = 'Il mio kit') => ({ id: uid('k'), name, l3: L3_BASE(), kicker: 'Servizio di', logoPos: 'tr', logoSize: 5.8, logoOpacity: 92, files: {}, assets: [] });
+
+/* --- archivio dei kit (nel browser) --- */
+const KIT = { list: [], active: null, ready: null };
+const kitBlobKey = (id, key) => 'kitf:' + id + ':' + key;
+async function kitsLoad() {
+  KIT.list = (await dbDo('kv', 'readonly', st => st.get('kits'))) || [];
+  KIT.active = (await dbDo('kv', 'readonly', st => st.get('kitActive'))) || null;
+  if (EDITION === 'grandangolo') await ensureGrandangoloKit();
+  if (!KIT.list.length) { KIT.list.push(newKit()); await kitsSave(); }
+  if (!KIT.list.find(k => k.id === KIT.active)) KIT.active = KIT.list[0].id;
+  renderTexts(); updKitBtn();
+}
+async function kitsSave() { await dbDo('kv', 'readwrite', st => st.put(KIT.list, 'kits')); await dbDo('kv', 'readwrite', st => st.put(KIT.active, 'kitActive')); }
+const kitNow = () => KIT.list.find(k => k.id === KIT.active) || KIT.list[0] || newKit();
+async function kitFileGet(kit, key) { return await dbDo('kv', 'readonly', st => st.get(kitBlobKey(kit.id, key))); }
+async function kitFilePut(kit, key, blob, name) {
+  await dbDo('kv', 'readwrite', st => st.put({ blob, name }, kitBlobKey(kit.id, key)));
+  if (['logo', 'intro', 'outro'].includes(key)) kit.files[key] = { name, type: blob.type, size: blob.size };
+  for (const s of [...sources.values()]) if (s.kit === kit.id + ':' + key) s.kit = null; // la prossima volta ricarica il nuovo file
+  await kitsSave();
+}
+async function kitFileDel(kit, key) { await dbDo('kv', 'readwrite', st => st.delete(kitBlobKey(kit.id, key))); delete kit.files[key]; kit.assets = kit.assets.filter(a => a.key !== key); await kitsSave(); }
+function updKitBtn() { const b = $('#bGen'); if (b) { const sp = b.querySelector('.tb-l'); if (sp) sp.textContent = EDITION === 'grandangolo' && kitNow().id === 'k-grandangolo' ? 'Grandangolo' : 'Kit'; b.title = 'Il tuo kit «' + kitNow().name + '»: lower third, logo, sigla, outro e confezione completa'; } }
+
+/* edizione per la redazione di Grandangolo: il kit si prepara da solo */
+async function ensureGrandangoloKit() {
+  let k = KIT.list.find(x => x.id === 'k-grandangolo');
+  if (!k) { k = Object.assign(newKit('Grandangolo'), { id: 'k-grandangolo', l3: L3_GRANDANGOLO() }); KIT.list.unshift(k); KIT.active = k.id; await kitsSave(); }
+  if (!k.files.logo) for (const u of ['logo-grandangolo.png', '../logo-grandangolo.png']) { try { let b = await fetchBlob(new URL(u, location.href).href, 20000); if (b && b.size > 500) { b = await trimTransparent(b); await kitFilePut(k, 'logo', b, 'Logo Grandangolo.png'); break; } } catch { } }
+  if (!k.files.outro) for (const u of ['outro-grandangolo.mp4', 'https://videos.files.wordpress.com/NM27JxmI/lv_0_20260613183516-1.mp4']) { try { const b = await fetchBlob(new URL(u, location.href).href, 60000); if (b && b.size > 5000) { await kitFilePut(k, 'outro', new Blob([b], { type: 'video/mp4' }), 'Outro Grandangolo.mp4'); break; } } catch { } }
+}
+
+/* --- risorse del kit come file della libreria --- */
 async function fetchBlob(url, ms = 60000) {
   const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), ms);
-  try { const r = await fetch(url, { mode: 'cors', signal: ctl.signal }); if (!r.ok) throw new Error('HTTP ' + r.status); return await r.blob(); } finally { clearTimeout(t); }
+  try { const r = await fetch(url, { signal: ctl.signal }); if (!r.ok) throw new Error('HTTP ' + r.status); return await r.blob(); } finally { clearTimeout(t); }
 }
 function trimTransparent(blob) {
   return new Promise(res => {
@@ -4739,80 +5169,351 @@ function trimTransparent(blob) {
     img.onerror = () => res(blob); img.src = URL.createObjectURL(blob);
   });
 }
-/* restituisce l'id della sorgente in libreria per il logo / l'outro, caricandoli se serve */
-async function brandSource(kind, ui) {
-  const existing = [...sources.values()].find(s => s.brand === kind); if (existing) return existing.id;
-  let rec = await brandGet(kind);
-  if (!rec) {
-    let blob = null, name = kind === 'logo' ? 'Logo Grandangolo.png' : 'Outro Grandangolo.mp4';
-    const tries = kind === 'logo' ? [BRAND.logoUrl, new URL(BRAND.logoLocal, location.href).href, '/' + BRAND.logoLocal] : [BRAND.outroUrl];
-    for (const u of tries) { try { ui && ui(kind === 'logo' ? 'Scarico il logo…' : 'Scarico l\'outro…'); blob = await fetchBlob(u); if (blob && blob.size > 500) break; blob = null; } catch (e) { console.warn('brand', u, e); } }
-    if (blob && kind === 'logo') blob = await trimTransparent(blob);
-    if (!blob) return null;
-    rec = { blob, name }; await brandPut(kind, rec);
-  }
-  const s = await addSourceFromBlob(rec.blob, rec.name); s.brand = kind; renderLib(); return s.id;
-}
-async function brandSetFile(kind, file) {
-  let blob = file; if (kind === 'logo') blob = await trimTransparent(file);
-  await brandPut(kind, { blob, name: kind === 'logo' ? 'Logo Grandangolo.png' : file.name });
-  for (const s of [...sources.values()]) if (s.brand === kind) s.brand = null;
-  toast(kind === 'logo' ? 'Logo salvato: lo userò sempre' : 'Outro salvato: lo userò sempre');
+async function kitSource(kit, key) {
+  const tag = kit.id + ':' + key, ex = [...sources.values()].find(s => s.kit === tag); if (ex) return ex.id;
+  const rec = await kitFileGet(kit, key); if (!rec) return null;
+  const s = await addSourceFromBlob(rec.blob, rec.name); s.kit = tag; renderLib(); return s.id;
 }
 function pickFile(accept) { return new Promise(res => { const i = h('input', { type: 'file', accept, style: 'display:none' }); i.onchange = () => { res(i.files[0] || null); i.remove(); }; document.body.append(i); i.click(); }); }
 
-/* --- il generatore --- */
-const GEN = JSON.parse(localStorage.getItem('mv_gen') || 'null') || { kicker: 'Servizio di', title: '', sub: '', size: 100, delay: 1, stay: 6, logo: true, adTag: true, pre: '', outro: 'brand', main: 'timeline', fades: true };
+/* ================= lower third a stili ================= */
+function l3K() { return proj.w >= proj.h ? proj.w / 1920 : proj.w / 1080 * 1.4; }
+const l3St = tx => Object.assign(L3_BASE(), tx.kind === 'gl3' ? L3_GRANDANGOLO() : {}, tx.st || {});
+function l3Build(ctx, tx, k) {
+  const st = l3St(tx), sc = (tx.size || st.size || 100) / 100, F = st.font || 'Archivo';
+  const LS = v => { try { ctx.letterSpacing = v; } catch (_) { } };
+  const meas = (t, font, ls) => { LS(ls); ctx.font = font; const w = ctx.measureText(t).width; LS('0px'); return w; };
+  const big = st.style === 'tag' ? 1.18 : st.style === 'minimal' ? 1.1 : 1;
+  const tS = 48 * k * sc * big, sS = 22 * k * sc, kS = 22 * k * sc;
+  const fT = `700 ${tS}px "${F}",sans-serif`, fS = `600 ${sS}px "${F}",sans-serif`, fK = `600 ${kS}px "${F}",sans-serif`;
+  const lsS = 1.5 * k + 'px', lsK = 1.6 * k + 'px';
+  const title = (tx.content || '').trim(), sub = (tx.sub || '').trim().toUpperCase();
+  let kicker = (tx.kicker || '').trim().toUpperCase(); if (st.style === 'breaking' && !kicker) kicker = (st.label || '').toUpperCase();
+  const maxW = Math.min(1250 * k, proj.w * .9) - 68 * k;
+  const lines = []; LS('0px'); ctx.font = fT;
+  if (title) for (const para of title.split('\n')) { let cur = ''; for (const w of para.split(/\s+/).filter(Boolean)) { const t2 = cur ? cur + ' ' + w : w; if (ctx.measureText(t2).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t2; } if (cur) lines.push(cur); }
+  let tW = 0; for (const l of lines) tW = Math.max(tW, meas(l, fT, '0px'));
+  const sW = sub ? meas(sub, fS, lsS) : 0, kW = kicker ? meas(kicker, fK, lsK) : 0;
+  const tLH = tS * 1.14, tH = lines.length * tLH, sLH = sS * 1.25;
+  const ops = [], bgc = a => hexA(st.bg, a * st.bgA);
+  const R = (x, y, w, h2, fill, r = 0) => ops.push({ t: 'r', x, y, w, h: h2, fill, r });
+  const G = (x, y, w, h2, a0, a1) => ops.push({ t: 'g', x, y, w, h: h2, c0: bgc(a0), c1: bgc(a1) });
+  const T = (x, y, s, font, color, ls = '0px', shadow = false) => ops.push({ t: 't', x, y, s, font, color, ls, shadow });
+  const titleAt = (x, y, color, shadow) => { let ty = y + tS * .9; for (const l of lines) { T(x, ty, l, fT, color, '0px', shadow); ty += tLH; } };
+  let W = 0, H = 0;
+  if (st.style === 'classic') {
+    const aW = 8 * k, pX = 34 * k, tp = 18 * k, kpX = 22 * k, kpY = 10 * k, kb = 8 * k, gap = 8 * k;
+    const hasBar = !!(lines.length || sub), sg = sub ? 10 * k : 0, bp = tp + (sub ? 20 * k : 0);
+    const barH = hasBar ? tp + tH + sg + (sub ? sS * 1.2 : 0) + bp : 0, bodyW = Math.max(tW, sW) + pX * 2;
+    const kH = kicker ? kpY * 2 + kS * 1.2 : 0, kBW = kicker ? kb + kW + kpX * 2 : 0;
+    let y = 0;
+    if (kicker) { R(0, y, kb, kH, st.accent); G(kb, y, kBW - kb, kH, .95, .55); T(kb + kpX, y + kH / 2 + kS * .36, kicker, fK, st.accent2, lsK); y += kH + (hasBar ? gap : 0); }
+    if (hasBar) { R(0, y, aW, barH, st.accent); G(aW, y, bodyW, barH, 1, .76); titleAt(aW + pX, y + tp, st.color); if (sub) T(aW + pX, y + tp + tH + sg + sS * .9, sub, fS, st.accent2, lsS); y += barH; }
+    W = Math.max(hasBar ? aW + bodyW : 0, kBW); H = y;
+  } else if (st.style === 'box') {
+    const p = 28 * k, r = 14 * k; let y = p;
+    const inner = Math.max(tW, sW, kW); W = inner + p * 2;
+    const items = [];
+    if (kicker) { items.push(() => T(p, y + kS * .9, kicker, fK, st.accent, lsK)); y += kS * 1.5; }
+    if (lines.length) { const y0 = y; items.push(() => titleAt(p, y0, st.color)); y += tH; }
+    if (sub) { const y0 = y + 8 * k; items.push(() => T(p, y0 + sS * .9, sub, fS, st.accent2, lsS)); y += 8 * k + sLH; }
+    H = y + p; R(0, 0, W, H, bgc(1), r); R(0, H - 5 * k, W, 5 * k, st.accent); items.forEach(f => f());
+  } else if (st.style === 'breaking') {
+    const p = 26 * k, lp = 24 * k, lS = Math.max(kS * 1.25, tS * .5), fL = `800 ${lS}px "${F}",sans-serif`;
+    const lW = kicker ? meas(kicker, fL, 2 * k + 'px') + lp * 2 : 0;
+    const bodyW = Math.max(tW, sW) + p * 2, bodyH = p * .8 + tH + (sub ? sLH + 4 * k : 0) + p * .8;
+    H = bodyH; W = lW + bodyW;
+    if (kicker) { R(0, 0, lW, H, st.accent); T(lp, H / 2 + lS * .36, kicker, fL, '#ffffff', 2 * k + 'px'); }
+    R(lW, 0, bodyW, H, bgc(1)); titleAt(lW + p, p * .8, st.color); if (sub) T(lW + p, p * .8 + tH + 4 * k + sS * .9, sub, fS, st.accent, lsS);
+  } else if (st.style === 'minimal') {
+    let y = 0; if (kicker) { T(0, kS * .9, kicker, fK, st.accent2, lsK, true); y += kS * 1.5; }
+    titleAt(0, y, st.color, true); y += tH + 8 * k; R(0, y, Math.max(tW, 80 * k), 5 * k, st.accent); y += 5 * k;
+    if (sub) { y += 10 * k; T(0, y + sS * .9, sub, fS, st.color, lsS, true); y += sLH; }
+    W = Math.max(tW, sW, kW, 80 * k); H = y;
+  } else if (st.style === 'split') {
+    const p = 26 * k; let y = 0;
+    if (kicker) { T(0, kS * .9, kicker, fK, st.accent2, lsK, true); y += kS * 1.55; }
+    const tBW = tW + p * 2, tBH = tH + p * 1.1; R(0, y, tBW, tBH, st.accent); titleAt(p, y + p * .55, st.color); y += tBH;
+    let sBW = 0; if (sub) { sBW = sW + p * 2; R(18 * k, y, sBW, sLH + p * .7, bgc(1)); T(18 * k + p, y + p * .35 + sS * .95, sub, fS, st.accent2, lsS); y += sLH + p * .7; }
+    W = Math.max(tBW, sBW + 18 * k, kW); H = y;
+  } else { // tag
+    const bw = 6 * k, gx = bw + 18 * k; let y = 0;
+    if (kicker) { const pw = kW + 28 * k, ph = kS * 1.75; R(gx, 0, pw, ph, st.accent, ph / 2); T(gx + 14 * k, ph / 2 + kS * .36, kicker, fK, '#ffffff', lsK); y += ph + 10 * k; }
+    const y0 = y; titleAt(gx, y, st.color, true); y += tH; if (sub) { T(gx, y + 4 * k + sS * .9, sub, fS, st.accent2, lsS, true); y += sLH + 4 * k; }
+    R(0, y0, bw, y - y0, st.accent); W = gx + Math.max(tW, sW, kW + 28 * k); H = y;
+  }
+  return { ops, W: Math.max(20, W), H: Math.max(20, H), st, k };
+}
+function l3Paint(ctx, ox, oy, L, wipe = 1) {
+  ctx.save();
+  if (wipe < 1) { ctx.beginPath(); ctx.rect(ox - 2, oy - 2, (L.W + 4) * wipe, L.H + 4); ctx.clip(); }
+  for (const o of L.ops) {
+    if (o.t === 'r') { ctx.fillStyle = o.fill; if (o.r) { rrect(ctx, ox + o.x, oy + o.y, o.w, o.h, o.r); ctx.fill(); } else ctx.fillRect(ox + o.x, oy + o.y, o.w, o.h); }
+    else if (o.t === 'g') { const g = ctx.createLinearGradient(ox + o.x, 0, ox + o.x + o.w, 0); g.addColorStop(0, o.c0); g.addColorStop(1, o.c1); ctx.fillStyle = g; ctx.fillRect(ox + o.x, oy + o.y, o.w, o.h); }
+    else {
+      ctx.save(); try { ctx.letterSpacing = o.ls; } catch (_) { }
+      ctx.font = o.font; ctx.fillStyle = o.color; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+      if (o.shadow) { ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 12 * L.k; ctx.shadowOffsetY = 2 * L.k; }
+      ctx.fillText(o.s, ox + o.x, oy + o.y); ctx.restore();
+    }
+  }
+  ctx.restore();
+}
+/* sulla timeline: ancorato in basso (a sinistra, al centro o a destra secondo lo stile) */
+function drawGL3(ctx, c, local) {
+  const st = l3St(c.text); ensureFont({ font: st.font, weight: 700, italic: false });
+  const L = l3Build(ctx, c.text, l3K()), pos = st.pos || 'bl';
+  const gx = pos === 'bc' ? -L.W / 2 : pos === 'br' ? -L.W : 0;
+  c._b = { w: L.W, h: L.H, ox: gx + L.W / 2, oy: -L.H / 2 };
+  const dIn = .55, out = c.dur - local, eo = p => 1 - Math.pow(1 - p, 3);
+  const p = Math.min(clamp(local / dIn, 0, 1), clamp(out / dIn, 0, 1)), q = eo(p);
+  let off = 0, a = 1, wipe = 1, sc = 1;
+  if (p < 1) {
+    if (st.anim === 'slide') { const dir = pos === 'br' ? 1 : -1, travel = pos === 'br' ? L.W * 1.03 + (1 - c.x) * proj.w : pos === 'bc' ? proj.w * .6 : L.W * 1.03 + c.x * proj.w; off = dir * (1 - q) * travel; a = clamp(p / .8, 0, 1); }
+    else if (st.anim === 'wipe') { wipe = q; }
+    else if (st.anim === 'pop') { sc = .82 + .18 * (1 + Math.sin(q * Math.PI) * .12); a = q; }
+    else a = q;
+  }
+  ctx.save(); ctx.globalAlpha *= a;
+  if (sc !== 1) { ctx.translate(gx + L.W / 2, -L.H / 2); ctx.scale(sc, sc); ctx.translate(-(gx + L.W / 2), L.H / 2); }
+  l3Paint(ctx, gx + off, -L.H, L, wipe); ctx.restore();
+}
+function gl3Defaults(kit = kitNow()) { return Object.assign(TX0(), { kind: 'l3', st: JSON.parse(JSON.stringify(kit.l3)), content: 'Titolo della notizia', sub: 'Sottotitolo', kicker: kit.kicker || '', size: 100, font: kit.l3.font, shadow: false }); }
+function l3Anchor(c, pos) { c.y = .885; c.x = pos === 'bc' ? .5 : pos === 'br' ? .965 : .035; }
+function addGL3(trackId, time, dur, fields) {
+  const t0 = time ?? S.playhead, d = dur || 6, kit = kitNow();
+  let tr = trackId ? trackOf(trackId) : null;
+  if (!tr) tr = visualTracks().find(t => !t.lock && !isSubTrack(t) && trackFree(t, t0, t0 + d)) || addTrack('video', 'Grafica', 0);
+  const c = mkClip('text', null, tr.id, t0, d);
+  c.text = Object.assign(gl3Defaults(kit), fields || {}); l3Anchor(c, c.text.st.pos); c.name = 'Lower third';
+  proj.clips.push(c); return c;
+}
+/* miniatura di uno stile, con testo d'esempio */
+function l3Thumb(cv, st, sample, k = 2.2) {
+  const g = cv.getContext('2d'), W = cv.width, H = cv.height; g.setTransform(1, 0, 0, 1, 0, 0);
+  const gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, '#3b4a5a'); gr.addColorStop(1, '#151b22'); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  const tx = Object.assign({ content: 'Mario Rossi', sub: 'Sindaco', kicker: '' }, sample || {}, { st });
+  const s = W / 1920; g.save(); g.scale(s, s);
+  const L = l3Build(g, tx, k), pos = st.pos || 'bl', x = pos === 'bc' ? (1920 - L.W) / 2 : pos === 'br' ? 1920 - 70 - L.W : 70;
+  l3Paint(g, x, 1080 * .885 - L.H, L); g.restore();
+}
+
+async function addKitLogo(from = 0, to = projDur()) {
+  const kit = kitNow(), id = await kitSource(kit, 'logo'); if (!id) { toast('Nel kit non c\'è un logo'); return null; }
+  if (to - from < .5) { from = 0; to = Math.max(5, projDur()); }
+  const s = sources.get(id), tr = addTrack('video', 'Logo', 0);
+  const c = mkClip('image', id, tr.id, from, to - from); c.fit = 'contain';
+  const f = Math.min(proj.w / s.w, proj.h / s.h), bh = s.h * f, lh = (kit.logoSize || 5.8) / 100 * proj.h, sc = lh / bh, lw = s.w * f * sc, m = .021 * proj.w;
+  const pos = kit.logoPos || 'tr', right = pos.endsWith('r'), bottom = pos.startsWith('b');
+  c.scale = sc; c.x = (right ? proj.w - m - lw / 2 : m + lw / 2) / proj.w; c.y = (bottom ? proj.h - .04 * proj.h - lh / 2 : .04 * proj.h + lh / 2) / proj.h;
+  c.opacity = (kit.logoOpacity ?? 92) / 100; c.tin = { type: 'fade', dur: .5 }; c.tout = { type: 'fade', dur: .4 }; c.name = 'Logo';
+  proj.clips.push(c); commit(); renderAll(); seekPreview(); return c;
+}
+
+/* --- file .nwlkit: kit.json + file --- */
+async function exportKit(kit) {
+  const files = [{ name: 'kit.json', blob: new Blob([JSON.stringify({ app: 'nwl-kit', v: 1, kit })], { type: 'application/json' }) }];
+  for (const key of [...Object.keys(kit.files), ...kit.assets.map(a => a.key)]) { const r = await kitFileGet(kit, key); if (r) files.push({ name: 'file/' + key, blob: r.blob }); }
+  toast('Preparo il kit…', 30000);
+  const z = await makeZip(files); download(z, safeName(kit.name) + '.nwlkit');
+  toast('Kit esportato (' + (z.size / 1048576).toFixed(1) + ' MB): mandalo ai colleghi, lo aprono con «Importa un kit»', 6000);
+}
+async function importKitPick() { const f = await pickFile('.nwlkit,application/zip'); if (f) importKit(f); }
+async function importKit(blob) {
+  try {
+    const z = await readZip(blob); const meta = JSON.parse(await z['kit.json'].text());
+    if (meta.app !== 'nwl-kit') throw new Error('non è un kit');
+    const k = meta.kit; const old = KIT.list.find(x => x.id === k.id);
+    if (old) KIT.list = KIT.list.filter(x => x !== old);
+    KIT.list.push(k); KIT.active = k.id;
+    for (const [name, b] of Object.entries(z)) if (name.startsWith('file/')) { const key = name.slice(5), info = k.files[key] || k.assets.find(a => a.key === key) || {}; await dbDo('kv', 'readwrite', st => st.put({ blob: new Blob([b], { type: info.type || '' }), name: info.name || key }, kitBlobKey(k.id, key))); }
+    for (const s of [...sources.values()]) if (s.kit && s.kit.startsWith(k.id + ':')) s.kit = null;
+    await kitsSave(); updKitBtn(); renderTexts(); toast('Kit «' + k.name + '» importato: lo trovi nel pulsante «Kit»', 6000);
+  } catch (e) { console.error(e); toast('Non riesco a importare il kit: ' + e.message, 6000); }
+}
+
+/* ================= confezione completa ================= */
+const GEN = JSON.parse(localStorage.getItem('mv_gen') || 'null') || {};
+Object.assign(GEN, Object.assign({ kicker: null, title: '', sub: '', size: 100, delay: 1, stay: 6, logo: true, adTag: true, pre: '', intro: 'kit', outro: 'kit', main: 'timeline', fades: true }, GEN));
+if (GEN.outro === 'brand') GEN.outro = 'kit';
 function saveGen() { try { localStorage.setItem('mv_gen', JSON.stringify(GEN)); } catch { } }
+async function generateBrand() {
+  const kit = kitNow(), ui = progUI('Preparo la confezione'); const say = t => ui.set(.1, t);
+  try {
+    if (proj.gen) { const pd = proj.gen.preDur || 0; proj.clips = proj.clips.filter(c => !c.gen); if (pd) for (const c of proj.clips) c.start = Math.max(0, c.start - pd); proj.tracks = proj.tracks.filter(t => !t.gen || proj.clips.some(c => c.track === t.id)); proj.gen = null; }
+    const mainTr = mainVideoTrack() || addTrack('video', 'Video');
+    if (GEN.main !== 'timeline') { const s = sources.get(GEN.main); if (!s) throw new Error('Scegli il video principale'); const c = addFromLib(s.id, mainTr.id, projDur(), true); c.gen = false; }
+    if (!proj.clips.length) throw new Error('Non c\'è nessun video sulla timeline: importalo prima o sceglilo nel menu «Video principale».');
+    const fade = GEN.fades ? .4 : 0;
+    // davanti: sigla e pre-roll
+    const front = [];
+    if (GEN.intro === 'kit') { say('Carico la sigla…'); const id = await kitSource(kit, 'intro'); if (id) front.push({ id, ad: false }); }
+    if (GEN.pre && sources.get(GEN.pre)) front.push({ id: GEN.pre, ad: true });
+    let preDur = 0; for (const f of front) preDur += sources.get(f.id).duration;
+    if (preDur) {
+      for (const c of proj.clips) c.start += preDur;
+      let t = 0;
+      for (const f of front) {
+        const s = sources.get(f.id), c = mkClip('video', s.id, mainTr.id, t, s.duration); c.gen = true; c.fit = 'contain'; if (fade) c.tout = { type: 'black', dur: fade }; proj.clips.push(c);
+        if (f.ad && GEN.adTag) { const tr = addTrack('video', 'Etichetta', 0); tr.gen = true; const tc = mkClip('text', null, tr.id, t, s.duration); tc.gen = true; tc.text = Object.assign(TX0(), { content: 'ANNUNCIO', font: 'Archivo', weight: 600, size: 22, color: '#ffffff', bg: 'box', bgColor: '#000000', bgOpacity: .55, shadow: false, letter: 14, pad: .45, boxW: .4 }); tc.x = .06; tc.y = .065; proj.clips.push(tc); }
+        t += s.duration;
+      }
+    }
+    proj.gen = { preDur };
+    const mainA = preDur, mainB = projDur();
+    const firstMain = proj.clips.filter(c => !c.gen && c.start >= mainA - 1e-3 && (c.type === 'video' || c.type === 'image')).sort((a, b) => a.start - b.start)[0];
+    if (fade && preDur && firstMain) firstMain.tin = { type: 'black', dur: fade };
+    if (GEN.outro) {
+      say('Carico l\'outro…');
+      const id = GEN.outro === 'kit' ? await kitSource(kit, 'outro') : GEN.outro;
+      if (!id) toast('Nel kit non c\'è l\'outro: aggiungilo da «Modifica kit»', 6000);
+      else { const s = sources.get(id); const c = mkClip('video', id, mainTr.id, mainB, s.duration); c.gen = true; if (fade) c.tin = { type: 'black', dur: fade }; proj.clips.push(c); const lastMain = proj.clips.filter(x => !x.gen && x.track === mainTr.id).sort((a, b) => b.start - a.start)[0]; if (fade && lastMain) lastMain.tout = { type: 'black', dur: fade }; }
+    }
+    if (GEN.logo) { const c = await addKitLogo(mainA, mainB); if (c) { c.gen = true; trackOf(c.track).gen = true; } }
+    if (((GEN.title || '') + (GEN.sub || '') + (GEN.kicker || '')).trim()) {
+      const tr = addTrack('video', 'Lower third', 0); tr.gen = true;
+      const st = mainA + (+GEN.delay || 0), dur = GEN.stay > 0 ? Math.min(+GEN.stay + 1.1, mainB - st) : mainB - st;
+      if (dur > .5) { const c = addGL3(tr.id, st, dur, { kicker: GEN.kicker, content: GEN.title, sub: GEN.sub, size: GEN.size }); c.gen = true; }
+    }
+    proj.gen = { preDur };
+    ui.close(); S.sel = null; commit(); renderAll(); setPlayhead(mainA + (+GEN.delay || 0) + 1.2);
+    toast('Confezione pronta: controlla l\'anteprima e poi «Esporta».', 6000);
+  } catch (e) { console.error(e); ui.close(); await ask('Non riesco a preparare la confezione', String(e.message || e)); }
+}
+
+/* ================= kit: pannelli (computer) ================= */
+async function kitQuick() {
+  if (P.playing) pause();
+  const kit = kitNow(), has = kit.files;
+  const add = async (key, at) => { const id = await kitSource(kit, key); if (!id) { toast('Nel kit manca questo file: aggiungilo da «Modifica kit»'); return; } const c = addFromLib(id, undefined, at ?? S.playhead, true); if (c) { S.sel = c.id; commit(); renderAll(); seekPreview(); } };
+  const list = h('div', { class: 'kitq' },
+    h('div', { class: 'row2' }, h('label', {}, 'Kit'), h('select', { onchange: async e => { KIT.active = e.target.value; await kitsSave(); updKitBtn(); renderTexts(); $('#dlg').close(); kitQuick(); } }, KIT.list.map(k => h('option', { value: k.id, selected: k.id === kit.id }, k.name))),
+      h('button', { onclick: () => { $('#dlg').close(); kitEditor(); } }, '✎ Modifica kit')),
+    h('div', { class: 'kitgrid' },
+      h('button', { class: 'kq', onclick: () => { $('#dlg').close(); addTextPreset('gl3'); } }, h('canvas', { class: 'kqthumb', width: 192, height: 108 }), h('b', {}, 'Lower third'), h('small', {}, 'Al cursore rosso')),
+      h('button', { class: 'kq', onclick: () => { $('#dlg').close(); genDialog(); } }, h('i', {}, '★'), h('b', {}, 'Confezione completa'), h('small', {}, 'Sigla, video, outro, logo e lower third')),
+      h('button', { class: 'kq', disabled: !has.logo || null, onclick: () => { $('#dlg').close(); addKitLogo(); } }, h('i', {}, '◩'), h('b', {}, 'Logo'), h('small', {}, has.logo ? 'Su tutto il video' : 'Non ancora nel kit')),
+      h('button', { class: 'kq', disabled: !has.intro || null, onclick: () => { $('#dlg').close(); add('intro', 0); } }, h('i', {}, '▶'), h('b', {}, 'Sigla'), h('small', {}, has.intro ? has.intro.name : 'Non ancora nel kit')),
+      h('button', { class: 'kq', disabled: !has.outro || null, onclick: () => { $('#dlg').close(); add('outro', projDur()); } }, h('i', {}, '■'), h('b', {}, 'Outro'), h('small', {}, has.outro ? has.outro.name : 'Non ancora nel kit'))),
+    kit.assets.length ? h('div', { class: 'gsep' }, 'Altre risorse del kit') : null,
+    kit.assets.length ? h('div', { class: 'kitassets' }, kit.assets.map(a => h('button', { onclick: () => { $('#dlg').close(); add(a.key); } }, (a.type.startsWith('audio') ? '♪ ' : a.type.startsWith('image') ? '🖼 ' : '🎬 ') + a.name))) : null);
+  setTimeout(() => { const cv = list.querySelector('.kqthumb'); if (cv) l3Thumb(cv, kit.l3, { kicker: kit.kicker }); }, 0);
+  if (document.fonts) document.fonts.load(`700 40px "${kit.l3.font}"`).then(() => { const cv = list.querySelector('.kqthumb'); if (cv) l3Thumb(cv, kit.l3, { kicker: kit.kicker }); }).catch(() => { });
+  await ask('Kit «' + kit.name + '»', list, [['Chiudi', 0]]);
+}
+
+async function kitEditor() {
+  if (P.playing) pause();
+  const kit = kitNow(), st = kit.l3;
+  const prev = h('canvas', { width: 640, height: 360, class: 'kitprev' });
+  const sample = { content: 'Titolo della notizia', sub: 'Sottotitolo', kicker: kit.kicker };
+  const redraw = () => { l3Thumb(prev, st, Object.assign({}, sample, { kicker: kit.kicker }), 1.5); };
+  const col = (lbl, key) => h('label', { class: 'kcol' }, h('input', { type: 'color', value: st[key], oninput: e => { st[key] = e.target.value; redraw(); } }), lbl);
+  const styles = h('div', { class: 'kstyles' });
+  const drawStyles = () => {
+    styles.innerHTML = '';
+    for (const [id, n, d] of L3_STYLES) {
+      const cv = h('canvas', { width: 192, height: 108 }); const b = h('button', { class: 'kst' + (st.style === id ? ' on' : ''), title: d, onclick: () => { st.style = id; drawStyles(); redraw(); } }, cv, h('span', {}, n));
+      styles.append(b); l3Thumb(cv, Object.assign({}, st, { style: id, pos: 'bl' }), { kicker: kit.kicker }, 2.6);
+    }
+  };
+  const fileRow = (key, label, accept) => {
+    const f = kit.files[key];
+    return h('div', { class: 'kfile' }, h('b', {}, label), h('span', { class: 'hint' }, f ? f.name + ' · ' + (f.size / 1048576).toFixed(1) + ' MB' : 'nessuno'),
+      h('button', { onclick: async () => { const file = await pickFile(accept); if (!file) return; let b = file; if (key === 'logo' && /png|webp|gif/.test(file.type)) b = await trimTransparent(file); await kitFilePut(kit, key, b, file.name); toast(label + ' salvato nel kit'); $('#dlg').close(); kitEditor(); } }, f ? 'Cambia…' : 'Scegli…'),
+      f ? h('button', { class: 'ghost', onclick: async () => { await kitFileDel(kit, key); $('#dlg').close(); kitEditor(); } }, 'Togli') : null);
+  };
+  const body = h('div', { class: 'kited' },
+    h('div', { class: 'kitL' },
+      h('div', { class: 'gfield' }, h('label', {}, 'Nome del kit'), h('input', { type: 'text', value: kit.name, oninput: e => kit.name = e.target.value || 'Kit' })),
+      h('div', { class: 'gsep' }, 'Lower third — stile'), styles,
+      h('div', { class: 'gsep' }, 'Combinazioni pronte'),
+      h('div', { class: 'seg' }, L3_PRESETS.map(([n, p]) => h('button', { onclick: () => { Object.assign(st, L3_BASE(), { font: st.font, anim: st.anim, pos: st.pos, size: st.size }, p); $('#dlg').close(); kitEditor(); } }, n))),
+      h('div', { class: 'gsep' }, 'Colori'),
+      h('div', { class: 'kcols' }, col('Colore principale', 'accent'), col('Secondo colore', 'accent2'), col('Fondo', 'bg'), col('Testo', 'color')),
+      h('div', { class: 'row' }, h('label', {}, 'Opacità fondo'), h('input', { type: 'range', min: 30, max: 100, value: Math.round(st.bgA * 100), oninput: e => { st.bgA = e.target.value / 100; redraw(); } })),
+      h('div', { class: 'row2' }, h('label', {}, 'Carattere'), h('select', { onchange: e => { st.font = e.target.value; if (document.fonts) document.fonts.load(`700 40px "${st.font}"`).then(() => { drawStyles(); redraw(); }); redraw(); } }, L3_FONTS.map(f => h('option', { value: f, selected: f === st.font }, f)))),
+      h('div', { class: 'row2' }, h('label', {}, 'Entrata'), segBtns(L3_ANIMS, () => st.anim, v => st.anim = v)),
+      h('div', { class: 'row2' }, h('label', {}, 'Posizione'), segBtns([['bl', 'Sinistra'], ['bc', 'Centro'], ['br', 'Destra']], () => st.pos, v => { st.pos = v; redraw(); })),
+      h('div', { class: 'row' }, h('label', {}, 'Dimensione %'), h('input', { type: 'range', min: 60, max: 160, step: 5, value: st.size, oninput: e => { st.size = +e.target.value; redraw(); } })),
+      h('div', { class: 'gfield' }, h('label', {}, 'Occhiello predefinito (la voce sopra il titolo)'), h('input', { type: 'text', value: kit.kicker || '', placeholder: 'es. Servizio di', oninput: e => { kit.kicker = e.target.value; redraw(); } })),
+      st.style === 'breaking' || true ? h('div', { class: 'gfield' }, h('label', {}, 'Etichetta dello stile «Ultim\'ora» se l\'occhiello è vuoto'), h('input', { type: 'text', value: st.label || '', oninput: e => { st.label = e.target.value; redraw(); } })) : null,
+      h('div', { class: 'gsep' }, 'Logo'),
+      fileRow('logo', 'Logo', 'image/*'),
+      h('div', { class: 'row2' }, h('label', {}, 'Angolo'), segBtns([['tl', '↖'], ['tr', '↗'], ['bl', '↙'], ['br', '↘']], () => kit.logoPos, v => kit.logoPos = v)),
+      h('div', { class: 'row' }, h('label', {}, 'Grandezza %'), h('input', { type: 'range', min: 3, max: 15, step: .2, value: kit.logoSize, oninput: e => kit.logoSize = +e.target.value })),
+      h('div', { class: 'row' }, h('label', {}, 'Opacità %'), h('input', { type: 'range', min: 30, max: 100, value: kit.logoOpacity, oninput: e => kit.logoOpacity = +e.target.value })),
+      h('div', { class: 'gsep' }, 'Sigla e outro'),
+      fileRow('intro', 'Sigla iniziale', 'video/*'), fileRow('outro', 'Outro (chiusura)', 'video/*'),
+      h('div', { class: 'gsep' }, 'Altre risorse (musiche, grafiche, stacchi)'),
+      h('div', { class: 'kitassets' }, kit.assets.map(a => h('span', { class: 'kas' }, a.name, h('button', { class: 'ghost', title: 'Togli dal kit', onclick: async () => { await kitFileDel(kit, a.key); $('#dlg').close(); kitEditor(); } }, '✕'))),
+        h('button', { onclick: async () => { const f = await pickFile('video/*,audio/*,image/*'); if (!f) return; const key = 'a' + uid(''); kit.assets.push({ key, name: f.name, type: f.type || 'application/octet-stream' }); await kitFilePut(kit, key, f, f.name); $('#dlg').close(); kitEditor(); } }, '＋ Aggiungi file'))),
+    h('div', { class: 'kitR' }, prev, h('p', { class: 'hint' }, 'Anteprima del lower third. Tutto si salva da solo in questo programma e lo ritrovi sempre nel pulsante «Kit» in alto e nella scheda «Testi».'),
+      h('div', { class: 'kitbtns' },
+        h('button', { onclick: async () => { const k2 = newKit('Nuovo kit'); KIT.list.push(k2); KIT.active = k2.id; await kitsSave(); $('#dlg').close(); kitEditor(); } }, '＋ Nuovo kit'),
+        h('button', { onclick: async () => { await kitsSave(); exportKit(kit); } }, '⤓ Esporta kit (.nwlkit)'),
+        h('button', { onclick: () => { $('#dlg').close(); importKitPick(); } }, '⤒ Importa un kit…'),
+        KIT.list.length > 1 && !(EDITION === 'grandangolo' && kit.id === 'k-grandangolo') ? h('button', { class: 'ghost', onclick: async () => { if (await ask('Eliminare il kit «' + kit.name + '»?', 'Logo, sigla, outro e risorse del kit vengono tolti da questo programma.', [['Annulla', 0], ['Elimina', 1, 'primary']]) !== 1) return; for (const key of [...Object.keys(kit.files), ...kit.assets.map(a => a.key)]) await dbDo('kv', 'readwrite', st => st.delete(kitBlobKey(kit.id, key))); KIT.list = KIT.list.filter(k => k !== kit); KIT.active = KIT.list[0].id; await kitsSave(); updKitBtn(); renderTexts(); } }, '🗑 Elimina questo kit') : null),
+      h('p', { class: 'hint' }, 'Esporta il kit per passarlo ai colleghi: chi lo importa ha lo stesso lower third, lo stesso logo e la stessa sigla.')));
+  const d = $('#dlg'); d.classList.add('wide');
+  setTimeout(() => { drawStyles(); redraw(); }, 0);
+  if (document.fonts) document.fonts.load(`700 40px "${st.font}"`).then(() => { drawStyles(); redraw(); }).catch(() => { });
+  await ask('Modifica kit', body, [['Fatto', 1, 'primary']]);
+  d.classList.remove('wide'); await kitsSave(); updKitBtn(); renderTexts();
+}
+
 let genPrevImg = null;
 function genPreview() {
-  const cv2 = $('#genCv'); if (!cv2) return; const g = cv2.getContext('2d'), W = cv2.width, H = cv2.height;
+  const cv2 = $('#genCv'); if (!cv2) return; const g = cv2.getContext('2d'), W = cv2.width, H = cv2.height, kit = kitNow();
   g.setTransform(1, 0, 0, 1, 0, 0);
-  if (genPrevImg) { const f = Math.max(W / genPrevImg.w, H / genPrevImg.h); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.drawImage(genPrevImg.el, (W - genPrevImg.w * f) / 2, (H - genPrevImg.h * f) / 2, genPrevImg.w * f, genPrevImg.h * f); }
-  else { const gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, '#1c3a2b'); gr.addColorStop(1, '#0a120e'); g.fillStyle = gr; g.fillRect(0, 0, W, H); }
+  if (genPrevImg && genPrevImg.el) { const f = Math.max(W / genPrevImg.w, H / genPrevImg.h); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.drawImage(genPrevImg.el, (W - genPrevImg.w * f) / 2, (H - genPrevImg.h * f) / 2, genPrevImg.w * f, genPrevImg.h * f); }
+  else { const gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, '#2a3a4a'); gr.addColorStop(1, '#0a0f14'); g.fillStyle = gr; g.fillRect(0, 0, W, H); }
   const s = W / proj.w; g.save(); g.scale(s, s);
-  const tx = Object.assign(gl3Defaults(), { kicker: GEN.kicker, content: GEN.title || 'Titolo della notizia', sub: GEN.sub, size: GEN.size });
-  const L = gl3Layout(g, tx, gl3K()); gl3Paint(g, .021 * proj.w, .885 * proj.h - L.groupH, L);
-  if (GEN.logo && genPrevImg && genPrevImg.logo) { const lg = genPrevImg.logo, lh = .058 * proj.h, lw = lh * lg.naturalWidth / lg.naturalHeight; g.globalAlpha = .92; g.drawImage(lg, proj.w - .021 * proj.w - lw, .04 * proj.h, lw, lh); g.globalAlpha = 1; }
+  const tx = Object.assign(gl3Defaults(kit), { kicker: GEN.kicker ?? kit.kicker, content: GEN.title || 'Titolo della notizia', sub: GEN.sub, size: GEN.size });
+  const L = l3Build(g, tx, l3K()), pos = kit.l3.pos, ax = pos === 'bc' ? .5 : pos === 'br' ? .965 : .035, gx = pos === 'bc' ? -L.W / 2 : pos === 'br' ? -L.W : 0;
+  l3Paint(g, ax * proj.w + gx, .885 * proj.h - L.H, L);
+  if (GEN.logo && genPrevImg && genPrevImg.logo) { const lg = genPrevImg.logo, lh = (kit.logoSize || 5.8) / 100 * proj.h, lw = lh * lg.naturalWidth / lg.naturalHeight, m = .021 * proj.w, p2 = kit.logoPos || 'tr'; g.globalAlpha = (kit.logoOpacity ?? 92) / 100; g.drawImage(lg, p2.endsWith('r') ? proj.w - m - lw : m, p2.startsWith('b') ? proj.h - .04 * proj.h - lh : .04 * proj.h, lw, lh); g.globalAlpha = 1; }
   g.restore();
 }
+
 async function genDialog() {
   if (P.playing) pause();
-  const vids0 = [...sources.values()].filter(s => s.type === 'video' && !s.brand);
+  const kit = kitNow(); if (GEN.kicker === null) GEN.kicker = kit.kicker || '';
+  const vids0 = [...sources.values()].filter(s => s.type === 'video' && !s.kit);
   const sel = (id, opts, v, on) => h('select', { id, onchange: e => { on(e.target.value); } }, opts.map(([a, b]) => h('option', { value: a, selected: a === v }, b)));
   const inp = (id, ph, key) => h('input', { type: 'text', id, placeholder: ph, value: GEN[key] || '', oninput: e => { GEN[key] = e.target.value; genPreview(); } });
   const num = (id, key, min, max, step) => h('input', { type: 'number', id, min, max, step, value: GEN[key], style: 'width:72px', oninput: e => { GEN[key] = +e.target.value; genPreview(); } });
   if (!proj.clips.length && GEN.main === 'timeline') GEN.main = vids0[0]?.id || 'timeline';
   const body = h('div', { class: 'gen' },
     h('div', { class: 'genL' },
-      h('p', { class: 'eyebrow' }, 'Confezione Grandangolo'),
-      h('h3', {}, 'Pre-roll → video → outro, con lower third e logo'),
+      h('p', { class: 'eyebrow' }, 'Confezione con il kit «' + kit.name + '»'),
+      h('h3', {}, 'Sigla → video → outro, con lower third e logo'),
       h('div', { class: 'gfield' }, h('label', {}, 'Video principale'), sel('gMain', [['timeline', proj.clips.length ? 'Il montaggio che c\'è ora sulla timeline' : '— importa prima un video —'], ...vids0.map(s => [s.id, '🎬 ' + s.name])], GEN.main, v => { GEN.main = v; loadGenFrame(); })),
+      h('div', { class: 'gfield' }, h('label', {}, 'Sigla iniziale'), sel('gIntro', [['kit', kit.files.intro ? 'Sigla del kit' : 'Sigla del kit (non impostata)'], ['', 'Nessuna sigla']], GEN.intro, v => GEN.intro = v)),
       h('div', { class: 'gfield' }, h('label', {}, 'Pre-roll (pubblicità iniziale)'), sel('gPre', [['', 'Nessun pre-roll'], ...vids0.map(s => [s.id, '🎬 ' + s.name]), ['__file', '＋ Scegli un file…']], GEN.pre, async v => { if (v === '__file') { const f = await pickFile('video/*'); if (f) { const s = await addSourceFromBlob(f, f.name); renderLib(); GEN.pre = s.id; const o = h('option', { value: s.id, selected: true }, '🎬 ' + s.name); $('#gPre').insertBefore(o, $('#gPre').lastChild); $('#gPre').value = s.id; } else $('#gPre').value = GEN.pre; } else GEN.pre = v; })),
       h('label', { class: 'gcheck' }, h('input', { type: 'checkbox', checked: GEN.adTag, onchange: e => GEN.adTag = e.target.checked }), ' Etichetta «Annuncio» sul pre-roll'),
-      h('div', { class: 'gfield' }, h('label', {}, 'Outro (chiusura)'), sel('gOutro', [['brand', 'Outro Grandangolo (predefinito)'], ['', 'Nessun outro'], ...vids0.map(s => [s.id, '🎬 ' + s.name])], GEN.outro, v => GEN.outro = v)),
+      h('div', { class: 'gfield' }, h('label', {}, 'Outro (chiusura)'), sel('gOutro', [['kit', kit.files.outro ? 'Outro del kit' : 'Outro del kit (non impostato)'], ['', 'Nessun outro'], ...vids0.map(s => [s.id, '🎬 ' + s.name])], GEN.outro, v => GEN.outro = v)),
       h('div', { class: 'gsep' }, 'Lower third'),
       h('div', { class: 'gfield' }, h('label', {}, 'Voce sopra il titolo'), inp('gKick', 'Servizio di… / luogo', 'kicker')),
       h('div', { class: 'gfield' }, h('label', {}, 'Riga 1 — titolo o nome'), inp('gT1', 'es. Mario Rossi', 'title')),
-      h('div', { class: 'gfield' }, h('label', {}, 'Riga 2 — sottotitolo'), inp('gT2', 'es. Sindaco di Agrigento', 'sub')),
+      h('div', { class: 'gfield' }, h('label', {}, 'Riga 2 — sottotitolo'), inp('gT2', 'es. Sindaco', 'sub')),
       h('div', { class: 'grow3' },
         h('div', { class: 'gfield' }, h('label', {}, 'Dimensione %'), num('gSize', 'size', 60, 160, 5)),
         h('div', { class: 'gfield' }, h('label', {}, 'Entra dopo (s)'), num('gDelay', 'delay', 0, 120, .5)),
         h('div', { class: 'gfield' }, h('label', {}, 'Resta (s, 0 = sempre)'), num('gStay', 'stay', 0, 600, 1))),
-      h('label', { class: 'gcheck' }, h('input', { type: 'checkbox', checked: GEN.logo, onchange: e => { GEN.logo = e.target.checked; genPreview(); } }), ' Logo in alto a destra sul video principale'),
-      h('label', { class: 'gcheck' }, h('input', { type: 'checkbox', checked: GEN.fades, onchange: e => GEN.fades = e.target.checked }), ' Passaggi morbidi tra pre-roll, video e outro'),
-      h('div', { class: 'row2', style: 'margin-top:6px' },
-        h('button', { class: 'ghost', onclick: async () => { const f = await pickFile('image/*'); if (f) { await brandSetFile('logo', f); loadGenLogo(true); } } }, 'Cambia logo…'),
-        h('button', { class: 'ghost', onclick: async () => { const f = await pickFile('video/*'); if (f) await brandSetFile('outro', f); } }, 'Cambia outro…'))),
+      h('label', { class: 'gcheck' }, h('input', { type: 'checkbox', checked: GEN.logo, onchange: e => { GEN.logo = e.target.checked; genPreview(); } }), ' Logo del kit sul video principale'),
+      h('label', { class: 'gcheck' }, h('input', { type: 'checkbox', checked: GEN.fades, onchange: e => GEN.fades = e.target.checked }), ' Passaggi morbidi tra sigla, video e outro'),
+      h('div', { class: 'row2', style: 'margin-top:6px' }, h('button', { class: 'ghost', onclick: () => { $('#dlg').close(); kitEditor(); } }, '✎ Modifica il kit'))),
     h('div', { class: 'genR' }, h('canvas', { id: 'genCv', width: proj.w >= proj.h ? 640 : 360, height: proj.w >= proj.h ? Math.round(640 * proj.h / proj.w) : Math.round(360 * proj.h / proj.w) }),
-      h('p', { class: 'hint' }, 'Anteprima dal vivo. Il lower third entra da sinistra e poi esce, come nel player del sito. Tutto resta modificabile sulla timeline.')));
+      h('p', { class: 'hint' }, 'Anteprima dal vivo. Tutto resta modificabile sulla timeline.')));
   const d = $('#dlg'); d.classList.add('wide');
   loadGenFrame(); loadGenLogo(); setTimeout(genPreview, 30);
-  if (document.fonts) document.fonts.load('700 40px "Archivo"').then(genPreview).catch(() => { });
-  const r = await ask('Genera con Grandangolo', body, [['Annulla', 0], ['Genera il montaggio', 1, 'primary']]);
+  if (document.fonts) document.fonts.load(`700 40px "${kit.l3.font}"`).then(genPreview).catch(() => { });
+  const r = await ask('Confezione completa', body, [['Annulla', 0], ['Genera il montaggio', 1, 'primary']]);
   d.classList.remove('wide'); saveGen();
   if (r === 1) await generateBrand();
 }
+
 async function loadGenFrame() {
   genPrevImg = genPrevImg && genPrevImg.logo ? { logo: genPrevImg.logo } : null;
   let s = GEN.main !== 'timeline' ? sources.get(GEN.main) : null;
@@ -4823,66 +5524,248 @@ async function loadGenFrame() {
   try { await once(v, 'loadeddata'); await seekTo(v, Math.min(2, s.duration / 3)); genPrevImg = Object.assign(genPrevImg || {}, { el: v, w: v.videoWidth, h: v.videoHeight }); } catch { }
   genPreview();
 }
-async function loadGenLogo(force) {
-  let rec = await brandGet('logo');
-  if (!rec || force) { try { const id = await brandSource('logo'); rec = id && { blob: sources.get(id).blob }; } catch { } }
-  if (!rec) return;
+
+async function loadGenLogo() {
+  const rec = await kitFileGet(kitNow(), 'logo'); if (!rec) return;
   const img = new Image(); img.onload = () => { genPrevImg = Object.assign(genPrevImg || {}, { logo: img }); genPreview(); }; img.src = URL.createObjectURL(rec.blob);
 }
-async function generateBrand() {
-  const ui = progUI('Genero il montaggio Grandangolo'); const say = t => ui.set(.1, t);
-  try {
-    // 1) tolgo quanto generato prima
-    if (proj.gen) { const pd = proj.gen.preDur || 0; proj.clips = proj.clips.filter(c => !c.gen); if (pd) for (const c of proj.clips) c.start = Math.max(0, c.start - pd); proj.tracks = proj.tracks.filter(t => !t.gen || proj.clips.some(c => c.track === t.id)); proj.gen = null; }
-    const mainTr = mainVideoTrack() || addTrack('video', 'Video');
-    // 2) video principale
-    if (GEN.main !== 'timeline') {
-      const s = sources.get(GEN.main); if (!s) throw new Error('Scegli il video principale');
-      const c = addFromLib(s.id, mainTr.id, projDur(), true); c.gen = false;
-    }
-    if (!proj.clips.length) throw new Error('Non c\'è nessun video sulla timeline: importalo prima o sceglilo nel menu «Video principale».');
-    const fade = GEN.fades ? .4 : 0;
-    // 3) pre-roll
-    let preDur = 0;
-    if (GEN.pre && sources.get(GEN.pre)) {
-      const s = sources.get(GEN.pre); preDur = s.duration;
-      for (const c of proj.clips) c.start += preDur;
-      const c = mkClip('video', s.id, mainTr.id, 0, preDur); c.gen = true; c.fit = 'contain'; if (fade) c.tout = { type: 'black', dur: fade };
-      proj.clips.push(c);
-      if (GEN.adTag) { const tr = addTrack('video', 'Etichetta', 0); tr.gen = true; const t = mkClip('text', null, tr.id, 0, preDur); t.gen = true; t.text = Object.assign(TX0(), { content: 'ANNUNCIO', font: 'Archivo', weight: 600, size: 22, color: BRAND.mint, bg: 'box', bgColor: '#000000', bgOpacity: .55, shadow: false, letter: 14, pad: .45, boxW: .4 }); t.x = .06; t.y = .065; proj.clips.push(t); ensureFont(t.text); }
-    }
-    proj.gen = { preDur };
-    const mainA = preDur, mainB = projDur();
-    const firstMain = proj.clips.filter(c => !c.gen && c.start >= mainA - 1e-3 && (c.type === 'video' || c.type === 'image')).sort((a, b) => a.start - b.start)[0];
-    if (fade && preDur && firstMain) firstMain.tin = { type: 'black', dur: fade };
-    // 4) outro
-    if (GEN.outro) {
-      const id = GEN.outro === 'brand' ? await brandSource('outro', say) : GEN.outro;
-      if (!id) { ui.close(); const r = await ask('Outro non raggiungibile', 'Non riesco a scaricare l\'outro dal sito (il server non lo permette al browser). Sceglilo una volta dal tuo computer: lo ricorderò per tutte le prossime volte.', [['Salta l\'outro', 0], ['Scegli il file dell\'outro…', 1, 'primary']]); if (r === 1) { const f = await pickFile('video/*'); if (f) { await brandSetFile('outro', f); return generateBrand(); } } }
-      else { const s = sources.get(id); const c = mkClip('video', id, mainTr.id, mainB, s.duration); c.gen = true; if (fade) c.tin = { type: 'black', dur: fade }; proj.clips.push(c); const lastMain = proj.clips.filter(x => !x.gen && x.track === mainTr.id).sort((a, b) => b.start - a.start)[0]; if (fade && lastMain) lastMain.tout = { type: 'black', dur: fade }; }
-    }
-    // 5) logo sul principale
-    if (GEN.logo) {
-      const id = await brandSource('logo', say);
-      if (id) {
-        const s = sources.get(id), tr = addTrack('video', 'Logo', 0); tr.gen = true;
-        const c = mkClip('image', id, tr.id, mainA, mainB - mainA); c.gen = true; c.fit = 'contain';
-        const f = Math.min(proj.w / s.w, proj.h / s.h), bh = s.h * f, lh = .058 * proj.h, sc = lh / bh, lw = s.w * f * sc;
-        c.scale = sc; c.x = (proj.w - .021 * proj.w - lw / 2) / proj.w; c.y = (.04 * proj.h + lh / 2) / proj.h; c.opacity = .92; c.tin = { type: 'fade', dur: .5 }; c.tout = { type: 'fade', dur: .4 };
-        proj.clips.push(c);
-      } else toast('Logo non raggiungibile dal sito: usa «Cambia logo…» una volta e lo ricorderò', 7000);
-    }
-    // 6) lower third
-    if ((GEN.title || GEN.sub || GEN.kicker).trim()) {
-      const tr = addTrack('video', 'Lower third', 0); tr.gen = true;
-      const st = mainA + (+GEN.delay || 0), dur = GEN.stay > 0 ? Math.min(+GEN.stay + 1.1, mainB - st) : mainB - st;
-      if (dur > .5) { const c = addGL3(tr.id, st, dur, { kicker: GEN.kicker, content: GEN.title, sub: GEN.sub, size: GEN.size }); c.gen = true; }
-    }
-    proj.gen = { preDur };
-    ui.close(); S.sel = null; commit(); renderAll(); setPlayhead(mainA + (+GEN.delay || 0) + 1.2);
-    toast('Montaggio Grandangolo pronto: controlla l\'anteprima e poi «Esporta».', 6000);
-  } catch (e) { console.error(e); ui.close(); await ask('Non riesco a generare', String(e.message || e)); }
+
+/* ================= strumenti audio e video: voce pulita, pause, al contrario, battiti, più formati ================= */
+/* --- FFT (radice 2, in loco) --- */
+function fftTables(N) {
+  const c = fftTables.c || (fftTables.c = {}); if (c[N]) return c[N];
+  const rev = new Uint32Array(N), lg = Math.log2(N); for (let i = 0; i < N; i++) { let r = 0; for (let b = 0; b < lg; b++) r |= ((i >> b) & 1) << (lg - 1 - b); rev[i] = r; }
+  const cs = new Float32Array(N / 2), sn = new Float32Array(N / 2); for (let i = 0; i < N / 2; i++) { cs[i] = Math.cos(2 * Math.PI * i / N); sn[i] = -Math.sin(2 * Math.PI * i / N); }
+  return c[N] = { rev, cs, sn };
 }
+function fft(re, im, inv) {
+  const N = re.length, { rev, cs, sn } = fftTables(N);
+  for (let i = 0; i < N; i++) { const j = rev[i]; if (j > i) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let size = 2; size <= N; size <<= 1) {
+    const half = size >> 1, step = N / size;
+    for (let i = 0; i < N; i += size) for (let j = 0, k = 0; j < half; j++, k += step) {
+      const wr = cs[k], wi = inv ? -sn[k] : sn[k], a = i + j, b = a + half;
+      const tr = re[b] * wr - im[b] * wi, ti = re[b] * wi + im[b] * wr;
+      re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti;
+    }
+  }
+  if (inv) for (let i = 0; i < N; i++) { re[i] /= N; im[i] /= N; }
+}
+
+/* --- pulizia della voce: toglie il fruscio di fondo, taglia i bassi, uniforma il volume --- */
+async function denoise(chs, sr, strength, ui) {
+  const N = 2048, hop = 512, win = new Float32Array(N); for (let i = 0; i < N; i++) win[i] = .5 - .5 * Math.cos(2 * Math.PI * i / N);
+  const len = chs[0].length, nFr = Math.max(1, Math.ceil((len - N) / hop) + 1), B = N / 2 + 1;
+  // profilo del rumore: i fotogrammi più silenziosi
+  const en = new Float32Array(nFr); for (let f = 0; f < nFr; f++) { let s = 0; const o = f * hop; for (let i = 0; i < N; i += 4) { const v = chs[0][o + i] || 0; s += v * v; } en[f] = s; }
+  const idx = [...en.keys()].sort((a, b) => en[a] - en[b]).slice(0, Math.max(4, Math.floor(nFr * .08)));
+  const noise = new Float32Array(B), re = new Float32Array(N), im = new Float32Array(N);
+  for (const f of idx) { const o = f * hop; for (let i = 0; i < N; i++) { re[i] = (chs[0][o + i] || 0) * win[i]; im[i] = 0; } fft(re, im); for (let k = 0; k < B; k++) noise[k] += Math.hypot(re[k], im[k]) / idx.length; }
+  const alpha = 1 + strength * 1.8, floor = .14 - strength * .1, out = chs.map(() => new Float32Array(len)), norm = new Float32Array(len);
+  for (let i = 0, o = 0; o < len; o += hop, i++) for (let j = 0; j < N && o + j < len; j++) norm[o + j] += win[j] * win[j];
+  for (let c = 0; c < chs.length; c++) {
+    const x = chs[c], y = out[c], prev = new Float32Array(B).fill(1);
+    for (let f = 0; f < nFr; f++) {
+      const o = f * hop; for (let i = 0; i < N; i++) { re[i] = (x[o + i] || 0) * win[i]; im[i] = 0; } fft(re, im);
+      for (let k = 0; k < B; k++) {
+        const mag = Math.hypot(re[k], im[k]) + 1e-9; let g = Math.max(floor, 1 - alpha * noise[k] / mag); g = Math.max(g, prev[k] * .55); g = .6 * g + .4 * prev[k]; prev[k] = g;
+        re[k] *= g; im[k] *= g; if (k > 0 && k < N / 2) { re[N - k] = re[k]; im[N - k] = -im[k]; }
+      }
+      fft(re, im, true); for (let i = 0; i < N && o + i < len; i++) y[o + i] += re[i] * win[i];
+      if (f % 400 === 0) { ui && ui.set((c + f / nFr) / chs.length * .8, 'Tolgo il rumore di fondo…'); await sleep(0); if (EX.cancel) throw new Error('Annullato'); }
+    }
+    for (let i = 0; i < len; i++) y[i] = norm[i] > 1e-3 ? y[i] / norm[i] : 0;
+  }
+  return out;
+}
+async function cleanVoice(c, strength = .6) {
+  if (!c || !hasAudio(c)) { toast('Seleziona una clip con audio'); return; }
+  const s = sources.get(c.src), buf = s && s.audioBuf; if (!buf) { toast('Audio non disponibile'); return; }
+  if (buf.duration > 1800 && await ask('File lungo', 'Il file dura ' + fmtDur(buf.duration) + ': la pulizia può richiedere qualche minuto.', [['Annulla', 0], ['Procedi', 1, 'primary']]) !== 1) return;
+  EX.cancel = false; const ui = progUI('Pulisco la voce');
+  try {
+    const sr = buf.sampleRate, chs = []; for (let i = 0; i < Math.min(2, buf.numberOfChannels); i++) chs.push(buf.getChannelData(i));
+    const dn = await denoise(chs, sr, strength, ui);
+    ui.set(.85, 'Taglio i bassi e uniformo il volume…');
+    const O = window.OfflineAudioContext || window.webkitOfflineAudioContext, oc = new O(2, buf.length, sr);
+    const b2 = oc.createBuffer(dn.length, buf.length, sr); dn.forEach((d, i) => b2.copyToChannel(d, i));
+    const src = oc.createBufferSource(); src.buffer = b2;
+    const hp = oc.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 85; hp.Q.value = .7;
+    const pres = oc.createBiquadFilter(); pres.type = 'peaking'; pres.frequency.value = 3200; pres.gain.value = 2.5; pres.Q.value = .9;
+    const comp = oc.createDynamicsCompressor(); comp.threshold.value = -26; comp.ratio.value = 3; comp.knee.value = 8; comp.attack.value = .006; comp.release.value = .2;
+    src.connect(hp); hp.connect(pres); pres.connect(comp); comp.connect(oc.destination); src.start();
+    const r = await oc.startRendering();
+    // volume: le parti con voce a circa -18 dB, picchi sotto -1 dB
+    const L = r.getChannelData(0), R = r.getChannelData(1), fl = Math.round(sr * .05); let se = 0, sn = 0, pk = 0;
+    for (let o = 0; o + fl < L.length; o += fl) { let e = 0; for (let i = o; i < o + fl; i++) e += L[i] * L[i]; e = Math.sqrt(e / fl); if (e > .01) { se += e * e; sn++; } }
+    for (let i = 0; i < L.length; i++) pk = Math.max(pk, Math.abs(L[i]), Math.abs(R[i]));
+    const rms = sn ? Math.sqrt(se / sn) : .1, g = Math.min(Math.pow(10, -18 / 20) / rms, .89 / Math.max(1e-4, pk), 8);
+    for (let i = 0; i < L.length; i++) { L[i] *= g; R[i] *= g; }
+    ui.set(.97, 'Salvo…');
+    const ns = await addSourceFromBlob(wavBlob(r), s.name.replace(/\.[^.]+$/, '') + ' (voce pulita).wav'); renderLib();
+    let target = c;
+    if (c.type === 'video') { select(c.id); doDetach(); target = selClip(); }
+    for (const x of proj.clips) if (x.type === 'audio' && x.src === s.id && (x === target || x.start < target.start + target.dur && x.start + x.dur > target.start)) x.src = ns.id;
+    target.src = ns.id; ui.close(); commit(); renderAll(); if (P.playing) { pause(); play(); }
+    toast('Voce pulita: fruscio ridotto, volume uniformato. Ctrl+Z per tornare all\'originale.', 6000);
+  } catch (e) { ui.close(); if (e.message !== 'Annullato') { console.error(e); toast('Pulizia non riuscita: ' + e.message, 6000); } }
+}
+
+/* --- togli le pause (silenzi) da una clip --- */
+async function removePauses(c, minPause = .55, keep = .14) {
+  if (!c || !hasAudio(c)) { toast('Seleziona una clip con la voce'); return; }
+  if (c.ramp) { toast('Togli prima la curva di velocità'); return; }
+  const buf = sources.get(c.src)?.audioBuf; if (!buf) return;
+  const sr = buf.sampleRate, ch = buf.getChannelData(0), a0 = c.offset, a1 = c.offset + c.dur * c.speed, fl = Math.round(sr * .02);
+  const fr = []; for (let t = a0; t < a1; t += .02) { const o = Math.round(t * sr); let e = 0; for (let i = o; i < o + fl && i < ch.length; i++) e += ch[i] * ch[i]; fr.push(Math.sqrt(e / fl)); }
+  const sorted = [...fr].sort((a, b) => a - b), floor = sorted[Math.floor(fr.length * .1)] || 0, peak = sorted[Math.floor(fr.length * .95)] || 0;
+  const thr = Math.max(.004, floor * 3, peak * .06);
+  const segs = []; let st = -1, last = -1;
+  for (let i = 0; i < fr.length; i++) { if (fr[i] > thr) { if (st < 0) st = i; last = i; } else if (st >= 0 && (i - last) * .02 > minPause) { segs.push([st * .02, (last + 1) * .02]); st = -1; } }
+  if (st >= 0) segs.push([st * .02, (last + 1) * .02]);
+  if (!segs.length) { toast('Non ho sentito parlato in questa clip'); return; }
+  const kept = []; for (const [a, b] of segs) { const A = Math.max(0, a - keep), B2 = Math.min(a1 - a0, b + keep); const l = kept[kept.length - 1]; if (l && A <= l[1] + .05) l[1] = B2; else kept.push([A, B2]); }
+  const total = kept.reduce((s2, [a, b]) => s2 + b - a, 0), cut = c.dur - total / c.speed;
+  if (cut < .3) { toast('Non ci sono pause lunghe da togliere'); return; }
+  if (await ask('Togli le pause', `Trovati ${kept.length} pezzi di parlato. Tolgo ${fmtDur(cut)} di silenzi e accosto i pezzi (anche le clip che seguono sulla stessa traccia si spostano).`, [['Annulla', 0], ['Togli le pause', 1, 'primary']]) !== 1) return;
+  const base = JSON.parse(JSON.stringify(c, (k, v) => k[0] === '_' ? undefined : v)); proj.clips = proj.clips.filter(x => x !== c);
+  const end0 = c.start + c.dur; let t = c.start;
+  kept.forEach(([a, b], i) => { const n = Object.assign(JSON.parse(JSON.stringify(base)), { id: i ? uid('c') : c.id, start: t, offset: a0 + a, dur: (b - a) / c.speed, tin: { type: 'none', dur: .5 }, tout: { type: 'none', dur: .5 }, fadeIn: .02, fadeOut: .02 }); delete n.kf; proj.clips.push(n); t += n.dur; });
+  for (const x of proj.clips) if (x.track === c.track && x.start >= end0 - 1e-3) x.start -= cut;
+  commit(); renderAll(); seekPreview(); toast('Pause tolte: ' + fmtDur(cut) + ' in meno', 5000);
+}
+
+/* --- al contrario --- */
+async function reverseClip(c) {
+  if (!c || (c.type !== 'video' && c.type !== 'audio')) { toast('Seleziona un video o un audio'); return; }
+  const s = sources.get(c.src), a0 = c.offset, a1 = Math.min(srcDur(c), c.offset + c.dur * effSpeed(c)), len = a1 - a0;
+  if (c.type === 'video' && len > 90) { toast('Per il video al contrario scegli un pezzo più corto di un minuto e mezzo (dividi la clip)', 6000); return; }
+  EX.cancel = false; const ui = progUI('Creo la versione al contrario');
+  try {
+    let audioId = null;
+    if (s.audioBuf) { // audio rovesciato
+      const b = s.audioBuf, sr = b.sampleRate, i0 = Math.floor(a0 * sr), i1 = Math.min(b.length, Math.ceil(a1 * sr)), n = i1 - i0;
+      const O = window.OfflineAudioContext || window.webkitOfflineAudioContext, oc = new O(2, Math.max(1, n), sr), nb = oc.createBuffer(2, Math.max(1, n), sr);
+      for (let ch = 0; ch < 2; ch++) { const src = b.getChannelData(Math.min(ch, b.numberOfChannels - 1)), d = nb.getChannelData(ch); for (let i = 0; i < n; i++) d[i] = src[i1 - 1 - i]; }
+      audioId = (await addSourceFromBlob(wavBlob(nb), s.name.replace(/\.[^.]+$/, '') + ' (al contrario).wav')).id;
+    }
+    if (c.type === 'audio') { c.src = audioId; c.offset = (srcDur(c) - a1 < 0 ? 0 : 0); c.offset = 0; delete c.ramp; c.speed = len / c.dur; ui.close(); commit(); renderAll(); toast('Audio al contrario'); return; }
+    const vcfg = await pickVideoCodec(Math.round(s.w / 2) * 2, Math.round(s.h / 2) * 2, proj.fps, 8e6);
+    if (!vcfg) throw new Error('Questo browser non sa creare video: usa Chrome o Edge aggiornati');
+    const fps = proj.fps, W = vcfg.width, H = vcfg.height, frames = Math.max(1, Math.round(len * fps));
+    const muxer = new Mp4Muxer.Muxer({ target: new Mp4Muxer.ArrayBufferTarget(), fastStart: 'in-memory', video: { codec: 'avc', width: W, height: H, frameRate: fps } });
+    let err = null; const venc = new VideoEncoder({ output: (ch, m) => muxer.addVideoChunk(ch, m), error: e => err = e }); venc.configure(Object.assign({}, vcfg, { latencyMode: 'quality' }));
+    const v = document.createElement('video'); v.muted = true; v.src = s.url; await once(v, 'loadeddata', 'error', 20000);
+    const cvR = h('canvas'); cvR.width = W; cvR.height = H; const g = cvR.getContext('2d', { alpha: false });
+    for (let i = 0; i < frames; i++) {
+      if (EX.cancel) throw new Error('Annullato'); if (err) throw err;
+      await seekTo(v, clamp(a1 - (i + .5) / fps, 0, v.duration - .02)); g.drawImage(v, 0, 0, W, H);
+      const vf = new VideoFrame(cvR, { timestamp: Math.round(i * 1e6 / fps), duration: Math.round(1e6 / fps) }); venc.encode(vf, { keyFrame: i % (fps * 2) === 0 }); vf.close();
+      while (venc.encodeQueueSize > 6) await sleep(2);
+      if (i % 4 === 0) ui.set(i / frames, `Fotogramma ${i} di ${frames}`);
+    }
+    await venc.flush(); venc.close(); muxer.finalize(); v.removeAttribute('src'); v.load();
+    const nv = await addSourceFromBlob(new Blob([muxer.target.buffer], { type: 'video/mp4' }), s.name.replace(/\.[^.]+$/, '') + ' (al contrario).mp4'); renderLib();
+    c.src = nv.id; c.offset = 0; delete c.ramp; c.speed = (nv.duration || len) / c.dur;
+    if (audioId && hasAudio(c) && !c.mute) { c.mute = true; const tr = proj.tracks.find(t => t.kind === 'audio' && !t.lock && trackFree(t, c.start, c.start + c.dur)) || addTrack('audio'); const a = mkClip('audio', audioId, tr.id, c.start, c.dur); a.speed = c.speed; proj.clips.push(a); }
+    ui.close(); commit(); renderAll(); seekPreview(); toast('Clip al contrario creata (l\'originale resta nella libreria)', 6000);
+  } catch (e) { ui.close(); if (e.message !== 'Annullato') { console.error(e); await ask('Non riesco a creare la versione al contrario', String(e.message || e)); } }
+}
+
+/* --- battiti della musica --- */
+function detectBeats(c) {
+  const buf = sources.get(c.src)?.audioBuf; if (!buf) return null;
+  const sr = buf.sampleRate, N = 1024, hop = Math.round(sr / 100), a0 = c.offset, a1 = Math.min(buf.duration, c.offset + c.dur * c.speed);
+  const L = buf.getChannelData(0), R = buf.numberOfChannels > 1 ? buf.getChannelData(1) : L, i0 = Math.floor(a0 * sr), i1 = Math.floor(a1 * sr);
+  const re = new Float32Array(N), im = new Float32Array(N), prev = new Float32Array(N / 2), env = [];
+  for (let o = i0; o + N < i1; o += hop) {
+    for (let i = 0; i < N; i++) { re[i] = (L[o + i] + R[o + i]) * .5 * (.5 - .5 * Math.cos(2 * Math.PI * i / N)); im[i] = 0; } fft(re, im);
+    let fl = 0; for (let k = 1; k < N / 2; k++) { const m = Math.log1p(100 * Math.hypot(re[k], im[k])); const d = m - prev[k]; if (d > 0) fl += d; prev[k] = m; } env.push(fl);
+  }
+  if (env.length < 200) return null;
+  // toglie la media locale
+  const on = env.map((v, i) => { let s = 0, n = 0; for (let j = Math.max(0, i - 15); j < Math.min(env.length, i + 15); j++) { s += env[j]; n++; } return Math.max(0, v - s / n); });
+  let best = 0, lag = 50; for (let l = 33; l <= 86; l++) { let s = 0; for (let i = l; i < on.length; i++) s += on[i] * on[i - l]; s *= 1 + .15 * Math.exp(-Math.pow((60 / (l / 100) - 120) / 30, 2)); if (s > best) { best = s; lag = l; } }
+  let ph = 0, bp = -1; for (let p = 0; p < lag; p++) { let s = 0; for (let i = p; i < on.length; i += lag) s += on[i]; if (s > bp) { bp = s; ph = p; } }
+  const bpm = Math.round(6000 / lag), out = [];
+  for (let i = ph; i < on.length; i += lag) { let m = i; for (let j = Math.max(0, i - 3); j <= Math.min(on.length - 1, i + 3); j++) if (on[j] > on[m]) m = j; out.push(c.start + (m / 100) / c.speed); }
+  return { bpm, beats: out.filter(t => t < c.start + c.dur) };
+}
+function markBeats(c) {
+  const r = detectBeats(c); if (!r || r.beats.length < 4) { toast('Non riesco a trovare il ritmo in questa clip'); return; }
+  proj.beats = r.beats; proj.bpm = r.bpm; commit(); drawRuler(); renderTimeline();
+  toast(`${r.bpm} battiti al minuto: ${r.beats.length} segni sul righello. Le clip si agganciano ai battiti.`, 6000);
+}
+/* foto e clip della traccia principale tagliate a tempo, a partire dal primo battito dopo il cursore */
+function montageOnBeats(every = 2) {
+  const bt = proj.beats; if (!bt || !bt.length) { toast('Prima segna i battiti di una musica'); return; }
+  const tr = mainVideoTrack(); if (!tr) return;
+  const list = proj.clips.filter(c => c.track === tr.id && (c.type === 'image' || c.type === 'video')).sort((a, b) => a.start - b.start); if (!list.length) return;
+  let bi = Math.max(0, bt.findIndex(t => t >= list[0].start - .05)); let t = bt[bi] ?? list[0].start;
+  for (const c of list) {
+    const nb = bt[bi + every]; const d = nb !== undefined ? nb - t : c.dur;
+    const max = c.type === 'video' ? (srcDur(c) - c.offset) / effSpeed(c) : 3600;
+    c.start = t; c.dur = Math.max(.2, Math.min(d, max)); t = c.start + c.dur; bi += every;
+  }
+  commit(); renderAll(); seekPreview(); toast(`Montaggio a tempo: un cambio ogni ${every} battiti`, 5000);
+}
+function splitOnBeats(c, every = 1) {
+  const bt = proj.beats; if (!c || !bt) { toast('Prima segna i battiti di una musica'); return; }
+  let n = 0, cur = c; bt.filter((t, i) => i % every === 0 && t > c.start + .1 && t < c.start + c.dur - .1).forEach(t => { const b = splitAt(cur, t); if (b) { cur = b; n++; } });
+  commit(); renderAll(); toast(n ? 'Clip tagliata in ' + (n + 1) + ' pezzi, a tempo' : 'Nessun battito dentro la clip');
+}
+
+/* --- un montaggio, più formati: reinquadra e esporta 16:9, 9:16, 1:1, 4:5 --- */
+async function smartReframe(useFaces, ui) {
+  let fa = null; if (useFaces) { try { fa = await faceInit(ui); } catch { fa = null; } }
+  const vis = proj.clips.filter(c => (c.type === 'video' || c.type === 'image') && c.scale >= .9 && !c.kf);
+  let i = 0;
+  for (const c of vis) {
+    c.fit = 'cover'; c.scale = 1; c.y = .5; c.x = .5;
+    const s = sources.get(c.src); if (!s || !fa) continue;
+    const fs = await frameSampler(c, 640); let us = [];
+    try { for (const f of [.2, .5, .8]) { const cv = await fs.at(c.dur * f); for (const d of await facesIn(fa, cv)) us.push([d.u, d.w]); if (c.type === 'image') break; } } catch (e) { console.warn(e); } finally { fs.close(); }
+    if (us.length) {
+      const u = us.reduce((a, b) => a + b[0] * b[1], 0) / us.reduce((a, b) => a + b[1], 0), r9 = ((c.r90 || 0) % 180) !== 0, sw = r9 ? s.h : s.w, sh = r9 ? s.w : s.h;
+      const f = Math.max(proj.w / sw, proj.h / sh), bw = sw * f, over = (bw - proj.w) / proj.w; // quanto sborda
+      if (over > .01) c.x = clamp(.5 + (.5 - u) * bw / proj.w, .5 - over / 2, .5 + over / 2);
+    }
+    ui && ui.set(++i / vis.length * .1, 'Reinquadro sui volti…');
+  }
+}
+async function exportFormats(list, { res, q, faces }) {
+  const saved = projJSON(), name0 = proj.name;
+  try {
+    for (const f of list) {
+      proj = JSON.parse(saved);
+      if (f !== proj.format) { setFormat(f, 'cover'); const ui = progUI('Preparo il formato ' + f); await smartReframe(faces, ui); ui.close(); }
+      proj.name = name0 + ' ' + f.replace(':', 'x'); textCache.clear(); layoutPreview(); renderAll();
+      await exportMP4({ res, q, from: 0, to: projDur() }); if (EX.cancel) break;
+    }
+  } finally { proj = JSON.parse(saved); hist.list = []; hist.i = -1; commit(); afterProjectChange(); renderAll(); seekPreview(); }
+}
+
+
+/* --- arrivi dalle altre app della suite (NWLtono, NWLlive) --- */
+async function checkInbox() {
+  let items = []; try { items = await nwlInbox(); } catch { }
+  let bar = $('#inboxBar'); if (!items.length) { if (bar) bar.remove(); return; }
+  if (!bar) { bar = h('div', { id: 'inboxBar' }); document.body.append(bar); }
+  bar.innerHTML = '';
+  bar.append(h('b', {}, '📥 Arrivati dalla suite'));
+  for (const it of items.slice(0, 5)) bar.append(h('div', { class: 'inr' }, h('span', {}, (it.from ? it.from + ': ' : '') + it.name),
+    h('button', { class: 'primary', onclick: () => takeInbox([it]) }, 'Importa'), h('button', { class: 'ghost', title: 'Ignora', onclick: async () => { await nwlTake(it.id); checkInbox(); } }, '✕')));
+  if (items.length > 1) bar.append(h('button', { onclick: () => takeInbox(items) }, 'Importa tutti (' + items.length + ')'));
+}
+async function takeInbox(list) {
+  for (const it of list) {
+    try { const f = new File([it.blob], it.name, { type: it.type || it.blob.type }); await importFiles([f], { place: true }); await nwlTake(it.id); }
+    catch (e) { console.warn(e); toast('Non riesco a importare ' + it.name); }
+  }
+  checkInbox();
+}
+try { NWLX.chan && NWLX.chan.addEventListener('message', e => { if (e.data && e.data.kind === 'inbox') checkInbox(); }); } catch { }
+addEventListener('focus', () => checkInbox());
 
 /* ================= pannello proprietà ================= */
 const INS = $('#insp');
@@ -4934,13 +5817,20 @@ function renderInspector() {
   INS.append(h('div', { class: 'hint' }, `Inizia a ${fmtTC(c.start)} · dura ${c.dur.toFixed(2)} s` + (tr.lock ? ' · traccia bloccata' : '')));
   const visual = c.type !== 'audio';
 
-  if (c.type === 'text' && isSubTrack(tr)) INS.append(h('div', { class: 'row2' }, h('button', { onclick: () => applySubStyleToAll(c), title: 'Carattere, colori, posizione e fondo uguali per tutti i sottotitoli' }, '⇉ Copia questo stile su tutti i sottotitoli')));
-  if (c.type === 'text' && c.text.kind === 'gl3') {
+  if (c.type === 'text' && isSubTrack(tr)) INS.append(h('div', { class: 'row2' }, h('button', { onclick: () => applySubStyleToAll(c), title: 'Carattere, colori, posizione e fondo uguali per tutti i sottotitoli' }, '⇉ Copia questo stile su tutti i sottotitoli'), h('button', { onclick: subsEditor }, '✎ Correggi tutte le frasi')));
+  if (c.type === 'text' && (c.text.kind === 'gl3' || c.text.kind === 'l3')) {
     const tx = c.text, f = (lbl, key, ph) => h('div', { class: 'gfield' }, h('label', {}, lbl), h('input', { type: 'text', value: tx[key] || '', placeholder: ph, oninput: e => { tx[key] = e.target.value; requestDraw(); }, onchange: () => { commit(); renderTimeline(); } }));
-    INS.append(sec('testo', 'Lower third Grandangolo',
+    if (!tx.st) tx.st = l3St(tx);
+    const st = tx.st, col = (lbl, key) => h('label', { class: 'kcol' }, h('input', { type: 'color', value: st[key], oninput: e => { st[key] = e.target.value; requestDraw(); }, onchange: commit }), lbl);
+    INS.append(sec('testo', 'Lower third',
       f('Voce sopra il titolo', 'kicker', 'Servizio di… / luogo'), f('Riga 1 — titolo o nome', 'content', 'Titolo'), f('Riga 2 — sottotitolo', 'sub', 'Sottotitolo'),
       rng('Dimensione', () => tx.size, v => tx.size = v, 60, 160, 5, '%', { def: 100 }),
-      h('p', { class: 'hint' }, 'Entra da sinistra e alla fine esce da solo, come nel player del sito. Allunga o accorcia la clip per decidere quanto resta a schermo.')));
+      h('div', { class: 'row2' }, h('label', {}, 'Stile'), h('select', { onchange: e => { st.style = e.target.value; commit(); requestDraw(); } }, L3_STYLES.map(([id, n]) => h('option', { value: id, selected: st.style === id }, n)))),
+      h('div', { class: 'row2' }, h('label', {}, 'Entrata'), segBtns(L3_ANIMS, () => st.anim, v => st.anim = v)),
+      h('div', { class: 'row2' }, h('label', {}, 'Posizione'), segBtns([['bl', 'Sinistra'], ['bc', 'Centro'], ['br', 'Destra']], () => st.pos, v => { st.pos = v; l3Anchor(c, v); })),
+      h('div', { class: 'kcols' }, col('Principale', 'accent'), col('Secondo', 'accent2'), col('Fondo', 'bg'), col('Testo', 'color')),
+      h('div', { class: 'row2' }, h('button', { onclick: () => { c.text.st = JSON.parse(JSON.stringify(kitNow().l3)); l3Anchor(c, c.text.st.pos); commit(); renderInspector(); requestDraw(); } }, '↺ Come il kit'), h('button', { onclick: async () => { const k = kitNow(); k.l3 = JSON.parse(JSON.stringify(st)); await kitsSave(); toast('Stile salvato nel kit «' + k.name + '»'); } }, '★ Salva nel kit')),
+      h('p', { class: 'hint' }, 'Entra e alla fine esce da solo. Allunga o accorcia la clip per decidere quanto resta a schermo.')));
   } else if (c.type === 'text') {
     const tx = c.text;
     const ta = h('textarea', { rows: 3, oninput: e => { tx.content = e.target.value; textCache.clear(); requestDraw(); const el = TRK.querySelector(`[data-c="${c.id}"] .cl span:last-child`); if (el) el.textContent = 'T  ' + clipName(c); }, onchange: () => commit() }, tx.content);
@@ -4964,22 +5854,72 @@ function renderInspector() {
         rng('Margine', () => tx.pad ?? .35, v => tx.pad = v, 0, 1.5, .05)) : null,
       h('div', { class: 'row2' }, h('label', {}, h('input', { type: 'checkbox', checked: tx.shadow, onchange: e => { tx.shadow = e.target.checked; commit(); requestDraw(); } }), ' Ombra'), h('label', {}, 'Contorno'), col(() => tx.outlineColor || '#000000', v => tx.outlineColor = v)),
       rng('Contorno', () => tx.outline, v => tx.outline = v, 0, 10, .5, '', { def: 0 }),
-      h('div', { class: 'row2' }, h('label', {}, 'Animazione'), segBtns([['none', 'Nessuna'], ['type', 'Macchina da scrivere'], ['words', 'Parola per parola'], ['scroll', 'Scorrimento titoli']], () => tx.anim, v => tx.anim = v)),
+      h('div', { class: 'row2' }, h('label', {}, 'Animazione'), segBtns([['none', 'Nessuna'], ['type', 'Macchina da scrivere'], ['words', 'Parola per parola'], ['karaoke', 'Parola evidenziata'], ['pop', 'Una parola alla volta'], ['scroll', 'Scorrimento titoli']], () => tx.anim, v => tx.anim = v, renderInspector)),
+      tx.anim === 'karaoke' || tx.anim === 'pop' ? h('div', { class: 'row2' }, h('label', {}, 'Colore evidenziato'), col(() => tx.hl || '#ffd200', v => tx.hl = v), h('label', {}, h('input', { type: 'checkbox', checked: !!tx.hlBox, onchange: e => { tx.hlBox = e.target.checked; commit(); requestDraw(); } }), ' nel riquadro')) : null,
     ));
   }
 
   if (visual) {
     INS.append(sec('pos', 'Posizione e dimensione',
       h('p', { class: 'hint' }, 'Puoi anche trascinare direttamente nell\'anteprima: al centro per spostare, gli angoli per ingrandire, il pallino in alto per ruotare.'),
-      rng('Orizzontale', () => Math.round(c.x * 100), v => c.x = v / 100, -50, 150, 1, '%', { def: 50 }),
-      rng('Verticale', () => Math.round(c.y * 100), v => c.y = v / 100, -50, 150, 1, '%', { def: 50 }),
-      rng('Grandezza', () => Math.round(c.scale * 100), v => c.scale = v / 100, 5, 400, 1, '%', { def: 100, hardMax: 1200 }),
-      rng('Rotazione', () => c.rot, v => c.rot = v, -180, 180, 1, '°', { def: 0 }),
-      rng('Opacità', () => Math.round(c.opacity * 100), v => c.opacity = v / 100, 0, 100, 1, '%', { def: 100 }),
+      rng('Orizzontale', () => Math.round(c.x * 100), v => { c.x = v / 100; kfTouch(c); }, -50, 150, 1, '%', { def: 50 }),
+      rng('Verticale', () => Math.round(c.y * 100), v => { c.y = v / 100; kfTouch(c); }, -50, 150, 1, '%', { def: 50 }),
+      rng('Grandezza', () => Math.round(c.scale * 100), v => { c.scale = v / 100; kfTouch(c); }, 5, 400, 1, '%', { def: 100, hardMax: 1200 }),
+      rng('Rotazione', () => c.rot, v => { c.rot = v; kfTouch(c); }, -180, 180, 1, '°', { def: 0 }),
+      rng('Opacità', () => Math.round(c.opacity * 100), v => { c.opacity = v / 100; kfTouch(c); }, 0, 100, 1, '%', { def: 100 }),
       c.type !== 'text' ? h('div', { class: 'row2' }, h('label', {}, 'Inquadra'), segBtns([['contain', 'Mostra tutto'], ['cover', 'Riempi lo schermo']], () => c.fit, v => c.fit = v)) : null,
       h('div', { class: 'row2' }, h('button', { onclick: () => { Object.assign(c, { x: .5, y: .5, scale: 1, rot: 0, opacity: 1 }); commit(); renderInspector(); requestDraw(); } }, 'Centra e ripristina'),
         c.type !== 'text' ? h('button', { onclick: () => { c.flipH = !c.flipH; commit(); requestDraw(); } }, 'Specchia ⇋') : null,
         c.type !== 'text' ? h('button', { title: 'Gira il video di 90° (per i video girati di lato)', onclick: () => rotate90(c) }, '↻ Ruota 90°') : null)));
+    // fotogrammi chiave
+    const here = kfHere(c), n = c.kf ? c.kf.length : 0;
+    INS.append(sec('kf', 'Animazione (fotogrammi chiave)' + (n ? ' · ' + n : ''),
+      h('p', { class: 'hint' }, n ? 'La clip è animata: quando sposti, ingrandisci, ruoti o cambi opacità, la modifica va nella chiave al cursore rosso (se non c\'è, la crea).' : 'Metti il cursore rosso dove parte il movimento e premi ◆. Poi sposta il cursore, cambia posizione o grandezza nell\'anteprima: si crea la seconda chiave e la clip si muove da sola tra le due.'),
+      h('div', { class: 'row2' },
+        h('button', { title: 'Chiave precedente', disabled: !n || null, onclick: () => kfJump(c, -1) }, '◀'),
+        h('button', { class: here ? 'kfon' : 'primary', onclick: () => kfToggle(c) }, here ? '◇ Togli la chiave qui' : '◆ Aggiungi chiave qui'),
+        h('button', { title: 'Chiave successiva', disabled: !n || null, onclick: () => kfJump(c, 1) }, '▶'),
+        n ? h('button', { class: 'ghost', onclick: () => { delete c.kf; commit(); renderAll(); requestDraw(); } }, 'Togli tutte') : null),
+      h('div', { class: 'gsep' }, 'Movimenti pronti'),
+      h('div', { class: 'seg' }, KF_PRESETS.map(([id, nm]) => h('button', { onclick: () => kfPreset(c, id) }, nm)))));
+    // maschera e fusione
+    const m = c.mask && c.mask.shape !== 'none' ? c.mask : null;
+    INS.append(sec('mask', 'Maschera e fusione',
+      h('div', { class: 'row2' }, h('label', {}, 'Maschera'), segBtns(MASKS, () => m ? m.shape : 'none', v => { if (v === 'none') delete c.mask; else c.mask = Object.assign(m || {}, MASK_DEF(v), m ? { cx: m.cx, cy: m.cy, feather: m.feather, invert: m.invert } : {}, { shape: v }); }, renderInspector)),
+      m ? [rng('Centro orizzontale', () => Math.round(m.cx * 100), v => m.cx = v / 100, -60, 60, 1, '%', { def: 0 }),
+        rng('Centro verticale', () => Math.round(m.cy * 100), v => m.cy = v / 100, -60, 60, 1, '%', { def: 0 }),
+        m.shape !== 'linear' ? rng(m.shape === 'band' ? 'Altezza fascia' : 'Larghezza', () => Math.round((m.shape === 'band' ? m.h : m.w) * 100), v => { if (m.shape === 'band') m.h = v / 100; else m.w = v / 100; }, 2, 150, 1, '%') : null,
+        m.shape === 'rect' || m.shape === 'ellipse' ? rng('Altezza', () => Math.round(m.h * 100), v => m.h = v / 100, 2, 150, 1, '%') : null,
+        rng('Rotazione', () => m.rot || 0, v => m.rot = v, -180, 180, 1, '°', { def: 0 }),
+        rng('Sfumatura', () => Math.round(m.feather * 100), v => m.feather = v / 100, 0, 50, 1, '%', { def: 8 }),
+        m.shape === 'rect' ? rng('Angoli arrotondati', () => Math.round((m.round || 0) * 100), v => m.round = v / 100, 0, 100, 1, '%', { def: 0 }) : null,
+        h('label', { class: 'row2' }, h('input', { type: 'checkbox', checked: !!m.invert, onchange: e => { m.invert = e.target.checked; commit(); requestDraw(); } }), ' Inverti (nasconde dentro invece che fuori)')] : null,
+      h('div', { class: 'row2' }, h('label', {}, 'Fusione con sotto'), h('select', { onchange: e => { c.blend = e.target.value; if (c.blend === 'source-over') delete c.blend; commit(); requestDraw(); } }, BLENDS.map(([v, nm]) => h('option', { value: v, selected: (c.blend || 'source-over') === v }, nm)))),
+      h('p', { class: 'hint' }, 'La fusione serve con due video uno sopra l\'altro (doppia esposizione, luci, texture). «Schermo» e «Sovrapponi» sono i più usati.')));
+    // chroma key
+    if (c.type === 'video' || c.type === 'image') {
+      const kk = c.key && c.key.on ? c.key : null;
+      INS.append(sec('key', 'Chroma key (fondo verde o blu)',
+        h('div', { class: 'row2' }, segBtns([['off', 'Spento'], ['#00b140', '🟩 Verde'], ['#0047bb', '🟦 Blu']], () => kk ? (['#00b140', '#0047bb'].includes(kk.color) ? kk.color : 'pick') : 'off', v => { if (v === 'off') { if (c.key) c.key.on = false; } else { c.key = Object.assign(KEY_DEF(), c.key || {}, { on: true, color: v }); } }, renderInspector),
+          kk ? h('button', { title: 'Clicca poi sull\'anteprima nel punto del fondo da togliere', onclick: () => { S.pickKey = c.id; toast('Clicca sull\'anteprima sul colore del fondo'); } }, '🎯 Prendi il colore') : null,
+          kk ? h('input', { type: 'color', value: kk.color, oninput: e => { kk.color = e.target.value; requestDraw(); }, onchange: commit }) : null),
+        kk ? [rng('Tolleranza', () => Math.round(kk.sim * 100), v => kk.sim = v / 100, 1, 45, 1, '', { def: 12 }),
+          rng('Bordi morbidi', () => Math.round(kk.smooth * 100), v => kk.smooth = v / 100, 1, 40, 1, '', { def: 8 }),
+          rng('Riflessi del fondo', () => Math.round(kk.spill * 100), v => kk.spill = v / 100, 1, 50, 1, '', { def: 10 })] : null,
+        h('p', { class: 'hint' }, 'Metti questa clip su una traccia sopra lo sfondo (studio, foto, altro video). Con «Maschera» puoi tagliare via i bordi del telo.')));
+      // oscura volti e targhe
+      const bl = c.blur || [];
+      INS.append(sec('blur', 'Oscura volti e targhe' + (bl.length ? ' · ' + bl.length : ''),
+        h('div', { class: 'row2' }, h('button', { class: 'primary', onclick: () => blurFaces(c) }, '🙂 Trova e oscura i volti'), h('button', { onclick: () => { addBlurBox(c); } }, '▭ Riquadro a mano (targa…)')),
+        bl.map((z, i) => h('div', { class: 'blrow' + (S.blurEdit === z.id ? ' on' : '') },
+          h('b', { onclick: () => { S.blurEdit = z.id; renderInspector(); requestDraw(); } }, (z.shape === 'ellipse' ? '◯ ' : '▭ ') + (i + 1)),
+          segBtns(BLUR_KINDS, () => z.kind, v => z.kind = v),
+          h('select', { onchange: e => { z.shape = e.target.value; commit(); requestDraw(); } }, [['rect', 'Rettangolo'], ['ellipse', 'Ovale']].map(([v, nm]) => h('option', { value: v, selected: z.shape === v }, nm))),
+          h('input', { type: 'range', min: 0, max: 100, value: Math.round((z.amount ?? .6) * 100), title: 'Intensità', oninput: e => { z.amount = e.target.value / 100; requestDraw(); }, onchange: commit }),
+          c.type === 'video' ? h('button', { title: 'Segue la targa o l\'oggetto mentre si muove, partendo dal cursore rosso', onclick: () => followBox(c, z) }, '⤳ Segui il movimento') : null,
+          h('button', { class: 'ghost', title: 'Togli', onclick: () => { c.blur = c.blur.filter(q => q !== z); if (!c.blur.length) delete c.blur; commit(); renderAll(); requestDraw(); } }, '✕'))),
+        h('p', { class: 'hint' }, 'I riquadri si spostano e ridimensionano trascinandoli nell\'anteprima. I volti vengono riconosciuti qui sul computer: nessuna immagine viene inviata fuori. Controlla sempre tutto il video prima di pubblicare.')));
+    }
   }
 
   // tempo e velocità
@@ -4993,7 +5933,8 @@ function renderInspector() {
     h('div', { class: 'gsep' }, 'Curve di velocità'),
     h('div', { class: 'rampgrid' }, RAMPS.map(([id, n, d, r]) => h('button', { class: c.rampId === id && c.ramp ? 'on' : '', title: d, onclick: () => applyEffect(c, 'ramp:' + id) }, rampSvg(r, 56, 22), h('span', {}, n)))),
     c.ramp ? h('button', { class: 'ghost', onclick: () => applyEffect(c, 'ramp:none') }, 'Togli la curva') : null,
-    h('p', { class: 'hint' }, 'Le curve tengono lo stesso pezzo di girato e ne cambiano il ritmo. Cambiando velocità cambia anche il tono della voce.'));
+    h('p', { class: 'hint' }, 'Le curve tengono lo stesso pezzo di girato e ne cambiano il ritmo. Cambiando velocità cambia anche il tono della voce.'),
+    h('div', { class: 'row2' }, h('button', { onclick: () => reverseClip(c) }, '⇆ Al contrario'), proj.beats && c.type === 'video' ? h('button', { onclick: () => splitOnBeats(c, 1) }, '✂ Taglia sui battiti') : null));
   INS.append(timeSec);
 
   if (hasAudio(c)) {
@@ -5003,6 +5944,9 @@ function renderInspector() {
       rng('Uscita morbida', () => c.fadeOut, v => c.fadeOut = Math.min(v, c.dur / 2), 0, 10, .1, 's', { def: 0, audio: true, tl: true }),
       h('div', { class: 'row2' }, h('label', {}, h('input', { type: 'checkbox', checked: c.mute, onchange: e => { c.mute = e.target.checked; commit(); renderTimeline(); if (P.playing) { pause(); play(); } } }), ' Audio spento'),
         c.type === 'video' && !c.mute ? h('button', { onclick: doDetach, title: 'Copia il sonoro su una traccia audio e spegne quello del video' }, '♪ Estrai audio nella traccia') : null),
+      h('div', { class: 'gsep' }, 'Strumenti'),
+      h('div', { class: 'row2' }, h('button', { class: 'primary', title: 'Toglie fruscio e rumore di fondo, taglia i bassi, uniforma il volume', onclick: () => cleanVoice(c) }, '✨ Pulisci la voce'), h('button', { title: 'Toglie i silenzi lunghi e accosta le frasi', onclick: () => removePauses(c) }, '⏸ Togli le pause')),
+      c.type === 'audio' ? h('div', { class: 'row2' }, h('button', { onclick: () => markBeats(c) }, '♫ Segna i battiti'), proj.beats ? h('button', { onclick: () => montageOnBeats(2) }, 'Monta le foto a tempo') : null, proj.beats ? h('button', { class: 'ghost', onclick: () => { delete proj.beats; delete proj.bpm; commit(); drawRuler(); renderInspector(); } }, 'Togli i segni') : null) : null,
       h('div', { class: 'gsep' }, 'Volume nel tempo'),
       h('p', { class: 'hint' }, 'Ogni traccia ha la sua linea gialla del volume: premi 〰 accanto al nome della traccia, clicca sulla linea per mettere un punto e trascinalo su o giù. Doppio clic su un punto per toglierlo.'),
       h('div', { class: 'row2' },
@@ -5288,6 +6232,8 @@ async function exportDialog() {
     h('div', { class: 'row2' }, h('label', { style: 'width:110px' }, 'Cosa esporto'), sel('exWhat', [['mp4', 'Video MP4 (consigliato)'], ['wav', 'Solo audio (WAV)'], ['png', 'Fotogramma al cursore (PNG)']], 'mp4')),
     h('div', { class: 'row2', id: 'exResRow' }, h('label', { style: 'width:110px' }, 'Risoluzione'), sel('exRes', [[1080, `Full HD (${proj.w}×${proj.h})`], [720, `HD (${Math.round(proj.w * 720 / short / 2) * 2}×${Math.round(proj.h * 720 / short / 2) * 2}) — più leggero`]], 1080)),
     h('div', { class: 'row2', id: 'exQRow' }, h('label', { style: 'width:110px' }, 'Qualità'), sel('exQ', [['hi', 'Alta (per YouTube e archivio)'], ['mid', 'Media (per i social)'], ['lo', 'Leggera (per WhatsApp)']], 'mid')),
+    h('div', { class: 'row2', id: 'exFmtRow' }, h('label', { style: 'width:110px' }, 'Formati'), h('div', { class: 'exfmts' }, Object.keys(FORMATS).map(f => h('label', {}, h('input', { type: 'checkbox', class: 'exFmt', value: f, checked: f === proj.format }), ' ' + f + (f === proj.format ? ' (questo)' : ''))))),
+    h('label', { class: 'row2', id: 'exFaceRow' }, h('input', { type: 'checkbox', id: 'exFaces', checked: true }), ' Negli altri formati tieni i volti al centro dell\'inquadratura'),
     h('div', { class: 'row2' }, h('label', { style: 'width:110px' }, 'Parte'), sel('exRange', [['all', `Tutto (${fmtTC(dur)})`], ['sel', 'Solo la clip selezionata']], 'all')),
     h('p', { class: 'hint' }, fast ? `Il video viene creato fotogramma per fotogramma: per ${fmtDur(dur)} di video servono indicativamente ${fmtDur(Math.max(10, dur * 1.3))}–${fmtDur(Math.max(20, dur * 3))}. Puoi continuare a usare il computer, ma lascia aperta questa scheda.` : 'Questo browser non ha l\'esportazione veloce: il video verrà registrato in tempo reale (dura quanto il filmato). Per un MP4 più veloce usa Chrome o Edge sul computer.'));
   const r = await ask('Esporta', body, [['Annulla', 0], ['Esporta', 1, 'primary']]);
@@ -5298,27 +6244,38 @@ async function exportDialog() {
   try {
     if (what === 'png') return exportPNG();
     if (what === 'wav') { const ui = progUI('Esporto l\'audio'); const b = await renderMix(from, to); ui.set(1); ui.close(); download(wavBlob(b), safeName(proj.name) + '.wav'); return; }
+    const fmts = [...document.querySelectorAll('.exFmt:checked')].map(i => i.value);
+    if (fast && (fmts.length > 1 || (fmts.length === 1 && fmts[0] !== proj.format))) return await exportFormats(fmts, { res, q, faces: $('#exFaces').checked });
     if (fast) await exportMP4({ res, q, from, to }); else await exportRealtime({ res, q, from, to });
   } catch (e) { console.error(e); try { $('#dlg').close(); } catch { } await ask('Esportazione non riuscita', String(e && e.message || e)); }
 }
 function exportSize(res) { const short = Math.min(proj.w, proj.h), k = res / short; return [Math.round(proj.w * k / 2) * 2, Math.round(proj.h * k / 2) * 2]; }
-function exportBitrate(W, H, fps, q) { const base = W * H * fps; return Math.round(base * ({ hi: .19, mid: .11, lo: .055 }[q])); }
+function exportBitrate(W, H, fps, q) { const base = W * H * fps; return Math.round(base * ({ hi: .26, mid: .15, lo: .075 }[q])); }
 async function exportMP4({ res, q, from, to }) {
   EX.cancel = false;
+  // file lunghi: l'audio si decodifica adesso, solo per l'esportazione (così non serve registrare in tempo reale)
+  const tmpA = [];
+  for (const c of proj.clips) { const s0 = sources.get(c.src); if (c.type === 'video' && !c.mute && s0 && s0.elAudio && !s0.audioBuf && c.start < to && c.start + c.dur > from) { const ok = await ensureAudioBuf(s0, c.offset + c.dur * effSpeed(c)); if (!ok) return exportRealtime({ res, q, from, to }); tmpA.push(s0); } }
+  try { return await exportMP4Core({ res, q, from, to }); }
+  finally { closeReaders(); for (const s0 of tmpA) if (s0._tmpAudio) { s0.audioBuf = null; delete s0._tmpAudio; } }
+}
+async function exportMP4Core({ res, q, from, to }) {
   const fps = proj.fps, [W, H] = exportSize(res), bitrate = exportBitrate(W, H, fps, q);
   const vcfg = await pickVideoCodec(W, H, fps, bitrate);
   if (!vcfg) return exportRealtime({ res, q, from, to });
   const withAudio = hasAnyAudio(from, to);
   const acod = withAudio ? await pickAudioCodec() : null;
-  if (withAudio && !acod) return exportRealtime({ res, q, from, to });
   const ui = progUI('Esporto il video');
+  let rawA = null;
+  if (withAudio && !acod) { rawA = await recordMixAudio(from, to, ui); if (!rawA) { ui.close(); if (EX.cancel) { toast('Esportazione annullata'); return; } return exportRealtime({ res, q, from, to }); } }
   await ensureFonts();
   let err = null;
   const muxer = new Mp4Muxer.Muxer({
     target: new Mp4Muxer.ArrayBufferTarget(), fastStart: 'in-memory', firstTimestampBehavior: 'offset',
     video: { codec: 'avc', width: W, height: H, frameRate: fps },
-    audio: acod ? { codec: acod.mux, numberOfChannels: 2, sampleRate: 48000 } : undefined
+    audio: acod ? { codec: acod.mux, numberOfChannels: 2, sampleRate: 48000 } : rawA ? { codec: rawA.mux, numberOfChannels: rawA.nch, sampleRate: rawA.sr } : undefined
   });
+  if (rawA) rawA.samples.forEach((sm, i) => muxer.addAudioChunkRaw(sm.data, 'key', sm.ts, sm.dur, i ? undefined : { decoderConfig: rawA.cfg }));
   // audio prima (veloce)
   if (acod) {
     ui.set(0, 'Preparo l\'audio…');
@@ -5336,14 +6293,14 @@ async function exportMP4({ res, q, from, to }) {
     await aenc.flush(); aenc.close();
     if (err) throw err;
   }
-  const cvE = h('canvas'); cvE.width = W; cvE.height = H; const cx = cvE.getContext('2d', { alpha: false });
+  const cvE = h('canvas'); cvE.width = W; cvE.height = H; const cx = cvE.getContext('2d', { alpha: false }); cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
   const venc = new VideoEncoder({ output: (ch, m) => muxer.addVideoChunk(ch, m), error: e => err = e });
   venc.configure(Object.assign({}, vcfg, { latencyMode: 'quality' }));
   const frames = Math.max(1, Math.round((to - from) * fps)), us = 1e6 / fps;
   for (let i = 0; i < frames; i++) {
     if (EX.cancel) break; if (err) throw err;
     const t = from + i / fps;
-    await prepareFrame(t);
+    await prepareFrameExact(t);
     drawFrame(cx, t, W, H);
     const vf = new VideoFrame(cvE, { timestamp: Math.round(i * us), duration: Math.round(us) });
     venc.encode(vf, { keyFrame: i % (fps * 2) === 0 }); vf.close();
@@ -5357,7 +6314,7 @@ async function exportMP4({ res, q, from, to }) {
   const blob = new Blob([muxer.target.buffer], { type: 'video/mp4' });
   ui.close(); seekPreview();
   download(blob, safeName(proj.name) + '.mp4');
-  toast(`Video esportato: ${(blob.size / 1048576).toFixed(1)} MB` + (acod && acod.mux === 'opus' ? ' (audio Opus)' : ''), 6000);
+  toast(`Video esportato fotogramma per fotogramma: ${(blob.size / 1048576).toFixed(1)} MB` + (acod && acod.mux === 'opus' ? ' (audio Opus)' : ''), 6000);
 }
 async function exportRealtime({ res, q, from, to }) {
   EX.cancel = false;
@@ -5394,12 +6351,180 @@ async function exportRealtime({ res, q, from, to }) {
   const ext = mt.startsWith('video/mp4') ? 'mp4' : 'webm';
   const blob = new Blob(chunks, { type: mt.split(';')[0] });
   download(blob, safeName(proj.name) + '.' + ext);
-  toast('Video esportato (' + ext.toUpperCase() + ', ' + (blob.size / 1048576).toFixed(1) + ' MB)', 6000);
+  toast('Video registrato in tempo reale (questo browser non permette il metodo preciso): ' + ext.toUpperCase() + ', ' + (blob.size / 1048576).toFixed(1) + ' MB', 8000);
 }
 async function exportPNG() {
   const [W, H] = [proj.w, proj.h], c = h('canvas'); c.width = W; c.height = H;
   await ensureFonts(); await prepareFrame(S.playhead); drawFrame(c.getContext('2d'), S.playhead, W, H);
   c.toBlob(b => download(b, safeName(proj.name) + '-' + fmtTC(S.playhead).replace(/:/g, '-') + '.png'), 'image/png');
+}
+
+/* ================= esportazione fotogramma per fotogramma, precisa: WebCodecs + mp4box =================
+   Al posto di «salta al tempo t» sul lettore video (che sul telefono spesso dà il fotogramma sbagliato
+   e fa andare il video a scatti), legge i campioni dal file e li decodifica in ordine. */
+let EXF = null; // id clip -> tela col fotogramma esatto, usata da drawClip durante l'esportazione
+function exfEl(c) { return EXF && EXF.get(c.id); }
+
+async function demuxInfo(s) {
+  if (s._dmx !== undefined) return s._dmx;
+  s._dmx = null;
+  if (!window.MP4Box || !s.blob) return null;
+  try {
+    const f = MP4Box.createFile(); let ready = null, fail = null;
+    f.onReady = i => ready = i; f.onError = e => fail = e;
+    let pos = 0; const size = s.blob.size, CH = 4 << 20;
+    while (!ready && !fail && pos < size) {
+      const ab = await s.blob.slice(pos, Math.min(size, pos + CH)).arrayBuffer(); ab.fileStart = pos;
+      const next = f.appendBuffer(ab); pos = next > pos ? next : pos + ab.byteLength;
+    }
+    if (!ready) return null;
+    const out = { file: f, info: ready };
+    const vt = ready.videoTracks && ready.videoTracks[0];
+    if (vt) {
+      const trak = f.getTrackById(vt.id), entry = trak.mdia.minf.stbl.stsd.entries[0];
+      const box = entry.avcC || entry.hvcC || entry.vpcC || entry.av1C; let description;
+      if (box) { const st = new DataStream(undefined, 0, DataStream.BIG_ENDIAN); box.write(st); description = new Uint8Array(st.buffer, 8); }
+      let shift = 0; try { const e = trak.edts && trak.edts.elst && trak.edts.elst.entries.find(x => x.media_time >= 0); if (e) shift = e.media_time / trak.mdia.mdhd.timescale; } catch { }
+      const m = vt.matrix || [65536, 0, 0, 0, 65536, 0]; const rot = Math.round(Math.atan2(m[1], m[0]) * 180 / Math.PI);
+      out.v = { codec: vt.codec, w: vt.track_width || vt.video.width, h: vt.track_height || vt.video.height, cw: vt.video.width, ch: vt.video.height, description, ts: trak.mdia.mdhd.timescale, samples: trak.samples, shift, rot: ((rot % 360) + 360) % 360 };
+      const cfg = { codec: out.v.codec, codedWidth: out.v.cw, codedHeight: out.v.ch, description };
+      try { const r = await VideoDecoder.isConfigSupported(cfg); out.v.ok = !!r.supported; } catch { out.v.ok = false; }
+      out.v.cfg = cfg;
+    }
+    const at = ready.audioTracks && ready.audioTracks[0];
+    if (at) {
+      const trak = f.getTrackById(at.id), entry = trak.mdia.minf.stbl.stsd.entries[0];
+      let dsi = null; const find = d => { if (!d) return; if (d.tag === 5 && d.data) dsi = d.data; (d.descs || []).forEach(find); };
+      try { find(entry.esds && entry.esds.esd); } catch { }
+      out.a = { codec: at.codec, sr: at.audio.sample_rate, nch: at.audio.channel_count, ts: trak.mdia.mdhd.timescale, samples: trak.samples, cfg: { codec: at.codec.startsWith('mp4a') ? at.codec : at.codec, sampleRate: at.audio.sample_rate, numberOfChannels: at.audio.channel_count, description: dsi || undefined } };
+      try { const r = await AudioDecoder.isConfigSupported(out.a.cfg); out.a.ok = !!r.supported; } catch { out.a.ok = false; }
+    }
+    return s._dmx = out;
+  } catch (e) { console.warn('demux', e); return null; }
+}
+
+/* lettore di fotogrammi: va avanti in ordine, torna indietro solo se serve (dal fotogramma chiave) */
+class FrameReader {
+  constructor(s, d) {
+    this.s = s; this.d = d; this.q = []; this.idx = 0; this.err = null; this.wake = null; this.last = -1;
+    this.cv = h('canvas'); this.cv.width = s.w; this.cv.height = s.h; this.cv.readyState = 4; this.g = this.cv.getContext('2d');
+    this.dec = new VideoDecoder({ output: f => { this.q.push(f); if (this.wake) { this.wake(); this.wake = null; } }, error: e => { this.err = e; if (this.wake) { this.wake(); this.wake = null; } } });
+    this.dec.configure(d.cfg);
+  }
+  us(sm) { return Math.round((sm.cts / this.d.ts - this.d.shift) * 1e6); }
+  reset(tUs) {
+    for (const f of this.q) f.close(); this.q = [];
+    try { this.dec.reset(); this.dec.configure(this.d.cfg); } catch (e) { this.err = e; }
+    const S2 = this.d.samples; let k = 0;
+    for (let i = 0; i < S2.length; i++) { if (S2[i].is_sync && this.us(S2[i]) <= tUs + 1000) k = i; if (this.us(S2[i]) > tUs + 2e6 && S2[i].is_sync) break; }
+    this.idx = k;
+  }
+  async feedOne() {
+    const sm = this.d.samples[this.idx++];
+    const data = new Uint8Array(await this.s.blob.slice(sm.offset, sm.offset + sm.size).arrayBuffer());
+    this.dec.decode(new EncodedVideoChunk({ type: sm.is_sync ? 'key' : 'delta', timestamp: this.us(sm), duration: Math.round(sm.duration / this.d.ts * 1e6), data }));
+  }
+  async at(t) {
+    const tUs = Math.round(t * 1e6);
+    if (this.last < 0 || tUs < this.last - 1000 || tUs > this.last + 3e6) this.reset(tUs);
+    this.last = tUs;
+    const done = () => this.q.some(f => f.timestamp > tUs + 500);
+    let flushed = false;
+    while (!done() && !this.err) {
+      if (this.idx < this.d.samples.length) {
+        await this.feedOne();
+        if (this.dec.decodeQueueSize > 3) await new Promise(r => { this.wake = r; setTimeout(r, 50); });
+      } else if (!flushed) { flushed = true; await this.dec.flush().catch(e => this.err = e); }
+      else break;
+    }
+    if (this.err) throw this.err;
+    this.q.sort((a, b) => a.timestamp - b.timestamp);
+    let best = null; for (const f of this.q) if (f.timestamp <= tUs + 500) best = f;
+    if (!best) best = this.q[0];
+    // chiude i fotogrammi già passati
+    this.q = this.q.filter(f => { if (f !== best && f.timestamp < (best ? best.timestamp : 0)) { f.close(); return false; } return true; });
+    if (!best) return null;
+    if (best !== this.shown) {
+      const r = this.d.rot, W = this.cv.width, H = this.cv.height, g = this.g;
+      g.setTransform(1, 0, 0, 1, W / 2, H / 2); if (r) g.rotate(r * Math.PI / 180);
+      const side = r % 180 !== 0, dw = side ? H : W, dh = side ? W : H;
+      g.imageSmoothingQuality = 'high'; g.drawImage(best, -dw / 2, -dh / 2, dw, dh); g.setTransform(1, 0, 0, 1, 0, 0);
+      this.shown = best;
+    }
+    return this.cv;
+  }
+  close() { for (const f of this.q) try { f.close(); } catch { } this.q = []; try { this.dec.close(); } catch { } }
+}
+const READERS = new Map();
+async function readerFor(c) {
+  let r = READERS.get(c.id); if (r) return r;
+  const s = sources.get(c.src); if (!s || !window.VideoDecoder) return null;
+  const d = await demuxInfo(s); if (!d || !d.v || !d.v.ok) return null;
+  try { r = new FrameReader(s, d.v); READERS.set(c.id, r); return r; } catch (e) { console.warn(e); return null; }
+}
+function closeReaders() { for (const r of READERS.values()) r.close(); READERS.clear(); EXF = null; }
+/* prepara il fotogramma esatto per ogni video attivo; dove non si può, usa il vecchio metodo */
+async function prepareFrameExact(t) {
+  if (!EXF) EXF = new Map();
+  const slow = [];
+  for (const c of activeVisual(t)) {
+    if (c.type !== 'video') continue;
+    const r = await readerFor(c);
+    if (!r) { slow.push(c); EXF.delete(c.id); continue; }
+    try { const cv = await r.at(clamp(srcTime(c, t), 0, Math.max(0, srcDur(c) - .001))); if (cv) EXF.set(c.id, cv); else slow.push(c); }
+    catch (e) { console.warn('decodifica', e); r.close(); READERS.delete(c.id); READERS.set(c.id, { at: async () => null, close() { } }); slow.push(c); EXF.delete(c.id); }
+  }
+  if (slow.length) {
+    await Promise.all(slow.map(async c => { const v = vidFor(c); if (!v) return; if (v.readyState < 1) await once(v, 'loadedmetadata', 'error', 8000).catch(() => { }); if (!v.paused) v.pause(); await seekTo(v, clamp(srcTime(c, t), 0, Math.max(0, (v.duration || 0) - .02)) + .0005); }));
+  }
+}
+
+/* audio dei file lunghi (che non vengono caricati interi in memoria): si decodifica solo per esportare */
+async function ensureAudioBuf(s, upTo) {
+  if (s.audioBuf) return true;
+  const d = await demuxInfo(s);
+  if (d && !d.a) { s.elAudio = false; s.noAudio = true; return true; } // il video non ha audio: niente da registrare
+  if (!d || !d.a || !d.a.ok || !window.AudioDecoder) { // ultimo tentativo: decodifica classica, se il file non è enorme
+    if (s.blob && s.blob.size < 400 * 1048576) { try { s.audioBuf = await decodeAudio(await s.blob.arrayBuffer()); s._tmpAudio = true; return true; } catch { } }
+    return false;
+  }
+  const A = d.a, sr = A.sr, n = Math.ceil(Math.min(upTo + 1, s.duration || upTo + 1) * sr);
+  if (n * 2 * 4 > 900 * 1048576) return false; // troppo lungo per la memoria del telefono
+  const L = new Float32Array(n), R = new Float32Array(n); let err = null;
+  const dec = new AudioDecoder({
+    output: ad => { const o = Math.round(ad.timestamp / 1e6 * sr), m = ad.numberOfFrames; if (o < n) { const tmp = new Float32Array(m); try { ad.copyTo(tmp, { planeIndex: 0, format: 'f32-planar' }); L.set(tmp.subarray(0, Math.min(m, n - o)), Math.max(0, o)); ad.copyTo(tmp, { planeIndex: Math.min(1, ad.numberOfChannels - 1), format: 'f32-planar' }); R.set(tmp.subarray(0, Math.min(m, n - o)), Math.max(0, o)); } catch (e) { err = e; } } ad.close(); },
+    error: e => err = e });
+  dec.configure(A.cfg);
+  for (const sm of A.samples) {
+    if (sm.cts / A.ts > upTo + 1) break; if (err) break;
+    const data = new Uint8Array(await s.blob.slice(sm.offset, sm.offset + sm.size).arrayBuffer());
+    dec.decode(new EncodedAudioChunk({ type: 'key', timestamp: Math.round(sm.cts / A.ts * 1e6), duration: Math.round(sm.duration / A.ts * 1e6), data }));
+    if (dec.decodeQueueSize > 40) await sleep(1);
+  }
+  await dec.flush().catch(e => err = e); dec.close();
+  if (err) { console.warn('audio', err); return false; }
+  const b = new AudioBuffer({ length: n, numberOfChannels: 2, sampleRate: sr }); b.copyToChannel(L, 0); b.copyToChannel(R, 1);
+  s.audioBuf = b; s._tmpAudio = true; return true;
+}
+
+/* telefoni senza codificatore audio (alcuni iPhone): il mix si registra solo come audio, poi si unisce al video
+   già codificato fotogramma per fotogramma. Il video resta fluido; l'attesa è pari alla durata. */
+async function recordMixAudio(from, to, ui) {
+  if (!window.MediaRecorder || !window.MP4Box) return null;
+  const mt = ['audio/mp4;codecs=mp4a.40.2', 'audio/mp4', 'audio/aac'].find(t => MediaRecorder.isTypeSupported(t)); if (!mt) return null;
+  const buf = await renderMix(from, to), a = AC(); await a.resume();
+  const dest = a.createMediaStreamDestination(), src = a.createBufferSource(); src.buffer = buf; src.connect(dest);
+  const rec = new MediaRecorder(dest.stream, { mimeType: mt, audioBitsPerSecond: 192000 }), chunks = [];
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  rec.start(); const t0 = a.currentTime + .15; src.start(t0);
+  await new Promise(res => { const tick = () => { const p = (a.currentTime - t0) / buf.duration; if (EX.cancel || p >= 1) return res(); ui && ui.set(Math.max(0, p) * .5, 'Preparo l\'audio (' + fmtDur(Math.max(0, a.currentTime - t0)) + ' di ' + fmtDur(buf.duration) + ')…'); setTimeout(tick, 200); }; tick(); });
+  await sleep(250); await new Promise(r => { rec.onstop = r; rec.stop(); }); try { src.disconnect(); } catch { }
+  if (EX.cancel) return null;
+  const blob = new Blob(chunks, { type: mt.split(';')[0] }), d = await demuxInfo({ blob });
+  if (!d || !d.a || !(/^mp4a|opus/i.test(d.a.codec))) return null;
+  const A = d.a, out = [];
+  for (const sm of A.samples) out.push({ data: new Uint8Array(await blob.slice(sm.offset, sm.offset + sm.size).arrayBuffer()), ts: Math.round(sm.cts / A.ts * 1e6), dur: Math.round(sm.duration / A.ts * 1e6) });
+  return { mux: /^mp4a/i.test(A.codec) ? 'aac' : /opus/i.test(A.codec) ? 'opus' : null, samples: out, sr: A.sr, nch: A.nch, cfg: { codec: A.cfg.codec, sampleRate: A.sr, numberOfChannels: A.nch, description: A.cfg.description } };
 }
 
 /* ================= avvio e comandi ================= */
@@ -5410,7 +6535,7 @@ $('#bSide').onclick = () => toggleSide();
 $('#bText').onclick = () => { if (isMobile()) { toggleSide(true); setSideTab('txt'); } else { addTextPreset('title'); } };
 $('#bRec').onclick = () => REC.on ? stopRec() : startRec();
 $('#bSubs').onclick = subsDialog;
-$('#bGen').onclick = genDialog;
+$('#bGen').onclick = () => kitQuick();
 $('#srtIn').onchange = e => { const f = e.target.files[0]; if (f) importSRT(f); e.target.value = ''; };
 $('#bUndo').onclick = undo; $('#bRedo').onclick = redo;
 $('#selFormat').onchange = e => changeFormat(e.target.value);
@@ -5437,6 +6562,7 @@ $('#bAddA').onclick = () => { const t = addTrack('audio'); S.selTrack = t.id; co
 document.addEventListener('drop', e => {
   if (!e.dataTransfer || !e.dataTransfer.files.length) return; e.preventDefault(); document.body.style.outline = '';
   const files = [...e.dataTransfer.files];
+  const kitF = files.find(f => /\.nwlkit$/i.test(f.name)); if (kitF) { document.body.classList.remove('dragging'); importKit(kitF); return; }
   const proj1 = files.find(f => /\.mvideo$/i.test(f.name)); if (proj1) { openProjectFile(proj1); return; }
   document.body.classList.remove('dragging'); resetNewLbl();
   const k0 = kindOf(files[0]) === 'audio' ? 'audio' : 'video';
@@ -5491,10 +6617,12 @@ $('#zoom').value = z2v(S.pps);
 commit();
 afterProjectChange();
 restoreAutosave();
+kitsLoad();
+setTimeout(checkInbox, 1500);
 window.__mv = { setRamp, setSpeed, srcTime, freezeFrame, openCtx, clipCtxItems, showNews, refreshFxThumbs, get proj() { return proj; }, sources, exportRealtime, generateBrand, GEN, setFormat, changeFormat, cutTransition, applyToAllCuts, S, P, importFiles, exportMP4, renderMix, setPlayhead, drawFrame, addTextPreset, applyTransition, applyEffect, select, doSplit, undo, redo, saveProject, openProjectFile, readZip };
 
 /* app installata sul computer: i file .mvideo si aprono con doppio clic */
-if ('launchQueue' in window) launchQueue.setConsumer(async p => { for (const fh of (p.files || [])) { try { const f = await fh.getFile(); if (/\.mvideo$/i.test(f.name)) { openProjectFile(f); break; } } catch (e) { console.warn(e); } } });
+if ('launchQueue' in window) launchQueue.setConsumer(async p => { for (const fh of (p.files || [])) { try { const f = await fh.getFile(); if (/\.mvideo$/i.test(f.name)) { openProjectFile(f); break; } if (/\.nwlkit$/i.test(f.name)) { importKit(f); break; } } catch (e) { console.warn(e); } } });
 /* pulsante «Installa» quando il browser lo permette */
 let installEvt = null;
 addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; const b = $('#bInstall'); if (b) b.style.display = ''; });
@@ -5502,13 +6630,29 @@ addEventListener('appinstalled', () => { installEvt = null; const b = $('#bInsta
 if ($('#bInstall')) $('#bInstall').onclick = async () => { if (!installEvt) return; installEvt.prompt(); try { await installEvt.userChoice; } catch { } installEvt = null; $('#bInstall').style.display = 'none'; };
 
 /* ================= novità: si aprono da sole la prima volta dopo un aggiornamento ================= */
-const APP_VER = '1.2.1';
+const APP_VER = '1.3.2';
 const NOVITA = [
+  ['1.3.2', [['🎬', 'Esportazione più robusta', 'Anche dove manca il codificatore audio, il video resta fotogramma per fotogramma.']]],
+  ['1.3.1', [
+    ['🎬', 'Esportazione fluida e nitida', 'Il video ora viene letto fotogramma per fotogramma direttamente dal file: niente più scatti, anche con i video lunghi o girati col telefono. Ridimensionamento in alta qualità e più dati per secondo (bitrate più alto).'],
+    ['📱', 'Anteprima più leggera sul telefono', 'Scorre meglio durante la riproduzione.'],
+  ]],
+    ['1.3.0', [
+    ['★', 'Il tuo kit grafico', 'Il pulsante «Kit» raccoglie lower third (6 stili con colori, carattere ed entrata a scelta), logo, sigla, outro e risorse. Si salva da solo, si esporta in un file .nwlkit e si passa ai colleghi.'],
+    ['◆', 'Fotogrammi chiave', 'Posizione, grandezza, rotazione e opacità che cambiano nel tempo, più movimenti pronti.'],
+    ['◐', 'Maschere e fusioni', 'Rettangolo, cerchio, lineare e fascia con bordi sfumati; fusioni Schermo, Sovrapponi, Moltiplica…'],
+    ['🟩', 'Chroma key', 'Togli il fondo verde o blu anche nel montaggio, con il colore preso dall\'anteprima.'],
+    ['🙂', 'Oscura volti e targhe', 'I volti si trovano da soli; le targhe si seguono col riquadro. Sfocato, pixel o nero.'],
+    ['✨', 'Pulisci la voce e togli le pause', 'Meno fruscio, bassi tagliati, volume uniforme; i silenzi lunghi delle interviste si tolgono da soli.'],
+    ['♫', 'Battiti, al contrario, più formati', 'Segna i battiti della musica e monta a tempo; clip al contrario; esporta insieme 16:9, 9:16, 1:1 e 4:5 con i volti al centro.'],
+    ['CC', 'Sottotitoli', 'Stili con la parola evidenziata o una parola alla volta, e un elenco per correggere tutte le frasi.'],
+    ['📥', 'Collegamento con la suite', 'Quello che esporti da NWLtono e registri in NWLlive arriva pronto in NWLcut.'],
+  ]],
   ['1.2.1', [
     ['🖱', 'Menu col tasto destro', 'Sulle clip, sulle tracce e sull\'anteprima: taglia qui, copia, duplica, velocità, filtri, barre, estrai audio, fermo immagine, elimina. Sul telefono tieni premuto.'],
     ['🎞', 'Anteprima dei filtri', 'In «Effetti» ogni filtro mostra una miniatura sul fotogramma sotto il cursore rosso, così vedi il risultato prima di applicarlo.'],
     ['▬', 'Barre cinematografiche', 'Quattro formati (2,76 · 2,39 · 2:1 · 1,85), su una sola clip con entrata e uscita animate oppure su tutto il video, con colore e opacità. Funzionano anche nei video verticali.'],
-    ['⏩', 'Velocità come CapCut', 'Preset da 0,1× a 16× (moviola, rallentatore, timelapse) e curve di velocità: Montaggio, Momento eroe, Proiettile, A scatto, Flash in/out, Accelera, Rallenta alla fine.'],
+    ['⏩', 'Velocità: preset e curve', 'Preset da 0,1× a 16× (moviola, rallentatore, timelapse) e curve di velocità: Montaggio, Momento eroe, Proiettile, A scatto, Flash in/out, Accelera, Rallenta alla fine.'],
     ['♪', 'Estrai l\'audio nella traccia', 'Il sonoro del video va su una traccia audio a parte, pronto da spostare, tagliare o abbassare.'],
     ['❄', 'Fermo immagine', 'Congela il fotogramma per 2 secondi e fa spazio sulla traccia.'],
   ]],

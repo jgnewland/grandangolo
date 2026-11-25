@@ -3574,6 +3574,26 @@ async function ensureAudioBuf(s, upTo) {
   s.audioBuf = b; s._tmpAudio = true; return true;
 }
 
+/* telefoni senza codificatore audio (alcuni iPhone): il mix si registra solo come audio, poi si unisce al video
+   già codificato fotogramma per fotogramma. Il video resta fluido; l'attesa è pari alla durata. */
+async function recordMixAudio(from, to, ui) {
+  if (!window.MediaRecorder || !window.MP4Box) return null;
+  const mt = ['audio/mp4;codecs=mp4a.40.2', 'audio/mp4', 'audio/aac'].find(t => MediaRecorder.isTypeSupported(t)); if (!mt) return null;
+  const buf = await renderMix(from, to), a = AC(); await a.resume();
+  const dest = a.createMediaStreamDestination(), src = a.createBufferSource(); src.buffer = buf; src.connect(dest);
+  const rec = new MediaRecorder(dest.stream, { mimeType: mt, audioBitsPerSecond: 192000 }), chunks = [];
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  rec.start(); const t0 = a.currentTime + .15; src.start(t0);
+  await new Promise(res => { const tick = () => { const p = (a.currentTime - t0) / buf.duration; if (EX.cancel || p >= 1) return res(); ui && ui.set(Math.max(0, p) * .5, 'Preparo l\'audio (' + fmtDur(Math.max(0, a.currentTime - t0)) + ' di ' + fmtDur(buf.duration) + ')…'); setTimeout(tick, 200); }; tick(); });
+  await sleep(250); await new Promise(r => { rec.onstop = r; rec.stop(); }); try { src.disconnect(); } catch { }
+  if (EX.cancel) return null;
+  const blob = new Blob(chunks, { type: mt.split(';')[0] }), d = await demuxInfo({ blob });
+  if (!d || !d.a || !(/^mp4a|opus/i.test(d.a.codec))) return null;
+  const A = d.a, out = [];
+  for (const sm of A.samples) out.push({ data: new Uint8Array(await blob.slice(sm.offset, sm.offset + sm.size).arrayBuffer()), ts: Math.round(sm.cts / A.ts * 1e6), dur: Math.round(sm.duration / A.ts * 1e6) });
+  return { mux: /^mp4a/i.test(A.codec) ? 'aac' : /opus/i.test(A.codec) ? 'opus' : null, samples: out, sr: A.sr, nch: A.nch, cfg: { codec: A.cfg.codec, sampleRate: A.sr, numberOfChannels: A.nch, description: A.cfg.description } };
+}
+
 /* ================= audio: grafo di mixaggio ================= */
 const VIS_FADES = ['fade', 'black', 'white', 'zoom', 'zoomOut', 'blur', 'circle', 'wipeL', 'wipeR', 'slideL', 'slideR', 'slideU', 'slideD'];
 function envPoints(c) {
@@ -4193,15 +4213,17 @@ async function exportMP4Core({ res, q, from, to }) {
   if (!vcfg) return exportRealtime({ res, q, from, to });
   const withAudio = hasAnyAudio(from, to);
   const acod = withAudio ? await pickAudioCodec() : null;
-  if (withAudio && !acod) return exportRealtime({ res, q, from, to });
   const ui = progUI('Esporto il video');
+  let rawA = null;
+  if (withAudio && !acod) { rawA = await recordMixAudio(from, to, ui); if (!rawA) { ui.close(); if (EX.cancel) { toast('Esportazione annullata'); return; } return exportRealtime({ res, q, from, to }); } }
   await ensureFonts();
   let err = null;
   const muxer = new Mp4Muxer.Muxer({
     target: new Mp4Muxer.ArrayBufferTarget(), fastStart: 'in-memory', firstTimestampBehavior: 'offset',
     video: { codec: 'avc', width: W, height: H, frameRate: fps },
-    audio: acod ? { codec: acod.mux, numberOfChannels: 2, sampleRate: 48000 } : undefined
+    audio: acod ? { codec: acod.mux, numberOfChannels: 2, sampleRate: 48000 } : rawA ? { codec: rawA.mux, numberOfChannels: rawA.nch, sampleRate: rawA.sr } : undefined
   });
+  if (rawA) rawA.samples.forEach((sm, i) => muxer.addAudioChunkRaw(sm.data, 'key', sm.ts, sm.dur, i ? undefined : { decoderConfig: rawA.cfg }));
   // audio prima (veloce)
   if (acod) {
     ui.set(0, 'Preparo l\'audio…');
@@ -4240,7 +4262,7 @@ async function exportMP4Core({ res, q, from, to }) {
   const blob = new Blob([muxer.target.buffer], { type: 'video/mp4' });
   ui.close(); seekPreview();
   deliverFile(blob, safeName(proj.name) + '.mp4');
-  toast(`Video esportato: ${(blob.size / 1048576).toFixed(1)} MB`, 6000);
+  toast(`Video esportato fotogramma per fotogramma: ${(blob.size / 1048576).toFixed(1)} MB`, 6000);
 }
 async function exportRealtime({ res, q, from, to }) {
   EX.cancel = false;
@@ -4278,7 +4300,7 @@ async function exportRealtime({ res, q, from, to }) {
   const ext = mt.startsWith('video/mp4') ? 'mp4' : 'webm';
   const blob = new Blob(chunks, { type: mt.split(';')[0] });
   deliverFile(blob, safeName(proj.name) + '.' + ext);
-  toast('Video esportato (' + ext.toUpperCase() + ', ' + (blob.size / 1048576).toFixed(1) + ' MB)', 6000);
+  toast('Video registrato in tempo reale (questo browser non permette il metodo preciso): ' + ext.toUpperCase() + ', ' + (blob.size / 1048576).toFixed(1) + ' MB', 8000);
 }
 async function exportPNG() {
   const [W, H] = [proj.w, proj.h], c = h('canvas'); c.width = W; c.height = H;
@@ -5588,6 +5610,7 @@ function exportSheet() {
       h('p', { class: 'hint' }, `${W}×${H} · durata ${fmtShort(dur)} · circa ${mb < 1 ? '1' : Math.round(mb)} MB. Tieni l'app aperta finché finisce.`),
       h('div', { class: 'lbl' }, 'Formato'), chips(Object.keys(FORMATS).map(f => [f, f === proj.format ? f + ' (questo)' : f]), () => EXO.fmt || proj.format, v => { EXO.fmt = v; refreshSheet(); }),
       (EXO.fmt && EXO.fmt !== proj.format) ? h('p', { class: 'hint' }, 'Il montaggio viene reinquadrato in ' + EXO.fmt + ' tenendo i volti al centro; il progetto resta com\'è.') : null,
+      h('p', { class: 'hint' }, window.VideoEncoder && window.VideoDecoder ? '✓ Questo telefono esporta fotogramma per fotogramma (fluido).' + (window.AudioEncoder ? '' : ' L\'audio viene preparato in tempo reale: attendi la durata del video.') : '⚠ Questo browser non ha gli strumenti per l\'esportazione precisa: il video verrà registrato in tempo reale e può scattare. Aggiorna il sistema o usa Chrome.'),
       h('button', { class: 'btn pri', style: 'width:100%;padding:15px;font-size:16px', onclick: () => { closeSheetQuiet(); runExport('mp4'); } }, svgI('download'), 'Esporta il video'),
       h('div', { class: 'btnrow' }, h('button', { class: 'btn', onclick: () => { closeSheetQuiet(); runExport('wav'); } }, 'Solo audio'), h('button', { class: 'btn', onclick: () => { closeSheetQuiet(); runExport('png'); } }, 'Foto del fotogramma')),
       h('div', { class: 'btnrow' }, h('button', { class: 'btn', onclick: () => { closeSheetQuiet(); saveProjectFile(); } }, svgI('folder'), 'Salva il progetto come file')));
@@ -6103,8 +6126,10 @@ async function freezeFrame(c, at, len = 2) {
 }
 
 /* ================= novità: si aprono la prima volta dopo un aggiornamento ================= */
-const APP_VER = '1.3.1';
-const NOVITA = [['1.3.1', [
+const APP_VER = '1.3.2';
+const NOVITA = [['1.3.2', [
+  ['🎬', 'Esportazione fluida anche su iPhone', 'Dove il telefono non sa codificare l\'audio, l\'audio si prepara a parte e il video resta fotogramma per fotogramma. Nel pannello «Esporta» vedi quale metodo usa il tuo telefono.'],
+]], ['1.3.1', [
     ['🎬', 'Esportazione fluida e nitida', 'Il video ora viene letto fotogramma per fotogramma direttamente dal file: niente più scatti, anche con i video lunghi o girati col telefono. Ridimensionamento in alta qualità e più dati per secondo (bitrate più alto).'],
     ['📱', 'Anteprima più leggera sul telefono', 'Scorre meglio durante la riproduzione.'],
   ]],

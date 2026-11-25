@@ -1,16 +1,16 @@
 {
- "version": "1.3.1",
+ "version": "1.3.2",
  "date": "2026-11-25",
  "notes": [
-  "NWLcut: esportazione fotogramma per fotogramma dal file (niente scatti), qualità più alta, audio dei video lunghi senza registrazione in tempo reale; anteprima più leggera sul telefono"
+  "NWLcut: esportazione fotogramma per fotogramma anche dove manca il codificatore audio (alcuni iPhone); indicazione del metodo usato"
  ],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "1acfef42386737a76bd0fd9bab189613ee2da61884a7aba6e465c91d4d50ea5b",
-   "size": 440389
+   "sha256": "a870ff3a3bc04e5c342d1769534baf4d56e2a545246c0bfcecd565ee3f0551d5",
+   "size": 442954
   },
   {
    "path": "NWLlive.html",
@@ -34,7 +34,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "a68553deb066d738a4e131703ac7f21904941c52acf861aeb1d0cf19e8928ba2",
+   "sha256": "f0d3a01819480c09f8fc7b3f482795ac68ee6848b8fb8c33badf5d03d08ce447",
    "size": 20
   },
   {
