@@ -843,7 +843,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       </ul>
     </section>
 
-    <!-- BLACK FRIDAY 2026: visibile da ven 27/11 a lun 30/11 (anteprima: ?bf=1) -->
+    <!-- BLACK FRIDAY 2026: visibile da mer 25/11 a lun 30/11 (anteprima: ?bf=1) -->
     <section id="blackfriday" hidden style="margin-bottom:32px;">
       <style>
         #blackfriday .bf{position:relative;overflow:hidden;border-radius:22px;background:#0a0a0a;border:2px solid #f2e600;box-shadow:0 24px 60px rgba(0,0,0,.6);padding:30px 26px;color:#f4f2ec;text-align:center}
@@ -884,7 +884,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       (function(){
         /* link di pagamento Stripe da €29,90 (da incollare qui) */
         var BF_URL = 'https://buy.stripe.com/14A14p78k9At79b14A9MY0V';
-        var INIZIO = Date.parse('2026-11-27T00:00:00+01:00'), FINE = Date.parse('2026-12-01T00:00:00+01:00');
+        var INIZIO = Date.parse('2026-11-25T00:00:00+01:00'), FINE = Date.parse('2026-12-01T00:00:00+01:00');
         var anteprima = /[?&]bf=1/.test(location.search), ora = Date.now();
         if (!anteprima && (ora < INIZIO || ora >= FINE)) return;
         var sec = document.getElementById('blackfriday'); sec.hidden = false;

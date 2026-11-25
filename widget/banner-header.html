@@ -90,10 +90,10 @@
   </div>
 
   <script>
-    /* Black Friday: da venerdì 27 a lunedì 30 novembre il banner dell'offerta va per primo (anteprima: ?bf=1) */
+    /* Black Friday: da mercoledì 25 a lunedì 30 novembre il banner dell'offerta va per primo (anteprima: ?bf=1) */
     (function () {
       var t = Date.now(), prova = /[?&]bf=1/.test(location.search);
-      if (!prova && (t < Date.parse("2026-11-27T00:00:00+01:00") || t >= Date.parse("2026-12-01T00:00:00+01:00"))) return;
+      if (!prova && (t < Date.parse("2026-11-25T00:00:00+01:00") || t >= Date.parse("2026-12-01T00:00:00+01:00"))) return;
       var g = document.getElementById("giro"), a = document.createElement("a");
       a.href = "https://edicola.grandangoloregionale.it/#blackfriday"; a.target = "_top"; a.rel = "noopener"; a.className = "on";
       a.setAttribute("aria-label", "Black Friday: un anno di Grandangolo a 29,90 euro");
