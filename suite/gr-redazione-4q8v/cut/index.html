@@ -2813,7 +2813,7 @@ function activeVisual(t) {
 function drawBlurBg(ctx, act, W, H) {
   const c = act.find(x => x.type === 'video' || x.type === 'image'); if (!c) return;
   const s = sources.get(c.src); if (!s) return;
-  const el = c.type === 'video' ? vidFor(c) : s.img; if (!el || (c.type === 'video' && el.readyState < 2)) return;
+  const el = c.type === 'video' ? (exfEl(c) || vidFor(c)) : s.img; if (!el || (c.type === 'video' && el.readyState < 2)) return;
   const r9 = (((c.r90 || 0) % 360) + 360) % 360, side = r9 % 180 !== 0, ew = side ? s.h : s.w, eh = side ? s.w : s.h;
   const f = Math.max(W / ew, H / eh), bw = s.w * f * 1.08, bh = s.h * f * 1.08;
   const sw = Math.max(8, Math.round(W / 24)), sh = Math.max(8, Math.round(H / 24)), B = swCanvas('bg', sw, sh), g = B.getContext('2d');
@@ -3019,7 +3019,7 @@ function drawClip(ctx, c, t, k) {
     if (c.type === 'text') { drawText(ctx, c, local, k); bw = c._b.w; bh = c._b.h; }
     else {
       const s = sources.get(c.src); if (!s) { ctx.restore(); return; }
-      const el = c.type === 'video' ? vidFor(c) : s.img;
+      const el = c.type === 'video' ? (exfEl(c) || vidFor(c)) : s.img;
       const mw = s.w || 16, mh = s.h || 9, r9 = (((c.r90 || 0) % 360) + 360) % 360, side = r9 % 180 !== 0;
       const ew = side ? mh : mw, eh = side ? mw : mh; // misure dopo la rotazione di 90°
       const f = c.fit === 'cover' ? Math.max(W / ew, H / eh) : Math.min(W / ew, H / eh);
@@ -6254,9 +6254,16 @@ async function exportDialog() {
   } catch (e) { console.error(e); try { $('#dlg').close(); } catch { } await ask('Esportazione non riuscita', String(e && e.message || e)); }
 }
 function exportSize(res) { const short = Math.min(proj.w, proj.h), k = res / short; return [Math.round(proj.w * k / 2) * 2, Math.round(proj.h * k / 2) * 2]; }
-function exportBitrate(W, H, fps, q) { const base = W * H * fps; return Math.round(base * ({ hi: .19, mid: .11, lo: .055 }[q])); }
+function exportBitrate(W, H, fps, q) { const base = W * H * fps; return Math.round(base * ({ hi: .26, mid: .15, lo: .075 }[q])); }
 async function exportMP4({ res, q, from, to }) {
   EX.cancel = false;
+  // file lunghi: l'audio si decodifica adesso, solo per l'esportazione (così non serve registrare in tempo reale)
+  const tmpA = [];
+  for (const c of proj.clips) { const s0 = sources.get(c.src); if (c.type === 'video' && !c.mute && s0 && s0.elAudio && !s0.audioBuf && c.start < to && c.start + c.dur > from) { const ok = await ensureAudioBuf(s0, c.offset + c.dur * effSpeed(c)); if (!ok) return exportRealtime({ res, q, from, to }); tmpA.push(s0); } }
+  try { return await exportMP4Core({ res, q, from, to }); }
+  finally { closeReaders(); for (const s0 of tmpA) if (s0._tmpAudio) { s0.audioBuf = null; delete s0._tmpAudio; } }
+}
+async function exportMP4Core({ res, q, from, to }) {
   const fps = proj.fps, [W, H] = exportSize(res), bitrate = exportBitrate(W, H, fps, q);
   const vcfg = await pickVideoCodec(W, H, fps, bitrate);
   if (!vcfg) return exportRealtime({ res, q, from, to });
@@ -6288,14 +6295,14 @@ async function exportMP4({ res, q, from, to }) {
     await aenc.flush(); aenc.close();
     if (err) throw err;
   }
-  const cvE = h('canvas'); cvE.width = W; cvE.height = H; const cx = cvE.getContext('2d', { alpha: false });
+  const cvE = h('canvas'); cvE.width = W; cvE.height = H; const cx = cvE.getContext('2d', { alpha: false }); cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
   const venc = new VideoEncoder({ output: (ch, m) => muxer.addVideoChunk(ch, m), error: e => err = e });
   venc.configure(Object.assign({}, vcfg, { latencyMode: 'quality' }));
   const frames = Math.max(1, Math.round((to - from) * fps)), us = 1e6 / fps;
   for (let i = 0; i < frames; i++) {
     if (EX.cancel) break; if (err) throw err;
     const t = from + i / fps;
-    await prepareFrame(t);
+    await prepareFrameExact(t);
     drawFrame(cx, t, W, H);
     const vf = new VideoFrame(cvE, { timestamp: Math.round(i * us), duration: Math.round(us) });
     venc.encode(vf, { keyFrame: i % (fps * 2) === 0 }); vf.close();
@@ -6352,6 +6359,154 @@ async function exportPNG() {
   const [W, H] = [proj.w, proj.h], c = h('canvas'); c.width = W; c.height = H;
   await ensureFonts(); await prepareFrame(S.playhead); drawFrame(c.getContext('2d'), S.playhead, W, H);
   c.toBlob(b => download(b, safeName(proj.name) + '-' + fmtTC(S.playhead).replace(/:/g, '-') + '.png'), 'image/png');
+}
+
+/* ================= esportazione fotogramma per fotogramma, precisa: WebCodecs + mp4box =================
+   Al posto di «salta al tempo t» sul lettore video (che sul telefono spesso dà il fotogramma sbagliato
+   e fa andare il video a scatti), legge i campioni dal file e li decodifica in ordine. */
+let EXF = null; // id clip -> tela col fotogramma esatto, usata da drawClip durante l'esportazione
+function exfEl(c) { return EXF && EXF.get(c.id); }
+
+async function demuxInfo(s) {
+  if (s._dmx !== undefined) return s._dmx;
+  s._dmx = null;
+  if (!window.MP4Box || !s.blob) return null;
+  try {
+    const f = MP4Box.createFile(); let ready = null, fail = null;
+    f.onReady = i => ready = i; f.onError = e => fail = e;
+    let pos = 0; const size = s.blob.size, CH = 4 << 20;
+    while (!ready && !fail && pos < size) {
+      const ab = await s.blob.slice(pos, Math.min(size, pos + CH)).arrayBuffer(); ab.fileStart = pos;
+      const next = f.appendBuffer(ab); pos = next > pos ? next : pos + ab.byteLength;
+    }
+    if (!ready) return null;
+    const out = { file: f, info: ready };
+    const vt = ready.videoTracks && ready.videoTracks[0];
+    if (vt) {
+      const trak = f.getTrackById(vt.id), entry = trak.mdia.minf.stbl.stsd.entries[0];
+      const box = entry.avcC || entry.hvcC || entry.vpcC || entry.av1C; let description;
+      if (box) { const st = new DataStream(undefined, 0, DataStream.BIG_ENDIAN); box.write(st); description = new Uint8Array(st.buffer, 8); }
+      let shift = 0; try { const e = trak.edts && trak.edts.elst && trak.edts.elst.entries.find(x => x.media_time >= 0); if (e) shift = e.media_time / trak.mdia.mdhd.timescale; } catch { }
+      const m = vt.matrix || [65536, 0, 0, 0, 65536, 0]; const rot = Math.round(Math.atan2(m[1], m[0]) * 180 / Math.PI);
+      out.v = { codec: vt.codec, w: vt.track_width || vt.video.width, h: vt.track_height || vt.video.height, cw: vt.video.width, ch: vt.video.height, description, ts: trak.mdia.mdhd.timescale, samples: trak.samples, shift, rot: ((rot % 360) + 360) % 360 };
+      const cfg = { codec: out.v.codec, codedWidth: out.v.cw, codedHeight: out.v.ch, description };
+      try { const r = await VideoDecoder.isConfigSupported(cfg); out.v.ok = !!r.supported; } catch { out.v.ok = false; }
+      out.v.cfg = cfg;
+    }
+    const at = ready.audioTracks && ready.audioTracks[0];
+    if (at) {
+      const trak = f.getTrackById(at.id), entry = trak.mdia.minf.stbl.stsd.entries[0];
+      let dsi = null; const find = d => { if (!d) return; if (d.tag === 5 && d.data) dsi = d.data; (d.descs || []).forEach(find); };
+      try { find(entry.esds && entry.esds.esd); } catch { }
+      out.a = { codec: at.codec, sr: at.audio.sample_rate, nch: at.audio.channel_count, ts: trak.mdia.mdhd.timescale, samples: trak.samples, cfg: { codec: at.codec.startsWith('mp4a') ? at.codec : at.codec, sampleRate: at.audio.sample_rate, numberOfChannels: at.audio.channel_count, description: dsi || undefined } };
+      try { const r = await AudioDecoder.isConfigSupported(out.a.cfg); out.a.ok = !!r.supported; } catch { out.a.ok = false; }
+    }
+    return s._dmx = out;
+  } catch (e) { console.warn('demux', e); return null; }
+}
+
+/* lettore di fotogrammi: va avanti in ordine, torna indietro solo se serve (dal fotogramma chiave) */
+class FrameReader {
+  constructor(s, d) {
+    this.s = s; this.d = d; this.q = []; this.idx = 0; this.err = null; this.wake = null; this.last = -1;
+    this.cv = h('canvas'); this.cv.width = s.w; this.cv.height = s.h; this.cv.readyState = 4; this.g = this.cv.getContext('2d');
+    this.dec = new VideoDecoder({ output: f => { this.q.push(f); if (this.wake) { this.wake(); this.wake = null; } }, error: e => { this.err = e; if (this.wake) { this.wake(); this.wake = null; } } });
+    this.dec.configure(d.cfg);
+  }
+  us(sm) { return Math.round((sm.cts / this.d.ts - this.d.shift) * 1e6); }
+  reset(tUs) {
+    for (const f of this.q) f.close(); this.q = [];
+    try { this.dec.reset(); this.dec.configure(this.d.cfg); } catch (e) { this.err = e; }
+    const S2 = this.d.samples; let k = 0;
+    for (let i = 0; i < S2.length; i++) { if (S2[i].is_sync && this.us(S2[i]) <= tUs + 1000) k = i; if (this.us(S2[i]) > tUs + 2e6 && S2[i].is_sync) break; }
+    this.idx = k;
+  }
+  async feedOne() {
+    const sm = this.d.samples[this.idx++];
+    const data = new Uint8Array(await this.s.blob.slice(sm.offset, sm.offset + sm.size).arrayBuffer());
+    this.dec.decode(new EncodedVideoChunk({ type: sm.is_sync ? 'key' : 'delta', timestamp: this.us(sm), duration: Math.round(sm.duration / this.d.ts * 1e6), data }));
+  }
+  async at(t) {
+    const tUs = Math.round(t * 1e6);
+    if (this.last < 0 || tUs < this.last - 1000 || tUs > this.last + 3e6) this.reset(tUs);
+    this.last = tUs;
+    const done = () => this.q.some(f => f.timestamp > tUs + 500);
+    let flushed = false;
+    while (!done() && !this.err) {
+      if (this.idx < this.d.samples.length) {
+        await this.feedOne();
+        if (this.dec.decodeQueueSize > 3) await new Promise(r => { this.wake = r; setTimeout(r, 50); });
+      } else if (!flushed) { flushed = true; await this.dec.flush().catch(e => this.err = e); }
+      else break;
+    }
+    if (this.err) throw this.err;
+    this.q.sort((a, b) => a.timestamp - b.timestamp);
+    let best = null; for (const f of this.q) if (f.timestamp <= tUs + 500) best = f;
+    if (!best) best = this.q[0];
+    // chiude i fotogrammi già passati
+    this.q = this.q.filter(f => { if (f !== best && f.timestamp < (best ? best.timestamp : 0)) { f.close(); return false; } return true; });
+    if (!best) return null;
+    if (best !== this.shown) {
+      const r = this.d.rot, W = this.cv.width, H = this.cv.height, g = this.g;
+      g.setTransform(1, 0, 0, 1, W / 2, H / 2); if (r) g.rotate(r * Math.PI / 180);
+      const side = r % 180 !== 0, dw = side ? H : W, dh = side ? W : H;
+      g.imageSmoothingQuality = 'high'; g.drawImage(best, -dw / 2, -dh / 2, dw, dh); g.setTransform(1, 0, 0, 1, 0, 0);
+      this.shown = best;
+    }
+    return this.cv;
+  }
+  close() { for (const f of this.q) try { f.close(); } catch { } this.q = []; try { this.dec.close(); } catch { } }
+}
+const READERS = new Map();
+async function readerFor(c) {
+  let r = READERS.get(c.id); if (r) return r;
+  const s = sources.get(c.src); if (!s || !window.VideoDecoder) return null;
+  const d = await demuxInfo(s); if (!d || !d.v || !d.v.ok) return null;
+  try { r = new FrameReader(s, d.v); READERS.set(c.id, r); return r; } catch (e) { console.warn(e); return null; }
+}
+function closeReaders() { for (const r of READERS.values()) r.close(); READERS.clear(); EXF = null; }
+/* prepara il fotogramma esatto per ogni video attivo; dove non si può, usa il vecchio metodo */
+async function prepareFrameExact(t) {
+  if (!EXF) EXF = new Map();
+  const slow = [];
+  for (const c of activeVisual(t)) {
+    if (c.type !== 'video') continue;
+    const r = await readerFor(c);
+    if (!r) { slow.push(c); EXF.delete(c.id); continue; }
+    try { const cv = await r.at(clamp(srcTime(c, t), 0, Math.max(0, srcDur(c) - .001))); if (cv) EXF.set(c.id, cv); else slow.push(c); }
+    catch (e) { console.warn('decodifica', e); r.close(); READERS.delete(c.id); READERS.set(c.id, { at: async () => null, close() { } }); slow.push(c); EXF.delete(c.id); }
+  }
+  if (slow.length) {
+    await Promise.all(slow.map(async c => { const v = vidFor(c); if (!v) return; if (v.readyState < 1) await once(v, 'loadedmetadata', 'error', 8000).catch(() => { }); if (!v.paused) v.pause(); await seekTo(v, clamp(srcTime(c, t), 0, Math.max(0, (v.duration || 0) - .02)) + .0005); }));
+  }
+}
+
+/* audio dei file lunghi (che non vengono caricati interi in memoria): si decodifica solo per esportare */
+async function ensureAudioBuf(s, upTo) {
+  if (s.audioBuf) return true;
+  const d = await demuxInfo(s);
+  if (d && !d.a) { s.elAudio = false; s.noAudio = true; return true; } // il video non ha audio: niente da registrare
+  if (!d || !d.a || !d.a.ok || !window.AudioDecoder) { // ultimo tentativo: decodifica classica, se il file non è enorme
+    if (s.blob && s.blob.size < 400 * 1048576) { try { s.audioBuf = await decodeAudio(await s.blob.arrayBuffer()); s._tmpAudio = true; return true; } catch { } }
+    return false;
+  }
+  const A = d.a, sr = A.sr, n = Math.ceil(Math.min(upTo + 1, s.duration || upTo + 1) * sr);
+  if (n * 2 * 4 > 900 * 1048576) return false; // troppo lungo per la memoria del telefono
+  const L = new Float32Array(n), R = new Float32Array(n); let err = null;
+  const dec = new AudioDecoder({
+    output: ad => { const o = Math.round(ad.timestamp / 1e6 * sr), m = ad.numberOfFrames; if (o < n) { const tmp = new Float32Array(m); try { ad.copyTo(tmp, { planeIndex: 0, format: 'f32-planar' }); L.set(tmp.subarray(0, Math.min(m, n - o)), Math.max(0, o)); ad.copyTo(tmp, { planeIndex: Math.min(1, ad.numberOfChannels - 1), format: 'f32-planar' }); R.set(tmp.subarray(0, Math.min(m, n - o)), Math.max(0, o)); } catch (e) { err = e; } } ad.close(); },
+    error: e => err = e });
+  dec.configure(A.cfg);
+  for (const sm of A.samples) {
+    if (sm.cts / A.ts > upTo + 1) break; if (err) break;
+    const data = new Uint8Array(await s.blob.slice(sm.offset, sm.offset + sm.size).arrayBuffer());
+    dec.decode(new EncodedAudioChunk({ type: 'key', timestamp: Math.round(sm.cts / A.ts * 1e6), duration: Math.round(sm.duration / A.ts * 1e6), data }));
+    if (dec.decodeQueueSize > 40) await sleep(1);
+  }
+  await dec.flush().catch(e => err = e); dec.close();
+  if (err) { console.warn('audio', err); return false; }
+  const b = new AudioBuffer({ length: n, numberOfChannels: 2, sampleRate: sr }); b.copyToChannel(L, 0); b.copyToChannel(R, 1);
+  s.audioBuf = b; s._tmpAudio = true; return true;
 }
 
 /* ================= avvio e comandi ================= */
@@ -6457,9 +6612,13 @@ addEventListener('appinstalled', () => { installEvt = null; const b = $('#bInsta
 if ($('#bInstall')) $('#bInstall').onclick = async () => { if (!installEvt) return; installEvt.prompt(); try { await installEvt.userChoice; } catch { } installEvt = null; $('#bInstall').style.display = 'none'; };
 
 /* ================= novità: si aprono da sole la prima volta dopo un aggiornamento ================= */
-const APP_VER = '1.3.0';
+const APP_VER = '1.3.1';
 const NOVITA = [
-  ['1.3.0', [
+  ['1.3.1', [
+    ['🎬', 'Esportazione fluida e nitida', 'Il video ora viene letto fotogramma per fotogramma direttamente dal file: niente più scatti, anche con i video lunghi o girati col telefono. Ridimensionamento in alta qualità e più dati per secondo (bitrate più alto).'],
+    ['📱', 'Anteprima più leggera sul telefono', 'Scorre meglio durante la riproduzione.'],
+  ]],
+    ['1.3.0', [
     ['★', 'Il tuo kit grafico', 'Il pulsante «Kit» raccoglie lower third (6 stili con colori, carattere ed entrata a scelta), logo, sigla, outro e risorse. Si salva da solo, si esporta in un file .nwlkit e si passa ai colleghi.'],
     ['◆', 'Fotogrammi chiave', 'Posizione, grandezza, rotazione e opacità che cambiano nel tempo, più movimenti pronti.'],
     ['◐', 'Maschere e fusioni', 'Rettangolo, cerchio, lineare e fascia con bordi sfumati; fusioni Schermo, Sovrapponi, Moltiplica…'],

@@ -1,17 +1,16 @@
 {
- "version": "1.3.0",
- "date": "2026-11-24",
+ "version": "1.3.1",
+ "date": "2026-11-25",
  "notes": [
-  "NWLcut: kit grafico personalizzabile (lower third a stili, logo, sigla, outro, file .nwlkit), fotogrammi chiave, maschere e fusioni, chroma key, oscura volti e targhe, pulisci la voce, togli le pause, al contrario, battiti della musica, sottotitoli con parola evidenziata, esportazione in più formati",
-  "Collegamento tra le app: quello che esporti da NWLtono e registri in NWLlive arriva in NWLcut"
+  "NWLcut: esportazione fotogramma per fotogramma dal file (niente scatti), qualità più alta, audio dei video lunghi senza registrazione in tempo reale; anteprima più leggera sul telefono"
  ],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "1181287f1db1427392564b8f362dfd0506a1e828dad6da946521f95c813f03c5",
-   "size": 429414
+   "sha256": "1acfef42386737a76bd0fd9bab189613ee2da61884a7aba6e465c91d4d50ea5b",
+   "size": 440389
   },
   {
    "path": "NWLlive.html",
@@ -35,7 +34,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "e392247904fdaff9add6ebe957e513c93eace29463ef4eba9117c95ef723f2d6",
+   "sha256": "a68553deb066d738a4e131703ac7f21904941c52acf861aeb1d0cf19e8928ba2",
    "size": 20
   },
   {
