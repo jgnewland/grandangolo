@@ -1,16 +1,16 @@
 {
- "version": "1.3.5",
+ "version": "1.4.0",
  "date": "2026-11-25",
  "notes": [
-  "NWLcut telefono: l'audio non sparisce più con l'anteprima leggera"
+  "NWLcut: importa tutti i formati (MOV/HEVC, MKV, AVI, WMV, MTS, MPG, FLV, HEIC, WMA, AIFF…) con conversione automatica"
  ],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "8d740f3e1b0860a40342723133cf496153ca630cbf3d9caf3b0e8186522ae322",
-   "size": 449958
+   "sha256": "798aed207e07d9ce471d036b20cae4843c4b4e42ec7d5a2cd1c3659a647d8457",
+   "size": 455484
   },
   {
    "path": "NWLlive.html",
@@ -34,7 +34,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "a329eaad3896c6829fc67dd88ce17c487529c8db1b18d49fe7ee7dc87a2ecebf",
+   "sha256": "214652dfeb982e30d58a3f18e3378e7f8ad8d2cbf518ca5e83f584990dcaff30",
    "size": 20
   },
   {
