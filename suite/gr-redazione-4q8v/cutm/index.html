@@ -244,6 +244,7 @@ svg.autoTL circle{fill:#ffd34d;stroke:#1a1200;stroke-width:1.5}
 #inboxBar{position:fixed;left:10px;right:10px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;background:var(--p1);border:1px solid var(--accent);border-radius:14px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:6px;font-size:13px}
 #inboxBar .inr{display:flex;align-items:center;gap:6px}#inboxBar .inr span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .subrow{display:flex;gap:6px;align-items:flex-start;margin-bottom:6px}.subrow textarea{flex:1;min-height:46px;background:var(--p2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px;font:inherit}
+#updBar{position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top));transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:10px;padding:8px 8px 8px 14px;border-radius:14px;background:var(--accent,#1fb069);color:#06130c;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:14px;white-space:nowrap}#updBar button{background:#06130c;color:#fff;border:0;border-radius:10px;padding:8px 12px;font-weight:700}
 </style>
 <style id="nwlTheme">:root{--bg:#040922;--p1:#0a1233;--p2:#0f1a46;--p3:#162258;--line:#1e2b63;--text:#eef1ff;--muted:#8f9bc8;--accent:#b4fb0b;--acc2:#d2ff63}</style>
 <script>window.NWL_EDITION="grandangolo";</script>
@@ -6128,8 +6129,11 @@ async function freezeFrame(c, at, len = 2) {
 }
 
 /* ================= novità: si aprono la prima volta dopo un aggiornamento ================= */
-const APP_VER = '1.3.2';
-const NOVITA = [['1.3.2', [
+const APP_VER = '1.3.3';
+const NOVITA = [['1.3.3', [
+  ['⟳', 'Aggiornamenti immediati', 'Quando esce una versione nuova compare un avviso in alto: un tocco e l\'app si aggiorna.'],
+  ['🎬', 'Esportazione fluida anche su iPhone', 'Il video viene esportato fotogramma per fotogramma; nel pannello «Esporta» vedi quale metodo usa il tuo telefono.'],
+]], ['1.3.2', [
   ['🎬', 'Esportazione fluida anche su iPhone', 'Dove il telefono non sa codificare l\'audio, l\'audio si prepara a parte e il video resta fotogramma per fotogramma. Nel pannello «Esporta» vedi quale metodo usa il tuo telefono.'],
 ]], ['1.3.1', [
     ['🎬', 'Esportazione fluida e nitida', 'Il video ora viene letto fotogramma per fotogramma direttamente dal file: niente più scatti, anche con i video lunghi o girati col telefono. Ridimensionamento in alta qualità e più dati per secondo (bitrate più alto).'],
@@ -6156,6 +6160,22 @@ function showNews() {
 }
 if ($('#bNews')) $('#bNews').onclick = showNews;
 try { if (localStorage.getItem('nwlcutm.novita') !== APP_VER && !/[?&]nonews\b/.test(location.search)) setTimeout(() => { if (!$('#dlg').open) showNews(); }, 900); } catch { }
+
+/* ================= aggiornamento: se sul sito c'è una versione più nuova, lo dice e ricarica ================= */
+const cmpVer = (a, b) => { const x = String(a).split('.').map(Number), y = String(b).split('.').map(Number); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) - (y[i] || 0); } return 0; };
+async function checkAppUpdate() {
+  if (!/^https?:/.test(location.protocol)) return;
+  try {
+    const r = await fetch('versione.json?t=' + Date.now(), { cache: 'no-store' }); if (!r.ok) return;
+    const v = (await r.json()).version; if (!v || cmpVer(v, APP_VER) <= 0 || $('#updBar')) return;
+    const bar = h('div', { id: 'updBar' }, h('span', {}, 'È uscita la versione ' + v), h('button', { onclick: async () => {
+      bar.querySelector('button').textContent = 'Aggiorno…';
+      try { const regs = navigator.serviceWorker ? await navigator.serviceWorker.getRegistrations() : []; await Promise.all(regs.map(g => g.update().catch(() => { }))); const ks = window.caches ? await caches.keys() : []; await Promise.all(ks.map(k => caches.delete(k))); } catch { }
+      location.reload(); } }, 'Aggiorna ora'));
+    document.body.append(bar);
+  } catch { }
+}
+setTimeout(checkAppUpdate, 2500); document.addEventListener('visibilitychange', () => { if (!document.hidden) checkAppUpdate(); });
 
 /* ================= 1.3.0 sul telefono: effetti pro, strumenti audio, sottotitoli, formati, arrivi dalla suite ================= */
 function renderTimeline() { renderTL(); }
