@@ -26,6 +26,19 @@
   .ed-cov2{right:25cqw;transform:rotate(-14deg);opacity:.5;filter:blur(.08cqw) brightness(.7)}
   .ed-btn{position:absolute;right:3cqw;top:50%;transform:translateY(-50%);background:#ffd23f;color:#141310;font:800 1.55cqw/1 system-ui,sans-serif;padding:1.5cqw 2.2cqw;border-radius:99cqw;white-space:nowrap;box-shadow:0 .5cqw 1.4cqw rgba(0,0,0,.35)}
   .ed-btn small{display:block;font:600 .95cqw/1 system-ui,sans-serif;letter-spacing:.06em;margin-top:.5cqw;opacity:.75;text-align:center}
+  /* Black Friday 2026 (27-30 novembre) */
+  .bfb{position:relative;aspect-ratio:2046/297;border-radius:8px;overflow:hidden;container-type:inline-size;background:#0a0a0a;border:2px solid #f2e600;box-sizing:border-box;display:flex;align-items:center;gap:2.4cqw;padding:0 2.6cqw;font-family:Inter,system-ui,sans-serif;color:#f4f2ec}
+  .bfb::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(242,230,0,.06) 0 1.2cqw,transparent 1.2cqw 2.4cqw)}
+  .bfb>*{position:relative}
+  .bfb-k{background:#f2e600;color:#0a0a0a;font:900 1.8cqw/1 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:1.1cqw 1.4cqw;transform:rotate(-3deg);white-space:nowrap}
+  .bfb-t{flex:1;min-width:0}
+  .bfb-h{font:900 2.8cqw/1.05 Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap}
+  .bfb-h em{font-style:normal;color:#f2e600}
+  .bfb-s{font:600 1.15cqw/1.3 Inter,system-ui,sans-serif;color:#cfcac0;margin-top:.6cqw;white-space:nowrap}
+  .bfb-p{display:flex;align-items:baseline;gap:1cqw;white-space:nowrap}
+  .bfb-p s{font:700 1.8cqw Inter,system-ui,sans-serif;color:#8d8a82;text-decoration-color:#e60000;text-decoration-thickness:.3cqw}
+  .bfb-p b{font:900 4.6cqw/1 Inter,system-ui,sans-serif;color:#f2e600;letter-spacing:-.03em}
+  .bfb-btn{background:#f2e600;color:#0a0a0a;font:900 1.45cqw/1 Inter,system-ui,sans-serif;padding:1.2cqw 1.9cqw;border-radius:99cqw;white-space:nowrap}
   /* banner «La Mafia, la Stidda» — stessa grafica della copertina ufficiale */
   .st{position:relative;aspect-ratio:2046/297;border-radius:8px;overflow:hidden;container-type:inline-size;font-family:Anton,Impact,sans-serif;color:#fff;
       background:radial-gradient(70% 160% at 55% 40%,#2a2a28 0%,#121211 60%,#0a0a09 100%)}
@@ -77,6 +90,17 @@
   </div>
 
   <script>
+    /* Black Friday: da venerdì 27 a lunedì 30 novembre il banner dell'offerta va per primo (anteprima: ?bf=1) */
+    (function () {
+      var t = Date.now(), prova = /[?&]bf=1/.test(location.search);
+      if (!prova && (t < Date.parse("2026-11-27T00:00:00+01:00") || t >= Date.parse("2026-12-01T00:00:00+01:00"))) return;
+      var g = document.getElementById("giro"), a = document.createElement("a");
+      a.href = "https://edicola.grandangoloregionale.it/#blackfriday"; a.target = "_top"; a.rel = "noopener"; a.className = "on";
+      a.setAttribute("aria-label", "Black Friday: un anno di Grandangolo a 29,90 euro");
+      a.innerHTML = '<div class="bfb"><span class="bfb-k">Black Friday</span><div class="bfb-t"><div class="bfb-h">Un anno di <em>Grandangolo</em></div><div class="bfb-s">Tutti i numeri del settimanale per 12 mesi · solo fino a lunedì 30 novembre</div></div><div class="bfb-p"><s>€ 50</s><b>€ 29,90</b></div><span class="bfb-btn">ABBONATI →</span></div>';
+      g.querySelectorAll("a.on").forEach(function (x) { x.classList.remove("on"); });
+      g.insertBefore(a, g.firstChild);
+    })();
         /* fino all'uscita il banner del podcast non è cliccabile e non ha il tasto */
     if (Date.now() >= Date.parse("2026-12-11T00:00:00+01:00")) {
       var stA = document.getElementById("st-a");

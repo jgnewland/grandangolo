@@ -843,6 +843,80 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       </ul>
     </section>
 
+    <!-- BLACK FRIDAY 2026: visibile da ven 27/11 a lun 30/11 (anteprima: ?bf=1) -->
+    <section id="blackfriday" hidden style="margin-bottom:32px;">
+      <style>
+        #blackfriday .bf{position:relative;overflow:hidden;border-radius:22px;background:#0a0a0a;border:2px solid #f2e600;box-shadow:0 24px 60px rgba(0,0,0,.6);padding:30px 26px;color:#f4f2ec;text-align:center}
+        #blackfriday .bf::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(135deg,rgba(242,230,0,.05) 0 14px,transparent 14px 28px)}
+        #blackfriday .bf>*{position:relative}
+        #blackfriday .bf-k{display:inline-block;background:#f2e600;color:#0a0a0a;font:900 13px/1 'Inter',system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:9px 16px;border-radius:4px;transform:rotate(-2deg)}
+        #blackfriday h2{margin:18px 0 6px;font:900 clamp(30px,6vw,54px)/1 'Inter',system-ui,sans-serif;letter-spacing:-.02em;text-transform:uppercase}
+        #blackfriday h2 em{font-style:normal;color:#f2e600}
+        #blackfriday .bf-sub{margin:0 auto 20px;max-width:560px;font-size:16px;line-height:1.55;color:#cfcac0}
+        #blackfriday .bf-prezzi{display:flex;align-items:flex-end;justify-content:center;gap:16px;margin:6px 0 8px;flex-wrap:wrap}
+        #blackfriday .bf-old{font:700 26px 'Inter',system-ui,sans-serif;color:#8d8a82;text-decoration:line-through;text-decoration-color:#e60000;text-decoration-thickness:3px}
+        #blackfriday .bf-new{font:900 clamp(54px,10vw,84px)/.9 'Inter',system-ui,sans-serif;color:#f2e600;letter-spacing:-.03em}
+        #blackfriday .bf-sconto{background:#e60000;color:#fff;font:900 18px 'Inter',system-ui,sans-serif;padding:8px 12px;border-radius:6px;transform:rotate(3deg)}
+        #blackfriday .bf-per{font-size:13px;color:#a9a7a0;margin-bottom:22px}
+        #blackfriday .bf-btn{display:inline-flex;align-items:center;gap:10px;padding:17px 34px;border-radius:14px;background:#f2e600;color:#0a0a0a;font:900 18px 'Inter',system-ui,sans-serif;text-decoration:none;box-shadow:0 10px 30px rgba(242,230,0,.35);transition:transform .15s}
+        #blackfriday .bf-btn:hover{transform:translateY(-2px)}
+        #blackfriday .bf-cd{display:flex;justify-content:center;gap:10px;margin:22px 0 6px}
+        #blackfriday .bf-cd div{min-width:64px;background:#17170f;border:1px solid rgba(242,230,0,.35);border-radius:10px;padding:9px 6px}
+        #blackfriday .bf-cd b{display:block;font:900 28px/1 'Inter',system-ui,sans-serif;color:#f2e600;font-variant-numeric:tabular-nums}
+        #blackfriday .bf-cd small{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#a9a7a0}
+        #blackfriday .bf-fine{font-size:12.5px;color:#a9a7a0}
+        #blackfriday ul{list-style:none;padding:0;margin:0 auto 22px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;font-size:14px;color:#e8e4da}
+        #blackfriday li::before{content:"✓ ";color:#f2e600;font-weight:900}
+        @media(max-width:600px){#blackfriday .bf{padding:24px 14px}#blackfriday .bf-cd div{min-width:56px}}
+      </style>
+      <div class="bf">
+        <span class="bf-k">Black Friday</span>
+        <h2>Un anno di <em>Grandangolo</em></h2>
+        <p class="bf-sub">L'abbonamento PREMIUM: un solo codice e leggi ogni numero del settimanale per 12 mesi, più tutti i numeri già usciti. Le inchieste che gli altri non scrivono, ogni sabato.</p>
+        <div class="bf-prezzi"><span class="bf-old">€&nbsp;50</span><span class="bf-new">€&nbsp;29,90</span><span class="bf-sconto">-40%</span></div>
+        <div class="bf-per">meno di 60 centesimi a numero · nessun rinnovo automatico</div>
+        <ul><li>Tutti i numeri per 12 mesi</li><li>Tutto l'archivio 2026</li><li>Da telefono, tablet e computer</li></ul>
+        <a class="bf-btn" id="bf-btn" href="#" target="_blank" rel="noopener">Abbonati a € 29,90 &nbsp;→</a>
+        <div class="bf-cd" id="bf-cd" aria-label="Tempo rimasto"><div><b id="bf-g">0</b><small>giorni</small></div><div><b id="bf-o">00</b><small>ore</small></div><div><b id="bf-m">00</b><small>min</small></div><div><b id="bf-s">00</b><small>sec</small></div></div>
+        <div class="bf-fine">L'offerta finisce lunedì 30 novembre a mezzanotte.</div>
+      </div>
+      <script>
+      (function(){
+        /* link di pagamento Stripe da €29,90 (da incollare qui) */
+        var BF_URL = '';
+        var INIZIO = Date.parse('2026-11-27T00:00:00+01:00'), FINE = Date.parse('2026-12-01T00:00:00+01:00');
+        var anteprima = /[?&]bf=1/.test(location.search), ora = Date.now();
+        if (!anteprima && (ora < INIZIO || ora >= FINE)) return;
+        var sec = document.getElementById('blackfriday'); sec.hidden = false;
+        var btn = document.getElementById('bf-btn');
+        if (BF_URL) { btn.href = BF_URL; window.GG_BF = true; } else { btn.removeAttribute('href'); btn.style.opacity = '.5'; btn.textContent = 'Link di pagamento in arrivo'; }
+        /* anche il riquadro «abbonati» dell'edicola passa al prezzo Black Friday */
+        function abbBF(){
+        var ab = document.getElementById('abbonamento-banner');
+        if (ab && BF_URL) {
+          var st = ab.querySelector('strong'), sp = ab.querySelector('span'), a = ab.querySelector('a');
+          if (st) st.innerHTML = 'BLACK FRIDAY: UN ANNO A 29,90&nbsp;€ <s style="opacity:.6">50&nbsp;€</s>';
+          if (sp) sp.textContent = 'Solo fino a lunedì 30 novembre. Un codice che sblocca ogni uscita per 12 mesi, nessun rinnovo automatico.';
+          if (a) { a.href = BF_URL; a.innerHTML = 'Abbonati a 29,90&nbsp;€'; }
+        }
+        }
+        document.addEventListener('DOMContentLoaded', abbBF); window.addEventListener('load', function(){ setTimeout(abbBF, 1500); });
+        function z(n){ return (n < 10 ? '0' : '') + n; }
+        function tic(){
+          var r = Math.max(0, FINE - Date.now());
+          if (!r && !anteprima) { sec.hidden = true; return; }
+          var t = Math.floor(r / 1000);
+          document.getElementById('bf-g').textContent = Math.floor(t / 86400);
+          document.getElementById('bf-o').textContent = z(Math.floor(t % 86400 / 3600));
+          document.getElementById('bf-m').textContent = z(Math.floor(t % 3600 / 60));
+          document.getElementById('bf-s').textContent = z(t % 60);
+          setTimeout(tic, 1000);
+        }
+        tic();
+      })();
+      </script>
+    </section>
+
     <section id="offerta" style="margin-bottom:32px;">
       <div style="position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(135deg,#081a0d 0%,#061210 55%,#091a0f 100%);border:1px solid rgba(0,166,81,0.38);box-shadow:0 0 0 1px rgba(0,166,81,0.10),0 24px 60px rgba(0,0,0,0.60);padding:32px 28px;">
         <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 70% at 5% 50%,rgba(0,166,81,0.16) 0%,transparent 60%),radial-gradient(ellipse 55% 55% at 95% 15%,rgba(0,210,100,0.09) 0%,transparent 60%);"></div>
@@ -2618,7 +2692,7 @@ h1,h2,.hero-title,#edicola h2,#about h2{font-family:var(--gx-serif);font-weight:
       '<div class="rd-pay-t">Continua a leggere</div>'+
       '<div class="rd-pay-d">Per sfogliare tutto il numero sblocca la tua copia.</div>'+
       '<button type="button" class="rd-btn rd-btn-buy">Acquista questo numero</button>'+
-      (abbo?'<a class="rd-btn rd-btn-abbo" target="_blank" rel="noopener" href="'+abbo+'">★ Abbonati: tutto il 2026 a 50 €</a>':'')+
+      (abbo?'<a class="rd-btn rd-btn-abbo" target="_blank" rel="noopener" href="'+abbo+'">'+(window.GG_BF?'★ Black Friday: un anno a 29,90 €':'★ Abbonati: tutto il 2026 a 50 €')+'</a>':'')+
       '<button type="button" class="rd-btn rd-btn-code">Ho già un codice</button></div>';
     stage.appendChild(pay);
 
