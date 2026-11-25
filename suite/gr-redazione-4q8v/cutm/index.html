@@ -245,6 +245,7 @@ svg.autoTL circle{fill:#ffd34d;stroke:#1a1200;stroke-width:1.5}
 #inboxBar .inr{display:flex;align-items:center;gap:6px}#inboxBar .inr span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .subrow{display:flex;gap:6px;align-items:flex-start;margin-bottom:6px}.subrow textarea{flex:1;min-height:46px;background:var(--p2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px;font:inherit}
 #updBar{position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top));transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:10px;padding:8px 8px 8px 14px;border-radius:14px;background:var(--accent,#1fb069);color:#06130c;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:14px;white-space:nowrap}#updBar button{background:#06130c;color:#fff;border:0;border-radius:10px;padding:8px 12px;font-weight:700}
+#proxyChip{position:fixed;left:12px;right:12px;top:calc(62px + env(safe-area-inset-top));z-index:70;padding:8px 12px;border-radius:12px;background:rgba(10,20,40,.92);border:1px solid var(--line);color:var(--text);font-size:12.5px;text-align:center;pointer-events:none}
 </style>
 <style id="nwlTheme">:root{--bg:#040922;--p1:#0a1233;--p2:#0f1a46;--p3:#162258;--line:#1e2b63;--text:#eef1ff;--muted:#8f9bc8;--accent:#b4fb0b;--acc2:#d2ff63}</style>
 <script>window.NWL_EDITION="grandangolo";</script>
@@ -2423,6 +2424,7 @@ async function loadSource(s) {
     if (big) { s.audioBuf = null; s.elAudio = true; }
     else { try { s.audioBuf = await decodeAudio(await s.blob.arrayBuffer()); s.peaks = calcPeaks(s.audioBuf); if (!isFinite(s.duration)) s.duration = s.audioBuf.duration; } catch { s.audioBuf = null; s.elAudio = true; } }
     s.thumbs = []; genThumbs(s, m.v);
+    if (typeof queueProxy === 'function') setTimeout(() => { if (typeof proxyLoad === 'function') proxyLoad(s).then(ok => { if (ok) proxySwap(s); else queueProxy(s); }); }, 300);
   } else if (s.type === 'image') {
     const img = new Image(); img.src = s.url; await img.decode();
     s.img = img; s.w = img.naturalWidth; s.h = img.naturalHeight; s.duration = Infinity;
@@ -2610,7 +2612,7 @@ function vidFor(c) {
   if (v && v._src !== c.src) { v.removeAttribute('src'); v.load(); v.remove(); vids.delete(c.id); v = null; }
   if (!v && s) {
     v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v._src = c.src;
-    v.setAttribute('playsinline', ''); v.src = s.url;
+    v.setAttribute('playsinline', ''); v.src = s.proxyUrl || s.url;
     if (s.elAudio) { try { v.muted = false; const src = AC().createMediaElementSource(v), g = AC().createGain(); g.gain.value = 0; src.connect(g); g.connect(elBus()); v._g = g; } catch (e) { v.muted = true; } }
     v.addEventListener('seeked', requestDraw); v.addEventListener('loadeddata', requestDraw);
     $('#vids').append(v); vids.set(c.id, v);
@@ -3597,6 +3599,61 @@ async function recordMixAudio(from, to, ui) {
   return { mux: /^mp4a/i.test(A.codec) ? 'aac' : /opus/i.test(A.codec) ? 'opus' : null, samples: out, sr: A.sr, nch: A.nch, cfg: { codec: A.cfg.codec, sampleRate: A.sr, numberOfChannels: A.nch, description: A.cfg.description } };
 }
 
+/* ================= anteprima leggera (proxy) =================
+   I video del telefono (4K, HEVC, HDR) sono pesanti da far scorrere nell'anteprima: se ne crea una copia
+   piccola (540p, H.264) solo per montare. L'esportazione usa sempre il file originale. */
+const PROXY = { busy: new Set(), queue: [] };
+const needsProxy = s => s.type === 'video' && window.VideoEncoder && window.VideoDecoder && window.MP4Box && (Math.max(s.w, s.h) > 1300 || (s._dmx && s._dmx.v && /^(hvc|hev)/.test(s._dmx.v.codec))) && (s.duration || 0) <= 900;
+async function proxyLoad(s) {
+  try { const r = await (typeof adb === 'function' ? adb : dbDo)('kv', 'readonly', st => st.get('proxy:' + s.id)); if (r && r.blob) { s.proxyUrl = URL.createObjectURL(r.blob); return true; } } catch { }
+  return false;
+}
+function proxySwap(s) { for (const [cid, v] of [...vids.entries()]) if (v._src === s.id) { v.pause(); v.removeAttribute('src'); v.load(); v.remove(); vids.delete(cid); } seekPreview(); requestDraw(); }
+function proxyChip(t) { let c = $('#proxyChip'); if (!t) { if (c) c.remove(); return; } if (!c) { c = h('div', { id: 'proxyChip' }); document.body.append(c); } c.textContent = t; }
+async function makeProxy(s) {
+  if (PROXY.busy.has(s.id) || s.proxyUrl) return; PROXY.busy.add(s.id);
+  try {
+    if (await proxyLoad(s)) { proxySwap(s); return; }
+    const d = await demuxInfo(s); if (!d || !d.v || !d.v.ok) return;
+    if (!needsProxy(s)) return;
+    const f = Math.min(1, 960 / Math.max(s.w, s.h)), W = Math.round(s.w * f / 2) * 2, H = Math.round(s.h * f / 2) * 2;
+    const fps = Math.min(60, Math.max(24, Math.round(d.v.samples.length / Math.max(.1, s.duration))));
+    const vcfg = await pickVideoCodec(W, H, fps, 2.5e6); if (!vcfg) return;
+    const muxer = new Mp4Muxer.Muxer({ target: new Mp4Muxer.ArrayBufferTarget(), fastStart: 'in-memory', firstTimestampBehavior: 'offset', video: { codec: 'avc', width: W, height: H, frameRate: fps } });
+    let err = null, n = 0, wake = null; const total = d.v.samples.length;
+    const enc = new VideoEncoder({ output: (ch, m) => muxer.addVideoChunk(ch, m), error: e => err = e }); enc.configure(Object.assign({}, vcfg, { latencyMode: 'realtime' }));
+    const cv = h('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d', { alpha: false }); const r = d.v.rot;
+    const shift = Math.round(d.v.shift * 1e6);
+    const dec = new VideoDecoder({ output: fr => {
+      try {
+        const ts = fr.timestamp;
+        if (ts >= 0) {
+          g.setTransform(1, 0, 0, 1, W / 2, H / 2); if (r) g.rotate(r * Math.PI / 180); const side = r % 180 !== 0, dw = side ? H : W, dh = side ? W : H;
+          g.drawImage(fr, -dw / 2, -dh / 2, dw, dh); g.setTransform(1, 0, 0, 1, 0, 0);
+          const vf = new VideoFrame(cv, { timestamp: ts, duration: fr.duration || Math.round(1e6 / fps) }); enc.encode(vf, { keyFrame: n % fps === 0 }); vf.close(); n++;
+        }
+      } catch (e) { err = e; }
+      fr.close(); if (wake) { wake(); wake = null; }
+    }, error: e => err = e });
+    dec.configure(d.v.cfg);
+    for (let i = 0; i < total; i++) {
+      if (err) throw err;
+      const sm = d.v.samples[i], data = new Uint8Array(await s.blob.slice(sm.offset, sm.offset + sm.size).arrayBuffer());
+      dec.decode(new EncodedVideoChunk({ type: sm.is_sync ? 'key' : 'delta', timestamp: Math.round(sm.cts / d.v.ts * 1e6) - shift, duration: Math.round(sm.duration / d.v.ts * 1e6), data }));
+      while ((dec.decodeQueueSize > 4 || enc.encodeQueueSize > 4) && !err) await new Promise(res => { wake = res; setTimeout(res, 30); });
+      if (i % 15 === 0) proxyChip('Preparo l\'anteprima leggera di «' + s.name + '»… ' + Math.round(i / total * 100) + '%');
+    }
+    await dec.flush(); dec.close(); await enc.flush(); enc.close(); if (err) throw err;
+    muxer.finalize();
+    const blob = new Blob([muxer.target.buffer], { type: 'video/mp4' });
+    try { await (typeof adb === 'function' ? adb : dbDo)('kv', 'readwrite', st => st.put({ blob }, 'proxy:' + s.id)); } catch { }
+    s.proxyUrl = URL.createObjectURL(blob); proxySwap(s);
+    toast('Anteprima leggera pronta: il video scorre più fluido mentre monti (l\'esportazione usa sempre l\'originale)', 5000);
+  } catch (e) { console.warn('proxy', e); }
+  finally { PROXY.busy.delete(s.id); proxyChip(null); const nx = PROXY.queue.shift(); if (nx) makeProxy(nx); }
+}
+function queueProxy(s) { if (PROXY.busy.size) PROXY.queue.push(s); else makeProxy(s); }
+
 /* ================= audio: grafo di mixaggio ================= */
 const VIS_FADES = ['fade', 'black', 'white', 'zoom', 'zoomOut', 'blur', 'circle', 'wipeL', 'wipeR', 'slideL', 'slideR', 'slideU', 'slideD'];
 function envPoints(c) {
@@ -3709,8 +3766,10 @@ function syncVideos(t) {
     // riallineamento morbido: niente salti, il video accelera o rallenta di poco
     const d = st - v.currentTime, now = performance.now();
     if (Math.abs(d) > 1.5 && now - (v._seekAt || 0) > 2500) { v.currentTime = st; v._seekAt = now; continue; }
-    const sp = speedAt(c, t), want = clamp(Math.abs(d) < .03 ? sp : sp * (1 + clamp(d * .6, -.12, .12)), .0625, 16);
-    if (Math.abs((v._rate || 0) - want) > .01) { v._rate = want; v.playbackRate = want; }
+    const sp = speedAt(c, t); let want = v._rate || sp;
+    if (Math.abs(d) > .12) want = sp * (1 + clamp(d * .5, -.1, .1)); else if (Math.abs(d) < .03 || Math.sign(d) !== Math.sign(want - sp)) want = sp;
+    want = clamp(Math.round(want * 50) / 50, .0625, 16);
+    if (Math.abs((v._rate || 0) - want) > .005 && now - (v._rateAt || 0) > 400) { v._rate = want; v.playbackRate = want; v._rateAt = now; }
   }
   releaseVids(t);
 }
@@ -6129,8 +6188,11 @@ async function freezeFrame(c, at, len = 2) {
 }
 
 /* ================= novità: si aprono la prima volta dopo un aggiornamento ================= */
-const APP_VER = '1.3.3';
-const NOVITA = [['1.3.3', [
+const APP_VER = '1.3.4';
+const NOVITA = [['1.3.4', [
+  ['▶', 'Anteprima leggera', 'I video pesanti del telefono (4K, HEVC) vengono copiati in una versione piccola solo per montare: l\'anteprima scorre fluida. L\'esportazione usa sempre l\'originale. La prima volta, dopo l\'importazione, vedi «Preparo l\'anteprima leggera…» in alto.'],
+  ['⏱', 'Riproduzione più regolare', 'Il video non accelera e rallenta più di continuo per restare a tempo con l\'audio.'],
+]], ['1.3.3', [
   ['⟳', 'Aggiornamenti immediati', 'Quando esce una versione nuova compare un avviso in alto: un tocco e l\'app si aggiorna.'],
   ['🎬', 'Esportazione fluida anche su iPhone', 'Il video viene esportato fotogramma per fotogramma; nel pannello «Esporta» vedi quale metodo usa il tuo telefono.'],
 ]], ['1.3.2', [

@@ -1,16 +1,16 @@
 {
- "version": "1.3.3",
+ "version": "1.3.4",
  "date": "2026-11-25",
  "notes": [
-  "Avviso di aggiornamento nell'app; la pagina si scarica sempre fresca"
+  "NWLcut telefono: anteprima leggera per i video pesanti, riproduzione più regolare"
  ],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "68e21142f7ccd83e1ab8646929464f80f0b483ad2718573ece874b4da5cdbd31",
-   "size": 444875
+   "sha256": "89441dcd620d7575e76b5b02414acac359236abf716f7c5c147a002d91077962",
+   "size": 449312
   },
   {
    "path": "NWLlive.html",
@@ -34,7 +34,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "7b81bc58e6c8ba000e12377276caee1ca73e2c29f0d84907054ced5605c1556e",
+   "sha256": "81e965789e57472a648d273f5a797f43323789893b04d1ee708313810ae4e28b",
    "size": 20
   },
   {
