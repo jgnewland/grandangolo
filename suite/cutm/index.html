@@ -2422,7 +2422,7 @@ async function loadSource(s) {
     if (big) { s.audioBuf = null; s.elAudio = true; }
     else { try { s.audioBuf = await decodeAudio(await s.blob.arrayBuffer()); s.peaks = calcPeaks(s.audioBuf); if (!isFinite(s.duration)) s.duration = s.audioBuf.duration; } catch { s.audioBuf = null; s.elAudio = true; } }
     s.thumbs = []; genThumbs(s, m.v);
-    if (typeof queueProxy === 'function') setTimeout(() => { if (typeof proxyLoad === 'function') proxyLoad(s).then(ok => { if (ok) proxySwap(s); else queueProxy(s); }); }, 300);
+    if (typeof queueProxy === 'function') setTimeout(() => queueProxy(s), 300);
   } else if (s.type === 'image') {
     const img = new Image(); img.src = s.url; await img.decode();
     s.img = img; s.w = img.naturalWidth; s.h = img.naturalHeight; s.duration = Infinity;
@@ -2610,7 +2610,7 @@ function vidFor(c) {
   if (v && v._src !== c.src) { v.removeAttribute('src'); v.load(); v.remove(); vids.delete(c.id); v = null; }
   if (!v && s) {
     v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v._src = c.src;
-    v.setAttribute('playsinline', ''); v.src = s.proxyUrl || s.url;
+    v.setAttribute('playsinline', ''); v.src = s.proxyUrl && !s.elAudio ? s.proxyUrl : s.url;
     if (s.elAudio) { try { v.muted = false; const src = AC().createMediaElementSource(v), g = AC().createGain(); g.gain.value = 0; src.connect(g); g.connect(elBus()); v._g = g; } catch (e) { v.muted = true; } }
     v.addEventListener('seeked', requestDraw); v.addEventListener('loadeddata', requestDraw);
     $('#vids').append(v); vids.set(c.id, v);
@@ -3606,11 +3606,23 @@ async function proxyLoad(s) {
   try { const r = await (typeof adb === 'function' ? adb : dbDo)('kv', 'readonly', st => st.get('proxy:' + s.id)); if (r && r.blob) { s.proxyUrl = URL.createObjectURL(r.blob); return true; } } catch { }
   return false;
 }
+/* la copia leggera non ha audio: se l'audio del video veniva dal lettore, prima lo si decodifica a parte */
+async function proxyAudioOk(s) {
+  if (!s.elAudio || s.noAudio) return true;
+  if ((s.duration || 0) > 300) return false; // troppo lungo per tenerlo in memoria sul telefono: si resta sull'originale
+  const ok = await ensureAudioBuf(s, s.duration || 0);
+  if (!ok || !s.audioBuf) return false;
+  delete s._tmpAudio; s.elAudio = false;
+  try { s.peaks = calcPeaks(s.audioBuf); } catch { }
+  try { renderAll(); } catch { }
+  return true;
+}
 function proxySwap(s) { for (const [cid, v] of [...vids.entries()]) if (v._src === s.id) { v.pause(); v.removeAttribute('src'); v.load(); v.remove(); vids.delete(cid); } seekPreview(); requestDraw(); }
 function proxyChip(t) { let c = $('#proxyChip'); if (!t) { if (c) c.remove(); return; } if (!c) { c = h('div', { id: 'proxyChip' }); document.body.append(c); } c.textContent = t; }
 async function makeProxy(s) {
   if (PROXY.busy.has(s.id) || s.proxyUrl) return; PROXY.busy.add(s.id);
   try {
+    if (s.elAudio && !(await proxyAudioOk(s))) return; // senza audio sicuro, niente copia leggera
     if (await proxyLoad(s)) { proxySwap(s); return; }
     const d = await demuxInfo(s); if (!d || !d.v || !d.v.ok) return;
     if (!needsProxy(s)) return;
@@ -6186,8 +6198,10 @@ async function freezeFrame(c, at, len = 2) {
 }
 
 /* ================= novità: si aprono la prima volta dopo un aggiornamento ================= */
-const APP_VER = '1.3.4';
-const NOVITA = [['1.3.4', [
+const APP_VER = '1.3.5';
+const NOVITA = [['1.3.5', [
+  ['🔊', 'Audio sempre presente', 'Corretto: con i video lunghi o pesanti l\'audio poteva sparire quando partiva l\'anteprima leggera.'],
+]], ['1.3.4', [
   ['▶', 'Anteprima leggera', 'I video pesanti del telefono (4K, HEVC) vengono copiati in una versione piccola solo per montare: l\'anteprima scorre fluida. L\'esportazione usa sempre l\'originale. La prima volta, dopo l\'importazione, vedi «Preparo l\'anteprima leggera…» in alto.'],
   ['⏱', 'Riproduzione più regolare', 'Il video non accelera e rallenta più di continuo per restare a tempo con l\'audio.'],
 ]], ['1.3.3', [

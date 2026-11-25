@@ -335,6 +335,7 @@ button.kfon{border-color:#ffd23f;color:#ffd23f}
 .subrow{display:flex;gap:6px;align-items:flex-start}.subrow textarea{flex:1;min-height:44px;resize:vertical}.subrow button{min-height:30px;padding:2px 8px;font-variant-numeric:tabular-nums}
 #inboxBar{position:fixed;left:14px;bottom:14px;z-index:130;background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:10px 12px;box-shadow:0 14px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:6px;max-width:min(420px,92vw);font-size:13px}
 #inboxBar .inr{display:flex;align-items:center;gap:6px}#inboxBar .inr span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#inboxBar button{min-height:28px;padding:2px 10px;font-size:12px}
+#updBar{position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top));transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:10px;padding:8px 8px 8px 14px;border-radius:14px;background:var(--accent,#1fb069);color:#06130c;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:14px;white-space:nowrap}#updBar button{background:#06130c;color:#fff;border:0;border-radius:10px;padding:8px 12px;font-weight:700}
 </style>
 
 <style id="nwlTheme">:root{--bg:#040922;--panel:#0a1233;--panel2:#0f1a46;--panel3:#162258;--line:#1e2b63;--text:#eef1ff;--muted:#8f9bc8;--accent:#b4fb0b;--ink:#0a1400;--mint:#d2ff63}
@@ -6527,6 +6528,73 @@ async function recordMixAudio(from, to, ui) {
   return { mux: /^mp4a/i.test(A.codec) ? 'aac' : /opus/i.test(A.codec) ? 'opus' : null, samples: out, sr: A.sr, nch: A.nch, cfg: { codec: A.cfg.codec, sampleRate: A.sr, numberOfChannels: A.nch, description: A.cfg.description } };
 }
 
+/* ================= anteprima leggera (proxy) =================
+   I video del telefono (4K, HEVC, HDR) sono pesanti da far scorrere nell'anteprima: se ne crea una copia
+   piccola (540p, H.264) solo per montare. L'esportazione usa sempre il file originale. */
+const PROXY = { busy: new Set(), queue: [] };
+const needsProxy = s => s.type === 'video' && window.VideoEncoder && window.VideoDecoder && window.MP4Box && (Math.max(s.w, s.h) > 1300 || (s._dmx && s._dmx.v && /^(hvc|hev)/.test(s._dmx.v.codec))) && (s.duration || 0) <= 900;
+async function proxyLoad(s) {
+  try { const r = await (typeof adb === 'function' ? adb : dbDo)('kv', 'readonly', st => st.get('proxy:' + s.id)); if (r && r.blob) { s.proxyUrl = URL.createObjectURL(r.blob); return true; } } catch { }
+  return false;
+}
+/* la copia leggera non ha audio: se l'audio del video veniva dal lettore, prima lo si decodifica a parte */
+async function proxyAudioOk(s) {
+  if (!s.elAudio || s.noAudio) return true;
+  if ((s.duration || 0) > 300) return false; // troppo lungo per tenerlo in memoria sul telefono: si resta sull'originale
+  const ok = await ensureAudioBuf(s, s.duration || 0);
+  if (!ok || !s.audioBuf) return false;
+  delete s._tmpAudio; s.elAudio = false;
+  try { s.peaks = calcPeaks(s.audioBuf); } catch { }
+  try { renderAll(); } catch { }
+  return true;
+}
+function proxySwap(s) { for (const [cid, v] of [...vids.entries()]) if (v._src === s.id) { v.pause(); v.removeAttribute('src'); v.load(); v.remove(); vids.delete(cid); } seekPreview(); requestDraw(); }
+function proxyChip(t) { let c = $('#proxyChip'); if (!t) { if (c) c.remove(); return; } if (!c) { c = h('div', { id: 'proxyChip' }); document.body.append(c); } c.textContent = t; }
+async function makeProxy(s) {
+  if (PROXY.busy.has(s.id) || s.proxyUrl) return; PROXY.busy.add(s.id);
+  try {
+    if (s.elAudio && !(await proxyAudioOk(s))) return; // senza audio sicuro, niente copia leggera
+    if (await proxyLoad(s)) { proxySwap(s); return; }
+    const d = await demuxInfo(s); if (!d || !d.v || !d.v.ok) return;
+    if (!needsProxy(s)) return;
+    const f = Math.min(1, 960 / Math.max(s.w, s.h)), W = Math.round(s.w * f / 2) * 2, H = Math.round(s.h * f / 2) * 2;
+    const fps = Math.min(60, Math.max(24, Math.round(d.v.samples.length / Math.max(.1, s.duration))));
+    const vcfg = await pickVideoCodec(W, H, fps, 2.5e6); if (!vcfg) return;
+    const muxer = new Mp4Muxer.Muxer({ target: new Mp4Muxer.ArrayBufferTarget(), fastStart: 'in-memory', firstTimestampBehavior: 'offset', video: { codec: 'avc', width: W, height: H, frameRate: fps } });
+    let err = null, n = 0, wake = null; const total = d.v.samples.length;
+    const enc = new VideoEncoder({ output: (ch, m) => muxer.addVideoChunk(ch, m), error: e => err = e }); enc.configure(Object.assign({}, vcfg, { latencyMode: 'realtime' }));
+    const cv = h('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d', { alpha: false }); const r = d.v.rot;
+    const shift = Math.round(d.v.shift * 1e6);
+    const dec = new VideoDecoder({ output: fr => {
+      try {
+        const ts = fr.timestamp;
+        if (ts >= 0) {
+          g.setTransform(1, 0, 0, 1, W / 2, H / 2); if (r) g.rotate(r * Math.PI / 180); const side = r % 180 !== 0, dw = side ? H : W, dh = side ? W : H;
+          g.drawImage(fr, -dw / 2, -dh / 2, dw, dh); g.setTransform(1, 0, 0, 1, 0, 0);
+          const vf = new VideoFrame(cv, { timestamp: ts, duration: fr.duration || Math.round(1e6 / fps) }); enc.encode(vf, { keyFrame: n % fps === 0 }); vf.close(); n++;
+        }
+      } catch (e) { err = e; }
+      fr.close(); if (wake) { wake(); wake = null; }
+    }, error: e => err = e });
+    dec.configure(d.v.cfg);
+    for (let i = 0; i < total; i++) {
+      if (err) throw err;
+      const sm = d.v.samples[i], data = new Uint8Array(await s.blob.slice(sm.offset, sm.offset + sm.size).arrayBuffer());
+      dec.decode(new EncodedVideoChunk({ type: sm.is_sync ? 'key' : 'delta', timestamp: Math.round(sm.cts / d.v.ts * 1e6) - shift, duration: Math.round(sm.duration / d.v.ts * 1e6), data }));
+      while ((dec.decodeQueueSize > 4 || enc.encodeQueueSize > 4) && !err) await new Promise(res => { wake = res; setTimeout(res, 30); });
+      if (i % 15 === 0) proxyChip('Preparo l\'anteprima leggera di «' + s.name + '»… ' + Math.round(i / total * 100) + '%');
+    }
+    await dec.flush(); dec.close(); await enc.flush(); enc.close(); if (err) throw err;
+    muxer.finalize();
+    const blob = new Blob([muxer.target.buffer], { type: 'video/mp4' });
+    try { await (typeof adb === 'function' ? adb : dbDo)('kv', 'readwrite', st => st.put({ blob }, 'proxy:' + s.id)); } catch { }
+    s.proxyUrl = URL.createObjectURL(blob); proxySwap(s);
+    toast('Anteprima leggera pronta: il video scorre più fluido mentre monti (l\'esportazione usa sempre l\'originale)', 5000);
+  } catch (e) { console.warn('proxy', e); }
+  finally { PROXY.busy.delete(s.id); proxyChip(null); const nx = PROXY.queue.shift(); if (nx) makeProxy(nx); }
+}
+function queueProxy(s) { if (PROXY.busy.size) PROXY.queue.push(s); else makeProxy(s); }
+
 /* ================= avvio e comandi ================= */
 $('#bImport').onclick = () => $('#fileIn').click();
 $('#fileIn').onchange = e => { openImportPreview(e.target.files); e.target.value = ''; };
@@ -6630,8 +6698,9 @@ addEventListener('appinstalled', () => { installEvt = null; const b = $('#bInsta
 if ($('#bInstall')) $('#bInstall').onclick = async () => { if (!installEvt) return; installEvt.prompt(); try { await installEvt.userChoice; } catch { } installEvt = null; $('#bInstall').style.display = 'none'; };
 
 /* ================= novità: si aprono da sole la prima volta dopo un aggiornamento ================= */
-const APP_VER = '1.3.2';
+const APP_VER = '1.3.5';
 const NOVITA = [
+  ['1.3.3', [['⟳', 'Aggiornamenti immediati', 'Quando esce una versione nuova compare un avviso in alto: un clic e il programma si aggiorna.']]],
   ['1.3.2', [['🎬', 'Esportazione più robusta', 'Anche dove manca il codificatore audio, il video resta fotogramma per fotogramma.']]],
   ['1.3.1', [
     ['🎬', 'Esportazione fluida e nitida', 'Il video ora viene letto fotogramma per fotogramma direttamente dal file: niente più scatti, anche con i video lunghi o girati col telefono. Ridimensionamento in alta qualità e più dati per secondo (bitrate più alto).'],
@@ -6665,6 +6734,22 @@ function showNews(ver = APP_VER) {
 }
 if ($('#bNews')) $('#bNews').onclick = () => showNews();
 try { if (localStorage.getItem('nwlcut.novita') !== APP_VER && !/[?&]nonews\b/.test(location.search)) setTimeout(() => { if (!$('#dlg').open) showNews(); }, 900); } catch { }
+
+/* ================= aggiornamento: se sul sito c'è una versione più nuova, lo dice e ricarica ================= */
+const cmpVer = (a, b) => { const x = String(a).split('.').map(Number), y = String(b).split('.').map(Number); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) - (y[i] || 0); } return 0; };
+async function checkAppUpdate() {
+  if (!/^https?:/.test(location.protocol)) return;
+  try {
+    const r = await fetch('versione.json?t=' + Date.now(), { cache: 'no-store' }); if (!r.ok) return;
+    const v = (await r.json()).version; if (!v || cmpVer(v, APP_VER) <= 0 || $('#updBar')) return;
+    const bar = h('div', { id: 'updBar' }, h('span', {}, 'È uscita la versione ' + v), h('button', { onclick: async () => {
+      bar.querySelector('button').textContent = 'Aggiorno…';
+      try { const regs = navigator.serviceWorker ? await navigator.serviceWorker.getRegistrations() : []; await Promise.all(regs.map(g => g.update().catch(() => { }))); const ks = window.caches ? await caches.keys() : []; await Promise.all(ks.map(k => caches.delete(k))); } catch { }
+      location.reload(); } }, 'Aggiorna ora'));
+    document.body.append(bar);
+  } catch { }
+}
+setTimeout(checkAppUpdate, 2500); document.addEventListener('visibilitychange', () => { if (!document.hidden) checkAppUpdate(); });
 
 </script>
 </body>

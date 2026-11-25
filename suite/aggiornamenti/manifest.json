@@ -1,16 +1,16 @@
 {
- "version": "1.3.4",
+ "version": "1.3.5",
  "date": "2026-11-25",
  "notes": [
-  "NWLcut telefono: anteprima leggera per i video pesanti, riproduzione più regolare"
+  "NWLcut telefono: l'audio non sparisce più con l'anteprima leggera"
  ],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "89441dcd620d7575e76b5b02414acac359236abf716f7c5c147a002d91077962",
-   "size": 449312
+   "sha256": "8d740f3e1b0860a40342723133cf496153ca630cbf3d9caf3b0e8186522ae322",
+   "size": 449958
   },
   {
    "path": "NWLlive.html",
@@ -34,7 +34,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "81e965789e57472a648d273f5a797f43323789893b04d1ee708313810ae4e28b",
+   "sha256": "a329eaad3896c6829fc67dd88ce17c487529c8db1b18d49fe7ee7dc87a2ecebf",
    "size": 20
   },
   {
