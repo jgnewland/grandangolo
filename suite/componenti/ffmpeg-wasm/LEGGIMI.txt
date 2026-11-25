@@ -1,0 +1,3 @@
+ffmpeg.wasm (@ffmpeg/core 0.12.10) - FFmpeg compilato in WebAssembly.
+Licenza: GPL-2.0-or-later. Codice sorgente: https://github.com/ffmpegwasm/ffmpeg.wasm e https://ffmpeg.org
+Usato da NWLcut solo per convertire i formati che il browser non apre.
