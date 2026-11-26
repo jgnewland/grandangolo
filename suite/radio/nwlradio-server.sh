@@ -11,6 +11,8 @@
 set -euo pipefail
 if [ "$(id -u)" != "0" ]; then echo "Lancialo con sudo."; exit 1; fi
 export DEBIAN_FRONTEND=noninteractive
+# un server appena creato fa da solo gli aggiornamenti: aspetto che finisca invece di fallire
+APTW="-o DPkg::Lock::Timeout=900"
 MOUNT="${MOUNT:-/live}"; MOUNT="/${MOUNT#/}"
 echo "== NWLradio: preparo il server =="
 
@@ -21,12 +23,12 @@ echo "Indirizzo pubblico: $IP"
 echo "Nome per l'https:   $DOMAIN"
 
 # --- programmi ---
-apt-get update -q
-apt-get install -y -q icecast2 curl gnupg debian-keyring debian-archive-keyring apt-transport-https iptables-persistent openssl >/dev/null
+apt-get $APTW update -q
+apt-get $APTW install -y -q icecast2 curl gnupg debian-keyring debian-archive-keyring apt-transport-https iptables-persistent openssl >/dev/null
 if ! command -v caddy >/dev/null; then
   curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor --yes -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
   curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' > /etc/apt/sources.list.d/caddy-stable.list
-  apt-get update -q && apt-get install -y -q caddy >/dev/null
+  apt-get $APTW update -q && apt-get $APTW install -y -q caddy >/dev/null
 fi
 
 # --- password (nuove a ogni installazione, salvate in /root/nwlradio-server.txt) ---
