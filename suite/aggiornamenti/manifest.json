@@ -1,5 +1,5 @@
 {
- "version": "1.7.1",
+ "version": "1.7.2",
  "date": "2026-11-26",
  "notes": [],
  "minShell": "1.2.0",
@@ -17,8 +17,8 @@
   },
   {
    "path": "NWLradio.html",
-   "sha256": "b7f421f1026ce3adbd811eba50eba0f97be5e2d014a57d35cabe0cef6db62923",
-   "size": 1054169
+   "sha256": "7f41d040b69df49ebadd780c46b3327057a75c10b3cb30528c0531d0b53fa8bc",
+   "size": 1056387
   },
   {
    "path": "NWLtono.html",
@@ -37,7 +37,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "fa4838c1f7d9d723149e0582d0020986eecb40f704a42db70c82d641ae569b1b",
+   "sha256": "dc24943b26113d6695e4bacf4b0b6afa70797fa011216de2dcb9fc6a9eff4857",
    "size": 20
   },
   {
