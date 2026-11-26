@@ -430,7 +430,7 @@ window.ORA_VOCE={"h0": "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2Z
 
 /* ================= NWLradio — regia radio di Newland Studio ================= */
 'use strict';
-const APP_VER = '1.7.0';
+const APP_VER = '1.7.1';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -1016,7 +1016,7 @@ async function openMic(m) {
   if (m.dev === 'none') { refreshStrip(st); return; }
   try {
     // niente elaborazioni automatiche del browser: il suono della voce lo decide la regia
-    const a = { echoCancellation: false, autoGainControl: false, noiseSuppression: !!m.nr, channelCount: 1, sampleRate: 48000 };
+    const a = { echoCancellation: !!m.ec, autoGainControl: false, noiseSuppression: !!m.nr, channelCount: 1, sampleRate: 48000 };
     if (m.dev) a.deviceId = { exact: m.dev };
     const s = await navigator.mediaDevices.getUserMedia({ audio: a, video: false });
     const src = AC.createMediaStreamSource(s); src.connect(st.in);
@@ -1034,18 +1034,19 @@ async function micSettings(m) {
   const st = AU.strips[m.id];
   const nm = h('input', { value: m.name });
   const dev = h('select', {}, h('option', { value: '' }, 'Microfono predefinito del computer'), DEVS.in.filter(d => d.deviceId !== 'default' && d.deviceId !== 'communications').map(d => h('option', { value: d.deviceId, selected: d.deviceId === m.dev }, d.label || 'Ingresso audio')), h('option', { value: 'none', selected: m.dev === 'none' }, '— non usato —'));
-  const vc = h('input', { type: 'checkbox', checked: m.voice }), nr = h('input', { type: 'checkbox', checked: m.nr });
+  const vc = h('input', { type: 'checkbox', checked: m.voice }), nr = h('input', { type: 'checkbox', checked: m.nr }), ec = h('input', { type: 'checkbox', checked: !!m.ec });
   const trim = h('input', { type: 'range', min: -12, max: 24, step: 1, value: m.trim || 0, style: 'width:100%' });
   const tl = h('span', { class: 'mu' }, (m.trim || 0) + ' dB'); trim.oninput = () => { tl.textContent = trim.value + ' dB'; st.trim.gain.value = dbToGain(+trim.value); };
   const r = await ask('Impostazioni · ' + m.name, h('div', {},
     h('div', { class: 'fg' }, h('label', {}, 'Nome sul mixer'), nm, h('label', {}, 'Ingresso'), dev, h('label', {}, 'Guadagno d\'ingresso'), h('div', {}, trim, tl)),
     h('label', { style: 'display:block;margin:10px 0' }, vc, ' Voce da radio: tolgo i bassi e il rimbombo, aggiungo presenza e compressione'),
     h('label', { style: 'display:block;margin:10px 0' }, nr, ' Riduci il rumore di fondo (per stanze rumorose o microfoni economici)'),
+    h('label', { style: 'display:block;margin:10px 0' }, ec, ' Anti-eco: attivalo se in regia ascolti dalle casse invece che in cuffia (altrimenti l\'ospite sente la propria voce tornare indietro)'),
     h('p', { class: 'hint' }, 'Regola il guadagno parlando forte: la barra verde del canale deve arrivare al giallo senza toccare il rosso.')),
     [['Annulla', 0], ['Salva', 1, 'pri']]);
   if (r !== 1) { st.trim.gain.value = dbToGain(m.trim || 0); return; }
-  const reopen = dev.value !== m.dev || nr.checked !== m.nr;
-  m.name = nm.value.trim() || m.name; m.dev = dev.value; m.voice = vc.checked; m.nr = nr.checked; m.trim = +trim.value;
+  const reopen = dev.value !== m.dev || nr.checked !== m.nr || ec.checked !== !!m.ec;
+  m.name = nm.value.trim() || m.name; m.dev = dev.value; m.voice = vc.checked; m.nr = nr.checked; m.ec = ec.checked; m.trim = +trim.value;
   st.name = m.name; st.trim.gain.value = dbToGain(m.trim);
   save();
   if (reopen) await openMic(m); else { voiceChain(st, m.voice); refreshStrip(st); }

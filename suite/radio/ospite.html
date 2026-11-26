@@ -49,7 +49,7 @@ input[type=range]{width:100%;accent-color:var(--ac)}
   <div id="setup">
     <div class="f"><label>Il tuo nome (lo vede la regia)</label><input id="nm" placeholder="Es. Mario Rossi" maxlength="40" autocomplete="name"></div>
     <div class="f"><label>Microfono</label><select id="mic"></select></div>
-    <div class="f"><label>Ascolto</label><select id="ec"><option value="hp">Ho la cuffia o gli auricolari (suono migliore)</option><option value="spk">Ascolto dall'altoparlante del telefono</option></select></div>
+    <div class="f"><label>Ascolto</label><select id="ec"><option value="auto">Auricolari o altoparlante (anti-eco attivo)</option><option value="hp">Cuffia chiusa da studio (anti-eco spento, suono pieno)</option></select></div>
     <button class="go" id="go">Collegati alla regia</button>
     <p class="hint">Meglio con gli auricolari: senti la diretta senza rimandarla nel microfono. Parla vicino al telefono, in un posto silenzioso.</p>
   </div>
@@ -69,7 +69,7 @@ const $ = s => document.querySelector(s);
 const qs = new URLSearchParams(location.search), ROOM = qs.get('r');
 let stream = null, peer = null, conn = null, call = null, wake = null, ending = false, retryT = null, muted = false;
 $('#nm').value = qs.get('n') || localStorage.getItem('nwl-ospite') || '';
-$('#ec').value = localStorage.getItem('nwl-ospite-ec') || 'hp';
+$('#ec').value = localStorage.getItem('nwl-ospite-ec2') || 'auto';
 const status = (t, c) => { $('#stt').textContent = t; $('#dot').className = c || ''; };
 if (!ROOM) { status('Link non valido: chiedi alla regia un nuovo link', 'ko'); $('#go').disabled = true; }
 async function devices() {
@@ -97,7 +97,7 @@ function meter() {
   try { await openMedia(); await devices(); status('Microfono pronto', 'ok'); }
   catch (e) { status('Consenti l\'accesso al microfono per collegarti', 'ko'); }
 })();
-$('#mic').onchange = $('#ec').onchange = () => { localStorage.setItem('nwl-ospite-ec', $('#ec').value); openMedia().then(() => { if (call) replaceTracks(); }).catch(() => status('Impossibile aprire il microfono', 'ko')); };
+$('#mic').onchange = $('#ec').onchange = () => { localStorage.setItem('nwl-ospite-ec2', $('#ec').value); openMedia().then(() => { if (call) replaceTracks(); }).catch(() => status('Impossibile aprire il microfono', 'ko')); };
 function tune() {
   if (!call || !call.peerConnection) return;
   for (const s of call.peerConnection.getSenders()) {

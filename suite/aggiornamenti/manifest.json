@@ -1,9 +1,7 @@
 {
- "version": "1.7.0",
+ "version": "1.7.1",
  "date": "2026-11-26",
- "notes": [
-  "NWLradio: playlist salvate e per genere, link a podcast e web radio, pubblicità con blocchi programmati e registro, effetto valvola, ora esatta parlata, volume dei brani pareggiato"
- ],
+ "notes": [],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe",
  "files": [
@@ -19,8 +17,8 @@
   },
   {
    "path": "NWLradio.html",
-   "sha256": "ed822686e23f12ea9c851d78a4a42d640ba60ebe257d8742fca5eb31e2d83abf",
-   "size": 1053868
+   "sha256": "b7f421f1026ce3adbd811eba50eba0f97be5e2d014a57d35cabe0cef6db62923",
+   "size": 1054169
   },
   {
    "path": "NWLtono.html",
@@ -39,7 +37,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "75fef277a4c0135ccef512d8a708d5a7611586137c54d0594b4690ffbe0a860b",
+   "sha256": "fa4838c1f7d9d723149e0582d0020986eecb40f704a42db70c82d641ae569b1b",
    "size": 20
   },
   {
