@@ -430,7 +430,7 @@ window.ORA_VOCE={"h0": "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2Z
 
 /* ================= NWLradio — regia radio di Newland Studio ================= */
 'use strict';
-const APP_VER = '1.7.0';
+const APP_VER = '1.7.3';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -1016,11 +1016,11 @@ async function openMic(m) {
   if (m.dev === 'none') { refreshStrip(st); return; }
   try {
     // niente elaborazioni automatiche del browser: il suono della voce lo decide la regia
-    const a = { echoCancellation: false, autoGainControl: false, noiseSuppression: !!m.nr, channelCount: 1, sampleRate: 48000 };
+    const a = { echoCancellation: !!m.ec, autoGainControl: !!m.agc, noiseSuppression: !!m.nr, channelCount: 1, sampleRate: 48000 };
     if (m.dev) a.deviceId = { exact: m.dev };
     const s = await navigator.mediaDevices.getUserMedia({ audio: a, video: false });
     const src = AC.createMediaStreamSource(s); src.connect(st.in);
-    MIC[m.id] = { stream: s, src, err: null };
+    MIC[m.id] = { stream: s, src, err: null, t0: performance.now(), sig: false };
     const tr = s.getAudioTracks()[0]; if (tr) tr.onended = () => { MIC[m.id].err = 'scollegato'; refreshStrip(st); toast(m.name + ': microfono scollegato'); };
     await listDevices();
   } catch (e) {
@@ -1034,22 +1034,51 @@ async function micSettings(m) {
   const st = AU.strips[m.id];
   const nm = h('input', { value: m.name });
   const dev = h('select', {}, h('option', { value: '' }, 'Microfono predefinito del computer'), DEVS.in.filter(d => d.deviceId !== 'default' && d.deviceId !== 'communications').map(d => h('option', { value: d.deviceId, selected: d.deviceId === m.dev }, d.label || 'Ingresso audio')), h('option', { value: 'none', selected: m.dev === 'none' }, '— non usato —'));
-  const vc = h('input', { type: 'checkbox', checked: m.voice }), nr = h('input', { type: 'checkbox', checked: m.nr });
+  const vc = h('input', { type: 'checkbox', checked: m.voice }), nr = h('input', { type: 'checkbox', checked: m.nr }), ag = h('input', { type: 'checkbox', checked: !!m.agc }), ec = h('input', { type: 'checkbox', checked: !!m.ec });
   const trim = h('input', { type: 'range', min: -12, max: 24, step: 1, value: m.trim || 0, style: 'width:100%' });
   const tl = h('span', { class: 'mu' }, (m.trim || 0) + ' dB'); trim.oninput = () => { tl.textContent = trim.value + ' dB'; st.trim.gain.value = dbToGain(+trim.value); };
   const r = await ask('Impostazioni · ' + m.name, h('div', {},
     h('div', { class: 'fg' }, h('label', {}, 'Nome sul mixer'), nm, h('label', {}, 'Ingresso'), dev, h('label', {}, 'Guadagno d\'ingresso'), h('div', {}, trim, tl)),
     h('label', { style: 'display:block;margin:10px 0' }, vc, ' Voce da radio: tolgo i bassi e il rimbombo, aggiungo presenza e compressione'),
     h('label', { style: 'display:block;margin:10px 0' }, nr, ' Riduci il rumore di fondo (per stanze rumorose o microfoni economici)'),
+    h('label', { style: 'display:block;margin:10px 0' }, ag, ' Guadagno automatico (per i microfoni del portatile, che sono molto bassi)'),
+    h('label', { style: 'display:block;margin:10px 0' }, ec, ' Anti-eco: attivalo se in regia ascolti dalle casse invece che in cuffia (altrimenti l\'ospite sente la propria voce tornare indietro)'),
     h('p', { class: 'hint' }, 'Regola il guadagno parlando forte: la barra verde del canale deve arrivare al giallo senza toccare il rosso.')),
     [['Annulla', 0], ['Salva', 1, 'pri']]);
   if (r !== 1) { st.trim.gain.value = dbToGain(m.trim || 0); return; }
-  const reopen = dev.value !== m.dev || nr.checked !== m.nr;
-  m.name = nm.value.trim() || m.name; m.dev = dev.value; m.voice = vc.checked; m.nr = nr.checked; m.trim = +trim.value;
+  const reopen = dev.value !== m.dev || nr.checked !== m.nr || ec.checked !== !!m.ec || ag.checked !== !!m.agc;
+  m.name = nm.value.trim() || m.name; m.dev = dev.value; m.voice = vc.checked; m.nr = nr.checked; m.ec = ec.checked; m.agc = ag.checked; m.trim = +trim.value;
   st.name = m.name; st.trim.gain.value = dbToGain(m.trim);
   save();
   if (reopen) await openMic(m); else { voiceChain(st, m.voice); refreshStrip(st); }
   renderMixer();
+}
+
+/* microfono aperto ma muto: tasto muto del portatile, livello a zero in Windows, ingresso sbagliato */
+function micSilenceCheck(s, db) {
+  const M = MIC[s.id]; if (!M || !M.stream || M.err === 'scollegato') return;
+  if (AC.state !== 'running') { M.t0 = performance.now(); return; }   // audio non ancora avviato: il silenzio non conta
+  if (db > -75) { if (!M.sig) { M.sig = true; if (M.err) { M.err = null; refreshStrip(s); } } return; }
+  M.mx = Math.max(M.mx ?? -200, db);
+  if (M.sig || M.warned || performance.now() - M.t0 < 5000) return;
+  M.warned = true;
+  const m = S.mics.find(x => x.id === s.id); if (!m) return;
+  const tr = M.stream.getAudioTracks()[0];
+  if (M.mx > -100 && !(tr && tr.muted)) {   // c'è un filo di segnale: solo molto basso
+    if (!m.agc) { m.agc = true; save(); toast(m.name + ': segnale molto basso, attivo il guadagno automatico'); openMic(m); }
+    else toast(m.name + ': segnale molto basso, alza il guadagno nel ⚙ del canale o il volume del microfono in Windows');
+    return;
+  }
+  M.err = tr && tr.muted ? 'muto dal sistema' : 'nessun segnale';
+  refreshStrip(s);
+  ask(m.name + ': nessun segnale', h('div', {},
+    h('p', {}, 'Il microfono è aperto ma non arriva suono. Controlla:'),
+    h('ul', {}, h('li', {}, 'il tasto muto del portatile (spesso F4 o un tasto con il microfono barrato) e la sua spia;'),
+      h('li', {}, 'Windows → Impostazioni → Sistema → Audio → Input: il microfono giusto e il volume non a zero;'),
+      h('li', {}, 'Windows → Privacy → Microfono: accesso consentito alle app desktop;'),
+      h('li', {}, 'nel ⚙ del canale, l\'ingresso scelto: prova "Microfono predefinito" o un altro della lista.')),
+    h('p', { class: 'hint' }, 'Quando il suono arriva il canale si sistema da solo.')), [['Riprova', 1, 'pri'], ['Chiudi', 0]])
+    .then(r => { if (r === 1) { M.warned = false; openMic(m); } });
 }
 
 /* ================= Messa in onda: invio al server, registrazione, titolo, silenzio ================= */
@@ -1104,10 +1133,20 @@ function setAir(state, msg) {
 if (NATIVE) NATIVE.onState(s => {
   if (!AIR.on && s.state !== 'ended') return;
   if (s.state === 'live') { AIR.kbps = s.kbps || 0; if (AIR.state !== 'live') { setAir('live'); toast('Sei in onda: le radio ricevono il segnale'); AIR.lastMeta = ''; updateNow(true); } else setAir('live'); }
-  else if (s.state === 'retry') { setAir('retry', s.msg); }
+  else if (s.state === 'retry') { setAir('retry', s.msg); if (/opening input/i.test(s.msg || '')) needNewShell(); }
   else if (s.state === 'error') { setAir('retry', s.msg); }
   else if (s.state === 'ended') { if (AIR.on) setAir('retry', 'collegamento chiuso'); }
 });
+/* programma installato troppo vecchio per il componente di trasmissione aggiornato */
+function needNewShell() {
+  if (needNewShell.shown) return; needNewShell.shown = true;
+  stopAir();
+  ask('Serve aggiornare il programma per Windows', h('div', {},
+    h('p', {}, 'Il componente di trasmissione è più recente del programma installato sul PC, e non riescono a parlarsi.'),
+    h('p', {}, 'Scarica il nuovo installatore, chiudi Newland Studio Suite e installalo sopra: progetti, playlist e impostazioni restano dove sono.')),
+    [['Più tardi', 0], ['Scarica l\'installatore', 1, 'pri']])
+    .then(r => { if (r === 1) window.open('https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe', '_blank'); needNewShell.shown = false; });
+}
 async function installEncoder() {
   if (!window.nwlNative.stream || !window.nwlNative.stream.install) return false;
   const bar = h('progress', { max: 1, value: 0, style: 'width:100%' });
@@ -1422,6 +1461,7 @@ function meterLoop() {
   for (const s of Object.values(AU.strips)) {
     if (!s.ui) continue;
     const db = peakDb(s.an, s.buf), v = clamp((db + 60) / 60, 0, 1);
+    if (s.kind === 'mic') micSilenceCheck(s, db);
     s.peak = Math.max(v, s.peak * .9);
     if (v >= s.hold || t - s.holdT > 1500) { s.hold = v; s.holdT = t; }
     s.ui.vu.style.height = (s.peak * 100) + '%'; s.ui.hold.style.bottom = (s.hold * 100) + '%';

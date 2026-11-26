@@ -430,7 +430,7 @@ window.ORA_VOCE={"h0": "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2Z
 
 /* ================= NWLradio — regia radio di Newland Studio ================= */
 'use strict';
-const APP_VER = '1.7.2';
+const APP_VER = '1.7.3';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -1133,10 +1133,20 @@ function setAir(state, msg) {
 if (NATIVE) NATIVE.onState(s => {
   if (!AIR.on && s.state !== 'ended') return;
   if (s.state === 'live') { AIR.kbps = s.kbps || 0; if (AIR.state !== 'live') { setAir('live'); toast('Sei in onda: le radio ricevono il segnale'); AIR.lastMeta = ''; updateNow(true); } else setAir('live'); }
-  else if (s.state === 'retry') { setAir('retry', s.msg); }
+  else if (s.state === 'retry') { setAir('retry', s.msg); if (/opening input/i.test(s.msg || '')) needNewShell(); }
   else if (s.state === 'error') { setAir('retry', s.msg); }
   else if (s.state === 'ended') { if (AIR.on) setAir('retry', 'collegamento chiuso'); }
 });
+/* programma installato troppo vecchio per il componente di trasmissione aggiornato */
+function needNewShell() {
+  if (needNewShell.shown) return; needNewShell.shown = true;
+  stopAir();
+  ask('Serve aggiornare il programma per Windows', h('div', {},
+    h('p', {}, 'Il componente di trasmissione è più recente del programma installato sul PC, e non riescono a parlarsi.'),
+    h('p', {}, 'Scarica il nuovo installatore, chiudi Newland Studio Suite e installalo sopra: progetti, playlist e impostazioni restano dove sono.')),
+    [['Più tardi', 0], ['Scarica l\'installatore', 1, 'pri']])
+    .then(r => { if (r === 1) window.open('https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe', '_blank'); needNewShell.shown = false; });
+}
 async function installEncoder() {
   if (!window.nwlNative.stream || !window.nwlNative.stream.install) return false;
   const bar = h('progress', { max: 1, value: 0, style: 'width:100%' });
