@@ -1,16 +1,17 @@
 {
- "version": "1.5.1",
+ "version": "1.6.0",
  "date": "2026-11-26",
  "notes": [
-  "Nuova schermata iniziale con logo e collegamenti rapidi agli altri programmi della suite (NWLcut, NWLtono, NWLlive)"
+  "Nuovo programma: NWLradio, la regia radio che manda il segnale alle radio FM",
+  "Schermate iniziali con il collegamento a NWLradio"
  ],
- "minShell": "1.2.0",
+ "minShell": "1.6.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "b5d6aeaaebcc12bf1e2ad97e889b5b0b37493246d55f54f3105a7bf8347036b8",
-   "size": 603174
+   "sha256": "3ab59bdcc240e93c133cfdd98c3adf3561689029bce67c6f16ccac48b135c7bf",
+   "size": 621452
   },
   {
    "path": "NWLlive.html",
@@ -18,14 +19,19 @@
    "size": 152287
   },
   {
+   "path": "NWLradio.html",
+   "sha256": "d88e2174feff938ee414e45b0d60aa22521d9f6361410bb6d8d0c32efe54230e",
+   "size": 230127
+  },
+  {
    "path": "NWLtono.html",
-   "sha256": "65aaeeee58519b683074f57d66359fca9a02dae017d3fb39b0baf3741b5337ed",
-   "size": 436076
+   "sha256": "eb14bea2fe559509c0275799005bd0d05862f6f2733055354f821826a0f2e786",
+   "size": 454123
   },
   {
    "path": "launcher.html",
-   "sha256": "6da2a007b76b53dd192b4de521e358306ff7c74998e5cdc0cbc1211e3c9bb1ec",
-   "size": 6555
+   "sha256": "2d4a87a65b0ced159ea17f217545e93316e6daac0405a8c6ffdeb9073117f271",
+   "size": 7174
   },
   {
    "path": "logo-grandangolo.png",
@@ -34,7 +40,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "ac37295099ef7b034f98d9d9db2c0fcd8a368c935f973ca268399f433bc32600",
+   "sha256": "c5300642cfa1adb8d1d4d67517165b04e355115206115e493fa520f618a0d09d",
    "size": 20
   },
   {
@@ -71,6 +77,11 @@
    "path": "icone/nwllive.png",
    "sha256": "4bce351ef90538624266ffefee9288b877bf961b6ddf30912361893886c67c41",
    "size": 12294
+  },
+  {
+   "path": "icone/nwlradio.png",
+   "sha256": "bba7d279e9a76cded6d56d062c5d04cb409c5061a6cc2ac98cf65bd3972f154c",
+   "size": 13371
   },
   {
    "path": "icone/nwltono.png",

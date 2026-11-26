@@ -2013,6 +2013,7 @@ const NWL_SUITE = [
   { key: 'cut', name: 'NWLcut', tag: 'Montaggio video', desc: 'Tracce, titoli, sottotitoli, transizioni, modelli pronti ed esportazione MP4.', color: '#b4fb0b', ab: 'Ct' },
   { key: 'tono', name: 'NWLtono', tag: 'Montaggio audio', desc: 'Podcast, audiolibri e notiziari: voce pulita, musiche e sigle.', color: '#40d6ff', ab: 'To' },
   { key: 'live', name: 'NWLlive', tag: 'Regia in diretta', desc: 'Grafiche, collegamenti con gli inviati e diretta su YouTube e Facebook.', color: '#ff3d5a', ab: 'Lv' },
+  { key: 'radio', name: 'NWLradio', tag: 'Regia radio', desc: 'Microfoni, musica, jingle e ospiti in diretta: il segnale pulito va alle radio FM.', color: '#ff9f1c', ab: 'Rd' },
 ];
 const NWLH_WEB = 'https://edicola.grandangoloregionale.it/suite/';
 function nwlE(tag, a, ...kids) {
@@ -2031,7 +2032,7 @@ function nwlIcon(key, size) {
 }
 /* indirizzo dell'altro programma: nel programma per Windows si apre la sua finestra, nel sito la sua pagina */
 function nwlAppHref(key) {
-  const mob = nwlMobile(), p = location.pathname, m = p.match(/^(.*?\/)(gr-redazione-[^/]+\/)?(cut|cutm|tono|live)\/[^/]*$/);
+  const mob = nwlMobile(), p = location.pathname, m = p.match(/^(.*?\/)(gr-redazione-[^/]+\/)?(cut|cutm|tono|live|radio)\/[^/]*$/);
   const sub = key === 'cut' ? (mob ? 'cutm/' : 'cut/') : key + '/';
   if (/^https?:$/.test(location.protocol) && m) return m[1] + (key === 'cut' ? (m[2] || '') : '') + sub;
   return NWLH_WEB + sub;
@@ -2169,7 +2170,7 @@ function nwlHomeCSS() {
 .nwlh .ntpl b{font-size:14.5px;padding:0 4px}.nwlh .ntpl small{color:var(--m);font-size:12px;line-height:1.4;padding:0 4px}
 .nwlh .ntpl .nfmt{display:inline-block;color:var(--ha);font-weight:700;margin-right:4px}
 .nwlh .ntpl .nglyph{font-size:40px}
-.nwlh .nsuite{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.nwlh .nsuite{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
 .nwlh .nsc{position:relative;display:flex;align-items:flex-start;gap:16px;padding:18px;border-radius:20px;background:linear-gradient(140deg,color-mix(in srgb,var(--c) 11%,#0a1233),#070d2b 75%);border:1px solid color-mix(in srgb,var(--c) 22%,transparent);transition:transform .22s,box-shadow .22s,border-color .22s;overflow:hidden}
 .nwlh a.nsc:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 24px 48px -24px color-mix(in srgb,var(--c) 70%,transparent)}
 .nwlh .nsc .nst{flex:1;min-width:0}

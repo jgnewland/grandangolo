@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Collegamento radio — NWLradio</title>
+<meta name="theme-color" content="#040922">
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--bg:#040922;--p1:#0a1233;--p2:#0f1a46;--line:rgba(255,255,255,.1);--tx:#eef1ff;--mu:#8f9bc8;--ac:#ff9f1c;--red:#ff3b4e;--grn:#2ee07c}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:radial-gradient(700px 400px at 90% -10%,rgba(255,159,28,.12),transparent 60%),var(--bg);color:var(--tx);font:16px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+button,select,input{font:inherit;color:inherit}
+.wrap{max-width:520px;margin:0 auto;padding:18px 16px calc(24px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.top img{width:44px;height:44px;border-radius:12px}
+.top b{display:block;font-weight:800;font-size:18px}.top small{display:block;color:var(--mu);font-size:12.5px}
+.tally{border-radius:18px;padding:26px 16px;text-align:center;font-weight:800;letter-spacing:.08em;background:var(--p1);border:1px solid var(--line);color:var(--mu);transition:.2s}
+body.air .tally{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 40px rgba(255,59,78,.5)}
+body.wait .tally{color:var(--tx)}
+.meter{height:10px;border-radius:5px;background:#060c2a;margin:12px 0 16px;overflow:hidden}.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--grn),#ffd23f 80%,var(--red));transition:width .06s}
+.f{margin:12px 0}.f label{display:block;color:var(--mu);font-size:13px;margin-bottom:5px}
+.f input,.f select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#060c2a;outline:none}
+.f input:focus{border-color:var(--ac)}
+.go{width:100%;padding:16px;border-radius:14px;border:0;background:var(--ac);color:#1a0d00;font-weight:800;font-size:17px;margin-top:8px}
+.go:disabled{opacity:.5}
+.b{padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--p2);flex:1}
+.b.off{background:var(--red);border-color:var(--red);color:#fff}
+.row{display:flex;gap:8px;margin:10px 0}
+.card{background:var(--p1);border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0}
+.card h4{margin:0 0 8px;font-size:13px;color:var(--mu);font-weight:600}
+.log{max-height:140px;overflow:auto;font-size:14px}.log div{margin:4px 0}
+.send{display:flex;gap:6px;margin-top:8px}.send input{flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:#060c2a}.send button{padding:10px 14px;border-radius:10px;border:0;background:var(--p2)}
+.hint{color:var(--mu);font-size:13.5px}
+.st{display:flex;align-items:center;gap:8px;margin-top:16px;color:var(--mu);font-size:14px}
+.st i{width:10px;height:10px;border-radius:50%;background:#555}.st i.ok{background:var(--grn)}.st i.wt{background:#ffd23f}.st i.ko{background:var(--red)}
+.msg{position:fixed;left:12px;right:12px;top:12px;padding:16px;border-radius:14px;background:var(--ac);color:#1a0d00;font-weight:700;font-size:18px;text-align:center;transform:translateY(-140%);transition:.25s;z-index:9}
+.msg.on{transform:none}
+input[type=range]{width:100%;accent-color:var(--ac)}
+</style>
+</head>
+<body>
+<div class="msg" id="msg"></div>
+<div class="wrap">
+  <div class="top"><img src="icon-192.png" alt=""><div><b>Collegamento in radio</b><small>NWLradio · Newland Studio</small></div></div>
+  <div class="tally" id="tally">NON COLLEGATO</div>
+  <div class="meter"><i id="lvl"></i></div>
+  <div id="setup">
+    <div class="f"><label>Il tuo nome (lo vede la regia)</label><input id="nm" placeholder="Es. Mario Rossi" maxlength="40" autocomplete="name"></div>
+    <div class="f"><label>Microfono</label><select id="mic"></select></div>
+    <div class="f"><label>Ascolto</label><select id="ec"><option value="hp">Ho la cuffia o gli auricolari (suono migliore)</option><option value="spk">Ascolto dall'altoparlante del telefono</option></select></div>
+    <button class="go" id="go">Collegati alla regia</button>
+    <p class="hint">Meglio con gli auricolari: senti la diretta senza rimandarla nel microfono. Parla vicino al telefono, in un posto silenzioso.</p>
+  </div>
+  <div id="live" hidden>
+    <div class="row"><button class="b" id="bMute">🎙️ Microfono attivo</button></div>
+    <div class="card"><h4>Volume della diretta</h4><input type="range" id="vol" min="0" max="1" step="0.01" value="1"><p class="hint" style="margin:4px 0 0">Senti la radio senza la tua voce.</p></div>
+    <div class="card"><h4>Messaggi con la regia</h4><div class="log" id="log"></div><div class="send"><input id="txt" placeholder="Scrivi alla regia"><button id="snd">Invia</button></div></div>
+    <button class="b" id="bEnd" style="width:100%;margin-top:12px">Chiudi il collegamento</button>
+  </div>
+  <div class="st"><i id="dot"></i><span id="stt">Pronto</span></div>
+</div>
+<audio id="ret" autoplay playsinline></audio>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script>
+'use strict';
+const $ = s => document.querySelector(s);
+const qs = new URLSearchParams(location.search), ROOM = qs.get('r');
+let stream = null, peer = null, conn = null, call = null, wake = null, ending = false, retryT = null, muted = false;
+$('#nm').value = qs.get('n') || localStorage.getItem('nwl-ospite') || '';
+$('#ec').value = localStorage.getItem('nwl-ospite-ec') || 'hp';
+const status = (t, c) => { $('#stt').textContent = t; $('#dot').className = c || ''; };
+if (!ROOM) { status('Link non valido: chiedi alla regia un nuovo link', 'ko'); $('#go').disabled = true; }
+async function devices() {
+  const d = await navigator.mediaDevices.enumerateDevices(), mic = $('#mic'), mv = mic.value; mic.innerHTML = '';
+  d.filter(x => x.kind === 'audioinput').forEach((x, n) => mic.append(new Option(x.label || 'Microfono ' + (n + 1), x.deviceId)));
+  if (mv) mic.value = mv;
+}
+async function openMedia() {
+  const hp = $('#ec').value === 'hp', a = { echoCancellation: !hp, noiseSuppression: true, autoGainControl: true, channelCount: 1 };
+  const mic = $('#mic').value; if (mic) a.deviceId = { exact: mic };
+  if (stream) stream.getTracks().forEach(t => t.stop());
+  stream = await navigator.mediaDevices.getUserMedia({ audio: a, video: false });
+  meter(); applyMute();
+}
+let actx = null, an = null;
+function meter() {
+  try {
+    actx = actx || new AudioContext(); an = actx.createAnalyser(); an.fftSize = 512;
+    actx.createMediaStreamSource(stream).connect(an);
+    const b = new Float32Array(512);
+    (function loop() { if (!an) return; an.getFloatTimeDomainData(b); let m = 0; for (const x of b) m = Math.max(m, Math.abs(x)); $('#lvl').style.width = Math.min(100, Math.max(0, (20 * Math.log10(m + 1e-6) + 60) / 60 * 100)) + '%'; requestAnimationFrame(loop); })();
+  } catch (_) { }
+}
+(async () => {
+  try { await openMedia(); await devices(); status('Microfono pronto', 'ok'); }
+  catch (e) { status('Consenti l\'accesso al microfono per collegarti', 'ko'); }
+})();
+$('#mic').onchange = $('#ec').onchange = () => { localStorage.setItem('nwl-ospite-ec', $('#ec').value); openMedia().then(() => { if (call) replaceTracks(); }).catch(() => status('Impossibile aprire il microfono', 'ko')); };
+function tune() {
+  if (!call || !call.peerConnection) return;
+  for (const s of call.peerConnection.getSenders()) {
+    if (!s.track || s.track.kind !== 'audio') continue;
+    const p = s.getParameters(); if (!p.encodings || !p.encodings.length) p.encodings = [{}];
+    p.encodings[0].maxBitrate = 96000; p.encodings[0].priority = 'high'; p.encodings[0].networkPriority = 'high';
+    s.setParameters(p).catch(() => { });
+  }
+}
+function replaceTracks() { if (!call || !call.peerConnection) return; for (const s of call.peerConnection.getSenders()) { const t = s.track && stream.getAudioTracks()[0]; if (t) s.replaceTrack(t); } tune(); applyMute(); }
+function applyMute() { if (stream) stream.getAudioTracks().forEach(t => t.enabled = !muted); $('#bMute').textContent = muted ? '🔇 Microfono spento' : '🎙️ Microfono attivo'; $('#bMute').classList.toggle('off', muted); }
+$('#bMute').onclick = () => { muted = !muted; applyMute(); };
+$('#go').onclick = async () => {
+  const name = $('#nm').value.trim();
+  if (!name) { $('#nm').focus(); status('Scrivi il tuo nome', 'ko'); return; }
+  localStorage.setItem('nwl-ospite', name);
+  if (!stream) { try { await openMedia(); } catch (_) { status('Consenti l\'accesso al microfono', 'ko'); return; } }
+  if (actx) actx.resume();
+  ending = false; $('#go').disabled = true;
+  connect(name);
+};
+function connect(name) {
+  status('Collegamento alla regia…', 'wt');
+  if (peer) { try { peer.destroy(); } catch (_) { } }
+  peer = new Peer({ config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' }] } });
+  peer.on('open', () => {
+    const rid = 'nwlradio-' + ROOM + '-regia';
+    conn = peer.connect(rid, { metadata: { name }, reliable: true });
+    conn.on('open', () => {
+      call = peer.call(rid, stream, { metadata: { name }, sdpTransform: s => s.replace(/(a=fmtp:111 .*)/, '$1;stereo=0;maxaveragebitrate=96000;useinbandfec=1') });
+      call.on('stream', s => { const a = $('#ret'); a.srcObject = s; a.volume = +$('#vol').value; a.play().catch(() => { }); });
+      call.on('close', dropped); call.on('error', dropped);
+      call.peerConnection.addEventListener('connectionstatechange', () => {
+        const st = call && call.peerConnection.connectionState;
+        if (st === 'connected') { status('Collegato con la regia', 'ok'); tune(); }
+        if (st === 'failed' || st === 'disconnected') status('Rete instabile…', 'wt');
+        if (st === 'failed') dropped();
+      });
+      $('#setup').hidden = true; $('#live').hidden = false; setTally('off'); lockScreen();
+    });
+    conn.on('data', d => { if (!d) return; if (d.t === 'tally') setTally(d.s); if (d.t === 'msg') { addLog('Regia', d.text); flash(d.text); } });
+    conn.on('close', dropped);
+  });
+  peer.on('error', e => { status(e.type === 'peer-unavailable' ? 'La regia non è aperta: riprovo tra poco…' : 'Problema di rete: riprovo…', 'wt'); dropped(); });
+}
+function dropped() { if (ending) return; setTally('none'); call = null; clearTimeout(retryT); retryT = setTimeout(() => { if (!ending) connect($('#nm').value.trim()); }, 4000); }
+function setTally(s) {
+  document.body.classList.toggle('air', s === 'air'); document.body.classList.toggle('wait', s === 'off');
+  $('#tally').textContent = s === 'air' ? '● SEI IN ONDA' : s === 'off' ? 'COLLEGATO · ASPETTA IL TUO TURNO' : 'NON COLLEGATO';
+  if (s === 'air' && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+}
+function addLog(who, t) { const d = document.createElement('div'); const b = document.createElement('b'); b.textContent = who + ': '; d.append(b, t); $('#log').append(d); $('#log').scrollTop = 1e9; }
+function flash(t) { const m = $('#msg'); m.textContent = t; m.classList.add('on'); clearTimeout(m._h); m._h = setTimeout(() => m.classList.remove('on'), 6000); }
+$('#snd').onclick = () => { const t = $('#txt').value.trim(); if (!t || !conn || !conn.open) return; conn.send({ t: 'msg', text: t }); addLog('Tu', t); $('#txt').value = ''; };
+$('#txt').onkeydown = e => { if (e.key === 'Enter') $('#snd').click(); };
+$('#vol').oninput = e => { $('#ret').volume = +e.target.value; };
+$('#bEnd').onclick = () => { ending = true; try { call && call.close(); conn && conn.close(); peer && peer.destroy(); } catch (_) { } setTally('none'); $('#live').hidden = true; $('#setup').hidden = false; $('#go').disabled = false; status('Collegamento chiuso', ''); if (wake) { wake.release().catch(() => { }); wake = null; } };
+async function lockScreen() { try { if ('wakeLock' in navigator) wake = await navigator.wakeLock.request('screen'); } catch (_) { } }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && call) lockScreen(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Server gratuito per NWLradio — Newland Studio</title>
+<meta name="theme-color" content="#040922">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--bg:#040922;--p1:#0a1233;--ln:rgba(255,255,255,.1);--tx:#eef1ff;--mu:#9aa5cf;--ac:#ff9f1c}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(900px 500px at 90% -10%,rgba(255,159,28,.1),transparent 60%),var(--bg);color:var(--tx);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.w{max-width:820px;margin:0 auto;padding:34px 20px 80px}
+header{display:flex;gap:14px;align-items:center;margin-bottom:24px}
+header img{width:56px;height:56px;border-radius:15px}
+header small{display:block;color:var(--ac);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px}
+h1{margin:0;font-size:32px;line-height:1.1;letter-spacing:-.02em}
+h2{font-size:21px;margin:38px 0 10px;display:flex;gap:12px;align-items:center}
+h2 b{flex:none;width:34px;height:34px;border-radius:10px;background:var(--ac);color:#1a0d00;display:flex;align-items:center;justify-content:center;font-size:17px}
+p,li{color:#d2d8f3}
+.lead{font-size:18px;color:var(--tx)}
+.box{background:var(--p1);border:1px solid var(--ln);border-radius:16px;padding:16px 18px;margin:16px 0}
+.box.ac{border-color:rgba(255,159,28,.5);background:rgba(255,159,28,.07)}
+code,pre{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:14px}
+code{background:#060c2a;border:1px solid var(--ln);border-radius:6px;padding:1px 6px}
+pre{background:#020514;border:1px solid var(--ln);border-radius:12px;padding:14px 16px;overflow-x:auto;white-space:pre-wrap;word-break:break-all;margin:10px 0;position:relative}
+.cp{position:absolute;right:8px;top:8px;border:1px solid var(--ln);background:#0f1a46;color:var(--tx);border-radius:8px;padding:4px 10px;font:600 12px inherit;cursor:pointer}
+a{color:var(--ac)}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+td{border-bottom:1px solid var(--ln);padding:8px 6px;vertical-align:top}
+td:first-child{color:var(--mu);width:42%}
+.dia{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0;font-weight:700;font-size:14px}
+.dia span{padding:10px 14px;border-radius:12px;background:var(--p1);border:1px solid var(--ln)}
+.dia i{color:var(--ac);font-style:normal}
+</style>
+</head>
+<body>
+<div class="w">
+<header><img src="icon-192.png" alt=""><div><small>NWLradio · guida</small><h1>Il tuo server radio gratuito</h1></div></header>
+<p class="lead">Per dare alle radio FM un link https fisso serve un piccolo server che riceve il segnale da NWLradio e lo distribuisce. Qui lo crei gratis su Oracle Cloud: una volta, in circa 20 minuti.</p>
+<div class="dia"><span>NWLradio sul tuo PC</span><i>→</i><span>il tuo server (Icecast)</span><i>→</i><span>https://…/live</span><i>→</i><span>radio FM e ascoltatori</span></div>
+<div class="box ac"><b>Cosa ti serve:</b> un indirizzo email, il telefono per il codice di verifica e una carta di credito o di debito. Oracle la usa solo per verificare l'identità: con le risorse «Always Free» non paghi nulla.</div>
+
+<h2><b>1</b>Crea l'account</h2>
+<ol>
+<li>Vai su <a href="https://www.oracle.com/cloud/free/" target="_blank" rel="noopener">oracle.com/cloud/free</a> e clicca <b>Start for free</b>.</li>
+<li>Come <b>Home Region</b> scegli <b>Italy Northwest (Milan)</b>: il server sarà a Milano, vicino alle radio. Non si può cambiare dopo.</li>
+<li>Completa la registrazione: email, telefono, carta.</li>
+<li><b>Consigliato:</b> a registrazione finita vai in <i>Billing → Upgrade and Manage Payment</i> e passa a <b>Pay As You Go</b>. Le risorse restano gratis, ma Oracle non spegne il server se resta inattivo per giorni, come può fare con gli account solo gratuiti.</li>
+</ol>
+
+<h2><b>2</b>Crea il server</h2>
+<ol>
+<li>Menu ☰ → <b>Compute → Instances → Create instance</b>. Nome: <code>radio</code>.</li>
+<li><b>Image and shape</b> → <i>Change image</i>: <b>Canonical Ubuntu 24.04</b> (non la versione «Minimal»).<br><i>Change shape</i>: <b>VM.Standard.E2.1.Micro</b> (con la scritta «Always Free-eligible»). Se non è disponibile, va bene anche <b>Ampere · VM.Standard.A1.Flex</b> con 1 OCPU e 6 GB.</li>
+<li><b>Networking</b>: lascia «Create new virtual cloud network» e controlla che sia attivo <b>Assign a public IPv4 address</b>.</li>
+<li><b>Add SSH keys</b>: scegli <b>Generate a key pair for me</b> e clicca <b>Save private key</b>. Conserva il file: è la chiave per entrare nel server.</li>
+<li>Clicca <b>Create</b>. Dopo un minuto lo stato diventa <b>Running</b>: copia il <b>Public IP address</b>.</li>
+</ol>
+
+<h2><b>3</b>Apri le porte</h2>
+<p>Oracle blocca tutto il traffico in arrivo. Dalla pagina del server: <b>Networking</b> → clic sulla <b>Subnet</b> → <b>Security</b> (o <i>Security Lists</i>) → <b>Default Security List</b> → <b>Add Ingress Rules</b>:</p>
+<table>
+<tr><td>Source CIDR</td><td><code>0.0.0.0/0</code></td></tr>
+<tr><td>IP Protocol</td><td>TCP</td></tr>
+<tr><td>Destination Port Range</td><td><code>80,443,8000</code></td></tr>
+</table>
+<p>Salva con <b>Add Ingress Rules</b>. Il firewall interno del server lo apre lo script del passo 5.</p>
+
+<h2><b>4</b>Entra nel server</h2>
+<p>Sul PC apri il <b>Prompt dei comandi</b> (tasto Windows, scrivi <code>cmd</code>, Invio) e scrivi, cambiando il nome del file della chiave e l'indirizzo IP:</p>
+<pre><button class="cp">Copia</button>ssh -i "%USERPROFILE%\Downloads\ssh-key-2026-11-26.key" ubuntu@IP-DEL-SERVER</pre>
+<p>Alla domanda <i>Are you sure you want to continue connecting?</i> scrivi <code>yes</code>. Se Windows risponde «UNPROTECTED PRIVATE KEY FILE», sistema i permessi della chiave e riprova:</p>
+<pre><button class="cp">Copia</button>icacls "%USERPROFILE%\Downloads\ssh-key-2026-11-26.key" /inheritance:r /grant:r "%USERNAME%:R"</pre>
+
+<h2><b>5</b>Installa il server radio</h2>
+<p>Dentro il server incolla questo comando e premi Invio. Fa tutto da solo in 2-3 minuti: Icecast, il certificato https e il firewall.</p>
+<pre><button class="cp">Copia</button>curl -fsSL https://edicola.grandangoloregionale.it/suite/radio/nwlradio-server.sh | sudo bash</pre>
+<p>Alla fine compare un riquadro <b>SERVER PRONTO</b> con tutti i dati. Se li perdi, li rivedi con <code>sudo cat /root/nwlradio-server.txt</code>.</p>
+<div class="box"><b>Hai un dominio tuo?</b> È ancora meglio: crea nel pannello del dominio un record <b>A</b> <code>radio</code> che punta all'IP del server, poi lancia lo script così:
+<pre><button class="cp">Copia</button>curl -fsSL https://edicola.grandangoloregionale.it/suite/radio/nwlradio-server.sh | sudo bash -s radio.grandangoloregionale.it</pre>
+Il link per le radio diventa <code>https://radio.grandangoloregionale.it/live</code>. Senza dominio lo script usa un nome automatico del tipo <code>https://158-101-12-34.sslip.io/live</code>.</div>
+
+<h2><b>6</b>Collega NWLradio</h2>
+<ol>
+<li>Apri <b>NWLradio</b> nel programma per Windows e clicca <b>⚙ Server</b>.</li>
+<li>Copia i dati del riquadro: indirizzo, porta <code>8000</code>, punto di montaggio <code>/live</code>, utente <code>source</code>, password, link per le radio.</li>
+<li>Clicca <b>Prova il collegamento</b>: deve comparire «Collegamento riuscito».</li>
+<li>Premi <b>● VAI IN ONDA</b>.</li>
+</ol>
+
+<h2><b>7</b>Dai il link alle radio</h2>
+<p>Il link <code>https://…/live</code> è un flusso MP3 standard: le radio FM lo inseriscono nel loro software di messa in onda come ingresso «stream», «relay» o «web radio», all'orario del tuo programma. Puoi provarlo tu stesso aprendolo nel browser o in VLC mentre sei in onda.</p>
+<div class="box"><b>Quando non sei in onda</b> il link non suona. Concorda con le radio l'orario della diretta: in quella fascia trovano sempre il segnale. Il pannello <code>https://…/admin/</code> mostra quanti ascoltatori, o radio, sono collegati.</div>
+
+<h2><b>?</b>Se qualcosa non va</h2>
+<table>
+<tr><td>«server non raggiungibile»</td><td>Controlla di aver aperto le porte al passo 3 e che l'indirizzo sia giusto.</td></tr>
+<tr><td>«password o utente non accettati»</td><td>Ricopia la password da <code>sudo cat /root/nwlradio-server.txt</code>. L'utente è <code>source</code>.</td></tr>
+<tr><td>Il link https non si apre</td><td>Il certificato si crea nei primi minuti. Controlla che le porte 80 e 443 siano aperte, poi aspetta 5 minuti.</td></tr>
+<tr><td>Voglio rifare tutto</td><td>Rilancia il comando del passo 5: tiene la stessa password.</td></tr>
+</table>
+<p style="color:var(--mu);font-size:14px;margin-top:40px">NWLradio · Newland Studio Suite · <a href="../">torna alla suite</a></p>
+</div>
+<script>document.querySelectorAll('.cp').forEach(function (b) { b.onclick = function () { var t = b.parentNode.textContent.replace(/^Copia/, '').trim(); navigator.clipboard.writeText(t).then(function () { b.textContent = 'Copiato ✓'; setTimeout(function () { b.textContent = 'Copia'; }, 1500); }); }; });</script>
+</body>
+</html>
