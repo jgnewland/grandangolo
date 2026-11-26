@@ -48,8 +48,11 @@ input[type=checkbox]{accent-color:var(--ac);width:16px;height:16px;vertical-alig
 #dockSlot{display:flex}
 #dockSlot .ndock{margin:0}
 /* corpo */
-#main{display:grid;grid-template-columns:minmax(400px,1.15fr) minmax(330px,.95fr) minmax(300px,.8fr);grid-template-rows:minmax(0,1fr) auto;gap:12px;padding:12px 16px;min-height:0}
-.pan{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));border:1px solid var(--ln);border-radius:16px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+#main{display:grid;grid-template-columns:minmax(400px,1.15fr) minmax(330px,.95fr) minmax(300px,.8fr);grid-template-rows:minmax(0,1fr) auto;gap:12px;padding:12px 16px;min-height:0;position:relative;overflow:auto}
+.splv,.splh{position:absolute;z-index:5;border-radius:6px}.splv{cursor:col-resize}.splh{cursor:row-resize}
+.splv:hover,.splh:hover,.splv.on,.splh.on{background:rgba(255,159,28,.35)}
+#bProj{max-width:260px;overflow:hidden;text-overflow:ellipsis}#bProj.dirty::after{content:' •';color:var(--ac)}
+.pan{overflow:auto;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));border:1px solid var(--ln);border-radius:16px;display:flex;flex-direction:column;min-height:0}
 .pan>h3{margin:0;padding:10px 14px 8px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#cfd6f5;display:flex;align-items:center;gap:8px}
 .pan>h3 .sp{flex:1}
 .pan>h3 button{padding:3px 9px;font-size:12px;letter-spacing:0;text-transform:none}
@@ -71,7 +74,7 @@ input[type=checkbox]{accent-color:var(--ac);width:16px;height:16px;vertical-alig
 .deck .db{display:flex;gap:6px}
 .deck .db button{flex:1;padding:7px 0;font-size:15px}
 .deck .db .play.on{background:var(--grn);border-color:var(--grn);color:#002a10}
-#plist{flex:1;min-height:0;overflow:auto;padding:0 8px 8px}
+#plist{flex:1 0 110px;min-height:110px;overflow:auto;padding:0 8px 8px}
 .pi{display:grid;grid-template-columns:24px 1fr auto auto;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;cursor:grab}
 .pi:hover{background:rgba(255,255,255,.05)}
 .pi.sel{background:rgba(255,159,28,.12)}
@@ -90,7 +93,7 @@ input[type=checkbox]{accent-color:var(--ac);width:16px;height:16px;vertical-alig
 #bAuto.on{background:var(--ac);border-color:var(--ac);color:#1a0d00;font-weight:700}
 .plEmpty{margin:18px 10px;padding:20px;border:1px dashed var(--ln2);border-radius:12px;text-align:center;color:var(--mu)}
 /* jingle */
-#carts{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:8px;padding:0 12px 10px;flex:1;min-height:0}
+#carts{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(52px,1fr);gap:8px;padding:0 12px 10px;flex:1 0 auto;min-height:0}
 .cart{position:relative;border-radius:12px;border:1px solid var(--ln2);background:#0b1440;padding:8px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;overflow:hidden;min-height:58px}
 .cart .k{font-size:10.5px;color:var(--mu);font-weight:700}
 .cart .nm{font-weight:650;font-size:12.5px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;position:relative}
@@ -104,8 +107,8 @@ input[type=checkbox]{accent-color:var(--ac);width:16px;height:16px;vertical-alig
 #bBreak.on{background:var(--yel);border-color:var(--yel);color:#2a2000;font-weight:700}
 /* destra: orologio, scaletta, ospiti */
 #side{gap:0}
-#tabs{display:flex;gap:4px;padding:8px 10px 0}
-#tabs button{flex:1;padding:6px 0;border-radius:8px 8px 0 0;border-bottom:0;background:transparent;font-size:12.5px;color:var(--mu)}
+#tabs{display:flex;gap:4px;padding:8px 10px 0;flex-wrap:wrap}
+#tabs button{flex:1 1 auto;padding:6px 8px;white-space:nowrap;border-radius:8px 8px 0 0;border-bottom:0;background:transparent;font-size:12.5px;color:var(--mu)}
 #tabs button.on{background:var(--p2);color:var(--tx);font-weight:650}
 #tabBody{flex:1;min-height:0;overflow:auto;padding:10px 12px;border-top:1px solid var(--ln)}
 .cd{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
@@ -168,7 +171,7 @@ dialog .dbt{display:flex;gap:8px;justify-content:flex-end;padding:12px 18px 16px
 #toast.on{opacity:1;transform:translateX(-50%)}
 .drag-over{outline:2px dashed var(--ac);outline-offset:-4px}
 ::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#1e2b63;border-radius:6px;border:2px solid transparent;background-clip:padding-box}
-@media (max-width:1280px){#main{grid-template-columns:1.1fr .9fr}#side{display:none}#clock{font-size:26px}}
+@media (max-width:1280px){#clock{font-size:26px}}
 </style>
 </head>
 <body>
@@ -180,6 +183,8 @@ dialog .dbt{display:flex;gap:8px;justify-content:flex-end;padding:12px 18px 16px
     <button id="bRec" title="Registra la puntata">⏺ REG</button>
     <span class="sp"></span>
     <div id="dockSlot"></div>
+    <button id="bProj" title="Puntate: salva quella di oggi, riapri quelle preparate (Ctrl+S salva)">📁 Puntate</button>
+    <button id="bLay" class="ghost" title="Disposizione dei pannelli">▦</button>
     <button id="bSrv" title="Server di trasmissione">⚙ Server</button>
     <button id="bHelp" class="ghost" title="Guida rapida">?</button>
   </header>
@@ -431,7 +436,7 @@ window.ORA_VOCE={"h0": "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2Z
 
 /* ================= NWLradio — regia radio di Newland Studio ================= */
 'use strict';
-const APP_VER = '1.7.4';
+const APP_VER = '1.8.0';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -469,6 +474,23 @@ function ask(title, body, btns) {
     d.showModal();
   });
 }
+/* finestrelle proprie: nel programma per Windows prompt() non esiste */
+function miniDlg(title, body, btns, focus) {
+  return new Promise(res => {
+    const A = h('div', { class: 'dbt' }), d = h('dialog', {}, h('h2', {}, title), h('div', { class: 'db' }, body), A);
+    let done = false; const fin = v => { if (done) return; done = true; d.close(); d.remove(); res(v); };
+    for (const [l, v, c] of btns) A.append(h('button', { class: c || '', onclick: () => fin(typeof v === 'function' ? v() : v) }, l));
+    d.addEventListener('close', () => fin(null));
+    document.body.append(d); d.showModal(); if (focus) { focus.focus(); focus.select && focus.select(); }
+  });
+}
+function askText(title, def) {
+  const i = h('input', { value: def || '', style: 'width:100%' });
+  const p = miniDlg(title, i, [['Annulla', null], ['OK', () => i.value.trim() || null, 'pri']], i);
+  i.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); i.closest('dialog').querySelector('.pri').click(); } });
+  return p;
+}
+const askYes = (title, msg, yes) => miniDlg(title, h('p', {}, msg), [['Annulla', false], [yes || 'Sì', true, 'pri']]).then(v => !!v);
 const NATIVE = window.nwlNative && window.nwlNative.radio ? window.nwlNative.radio : null;
 
 /* ---------- impostazioni salvate ---------- */
@@ -492,6 +514,8 @@ const S = {
   voiceAfterPips: true,      // dopo il segnale orario dice l'ora
   ads: { spots: [], breaks: '20, 50', auto: false, open: -1, close: -1, rot: 0, onlyAir: true },
   airlog: [],                // registro di tutto ciò che va in onda
+  projects: [], curProj: null, // puntate salvate
+  layout: null,              // disposizione dei pannelli
 };
 /* ---------- archivio locale (IndexedDB): brani, jingle, registrazioni, impostazioni ---------- */
 const DB = {
@@ -517,7 +541,7 @@ async function loadSettings() {
 async function storeMedia(file) { const key = uid('f'); await DB.put('media', key, { blob: file, name: file.name, type: file.type }); return key; }
 async function mediaBlob(key) { const m = await DB.get('media', key); return m ? m.blob : null; }
 async function cleanupMedia() {
-  const used = new Set([...S.playlist, ...S.lists.flatMap(l => l.items), ...S.ads.spots, ...S.carts.filter(Boolean)].map(p => p.key).filter(Boolean));
+  const used = new Set([...S.playlist, ...S.lists.flatMap(l => l.items), ...(S.projects || []).flatMap(p => [...(p.data.playlist || []), ...(p.data.carts || []).filter(Boolean)]), ...S.ads.spots, ...S.carts.filter(Boolean)].map(p => p.key).filter(Boolean));
   for (const k of await DB.keys('media')) if (!used.has(k)) await DB.del('media', k);
 }
 /* durata di un file audio senza decodificarlo tutto */
@@ -869,7 +893,7 @@ function buildDecks() {
   }
 }
 /* ---------- playlist ---------- */
-async function addFiles(files, at) {
+async function addFiles(files, at, only) {
   const out = []; let n = 0;
   for (const f of files) {
     if (!/^audio\//.test(f.type) && !/\.(mp3|wav|m4a|aac|ogg|opus|flac|wma|aiff?|webm)$/i.test(f.name)) continue;
@@ -883,6 +907,7 @@ async function addFiles(files, at) {
     const it = { id: uid('p'), key, name: file.name, dur: dur > 0 ? dur : await probeDur(file), done: false, artist: tg.artist || '', title: tg.title || '', genre: tg.genre || S.genreDef || '' };
     out.push(it); n++;
   }
+  if (only) return out;   // solo preparati, per una playlist salvata
   if (at == null) S.playlist.push(...out); else S.playlist.splice(at, 0, ...out);
   save(); renderPlaylist();
   for (const d of [DK.A, DK.B]) if (!d.item) { const nx = nextItem(); if (nx) await deckLoad(d, nx); }
@@ -1451,7 +1476,7 @@ function renderTab() {
       B.append(h('div', { class: 'guest' }, h('span', {}, g.stream ? '🟢' : '⚪'), h('b', {}, g.name), lv,
         h('input', { type: 'range', min: -24, max: 12, step: 1, value: g.db, style: 'width:70px', title: 'Volume di ' + g.name, oninput: e => { g.db = +e.target.value; g.g.gain.setTargetAtTime(g.mute ? 0 : dbToGain(g.db), AC.currentTime, .02); } }),
         h('button', { title: g.mute ? 'Riattiva' : 'Togli dall\'onda solo questo ospite', onclick: () => { g.mute = !g.mute; g.g.gain.setTargetAtTime(g.mute ? 0 : dbToGain(g.db), AC.currentTime, .02); sendTally(); renderTab(); } }, g.mute ? '🔇' : '🔊'),
-        h('button', { title: 'Scrivi un messaggio', onclick: async () => { const t = prompt('Messaggio per ' + g.name); if (t) guestMsg(g, t); } }, '💬'),
+        h('button', { title: 'Scrivi un messaggio', onclick: async () => { const t = await askText('Messaggio per ' + g.name, ''); if (t) guestMsg(g, t); } }, '💬'),
         h('button', { title: 'Chiudi il collegamento', onclick: () => guestDrop(g) }, '✕')));
     }
   } else if (TAB === 'ads') {
@@ -1535,7 +1560,10 @@ function helpDialog() {
     h('p', {}, h('b', {}, '5. Ospiti. '), 'Nella scheda Ospiti copi il link da mandare: l\'ospite si collega dal telefono e va in onda quando accendi il canale OSPITI.'),
     h('p', {}, h('b', {}, 'Novità 1.7. '), 'Playlist salvate e per genere (☰ Playlist; tasto destro su un brano per il genere), link a podcast e web radio (🔗 Link), volume dei brani pareggiato da solo, pubblicità con blocchi programmati e registro esportabile, effetto valvola sull\'uscita, ora esatta parlata (🗣 e dopo il segnale orario).'),
     h('p', {}, h('b', {}, '6. In onda. '), '«VAI IN ONDA» manda il segnale al server; la puntata si registra da sola. Il processore tiene il livello costante e non fa mai distorcere: la sonorità giusta per le radio è tra −16 e −14 LUFS.'),
-    h('p', { class: 'hint' }, 'Usa sempre la cuffia quando apri il microfono. Versione ' + APP_VER + '.')), [['Ho capito', 0, 'pri']]);
+    h('p', {}, h('b', {}, 'Novità 1.8. '), '📁 Puntate: salvi tutta la puntata (playlist, jingle, scaletta, note) e la riapri quando vuoi; Ctrl+S salva. ▦ sistema i pannelli: ordine, quali mostrare, e trascinando le linee tra un pannello e l\'altro ne cambi la misura. ⇄ MIX e AUTO mixano i brani.'),
+    h('p', { class: 'hint' }, 'Usa sempre la cuffia quando apri il microfono. Versione ' + APP_VER + '.')),
+    [window.suite && window.suite.checkUpdates ? ['Cerca aggiornamenti', 'upd'] : null, ['Ho capito', 0, 'pri']].filter(Boolean))
+    .then(async r => { if (r !== 'upd') return; toast('Cerco aggiornamenti…'); try { const u = await window.suite.checkUpdates(); toast(u && u.msg || 'Fatto'); } catch (e) { toast('Non riesco a cercare: ' + e.message); } });
 }
 
 /* ================= Avvio ================= */
@@ -1549,6 +1577,7 @@ function helpDialog() {
   AU.master.gain.value = dbToGain(S.master); AU.hpVol.gain.value = S.hp.vol ?? 1;
   applyProc(); applyTube(); updateDuck(); voceLoadAll();
   if (S.hp.dev) setHpDevice(S.hp.dev);
+  applyLayout(); pjLabel();
   buildDecks(); renderPlaylist(); renderCarts(); renderMixer(); openTab('show');
   $('#xf').value = S.xfade; updateBreakUI(); $('#bPips').classList.toggle('on', S.pipsAuto);
   if (typeof nwlDock === 'function') { nwlHomeCSS(); const w = h('div', { class: 'nwlh ninl', style: '--ha:#ff9f1c' }, nwlDock('radio')); $('#dockSlot').append(w); }
@@ -1580,6 +1609,9 @@ $('#bAir').onclick = goAir;
 $('#bRec').onclick = () => REC.on ? recStop() : recStart();
 $('#bSrv').onclick = () => serverDialog(false);
 $('#bHelp').onclick = helpDialog;
+$('#bProj').onclick = projectsDialog;
+$('#bLay').onclick = layoutDialog;
+addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); pjSave(false); } });
 $('#nowT').addEventListener('input', e => { AIR.manualNow = !!e.target.value.trim(); updateNow(); });
 $('#nowT').addEventListener('change', e => { if (!e.target.value.trim()) { AIR.manualNow = false; updateNow(); } });
 const pd = $('#pDecks');
@@ -1624,7 +1656,7 @@ async function spotEdit(sp) {
     h('label', {}, 'Passaggi al giorno'), inp('max', { type: 'number', min: 0, placeholder: '0 = senza limite' })),
     [['Elimina', 'del'], ['Annulla', 0], ['Salva', 1, 'pri']]);
   if (r === 1) { for (const k in f) sp[k] = k === 'max' ? (+f[k].value || 0) : f[k].value.trim(); save(); }
-  if (r === 'del' && confirm('Eliminare lo spot «' + sp.name + '»?')) { S.ads.spots.splice(S.ads.spots.indexOf(sp), 1); save(); cleanupMedia(); }
+  if (r === 'del' && await askYes('Eliminare lo spot?', '«' + sp.name + '»', 'Elimina')) { S.ads.spots.splice(S.ads.spots.indexOf(sp), 1); save(); cleanupMedia(); }
   renderTabIf('ads');
 }
 async function bufferOfKey(key) {
@@ -1777,6 +1809,7 @@ async function listsDialog() {
     box.innerHTML = '';
     box.append(h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px' },
       h('button', { class: 'pri', onclick: saveCurrentList }, '💾 Salva quella in onda come playlist'),
+      h('button', { onclick: newListFromFiles }, '📁 Nuova da file'),
       h('button', { onclick: genreDialog }, '🎲 Crea per genere')));
     if (!S.lists.length) box.append(h('div', { class: 'plEmpty' }, 'Nessuna playlist salvata. Prepara la playlist in onda e salvala, oppure creane una per genere.'));
     for (const l of S.lists) {
@@ -1786,20 +1819,34 @@ async function listsDialog() {
         gs ? h('span', { class: 'mu', style: 'flex:1 1 100%;font-size:12px' }, gs) : null,
         h('button', { class: 'pri', title: 'Sostituisce i brani ancora da mandare', onclick: () => { loadList(l, 'replace'); $('#dlg').close(); } }, 'Metti in onda'),
         h('button', { title: 'Aggiunge in fondo alla playlist in onda', onclick: () => { loadList(l, 'append'); $('#dlg').close(); } }, '＋ In coda'),
-        h('button', { title: 'Rinomina', onclick: () => { const n = prompt('Nome della playlist', l.name); if (n) { l.name = n.trim(); save(); draw(); } } }, '✎'),
+        h('button', { title: 'Rinomina', onclick: async () => { const n = await askText('Nome della playlist', l.name); if (n) { l.name = n; save(); draw(); } } }, '✎'),
         h('button', { title: 'Mescola', onclick: () => { shuffle(l.items); save(); toast('Ordine mescolato'); } }, '🔀'),
-        h('button', { title: 'Elimina', onclick: async () => { if (!confirm('Eliminare la playlist «' + l.name + '»? I file restano solo se usati altrove.')) return; S.lists.splice(S.lists.indexOf(l), 1); save(); cleanupMedia(); draw(); } }, '🗑')));
+        h('button', { title: 'Elimina', onclick: async () => { if (!await askYes('Eliminare la playlist?', '«' + l.name + '» sparisce dall\'elenco. I brani restano nella playlist in onda se ci sono.', 'Elimina')) return; S.lists.splice(S.lists.indexOf(l), 1); save(); cleanupMedia(); draw(); } }, '🗑')));
     }
   };
   draw();
   await ask('Playlist', box, [['Chiudi', 0, 'pri']]);
 }
-function saveCurrentList() {
-  if (!S.playlist.length) { toast('La playlist in onda è vuota'); return; }
-  const n = prompt('Nome della playlist', 'Playlist del ' + new Date().toLocaleDateString('it-IT'));
+/* playlist nuova scegliendo i file dal computer, senza toccare quella in onda */
+function newListFromFiles() {
+  const f = h('input', { type: 'file', multiple: true, accept: 'audio/*,.mp3,.wav,.m4a,.aac,.ogg,.opus,.flac,.wma,.aiff' });
+  f.onchange = async () => {
+    if (!f.files.length) return;
+    toast('Preparo ' + f.files.length + ' brani…');
+    const items = await addFiles([...f.files], null, true); if (!items.length) return;
+    const n = await askText('Nome della playlist', items.length + ' brani · ' + new Date().toLocaleDateString('it-IT'));
+    if (!n) { cleanupMedia(); return; }
+    S.lists.push({ id: uid('l'), name: n, items }); save(); toast('Playlist «' + n + '» salvata: ' + items.length + ' brani');
+    if ($('#dlg').open) $('#dlg').close(); listsDialog();
+  };
+  f.click();
+}
+async function saveCurrentList() {
+  if (!S.playlist.length) { toast('La playlist in onda è vuota: aggiungi prima i brani con ＋ Brani'); return; }
+  const n = await askText('Nome della playlist', 'Playlist del ' + new Date().toLocaleDateString('it-IT'));
   if (!n) return;
-  S.lists.push({ id: uid('l'), name: n.trim(), items: S.playlist.map(copyItem) }); save();
-  toast('Playlist «' + n.trim() + '» salvata'); if ($('#dlg').open) $('#dlg').close();
+  S.lists.push({ id: uid('l'), name: n, items: S.playlist.map(copyItem) }); save();
+  toast('Playlist «' + n + '» salvata'); if ($('#dlg').open) $('#dlg').close();
 }
 function loadList(l, mode) {
   const keep = S.playlist.filter(p => p.done || p === DK.A.item || p === DK.B.item);
@@ -1886,6 +1933,181 @@ async function sayTime(date, t) {
 }
 /* adesso: se mancano meno di 20 secondi al minuto successivo, annuncia quello */
 function sayTimeNow() { const n = new Date(); if (n.getSeconds() >= 40) n.setMinutes(n.getMinutes() + 1); sayTime(n); }
+
+/* ================= Disposizione dei pannelli: ordine, larghezze, altezza del mixer ================= */
+const PANS = { pDecks: 'Lettori e playlist', pCarts: 'Jingle e stacchi', side: 'Programma, ospiti, pubblicità, registrazioni', pMix: 'Mixer' };
+const LAY0 = () => ({ order: ['pDecks', 'pCarts', 'side'], w: { pDecks: 1.15, pCarts: .95, side: .8 }, hide: {}, mixH: 0 });
+const MINW = 250;
+function lay() {
+  const L = S.layout || (S.layout = LAY0());
+  for (const k of LAY0().order) { if (!L.order.includes(k)) L.order.push(k); if (!(L.w[k] > 0)) L.w[k] = LAY0().w[k]; }
+  L.hide = L.hide || {}; return L;
+}
+function visPans() { const L = lay(); const v = L.order.filter(k => !L.hide[k]); return v.length ? v : ['pDecks']; }
+function applyLayout() {
+  const L = lay(), M = $('#main'), vis = visPans();
+  M.style.gridTemplateColumns = vis.map(k => `minmax(${MINW}px,${L.w[k]}fr)`).join(' ');
+  M.style.gridTemplateRows = L.hide.pMix ? 'minmax(260px,1fr)' : `minmax(260px,1fr) ${L.mixH ? 'min(' + L.mixH + 'px,55%)' : 'auto'}`;
+  for (const k of L.order) { const p = $('#' + k); p.style.display = vis.includes(k) ? '' : 'none'; p.style.order = vis.indexOf(k); p.style.gridRow = '1'; }
+  const mx = $('#pMix'); mx.style.display = L.hide.pMix ? 'none' : ''; mx.style.order = 99; mx.style.gridRow = '2';
+  requestAnimationFrame(placeSplitters);
+}
+/* maniglie da trascinare tra i pannelli */
+let SPL = [];
+function placeSplitters() {
+  const M = $('#main'), L = lay(), vis = visPans(), mr = M.getBoundingClientRect();
+  SPL.forEach(x => x.remove()); SPL = [];
+  for (let i = 0; i < vis.length - 1; i++) {
+    const a = $('#' + vis[i]).getBoundingClientRect(), b = $('#' + vis[i + 1]).getBoundingClientRect();
+    const s = h('div', { class: 'splv', title: 'Trascina per allargare o stringere · doppio clic: larghezze iniziali' });
+    Object.assign(s.style, { left: (a.right - mr.left + M.scrollLeft) + 'px', top: (a.top - mr.top + M.scrollTop) + 'px', height: a.height + 'px', width: Math.max(8, b.left - a.right) + 'px' });
+    s.onpointerdown = e => {
+      e.preventDefault(); s.setPointerCapture(e.pointerId); s.classList.add('on');
+      const x0 = e.clientX, wa = a.width, wb = b.width, fa = L.w[vis[i]], fb = L.w[vis[i + 1]], per = (wa + wb) / (fa + fb);
+      s.onpointermove = ev => {
+        const dx = clamp(ev.clientX - x0, MINW - wa, wb - MINW);
+        L.w[vis[i]] = (wa + dx) / per; L.w[vis[i + 1]] = (wb - dx) / per;
+        M.style.gridTemplateColumns = vis.map(k => `minmax(${MINW}px,${L.w[k]}fr)`).join(' ');
+      };
+      s.onpointerup = () => { s.onpointermove = null; s.classList.remove('on'); save(); placeSplitters(); };
+    };
+    s.ondblclick = () => { const d = LAY0().w; vis.forEach(k => L.w[k] = d[k]); save(); applyLayout(); };
+    M.append(s); SPL.push(s);
+  }
+  if (!L.hide.pMix) {
+    const top = $('#' + vis[0]).getBoundingClientRect(), mx = $('#pMix').getBoundingClientRect();
+    const s = h('div', { class: 'splh', title: 'Trascina per alzare o abbassare il mixer · doppio clic: altezza automatica' });
+    Object.assign(s.style, { top: (top.bottom - mr.top + M.scrollTop) + 'px', height: Math.max(8, mx.top - top.bottom) + 'px', left: (mx.left - mr.left + M.scrollLeft) + 'px', width: mx.width + 'px' });
+    s.onpointerdown = e => {
+      e.preventDefault(); s.setPointerCapture(e.pointerId); s.classList.add('on');
+      const y0 = e.clientY, h0 = mx.height, maxH = mr.height * .55;
+      s.onpointermove = ev => { L.mixH = Math.round(clamp(h0 - (ev.clientY - y0), 120, maxH)); M.style.gridTemplateRows = `minmax(260px,1fr) min(${L.mixH}px,55%)`; };
+      s.onpointerup = () => { s.onpointermove = null; s.classList.remove('on'); save(); placeSplitters(); };
+    };
+    s.ondblclick = () => { L.mixH = 0; save(); applyLayout(); };
+    M.append(s); SPL.push(s);
+  }
+}
+addEventListener('resize', () => requestAnimationFrame(placeSplitters));
+/* finestra «Disposizione» */
+async function layoutDialog() {
+  const L = lay(), box = h('div', {});
+  const draw = () => {
+    box.innerHTML = '';
+    box.append(h('p', { class: 'hint', style: 'margin-top:0' }, 'Puoi anche trascinare le linee sottili tra i pannelli per allargarli, stringerli o alzare il mixer.'));
+    L.order.forEach((k, i) => box.append(h('div', { class: 'guest' },
+      h('label', { style: 'flex:1;display:flex;gap:8px;align-items:center' }, h('input', { type: 'checkbox', checked: !L.hide[k], onchange: e => { L.hide[k] = !e.target.checked; save(); applyLayout(); } }), PANS[k]),
+      h('button', { title: 'Sposta a sinistra', disabled: i === 0, onclick: () => { L.order.splice(i - 1, 0, L.order.splice(i, 1)[0]); save(); applyLayout(); draw(); } }, '◀'),
+      h('button', { title: 'Sposta a destra', disabled: i === L.order.length - 1, onclick: () => { L.order.splice(i + 1, 0, L.order.splice(i, 1)[0]); save(); applyLayout(); draw(); } }, '▶'))));
+    const mh = h('select', { onchange: e => { L.mixH = +e.target.value; save(); applyLayout(); } },
+      [[0, 'automatica'], [180, 'bassa'], [260, 'media'], [340, 'alta']].map(([v, t]) => h('option', { value: v, selected: L.mixH === v }, t)));
+    box.append(h('div', { class: 'guest' },
+      h('label', { style: 'flex:1;display:flex;gap:8px;align-items:center' }, h('input', { type: 'checkbox', checked: !L.hide.pMix, onchange: e => { L.hide.pMix = !e.target.checked; save(); applyLayout(); } }), PANS.pMix, ' (in basso)'),
+      h('span', { class: 'mu' }, 'altezza'), mh));
+  };
+  draw();
+  const r = await ask('Disposizione dei pannelli', box, [['Ripristina', 'reset'], ['Chiudi', 0, 'pri']]);
+  if (r === 'reset') { S.layout = LAY0(); save(); applyLayout(); toast('Disposizione iniziale ripristinata'); }
+}
+
+/* ================= Puntate: salvare e riaprire tutto quello che serve per una trasmissione ================= */
+const PJ_KEYS = ['show', 'showEnd', 'notes', 'segs', 'playlist', 'carts', 'auto', 'xfade'];
+const pjSnap = () => JSON.parse(JSON.stringify(Object.fromEntries(PJ_KEYS.map(k => [k, S[k]]))));
+const pjCur = () => (S.projects || []).find(p => p.id === S.curProj) || null;
+const pjDirty = () => { const c = pjCur(); return !c || JSON.stringify(c.data) !== JSON.stringify(pjSnap()); };
+function pjLabel() {
+  const c = pjCur(), b = $('#bProj'); if (!b) return;
+  b.textContent = '📁 ' + (c ? c.name : 'Puntate');
+  b.classList.toggle('dirty', !!c && pjDirty());
+}
+async function pjSave(asNew) {
+  S.projects = S.projects || [];
+  let c = asNew ? null : pjCur();
+  if (!c) {
+    const n = await askText('Nome della puntata', (S.show || 'Puntata') + ' · ' + new Date().toLocaleDateString('it-IT'));
+    if (!n) return false;
+    c = { id: uid('j'), name: n }; S.projects.unshift(c);
+  }
+  c.data = pjSnap(); c.date = Date.now(); S.curProj = c.id; save(); pjLabel();
+  toast('Puntata «' + c.name + '» salvata'); return true;
+}
+async function pjAskSaveFirst() {
+  if (!pjDirty() || (!S.playlist.length && !pjCur())) return true;
+  const r = await miniDlg('Salvare la puntata aperta?', h('p', {}, 'Ci sono modifiche non salvate' + (pjCur() ? ' in «' + pjCur().name + '»' : '') + '.'), [['Annulla', 0], ['Non salvare', 1], ['Salva', 2, 'pri']]);
+  if (!r) return false; if (r === 2) return pjSave(false); return true;
+}
+async function pjApply(data) {
+  const d = JSON.parse(JSON.stringify(data));
+  for (const k of PJ_KEYS) if (k in d) S[k] = d[k];
+  while (S.carts.length < 16) S.carts.push(null);
+  for (const dk of [DK.A, DK.B]) if (dk.el.paused) { deckClear(dk); refreshDeck(dk); }
+  renderPlaylist(); renderCarts(); renderTab(); $('#xf').value = S.xfade; $('#bAuto').classList.toggle('on', S.auto);
+  for (const dk of [DK.A, DK.B]) if (!dk.item) { const nx = nextItem(); if (nx) await deckLoad(dk, nx); }
+  save(); updateNow(true);
+}
+async function pjOpen(p) {
+  if (!(await pjAskSaveFirst())) return;
+  if (AIR.on && !(await askYes('Sei in onda', 'La playlist e i jingle cambiano subito; il brano che sta suonando continua.', 'Apri lo stesso'))) return;
+  await pjApply(p.data); S.curProj = p.id; save(); pjLabel(); toast('Aperta «' + p.name + '»');
+}
+async function pjNew() {
+  if (!(await pjAskSaveFirst())) return;
+  const keepCarts = await miniDlg('Nuova puntata', h('p', {}, 'Parto da una puntata vuota: playlist, scaletta e note si svuotano. I jingle li tengo?'), [['Annulla', 0], ['Svuota anche i jingle', 'no'], ['Tieni i jingle', 'si', 'pri']]);
+  if (!keepCarts) return;
+  const base = { show: S.show, showEnd: '', notes: '', playlist: [], auto: S.auto, xfade: S.xfade,
+    segs: S.segs.map(x => Object.assign({}, x, { done: false })), carts: keepCarts === 'si' ? S.carts : Array(16).fill(null) };
+  await pjApply(base); S.curProj = null; save(); pjLabel(); toast('Nuova puntata: quando è pronta premi 💾 Salva');
+}
+/* file .nwlradio: intestazione JSON + i file audio uno dopo l'altro, per portarla su un altro computer */
+async function pjExport(p) {
+  const keys = [...new Set([...(p.data.playlist || []), ...(p.data.carts || []).filter(Boolean)].map(x => x.key).filter(Boolean))];
+  const media = [], blobs = [];
+  for (const k of keys) { const m = await DB.get('media', k); if (m && m.blob) { media.push({ key: k, name: m.name, type: m.type, size: m.blob.size }); blobs.push(m.blob); } }
+  const head = new TextEncoder().encode(JSON.stringify({ v: 1, name: p.name, date: p.date, data: p.data, media }));
+  const out = new Blob([new TextEncoder().encode('NWLRADIO1\n' + String(head.length).padStart(10, '0')), head, ...blobs], { type: 'application/octet-stream' });
+  const a = h('a', { href: URL.createObjectURL(out), download: p.name.replace(/[\\/:*?"<>|]+/g, '-') + '.nwlradio' }); document.body.append(a); a.click(); a.remove();
+  toast('Esporto «' + p.name + '» (' + (out.size / 1e6).toFixed(1) + ' MB)');
+}
+async function pjImport(file) {
+  try {
+    const sig = await file.slice(0, 20).text();
+    if (!sig.startsWith('NWLRADIO1\n')) throw new Error('non è un file di NWLradio');
+    const n = +sig.slice(10, 20), H = JSON.parse(await file.slice(20, 20 + n).text());
+    let off = 20 + n;
+    for (const m of H.media || []) { const b = file.slice(off, off + m.size, m.type); off += m.size; if (!(await DB.get('media', m.key))) await DB.put('media', m.key, { blob: b, name: m.name, type: m.type }); }
+    const p = { id: uid('j'), name: H.name || file.name.replace(/\.nwlradio$/i, ''), date: Date.now(), data: H.data };
+    S.projects = S.projects || []; S.projects.unshift(p); save();
+    toast('Importata «' + p.name + '»'); return p;
+  } catch (e) { toast('Non riesco a importare: ' + e.message); return null; }
+}
+async function projectsDialog() {
+  S.projects = S.projects || [];
+  const box = h('div', {});
+  const draw = () => {
+    box.innerHTML = ''; const c = pjCur();
+    box.append(h('div', { class: 'box', style: 'margin-top:0' }, c ? h('span', {}, 'Aperta: ', h('b', {}, c.name), pjDirty() ? h('span', { class: 'mu' }, ' · modifiche non salvate') : h('span', { class: 'mu' }, ' · salvata')) : h('span', { class: 'mu' }, 'La puntata che hai davanti non è ancora salvata.')),
+      h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px' },
+        h('button', { class: 'pri', onclick: async () => { if (await pjSave(false)) draw(); } }, '💾 Salva'),
+        h('button', { onclick: async () => { if (await pjSave(true)) draw(); } }, '💾 Salva con nome'),
+        h('button', { onclick: async () => { $('#dlg').close(); await pjNew(); } }, '＋ Nuova puntata'),
+        h('button', { onclick: () => { const f = h('input', { type: 'file', accept: '.nwlradio' }); f.onchange = async () => { if (f.files[0] && await pjImport(f.files[0])) draw(); }; f.click(); } }, '📥 Importa file')));
+    if (!S.projects.length) box.append(h('div', { class: 'plEmpty' }, 'Nessuna puntata salvata. Prepara playlist, jingle e scaletta, poi premi 💾 Salva.'));
+    for (const p of S.projects) {
+      const n = (p.data.playlist || []).length, cj = (p.data.carts || []).filter(Boolean).length;
+      box.append(h('div', { class: 'guest', style: 'flex-wrap:wrap' + (p.id === S.curProj ? ';border-color:var(--ac)' : '') },
+        h('b', { style: 'flex:1 1 55%' }, p.name), h('span', { class: 'mu', style: 'flex:1 1 35%;text-align:right;font-size:12px' }, new Date(p.date).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' })),
+        h('span', { class: 'mu', style: 'flex:1 1 100%;font-size:12px' }, n + ' brani · ' + cj + ' jingle · ' + (p.data.segs || []).length + ' voci in scaletta'),
+        h('button', { class: 'pri', onclick: async () => { $('#dlg').close(); await pjOpen(p); } }, 'Apri'),
+        h('button', { title: 'Duplica', onclick: () => { S.projects.splice(S.projects.indexOf(p) + 1, 0, { id: uid('j'), name: p.name + ' (copia)', date: Date.now(), data: JSON.parse(JSON.stringify(p.data)) }); save(); draw(); } }, '⧉'),
+        h('button', { title: 'Esporta in un file (per un altro computer o come copia di sicurezza)', onclick: () => pjExport(p) }, '⤓'),
+        h('button', { title: 'Rinomina', onclick: async () => { const t = await askText('Nome della puntata', p.name); if (t) { p.name = t; save(); draw(); pjLabel(); } } }, '✎'),
+        h('button', { title: 'Elimina', onclick: async () => { if (!await askYes('Eliminare la puntata?', '«' + p.name + '» sparisce dall\'elenco. Quella che hai davanti resta com\'è.', 'Elimina')) return; S.projects.splice(S.projects.indexOf(p), 1); if (S.curProj === p.id) S.curProj = null; save(); cleanupMedia(); draw(); pjLabel(); } }, '🗑')));
+    }
+  };
+  draw();
+  await ask('Puntate', box, [['Chiudi', 0, 'pri']]);
+}
+setInterval(pjLabel, 3000);
 
 </script>
 </body>
