@@ -1,16 +1,16 @@
 {
- "version": "1.4.0",
- "date": "2026-11-25",
+ "version": "1.5.0",
+ "date": "2026-11-26",
  "notes": [
-  "NWLcut: importa tutti i formati (MOV/HEVC, MKV, AVI, WMV, MTS, MPG, FLV, HEIC, WMA, AIFF…) con conversione automatica"
+  "Schermata dei progetti salvati in NWLcut e NWLtono, modelli pronti con segnaposto da sostituire (video e audio), strumenti voce in NWLtono: migliora, isola, togli rumore e ronzio"
  ],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "798aed207e07d9ce471d036b20cae4843c4b4e42ec7d5a2cd1c3659a647d8457",
-   "size": 455484
+   "sha256": "924da2a9c83ad87d0ba99afc18a2c967443624425031ba8df493e27a30e3694a",
+   "size": 485880
   },
   {
    "path": "NWLlive.html",
@@ -19,8 +19,8 @@
   },
   {
    "path": "NWLtono.html",
-   "sha256": "b05d2352c76bac0ac5e3a954c7ad771b0ee9a82501b4a7ec450a57f8b3b1f7d7",
-   "size": 280832
+   "sha256": "92a497abc5b5ac0ccda2a1c1bae5d9044af823a5c2811a5464f5f827bd9142bc",
+   "size": 317432
   },
   {
    "path": "launcher.html",
@@ -34,7 +34,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "214652dfeb982e30d58a3f18e3378e7f8ad8d2cbf518ca5e83f584990dcaff30",
+   "sha256": "bacf00700b3082bea2c6cb8a0cae42777defd7cfcb60dc61afd0eb109aa59e17",
    "size": 20
   },
   {

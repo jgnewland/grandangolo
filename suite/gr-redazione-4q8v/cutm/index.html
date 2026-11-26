@@ -47,6 +47,11 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .homeRow{display:flex;gap:8px;margin-bottom:22px}
 .homeRow button{flex:1;padding:12px;border-radius:13px;background:var(--p2);display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px}
 #home h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 10px;font-weight:650}
+#tlist{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+#tlist .tcard{flex:0 0 150px;scroll-snap-align:start;background:var(--p1);border:1px solid var(--line);border-radius:14px;padding:8px;text-align:left;display:flex;flex-direction:column;gap:3px;color:inherit}
+#tlist .tth{height:120px;display:flex;align-items:center;justify-content:center;background:#000;border-radius:10px;margin-bottom:3px}
+#tlist small{opacity:.65;font-size:11.5px;line-height:1.3;white-space:normal}
+.tlhint{opacity:.65;font-size:13px;margin:-4px 0 10px}
 #plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .pcard{background:var(--p1);border-radius:14px;overflow:hidden;text-align:left;position:relative;border:1px solid var(--line)}
 .pcard .pth{aspect-ratio:1/1;background:#000 center/contain no-repeat}
@@ -263,6 +268,9 @@ svg.autoTL circle{fill:#ffd34d;stroke:#1a1200;stroke-width:1.5}
   </div>
   <h2>I tuoi progetti</h2>
   <div id="plist"></div>
+  <h2>Modelli pronti</h2>
+  <p class="tlhint">Transizioni, testi e musica già montati: sostituisci le clip numerate con i tuoi video e foto.</p>
+  <div id="tlist"></div>
   <div class="foot">I progetti restano salvati su questo telefono. Per spostarli su un altro dispositivo usa «Salva come file».</div>
 </section>
 
@@ -2906,6 +2914,95 @@ function sliceRamp(r, p0, p1) {
 }
 
 
+/* ================= musiche e sigle generate (senza diritti: le crea il programma) ================= */
+const NWL_MUSIC = {
+  news: { name: 'Notiziario', bpm: 100, desc: 'Pulsante, serio, per servizi e notizie' },
+  energica: { name: 'Energica', bpm: 124, desc: 'Ritmata, per reel e promo' },
+  calma: { name: 'Calma', bpm: 76, desc: 'Pianoforte e tappeto, per ricordi e racconti' },
+  podcast: { name: 'Podcast', bpm: 92, desc: 'Morbida, da sottofondo alla voce' },
+  jingle: { name: 'Sigla', desc: 'Apertura di 5 secondi' },
+  stacco: { name: 'Stacco', desc: 'Passaggio di 1,5 secondi tra due parti' },
+};
+async function nwlMusic(style, seconds, sr = 44100) {
+  // musiche lunghe: si crea un giro di 4 battute e lo si ripete (molto più veloce), con chiusura sfumata
+  if (NWL_MUSIC[style] && NWL_MUSIC[style].bpm && seconds > 24) {
+    const cyc = 60 / NWL_MUSIC[style].bpm * 16, one = await nwlMusicRaw(style, cyc + 3, sr, true), n = Math.ceil(seconds * sr), cl = Math.round(cyc * sr);
+    const O = window.OfflineAudioContext || window.webkitOfflineAudioContext, out = new O(2, n, sr).createBuffer(2, n, sr);
+    for (let c = 0; c < 2; c++) { const src = one.getChannelData(Math.min(c, one.numberOfChannels - 1)), d = out.getChannelData(c);
+      for (let o = 0; o < n; o += cl) for (let i = 0; i < src.length && o + i < n; i++) d[o + i] += src[i];
+      const fo = Math.min(n, 4 * sr); for (let i = 0; i < fo; i++) d[n - 1 - i] *= i / fo; }
+    return out;
+  }
+  return nwlMusicRaw(style, seconds, sr, false);
+}
+async function nwlMusicRaw(style, seconds, sr, loop) {
+  const O = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+  const len = style === 'jingle' ? 5.2 : style === 'stacco' ? 1.6 : seconds;
+  const ac = new O(2, Math.ceil(len * sr), sr), out = ac.createGain(); out.gain.value = .8;
+  const comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; out.connect(comp); comp.connect(ac.destination);
+  const verbIR = ac.createBuffer(2, sr * 2, sr); for (let c = 0; c < 2; c++) { const d = verbIR.getChannelData(c); for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3); }
+  const verb = ac.createConvolver(); verb.buffer = verbIR; const vg = ac.createGain(); vg.gain.value = .22; verb.connect(vg); vg.connect(out);
+  const noise = ac.createBuffer(1, sr, sr); { const d = noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+  const f = m => 440 * Math.pow(2, (m - 69) / 12);
+  const env = (g, t, a, peak, dec, sus = 0, rel = .1, end = null) => { g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(Math.max(1e-4, sus || 1e-4), t + a + dec); if (end) { g.gain.setValueAtTime(Math.max(1e-4, sus || 1e-4), end); g.gain.exponentialRampToValueAtTime(1e-4, end + rel); } };
+  const tone = (m, t, d, type = 'sawtooth', vol = .1, cut = 2400, send = .3, att = .01) => {
+    const o = ac.createOscillator(); o.type = type; o.frequency.value = f(m); const o2 = ac.createOscillator(); o2.type = type; o2.frequency.value = f(m) * 1.004;
+    const fl = ac.createBiquadFilter(); fl.type = 'lowpass'; fl.frequency.value = cut; const g = ac.createGain();
+    o.connect(fl); o2.connect(fl); fl.connect(g); g.connect(out); if (send) { const s = ac.createGain(); s.gain.value = send; g.connect(s); s.connect(verb); }
+    env(g, t, att, vol, Math.max(.05, d * .6), vol * .5, .25, t + d); o.start(t); o2.start(t); o.stop(t + d + .4); o2.stop(t + d + .4);
+  };
+  const pluck = (m, t, vol = .12, send = .35) => { const o = ac.createOscillator(); o.type = 'triangle'; o.frequency.value = f(m); const g = ac.createGain(); o.connect(g); g.connect(out); const s = ac.createGain(); s.gain.value = send; g.connect(s); s.connect(verb); env(g, t, .004, vol, 1.1); o.start(t); o.stop(t + 1.3); };
+  const kick = (t, vol = .9) => { const o = ac.createOscillator(); o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(42, t + .14); const g = ac.createGain(); o.connect(g); g.connect(out); env(g, t, .002, vol, .32); o.start(t); o.stop(t + .4); };
+  const nz = (t, d, type, freq, vol, q = .8) => { const s = ac.createBufferSource(); s.buffer = noise; const fl = ac.createBiquadFilter(); fl.type = type; fl.frequency.value = freq; fl.Q.value = q; const g = ac.createGain(); s.connect(fl); fl.connect(g); g.connect(out); env(g, t, .002, vol, d); s.start(t); s.stop(t + d + .05); };
+  const swell = (t, d, vol = .25) => { const s = ac.createBufferSource(); s.buffer = noise; s.loop = true; const fl = ac.createBiquadFilter(); fl.type = 'bandpass'; fl.Q.value = 1.2; fl.frequency.setValueAtTime(300, t); fl.frequency.exponentialRampToValueAtTime(6000, t + d); const g = ac.createGain(); g.gain.setValueAtTime(1e-4, t); g.gain.exponentialRampToValueAtTime(vol, t + d); g.gain.exponentialRampToValueAtTime(1e-4, t + d + .25); s.connect(fl); fl.connect(g); g.connect(out); s.start(t); s.stop(t + d + .3); };
+  // giro di accordi: La min, Fa, Do, Sol
+  const CH = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]], BASS = [45, 41, 36, 43];
+  if (style === 'jingle') {
+    swell(0, 1.6, .3); kick(1.6, 1); nz(1.6, .5, 'highpass', 3000, .25);
+    for (const m of [57, 60, 64, 69]) tone(m, 1.6, 2.6, 'sawtooth', .06, 3200, .5, .02);
+    tone(33, 1.6, 2.4, 'sine', .35, 400, 0); [76, 79, 81, 88].forEach((m, i) => pluck(m, 2.0 + i * .18, .16, .5));
+  } else if (style === 'stacco') {
+    swell(0, .8, .3); kick(.8, .8); nz(.8, .3, 'highpass', 4000, .2); for (const m of [57, 64, 69]) tone(m, .8, .6, 'triangle', .08, 3000, .5);
+  } else {
+    const spb = 60 / NWL_MUSIC[style].bpm, bar = spb * 4;
+    for (let b = 0, t = 0; t < len; b++, t += bar) {
+      const ci = b % 4, ch = CH[ci], V = loop ? (t < len - 3.01 ? 1 : 0) : Math.min(1, Math.max(0, (len - t) / 4));
+      if (!V) break;
+      if (style === 'calma') {
+        for (const m of ch) tone(m, t, bar * .98, 'sine', .07 * V, 1800, .6, .3);
+        [0, 1, 2, 3, 4, 5, 6, 7].forEach(i => pluck(ch[i % 3] + 12 + (i > 3 ? 12 : 0), t + i * spb / 2, .09 * V, .55));
+        tone(BASS[ci] - 12, t, bar, 'sine', .18 * V, 300, 0, .1);
+      } else if (style === 'podcast') {
+        for (const m of ch) tone(m, t, bar, 'triangle', .045 * V, 1400, .5, .4);
+        for (let i = 0; i < 4; i++) { kick(t + i * spb, .45 * V); nz(t + i * spb + spb / 2, .05, 'highpass', 7000, .05 * V); }
+        tone(BASS[ci] - 12, t, bar * .9, 'sine', .2 * V, 250, 0, .05);
+        [0, 3, 6].forEach(i => pluck(ch[i % 3] + 12, t + i * spb / 2, .06 * V, .5));
+      } else if (style === 'news') {
+        for (const m of ch) tone(m, t, bar, 'sawtooth', .03 * V, 1200, .45, .2);
+        for (let i = 0; i < 16; i++) { const tt = t + i * spb / 4; tone(ch[i % 3] + 12, tt, spb / 4 * .8, 'square', .025 * V, 1800 + 800 * Math.sin(b + i / 3), .2, .003); }
+        for (let i = 0; i < 4; i++) { kick(t + i * spb, (i % 2 ? .4 : .7) * V); nz(t + i * spb + spb / 2, .04, 'highpass', 8000, .06 * V); }
+        tone(BASS[ci] - 12, t, bar, 'sawtooth', .09 * V, 500, 0, .02);
+      } else { // energica
+        for (let i = 0; i < 4; i++) { kick(t + i * spb, .9 * V); nz(t + i * spb + spb / 2, .05, 'highpass', 8000, .12 * V); if (i % 2) nz(t + i * spb, .18, 'bandpass', 1800, .35 * V, .6); }
+        for (let i = 0; i < 8; i++) tone(BASS[ci] - 12 + (i % 2 ? 12 : 0), t + i * spb / 2, spb / 2 * .8, 'sawtooth', .1 * V, 700, 0, .004);
+        [0, 3, 6].forEach(i => { for (const m of ch) tone(m + 12, t + i * spb / 2, spb * .4, 'sawtooth', .035 * V, 2600, .35, .004); });
+        if (b % 4 === 3) swell(t + bar - spb * 2, spb * 2, .12 * V);
+      }
+    }
+  }
+  return ac.startRendering();
+}
+/* WAV a 16 bit da un AudioBuffer */
+function nwlWav(buf) {
+  const ch = Math.min(2, buf.numberOfChannels), n = buf.length, sr = buf.sampleRate, ab = new ArrayBuffer(44 + n * ch * 2), v = new DataView(ab);
+  const w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+  w(0, 'RIFF'); v.setUint32(4, 36 + n * ch * 2, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, ch, true);
+  v.setUint32(24, sr, true); v.setUint32(28, sr * ch * 2, true); v.setUint16(32, ch * 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, n * ch * 2, true);
+  const data = []; for (let c = 0; c < ch; c++) data.push(buf.getChannelData(c));
+  let o = 44; for (let i = 0; i < n; i++) for (let c = 0; c < ch; c++) { const x = Math.max(-1, Math.min(1, data[c][i])); v.setInt16(o, x < 0 ? x * 32768 : x * 32767, true); o += 2; }
+  return ab;
+}
+
 /* ================= fotogrammi chiave, maschere, fusioni, chroma key ================= */
 /* --- fotogrammi chiave: istantanee di posizione, grandezza, rotazione e opacità --- */
 const KF_P = ['x', 'y', 'scale', 'rot', 'opacity'];
@@ -3665,6 +3762,100 @@ async function makeProxy(s) {
   finally { PROXY.busy.delete(s.id); proxyChip(null); const nx = PROXY.queue.shift(); if (nx) makeProxy(nx); }
 }
 function queueProxy(s) { if (PROXY.busy.size) PROXY.queue.push(s); else makeProxy(s); }
+
+/* ================= modelli pronti: clip segnaposto, transizioni, testi e musica ================= */
+const isPhSrc = s => !!(s && s.name && s.name.startsWith('◌ '));
+const isPhClip = c => !!(c && (c.type === 'image' || c.type === 'video') && isPhSrc(sources.get(c.src)));
+const PH_HUES = [205, 160, 28, 280, 340, 50, 190, 120];
+async function phSource(n, label, w, hh) {
+  const cv = h('canvas'), s = 640 / Math.max(w, hh); cv.width = Math.round(w * s); cv.height = Math.round(hh * s); const g = cv.getContext('2d'), W = cv.width, H = cv.height, hue = PH_HUES[(n - 1) % PH_HUES.length];
+  const gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, `hsl(${hue} 45% 32%)`); gr.addColorStop(1, `hsl(${hue + 30} 50% 14%)`); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  g.strokeStyle = 'rgba(255,255,255,.07)'; g.lineWidth = W / 26; for (let x = -H; x < W; x += W / 9) { g.beginPath(); g.moveTo(x, H); g.lineTo(x + H, 0); g.stroke(); }
+  const u = Math.min(W, H); g.fillStyle = 'rgba(255,255,255,.92)'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = `800 ${u * .26}px Archivo, sans-serif`; g.fillText(String(n), W / 2, H / 2 - u * .1);
+  g.font = `600 ${u * .062}px Archivo, sans-serif`; g.fillText(label, W / 2, H / 2 + u * .12);
+  g.font = `500 ${u * .045}px Archivo, sans-serif`; g.fillStyle = 'rgba(255,255,255,.7)'; g.fillText('Sostituisci con un tuo video o foto', W / 2, H / 2 + u * .21);
+  const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+  return addSourceFromBlob(blob, '◌ Clip ' + n + ' — ' + label + '.png');
+}
+async function musicSource(style, sec, name) {
+  const b = await nwlMusic(style, sec); return addSourceFromBlob(new Blob([nwlWav(b)], { type: 'audio/wav' }), name + '.wav');
+}
+/* slot: [etichetta, durata, movimento, entrata] */
+const VTEMPLATES = [
+  { id: 'notizia', name: 'Notizia breve', fmt: '9:16', music: 'news', desc: 'Titolo, 4 clip, lower third del kit, logo. Per Reels e TikTok.', kit: true,
+    slots: [['Il fatto', 4.5, 'zoomin', 'fade'], ['Il luogo', 4, 'panR', 'slideL'], ['Un dettaglio', 4, 'zoomout', 'slideL'], ['Chi parla', 6, 'none', 'cross']],
+    texts: [{ at: 0, dur: 3, p: 'titlebox', content: 'Il titolo della notizia' }], l3: { at: 13, dur: 5, content: 'Nome Cognome', sub: 'Ruolo' } },
+  { id: 'reel', name: 'Reel dinamico', fmt: '9:16', music: 'energica', desc: '8 clip veloci a tempo di musica, con zoom d\'impatto e titolo.', beats: 2,
+    slots: Array.from({ length: 8 }, (_, i) => ['Scena ' + (i + 1), 0, i % 2 ? 'zoomout' : 'zoomin', i ? 'none' : 'fade']), qfx: 'punch',
+    texts: [{ at: .2, dur: 2.2, p: 'date', content: 'IL TUO TITOLO' }] },
+  { id: 'servizio', name: 'Servizio TV', fmt: '16:9', music: 'news', desc: 'Sigla e outro del kit, 5 clip, lower third «Servizio di», logo.', kit: true, intro: true, outro: true, musicVol: -18,
+    slots: [['Apertura', 5, 'zoomin', 'fade'], ['Contesto', 5, 'panR', 'cross'], ['Intervista', 8, 'none', 'cross'], ['Immagini', 5, 'panL', 'cross'], ['Chiusura', 5, 'zoomout', 'cross']],
+    l3: { at: 1, dur: 6, kicker: 'Servizio di', content: 'Nome del giornalista', sub: '' } },
+  { id: 'ricordi', name: 'Ricordi', fmt: '16:9', music: 'calma', desc: '8 foto o clip con movimento lento, dissolvenze e musica al pianoforte.',
+    slots: Array.from({ length: 8 }, (_, i) => ['Ricordo ' + (i + 1), 4, ['zoomin', 'panR', 'zoomout', 'panL'][i % 4], i ? 'cross' : 'black']),
+    texts: [{ at: .5, dur: 4, p: 'quote', content: '«Il titolo dei tuoi ricordi»' }], end: { dur: 4, p: 'title', content: 'Grazie' } },
+  { id: 'intervista', name: 'Intervista', fmt: '16:9', music: 'podcast', desc: 'Titolo, domanda e risposta, immagini di copertura, nome e ruolo.', kit: true, musicVol: -22,
+    slots: [['Ospite: risposta', 15, 'none', 'fade'], ['Immagini di copertura', 5, 'zoomin', 'cross'], ['Ospite: seconda risposta', 15, 'none', 'cross'], ['Chiusura', 5, 'zoomout', 'cross']],
+    texts: [{ at: 0, dur: 3.5, p: 'titlebox', content: 'Titolo dell\'intervista' }], l3: { at: 1, dur: 6, content: 'Nome dell\'ospite', sub: 'Ruolo' } },
+  { id: 'promo', name: 'Promo evento', fmt: '1:1', music: 'energica', desc: 'Titolo grande, data, 5 clip a tempo, invito finale.', beats: 4,
+    slots: Array.from({ length: 5 }, (_, i) => ['Evento ' + (i + 1), 0, i % 2 ? 'panR' : 'zoomin', i ? 'slideU' : 'zoom']),
+    texts: [{ at: 0, dur: 3, p: 'title', content: 'NOME DELL\'EVENTO' }, { at: 3.2, dur: 3, p: 'date', content: 'SABATO 12 DICEMBRE' }], end: { dur: 3.5, p: 'titlebox', content: 'Ti aspettiamo!' } },
+];
+/* costruisce il modello nel progetto aperto (già vuoto e del formato giusto) */
+async function buildTemplate(T, say = () => { }) {
+  proj.name = T.name;
+  const vt = mainVideoTrack(), tt = proj.tracks.find(t => t.kind === 'video' && t !== vt) || addTrack('video', 'Titoli', 0);
+  const mt = proj.tracks.filter(t => t.kind === 'audio').pop() || addTrack('audio', 'Musica');
+  const kit = typeof kitNow === 'function' ? kitNow() : null;
+  let t = 0;
+  if (T.intro && kit && kit.files.intro) { say('Inserisco la sigla del kit…'); const id = await kitSource(kit, 'intro'); if (id) { const s = sources.get(id), c = mkClip('video', id, vt.id, 0, s.duration); c.fit = 'contain'; c.tout = { type: 'black', dur: .4 }; proj.clips.push(c); t = s.duration; } }
+  const t0 = t, spb = T.beats ? 60 / NWL_MUSIC[T.music].bpm : 0;
+  for (let i = 0; i < T.slots.length; i++) {
+    const [label, dur0, kb, tin] = T.slots[i]; say('Preparo la clip ' + (i + 1) + '…');
+    const s = await phSource(i + 1, label, proj.w, proj.h), dur = T.beats ? spb * T.beats : dur0;
+    const c = mkClip('image', s.id, vt.id, t, dur); c.fit = 'cover'; c.kb = kb; c.name = label;
+    if (tin === 'cross' && i) { c.tin = { type: 'cross', dur: .6 }; } else if (tin && tin !== 'none') c.tin = { type: tin, dur: T.beats ? .25 : .6 };
+    if (T.qfx && i) c.qfx = T.qfx;
+    proj.clips.push(c); t += dur;
+  }
+  let end = t;
+  if (T.end) { const c = mkClip('text', null, tt.id, end - .3, T.end.dur); const p = TEXTS.find(x => x.id === T.end.p); c.text = Object.assign(TX0(), p.set, { content: T.end.content }); c.tin = { type: 'fade', dur: .6 }; c.tout = { type: 'fade', dur: .6 }; if (proj.h >= proj.w || proj.w === proj.h) c.text.boxW = .86; proj.clips.push(c); end = c.start + c.dur; }
+  if (T.outro && kit && kit.files.outro) { say('Inserisco l\'outro del kit…'); const id = await kitSource(kit, 'outro'); if (id) { const s = sources.get(id), c = mkClip('video', id, vt.id, end, s.duration); c.fit = 'contain'; c.tin = { type: 'black', dur: .4 }; proj.clips.push(c); } }
+  for (const x of T.texts || []) { const p = TEXTS.find(q => q.id === x.p) || TEXTS[0], c = mkClip('text', null, tt.id, t0 + x.at, x.dur); c.text = Object.assign(TX0(), p.set, { content: x.content }); c.x = p.x ?? .5; c.y = p.y ?? .5; if (p.tin) c.tin = { type: p.tin, dur: .5 }; if (p.tout) c.tout = { type: p.tout, dur: .5 }; if (proj.h >= proj.w && c.text.boxW < .8) c.text.boxW = .86; proj.clips.push(c); }
+  if (T.l3 && typeof addGL3 === 'function') { const ltr = addTrack('video', 'Lower third', 0); addGL3(ltr.id, t0 + T.l3.at, T.l3.dur, { kicker: T.l3.kicker ?? (kit ? kit.kicker : ''), content: T.l3.content, sub: T.l3.sub }); }
+  if (T.kit && kit && kit.files.logo && typeof addKitLogo === 'function') { const c = await addKitLogo(t0, t); }
+  say('Compongo la musica…');
+  const total = Math.max(5, (T.outro ? t : end) - t0 + 2), ms = await musicSource(T.music, total, 'Musica — ' + NWL_MUSIC[T.music].name);
+  const mc = mkClip('audio', ms.id, mt.id, t0, Math.min(ms.duration, (T.outro ? t : end) - t0 + .5)); mc.vol = T.musicVol ?? -10; mc.fadeIn = .5; mc.fadeOut = 2; mc.name = 'Musica'; proj.clips.push(mc);
+  if (T.beats) { proj.beats = []; for (let b = t0; b < end; b += spb) proj.beats.push(b); proj.bpm = NWL_MUSIC[T.music].bpm; }
+  S.sel = proj.clips.find(c => isPhClip(c))?.id || null; S.playhead = t0 + .3;
+}
+/* sostituire un segnaposto con un video o una foto */
+async function phReplaceWith(c, file) {
+  if (!c || !file) return;
+  toast('Inserisco ' + file.name + '…', 60000);
+  try {
+    const s = await (typeof addSourceSmart === 'function' ? addSourceSmart(file) : addSourceFromBlob(file, file.name));
+    phReplaceSrc(c, s);
+  } catch (e) { console.error(e); toast('Non riesco ad aprire ' + file.name, 6000); }
+}
+function phReplaceSrc(c, s) {
+  if (s.type === 'video') {
+    c.type = 'video'; c.src = s.id; c.offset = 0; delete c.ramp;
+    const len = s.duration || c.dur; c.speed = len < c.dur ? Math.max(.5, len / c.dur) : 1; // se il video è più corto, rallenta un po' per riempire lo spazio
+    if (len / c.speed < c.dur - .05) c.dur = len / c.speed;
+    c.kb = 'none';
+  } else if (s.type === 'image') { c.type = 'image'; c.src = s.id; }
+  else { toast('Qui ci vuole un video o una foto'); return; }
+  c.fit = 'cover'; c.name = s.name;
+  commit(); renderAll(); renderLib(); seekPreview();
+  const next = proj.clips.filter(isPhClip).sort((a, b) => a.start - b.start)[0];
+  toast(next ? 'Fatto. Prossimo segnaposto: «' + (next.name || 'clip') + '»' : 'Tutti i segnaposto sostituiti: guarda l\'anteprima e poi esporta!', 5000);
+  if (next) { S.sel = next.id; if (typeof select === 'function') select(next.id); setPlayhead(next.start + .1); }
+}
+function pickMediaFile() { return new Promise(res => { const i = h('input', { type: 'file', accept: 'video/*,image/*', style: 'display:none' }); i.onchange = () => { res(i.files[0] || null); i.remove(); }; document.body.append(i); i.click(); }); }
+async function phReplaceAsk(c) { const f = await pickMediaFile(); if (f) await phReplaceWith(c, f); }
 
 /* ================= audio: grafo di mixaggio ================= */
 const VIS_FADES = ['fade', 'black', 'white', 'zoom', 'zoomOut', 'blur', 'circle', 'wipeL', 'wipeR', 'slideL', 'slideR', 'slideU', 'slideD'];
@@ -6200,8 +6391,10 @@ async function freezeFrame(c, at, len = 2) {
 }
 
 /* ================= novità: si aprono la prima volta dopo un aggiornamento ================= */
-const APP_VER = '1.4.0';
-const NOVITA = [['1.3.5', [
+const APP_VER = '1.5.0';
+const NOVITA = [['1.5.0', [
+  ['🎞', 'Modelli pronti', 'Nella schermata iniziale ci sono sei video già montati con transizioni, testi e musica. Tocca una clip numerata e poi «Sostituisci» per metterci i tuoi video e le tue foto.'],
+]], ['1.3.5', [
   ['🔊', 'Audio sempre presente', 'Corretto: con i video lunghi o pesanti l\'audio poteva sparire quando partiva l\'anteprima leggera.'],
 ]], ['1.3.4', [
   ['▶', 'Anteprima leggera', 'I video pesanti del telefono (4K, HEVC) vengono copiati in una versione piccola solo per montare: l\'anteprima scorre fluida. L\'esportazione usa sempre l\'originale. La prima volta, dopo l\'importazione, vedi «Preparo l\'anteprima leggera…» in alto.'],
@@ -6355,6 +6548,27 @@ try { NWLX.chan && NWLX.chan.addEventListener('message', e => { if (e.data && e.
 addEventListener('focus', () => checkInbox()); setInterval(checkInbox, 15000);
 /* nei pannelli, i pezzi opzionali (null) non diventano testo */
 { const sb = $('#shB'); if (sb) sb.append = function (...k) { Element.prototype.append.apply(this, k.flat(9).filter(x => x != null && x !== false)); }; }
+
+/* ================= modelli pronti (stessi del programma per computer) e sostituzione dei segnaposto ================= */
+function tplThumbM(T) {
+  const [w, hh] = FORMATS[T.fmt], c = h('canvas'), k = 120 / Math.max(w, hh); c.width = Math.round(w * k); c.height = Math.round(hh * k); const g = c.getContext('2d');
+  const n = T.slots.length, cols = Math.ceil(Math.sqrt(n * c.width / c.height)), rows = Math.ceil(n / cols), cw = c.width / cols, ch = c.height / rows;
+  T.slots.forEach((s, i) => { g.fillStyle = `hsl(${PH_HUES[i % PH_HUES.length]} 45% 30%)`; g.fillRect((i % cols) * cw + 1, Math.floor(i / cols) * ch + 1, cw - 2, ch - 2); g.fillStyle = 'rgba(255,255,255,.85)'; g.font = `700 ${Math.min(cw, ch) * .4}px sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(i + 1, (i % cols + .5) * cw, (Math.floor(i / cols) + .5) * ch); });
+  return c;
+}
+async function useTemplateM(id) {
+  const T = VTEMPLATES.find(x => x.id === id); if (!T) return;
+  await createProject(T.fmt); busyMsg('Preparo il modello «' + T.name + '»…');
+  try { await buildTemplate(T, t => busyMsg(t)); proj.name = T.name; busyMsg(null); commit(); afterProjectChange(); renderAll(); seekPreview(); await saveCurrent();
+    toast('Modello pronto: tocca una clip numerata e poi «Sostituisci» per metterci un tuo video o una foto.', 7000); }
+  catch (e) { busyMsg(null); console.error(e); toast('Non riesco a preparare il modello: ' + e.message, 6000); }
+}
+function renderTemplatesM() {
+  const L = $('#tlist'); if (!L) return; L.innerHTML = '';
+  for (const T of VTEMPLATES) L.append(h('button', { class: 'tcard', onclick: () => useTemplateM(T.id) }, h('div', { class: 'tth' }, tplThumbM(T)), h('b', {}, T.name), h('small', {}, T.fmt + ' · ' + T.desc)));
+}
+{ const _rt = renderTools; renderTools = function () { _rt(); const c = selClip(); if (c && isPhClip(c)) { const b = tool('folder', 'Sostituisci', () => phReplaceAsk(c), 'hl'); const box = $('#tools'); box.insertBefore(b, box.children[1] || null); } }; }
+renderTemplatesM();
 
 </script>
 </body>
