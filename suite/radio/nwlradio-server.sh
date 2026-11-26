@@ -124,5 +124,5 @@ echo "  (funziona quando sei in onda; certificato https: ${CERT})"
 echo
 echo "  Pannello del server: https://${DOMAIN}/admin/  utente admin  password ${ADM_PASS}"
 echo "  Questi dati sono salvati in /root/nwlradio-server.txt (sudo cat /root/nwlradio-server.txt)"
-echo "  Ricorda: nella console di Oracle apri le porte 80, 443 e 8000 (vedi la guida)."
+echo "  Se il fornitore ha un firewall esterno, apri le porte 80, 443 e 8000."
 echo "=================================================================="
