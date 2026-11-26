@@ -18,11 +18,12 @@ header img{width:54px;height:54px}
 h1{margin:0;font-weight:900;font-size:26px;letter-spacing:.02em;line-height:1}
 h1 small{display:block;font-size:11px;letter-spacing:.32em;color:var(--muted);font-weight:700;margin-top:6px}
 .sub{color:var(--muted);margin:26px 0 18px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
-.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1}
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1}
 .app{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;cursor:pointer;transition:transform .18s,border-color .18s,background .18s;overflow:hidden}
 .app:hover{transform:translateY(-3px);border-color:var(--ac);background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03))}
 .app::before{content:"";position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--ac),transparent 65%);opacity:.2}
-.cut{--ac:var(--lime)}.tono{--ac:var(--cyan)}.live{--ac:#ff3b5c}.live .btn{color:#fff}
+.cut{--ac:var(--lime)}.tono{--ac:var(--cyan)}.live{--ac:#ff3b5c}.live .btn{color:#fff}.radio{--ac:#ff9f1c}
+.app{padding:16px}.top{gap:12px}.top img{width:52px;height:52px;border-radius:14px}h2{font-size:20px}.app p{font-size:12.5px;margin-top:12px}.btn{padding:10px 18px;font-size:14px}
 .top{display:flex;gap:16px;align-items:center}
 .top img{width:64px;height:64px;border-radius:17px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
 .cat{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);font-weight:800}
@@ -64,17 +65,30 @@ kbd{font:600 11px inherit;font-family:inherit;border:1px solid var(--line);borde
       <p>Regia televisiva: green screen e studio virtuale, camere virtuali, inviati in collegamento, servizi, grafica, diretta su YouTube e Facebook.</p>
       <button class="btn">Apri NWLlive</button>
     </div>
+    <div class="app radio" data-k="radio">
+      <div class="top"><img src="icone/nwlradio.png" alt=""><div><div class="cat">Radio</div><h2>NWLradio</h2></div></div>
+      <p>Regia radio: microfoni con voce da radio, lettori con playlist, jingle, segnale orario, ospiti al telefono. Manda il segnale alle radio FM.</p>
+      <button class="btn">Apri NWLradio</button>
+    </div>
   </div>
   <footer><span class="upd" id="upd" data-s="idle"><i class="dot"></i><span id="updMsg">Versione aggiornata automaticamente dal sito</span><button id="updBtn">Cerca aggiornamenti</button></span><span>© Newland Studio · versione <b id="v">1.0.0</b> · <a href="https://edicola.grandangoloregionale.it/suite/" target="_blank">sito</a></span></footer>
 </main>
 <script>
-document.querySelectorAll('.app').forEach(function (el) { el.onclick = function () { window.suite.open(el.dataset.k); }; });
-addEventListener('keydown', function (e) { if (e.key === '1') suite.open('cut'); if (e.key === '2') suite.open('tono'); if (e.key === '3') suite.open('live'); });
+var OLD = false;  // il programma installato è precedente alla 1.6: NWLradio richiede di reinstallarlo una volta
+function vlt(a, b) { a = String(a).split('.').map(Number); b = String(b).split('.').map(Number); for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) < (b[i] || 0); } return false; }
+function openK(k) { if (k === 'radio' && OLD) { suite.openSetup(); return; } window.suite.open(k); }
+document.querySelectorAll('.app').forEach(function (el) { el.onclick = function () { openK(el.dataset.k); }; });
+addEventListener('keydown', function (e) { if (e.key === '1') suite.open('cut'); if (e.key === '2') suite.open('tono'); if (e.key === '3') suite.open('live'); if (e.key === '4') openK('radio'); });
 suite.version().then(function (v) { document.getElementById('v').textContent = v; });
 var U = document.getElementById('upd'), UM = document.getElementById('updMsg'), UB = document.getElementById('updBtn');
 suite.onUpdate(function (s) {
   U.dataset.s = s.state; if (s.msg) UM.textContent = s.msg;
   document.getElementById('v').textContent = s.current;
+  if (s.shell && vlt(s.shell, '1.6.0') && !OLD) {
+    OLD = true; var r = document.querySelector('.app.radio');
+    r.querySelector('p').textContent = 'Per usare NWLradio scarica e installa una volta il nuovo programma per Windows: i tuoi progetti restano dove sono.';
+    r.querySelector('.btn').textContent = 'Scarica il nuovo programma';
+  }
   UB.disabled = s.state === 'checking' || s.state === 'downloading';
   UB.style.display = UB.disabled ? 'none' : '';
   UB.textContent = s.state === 'setup' ? 'Scarica il nuovo programma' : s.store ? 'Apri lo Store' : 'Cerca aggiornamenti';
