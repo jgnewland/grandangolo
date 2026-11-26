@@ -74,18 +74,26 @@ kbd{font:600 11px inherit;font-family:inherit;border:1px solid var(--line);borde
   <footer><span class="upd" id="upd" data-s="idle"><i class="dot"></i><span id="updMsg">Versione aggiornata automaticamente dal sito</span><button id="updBtn">Cerca aggiornamenti</button></span><span>© Newland Studio · versione <b id="v">1.0.0</b> · <a href="https://edicola.grandangoloregionale.it/suite/" target="_blank">sito</a></span></footer>
 </main>
 <script>
-document.querySelectorAll('.app').forEach(function (el) { el.onclick = function () { window.suite.open(el.dataset.k); }; });
-addEventListener('keydown', function (e) { if (e.key === '1') suite.open('cut'); if (e.key === '2') suite.open('tono'); if (e.key === '3') suite.open('live'); if (e.key === '4') suite.open('radio'); });
+var OLD = false;  // il programma installato è precedente alla 1.6: NWLradio richiede di reinstallarlo una volta
+function vlt(a, b) { a = String(a).split('.').map(Number); b = String(b).split('.').map(Number); for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) < (b[i] || 0); } return false; }
+function openK(k) { if (k === 'radio' && OLD) { window.open('https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe'); return; } window.suite.open(k); }
+document.querySelectorAll('.app').forEach(function (el) { el.onclick = function () { openK(el.dataset.k); }; });
+addEventListener('keydown', function (e) { if (e.key === '1') suite.open('cut'); if (e.key === '2') suite.open('tono'); if (e.key === '3') suite.open('live'); if (e.key === '4') openK('radio'); });
 suite.version().then(function (v) { document.getElementById('v').textContent = v; });
 var U = document.getElementById('upd'), UM = document.getElementById('updMsg'), UB = document.getElementById('updBtn');
 suite.onUpdate(function (s) {
   U.dataset.s = s.state; if (s.msg) UM.textContent = s.msg;
   document.getElementById('v').textContent = s.current;
+  if (s.shell && vlt(s.shell, '1.6.0') && !OLD) {
+    OLD = true; var r = document.querySelector('.app.radio');
+    r.querySelector('p').textContent = 'Per usare NWLradio installa una volta il nuovo programma: il pulsante scarica direttamente il file .exe. Aprilo, conferma e i tuoi progetti restano dove sono.';
+    r.querySelector('.btn').textContent = 'Scarica l\'installer (.exe)';
+  }
   UB.disabled = s.state === 'checking' || s.state === 'downloading';
   UB.style.display = UB.disabled ? 'none' : '';
   UB.textContent = s.state === 'setup' ? 'Scarica il nuovo programma' : s.store ? 'Apri lo Store' : 'Cerca aggiornamenti';
 });
-UB.onclick = function () { if (U.dataset.s === 'setup') suite.openSetup(); else suite.checkUpdates(); };
+UB.onclick = function () { if (U.dataset.s === 'setup') window.open('https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe'); else suite.checkUpdates(); };
 </script>
 </body>
 </html>
