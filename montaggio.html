@@ -202,21 +202,6 @@ body.dragging .newlane{display:flex}
   .tgrip svg{width:16px;height:16px}
 }
 /* progetti, modelli, voce */
-#home{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:auto;display:none}
-#home.show{display:block}
-#home .hw{max-width:980px;margin:0 auto;padding:24px 18px 60px}
-#home .hh{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
-#home small{color:var(--accent);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:11px}
-#home h1{margin:2px 0 0;font-size:30px}#home h2{font-size:17px;margin:26px 0 10px}
-#home .hacts{display:flex;gap:8px;flex-wrap:wrap}#home .hacts button{min-height:44px;padding:8px 16px;font-size:15px}
-#home .hlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
-#home .hp{display:flex;gap:4px;align-items:stretch}
-#home .hpo{flex:1;flex-direction:column;align-items:flex-start;padding:10px 12px;min-height:56px;white-space:normal;text-align:left}
-#home .hpo b{font-size:15px}#home .hpo span{color:var(--muted);font-size:12px}
-#home .hr,#home .hd{padding:0 10px}
-#home .hmod{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
-#home .hm{flex-direction:column;align-items:flex-start;gap:4px;padding:12px;min-height:84px;white-space:normal;text-align:left;border-color:rgba(227,166,60,.35)}
-#home .hm b{font-size:15px;color:var(--accent)}#home .hm span{color:var(--muted);font-size:12.5px;line-height:1.3}
 button.primary{background:var(--accent);color:#1b1306;border-color:var(--accent);font-weight:600}
 dialog.plusdlg{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:16px;max-width:min(520px,92vw)}
 dialog.plusdlg .pl{display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow:auto;margin:8px 0}
@@ -2023,6 +2008,184 @@ function nwlWav(buf) {
   return ab;
 }
 
+/* ================= Newland Studio: schermata iniziale comune e collegamenti tra i programmi della suite ================= */
+const NWL_SUITE = [
+  { key: 'cut', name: 'NWLcut', tag: 'Montaggio video', desc: 'Tracce, titoli, sottotitoli, transizioni, modelli pronti ed esportazione MP4.', color: '#b4fb0b', ab: 'Ct' },
+  { key: 'tono', name: 'NWLtono', tag: 'Montaggio audio', desc: 'Podcast, audiolibri e notiziari: voce pulita, musiche e sigle.', color: '#40d6ff', ab: 'To' },
+  { key: 'live', name: 'NWLlive', tag: 'Regia in diretta', desc: 'Grafiche, collegamenti con gli inviati e diretta su YouTube e Facebook.', color: '#ff3d5a', ab: 'Lv' },
+];
+const NWLH_WEB = 'https://edicola.grandangoloregionale.it/suite/';
+function nwlE(tag, a, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in a || {}) { const v = a[k]; if (v == null || v === false) continue; if (k[0] === 'o' && k[1] === 'n') e.addEventListener(k.slice(2), v); else if (k === 'style' && typeof v === 'object') { for (const q in v) if (v[q] != null) { if (q.startsWith('--')) e.style.setProperty(q, v[q]); else e.style[q] = v[q]; } } else e.setAttribute(k, v === true ? '' : v); }
+  for (const k of kids.flat(9)) if (k != null && k !== false) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const nwlMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent)) || innerWidth < 700;
+/* icona di un programma: il logo vero se disponibile, altrimenti una piastrella con le stesse lettere e lo stesso colore */
+function nwlIcon(key, size) {
+  const a = NWL_SUITE.find(x => x.key === key), src = (window.NWL_ICONS || {})[key];
+  if (src) return nwlE('img', { class: 'nico', src, alt: '', style: { width: size + 'px', height: size + 'px' } });
+  if (key === 'newland') return nwlE('span', { class: 'nico ntile', style: { width: size + 'px', height: size + 'px', '--c': '#b4fb0b', fontSize: size * .5 + 'px' } }, 'N');
+  return nwlE('span', { class: 'nico ntile', style: { width: size + 'px', height: size + 'px', '--c': a ? a.color : '#fff', fontSize: size * .36 + 'px' } }, a ? a.ab : '?');
+}
+/* indirizzo dell'altro programma: nel programma per Windows si apre la sua finestra, nel sito la sua pagina */
+function nwlAppHref(key) {
+  const mob = nwlMobile(), p = location.pathname, m = p.match(/^(.*?\/)(gr-redazione-[^/]+\/)?(cut|cutm|tono|live)\/[^/]*$/);
+  const sub = key === 'cut' ? (mob ? 'cutm/' : 'cut/') : key + '/';
+  if (/^https?:$/.test(location.protocol) && m) return m[1] + (key === 'cut' ? (m[2] || '') : '') + sub;
+  return NWLH_WEB + sub;
+}
+function nwlOpenApp(key, ev) {
+  if (window.suite && typeof window.suite.open === 'function') { if (ev) ev.preventDefault(); window.suite.open(key); return; }
+}
+/* barra con i collegamenti rapidi */
+function nwlDock(cur) {
+  return nwlE('nav', { class: 'ndock', 'aria-label': 'Programmi della suite' }, NWL_SUITE.map(a => a.key === cur
+    ? nwlE('span', { class: 'ndk cur', title: a.name + ' · sei qui', style: { '--c': a.color } }, nwlIcon(a.key, 28), nwlE('b', {}, a.name))
+    : nwlE('a', { class: 'ndk', href: nwlAppHref(a.key), target: window.suite ? null : '_blank', rel: 'noopener', title: 'Apri ' + a.name + ' — ' + a.tag, style: { '--c': a.color }, onclick: e => nwlOpenApp(a.key, e) }, nwlIcon(a.key, 28), nwlE('b', {}, a.name))));
+}
+/* schede grandi degli altri programmi, in fondo alla schermata */
+function nwlSuiteCards(cur) {
+  return nwlE('div', { class: 'nsuite' }, NWL_SUITE.map((a, i) => {
+    const inner = [nwlIcon(a.key, 54), nwlE('div', { class: 'nst' }, nwlE('b', {}, a.name), nwlE('small', {}, a.tag), nwlE('p', {}, a.desc)), nwlE('span', { class: 'ngo' }, a.key === cur ? 'Sei qui' : 'Apri →')];
+    return a.key === cur ? nwlE('div', { class: 'nsc cur nanim', style: { '--c': a.color, '--i': i } }, inner)
+      : nwlE('a', { class: 'nsc nanim', href: nwlAppHref(a.key), target: window.suite ? null : '_blank', rel: 'noopener', style: { '--c': a.color, '--i': i }, onclick: e => nwlOpenApp(a.key, e) }, inner);
+  }));
+}
+function nwlGreeting() { const h = new Date().getHours(); return h < 5 ? 'Buonanotte' : h < 13 ? 'Buongiorno' : h < 18 ? 'Buon pomeriggio' : 'Buonasera'; }
+/* lo scheletro: barra in alto, intestazione con il logo, poi le sezioni del programma */
+function nwlHomeFrame(id, cur, o) {
+  nwlHomeCSS();
+  let H = document.getElementById(id); if (!H) { H = nwlE('div', { id }); document.body.append(H); }
+  const a = NWL_SUITE.find(x => x.key === cur);
+  H.className = 'nwlh' + (H.classList.contains('on') ? ' on' : ''); H.style.setProperty('--ha', a.color); H.innerHTML = '';
+  const body = nwlE('div', { class: 'nbody' });
+  H.append(nwlE('div', { class: 'nw' },
+    nwlE('header', { class: 'ntop' },
+      nwlE('div', { class: 'nbrand' }, nwlIcon('newland', 30), nwlE('span', {}, o.edition || 'Newland Studio')),
+      nwlDock(cur),
+      o.back ? nwlE('button', { class: 'nback', onclick: o.back }, '← Torna al montaggio') : null),
+    nwlE('section', { class: 'nhero' },
+      nwlE('div', { class: 'nbigw' }, nwlIcon(cur, 112)),
+      nwlE('div', { class: 'nht' },
+        nwlE('small', {}, a.tag),
+        nwlE('h1', {}, a.name),
+        nwlE('p', {}, nwlGreeting() + '. ' + (o.line || '')),
+        o.chips && o.chips.length ? nwlE('div', { class: 'nchips' }, o.chips.map(c => nwlE('span', {}, c))) : null)),
+    body,
+    nwlE('section', { class: 'nsec' }, nwlE('h2', {}, nwlE('span', {}, 'Newland Studio Suite'), nwlE('i')), nwlE('p', { class: 'nhint' }, 'Gli altri programmi della suite: i file passano dall\'uno all\'altro da soli.'), nwlSuiteCards(cur)),
+    nwlE('footer', { class: 'nfoot' }, nwlIcon('newland', 18), ' Newland Studio · i tuoi file restano su questo dispositivo')));
+  return { H, body };
+}
+function nwlSection(title, hint, count) {
+  return nwlE('section', { class: 'nsec' }, nwlE('h2', {}, nwlE('span', {}, title), count != null ? nwlE('em', {}, count) : null, nwlE('i')), hint ? nwlE('p', { class: 'nhint' }, hint) : null);
+}
+/* piccola onda decorativa, sempre uguale per lo stesso progetto */
+function nwlWave(seed, color) {
+  let x = 0; for (const ch of String(seed)) x = (x * 31 + ch.charCodeAt(0)) >>> 0;
+  const rnd = () => (x = (x * 1664525 + 1013904223) >>> 0) / 4294967296, n = 46; let d = '';
+  for (let i = 0; i < n; i++) { const hgt = 6 + Math.pow(Math.sin(i / n * Math.PI), .6) * (10 + rnd() * 30); d += `<rect x="${i * 5 + 1}" y="${30 - hgt / 2}" width="3" height="${hgt}" rx="1.5"/>`; }
+  const s = nwlE('div', { class: 'nwave' }); s.innerHTML = `<svg viewBox="0 0 ${n * 5} 60" preserveAspectRatio="none" fill="${color}">${d}</svg>`; return s;
+}
+function nwlHomeCSS() {
+  if (document.getElementById('nwlhCSS')) return;
+  document.head.append(nwlE('style', { id: 'nwlhCSS' }, `
+.nwlh{--ha:#b4fb0b;--t:#eef1ff;--m:#97a3cf;--ln:rgba(255,255,255,.09);position:fixed;inset:0;z-index:900;overflow:auto;display:none;color:var(--t);background:#040922;font-family:Inter,Archivo,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;scrollbar-color:#1e2b63 transparent}
+.nwlh.on{display:block}
+.nwlh.ninl{flex:none;position:static;display:block;overflow:visible;background:none;z-index:auto;font-family:inherit}.nwlh.ninl::before,.nwlh.ninl::after{display:none}
+.nwlh::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(1000px 560px at 92% -12%,color-mix(in srgb,var(--ha) 17%,transparent),transparent 62%),radial-gradient(900px 640px at -12% 108%,rgba(70,110,255,.17),transparent 60%)}
+.nwlh::after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px) 0 0/46px 46px,linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px) 0 0/46px 46px;-webkit-mask-image:radial-gradient(1100px 520px at 50% 0,#000,transparent 75%);mask-image:radial-gradient(1100px 520px at 50% 0,#000,transparent 75%)}
+.nwlh *{box-sizing:border-box}
+.nwlh button{all:unset;box-sizing:border-box;cursor:pointer}
+.nwlh a{color:inherit;text-decoration:none}
+.nwlh :is(button,a):focus-visible{outline:2px solid var(--ha);outline-offset:2px}
+.nwlh .nw{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:20px 34px 40px}
+.nwlh .nico{display:block;border-radius:24%;flex:none;object-fit:cover}
+.nwlh .ntile{display:flex;align-items:center;justify-content:center;background:#0b1440;color:var(--c);font-weight:800;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--c) 85%,transparent);letter-spacing:-.02em}
+.nwlh .ntop{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.nwlh .nbrand{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--m)}
+.nwlh .ndock{margin-left:auto;display:flex;gap:4px;padding:5px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--ln);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.nwlh .ndk{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:12px;font-size:13px;transition:background .15s,transform .15s}
+.nwlh .ndk b{font-weight:650}
+.nwlh a.ndk:hover{background:rgba(255,255,255,.08);transform:translateY(-1px)}
+.nwlh .ndk.cur{background:color-mix(in srgb,var(--c) 12%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 40%,transparent)}
+.nwlh .nback{padding:9px 14px;border-radius:12px;border:1px solid var(--ln);background:rgba(255,255,255,.04);font-size:13.5px;font-weight:600;transition:background .15s}
+.nwlh .nback:hover{background:rgba(255,255,255,.09)}
+.nwlh .nhero{display:flex;align-items:center;gap:30px;margin:54px 0 18px}
+.nwlh .nbigw{position:relative;flex:none;animation:nfloat 6s ease-in-out infinite}
+.nwlh .nbigw::before{content:"";position:absolute;inset:-18px;border-radius:40px;background:radial-gradient(circle,color-mix(in srgb,var(--ha) 38%,transparent),transparent 70%);filter:blur(14px);z-index:-1}
+.nwlh .nbigw .nico{box-shadow:0 24px 60px -18px color-mix(in srgb,var(--ha) 60%,transparent),0 0 0 1px rgba(255,255,255,.08)}
+.nwlh .nht small{display:block;color:var(--ha);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:12px}
+.nwlh h1{margin:4px 0 0;font-size:clamp(44px,6vw,76px);line-height:.95;letter-spacing:-.035em;font-weight:800;background:linear-gradient(95deg,#fff 35%,var(--ha));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nwlh .nht p{margin:12px 0 0;color:var(--m);font-size:17px}
+.nwlh .nchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.nwlh .nchips span{padding:5px 11px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid var(--ln);font-size:12.5px;color:#cfd6f5}
+.nwlh .nsec{margin-top:40px}
+.nwlh .nsec h2{display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#d7ddf7}
+.nwlh .nsec h2 em{font-style:normal;color:var(--ha);letter-spacing:0;font-size:12px;padding:1px 8px;border-radius:99px;background:color-mix(in srgb,var(--ha) 13%,transparent)}
+.nwlh .nsec h2 i{flex:1;height:1px;background:linear-gradient(90deg,var(--ln),transparent)}
+.nwlh .nhint{margin:0 0 14px;color:var(--m);font-size:13.5px}
+.nwlh .ncard{position:relative;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid var(--ln);transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s}
+.nwlh .ncard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--ha) 55%,transparent);box-shadow:0 22px 44px -22px color-mix(in srgb,var(--ha) 55%,transparent)}
+.nwlh .nnew{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:12px}
+.nwlh .nnew .ncard{display:flex;flex-direction:column;gap:10px;padding:16px;min-height:150px}
+.nwlh .nnew .nshape{flex:1;display:flex;align-items:center;justify-content:center;min-height:62px}
+.nwlh .nnew .nshape i{display:block;border-radius:6px;border:2px solid var(--ha);background:color-mix(in srgb,var(--ha) 10%,transparent);transition:transform .25s}
+.nwlh .nnew .ncard:hover .nshape i{transform:scale(1.08)}
+.nwlh .nnew b{font-size:15px}.nwlh .nnew small{color:var(--m);font-size:12.5px;margin-top:-6px}
+.nwlh .nnew .nprim{background:linear-gradient(140deg,color-mix(in srgb,var(--ha) 26%,#0a1233),#0a1233 70%);border-color:color-mix(in srgb,var(--ha) 45%,transparent)}
+.nwlh .nnew .ndash{border-style:dashed;background:transparent}
+.nwlh .nnew .nshape .nplus{font-size:34px;font-weight:300;color:var(--ha);line-height:1}
+.nwlh .ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
+.nwlh .nproj{overflow:hidden;display:flex;flex-direction:column}
+.nwlh .nproj.big{grid-column:span 2}
+.nwlh .nproj .nth{display:block;position:relative;aspect-ratio:16/9;background:#020514 center/contain no-repeat;border-bottom:1px solid var(--ln);overflow:hidden}
+.nwlh .nproj.big .nth{aspect-ratio:16/7.4}
+.nwlh .nproj .nth .nempty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:color-mix(in srgb,var(--ha) 60%,transparent);font-size:28px}
+.nwlh .nproj .nth .nplay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;background:rgba(2,5,20,.45);transition:opacity .2s}
+.nwlh .nproj .nth .nplay span{padding:9px 16px;border-radius:99px;background:var(--ha);color:#061000;font-weight:700;font-size:13px}
+.nwlh .nproj:hover .nplay{opacity:1}
+.nwlh .nproj .nbadge{position:absolute;left:10px;bottom:10px;display:flex;gap:6px}
+.nwlh .nproj .nbadge span{padding:3px 8px;border-radius:7px;background:rgba(2,5,20,.78);font-size:11.5px;font-weight:600;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.nwlh .nproj .nbadge .now{background:var(--ha);color:#061000}
+.nwlh .nproj .nin{display:flex;align-items:center;gap:8px;padding:11px 10px 11px 14px}
+.nwlh .nproj .nin>div:first-child{flex:1;min-width:0;display:flex;flex-direction:column}
+.nwlh .nproj .nin b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14.5px}
+.nwlh .nproj .nin small{color:var(--m);font-size:12px;margin-top:2px}
+.nwlh .nproj .nact{display:flex;flex-direction:row;gap:2px;opacity:.45;transition:opacity .2s}
+.nwlh .nproj:hover .nact,.nwlh .nproj:focus-within .nact{opacity:1}
+.nwlh .nproj .nact button{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:14px}
+.nwlh .nproj .nact button:hover{background:rgba(255,255,255,.1)}
+.nwlh .nproj .nact button.ndel:hover{background:rgba(255,61,90,.2)}
+.nwlh .nwave{height:100%;display:flex;align-items:center;padding:14% 8%;opacity:.85}
+.nwlh .nwave svg{width:100%;height:100%}
+.nwlh .nnone{grid-column:1/-1;padding:26px;border-radius:18px;border:1px dashed var(--ln);color:var(--m);text-align:center;font-size:14px}
+.nwlh .ntpl{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:14px}
+.nwlh .ntpl .ncard{display:flex;flex-direction:column;gap:5px;padding:10px 10px 14px}
+.nwlh .ntpl .ntt{height:150px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#020514;margin-bottom:6px;overflow:hidden}
+.nwlh .ntpl .ntt canvas{transition:transform .3s}
+.nwlh .ntpl .ncard:hover .ntt canvas{transform:scale(1.06)}
+.nwlh .ntpl b{font-size:14.5px;padding:0 4px}.nwlh .ntpl small{color:var(--m);font-size:12px;line-height:1.4;padding:0 4px}
+.nwlh .ntpl .nfmt{display:inline-block;color:var(--ha);font-weight:700;margin-right:4px}
+.nwlh .ntpl .nglyph{font-size:40px}
+.nwlh .nsuite{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.nwlh .nsc{position:relative;display:flex;align-items:flex-start;gap:16px;padding:18px;border-radius:20px;background:linear-gradient(140deg,color-mix(in srgb,var(--c) 11%,#0a1233),#070d2b 75%);border:1px solid color-mix(in srgb,var(--c) 22%,transparent);transition:transform .22s,box-shadow .22s,border-color .22s;overflow:hidden}
+.nwlh a.nsc:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 24px 48px -24px color-mix(in srgb,var(--c) 70%,transparent)}
+.nwlh .nsc .nst{flex:1;min-width:0}
+.nwlh .nsc b{font-size:17px}.nwlh .nsc small{display:block;color:var(--c);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+.nwlh .nsc p{margin:7px 0 0;color:var(--m);font-size:13px;line-height:1.45}
+.nwlh .nsc .ngo{align-self:center;font-size:13px;font-weight:700;color:var(--c);white-space:nowrap}
+.nwlh .nsc.cur{opacity:.6}
+.nwlh .nfoot{margin-top:46px;display:flex;align-items:center;justify-content:center;gap:8px;color:#5d6895;font-size:12px}
+.nwlh.on .nanim{animation:nup .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 45ms)}
+@keyframes nup{from{opacity:0;transform:translateY(12px)}}
+@keyframes nfloat{50%{transform:translateY(-6px) rotate(-1.5deg)}}
+@media (max-width:760px){.nwlh .nw{padding:14px 16px 30px}.nwlh .nhero{gap:18px;margin:30px 0 8px}.nwlh .nbigw .nico{width:76px!important;height:76px!important}.nwlh .ndock{margin-left:0;width:100%;justify-content:space-between}.nwlh .ndk{padding-right:8px}.nwlh .nproj.big{grid-column:auto}.nwlh .nht p{font-size:15px}}
+@media (prefers-reduced-motion:reduce){.nwlh *{animation:none!important;transition:none!important}}
+`));
+}
+
 /* ================= NWLtono · voce pulita, schermata di avvio con i progetti, modelli pronti ================= */
 /* ---------- FFT e riduzione del rumore ---------- */
 function fftTables(N) {
@@ -2265,31 +2428,47 @@ async function useModel(id) {
 }
 
 /* ---------- schermata di avvio ---------- */
-function hideHome() { const h = $('#home'); if (h) h.classList.remove('show'); }
+function hideHome() { const h = $('#home'); if (h) h.classList.remove('on'); }
 async function showHome() {
   if (projectEnd()) await autosave();
-  let h = $('#home'); if (!h) { h = document.createElement('div'); h.id = 'home'; document.body.appendChild(h); }
-  const list = await PJ.list(), f = s => new Date(s).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' }) + ' ' + new Date(s).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-  h.innerHTML = `<div class="hw"><div class="hh"><div><small>Newland Studio</small><h1>NWLtono</h1></div>${projectEnd() ? '<button class="hx">Torna al montaggio</button>' : ''}</div>
-    <div class="hacts"><button class="primary hn">＋ Nuovo progetto</button><button class="ho">Apri un file .montaggio…</button></div>
-    <h2>I tuoi progetti</h2><div class="hlist">${list.length ? '' : '<p class="muted">Ancora nessun progetto: crea il primo o parti da un modello.</p>'}</div>
-    <h2>Modelli pronti</h2><p class="muted" style="margin:-4px 0 10px">Sigle e musiche già montate: sostituisci le parti a righe con il tuo audio.</p><div class="hmod"></div></div>`;
-  const hl = h.querySelector('.hlist');
-  for (const p of list) {
-    const it = document.createElement('div'); it.className = 'hp';
-    it.innerHTML = `<button class="hpo"><b></b><span>${f(p.savedAt)} · ${fmt(p.dur || 0, 0)} · ${p.tracks || 0} tracce</span></button><button class="hr" title="Rinomina">✎</button><button class="hd" title="Elimina">🗑</button>`;
-    it.querySelector('b').textContent = p.name;
-    it.querySelector('.hpo').onclick = async () => { if (projectEnd() && curPid !== p.id) await autosave(); openSaved(p.id); };
-    it.querySelector('.hr').onclick = async () => { const n = prompt('Nuovo nome del progetto', p.name); if (!n) return; const l = await PJ.list(), e = l.find(x => x.id === p.id); if (e) e.name = n; await PJ.setList(l); const q = await DB.get('kv', 'p:' + p.id); if (q) { q.name = n; await DB.put('kv', 'p:' + p.id, q); } if (curPid === p.id) state.name = n; showHome(); };
-    it.querySelector('.hd').onclick = async () => { if (!(await ask(`Eliminare il progetto «${p.name}»? Non si può annullare.`))) return; await deleteSaved(p.id); if (curPid === p.id) { curPid = null; await newProject(); } showHome(); };
-    hl.appendChild(it);
-  }
-  const hm = h.querySelector('.hmod');
-  for (const m of TONO_MODELS) { const b = document.createElement('button'); b.className = 'hm'; b.innerHTML = `<b></b><span></span>`; b.querySelector('b').textContent = m.name; b.querySelector('span').textContent = m.desc; b.onclick = () => useModel(m.id); hm.appendChild(b); }
-  h.querySelector('.hn').onclick = async () => { await newProject(); hideHome(); };
-  h.querySelector('.ho').onclick = () => { hideHome(); $('#projIn').click(); };
-  const hx = h.querySelector('.hx'); if (hx) hx.onclick = hideHome;
-  h.classList.add('show');
+  const list = await PJ.list(), E = nwlE, open = !!projectEnd();
+  const when = ts => { const d = new Date(ts), n = new Date(), hm = d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }); if (d.toDateString() === n.toDateString()) return 'oggi ' + hm; if (d.toDateString() === new Date(n - 864e5).toDateString()) return 'ieri ' + hm; return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' }); };
+  const sorted = [...list].sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0));
+  const { H, body } = nwlHomeFrame('home', 'tono', {
+    back: open ? hideHome : null,
+    line: sorted.length ? 'Riprendi un progetto o iniziane uno nuovo.' : 'Cosa registriamo oggi?',
+    chips: sorted.length ? [sorted.length + (sorted.length === 1 ? ' progetto' : ' progetti'), 'Ultima modifica ' + when(sorted[0].savedAt)] : ['Parti da zero o da un modello pronto'] });
+  const sNew = nwlSection('Nuovo progetto');
+  sNew.append(E('div', { class: 'nnew' },
+    E('button', { class: 'ncard nprim nanim', style: { '--i': 0 }, onclick: async () => { await newProject(); hideHome(); } }, E('div', { class: 'nshape' }, E('span', { class: 'nplus' }, '＋')), E('b', {}, 'Progetto vuoto'), E('small', {}, 'Tracce libere: voce, musica, effetti')),
+    E('button', { class: 'ncard nanim', style: { '--i': 1 }, onclick: async () => { await newProject(); hideHome(); setTimeout(() => { const r = document.getElementById('bRec'); if (r) { r.focus(); r.animate([{ boxShadow: '0 0 0 0 rgba(255,61,90,.8)' }, { boxShadow: '0 0 0 16px rgba(255,61,90,0)' }], { duration: 900, iterations: 3 }); } toast('Premi ● Registra (o il tasto R) per iniziare'); }, 300); } }, E('div', { class: 'nshape' }, E('span', { class: 'nplus' }, '🎙')), E('b', {}, 'Registra la voce'), E('small', {}, 'Un progetto nuovo, pronto per il microfono')),
+    E('button', { class: 'ncard ndash nanim', style: { '--i': 2 }, onclick: () => { hideHome(); $('#projIn').click(); } }, E('div', { class: 'nshape' }, E('span', { class: 'nplus' }, '📂')), E('b', {}, 'Apri un file'), E('small', {}, 'Un progetto .montaggio salvato'))));
+  const sP = nwlSection('I tuoi progetti', null, sorted.length || null), grid = E('div', { class: 'ngrid' }); sP.append(grid);
+  if (!sorted.length) grid.append(E('div', { class: 'nnone' }, 'Qui compariranno i tuoi progetti, salvati da soli mentre lavori.'));
+  sorted.forEach((p, i) => {
+    const isCur = open && curPid === p.id, go = async () => { if (isCur) return hideHome(); if (open) await autosave(); openSaved(p.id); };
+    grid.append(E('div', { class: 'ncard nproj nanim' + (i === 0 && sorted.length > 2 ? ' big' : ''), style: { '--i': i + 3 } },
+      E('button', { class: 'nth', onclick: go, title: 'Apri «' + p.name + '»' }, nwlWave(p.id, 'color-mix(in srgb, #40d6ff 75%, transparent)'),
+        E('span', { class: 'nbadge' }, isCur ? E('span', { class: 'now' }, 'Aperto ora') : null, E('span', {}, fmt(p.dur || 0, 0)), E('span', {}, (p.tracks || 0) + ' tracce')),
+        E('span', { class: 'nplay' }, E('span', {}, isCur ? 'Continua ▸' : 'Apri ▸'))),
+      E('div', { class: 'nin' }, E('div', {}, E('b', { title: p.name }, p.name), E('small', {}, when(p.savedAt))),
+        E('div', { class: 'nact' },
+          E('button', { title: 'Rinomina', onclick: () => renameSaved(p) }, '✎'),
+          E('button', { class: 'ndel', title: 'Elimina', onclick: async () => { if (!(await ask(`Eliminare il progetto «${p.name}»? Non si può annullare.`))) return; await deleteSaved(p.id); if (curPid === p.id) { curPid = null; await newProject(); } showHome(); } }, '🗑')))));
+  });
+  const GL = { podcast: '🎙', notiziario: '📻', intervista: '🎧', spot: '📣', audiolibro: '📖' };
+  const sT = nwlSection('Modelli pronti', 'Sigle, stacchi e musiche già montati: sostituisci le parti a righe con il tuo audio. La musica è composta dal programma, senza diritti da pagare.', TONO_MODELS.length);
+  sT.append(E('div', { class: 'ntpl' }, TONO_MODELS.map((m, i) => E('button', { class: 'ncard nanim', style: { '--i': i + 4 }, onclick: () => useModel(m.id) },
+    E('div', { class: 'ntt', style: { position: 'relative' } }, nwlWave(m.id, 'rgba(64,214,255,.22)'), E('span', { class: 'nglyph', style: { position: 'absolute' } }, GL[m.id] || '♪')), E('b', {}, m.name), E('small', {}, m.desc)))));
+  body.append(sNew, sP, sT);
+  H.classList.add('on'); H.scrollTop = 0;
+}
+async function renameSaved(p) {
+  const n = prompt('Nuovo nome del progetto', p.name); if (!n) return;
+  const l = await PJ.list(), e = l.find(x => x.id === p.id); if (e) e.name = n; await PJ.setList(l);
+  const q = await DB.get('kv', 'p:' + p.id); if (q) { q.name = n; await DB.put('kv', 'p:' + p.id, q); }
+  if (curPid === p.id) state.name = n;
+  showHome();
 }
 async function homeStart() { $('#restore').classList.remove('show'); await migrateOld(); showHome(); }
 window.homeStart = homeStart;
