@@ -302,6 +302,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     b.querySelector('button').onclick = function () { inst(k); };
   }
   acts('cut', 'cutActs'); acts('tono', 'tonoActs'); acts('live', 'liveActs'); acts('radio', 'radioActs');
+  (function () { // NWLradio manda il segnale alle radio solo dal programma per Windows
+    var b = document.getElementById('radioActs');
+    b.innerHTML = '<a class="btn pri" href="Newland-Studio-Suite-Setup.exe" download>' + dl + 'Scarica il programma per Windows</a><a class="btn sec" href="radio/">' + op + 'Prova nel browser</a>';
+    var n = document.createElement('p'); n.className = 'note'; n.style.margin = '12px 0 0';
+    n.innerHTML = 'Per andare in onda serve il programma per Windows. Il server gratuito si prepara con <a href="radio/server.html">questa guida</a>.';
+    b.after(n);
+  })();
   if (dev !== 'pc') { var ln = document.createElement('p'); ln.className = 'note'; ln.style.margin = '12px 0 0'; ln.textContent = 'La regia è pensata per il computer. Gli inviati si collegano dal telefono con il link che ricevono dalla regia.'; document.getElementById('liveActs').after(ln); }
 
   var hc = document.getElementById('heroCta');

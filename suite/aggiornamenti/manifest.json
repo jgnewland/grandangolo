@@ -1,12 +1,11 @@
 {
- "version": "1.6.1",
+ "version": "1.6.2",
  "date": "2026-11-26",
  "notes": [
-  "Nuovo programma: NWLradio, la regia radio che manda il segnale alle radio FM",
-  "Schermate iniziali con il collegamento a NWLradio"
+  "Il pulsante di NWLradio scarica direttamente il nuovo programma"
  ],
  "minShell": "1.2.0",
- "setupUrl": "https://edicola.grandangoloregionale.it/suite/#pacchetto",
+ "setupUrl": "https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe",
  "files": [
   {
    "path": "NWLcut.html",
@@ -30,8 +29,8 @@
   },
   {
    "path": "launcher.html",
-   "sha256": "31578fb47a6648bd0256626a95b5083fde8730e89d8204041a380173cff7fc5b",
-   "size": 7929
+   "sha256": "5515af52cea54be09744e58a0f32346ad20e730fddad7357e04d89fd39cc3f87",
+   "size": 8122
   },
   {
    "path": "logo-grandangolo.png",
@@ -40,7 +39,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "da983c5cc16eef0aeebf15cd3c0de165efe84261b280c708e7375b552defae7f",
+   "sha256": "97b1956d0aa646f0ce81722ac5a634bde75ae126c861a66d95e03ce9eb00a362",
    "size": 20
   },
   {
