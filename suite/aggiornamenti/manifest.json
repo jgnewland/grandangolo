@@ -1,5 +1,5 @@
 {
- "version": "1.8.4",
+ "version": "1.8.5",
  "date": "2026-11-27",
  "notes": [],
  "minShell": "1.2.0",
@@ -22,8 +22,8 @@
   },
   {
    "path": "NWLtono.html",
-   "sha256": "eb14bea2fe559509c0275799005bd0d05862f6f2733055354f821826a0f2e786",
-   "size": 454123
+   "sha256": "69d2b997cf8b91a30e0937b15458ee1ec2a1b522178ebb8ee0f5790932af8b9f",
+   "size": 462062
   },
   {
    "path": "launcher.html",
@@ -37,7 +37,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "ee8d4c200fc195f7f634e4f3a12b0c3e899b9f3373cf22f62bb66858ef7de9a5",
+   "sha256": "4b11f660dcd25778a7c143760b54adbf6510287688e538df69377b3282fb4d29",
    "size": 20
   },
   {

@@ -35,6 +35,9 @@ input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px}
 #brand small{display:block;font-weight:400;color:var(--muted);font-size:11px}
 #time{font:600 18px/1 ui-monospace,"Cascadia Mono",Consolas,monospace;background:#0b0c0e;border:1px solid var(--line);border-radius:7px;padding:6px 10px;min-width:132px;text-align:center;font-variant-numeric:tabular-nums}
 #time.rec{color:var(--red)}
+#inMeter{width:90px;height:10px;border-radius:3px;background:#111}
+#rcMeter{width:100%;height:16px;border-radius:5px;background:#111;display:block}
+#recDlg p.hint{font-size:12px;opacity:.75;margin:6px 0}
 .spacer{flex:1}
 #saved{color:var(--muted);font-size:11px}
 
@@ -229,6 +232,8 @@ html,body{background:radial-gradient(1000px 560px at 90% -10%,rgba(64,214,255,.0
       <button id="bStop" title="Stop e torna al punto di partenza" aria-label="Stop"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h12v12H6z"/></svg><span class="t">Stop</span></button>
       <button id="bHome" title="Torna all'inizio (Home)" aria-label="Inizio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5v14M18 6l-9 6 9 6z"/></svg><span class="t">Inizio</span></button>
       <button id="bRec" class="rec" title="Registra dal microfono sulla traccia selezionata (R)" aria-label="Registra"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="6"/></svg><span class="t">Registra</span></button>
+      <button id="bRecSet" title="Microfono, livelli e ascolto in cuffia" aria-label="Impostazioni microfono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span class="t">Microfono</span></button>
+      <canvas id="inMeter" width="90" height="10" hidden title="Livello del microfono"></canvas>
       <div id="time" aria-live="off">0:00.0</div>
     </div>
     <div class="grp">
@@ -306,6 +311,19 @@ html,body{background:radial-gradient(1000px 560px at 90% -10%,rgba(64,214,255,.0
 <input type="file" id="fileIn" accept="audio/*,.mp3,.wav,.ogg,.oga,.m4a,.aac,.flac,.opus,.webm" multiple hidden>
 <input type="file" id="projIn" accept=".montaggio,.json,application/json" hidden>
 
+<dialog id="recDlg">
+  <h2>🎙 Microfono e registrazione</h2>
+  <label class="f">Microfono <select id="rcDev"><option value="">Predefinito di Windows</option></select></label>
+  <label class="f">Guadagno <span style="display:flex;gap:8px;align-items:center"><input type="range" id="rcGain" min="-12" max="24" step="0.5" value="0" style="flex:1"><b id="rcGainV" style="width:52px;text-align:right;font:600 12px ui-monospace,Consolas,monospace">0 dB</b></span></label>
+  <div style="display:flex;align-items:center;gap:10px;margin:10px 0"><canvas id="rcMeter" width="380" height="16" style="flex:1;min-width:0;width:auto"></canvas><b id="rcPk" style="flex:none;width:60px;text-align:right;font:600 12px ui-monospace,Consolas,monospace">−∞ dB</b></div>
+  <p class="hint" id="rcTip">Parla come farai in registrazione: i picchi devono arrivare nella zona gialla, mai nel rosso.</p>
+  <label class="chk"><input type="checkbox" id="rcMon"> Ascoltami in cuffia (preascolto, anche mentre registro)</label>
+  <label class="f">Volume in cuffia <input type="range" id="rcMonVol" min="0" max="1.5" step="0.05" value="1"></label>
+  <label class="chk"><input type="checkbox" id="rcBase" checked> Mentre registro fai suonare le altre tracce (la base)</label>
+  <label class="chk"><input type="checkbox" id="rcCount"> Conto alla rovescia di 3 secondi prima di partire</label>
+  <p class="hint">Usa la cuffia: con le casse la base e il preascolto rientrano nel microfono.</p>
+  <menu><button type="button" id="rcClose">Chiudi</button><button type="button" id="rcGo" class="primary">● Registra</button></menu>
+</dialog>
 <dialog id="exportDlg">
   <form method="dialog" id="exForm">
     <h2>Esporta il montaggio</h2>
@@ -961,30 +979,120 @@ function drawMeter(pk) {
 
 /* ---------- recording ---------- */
 const rec = { on: false, mr: null, chunks: [], start: 0, track: null, stream: null };
+/* impostazioni del microfono, ricordate su questo computer */
+const RC = (() => { try { return Object.assign({ dev: '', gain: 0, mon: false, monVol: 1, base: true, count: false }, JSON.parse(localStorage.getItem('nwltono-mic') || '{}')); } catch (e) { return { dev: '', gain: 0, mon: false, monVol: 1, base: true, count: false }; } })();
+const rcSave = () => { try { localStorage.setItem('nwltono-mic', JSON.stringify(RC)); } catch (e) { } };
+/* catena: microfono → guadagno → (misuratore) → registratore e, se voluto, cuffia */
+const mic = { stream: null, dev: null, src: null, gain: null, an: null, mon: null, dest: null, raf: 0, pk: 0, buf: null };
+async function micOpen() {
+  if (mic.stream && mic.dev === RC.dev) return true;
+  micClose();
+  const ac = getCtx(); ac.resume();
+  const a = { echoCancellation: false, noiseSuppression: false, autoGainControl: false };
+  if (RC.dev) a.deviceId = { exact: RC.dev };
+  try { mic.stream = await navigator.mediaDevices.getUserMedia({ audio: a }); }
+  catch (e) {
+    if (RC.dev) { RC.dev = ''; rcSave(); return micOpen(); }
+    toast('Microfono non disponibile o permesso negato.'); return false;
+  }
+  mic.dev = RC.dev;
+  mic.src = ac.createMediaStreamSource(mic.stream); mic.gain = ac.createGain(); mic.an = ac.createAnalyser(); mic.an.fftSize = 1024;
+  mic.mon = ac.createGain(); mic.dest = ac.createMediaStreamDestination(); mic.buf = new Float32Array(1024);
+  mic.src.connect(mic.gain); mic.gain.connect(mic.an); mic.gain.connect(mic.dest); mic.gain.connect(mic.mon); mic.mon.connect(ac.destination);
+  micApply(); micMeter();
+  return true;
+}
+function micApply() {
+  if (!mic.gain) return; const t = getCtx().currentTime;
+  mic.gain.gain.setTargetAtTime(Math.pow(10, RC.gain / 20), t, .02);
+  mic.mon.gain.setTargetAtTime(RC.mon ? RC.monVol : 0, t, .02);
+}
+function micClose() {
+  cancelAnimationFrame(mic.raf);
+  if (mic.stream) mic.stream.getTracks().forEach(x => x.stop());
+  for (const n of [mic.src, mic.gain, mic.mon]) { try { n && n.disconnect(); } catch (e) { } }
+  Object.assign(mic, { stream: null, dev: null, src: null, gain: null, an: null, mon: null, dest: null });
+  $('#inMeter').hidden = true;
+}
+function micMeter() {
+  if (!mic.an) return;
+  mic.an.getFloatTimeDomainData(mic.buf); let pk = 0; for (let i = 0; i < mic.buf.length; i++) { const v = Math.abs(mic.buf[i]); if (v > pk) pk = v; }
+  mic.pk = Math.max(pk, mic.pk * .9);
+  const db = mic.pk > 0 ? 20 * Math.log10(mic.pk) : -60;
+  for (const cv of [$('#rcMeter'), $('#inMeter')]) {
+    if (!cv.offsetWidth) continue;
+    const g = cv.getContext('2d'), w = cv.width, hh = cv.height, x = Math.max(0, Math.min(1, (db + 48) / 48)) * w;
+    g.clearRect(0, 0, w, hh); g.fillStyle = db > -1 ? '#e5493e' : db > -9 ? '#e3a63c' : '#5cb870'; g.fillRect(0, 0, x, hh);
+    g.fillStyle = 'rgba(255,255,255,.3)'; for (const m of [-24, -12, -6, -1]) g.fillRect(((m + 48) / 48) * w, 0, 1, hh);
+  }
+  $('#rcPk').textContent = db <= -59 ? '−∞ dB' : db.toFixed(0) + ' dB';
+  if (db > -1) $('#rcTip').textContent = 'Troppo forte: abbassa il guadagno o allontanati dal microfono.';
+  mic.raf = requestAnimationFrame(micMeter);
+}
+async function recDialog() {
+  const d = $('#recDlg'), sel = $('#rcDev');
+  if (!(await micOpen())) return;
+  try {
+    const devs = (await navigator.mediaDevices.enumerateDevices()).filter(x => x.kind === 'audioinput' && x.deviceId !== 'default' && x.deviceId !== 'communications');
+    sel.innerHTML = '<option value="">Predefinito di Windows</option>' + devs.map((x, n) => `<option value="${x.deviceId}">${(x.label || 'Microfono ' + (n + 1)).replace(/[<>&]/g, '')}</option>`).join('');
+  } catch (e) { }
+  sel.value = RC.dev; $('#rcGain').value = RC.gain; $('#rcGainV').textContent = (RC.gain > 0 ? '+' : '') + RC.gain + ' dB'; $('#rcMon').checked = RC.mon; $('#rcMonVol').value = RC.monVol; $('#rcBase').checked = RC.base; $('#rcCount').checked = RC.count;
+  $('#rcTip').textContent = 'Parla come farai in registrazione: i picchi devono arrivare nella zona gialla, mai nel rosso.';
+  if (!d.open) d.showModal();
+}
+$('#rcDev').onchange = async e => { RC.dev = e.target.value; rcSave(); await micOpen(); };
+$('#rcGain').oninput = e => { RC.gain = +e.target.value; $('#rcGainV').textContent = (RC.gain > 0 ? '+' : '') + RC.gain + ' dB'; rcSave(); micApply(); };
+$('#rcMon').onchange = e => { RC.mon = e.target.checked; rcSave(); micApply(); };
+$('#rcMonVol').oninput = e => { RC.monVol = +e.target.value; rcSave(); micApply(); };
+$('#rcBase').onchange = e => { RC.base = e.target.checked; rcSave(); };
+$('#rcCount').onchange = e => { RC.count = e.target.checked; rcSave(); };
+$('#rcClose').onclick = () => $('#recDlg').close();
+$('#rcGo').onclick = () => { $('#recDlg').close(); toggleRecord(); };
+$('#recDlg').addEventListener('close', () => { if (!rec.on) micClose(); });
+$('#bRecSet').onclick = recDialog;
+
 async function toggleRecord() {
-  if (rec.on) { stopRecording(); return; }
+  if (rec.on || rec.counting) { if (rec.counting) { rec.counting = false; toast('Registrazione annullata'); return; } stopRecording(); return; }
   if (ONLINE) { toast('Nella versione online il microfono non è disponibile: registra col telefono e importa il file, oppure usa il programma scaricato.'); return; }
   if (!navigator.mediaDevices || !window.MediaRecorder) { toast('Questo browser non permette di registrare.'); return; }
-  try { rec.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
-  catch (e) { toast('Microfono non disponibile o permesso negato.'); return; }
+  if (!(await micOpen())) return;
+  $('#inMeter').hidden = false;
+  if (RC.count) {
+    rec.counting = true;
+    for (let n = 3; n > 0; n--) { toast('Si registra tra ' + n + '…'); await new Promise(r => setTimeout(r, 1000)); if (!rec.counting) { micClose(); return; } }
+    rec.counting = false;
+  }
   let t = trackById(state.selTrack);
   if (!t) { edit(() => { t = newTrack('Voce'); state.tracks.push(t); state.selTrack = t.id; }); }
   rec.track = t.id; rec.chunks = []; rec.start = state.playhead;
-  const mr = new MediaRecorder(rec.stream); rec.mr = mr;
+  const ac = getCtx(), mr = new MediaRecorder(mic.dest.stream); rec.mr = mr;
   mr.ondataavailable = e => { if (e.data && e.data.size) rec.chunks.push(e.data); };
   mr.onstop = async () => {
-    rec.on = false; stopPlayback(); rec.stream.getTracks().forEach(x => x.stop()); updateTransport();
+    rec.on = false; stopPlayback(); updateTransport();
+    if (!$('#recDlg').open) micClose();
     const blob = new Blob(rec.chunks, { type: mr.mimeType || 'audio/webm' });
     try {
       busy('Preparo la registrazione…'); const bytes = await blob.arrayBuffer();
       const buffer = await getCtx().decodeAudioData(bytes.slice(0));
       const d = new Date(), nm = `Registrazione ${d.getHours()}.${String(d.getMinutes()).padStart(2, '0')}`;
       const src = addSource({ name: nm, mime: blob.type, bytes, buffer });
-      edit(() => { const tt = trackById(rec.track) || (state.tracks.push(newTrack('Voce')), state.tracks[state.tracks.length - 1]); const c = newClip(src, rec.start); tt.clips.push(c); state.selClip = c.id; state.selTrack = tt.id; });
+      edit(() => {
+        const tt = trackById(rec.track) || (state.tracks.push(newTrack('Voce')), state.tracks[state.tracks.length - 1]);
+        const c = newClip(src, rec.start);
+        // con la base: tolgo il ritardo tra quando parte il registratore, quando la base esce dalla cuffia e quando la voce rientra
+        const sh = Math.max(0, Math.min(rec.shift || 0, buffer.duration - .1));
+        if (sh) { c.offset = sh; c.duration = buffer.duration - sh; }
+        tt.clips.push(c); state.selClip = c.id; state.selTrack = tt.id;
+      });
     } catch (e) { toast('Non sono riuscito a leggere la registrazione.'); }
     unbusy();
   };
-  mr.start(250); rec.on = true; startPlayback(rec.start); updateTransport();
+  const tr = ac.currentTime;
+  mr.start(250); rec.on = true;
+  startPlayback(rec.start);   // la testina scorre sempre; senza base le altre tracce restano mute
+  if (RC.base) rec.shift = (play.t0 - tr) + (ac.outputLatency || 0) + (ac.baseLatency || 0) + 0.01;
+  else { try { play.g.out.disconnect(); } catch (e) { } rec.shift = play.t0 - tr; }
+  updateTransport();
 }
 function stopRecording() { if (rec.mr && rec.mr.state !== 'inactive') rec.mr.stop(); }
 
