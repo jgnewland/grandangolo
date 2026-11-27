@@ -1329,6 +1329,9 @@ function inputPane(box, i) {
   if (['vset', 'image', 'video', 'color'].includes(i.type)) {
     box.append(chk('Usa come sfondo dietro il green screen', P.bg === i.id || (!P.bg && defaultBg() === i), v => { P.bg = v ? i.id : null; P.inputs.forEach(x => x._implicit = null); refreshPane(); }));
   }
+  if (i.type === 'image') {
+    box.append(chk('Metti davanti a chi è in green screen (es. la scrivania)', P.fg === i.id, v => { P.fg = v ? i.id : null; if (v && P.bg === i.id) P.bg = null; P.inputs.forEach(x => x._implicit = null); refreshPane(); }, 'Serve un PNG con il fondo trasparente'));
+  }
   if (hasVideo(i) && ['camera', 'remote', 'video', 'screen', 'image'].includes(i.type)) {
     box.append(h('div', { class: 'grp', style: 'margin-top:12px' }, 'Green screen (chroma key)'));
     box.append(chk('Rimuovi il fondo verde', i.key.on, v => { i.key.on = v; i._implicit = null; refreshPane(); refreshGrid(); }));
