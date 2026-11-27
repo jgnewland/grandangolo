@@ -1,5 +1,5 @@
 {
- "version": "1.8.5",
+ "version": "1.8.6",
  "date": "2026-11-27",
  "notes": [],
  "minShell": "1.2.0",
@@ -12,13 +12,13 @@
   },
   {
    "path": "NWLlive.html",
-   "sha256": "5482e1824e42d45d5a8671396d8226b8a0acde5145419aeb28017f6c1432cf0f",
-   "size": 174297
+   "sha256": "4aef8d4e40a6348589b13715d6a7f323f38dc3331afb68278e2e5195ae03d089",
+   "size": 174617
   },
   {
    "path": "NWLradio.html",
-   "sha256": "7b91b6e1a8a302edef042e1ac14a71f0fd0d43e7fe59120d46f0affe86fe8686",
-   "size": 1076846
+   "sha256": "90bf1cb4a3e1cb53969454a895a5d6cc12a7bf3c0949ecd0995f0801c70ca141",
+   "size": 1076829
   },
   {
    "path": "NWLtono.html",
@@ -37,7 +37,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "4b11f660dcd25778a7c143760b54adbf6510287688e538df69377b3282fb4d29",
+   "sha256": "3265ff081023a48da734ca61fd1a7716e45003415e0c8c075a3a62d1c54117a8",
    "size": 20
   },
   {

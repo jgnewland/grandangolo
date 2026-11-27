@@ -227,8 +227,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <div>
       <span class="eyebrow">Download</span>
       <h2>Tutta la suite<br>in un pacchetto.</h2>
-      <p><b>Programma per Windows</b>: un solo installer con NWLcut, NWLtono, NWLlive e NWLradio, con la diretta su YouTube e Facebook e l'invio alle radio. Si aggiorna da solo dal sito. A breve anche sul Microsoft Store.<br>Oppure il pacchetto .zip leggero, da estrarre e aprire con doppio clic.</p>
-      <a class="btn pri" href="Newland-Studio-Suite-Setup.exe" download id="exeBtn" style="margin:0 10px 10px 0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Scarica per Windows <span style="opacity:.6;font-weight:600">· .exe 77 MB · v1.6</span></a>
+      <p><b>Programma per Windows</b>: un solo installer con NWLcut, NWLtono, NWLlive e NWLradio, con la diretta su YouTube e Facebook e l'invio alle radio. <b>Ora anche sul Microsoft Store</b>: si installa con un clic e si aggiorna da solo dallo Store. In alternativa c'è l'installer dal sito, che si aggiorna dal sito, oppure il pacchetto .zip leggero da estrarre e aprire con doppio clic.</p>
+      <a class="btn pri" href="https://apps.microsoft.com/detail/9P0J5V07BXNZ?hl=it-IT&amp;gl=IT" target="_blank" rel="noopener" style="margin:0 10px 10px 0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Scarica dal Microsoft Store <span style="opacity:.6;font-weight:600">· gratis</span></a>
+      <a class="btn sec" href="Newland-Studio-Suite-Setup.exe" download id="exeBtn" style="margin:0 10px 10px 0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Installer dal sito <span style="opacity:.6;font-weight:600">· .exe · v1.8</span></a>
       <a class="btn sec" href="Newland-Studio-Suite.zip" download id="zipBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Pacchetto .zip <span style="opacity:.6;font-weight:600" id="zipSize"></span></a>
       
       <details class="verify"><summary>Verifica che il file sia originale</summary>
@@ -304,7 +305,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   acts('cut', 'cutActs'); acts('tono', 'tonoActs'); acts('live', 'liveActs'); acts('radio', 'radioActs');
   (function () { // NWLradio manda il segnale alle radio solo dal programma per Windows
     var b = document.getElementById('radioActs');
-    b.innerHTML = '<a class="btn pri" href="Newland-Studio-Suite-Setup.exe" download>' + dl + 'Scarica il programma per Windows</a><a class="btn sec" href="radio/">' + op + 'Prova nel browser</a>';
+    b.innerHTML = '<a class="btn pri" href="https://apps.microsoft.com/detail/9P0J5V07BXNZ?hl=it-IT&gl=IT" target="_blank" rel="noopener">' + dl + 'Scarica dal Microsoft Store</a><a class="btn sec" href="Newland-Studio-Suite-Setup.exe" download>Installer dal sito</a><a class="btn sec" href="radio/">' + op + 'Prova nel browser</a>';
     var n = document.createElement('p'); n.className = 'note'; n.style.margin = '12px 0 0';
     n.innerHTML = 'Per andare in onda serve il programma per Windows. Il server gratuito si prepara con <a href="radio/server.html">questa guida</a>.';
     b.after(n);
