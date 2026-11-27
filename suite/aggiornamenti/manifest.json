@@ -1,6 +1,6 @@
 {
- "version": "1.8.0",
- "date": "2026-11-26",
+ "version": "1.8.1",
+ "date": "2026-11-27",
  "notes": [],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe",
@@ -12,8 +12,8 @@
   },
   {
    "path": "NWLlive.html",
-   "sha256": "0f7d45dc2bdae1a8e299b46f99521ef7ac5c6f753ca4a5f230318feb50b4614a",
-   "size": 152287
+   "sha256": "22f494a5bc4153e63903086b5d478a718c2f02666144a4656c928ea6e42e944d",
+   "size": 169488
   },
   {
    "path": "NWLradio.html",
@@ -37,7 +37,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "b8c7945656998ab9007f74df78a343439cf7255ce29dbe41536f098f6abfbea4",
+   "sha256": "7563ee22d9bd7f765a52180445599f45a2793dc8ce975d905cc5faf4404868c3",
    "size": 20
   },
   {

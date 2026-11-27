@@ -44,6 +44,13 @@ header{display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--p
 .screen.pg .frame{box-shadow:0 0 0 2px var(--red)}
 .frame canvas{max-width:100%;max-height:100%;aspect-ratio:16/9;display:block;background:#000}
 .frame .ed{position:absolute;inset:0;pointer-events:none}
+.vtr{position:absolute;left:8px;right:8px;bottom:8px;display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(6,8,16,.82);backdrop-filter:blur(6px);border:1px solid #ffffff22}
+.vtr[hidden]{display:none}
+.vtr button{min-width:34px;height:30px;border-radius:7px;border:1px solid var(--line);background:var(--p2);font:700 12px Inter,sans-serif;padding:0 6px}
+.vtr button.pp{min-width:42px;background:var(--grn);border-color:var(--grn);color:#04130c;font-size:14px}
+.vtr input{flex:1;min-width:60px;accent-color:var(--grn)}
+.vtr span{font:600 12px ui-monospace,Consolas,monospace;color:#fff;white-space:nowrap}
+.vtr b{font:800 10px Archivo,sans-serif;letter-spacing:.1em;background:var(--red);color:#fff;padding:3px 6px;border-radius:5px}
 .trans{display:flex;flex-direction:column;gap:8px;align-items:stretch;justify-content:center}
 .tbtn{height:46px;border-radius:10px;border:1px solid var(--line);background:var(--p2);font:800 14px Archivo,sans-serif;letter-spacing:.08em}
 .tbtn.cut{background:#2a1520;border-color:#5a2434}
@@ -170,7 +177,7 @@ header{display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--p
   </header>
 
   <section class="mon">
-    <div class="screen pv"><div class="lab"><i></i>Anteprima<span id="pvName"></span></div><div class="frame" id="pvFrame"><canvas id="pv" width="960" height="540"></canvas></div></div>
+    <div class="screen pv"><div class="lab"><i></i>Anteprima<span id="pvName"></span></div><div class="frame" id="pvFrame"><canvas id="pv" width="960" height="540"></canvas><div class="vtr" id="vtr" hidden><button id="vtR" title="Dall'inizio">⏮</button><button id="vtB" title="Indietro 10 secondi">−10</button><button id="vtP" class="pp" title="Play / pausa (K)">▶</button><button id="vtF" title="Avanti 10 secondi">+10</button><input type="range" id="vtS" min="0" max="1000" value="0" title="Scorri il servizio"><span id="vtT">0:00 / 0:00</span><b id="vtA" hidden>IN ONDA</b></div></div></div>
     <div class="trans">
       <button class="tbtn cut" id="bCut" title="Stacco netto (C)">CUT</button>
       <button class="tbtn auto" id="bAuto" title="Transizione (Spazio)">AUTO</button>
@@ -187,6 +194,7 @@ header{display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--p
     <div class="box">
       <div class="hd"><b>Scene e ingressi</b>
         <button class="sb" id="bAddScene">+ Scena</button>
+        <button class="sb" id="bAddPip" title="Più telecamere e inviati nella stessa inquadratura">+ Riquadri</button>
         <button class="sb pri" id="bAddInput">+ Ingresso</button>
       </div>
       <div class="bd" id="grid"></div>
@@ -261,7 +269,8 @@ const P = {
   ovl: {
     lt: { on: false, kicker: 'In diretta', title: 'Nome e cognome', sub: 'Ruolo', auto: 0, presets: [] },
     logo: { on: true, pos: 'tr', size: 1, media: null },
-    ticker: { on: false, label: "ULTIM'ORA", text: 'Scrivi qui le notizie che scorrono in basso', speed: 120 },
+    brk: { on: false, label: "ULTIM'ORA", text: 'Scrivi qui la notizia urgente', blink: true },
+    ticker: { on: false, label: 'NEWS', text: 'Scrivi qui le notizie che scorrono in basso', speed: 120 },
     clock: { on: false },
     live: { on: true, text: 'DIRETTA' },
   },
@@ -328,7 +337,7 @@ const KEY0 = () => ({ on: false, color: '#00b140', sim: 0.40, smooth: 0.08, spil
 function newInput(type, o) {
   const i = Object.assign({
     id: uid('i'), type, name: TYPES[type].lab, key: KEY0(), crop: { l: 0, t: 0, r: 0, b: 0 }, flip: false,
-    aud: { db: 0, mute: false, afv: type === 'video' || type === 'remote' }, num: 0,
+    aud: { db: 0, mute: false, afv: type === 'video' || type === 'remote' || type === 'mic' }, num: 0,
   }, o || {});
   const same = P.inputs.filter(x => x.type === type).length;
   if (!o || !o.name) i.name = TYPES[type].lab + (type === 'vset' || type === 'color' ? '' : ' ' + (same + 1));
@@ -532,10 +541,10 @@ async function ensureLabels() {
 
 /* ================= Chroma key (green screen) in WebGL ================= */
 const KEY_VS = 'attribute vec2 p;varying vec2 uv;void main(){uv=vec2((p.x+1.)/2.,1.-(p.y+1.)/2.);gl_Position=vec4(p,0.,1.);}';
-const KEY_FS = `precision mediump float;varying vec2 uv;uniform sampler2D t;uniform vec2 kc;uniform float sim,smo,spl;
+const KEY_FS = `precision mediump float;varying vec2 uv;uniform sampler2D t;uniform vec2 kc;uniform float sim,smo,spl,cho;
 vec2 cbcr(vec3 c){return vec2(dot(c,vec3(-.168736,-.331264,.5))+.5,dot(c,vec3(.5,-.418688,-.081312))+.5);}
 void main(){vec4 c=texture2D(t,uv);float d=distance(cbcr(c.rgb),kc);float b=d-sim;
-float a=pow(clamp(b/max(smo,.0001),0.,1.),1.5);float s=pow(clamp(b/max(spl,.0001),0.,1.),1.5);
+float a=pow(clamp(b/max(smo,.0001),0.,1.),1.5);a=clamp((a-cho)/max(1.-cho,.001),0.,1.);float s=pow(clamp(b/max(spl,.0001),0.,1.),1.5);
 float g=dot(c.rgb,vec3(.2126,.7152,.0722));vec3 o=mix(vec3(g),c.rgb,s);gl_FragColor=vec4(o,c.a*a);}`;
 function makeKeyer() {
   const canvas = document.createElement('canvas');
@@ -552,7 +561,7 @@ function makeKeyer() {
   [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(p => gl.texParameteri(gl.TEXTURE_2D, p, gl.CLAMP_TO_EDGE));
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
   const U = n => gl.getUniformLocation(pr, n);
-  const uk = U('kc'), us = U('sim'), um = U('smo'), up = U('spl');
+  const uk = U('kc'), us = U('sim'), um = U('smo'), up = U('spl'), uc = U('cho');
   // copia 2D del risultato: una sola lettura dalla scheda video per fotogramma, poi si disegna ovunque senza costi
   const out = document.createElement('canvas'), og = out.getContext('2d');
   return {
@@ -562,7 +571,7 @@ function makeKeyer() {
       try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, el); } catch (e) { return; }
       const n = parseInt((k.color || '#00b140').slice(1), 16), r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
       gl.uniform2f(uk, -.168736 * r - .331264 * g + .5 * b + .5, .5 * r - .418688 * g - .081312 * b + .5);
-      gl.uniform1f(us, k.sim); gl.uniform1f(um, k.smooth); gl.uniform1f(up, k.spill);
+      gl.uniform1f(us, k.sim); gl.uniform1f(um, k.smooth); gl.uniform1f(up, k.spill); gl.uniform1f(uc, k.choke || 0);
       gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       og.clearRect(0, 0, w, hh); og.drawImage(canvas, 0, 0);
     },
@@ -578,6 +587,36 @@ function sampleColor(i, nx, ny) {
   for (let k = 0; k < d.length; k += 4) { r += d[k]; gg += d[k + 1]; b += d[k + 2]; }
   const n = d.length / 4, hx = v => Math.round(v / n).toString(16).padStart(2, '0');
   return '#' + hx(r) + hx(gg) + hx(b);
+}
+
+/* colore del fondo stimato dai bordi dell'inquadratura (dove di solito c'è solo il telo) */
+function autoKeyColor(i) {
+  const el = i._el; const [w, hh] = natSize(el); if (!w) return null;
+  const c = document.createElement('canvas'); c.width = 160; c.height = 90;
+  const g = c.getContext('2d'); g.drawImage(el, 0, 0, 160, 90);
+  const d = g.getImageData(0, 0, 160, 90).data, px = [];
+  for (let y = 0; y < 90; y++) for (let x = 0; x < 160; x++) {
+    if (!(y < 12 || x < 16 || x >= 144)) continue;
+    const k = (y * 160 + x) * 4, r = d[k], gg = d[k + 1], b = d[k + 2], mx = Math.max(r, gg, b), mn = Math.min(r, gg, b);
+    if (mx - mn > 40) px.push([r, gg, b, gg - Math.max(r, b), b - Math.max(r, gg)]);
+  }
+  if (px.length < 50) return null;
+  // vince il colore dominante del telo: verde o blu
+  const green = px.filter(p => p[3] > 20).length, blue = px.filter(p => p[4] > 20).length;
+  const sel = px.filter(p => green >= blue ? p[3] > 20 : p[4] > 20);
+  if (sel.length < 30) return null;
+  const avg = n => Math.round(sel.reduce((a, p) => a + p[n], 0) / sel.length);
+  const hx = v => v.toString(16).padStart(2, '0');
+  return '#' + hx(avg(0)) + hx(avg(1)) + hx(avg(2));
+}
+/* controllo maschera: bianco = soggetto che resta, nero = fondo tolto */
+function drawMatte(i, cv) {
+  if (!i._keyer || !cv.isConnected) return;
+  const g = cv.getContext('2d', { willReadFrequently: true });
+  g.clearRect(0, 0, cv.width, cv.height); g.drawImage(i._keyer.canvas, 0, 0, cv.width, cv.height);
+  const im = g.getImageData(0, 0, cv.width, cv.height), d = im.data;
+  for (let k = 0; k < d.length; k += 4) { const a = d[k + 3]; d[k] = d[k + 1] = d[k + 2] = a; d[k + 3] = 255; }
+  g.putImageData(im, 0, 0);
 }
 
 /* ================= Scene, disegno, transizioni, grafica ================= */
@@ -655,6 +694,15 @@ function drawLayer(g, L, cw, ch, air) {
   if (L.bd > 0) {
     g.save(); g.strokeStyle = L.bc || '#fff'; g.lineWidth = L.bd * ch / 1080;
     if (rad > 0) { roundRect(g, dx, dy, dw, dh, rad); g.stroke(); } else g.strokeRect(dx, dy, dw, dh);
+    g.restore();
+  }
+  if (L.cap) {   // didascalia: nome dell'inviato o del luogo, in basso nel riquadro
+    const k = ch / 1080, fs = Math.max(9, Math.min(30, dh * .075)), pad = fs * .6;
+    g.save(); g.font = `700 ${fs}px "Archivo",sans-serif`;
+    const tw = Math.min(g.measureText(L.cap).width, dw - pad * 4), bh = fs * 1.7, bx = dx + pad, by = dy + dh - bh - pad;
+    g.fillStyle = 'rgba(7,17,12,.86)'; g.fillRect(bx, by, tw + pad * 2, bh);
+    g.fillStyle = L.bc && L.bd > 0 ? L.bc : BRAND.green; g.fillRect(bx, by, 5 * k + 1, bh);
+    g.fillStyle = '#fff'; g.textBaseline = 'middle'; g.fillText(L.cap, bx + pad + 3 * k, by + bh / 2 + 1, tw);
     g.restore();
   }
 }
@@ -789,7 +837,39 @@ function ensureLogo() {
   if (want === 'own') DB.get('logo', 'kv').then(b => { if (b) { const im = new Image(); im.onload = () => logoImg = im; im.src = URL.createObjectURL(b); } });
   else { const im = new Image(); im.onload = () => logoImg = im; im.src = location.protocol.startsWith('http') ? '../../logo-grandangolo.png.png' : 'logo-grandangolo.png'; }
 }
-const TICK_H = 62;
+const TICK_H = 62, BRK_H = 118;
+function bottomBand() { return (P.ovl.ticker.on ? TICK_H : 0) + (R.brkV || 0) * BRK_H; }
+/* barra rossa «ultim'ora», sopra la barra delle notizie */
+function drawBreaking(g, dt) {
+  const B = P.ovl.brk; R.brkV = clamp((R.brkV || 0) + (B.on ? dt : -dt) / .45, 0, 1);
+  const v = R.brkV; if (v <= 0) return;
+  const LS = x => { try { g.letterSpacing = x; } catch (_) { } };
+  const eo = 1 - Math.pow(1 - v, 3), base = H - (P.ovl.ticker.on ? TICK_H : 0), y = base - BRK_H * eo;
+  g.save(); g.beginPath(); g.rect(0, 0, W, base); g.clip();
+  const gr = g.createLinearGradient(0, 0, W, 0); gr.addColorStop(0, '#b0001e'); gr.addColorStop(1, '#e8143c');
+  g.fillStyle = gr; g.fillRect(0, y, W, BRK_H);
+  g.fillStyle = 'rgba(255,255,255,.9)'; g.fillRect(0, y, W, 4);
+  // etichetta
+  g.font = '900 40px "Archivo",sans-serif'; LS('3px');
+  const lab = (B.label || "ULTIM'ORA").toUpperCase(), lw = g.measureText(lab).width + 90;
+  const on = B.blink === false || Math.sin(now() * 4) > -0.2;
+  g.fillStyle = '#fff'; g.fillRect(0, y + 4, lw, BRK_H - 4);
+  g.fillStyle = on ? '#c4001f' : '#ff8fa0'; g.textBaseline = 'middle'; g.fillText(lab, 44, y + BRK_H / 2 + 2); LS('0px');
+  // testo: una o due righe, rimpicciolito se serve
+  const txt = (B.text || '').replace(/\s+/g, ' ').trim(), maxW = W - lw - 120;
+  let fs = 50, lines = [txt];
+  for (; fs >= 30; fs -= 2) {
+    g.font = `800 ${fs}px "Archivo",sans-serif`;
+    if (g.measureText(txt).width <= maxW) { lines = [txt]; break; }
+    const ws = txt.split(' '); let a = '', b = '';
+    for (const w of ws) { if (!b && g.measureText(a ? a + ' ' + w : w).width <= maxW) a = a ? a + ' ' + w : w; else b = b ? b + ' ' + w : w; }
+    if (fs <= 40 && g.measureText(b).width <= maxW) { lines = [a, b]; break; }
+  }
+  g.fillStyle = '#fff'; g.textBaseline = 'middle';
+  const lh = fs * 1.12, ty = y + 4 + (BRK_H - 4) / 2 - (lines.length - 1) * lh / 2;
+  lines.forEach((l, n) => g.fillText(l, lw + 44, ty + n * lh + 2, maxW));
+  g.restore();
+}
 function drawOverlays(g, dt) {
   const O = P.ovl, k = 1;
   const LS = v => { try { g.letterSpacing = v; } catch (_) { } };
@@ -799,7 +879,7 @@ function drawOverlays(g, dt) {
     if (logoImg) {
       const s = O.logo.size || 1, lh = 70 * s, lw = logoImg.naturalWidth / logoImg.naturalHeight * lh;
       const pos = O.logo.pos || 'tr', mx = 56, my = 46;
-      const x = pos.includes('l') ? mx : W - mx - lw, y = pos.includes('b') ? H - my - lh - (O.ticker.on ? TICK_H : 0) : my;
+      const x = pos.includes('l') ? mx : W - mx - lw, y = pos.includes('b') ? H - my - lh - bottomBand() : my;
       g.save(); g.shadowColor = 'rgba(0,0,0,.45)'; g.shadowBlur = 14; g.drawImage(logoImg, x, y, lw, lh); g.restore();
     }
   }
@@ -839,6 +919,7 @@ function drawOverlays(g, dt) {
     g.fillStyle = BRAND.green; g.fillRect(0, y - 4, W, 4);
     g.restore();
   }
+  drawBreaking(g, dt);
   // sottopancia (lower third Grandangolo)
   const A = R.ltAnim, lt = O.lt;
   A.target = lt.on ? 1 : 0;
@@ -848,7 +929,7 @@ function drawOverlays(g, dt) {
   if (A.v > 0) {
     const L = gl3Layout(g, { content: lt.title, sub: lt.sub, kicker: lt.kicker, size: 100 }, 1);
     const eo = p => 1 - Math.pow(1 - p, 3);
-    const ox = .021 * W + 20, bottom = Math.min(.885 * H, H - (O.ticker.on ? TICK_H + 34 : 80));
+    const ox = .021 * W + 20, bottom = Math.min(.885 * H, H - (bottomBand() ? bottomBand() + 34 : 80));
     const off = -(1 - eo(A.v)) * (L.groupW + ox) * 1.03;
     g.save(); g.globalAlpha = clamp(A.v / .8, 0, 1); gl3Paint(g, ox + off, bottom - L.groupH, L); g.restore();
   }
@@ -907,10 +988,19 @@ function tickAudio() {
   const t = AC.currentTime;
   for (const i of P.inputs) {
     if (!i._a) continue;
-    const on = i.aud.mute ? 0 : (i.aud.afv ? (live.has(i.id) ? 1 : 0) : 1);
+    const on = i.aud.mute ? 0 : (i.aud.afv ? (followsLive(i, live) ? 1 : 0) : 1);
     if (i._a.on !== on) { i._a.afv.gain.setTargetAtTime(on, t, .06); i._a.on = on; }
   }
   AU.master.gain.setTargetAtTime(dbToGain(P.audio.master) * (1 - (R.ftbV || 0)), t, .03);
+}
+/* il microfono dello studio segue le telecamere: si spegne quando in onda non c'è lo studio */
+function followsLive(i, live) {
+  if (live.has(i.id)) return true;
+  if (i.type !== 'mic') return false;
+  const f = i.follow || 'cams';
+  if (f !== 'cams') return live.has(f);
+  for (const id of live) { const x = inp(id); if (x && x.type === 'camera') return true; }
+  return false;
 }
 function peakOf(an, buf) {
   an.getFloatTimeDomainData(buf); let m = 0;
@@ -962,7 +1052,7 @@ function refreshMixer() {
     fd.ondblclick = () => { i.aud.db = 0; fd.value = dbToFader(0); fd.oninput(); };
     const m = h('button', { class: 'm' + (i.aud.mute ? ' on' : ''), title: 'Muto' }, 'M');
     m.onclick = () => { i.aud.mute = !i.aud.mute; m.classList.toggle('on', i.aud.mute); dirty(); };
-    const a = h('button', { class: 'a' + (i.aud.afv ? ' on' : ''), title: 'Segue il video: si sente solo quando è in onda' }, 'AFV');
+    const a = h('button', { class: 'a' + (i.aud.afv ? ' on' : ''), title: i.type === 'mic' ? 'Automatico: acceso solo quando lo studio è in onda' : 'Segue il video: si sente solo quando è in onda' }, i.type === 'mic' ? 'AUTO' : 'AFV');
     a.onclick = () => { i.aud.afv = !i.aud.afv; a.classList.toggle('on', i.aud.afv); dirty(); };
     box.append(h('div', { class: 'ch' }, h('div', { class: 'cn', title: i.name }, i.num + ' ' + i.name), h('div', { class: 'fd' }, fd, vu), db, m, a));
   }
@@ -1195,7 +1285,15 @@ function inputPane(box, i) {
       box.append(field('Risoluzione', rs));
       box.append(field('Audio della telecamera', as));
       box.append(chk('Specchia l\'immagine', i.flip, v => i.flip = v));
-    } else box.append(field('Microfono', as));
+    } else {
+      box.append(field('Microfono', as));
+      const fw = h('select', {}, h('option', { value: 'always' }, 'Sempre acceso'), h('option', { value: 'cams' }, 'Solo quando lo studio è in onda (una telecamera)'),
+        ...P.inputs.filter(x => x.type === 'camera' || x.type === 'vcam').map(x => h('option', { value: x.id }, 'Solo quando è in onda: ' + x.name)));
+      fw.value = !i.aud.afv ? 'always' : (i.follow || 'cams');
+      fw.onchange = () => { if (fw.value === 'always') i.aud.afv = false; else { i.aud.afv = true; i.follow = fw.value; } refreshMixer(); dirty(); };
+      box.append(field('Quando si accende', fw));
+      box.append(h('p', { class: 'hint' }, 'Mentre va in onda un servizio, un inviato o una grafica a tutto schermo, il microfono dello studio si spegne da solo e si riaccende quando torni in studio.'));
+    }
   }
   if (i.type === 'vcam') { vcamPane(box, i); box.append(h('div', { class: 'row', style: 'margin-top:14px' }, h('button', { class: 'sb dan', onclick: () => removeInput(i) }, 'Elimina'))); return; }
   if (i.type === 'screen') box.append(h('button', { class: 'sb pri', onclick: () => { i._gesture = true; openInput(i); } }, i._el ? 'Cambia schermo o finestra' : 'Condividi schermo'), h('div', { style: 'height:10px' }));
@@ -1237,13 +1335,20 @@ function inputPane(box, i) {
     if (i.key.on) {
       const col = h('input', { type: 'color', value: i.key.color, style: 'width:44px;height:30px;border:0;background:none;padding:0' });
       col.oninput = () => { i.key.color = col.value; dirty(); };
-      box.append(h('div', { class: 'row', style: 'margin-bottom:8px' }, h('span', { class: 'lbl' }, 'Colore del fondo'), col,
-        h('button', { class: 'sb', onclick: () => pickKeyColor(i, col) }, '🎯 Prendilo dall\'immagine'),
-        h('button', { class: 'sb', onclick: () => { i.key.color = '#00b140'; col.value = '#00b140'; } }, 'Verde'),
-        h('button', { class: 'sb', onclick: () => { i.key.color = '#0047bb'; col.value = '#0047bb'; } }, 'Blu')));
-      box.append(rng('Tolleranza', 0.05, 1, 0.005, i.key.sim, v => v.toFixed(2), v => i.key.sim = v));
-      box.append(rng('Morbidezza', 0.001, 0.4, 0.001, i.key.smooth, v => v.toFixed(3), v => i.key.smooth = v));
-      box.append(rng('Riflessi verdi', 0.001, 0.6, 0.001, i.key.spill, v => v.toFixed(3), v => i.key.spill = v));
+      box.append(h('div', { class: 'row', style: 'margin-bottom:8px' }, h('span', { class: 'lbl' }, 'Colore da togliere'), col,
+        h('button', { class: 'sb pri', title: 'Clicca sul fondo nell\'immagine: più punti clicchi, più preciso è il colore', onclick: () => pickKeyColor(i, col) }, '💧 Contagocce'),
+        h('button', { class: 'sb', title: 'Legge il colore del telo ai bordi dell\'inquadratura', onclick: () => { const c = autoKeyColor(i); if (!c) { toast('Non trovo un fondo colorato ai bordi: usa il contagocce'); return; } i.key.color = c; col.value = c; dirty(); toast('Colore del fondo: ' + c); } }, '✨ Automatico'),
+        h('button', { class: 'sb', onclick: () => { i.key.color = '#00b140'; col.value = '#00b140'; dirty(); } }, 'Verde'),
+        h('button', { class: 'sb', onclick: () => { i.key.color = '#0047bb'; col.value = '#0047bb'; dirty(); } }, 'Blu')));
+      box.append(rng('Intensità della rimozione', 0.05, 1, 0.005, i.key.sim, v => Math.round(v * 100) + '%', v => { i.key.sim = v; }));
+      box.append(h('p', { class: 'hint', style: 'margin-top:-4px' }, 'Alzala finché il fondo sparisce del tutto; se il soggetto diventa trasparente, abbassala.'));
+      box.append(rng('Morbidezza dei bordi', 0.001, 0.4, 0.001, i.key.smooth, v => v.toFixed(3), v => i.key.smooth = v));
+      box.append(rng('Pulizia dei bordi', 0, 0.6, 0.01, i.key.choke || 0, v => Math.round(v * 100) + '%', v => i.key.choke = v));
+      box.append(rng('Togli i riflessi colorati', 0.001, 0.6, 0.001, i.key.spill, v => v.toFixed(3), v => i.key.spill = v));
+      const mt = h('canvas', { width: 320, height: 180, style: 'width:100%;border-radius:8px;background:#000;display:block' });
+      i._matteEl = mt;
+      box.append(h('div', { class: 'lbl', style: 'margin:8px 0 4px' }, 'Controllo: in bianco il soggetto, in nero il fondo tolto. Grigi o puntini nel nero = fondo non pulito.'), mt);
+      box.append(h('div', { class: 'row', style: 'margin:8px 0' }, h('button', { class: 'sb', onclick: () => { Object.assign(i.key, { sim: .4, smooth: .08, spill: .1, choke: 0 }); refreshPane(); dirty(); } }, 'Valori iniziali')));
     }
     box.append(h('div', { class: 'grp', style: 'margin-top:12px' }, 'Ritaglio'));
     box.append(h('p', { class: 'hint' }, 'Taglia i bordi: utile per togliere luci, supporti o il bordo del telo verde.'));
@@ -1301,6 +1406,9 @@ function scenePane(box, s) {
     const fit = h('select', {}, h('option', { value: 'cover' }, 'Riempi il riquadro'), h('option', { value: 'contain' }, 'Mostra tutto'), h('option', { value: 'stretch' }, 'Deforma per adattare'));
     fit.value = L.fit; fit.onchange = () => { L.fit = fit.value; dirty(); };
     box.append(field('Adattamento', fit));
+    const cap = h('input', { type: 'text', value: L.cap || '', placeholder: 'es. Mario Rossi · da Palermo' });
+    cap.oninput = () => { L.cap = cap.value; dirty(); };
+    box.append(field('Didascalia sul riquadro (vuota = nessuna)', cap));
     box.append(rng('Opacità', 0, 1, .01, L.op ?? 1, pct, v => L.op = v));
     box.append(rng('Bordo', 0, 20, 1, L.bd || 0, v => v + ' px', v => L.bd = v));
     box.append(rng('Angoli', 0, 60, 1, L.r || 0, v => v + ' px', v => L.r = v));
@@ -1382,18 +1490,28 @@ function addScene() {
   }, { passive: false });
 })();
 
-/* campionatore del colore del green screen */
+/* contagocce: si clicca uno o più punti del fondo; il colore è la media dei punti scelti */
 function pickKeyColor(i, colEl) {
   const fr = i._el; const [w, hh] = natSize(fr);
   if (!w) { toast('L\'ingresso non ha ancora immagine'); return; }
   const c = h('canvas', { width: 960, height: Math.round(960 * hh / w), style: 'width:100%;border-radius:10px;cursor:crosshair;display:block' });
-  c.getContext('2d').drawImage(fr, 0, 0, c.width, c.height);
-  modal(h('div', {}, h('h3', {}, 'Clicca sul fondo verde'), h('p', { class: 'hint' }, 'Scegli un punto del telo, vicino alla persona ma senza toccarla.'), c,
-    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Annulla'))));
+  const g = c.getContext('2d'); g.drawImage(fr, 0, 0, c.width, c.height);
+  const pts = [], sw = h('span', { style: 'display:inline-block;width:34px;height:22px;border-radius:6px;border:1px solid #fff4;vertical-align:middle;background:' + i.key.color });
+  const info = h('span', { class: 'hint', style: 'margin:0 0 0 8px' }, 'Nessun punto scelto');
+  const mix = () => { const n = pts.length, av = k => Math.round(pts.reduce((a, p) => a + p[k], 0) / n), hx = v => v.toString(16).padStart(2, '0'); return '#' + hx(av(0)) + hx(av(1)) + hx(av(2)); };
+  const redraw = () => { g.drawImage(fr, 0, 0, c.width, c.height); g.strokeStyle = '#fff'; g.lineWidth = 2; for (const p of pts) { g.beginPath(); g.arc(p[3], p[4], 9, 0, 7); g.stroke(); } };
+  modal(h('div', {}, h('h3', {}, '💧 Contagocce: clicca sul fondo'), h('p', { class: 'hint' }, 'Clicca 3 o 4 punti del telo: uno in luce, uno in ombra, uno vicino al soggetto. Il colore da togliere è la loro media.'), c,
+    h('div', { class: 'row', style: 'margin-top:10px' }, sw, info),
+    h('div', { class: 'acts' },
+      h('button', { class: 'sb', onclick: () => { pts.length = 0; redraw(); info.textContent = 'Nessun punto scelto'; } }, 'Ricomincia'),
+      h('button', { class: 'sb', onclick: closeModal }, 'Annulla'),
+      h('button', { class: 'sb pri', onclick: () => { if (!pts.length) { toast('Clicca almeno un punto del fondo'); return; } const col = mix(); i.key.color = col; colEl.value = col; dirty(); toast('Colore del fondo: ' + col); closeModal(); } }, 'Usa questo colore'))));
   c.onclick = e => {
-    const r = c.getBoundingClientRect(), col = sampleColor(i, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
-    if (col) { i.key.color = col; colEl.value = col; dirty(); toast('Colore del fondo: ' + col); }
-    closeModal();
+    const r = c.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width, ny = (e.clientY - r.top) / r.height, col = sampleColor(i, nx, ny);
+    if (!col) return; const n = parseInt(col.slice(1), 16);
+    pts.push([n >> 16 & 255, n >> 8 & 255, n & 255, nx * c.width, ny * c.height]); redraw();
+    const m = mix(); sw.style.background = m; info.textContent = pts.length + (pts.length === 1 ? ' punto' : ' punti') + ' · ' + m;
+    i.key.color = m; colEl.value = m;   // si vede subito il risultato nell'anteprima
   };
 }
 
@@ -1485,6 +1603,13 @@ function gfxPane() {
   const box = $('#rpane'); box.innerHTML = '';
   const O = P.ovl, lt = O.lt;
   const onBtn = (on, fn, label) => { const b = h('button', { class: 'onair' + (on ? ' on' : ''), onclick: fn }, on ? '● IN ONDA' : (label || 'MANDA IN ONDA')); return b; };
+  const B = O.brk;
+  box.append(h('div', { class: 'grp', style: 'color:#ff5a6e' }, 'Ultim\'ora (barra rossa)'));
+  const bl = h('input', { type: 'text', value: B.label }), bt = h('textarea', {}, B.text);
+  bl.oninput = () => { B.label = bl.value; dirty(); }; bt.oninput = () => { B.text = bt.value; dirty(); };
+  box.append(field('Etichetta', bl), field('Notizia', bt));
+  box.append(chk('Etichetta lampeggiante', B.blink !== false, v => B.blink = v));
+  box.append(h('div', { class: 'row', style: 'margin-bottom:14px' }, onBtn(B.on, () => toggleBrk(), 'MANDA L\'ULTIM\'ORA'), h('span', { class: 'hint', style: 'margin:0' }, 'Tasto U')));
   box.append(h('div', { class: 'grp' }, 'Sottopancia'));
   const k = h('input', { type: 'text', value: lt.kicker }), t = h('textarea', {}, lt.title), s = h('input', { type: 'text', value: lt.sub });
   k.oninput = () => { lt.kicker = k.value; dirty(); }; t.oninput = () => { lt.title = t.value; dirty(); }; s.oninput = () => { lt.sub = s.value; dirty(); };
@@ -1521,6 +1646,7 @@ function gfxPane() {
   box.append(field('Testo del bollino', lv));
   box.append(chk('Orologio', O.clock.on, v => O.clock.on = v));
 }
+function toggleBrk() { const B = P.ovl.brk; B.on = !B.on; refreshGfxButtons(); dirty(); }
 function toggleLT() {
   const lt = P.ovl.lt; lt.on = !lt.on; if (lt.on) R.ltOnAt = now();
   refreshGfxButtons(); dirty();
@@ -2178,6 +2304,85 @@ setInterval(() => {
 }, 1000);
 addEventListener('beforeunload', e => { if (ST.live) { e.preventDefault(); e.returnValue = ''; } });
 
+/* ================= Comandi del servizio in anteprima, composizioni a riquadri ================= */
+
+/* il servizio (video) che c'è in anteprima: lo controlli prima di mandarlo in onda */
+function pvVideo() {
+  for (const id of srcInputs(R.pv)) { const i = inp(id); if (i && i.type === 'video' && i._el) return i; }
+  return null;
+}
+function tickVtr() {
+  const box = $('#vtr'), i = pvVideo();
+  box.hidden = !i; if (!i) return;
+  const el = i._el, d = el.duration || 0;
+  $('#vtP').textContent = el.paused ? '▶' : '❚❚';
+  if (!R.vtrDrag) $('#vtS').value = d ? Math.round(el.currentTime / d * 1000) : 0;
+  $('#vtT').textContent = fmtTime(el.currentTime) + ' / ' + fmtTime(d);
+  $('#vtA').hidden = !srcInputs(R.pg).has(i.id);
+}
+(function vtrControls() {
+  const act = fn => () => { const i = pvVideo(); if (i) { fn(i._el); tickVtr(); } };
+  $('#vtR').onclick = act(el => { el.currentTime = 0; });
+  $('#vtB').onclick = act(el => { el.currentTime = Math.max(0, el.currentTime - 10); });
+  $('#vtF').onclick = act(el => { el.currentTime = Math.min((el.duration || 0) - .1, el.currentTime + 10); });
+  $('#vtP').onclick = act(el => { el.paused ? el.play().catch(() => { }) : el.pause(); });
+  const s = $('#vtS');
+  s.addEventListener('pointerdown', () => R.vtrDrag = true);
+  s.addEventListener('pointerup', () => R.vtrDrag = false);
+  s.oninput = act(el => { if (el.duration) el.currentTime = +s.value / 1000 * el.duration; });
+  // i clic sui comandi non devono spostare i livelli della scena sotto
+  $('#vtr').addEventListener('pointerdown', e => e.stopPropagation());
+})();
+
+/* ---------- composizioni: studio e inviati nella stessa inquadratura ---------- */
+const PIPS = [
+  { id: 'side', name: 'Affiancati', desc: 'Studio e inviato, due riquadri uguali', slots: [['Sinistra', { x: .03, y: .2, w: .455, h: .455 }], ['Destra', { x: .515, y: .2, w: .455, h: .455 }]] },
+  { id: 'pip', name: 'Riquadro in basso', desc: 'Una sorgente a tutto schermo, l\'altra nel riquadro', slots: [['Tutto schermo', { x: 0, y: 0, w: 1, h: 1, full: true }], ['Riquadro', { x: .64, y: .52, w: .32, h: .32 }]] },
+  { id: 'pipt', name: 'Riquadro in alto', desc: 'Come sopra, con il riquadro in alto a destra', slots: [['Tutto schermo', { x: 0, y: 0, w: 1, h: 1, full: true }], ['Riquadro', { x: .64, y: .12, w: .32, h: .32 }]] },
+  { id: 'three', name: 'Studio + 2 inviati', desc: 'Lo studio grande, due inviati a destra', slots: [['Grande', { x: .03, y: .17, w: .56, h: .56 }], ['Destra in alto', { x: .62, y: .14, w: .35, h: .35 }], ['Destra in basso', { x: .62, y: .52, w: .35, h: .35 }]] },
+  { id: 'grid', name: 'Griglia da 4', desc: 'Quattro riquadri uguali', slots: [['In alto a sinistra', { x: .07, y: .06, w: .42, h: .42 }], ['In alto a destra', { x: .51, y: .06, w: .42, h: .42 }], ['In basso a sinistra', { x: .07, y: .5, w: .42, h: .42 }], ['In basso a destra', { x: .51, y: .5, w: .42, h: .42 }]] },
+];
+function pipDialog() {
+  const vids = P.inputs.filter(i => hasVideo(i) && i.type !== 'vset' && i.type !== 'color');
+  if (vids.length < 2) { toast('Servono almeno due ingressi video: aggiungi una telecamera o un inviato'); return; }
+  let cur = PIPS[0];
+  const slotsBox = h('div'), sels = [];
+  // prima lo studio, poi gli inviati, poi il resto: ogni riquadro una sorgente diversa
+  const ord = [...vids.filter(i => i.type === 'camera'), ...vids.filter(i => i.type === 'remote'), ...vids.filter(i => i.type !== 'camera' && i.type !== 'remote')];
+  const guess = n => ord[n % ord.length];
+  const draw = () => {
+    slotsBox.innerHTML = ''; sels.length = 0;
+    cur.slots.forEach(([lab], n) => {
+      const s = h('select', {}, ...vids.map(i => h('option', { value: i.id }, i.num + ' · ' + i.name)));
+      s.value = guess(n).id; sels.push(s);
+      slotsBox.append(field(lab, s));
+    });
+  };
+  const opts = h('div', { class: 'row', style: 'margin-bottom:10px;flex-wrap:wrap' });
+  const paint = () => { [...opts.children].forEach((b, n) => b.classList.toggle('pri', PIPS[n] === cur)); };
+  PIPS.forEach(p => opts.append(h('button', { class: 'sb', title: p.desc, onclick: () => { cur = p; paint(); draw(); } }, p.name)));
+  paint(); draw();
+  const capOn = h('input', { type: 'checkbox', checked: true });
+  modal(h('div', {}, h('h3', {}, 'Riquadri: più telecamere insieme'), h('p', { class: 'hint' }, 'Scegli la composizione e cosa va in ogni riquadro. Poi puoi spostare e ingrandire i riquadri trascinandoli nell\'anteprima.'),
+    opts, slotsBox, h('label', { class: 'hint', style: 'display:flex;gap:8px;align-items:center' }, capOn, 'Scrivi il nome sotto ogni riquadro'),
+    h('div', { class: 'acts' }, h('button', { class: 'sb', onclick: closeModal }, 'Annulla'),
+      h('button', { class: 'sb pri', onclick: () => {
+        const bg = defaultBg(), layers = bg ? [newLayer(bg.id)] : [];
+        cur.slots.forEach(([, pos], n) => {
+          const i = inp(sels[n].value); if (!i) return;
+          const full = !!pos.full, o = { x: pos.x, y: pos.y, w: pos.w, h: pos.h };
+          if (!full) Object.assign(o, { bd: 5, bc: '#21d07a', r: 10 });
+          if (i.key.on) o.fit = 'contain';
+          if (capOn.checked && !full) o.cap = i.name;
+          layers.push(newLayer(i.id, o));
+        });
+        const s = newScene(cur.name + ': ' + cur.slots.map((_, n) => (inp(sels[n].value) || {}).name).join(' + '), layers);
+        closeModal(); refreshGrid(); setPreview('s:' + s.id); select('s:' + s.id); dirty();
+        toast('Composizione pronta in anteprima: AUTO per mandarla in onda');
+      } }, 'Crea la composizione'))));
+}
+$('#bAddPip').onclick = pipDialog;
+
 /* ================= Avvio e ciclo di disegno ================= */
 const pvC = $('#pv'), pvG = pvC.getContext('2d'), pgG = PGC.getContext('2d', { alpha: false });
 R.frame = 0;
@@ -2204,6 +2409,8 @@ function frame() {
     drawSrc(g, k, cv.width, cv.height, false);
   }
   tickMeters();
+  if (R.frame % 3 === 0 && R.sel && R.sel.startsWith('i:')) { const si = inp(R.sel.slice(2)); if (si && si.key.on && si._matteEl) drawMatte(si, si._matteEl); }
+  if (R.frame % 6 === 0) tickVtr();
   if (R.frame % 10 === 0) {
     for (const i of P.inputs) if (i._bar && i._el && i._el.duration) i._bar.style.width = (i._el.currentTime / i._el.duration * 100) + '%';
     const d = new Date(), p = n => String(n).padStart(2, '0');
@@ -2264,6 +2471,8 @@ addEventListener('keydown', e => {
   else if (k === 'r' || k === 'R') toggleRec();
   else if (k === 'n' || k === 'N') rdNext();
   else if (k === 'b' || k === 'B') toggleFTB();
+  else if (k === 'u' || k === 'U') toggleBrk();
+  else if (k === 'k' || k === 'K') { const v = pvVideo(); if (v) { v._el.paused ? v._el.play().catch(() => { }) : v._el.pause(); tickVtr(); } }
   else if (/^[1-9]$/.test(k)) { const i = P.inputs[+k - 1]; if (i && hasVideo(i)) { setPreview('i:' + i.id); select('i:' + i.id); } }
   else if (/^F[1-9]$/.test(k)) { e.preventDefault(); const s = P.scenes[+k.slice(1) - 1]; if (s) { setPreview('s:' + s.id); select('s:' + s.id); } }
 });
@@ -2278,6 +2487,8 @@ function loadProject() {
     if (j.ovl) for (const k in P.ovl) Object.assign(P.ovl[k], j.ovl[k] || {});
     P.inputs = j.inputs.map(i => Object.assign({ key: KEY0(), crop: { l: 0, t: 0, r: 0, b: 0 }, aud: { db: 0, mute: false, afv: false } }, i));
     P.scenes = j.scenes || [];
+    // da questa versione il microfono dello studio si spegne da solo quando lo studio non è in onda
+    for (const i of P.inputs) if (i.type === 'mic' && i.follow === undefined) { i.follow = 'cams'; i.aud.afv = true; }
     R.pv = j.pv || null; R.pg = j.pg || null;
     return false;
   }
