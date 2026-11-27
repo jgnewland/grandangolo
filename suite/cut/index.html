@@ -6635,10 +6635,12 @@ function wavBlob(buf) {
 function hasAnyAudio(from, to) { return proj.clips.some(c => hasAudio(c) && !c.mute && !trackOf(c.track)?.mute && c.start < to && c.start + c.dur > from); }
 async function pickVideoCodec(W, H, fps, bitrate) {
   if (!window.VideoEncoder) return null;
-  for (const codec of ['avc1.640033', 'avc1.640028', 'avc1.4d0033', 'avc1.4d0028', 'avc1.42003e']) {
-    const cfg = { codec, width: W, height: H, bitrate, framerate: fps, avc: { format: 'avc' } };
-    try { const r = await VideoEncoder.isConfigSupported(cfg); if (r.supported) return cfg; } catch { }
-  }
+  // prima il codificatore della scheda grafica (anche quella integrata): sui PC da ufficio l'esportazione è molto più veloce
+  for (const hw of ['prefer-hardware', 'no-preference'])
+    for (const codec of ['avc1.640033', 'avc1.640028', 'avc1.4d0033', 'avc1.4d0028', 'avc1.42003e']) {
+      const cfg = { codec, width: W, height: H, bitrate, framerate: fps, avc: { format: 'avc' }, hardwareAcceleration: hw };
+      try { const r = await VideoEncoder.isConfigSupported(cfg); if (r.supported) return cfg; } catch { }
+    }
   return null;
 }
 async function pickAudioCodec() {

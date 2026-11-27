@@ -1,5 +1,5 @@
 {
- "version": "1.8.2",
+ "version": "1.8.3",
  "date": "2026-11-27",
  "notes": [],
  "minShell": "1.2.0",
@@ -7,13 +7,13 @@
  "files": [
   {
    "path": "NWLcut.html",
-   "sha256": "3ab59bdcc240e93c133cfdd98c3adf3561689029bce67c6f16ccac48b135c7bf",
-   "size": 621452
+   "sha256": "9539cc18c9c6485d38edaa030ff558ca47e2b1620e1ee7814d736580fb04ed64",
+   "size": 621671
   },
   {
    "path": "NWLlive.html",
-   "sha256": "124df73e5cf012de7991bdf1f975ed08e0691cd1a9b40a2c23548bdb6f83e875",
-   "size": 169787
+   "sha256": "5dab8e262a39fba99b9fd3e3045f1b299dcbcac245eb68d531b11066c91bc415",
+   "size": 173962
   },
   {
    "path": "NWLradio.html",
@@ -37,7 +37,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "9969f558842d83ef02d5c8ed114c1bae69396b407d840e064a85470cf2e2e741",
+   "sha256": "2aa5480154af1ea8503bbad91d519fcaf1af641da22356d8e53475eecbb7daf0",
    "size": 20
   },
   {
