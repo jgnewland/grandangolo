@@ -42,7 +42,7 @@ header{display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--p
 .frame{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#000;border-radius:8px;overflow:hidden}
 .screen.pv .frame{box-shadow:0 0 0 2px var(--grn)}
 .screen.pg .frame{box-shadow:0 0 0 2px var(--red)}
-.frame canvas{max-width:100%;max-height:100%;aspect-ratio:16/9;display:block;background:#000}
+.frame canvas{width:100%;height:100%;object-fit:contain;display:block;background:#000}
 .frame .ed{position:absolute;inset:0;pointer-events:none}
 .vtr{position:absolute;left:8px;right:8px;bottom:8px;display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(6,8,16,.82);backdrop-filter:blur(6px);border:1px solid #ffffff22}
 .vtr[hidden]{display:none}
@@ -1436,7 +1436,9 @@ function addScene() {
 /* trascinamento nell'anteprima: sposta e ridimensiona i livelli, oppure muove la camera virtuale */
 (function previewDrag() {
   const cv = $('#pv'); let drag = null;
-  const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height, r]; };
+  // l'immagine è centrata nel riquadro (object-fit: contain): conto solo l'area 16:9 davvero disegnata
+  const box = () => { const b = cv.getBoundingClientRect(), k = Math.min(b.width / cv.width, b.height / cv.height), w = cv.width * k, hh = cv.height * k; return { left: b.left + (b.width - w) / 2, top: b.top + (b.height - hh) / 2, width: w, height: hh }; };
+  const pos = e => { const r = box(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height, r]; };
   const curScene = () => R.pv && R.pv.startsWith('s:') && R.sel === R.pv ? scn(R.pv.slice(2)) : null;
   const curVcam = () => { if (!R.pv || R.pv !== R.sel || !R.pv.startsWith('i:')) return null; const i = inp(R.pv.slice(2)); return i && i.type === 'vcam' ? i : null; };
   const HS = 14; // maniglie (pixel a schermo)
