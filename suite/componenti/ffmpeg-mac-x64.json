@@ -1,0 +1,6 @@
+{
+ "file": "ffmpeg-mac-x64.gz",
+ "sha256": "ebdddc936f61e14049a2d4b549a412b8a40deeff6540e58a9f2a2da9e6b18894",
+ "gzSize": 25271865,
+ "source": "https://github.com/eugeneware/ffmpeg-static (b6.1.1, darwin-x64), licenza GPL v3"
+}

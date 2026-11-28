@@ -188,14 +188,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <article class="app live">
       <span class="new">NUOVO · IN PROVA</span>
       <div class="top"><img src="assets/live-192.png" alt="NWLlive"><div><span class="cat">Diretta</span><h3>NWLlive</h3></div></div>
-      <p>Regia televisiva in diretta: green screen e il tuo studio virtuale, camere virtuali con zoom e dolly, inviati collegati dal telefono, servizi e sigle, sottopancia e notizie RSS che scorrono, scaletta, diretta su YouTube e Facebook dal programma Windows.</p>
+      <p>Regia televisiva in diretta: green screen e il tuo studio virtuale, camere virtuali con zoom e dolly, inviati collegati dal telefono, servizi e sigle, sottopancia e notizie RSS che scorrono, scaletta, diretta su YouTube e Facebook dal programma per Windows e Mac.</p>
       <div class="chips"><span>Green screen</span><span>Camere virtuali</span><span>Inviati via link</span><span>Scaletta e sigle</span><span>Ticker RSS</span><span>YouTube · Facebook</span></div>
       <div class="acts" id="liveActs"></div>
     </article>
     <article class="app radio">
       <span class="new">NUOVO</span>
       <div class="top"><img src="assets/radio-192.png" alt="NWLradio"><div><span class="cat">Radio</span><h3>NWLradio</h3></div></div>
-      <p>Regia radio in diretta: microfoni con voce da radio, due lettori con playlist e dissolvenza, 16 jingle, segnale orario, ospiti collegati dal telefono, processore audio e registrazione della puntata. Dal programma Windows manda un segnale pulito alle radio FM.</p>
+      <p>Regia radio in diretta: microfoni con voce da radio, due lettori con playlist e dissolvenza, 16 jingle, segnale orario, ospiti collegati dal telefono, processore audio e registrazione della puntata. Dal programma per Windows e Mac manda un segnale pulito alle radio FM.</p>
       <div class="chips"><span>Mixer e microfoni</span><span>Playlist AUTO</span><span>Jingle F1–F12</span><span>Ospiti via link</span><span>Processore da radio</span><span>Icecast · MP3</span></div>
       <div class="acts" id="radioActs"></div>
     </article>
@@ -237,13 +237,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
         <p>Su Windows apri «Prompt dei comandi» nella cartella Download e scrivi:<br><code>certutil -hashfile Newland-Studio-Suite-Setup.exe SHA256</code><br>Se il risultato è uguale, il file è esattamente quello pubblicato qui.</p>
       </details>
       <div class="note" id="zipNote">Windows 10 e 11. Il programma non è ancora firmato digitalmente: al primo avvio Windows può mostrare «Windows ha protetto il PC» → «Ulteriori informazioni» → «Esegui comunque». Qui sopra puoi verificare che il file sia originale.</div>
+      <div id="mac" style="margin-top:28px;scroll-margin-top:90px">
+      <p><b>Programma per Mac</b> <span style="opacity:.6">· novità</span>: le stesse quattro app, con la diretta su YouTube e Facebook e l'invio alle radio. Per macOS 11 o successivo.</p>
+      <a class="btn pri" href="Newland-Studio-Suite-Mac-AppleSilicon.zip" download style="margin:0 10px 10px 0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 4.9c.7-.9 1.2-2 1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg>Mac con chip Apple <span style="opacity:.6;font-weight:600">· M1, M2, M3, M4…</span></a>
+      <a class="btn sec" href="Newland-Studio-Suite-Mac-Intel.tar.bz2" download style="margin:0 10px 10px 0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 4.9c.7-.9 1.2-2 1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg>Mac con processore Intel</a>
+      <div class="note">Non sai quale hai? Menu Apple (la mela in alto a sinistra) → «Informazioni su questo Mac»: se c'è scritto «Chip Apple M…» scegli il primo, se c'è «Processore Intel» il secondo.<br>
+      <b>Installazione:</b> fai doppio clic sul file scaricato e trascina «Newland Studio Suite» nella cartella Applicazioni.<br>
+      <b>Primo avvio:</b> il programma non è ancora certificato da Apple, quindi il Mac lo blocca la prima volta. Aprilo, premi «Fine», poi vai in Impostazioni di Sistema → Privacy e sicurezza, scorri in basso e premi «Apri comunque». Va fatto una sola volta.</div>
+      </div>
     </div>
     <div class="files">
       <div class="file"><img src="assets/cut-192.png" alt=""><div><b>NWLcut</b><small>Montaggio video · computer</small></div></div>
       <div class="file"><img src="assets/cut-192.png" alt=""><div><b>NWLcut telefono</b><small>Montaggio video · iPhone e Android</small></div></div>
       <div class="file"><img src="assets/tono-192.png" alt=""><div><b>NWLtono</b><small>Montaggio audio multitraccia</small></div></div>
-      <div class="file"><img src="assets/live-192.png" alt=""><div><b>NWLlive</b><small>Regia in diretta · nel programma Windows</small></div></div>
-      <div class="file"><img src="assets/radio-192.png" alt=""><div><b>NWLradio</b><small>Regia radio · invio alle radio dal programma Windows</small></div></div>
+      <div class="file"><img src="assets/live-192.png" alt=""><div><b>NWLlive</b><small>Regia in diretta · nel programma Windows e Mac</small></div></div>
+      <div class="file"><img src="assets/radio-192.png" alt=""><div><b>NWLradio</b><small>Regia radio · invio alle radio dal programma Windows e Mac</small></div></div>
     </div>
   </div>
 </div></section>
@@ -307,14 +315,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     var b = document.getElementById('radioActs');
     b.innerHTML = '<a class="btn pri" href="https://apps.microsoft.com/detail/9P0J5V07BXNZ?hl=it-IT&gl=IT" target="_blank" rel="noopener">' + dl + 'Scarica dal Microsoft Store</a><a class="btn sec" href="Newland-Studio-Suite-Setup.exe" download>Installer dal sito</a><a class="btn sec" href="radio/">' + op + 'Prova nel browser</a>';
     var n = document.createElement('p'); n.className = 'note'; n.style.margin = '12px 0 0';
-    n.innerHTML = 'Per andare in onda serve il programma per Windows. Il server gratuito si prepara con <a href="radio/server.html">questa guida</a>.';
+    n.innerHTML = 'Per andare in onda serve il programma per Windows o Mac. Il server gratuito si prepara con <a href="radio/server.html">questa guida</a>.';
     b.after(n);
   })();
   if (dev !== 'pc') { var ln = document.createElement('p'); ln.className = 'note'; ln.style.margin = '12px 0 0'; ln.textContent = 'La regia è pensata per il computer. Gli inviati si collegano dal telefono con il link che ricevono dalla regia.'; document.getElementById('liveActs').after(ln); }
 
   var hc = document.getElementById('heroCta');
   hc.innerHTML = '<button class="btn pri" id="hcCut">' + dl + 'Installa NWLcut</button><button class="btn cy" id="hcTono">' + dl + 'Installa NWLtono</button>' +
-    (dev === 'pc' ? (/Win/i.test(navigator.platform) || /Windows/i.test(ua) ? '<a class="btn sec" href="Newland-Studio-Suite-Setup.exe" download>Scarica per Windows (.exe)</a>' : '<a class="btn sec" href="Newland-Studio-Suite.zip" download>Scarica il pacchetto</a>') : '');
+    (dev === 'pc' ? (/Win/i.test(navigator.platform) || /Windows/i.test(ua) ? '<a class="btn sec" href="Newland-Studio-Suite-Setup.exe" download>Scarica per Windows (.exe)</a>' : /Mac/i.test(navigator.platform) ? '<a class="btn sec" href="#mac">Scarica per Mac</a>' : '<a class="btn sec" href="Newland-Studio-Suite.zip" download>Scarica il pacchetto</a>') : '');
   document.getElementById('hcCut').onclick = function () { inst('cut'); };
   document.getElementById('hcTono').onclick = function () { inst('tono'); };
 

@@ -269,7 +269,7 @@ const P = {
   trans: { type: 'fade', dur: 0.6 },
   ovl: {
     lt: { on: false, kicker: 'In diretta', title: 'Nome e cognome', sub: 'Ruolo', auto: 0, presets: [] },
-    logo: { on: true, pos: 'tr', size: 1, media: null },
+    logo: { on: true, pos: 'tr', size: 1, media: null, gr: false },
     brk: { on: false, label: "ULTIM'ORA", text: 'Scrivi qui la notizia urgente', blink: true },
     ticker: { on: false, label: 'NEWS', text: 'Scrivi qui le notizie che scorrono in basso', speed: 120 },
     clock: { on: false },
@@ -833,10 +833,12 @@ function gl3Paint(ctx, ox, oy, L) {
 }
 let logoImg = null, logoKey = null;
 function ensureLogo() {
-  const want = P.ovl.logo.media ? 'own' : 'gl';
+  // versione pubblica: nessun logo finché non carichi il tuo; i progetti di prima tengono il logo Grandangolo
+  const want = P.ovl.logo.media ? 'own' : (P.ovl.logo.gr ? 'gl' : 'none');
   if (logoKey === want) return;
   logoKey = want; logoImg = null;
   if (want === 'own') DB.get('logo', 'kv').then(b => { if (b) { const im = new Image(); im.onload = () => logoImg = im; im.src = URL.createObjectURL(b); } });
+  else if (want === 'none') { logoImg = null; }
   else { const im = new Image(); im.onload = () => logoImg = im; im.src = location.protocol.startsWith('http') ? '../../logo-grandangolo.png.png' : 'logo-grandangolo.png'; }
 }
 const TICK_H = 62, BRK_H = 118;
@@ -922,7 +924,7 @@ function drawOverlays(g, dt) {
     g.restore();
   }
   drawBreaking(g, dt);
-  // sottopancia (lower third Grandangolo)
+  // sottopancia
   const A = R.ltAnim, lt = O.lt;
   A.target = lt.on ? 1 : 0;
   if (lt.on && lt.auto > 0 && R.ltOnAt && now() - R.ltOnAt > lt.auto) { lt.on = false; refreshGfxButtons(); }
@@ -1300,7 +1302,7 @@ function inputPane(box, i) {
   if (i.type === 'vcam') { vcamPane(box, i); box.append(h('div', { class: 'row', style: 'margin-top:14px' }, h('button', { class: 'sb dan', onclick: () => removeInput(i) }, 'Elimina'))); return; }
   if (i.type === 'screen') box.append(h('button', { class: 'sb pri', onclick: () => { i._gesture = true; openInput(i); } }, i._el ? 'Cambia schermo o finestra' : 'Condividi schermo'), h('div', { style: 'height:10px' }));
   if (i.type === 'vset') {
-    const s = h('select', {}, ...[['notte', 'Blu notte'], ['verde', 'Verde Grandangolo'], ['rosso', 'Rosso'], ['neutro', 'Grigio neutro']].map(([v, l]) => h('option', { value: v }, l)));
+    const s = h('select', {}, ...[['notte', 'Blu notte'], ['verde', 'Verde'], ['rosso', 'Rosso'], ['neutro', 'Grigio neutro']].map(([v, l]) => h('option', { value: v }, l)));
     s.value = i.style || 'notte'; s.onchange = () => { i.style = s.value; openInput(i); dirty(); };
     box.append(field('Stile dello studio', s));
   }
@@ -1420,7 +1422,7 @@ function scenePane(box, s) {
     const bc = h('input', { type: 'color', value: L.bc || '#ffffff', style: 'width:44px;height:28px;border:0;background:none' });
     bc.oninput = () => { L.bc = bc.value; dirty(); };
     box.append(h('div', { class: 'row' }, h('span', { class: 'lbl' }, 'Colore del bordo'), bc,
-      h('button', { class: 'sb', onclick: () => { L.bc = '#1fb069'; bc.value = '#1fb069'; dirty(); } }, 'Verde Grandangolo')));
+      h('button', { class: 'sb', onclick: () => { L.bc = '#1fb069'; bc.value = '#1fb069'; dirty(); } }, 'Verde')));
   }
   box.append(h('div', { class: 'row', style: 'margin-top:14px' },
     h('button', { class: 'sb', onclick: () => makeStudioCams('s:' + s.id) }, '🎬 Crea camere virtuali'),
@@ -1646,8 +1648,8 @@ function gfxPane() {
   box.append(field('Posizione del logo', lp));
   box.append(rng('Grandezza', .5, 2.5, .05, O.logo.size || 1, pct, v => O.logo.size = v));
   box.append(h('div', { class: 'row', style: 'margin-bottom:10px' },
-    h('button', { class: 'sb', onclick: () => pickFile('image/*', false, async f => { await DB.put('logo', f[0], 'kv'); O.logo.media = true; logoKey = null; dirty(); toast('Logo caricato'); }) }, 'Carica un altro logo'),
-    O.logo.media ? h('button', { class: 'sb', onclick: () => { O.logo.media = null; logoKey = null; dirty(); gfxPane(); } }, 'Torna al logo Grandangolo') : null));
+    h('button', { class: 'sb', onclick: () => pickFile('image/*', false, async f => { await DB.put('logo', f[0], 'kv'); O.logo.media = true; logoKey = null; dirty(); toast('Logo caricato'); gfxPane(); }) }, O.logo.media || O.logo.gr ? 'Cambia logo' : 'Carica il tuo logo'),
+    O.logo.media || O.logo.gr ? h('button', { class: 'sb', onclick: () => { O.logo.media = null; O.logo.gr = false; logoKey = null; dirty(); gfxPane(); } }, 'Togli il logo') : null));
   box.append(chk('Bollino «DIRETTA»', O.live.on, v => O.live.on = v));
   const lv = h('input', { type: 'text', value: O.live.text }); lv.oninput = () => { O.live.text = lv.value; dirty(); };
   box.append(field('Testo del bollino', lv));
@@ -2115,7 +2117,7 @@ function rdEdit(n) {
 }
 
 /* ================= Notizie dal feed RSS nella barra che scorre ================= */
-P.ovl.ticker.rss = P.ovl.ticker.rss || { on: false, url: 'https://www.grandangoloagrigento.it/feed/', every: 5, max: 12 };
+P.ovl.ticker.rss = P.ovl.ticker.rss || { on: false, url: '', every: 5, max: 12 };
 R.rss = []; R.rssAt = 0; R.rssMsg = '';
 const decodeHtml = s => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value.replace(/\s+/g, ' ').trim(); };
 async function getText(url) {
@@ -2189,7 +2191,7 @@ const QUALITY = {
 const ST = { live: false, stopping: false, rec: null, t0: 0, chain: Promise.resolve(), status: null, retries: 0, enc: null };
 function destCfg() {
   try { const c = JSON.parse(localStorage.getItem('nwllive-dest') || 'null'); if (c && c.dests) return c; } catch (_) { }
-  return { dests: [{ id: uid('d'), type: 'youtube', name: 'YouTube Grandangolo', server: DEST_TYPES.youtube.server, key: '', on: true }], quality: PERF.light ? '1080p45' : '1080p6' };
+  return { dests: [{ id: uid('d'), type: 'youtube', name: 'YouTube', server: DEST_TYPES.youtube.server, key: '', on: true }], quality: PERF.light ? '1080p45' : '1080p6' };
 }
 function saveDest(c) { try { localStorage.setItem('nwllive-dest', JSON.stringify(c)); } catch (_) { } }
 const destUrl = d => d.server.replace(/\/+$/, '') + '/' + d.key.trim();
@@ -2255,7 +2257,7 @@ function liveDialog() {
       }
     }, '● AVVIA LA DIRETTA'))));
 }
-const encName = e => ({ h264_nvenc: 'scheda video NVIDIA', h264_qsv: 'scheda video Intel', h264_amf: 'scheda video AMD', libx264: 'processore' }[e] || e);
+const encName = e => ({ h264_nvenc: 'scheda video NVIDIA', h264_qsv: 'scheda video Intel', h264_amf: 'scheda video AMD', h264_videotoolbox: 'chip del Mac', libx264: 'processore' }[e] || e);
 function liveStatusDialog() {
   const s = ST.status || {};
   modal(h('div', {}, h('h3', {}, '● In diretta da ' + fmtTime((Date.now() - ST.t0) / 1000)),
@@ -2552,6 +2554,7 @@ function loadProject() {
     P.inputs = j.inputs.map(i => Object.assign({ key: KEY0(), crop: { l: 0, t: 0, r: 0, b: 0 }, aud: { db: 0, mute: false, afv: false } }, i));
     P.scenes = j.scenes || [];
     // da questa versione il microfono dello studio si spegne da solo quando lo studio non è in onda
+    if (j.ovl && j.ovl.logo && j.ovl.logo.gr === undefined && !j.ovl.logo.media) P.ovl.logo.gr = true;   // progetti già fatti: resta il logo di prima
     for (const i of P.inputs) if (i.type === 'mic' && i.follow === undefined) { i.follow = 'cams'; i.aud.afv = true; }
     R.pv = j.pv || null; R.pg = j.pg || null;
     return false;

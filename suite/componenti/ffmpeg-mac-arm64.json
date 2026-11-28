@@ -1,0 +1,6 @@
+{
+ "file": "ffmpeg-mac-arm64.gz",
+ "sha256": "a90e3db6a3fd35f6074b013f948b1aa45b31c6375489d39e572bea3f18336584",
+ "gzSize": 19167379,
+ "source": "https://github.com/eugeneware/ffmpeg-static (b6.1.1, darwin-arm64), licenza GPL v3"
+}

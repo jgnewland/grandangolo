@@ -1,9 +1,13 @@
 {
- "version": "1.8.6",
- "date": "2026-11-27",
- "notes": [],
+ "version": "1.8.7",
+ "date": "2026-11-28",
+ "notes": [
+  "Prima versione per Mac (Apple Silicon e Intel)",
+  "NWLlive: sul Mac la diretta usa il chip del Mac per la codifica video"
+ ],
  "minShell": "1.2.0",
  "setupUrl": "https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe",
+ "setupUrlMac": "https://edicola.grandangoloregionale.it/suite/#mac",
  "files": [
   {
    "path": "NWLcut.html",
@@ -12,8 +16,8 @@
   },
   {
    "path": "NWLlive.html",
-   "sha256": "4aef8d4e40a6348589b13715d6a7f323f38dc3331afb68278e2e5195ae03d089",
-   "size": 174617
+   "sha256": "bbcb417e9a92f0e6370d9423c625be6a312d69465a610edb207c6d106843b771",
+   "size": 174652
   },
   {
    "path": "NWLradio.html",
@@ -27,8 +31,8 @@
   },
   {
    "path": "launcher.html",
-   "sha256": "5515af52cea54be09744e58a0f32346ad20e730fddad7357e04d89fd39cc3f87",
-   "size": 8122
+   "sha256": "7b058de2e54f569a161ac979727bcc6b027dd80d7e55667469ce1a49dd153b10",
+   "size": 8143
   },
   {
    "path": "logo-grandangolo.png",
@@ -37,7 +41,7 @@
   },
   {
    "path": "versione.json",
-   "sha256": "3265ff081023a48da734ca61fd1a7716e45003415e0c8c075a3a62d1c54117a8",
+   "sha256": "189b7a6401265e3f06a4103ca7c281c02e7f9c90c9f9ca46e146ad8108aec891",
    "size": 20
   },
   {

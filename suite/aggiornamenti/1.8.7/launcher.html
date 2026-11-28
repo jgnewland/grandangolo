@@ -82,7 +82,7 @@ addEventListener('keydown', function (e) { if (e.key === '1') suite.open('cut');
 suite.version().then(function (v) { document.getElementById('v').textContent = v; });
 var U = document.getElementById('upd'), UM = document.getElementById('updMsg'), UB = document.getElementById('updBtn');
 suite.onUpdate(function (s) {
-  U.dataset.s = s.state; if (s.msg) UM.textContent = s.msg;
+  U.dataset.s = s.state; U.dataset.url = s.setupUrl || ''; if (s.msg) UM.textContent = s.msg;
   document.getElementById('v').textContent = s.current;
   if (s.shell && vlt(s.shell, '1.6.0') && !OLD) {
     OLD = true; var r = document.querySelector('.app.radio');
@@ -93,7 +93,7 @@ suite.onUpdate(function (s) {
   UB.style.display = UB.disabled ? 'none' : '';
   UB.textContent = s.state === 'setup' ? 'Scarica il nuovo programma' : s.store ? 'Apri lo Store' : 'Cerca aggiornamenti';
 });
-UB.onclick = function () { if (U.dataset.s === 'setup') window.open('https://edicola.grandangoloregionale.it/suite/Newland-Studio-Suite-Setup.exe'); else suite.checkUpdates(); };
+UB.onclick = function () { if (U.dataset.s === 'setup') window.open(U.dataset.url || 'https://edicola.grandangoloregionale.it/suite/'); else suite.checkUpdates(); };
 </script>
 </body>
 </html>

@@ -2257,7 +2257,7 @@ function liveDialog() {
       }
     }, '● AVVIA LA DIRETTA'))));
 }
-const encName = e => ({ h264_nvenc: 'scheda video NVIDIA', h264_qsv: 'scheda video Intel', h264_amf: 'scheda video AMD', libx264: 'processore' }[e] || e);
+const encName = e => ({ h264_nvenc: 'scheda video NVIDIA', h264_qsv: 'scheda video Intel', h264_amf: 'scheda video AMD', h264_videotoolbox: 'chip del Mac', libx264: 'processore' }[e] || e);
 function liveStatusDialog() {
   const s = ST.status || {};
   modal(h('div', {}, h('h3', {}, '● In diretta da ' + fmtTime((Date.now() - ST.t0) / 1000)),
